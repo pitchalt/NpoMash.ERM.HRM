@@ -48,9 +48,10 @@ namespace NpoMash.Erm.Hrm.Salary
 
 
 
-        [Association("PeriodAllocParameters-OrderControls")]// סגÿחü ס HrmPeriodAllocParameter
         private HrmPeriodAllocParameter _PeriodAllocParameter;
-        public HrmPeriodAllocParameter PeriodAllocParameter {
+        [Association("PeriodAllocParameters-OrderControls")]// סגÿחü ס HrmPeriodAllocParameter
+        public HrmPeriodAllocParameter PeriodAllocParameter
+        {
                get { return _PeriodAllocParameter; }
                set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameter", ref _PeriodAllocParameter, value); } }
 
