@@ -22,28 +22,28 @@ namespace NpoMash.Erm.Hrm.Salary
     { 
         public HrmPeriodOrderControl(Session session) : base(session) { }
 
-        private string _TypeControl;
-        private int _NormKB;
-        private int _NormOZM;
+        private String _TypeControl;
+        private Decimal _NormKB;
+        private Decimal _NormOZM;
         private fmCOrder _Order;
         private HrmPeriodAllocParameter _PeriodAllocParameter;
 
-        public string TypeControl
+        public String TypeControl
         {
             get { return _TypeControl; }
-            set { SetPropertyValue("Type_Control", ref _TypeControl, value); }
+            set { SetPropertyValue<String>("TypeControl", ref _TypeControl, value); }
         }
 
-        public int NormKB
+        public Decimal NormKB
         {
             get { return _NormKB; }
-            set { SetPropertyValue("Norm_KB", ref _NormKB, value); }
+            set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); }
         }
 
-        public int NormOZM
+        public Decimal NormOZM
         {
             get { return _NormOZM; }
-            set { SetPropertyValue("Norm_OZM", ref _NormOZM, value); }
+            set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }
         }
 
 
@@ -62,7 +62,7 @@ namespace NpoMash.Erm.Hrm.Salary
         public HrmPeriodAllocParameter PeriodAllocParameter
         {
             get { return _PeriodAllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameters", ref _PeriodAllocParameter, value); }
+            set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameter", ref _PeriodAllocParameter, value); }
         }
 
 

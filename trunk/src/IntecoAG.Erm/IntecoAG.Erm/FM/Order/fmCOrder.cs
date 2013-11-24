@@ -15,7 +15,6 @@ using DevExpress.Persistent.Validation;
 namespace IntecoAG.Erm.FM.Order
 {
  
-
     public enum TypeControl
     { }
 
@@ -28,13 +27,13 @@ namespace IntecoAG.Erm.FM.Order
     {
         public fmCOrder(Session session) : base(session) { }
 
-        private string _Code;
+        private String _Code;
         private TypeControl _TypeControl;
         private TypeConstancy _TypeConstancy;
-        private decimal _NormKB;
-        private decimal _NormOZM;
+        private Decimal _NormKB;
+        private Decimal _NormOZM;
 
-        public string Code
+        public String Code
         {
             get { return _Code; }
             set { SetPropertyValue<string>("Code", ref _Code, value); }
@@ -43,25 +42,25 @@ namespace IntecoAG.Erm.FM.Order
         public TypeControl TypeControl
         {
             get { return _TypeControl; }
-            set { SetPropertyValue<TypeControl>("Type_Control", ref _TypeControl, value); }
+            set { SetPropertyValue<TypeControl>("TypeControl", ref _TypeControl, value); }
         }
 
         public TypeConstancy TypeConstancy
         {
             get { return _TypeConstancy; }
-            set { SetPropertyValue<TypeConstancy>("Type_Constancy", ref _TypeConstancy, value); }
+            set { SetPropertyValue<TypeConstancy>("TypeConstancy", ref _TypeConstancy, value); }
         }
 
-        public decimal NormKB
+        public Decimal NormKB
         {
             get { return _NormKB; }
-            set { SetPropertyValue<decimal>("Norm_KB", ref _NormKB, value); }
+            set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); }
         }
 
-        public decimal NormOZM
+        public Decimal NormOZM
         {
             get { return _NormOZM; }
-            set { SetPropertyValue<decimal>("Norm_OZM", ref _NormOZM, value); }
+            set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }
         }
 
 
