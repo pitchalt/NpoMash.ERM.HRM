@@ -19,24 +19,18 @@ namespace IntecoAG.Erm.HRM
 
     public class HrmSalaryPayType : BaseObject
     {
-        public HrmSalaryPayType(Session session) : base(session) { }
-
+       
         private String _Code;
+        public String Code {
+               get { return _Code; }
+               set { SetPropertyValue<String>("Code", ref _Code, value); } }
+
         private String _Name;
+        public String Name {
+               get { return _Name; }
+               set { SetPropertyValue<String>("Name", ref _Name, value); } }
 
-        public String Code
-        {
-            get { return _Code; }
-            set { SetPropertyValue<String>("Code", ref _Code, value); }
-        }
-
-        public String Name
-        {
-            get { return _Name; }
-            set { SetPropertyValue<String>("Name", ref _Name, value); }
-        }
-
-
+        public HrmSalaryPayType(Session session) : base(session) { }
         public override void AfterConstruction()
         {
             base.AfterConstruction();
