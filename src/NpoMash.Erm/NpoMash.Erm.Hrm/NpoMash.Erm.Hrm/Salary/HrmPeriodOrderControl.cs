@@ -1,24 +1,24 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using DevExpress.Xpo;
-using DevExpress.ExpressApp;
-using System.ComponentModel;
-using DevExpress.ExpressApp.DC;
+//
 using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
-using System.Collections.Generic;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
+//
 using IntecoAG.Erm.FM.Order;
-
+//
 namespace NpoMash.Erm.Hrm.Salary
 {
    
-    using IntecoAG.Erm.FM.Order;
     [Persistent("HrmPeriodOrderControl")]
-
     public class HrmPeriodOrderControl : BaseObject
     { 
         public HrmPeriodOrderControl(Session session) : base(session) { }
