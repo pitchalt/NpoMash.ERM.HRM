@@ -25,41 +25,31 @@ namespace NpoMash.Erm.Hrm
 
     public class HrmPeriod : BaseObject
     { 
-        public HrmPeriod(Session session): base(session){ }
-
         private Int16 _Year;
+        public Int16 Year {
+               get { return _Year; }
+               set { SetPropertyValue<Int16>("Year", ref _Year, value); } }
+
         private Int16 _Month;
+        public Int16 Month {
+               get { return _Month; }
+               set { SetPropertyValue<Int16>("Month", ref _Month, value); } }
+        
         private HrmPeriodStatus _Status;
-        private HrmPeriodAllocParameter _HrmPeriodAllocParameter;
-
-        public Int16 Year
-        {
-            get { return _Year; }
-            set { SetPropertyValue<Int16>("Year", ref _Year, value); }
-        }
-
-        public Int16 Month
-        {
-            get { return _Month; }
-            set { SetPropertyValue<Int16>("Month", ref _Month, value); }
-        }
-
-        public HrmPeriodStatus Status
-        {
-            get { return _Status; }
-            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
-        }
+        public HrmPeriodStatus Status {
+               get { return _Status; }
+               set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); } }
 
         //////////////////////Связи
-        public HrmPeriodAllocParameter HrmPeriodAllocParameter // связь с HrmPeriodAllocParameter
-        {
-            get { return _HrmPeriodAllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); }
-        }
+
+        // связь с HrmPeriodAllocParameter
+        private HrmPeriodAllocParameter _HrmPeriodAllocParameter;
+        public HrmPeriodAllocParameter HrmPeriodAllocParameter {
+               get { return _HrmPeriodAllocParameter; }
+               set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); } }
 
 
-
-
+        public HrmPeriod(Session session) : base(session) { }
         public override void AfterConstruction()
         {
             base.AfterConstruction();

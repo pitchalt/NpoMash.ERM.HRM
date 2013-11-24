@@ -22,57 +22,44 @@ namespace NpoMash.Erm.Hrm.Salary
     public class HrmPeriodOrderControl : BaseObject
     { 
        
-
         private String _TypeControl;
+        public String TypeControl {
+               get { return _TypeControl; }
+               set { SetPropertyValue<String>("TypeControl", ref _TypeControl, value); } }
+
         private Decimal _NormKB;
+        public Decimal NormKB {
+               get { return _NormKB; }
+               set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); } }
+
         private Decimal _NormOZM;
-        private fmCOrder _Order;
-        private HrmPeriodAllocParameter _PeriodAllocParameter;
-
-        public String TypeControl
-        {
-            get { return _TypeControl; }
-            set { SetPropertyValue<String>("TypeControl", ref _TypeControl, value); }
-        }
-
-        public Decimal NormKB
-        {
-            get { return _NormKB; }
-            set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); }
-        }
-
-        public Decimal NormOZM
-        {
-            get { return _NormOZM; }
-            set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }
-        }
+        public Decimal NormOZM {
+               get { return _NormOZM; }
+               set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
 
 
         //////////////////////Связи
 
-
-        public fmCOrder Order // связь с FmCOrder
-        {
-            get { return _Order; }
-            set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }
-        }
+        // связь с FmCOrder
+        private fmCOrder _Order;
+        public fmCOrder Order{
+               get { return _Order; }
+               set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }}
 
 
 
         [Association("PeriodAllocParameters-OrderControls")]// связь с HrmPeriodAllocParameter
-        public HrmPeriodAllocParameter PeriodAllocParameter
-        {
-            get { return _PeriodAllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameter", ref _PeriodAllocParameter, value); }
-        }
+        private HrmPeriodAllocParameter _PeriodAllocParameter;
+        public HrmPeriodAllocParameter PeriodAllocParameter {
+               get { return _PeriodAllocParameter; }
+               set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameter", ref _PeriodAllocParameter, value); } }
+
 
         public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-           
         }
-      
 
     }
 }
