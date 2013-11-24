@@ -14,8 +14,10 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    [DefaultClassOptions]
-    
+   
+    using IntecoAG.Erm.FM.Order;
+    [Persistent("HrmPeriodOrderControl")]
+
     public class HrmPeriodOrderControl : BaseObject
     { 
         public HrmPeriodOrderControl(Session session) : base(session) { }

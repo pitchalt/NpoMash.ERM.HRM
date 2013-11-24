@@ -14,10 +14,14 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm
 {
-    [DefaultClassOptions]
+    using NpoMash.Erm.Hrm.Salary;
 
     public enum HrmPeriodStatus
     { }
+
+    [NavigationItem("NpoMash.Hrm")]
+    [Persistent("HrmPeriod")]
+
 
     public class HrmPeriod : BaseObject
     { 
