@@ -12,13 +12,13 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace NpoMash.Erm.Hrm.Salary
+namespace IntecoAG.Erm.HRM
 {
     [DefaultClassOptions]
-    
+
     public class HrmSalaryPayType : BaseObject
-    { 
-        public HrmSalaryPayType(Session session): base(session) { }
+    {
+        public HrmSalaryPayType(Session session) : base(session) { }
 
         private string _Code;
         private string _Name;
@@ -36,19 +36,12 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
 
-
-
-
-
-
-
-
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-           
+
         }
-       
+
 
 
     }

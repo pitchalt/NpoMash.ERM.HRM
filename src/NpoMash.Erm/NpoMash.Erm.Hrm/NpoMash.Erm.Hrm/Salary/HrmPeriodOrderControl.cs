@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary
         private string _TypeControl;
         private int _NormKB;
         private int _NormOZM;
-        private FmCOrder _Order;
+        private fmCOrder _Order;
         private HrmPeriodAllocParameter _PeriodAllocParameter;
 
         public string TypeControl
@@ -48,10 +48,10 @@ namespace NpoMash.Erm.Hrm.Salary
         //////////////////////Связи
 
 
-        public FmCOrder Order // связь с FmCOrder
+        public fmCOrder Order // связь с FmCOrder
         {
             get { return _Order; }
-            set { SetPropertyValue<FmCOrder>("Order", ref _Order, value); }
+            set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }
         }
 
 
