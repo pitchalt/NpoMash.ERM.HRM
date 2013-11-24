@@ -14,7 +14,8 @@ using DevExpress.Persistent.Validation;
 
 namespace IntecoAG.Erm.HRM
 {
-    [DefaultClassOptions]
+
+    [Persistent("HrmSalaryPayType")]
 
     public class HrmSalaryPayType : BaseObject
     {

@@ -13,10 +13,12 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    [DefaultClassOptions]
+    using IntecoAG.Erm.HRM;
 
     public enum HrmPeriodAllocParameterStatus
     { }
+
+    [Persistent("HrmPeriodAllocParameter")]
 
     public class HrmPeriodAllocParameter : BaseObject
     { 

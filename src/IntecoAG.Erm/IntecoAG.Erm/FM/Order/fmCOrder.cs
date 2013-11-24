@@ -14,7 +14,7 @@ using DevExpress.Persistent.Validation;
 
 namespace IntecoAG.Erm.FM.Order
 {
-    [DefaultClassOptions]
+ 
 
     public enum TypeControl
     { }
@@ -22,6 +22,7 @@ namespace IntecoAG.Erm.FM.Order
     public enum TypeConstancy
     { }
 
+    [Persistent("fmCOrder")]
 
     public class fmCOrder : BaseObject
     {
