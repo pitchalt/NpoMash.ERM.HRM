@@ -21,19 +21,19 @@ namespace IntecoAG.Erm.HRM
     {
         public HrmSalaryPayType(Session session) : base(session) { }
 
-        private string _Code;
-        private string _Name;
+        private String _Code;
+        private String _Name;
 
-        public string Code
+        public String Code
         {
             get { return _Code; }
-            set { SetPropertyValue<string>("Code", ref _Code, value); }
+            set { SetPropertyValue<String>("Code", ref _Code, value); }
         }
 
-        public string Name
+        public String Name
         {
             get { return _Name; }
-            set { SetPropertyValue<string>("Name", ref _Name, value); }
+            set { SetPropertyValue<String>("Name", ref _Name, value); }
         }
 
 
