@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary
     [Persistent("HrmPeriodOrderControl")]
     public class HrmPeriodOrderControl : BaseObject
     { 
-        public HrmPeriodOrderControl(Session session) : base(session) { }
+       
 
         private String _TypeControl;
         private Decimal _NormKB;
@@ -66,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Salary
             set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameter", ref _PeriodAllocParameter, value); }
         }
 
-
+        public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction()
         {
             base.AfterConstruction();
