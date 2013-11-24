@@ -89,10 +89,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Salary\FmCOrder.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
-    <Compile Include="Salary\HrmSalaryPayType.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

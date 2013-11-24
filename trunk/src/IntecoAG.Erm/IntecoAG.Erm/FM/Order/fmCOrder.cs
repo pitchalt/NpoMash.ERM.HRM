@@ -12,7 +12,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace NpoMash.Erm.Hrm.Salary
+namespace IntecoAG.Erm.FM.Order
 {
     [DefaultClassOptions]
 
@@ -23,9 +23,9 @@ namespace NpoMash.Erm.Hrm.Salary
     { }
 
 
-    public class FmCOrder : BaseObject
-    { 
-        public FmCOrder(Session session): base(session) { }
+    public class fmCOrder : BaseObject
+    {
+        public fmCOrder(Session session) : base(session) { }
 
         private string _Code;
         private TypeControl _TypeControl;
@@ -68,8 +68,7 @@ namespace NpoMash.Erm.Hrm.Salary
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            
+
         }
-        
     }
 }
