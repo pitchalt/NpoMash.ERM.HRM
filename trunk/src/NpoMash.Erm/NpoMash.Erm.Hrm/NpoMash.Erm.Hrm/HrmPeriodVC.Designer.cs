@@ -29,22 +29,22 @@ namespace NpoMash.Erm.Hrm
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.OpenPeriodAction = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.CreatePeriod = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // OpenPeriodAction
+            // CreatePeriod
             // 
-            this.OpenPeriodAction.Caption = "Open Period Action";
-            this.OpenPeriodAction.ConfirmationMessage = null;
-            this.OpenPeriodAction.Id = "OpenPeriodAction";
-            this.OpenPeriodAction.ImageName = null;
-            this.OpenPeriodAction.Shortcut = null;
-            this.OpenPeriodAction.Tag = null;
-            this.OpenPeriodAction.TargetObjectsCriteria = null;
-            this.OpenPeriodAction.TargetViewId = null;
-            this.OpenPeriodAction.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
-            this.OpenPeriodAction.ToolTip = null;
-            this.OpenPeriodAction.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
-            this.OpenPeriodAction.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.OpenPeriodAction_Execute);
+            this.CreatePeriod.Caption = "CreatePeriod";
+            this.CreatePeriod.ConfirmationMessage = null;
+            this.CreatePeriod.Id = "OpenPeriodAction";
+            this.CreatePeriod.ImageName = null;
+            this.CreatePeriod.Shortcut = null;
+            this.CreatePeriod.Tag = null;
+            this.CreatePeriod.TargetObjectsCriteria = null;
+            this.CreatePeriod.TargetViewId = null;
+            this.CreatePeriod.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
+            this.CreatePeriod.ToolTip = null;
+            this.CreatePeriod.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.CreatePeriod.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.OpenPeriodAction_Execute);
             // 
             // HrmPeriodVC
             // 
@@ -56,6 +56,6 @@ namespace NpoMash.Erm.Hrm
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SimpleAction OpenPeriodAction;
+        private DevExpress.ExpressApp.Actions.SimpleAction CreatePeriod;
     }
 }
