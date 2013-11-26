@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm
                set {
                    if (value > 12)
                    {
-                       Int16 newYear = Year + Convert.ToInt16(value /12);
+                       Int16 newYear = Convert.ToInt16(Year + Convert.ToInt16(value /12));
                        SetPropertyValue<Int16>("Year", ref _Year, newYear);
                        value %= 12;                       
                    }
@@ -47,6 +47,7 @@ namespace NpoMash.Erm.Hrm
         public HrmPeriodStatus Status {
                get { return _Status; }
                set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); } }
+        
 
         //////////////////////Связи
 
