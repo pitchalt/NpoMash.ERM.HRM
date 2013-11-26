@@ -52,7 +52,7 @@ namespace NpoMash.Erm.Hrm
             Int16 maxYear = 2013;
             Int16 maxMonth = 1;
 
-            Int16 count = Session.Evaluate(typeof(HrmPeriod), CriteriaOperator.Parse("Max(Year)"));
+            rootObjectspace.FindObject<HrmPeriod>(CriteriaOperator.Parse("Max(Year)"));
 
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             obj.HrmPeriodAllocParameter = obj1;
