@@ -29,12 +29,12 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
             base.UpdateDatabaseAfterUpdateSchema();
             HrmPeriod hp=ObjectSpace.FindObject<HrmPeriod>(
                 CriteriaOperator.Parse(
-                "Year == '2013' && Month == '13'"));
+                "Year == '2013' && Month == '10'"));
             if (hp == null)
             {
                 hp = ObjectSpace.CreateObject<HrmPeriod>();
                 hp.Year = 2013;
-                hp.Month = 13;
+                hp.Month = 10;
                 hp.Save();
             }            
         }
