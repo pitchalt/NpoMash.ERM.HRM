@@ -34,7 +34,7 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
             {
                 hp = ObjectSpace.CreateObject<HrmPeriod>();
                 hp.Year = 2013;
-                hp.Month = 10;
+                hp.Month = 13;
                 hp.Save();
             }            
         }
