@@ -33,7 +33,15 @@ namespace NpoMash.Erm.Hrm
         private Int16 _Month;
         public Int16 Month {
                get { return _Month; }
-               set { SetPropertyValue<Int16>("Month", ref _Month, value); } }
+               set {
+                   if (value > 12)
+                   {
+                       Int16 newYear = Year + Convert.ToInt16(value /12);
+                       SetPropertyValue<Int16>("Year", ref _Year, newYear);
+                       value %= 12;                       
+                   }
+
+                   SetPropertyValue<Int16>("Month", ref _Month, value); } }
         
         private HrmPeriodStatus _Status;
         public HrmPeriodStatus Status {
