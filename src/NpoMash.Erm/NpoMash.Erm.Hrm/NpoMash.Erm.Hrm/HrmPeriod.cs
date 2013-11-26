@@ -19,7 +19,7 @@ namespace NpoMash.Erm.Hrm
     public enum HrmPeriodStatus
     { }
 
-    [NavigationItem("NpoMash.Hrm")]
+    [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
 
 

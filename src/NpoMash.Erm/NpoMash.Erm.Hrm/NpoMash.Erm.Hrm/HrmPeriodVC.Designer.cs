@@ -33,9 +33,9 @@ namespace NpoMash.Erm.Hrm
             // 
             // OpenPeriodAction
             // 
-            this.OpenPeriodAction.Caption = null;
+            this.OpenPeriodAction.Caption = "Open Period Action";
             this.OpenPeriodAction.ConfirmationMessage = null;
-            this.OpenPeriodAction.Id = "f3295b73-2a35-47b4-a01a-51e36a15b2af";
+            this.OpenPeriodAction.Id = "OpenPeriodAction";
             this.OpenPeriodAction.ImageName = null;
             this.OpenPeriodAction.Shortcut = null;
             this.OpenPeriodAction.Tag = null;
@@ -48,6 +48,7 @@ namespace NpoMash.Erm.Hrm
             // 
             // HrmPeriodVC
             // 
+            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
             this.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
 
