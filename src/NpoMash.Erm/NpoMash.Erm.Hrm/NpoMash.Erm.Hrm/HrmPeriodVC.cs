@@ -14,6 +14,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using NpoMash.Erm.Hrm.Salary;
+using DevExpress.Xpo;	
 namespace NpoMash.Erm.Hrm
 {
 
@@ -45,6 +46,10 @@ namespace NpoMash.Erm.Hrm
         {
             IObjectSpace rootObjectspace = Application.CreateObjectSpace();
             HrmPeriod obj = rootObjectspace.CreateObject<HrmPeriod>();
+            Int16 maxYear = 2013;
+            Int16 maxMonth = 1;
+            XPCollection<HrmPeriod> col1 = GetCollection<HrmPeriod>(CriteriaOperator.Parse("Max(Year)"), null);
+
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             obj.HrmPeriodAllocParameter = obj1;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, obj1);
