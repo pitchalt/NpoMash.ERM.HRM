@@ -52,8 +52,9 @@ namespace NpoMash.Erm.Hrm
             Int16 maxYear = 2013;
             Int16 maxMonth = 1;
 
-            //XPCollection<HrmPeriod> MyProds = new XPCollection<HrmPeriod>(CriteriaOperator.Parse("max(Year)"));
-            
+            XPCollection<HrmPeriod> MyProds = new XPCollection<HrmPeriod>(CriteriaOperator.Parse("max(Year)"));
+            MyProds.Criteria = CriteriaOperator.Parse("MyProds.Max(Month)=12");
+
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             obj.HrmPeriodAllocParameter = obj1;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, obj1);
