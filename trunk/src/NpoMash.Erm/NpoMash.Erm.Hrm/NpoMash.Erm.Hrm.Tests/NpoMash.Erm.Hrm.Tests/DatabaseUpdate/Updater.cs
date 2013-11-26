@@ -12,6 +12,8 @@ using DevExpress.ExpressApp.Security;
 //using DevExpress.ExpressApp.PivotChart;
 //using DevExpress.ExpressApp.Security.Strategy;
 //using NpoMash.Erm.Hrm.Tests.Module.BusinessObjects;
+using NpoMash.Erm.Hrm;
+
 
 namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
 {
@@ -25,17 +27,21 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-            //string name = "MyName";
-            //DomainObject1 theObject = ObjectSpace.FindObject<DomainObject1>(CriteriaOperator.Parse("Name=?", name));
-            //if(theObject == null) {
-            //    theObject = ObjectSpace.CreateObject<DomainObject1>();
-            //    theObject.Name = name;
-            //}
+            HrmPeriod hp=ObjectSpace.FindObject<HrmPeriod>(
+                CriteriaOperator.Parse(
+                "Year == '2013' && Month == '10'"));
+            if (hp == null)
+            {
+                hp = ObjectSpace.CreateObject<HrmPeriod>();
+                hp.Year = 2013;
+                hp.Month = 10;
+                hp.Save();
+            }            
         }
         public override void UpdateDatabaseBeforeUpdateSchema()
         {
             base.UpdateDatabaseBeforeUpdateSchema();
-            //if(CurrentDBVersion < new Version("1.1.0.0") && CurrentDBVersion > new Version("0.0.0.0")) {
+            //if(CurrentDBVersion < new Version("1.1.0.0"") && CurrentDBVersion > new Version("0.0.0.0")) {
             //    RenameColumn("DomainObject1Table", "OldColumnName", "NewColumnName");
             //}
         }
