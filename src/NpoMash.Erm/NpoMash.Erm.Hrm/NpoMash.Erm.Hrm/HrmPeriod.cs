@@ -38,7 +38,7 @@ namespace NpoMash.Erm.Hrm
                    {
                        Int16 newYear = Convert.ToInt16(Year + Convert.ToInt16(value /12));
                        SetPropertyValue<Int16>("Year", ref _Year, newYear);
-                       value %= 12;                       
+                       value %= 12;
                    }
 
                    SetPropertyValue<Int16>("Month", ref _Month, value); } }
