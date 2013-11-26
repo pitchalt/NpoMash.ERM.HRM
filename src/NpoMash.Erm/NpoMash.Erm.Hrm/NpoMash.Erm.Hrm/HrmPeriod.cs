@@ -40,7 +40,6 @@ namespace NpoMash.Erm.Hrm
                        SetPropertyValue<Int16>("Year", ref _Year, newYear);
                        value %= 12;
                    }
-
                    SetPropertyValue<Int16>("Month", ref _Month, value); } }
         
         private HrmPeriodStatus _Status;
