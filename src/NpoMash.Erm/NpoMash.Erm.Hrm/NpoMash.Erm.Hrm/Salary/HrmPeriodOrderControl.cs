@@ -58,9 +58,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-        }
+        { base.AfterConstruction(); }
 
     }
 }

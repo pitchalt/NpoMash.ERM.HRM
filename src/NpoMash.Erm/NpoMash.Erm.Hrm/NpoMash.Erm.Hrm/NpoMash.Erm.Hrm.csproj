@@ -97,6 +97,7 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
+    <Compile Include="Salary\Linker.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HrmPeriodVC.resx">
