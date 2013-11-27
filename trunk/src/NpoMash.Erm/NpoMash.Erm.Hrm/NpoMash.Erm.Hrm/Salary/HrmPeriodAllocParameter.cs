@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
+using System.Collections.Generic;
+//
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using System.ComponentModel;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
-using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -42,12 +43,7 @@ namespace NpoMash.Erm.Hrm.Salary
                set { SetPropertyValue<HrmPeriod>("HrmPeriod", ref _HrmPeriod, value); }
         }
 
-        // סגÿחü ס HrmSalaryPayType
-        public XPCollection<HrmSalaryPayType> PayTypes {        
-               get { return GetCollection<HrmSalaryPayType>("PayTypes");}
-        }
-
-
+      
         public HrmPeriodAllocParameter(Session session) : base(session) { }
 
         public override void AfterConstruction(){
