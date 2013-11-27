@@ -22,8 +22,6 @@ namespace NpoMash.Erm.Hrm
 
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
-
-
     public class HrmPeriod : BaseObject
     { 
         private Int16 _Year;

@@ -15,13 +15,9 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.Erm.HRM;
 namespace NpoMash.Erm.Hrm.Salary
 {
-    [DefaultClassOptions]
-    
+    [Persistent("Linker")]
     public class Linker : BaseObject
     {
-
-
-
         private HrmSalaryPayType _PayTypes;  //Ñâÿçü ñ HrmSalaryPayType
         public HrmSalaryPayType PayTypes{
             get { return _PayTypes; }

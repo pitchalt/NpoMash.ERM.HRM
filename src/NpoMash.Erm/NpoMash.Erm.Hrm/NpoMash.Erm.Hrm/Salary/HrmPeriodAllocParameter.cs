@@ -20,7 +20,6 @@ namespace NpoMash.Erm.Hrm.Salary
     { }
 
     [Persistent("HrmPeriodAllocParameter")]
-
     public class HrmPeriodAllocParameter : BaseObject
     { 
        

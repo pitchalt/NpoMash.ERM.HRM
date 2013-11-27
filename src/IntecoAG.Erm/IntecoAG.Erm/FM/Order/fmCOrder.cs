@@ -23,7 +23,6 @@ namespace IntecoAG.Erm.FM.Order
     { }
 
     [Persistent("fmCOrder")]
-
     public class fmCOrder : BaseObject
     {
         
