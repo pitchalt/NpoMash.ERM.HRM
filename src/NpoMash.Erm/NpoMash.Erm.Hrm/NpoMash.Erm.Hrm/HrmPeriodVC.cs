@@ -56,7 +56,7 @@ namespace NpoMash.Erm.Hrm
             
             foreach (var a in HrmPeriodCollection) //Формируем этот лист
             {
-                if (a.Year >= maxYear)
+                if (a.Year == maxYear)
                 {
                     HrmPeriodMaxYearsCollection.Add(a);
                 }
