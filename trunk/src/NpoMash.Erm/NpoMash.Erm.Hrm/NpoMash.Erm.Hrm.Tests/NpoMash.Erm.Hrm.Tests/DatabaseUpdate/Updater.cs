@@ -33,9 +33,9 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
             if (hp == null)
             {
                 hp = ObjectSpace.CreateObject<HrmPeriod>();
-                hp.Year = 2013;
-                hp.Month = 10;
-                hp.Save();
+               hp.Year = 2013;
+               hp.Month = 10;
+               hp.Save();
             }            
         }
         public override void UpdateDatabaseBeforeUpdateSchema()
