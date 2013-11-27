@@ -49,11 +49,12 @@ namespace NpoMash.Erm.Hrm
         {
             IObjectSpace rootObjectspace = Application.CreateObjectSpace();
             HrmPeriod obj = rootObjectspace.CreateObject<HrmPeriod>();
-            Int16 maxYear = 2013;
-            Int16 maxMonth = 1;
 
-            XPCollection<HrmPeriod> MyProds = new XPCollection<HrmPeriod>(CriteriaOperator.Parse("max(Year)"));
-            MyProds.CriteriaString = "[Month] = 'Saloon' AND [Price] < 100000";
+            var HrmPeriodCollection = rootObjectspace.GetObjects<HrmPeriod>();
+
+            var count = HrmPeriodCollection.Count();
+            var maxMonth = HrmPeriodCollection.Max(myProd => myProd.Month);
+            var maxYear = HrmPeriodCollection.Max(myProd => myProd.Year);
 
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             obj.HrmPeriodAllocParameter = obj1;
