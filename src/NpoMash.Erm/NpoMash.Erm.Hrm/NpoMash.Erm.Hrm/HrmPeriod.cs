@@ -17,8 +17,7 @@ namespace NpoMash.Erm.Hrm
 {
     using NpoMash.Erm.Hrm.Salary;
 
-    public enum HrmPeriodStatus
-    { }
+    
 
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
@@ -40,7 +39,10 @@ namespace NpoMash.Erm.Hrm
                        value %= 12;
                    }
                    SetPropertyValue<Int16>("Month", ref _Month, value); } }
-        
+
+
+        public enum HrmPeriodStatus
+        { Opened=0,closed=1 }
         private HrmPeriodStatus _Status;
         public HrmPeriodStatus Status {
                get { return _Status; }
@@ -58,7 +60,9 @@ namespace NpoMash.Erm.Hrm
 
         public HrmPeriod(Session session) : base(session) { }
         public override void AfterConstruction()
-        { base.AfterConstruction(); }
+        { base.AfterConstruction();
+        Status = HrmPeriodStatus.Opened;
+        }
         
     }
 }

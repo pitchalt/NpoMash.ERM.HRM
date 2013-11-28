@@ -20,12 +20,17 @@ namespace NpoMash.Erm.Hrm.Salary
    
     [Persistent("HrmPeriodOrderControl")]
     public class HrmPeriodOrderControl : BaseObject
-    { 
-       
-        private String _TypeControl;
-        public String TypeControl {
-               get { return _TypeControl; }
-               set { SetPropertyValue<String>("TypeControl", ref _TypeControl, value); } }
+    {
+
+        public enum HrmPeriodOrderTypeControl {
+            TrudEmk_FOT = 0,
+            FOT = 1,
+            No_Ordered = 2}
+
+        private HrmPeriodOrderTypeControl _TypeControl;
+        public HrmPeriodOrderTypeControl TypeControl{
+            get { return _TypeControl; }
+            set { SetPropertyValue<HrmPeriodOrderTypeControl>("TypeControl", ref _TypeControl, value); } }
 
         private Decimal _NormKB;
         public Decimal NormKB {
@@ -37,7 +42,6 @@ namespace NpoMash.Erm.Hrm.Salary
                get { return _NormOZM; }
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
 
-
         //////////////////////Связи
 
         // связь с FmCOrder
@@ -45,8 +49,6 @@ namespace NpoMash.Erm.Hrm.Salary
         public fmCOrder Order{
                get { return _Order; }
                set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }}
-
-
 
         private HrmPeriodAllocParameter _PeriodAllocParameter;
         [Association("AllocParameter-OrderControls")]// связь с HrmPeriodAllocParameter
@@ -58,7 +60,9 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction()
-        { base.AfterConstruction(); }
+        { base.AfterConstruction();
+        TypeControl = HrmPeriodOrderTypeControl.FOT;
+        }
 
     }
 }

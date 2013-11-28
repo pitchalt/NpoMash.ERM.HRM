@@ -15,12 +15,6 @@ using DevExpress.Persistent.Validation;
 
 namespace IntecoAG.Erm.FM.Order
 {
- 
-    public enum TypeControl
-    { }
-
-    public enum TypeConstancy
-    { }
 
     [Persistent("fmCOrder")]
     public class fmCOrder : BaseObject
@@ -31,15 +25,15 @@ namespace IntecoAG.Erm.FM.Order
                get { return _Code; }
                set { SetPropertyValue<string>("Code", ref _Code, value); } }
 
-        private TypeControl _TypeControl;
-        public TypeControl TypeControl {
+        private fmCOrderTypeCOntrol _TypeControl;
+        public fmCOrderTypeCOntrol TypeControl{
                get { return _TypeControl; }
-               set { SetPropertyValue<TypeControl>("TypeControl", ref _TypeControl, value); } }
+            set { SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value); } }
 
-        private TypeConstancy _TypeConstancy;
-        public TypeConstancy TypeConstancy {
+        private fmCOrdertypeConstancy _TypeConstancy;
+        public fmCOrdertypeConstancy TypeConstancy {
                get { return _TypeConstancy; }
-               set { SetPropertyValue<TypeConstancy>("TypeConstancy", ref _TypeConstancy, value); } }
+            set { SetPropertyValue<fmCOrdertypeConstancy>("TypeConstancy", ref _TypeConstancy, value); } }
 
         private Decimal _NormKB;
         public Decimal NormKB {
@@ -52,8 +46,17 @@ namespace IntecoAG.Erm.FM.Order
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
 
 
+        public enum fmCOrderTypeCOntrol {
+            TrudEmk_FOT = 0,
+            FOT = 1,
+            No_Ordered = 2}
+        public enum fmCOrdertypeConstancy {Null=0,One=1}
+
         public fmCOrder(Session session) : base(session) { }
         public override void AfterConstruction()
-        {  base.AfterConstruction(); }
+        {  base.AfterConstruction();
+        TypeControl = fmCOrderTypeCOntrol.FOT;
+        TypeConstancy = fmCOrdertypeConstancy.One; }
+
     }
 }
