@@ -18,10 +18,21 @@ namespace NpoMash.Erm.Hrm.Salary
     [Persistent("Linker")]
     public class Linker : BaseObject
     {
-        private HrmSalaryPayType _PayTypes;  //Ñâÿçü ñ HrmSalaryPayType
-        public HrmSalaryPayType PayTypes{
-            get { return _PayTypes; }
-            set { SetPropertyValue<HrmSalaryPayType>("PayTypes", ref _PayTypes, value); } }
+        private HrmPeriodAllocParameter _HrmPeriodAllocParameter;
+        [Association("PeriodAllocParameters-HrmPeriodPayType")]// ñâÿçü ñ HrmPeriodAllocParameter
+        public HrmPeriodAllocParameter PeriodAllocParameters
+        {
+            get { return _HrmPeriodAllocParameter; }
+            set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameters", ref _HrmPeriodAllocParameter, value); }
+        }
+
+
+        private HrmSalaryPayType _PeriodPayType;  //Ñâÿçü ñ HrmSalaryPayType
+        public HrmSalaryPayType HrmSalaryPayType
+        {
+            get { return _PeriodPayType; }
+            set { SetPropertyValue<HrmSalaryPayType>("HrmSalaryPayType", ref _PeriodPayType, value); }
+        }
 
 
         public Linker(Session session) : base(session) { }
