@@ -16,13 +16,18 @@ namespace NpoMash.Erm.Hrm.Salary
 {
     using IntecoAG.Erm.HRM;
 
-    public enum HrmPeriodAllocParameterStatus
-    { }
-
+    
     [Persistent("HrmPeriodAllocParameter")]
     public class HrmPeriodAllocParameter : BaseObject
-    { 
-       
+    {
+
+        public enum HrmPeriodAllocParameterStatus
+        { 
+            OpenToEdit=0,
+            ListOfOrderAccepted=1,
+            AllocParametersAccepted=2
+        }
+
         private HrmPeriodAllocParameterStatus _Status;
         public HrmPeriodAllocParameterStatus Status {
                get { return _Status; }
@@ -41,9 +46,6 @@ namespace NpoMash.Erm.Hrm.Salary
             get { return GetCollection<Linker>("HrmPeriodPayType"); }
         }
 
-
-
-
         private HrmPeriod _HrmPeriod;  //Ñâÿçü ñ HrmPeriod
         public HrmPeriod HrmPeriod { 
                get { return _HrmPeriod; }
@@ -55,6 +57,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public override void AfterConstruction(){
             base.AfterConstruction();
+            Status = HrmPeriodAllocParameterStatus.OpenToEdit;
         }
     
     }
