@@ -30,10 +30,18 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
 
-        [Association("PeriodAllocParameters-OrderControls"), Aggregated]  // связь с HrmPeriodOrderControl
+        [Association("AllocParameter-OrderControls"), Aggregated]  // связь с HrmPeriodOrderControl
         public XPCollection<HrmPeriodOrderControl> OrderControls {
                get{ return GetCollection<HrmPeriodOrderControl>("OrderControls");} 
         }
+
+        [Association("PeriodAllocParameters-HrmPeriodPayType"), Aggregated]  // связь с Linker
+        public XPCollection<Linker> HrmPeriodPayType
+        {
+            get { return GetCollection<Linker>("HrmPeriodPayType"); }
+        }
+
+
 
 
         private HrmPeriod _HrmPeriod;  //Связь с HrmPeriod
