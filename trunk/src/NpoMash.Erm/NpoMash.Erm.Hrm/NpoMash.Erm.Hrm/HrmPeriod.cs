@@ -63,18 +63,14 @@ namespace NpoMash.Erm.Hrm
         Status = HrmPeriodStatus.Opened;
         }
 
-        public void addMonth()
-        {
+        public void addMonth() {
             Int16 m = Month;
             m++;
-            if (m > 12)
-            {
+            if (m > 12){
                 m = 1;
                 Int16 y = Year;
                 y++;
-                SetPropertyValue<Int16>("Year", ref _Year, y);
-            }
-            SetPropertyValue<Int16>("Month", ref _Month, m);
-        }        
+                SetPropertyValue<Int16>("Year", ref _Year, y);   }
+                SetPropertyValue<Int16>("Month", ref _Month, m); }        
     }
 }
