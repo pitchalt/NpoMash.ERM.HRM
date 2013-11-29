@@ -50,20 +50,17 @@ namespace NpoMash.Erm.Hrm
             //Формируем этот лист
             foreach (var a in HrmPeriodCollection) 
             { if (a.Year == maxYear) { HrmPeriodMaxYearsCollection.Add(a); }}
-
-
-
             var count = HrmPeriodMaxYearsCollection.Count(); //Для проверки работоспособности
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
-            
-            foreach (var t in HrmPeriodCollection)
+            HrmPeriod prevPeriod;
+            foreach (HrmPeriod t in HrmPeriodCollection)
             {   if (t.Year == maxYear && t.Month == maxMonth)
-                { var OneHrmPeriod = t; } 
+                { prevPeriod = t; } 
             }
-
             obj.Year = maxYear;
             obj.Month = Convert.ToInt16(maxMonth);
-            obj.addMonth();            
+            obj.addMonth();
+            obj.Previous = prevPeriod;
             rootObjectspace.CommitChanges(); ///////Чтобы сохранял изменения
 
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
