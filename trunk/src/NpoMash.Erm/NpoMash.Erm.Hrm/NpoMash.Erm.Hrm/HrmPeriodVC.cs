@@ -58,8 +58,8 @@ namespace NpoMash.Erm.Hrm
             var count = HrmPeriodMaxYearsCollection.Count(); //Для проверки работоспособности
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
             obj.Year = maxYear;
-            obj.Month = Convert.ToInt16(maxMonth+1);
-            
+            obj.Month = Convert.ToInt16(maxMonth);
+            obj.addMonth();            
             obj.Save();
             rootObjectspace.CommitChanges(); ///////Чтобы сохранял изменения
 
