@@ -13,6 +13,8 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using IntecoAG.Erm.HRM;
+using IntecoAG.Erm.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
@@ -32,9 +34,10 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void FillHrmPeriodOrderCOntrol_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-           
-            //тестовый коммент
-            //еще коммент
+            IObjectSpace rootObjectspace = Application.CreateObjectSpace();
+            HrmPeriodOrderControl p = rootObjectspace.CreateObject<HrmPeriodOrderControl>();
+            
+
         }
     }
 }
