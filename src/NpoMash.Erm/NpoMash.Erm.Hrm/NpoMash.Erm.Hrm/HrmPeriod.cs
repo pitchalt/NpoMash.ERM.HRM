@@ -31,14 +31,7 @@ namespace NpoMash.Erm.Hrm
         private Int16 _Month;
         public Int16 Month {
                get { return _Month; }
-               set {
-                   if (value > 12)
-                   {
-                       Int16 newYear = Convert.ToInt16(Year + Convert.ToInt16(value /12));
-                       SetPropertyValue<Int16>("Year", ref _Year, newYear);
-                       value %= 12;
-                   }
-                   SetPropertyValue<Int16>("Month", ref _Month, value); } }
+               set { SetPropertyValue<Int16>("Month", ref _Month, value); } }
 
 
         public enum HrmPeriodStatus
