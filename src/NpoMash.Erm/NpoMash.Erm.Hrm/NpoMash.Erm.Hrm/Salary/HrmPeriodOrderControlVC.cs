@@ -34,6 +34,7 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             //комментарий
             //тестовый коммент
+            //еще коммент
         }
     }
 }
