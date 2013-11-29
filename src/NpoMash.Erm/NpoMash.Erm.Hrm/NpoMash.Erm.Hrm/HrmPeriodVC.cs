@@ -56,7 +56,6 @@ namespace NpoMash.Erm.Hrm
             obj.Year = maxYear;
             obj.Month = Convert.ToInt16(maxMonth);
             obj.addMonth();            
-            obj.Save();
             rootObjectspace.CommitChanges(); ///////Чтобы сохранял изменения
 
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
