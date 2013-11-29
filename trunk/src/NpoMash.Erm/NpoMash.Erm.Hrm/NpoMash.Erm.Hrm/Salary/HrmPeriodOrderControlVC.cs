@@ -33,5 +33,10 @@ namespace NpoMash.Erm.Hrm.Salary
         { base.OnViewControlsCreated(); }
         protected override void OnDeactivated()
         { base.OnDeactivated(); }
+
+        private void FillHrmPeriodOrderCOntrol_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            //coment
+        }
     }
 }
