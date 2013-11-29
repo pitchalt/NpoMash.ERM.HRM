@@ -51,10 +51,10 @@ namespace NpoMash.Erm.Hrm
                set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); } }
 
         // —слыка на самого себ€ 
-        private HrmPeriod _HrmPeriod;
-        public HrmPeriod hrmPeriod {
-            get { return _HrmPeriod; }
-            set { SetPropertyValue<HrmPeriod>("hrmPeriod", ref _HrmPeriod, value); }
+        private HrmPeriod _Previous;
+        public HrmPeriod Previous {
+            get { return _Previous; }
+            set { SetPropertyValue<HrmPeriod>("hrmPeriod", ref _Previous, value); }
         }
 
         public HrmPeriod(Session session) : base(session) { }
