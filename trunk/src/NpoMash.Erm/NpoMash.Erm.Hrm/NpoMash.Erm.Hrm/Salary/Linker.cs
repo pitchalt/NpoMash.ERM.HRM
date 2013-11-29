@@ -13,31 +13,29 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
 using IntecoAG.Erm.HRM;
-namespace NpoMash.Erm.Hrm.Salary
-{
+namespace NpoMash.Erm.Hrm.Salary {
+    
     [Persistent("Linker")]
-    public class Linker : BaseObject
-    {
+    public class Linker : BaseObject {
         private HrmPeriodAllocParameter _HrmPeriodAllocParameter;
         [Association("PeriodAllocParameters-HrmPeriodPayType")]// связь с HrmPeriodAllocParameter
-        public HrmPeriodAllocParameter PeriodAllocParameters
-        {
+        public HrmPeriodAllocParameter PeriodAllocParameters {
             get { return _HrmPeriodAllocParameter; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("PeriodAllocParameters", ref _HrmPeriodAllocParameter, value); }
         }
 
 
         private HrmSalaryPayType _PeriodPayType;  //Связь с HrmSalaryPayType
-        public HrmSalaryPayType HrmSalaryPayType
-        {
+        public HrmSalaryPayType HrmSalaryPayType {
             get { return _PeriodPayType; }
             set { SetPropertyValue<HrmSalaryPayType>("HrmSalaryPayType", ref _PeriodPayType, value); }
         }
 
 
         public Linker(Session session) : base(session) { }
-        public override void AfterConstruction()
-        { base.AfterConstruction(); }
-      
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+        }
+
     }
 }
