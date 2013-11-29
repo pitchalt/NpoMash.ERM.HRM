@@ -45,6 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary
             this.FillHrmPeriodOrderCOntrol.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.FillHrmPeriodOrderCOntrol.ToolTip = null;
             this.FillHrmPeriodOrderCOntrol.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.FillHrmPeriodOrderCOntrol.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.FillHrmPeriodOrderCOntrol_Execute);
             // 
             // HrmPeriodOrderControlVC
             // 
