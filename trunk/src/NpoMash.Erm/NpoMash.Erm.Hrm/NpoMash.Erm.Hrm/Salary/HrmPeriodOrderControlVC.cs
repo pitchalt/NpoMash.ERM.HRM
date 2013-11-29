@@ -33,6 +33,7 @@ namespace NpoMash.Erm.Hrm.Salary
         private void FillHrmPeriodOrderCOntrol_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             //комментарий
+            //тестовый коммент
         }
     }
 }
