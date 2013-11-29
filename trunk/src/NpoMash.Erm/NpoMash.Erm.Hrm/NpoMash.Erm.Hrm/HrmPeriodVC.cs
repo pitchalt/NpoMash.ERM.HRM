@@ -52,15 +52,13 @@ namespace NpoMash.Erm.Hrm
             { if (a.Year == maxYear) { HrmPeriodMaxYearsCollection.Add(a); }}
             var count = HrmPeriodMaxYearsCollection.Count(); //Для проверки работоспособности
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
-            HrmPeriod prevPeriod;
             foreach (HrmPeriod t in HrmPeriodCollection)
             {   if (t.Year == maxYear && t.Month == maxMonth)
-                { prevPeriod = t; } 
+                {obj.Previous = t; } 
             }
             obj.Year = maxYear;
             obj.Month = Convert.ToInt16(maxMonth);
             obj.addMonth();
-            obj.Previous = prevPeriod;
             rootObjectspace.CommitChanges(); ///////Чтобы сохранял изменения
 
             HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
