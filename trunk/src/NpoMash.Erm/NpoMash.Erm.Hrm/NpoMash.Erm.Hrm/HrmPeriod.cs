@@ -13,42 +13,42 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace NpoMash.Erm.Hrm
-{
-    using NpoMash.Erm.Hrm.Salary;
+using NpoMash.Erm.Hrm.Salary;
 
-    
+namespace NpoMash.Erm.Hrm {
 
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
-    public class HrmPeriod : BaseObject
-    { 
+    public class HrmPeriod : BaseObject {
         private Int16 _Year;
         public Int16 Year {
-               get { return _Year; }
-               set { SetPropertyValue<Int16>("Year", ref _Year, value); } }
+            get { return _Year; }
+            set { SetPropertyValue<Int16>("Year", ref _Year, value); }
+        }
 
         private Int16 _Month;
         public Int16 Month {
-               get { return _Month; }
-               set { SetPropertyValue<Int16>("Month", ref _Month, value); } }
+            get { return _Month; }
+            set { SetPropertyValue<Int16>("Month", ref _Month, value); }
+        }
 
 
-        public enum HrmPeriodStatus
-        { Opened=0,closed=1 }
+        public enum HrmPeriodStatus { Opened = 0, closed = 1 }
         private HrmPeriodStatus _Status;
         public HrmPeriodStatus Status {
-               get { return _Status; }
-               set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); } }
-        
+            get { return _Status; }
+            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+        }
+
 
         //////////////////////Связи
 
         // связь с HrmPeriodAllocParameter
         private HrmPeriodAllocParameter _HrmPeriodAllocParameter;
         public HrmPeriodAllocParameter HrmPeriodAllocParameter {
-               get { return _HrmPeriodAllocParameter; }
-               set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); } }
+            get { return _HrmPeriodAllocParameter; }
+            set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); }
+        }
 
         // Сслыка на самого себя 
         private HrmPeriod _Previous;
@@ -58,19 +58,21 @@ namespace NpoMash.Erm.Hrm
         }
 
         public HrmPeriod(Session session) : base(session) { }
-        public override void AfterConstruction()
-        { base.AfterConstruction();
-        Status = HrmPeriodStatus.Opened;
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            Status = HrmPeriodStatus.Opened;
         }
 
         public void addMonth() {
             Int16 m = Month;
             m++;
-            if (m > 12){
+            if (m > 12) {
                 m = 1;
                 Int16 y = Year;
                 y++;
-                SetPropertyValue<Int16>("Year", ref _Year, y);   }
-                SetPropertyValue<Int16>("Month", ref _Month, m); }        
+                SetPropertyValue<Int16>("Year", ref _Year, y);
+            }
+            SetPropertyValue<Int16>("Month", ref _Month, m);
+        }
     }
 }
