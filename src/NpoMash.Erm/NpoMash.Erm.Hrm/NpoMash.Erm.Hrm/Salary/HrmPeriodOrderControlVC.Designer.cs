@@ -28,9 +28,34 @@ namespace NpoMash.Erm.Hrm.Salary
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.FillHrmPeriodOrderCOntrol = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            // 
+            // FillHrmPeriodOrderCOntrol
+            // 
+            this.FillHrmPeriodOrderCOntrol.Caption = "CreateAllocParameters";
+            this.FillHrmPeriodOrderCOntrol.Category = "View";
+            this.FillHrmPeriodOrderCOntrol.ConfirmationMessage = null;
+            this.FillHrmPeriodOrderCOntrol.Id = "FillHrmPeriodOrderCOntrol";
+            this.FillHrmPeriodOrderCOntrol.ImageName = null;
+            this.FillHrmPeriodOrderCOntrol.Shortcut = null;
+            this.FillHrmPeriodOrderCOntrol.Tag = null;
+            this.FillHrmPeriodOrderCOntrol.TargetObjectsCriteria = null;
+            this.FillHrmPeriodOrderCOntrol.TargetViewId = null;
+            this.FillHrmPeriodOrderCOntrol.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
+            this.FillHrmPeriodOrderCOntrol.ToolTip = null;
+            this.FillHrmPeriodOrderCOntrol.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            // 
+            // HrmPeriodOrderControlVC
+            // 
+            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl);
+            this.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
+            this.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+
         }
 
         #endregion
+
+        private DevExpress.ExpressApp.Actions.SimpleAction FillHrmPeriodOrderCOntrol;
     }
 }
