@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void FillHrmPeriodOrderCOntrol_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            //комментарий Ковтушенко проверяем почему я Student001 =)
+            //комментарий
         }
     }
 }
