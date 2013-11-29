@@ -21,10 +21,6 @@ namespace NpoMash.Erm.Hrm.Salary
     {
 
 
-
-
-
-
         public HrmPeriodOrderControlVC()
         { InitializeComponent(); RegisterActions(components);}
         protected override void OnActivated()
