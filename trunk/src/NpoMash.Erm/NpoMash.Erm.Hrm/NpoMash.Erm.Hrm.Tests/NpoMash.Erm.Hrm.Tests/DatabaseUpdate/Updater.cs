@@ -20,6 +20,7 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
     {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
 
+
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();

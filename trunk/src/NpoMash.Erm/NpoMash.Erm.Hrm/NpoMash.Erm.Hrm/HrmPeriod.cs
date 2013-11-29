@@ -57,6 +57,12 @@ namespace NpoMash.Erm.Hrm
                get { return _HrmPeriodAllocParameter; }
                set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); } }
 
+        // —слыка на самого себ€ 
+        private HrmPeriod _HrmPeriod;
+        public HrmPeriod hrmPeriod {
+            get { return _HrmPeriod; }
+            set { SetPropertyValue<HrmPeriod>("hrmPeriod", ref _HrmPeriod, value); }
+        }
 
         public HrmPeriod(Session session) : base(session) { }
         public override void AfterConstruction()
