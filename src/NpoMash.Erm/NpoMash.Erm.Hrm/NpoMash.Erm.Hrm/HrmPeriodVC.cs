@@ -46,14 +46,10 @@ namespace NpoMash.Erm.Hrm
             var HrmPeriodCollection = rootObjectspace.GetObjects<HrmPeriod>();
             var maxYear = HrmPeriodCollection.Max(Period => Period.Year);
             List<HrmPeriod> HrmPeriodMaxYearsCollection = new List<HrmPeriod>(); //Список периодов с максимальным годом
-            
-            foreach (var a in HrmPeriodCollection) //Формируем этот лист
-            {
-                if (a.Year == maxYear)
-                {
-                    HrmPeriodMaxYearsCollection.Add(a);
-                }
-            }
+
+            //Формируем этот лист
+            foreach (var a in HrmPeriodCollection) 
+            { if (a.Year == maxYear) { HrmPeriodMaxYearsCollection.Add(a); }}
 
             var count = HrmPeriodMaxYearsCollection.Count(); //Для проверки работоспособности
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
