@@ -32,7 +32,7 @@ namespace IntecoAG.Erm.HRM
 
         public HrmSalaryPayType(Session session) : base(session) { }
         public override void AfterConstruction()
-        { base.AfterConstruction();}
+        { base.AfterConstruction(); }
 
 
 
