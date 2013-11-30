@@ -14,7 +14,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
 using NpoMash.Erm.Hrm.Salary;
-
+//kovtushenko login check
 namespace NpoMash.Erm.Hrm {
 
     [NavigationItem("A1 Integration")]
