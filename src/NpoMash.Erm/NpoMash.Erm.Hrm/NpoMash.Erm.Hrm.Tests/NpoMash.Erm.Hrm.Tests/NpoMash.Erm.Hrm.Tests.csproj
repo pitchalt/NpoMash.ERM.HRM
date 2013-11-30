@@ -83,6 +83,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AddTestDataWC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AddTestDataWC.Designer.cs">
+      <DependentUpon>AddTestDataWC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\AddTestDataWC.resx">
+      <DependentUpon>AddTestDataWC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Module.resx">
       <SubType>Designer</SubType>
