@@ -31,7 +31,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
 
         private void addNewData_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            #region Creating objectSpace and Collections
+            #region Collections and objectSpaces
 
             IObjectSpace objectSpace = Application.CreateObjectSpace();
             fmCOrder fmCorder = objectSpace.CreateObject<fmCOrder>();
@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
             Department department = objectSpace.CreateObject<Department>();
 
             var fmCorderCollection = objectSpace.GetObjects<fmCOrder>();
-            var hrmSalaryPayTypeConnection = objectSpace.GetObjects<HrmSalaryPayType>();
+            var hrmSalaryPayTypeCollection = objectSpace.GetObjects<HrmSalaryPayType>();
             var departmentCollection = objectSpace.GetObjects<Department>();
             
             #endregion
