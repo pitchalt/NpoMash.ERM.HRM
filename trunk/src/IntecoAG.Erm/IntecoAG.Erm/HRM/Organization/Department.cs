@@ -23,7 +23,7 @@ namespace IntecoAG.Erm.HRM.Organization
             set { SetPropertyValue<String>("Code", ref _Code, value); } }
 
 
-        public enum DepartmentGroupDep { KB = 0, OZM = 1 }
+        public enum DepartmentGroupDep { KB = 1, OZM = 2 }
         private DepartmentGroupDep _GroupDep;
         public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }

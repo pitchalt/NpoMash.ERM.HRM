@@ -47,10 +47,10 @@ namespace IntecoAG.Erm.FM.Order
 
 
         public enum fmCOrderTypeCOntrol {
-            TrudEmk_FOT = 0,
-            FOT = 1,
-            No_Ordered = 2}
-        public enum fmCOrdertypeConstancy {Null=0,One=1}
+            TrudEmk_FOT = 1,
+            FOT = 2,
+            No_Ordered = 3}
+        public enum fmCOrdertypeConstancy {Null=1,One=2}
 
         public fmCOrder(Session session) : base(session) { }
         public override void AfterConstruction()

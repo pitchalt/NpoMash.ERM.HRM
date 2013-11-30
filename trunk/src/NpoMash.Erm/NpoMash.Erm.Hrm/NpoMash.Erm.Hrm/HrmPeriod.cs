@@ -33,7 +33,7 @@ namespace NpoMash.Erm.Hrm {
         }
 
 
-        public enum HrmPeriodStatus { Opened = 0, closed = 1 }
+        public enum HrmPeriodStatus { Opened = 1, closed = 2 }
         private HrmPeriodStatus _Status;
         public HrmPeriodStatus Status {
             get { return _Status; }

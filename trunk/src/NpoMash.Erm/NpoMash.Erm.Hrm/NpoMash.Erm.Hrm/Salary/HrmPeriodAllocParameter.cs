@@ -23,9 +23,9 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public enum HrmPeriodAllocParameterStatus
         { 
-            OpenToEdit=0,
-            ListOfOrderAccepted=1,
-            AllocParametersAccepted=2
+            OpenToEdit=1,
+            ListOfOrderAccepted=2,
+            AllocParametersAccepted=3
         }
 
         private HrmPeriodAllocParameterStatus _Status;
