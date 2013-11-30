@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Collections.Generic;
-//
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -14,7 +13,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
 using NpoMash.Erm.Hrm.Salary;
-//kovtushenko login check
+//kovtushenko checkout
 namespace NpoMash.Erm.Hrm {
 
     [NavigationItem("A1 Integration")]
