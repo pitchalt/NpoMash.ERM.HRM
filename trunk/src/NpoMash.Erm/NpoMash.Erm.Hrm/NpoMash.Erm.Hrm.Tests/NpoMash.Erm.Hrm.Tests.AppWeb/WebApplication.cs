@@ -18,6 +18,25 @@ namespace NpoMash.Erm.Hrm.Tests.Web
         private IntecoAG.Erm.IagErmModule iagErmModule1;
         private IntecoAG.XafExt.IagXafExtModule iagXafExtModule1;
         private NpoErmHrmModule npoErmHrmModule1;
+        private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
+        private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
+        private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
+        private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule viewVariantsModule1;
+        private DevExpress.ExpressApp.PivotGrid.PivotGridModule pivotGridModule1;
+        private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
+        private DevExpress.ExpressApp.Chart.ChartModule chartModule1;
+        private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
+        private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
+        private DevExpress.ExpressApp.TreeListEditors.Web.TreeListEditorsAspNetModule treeListEditorsAspNetModule1;
+        private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
+        private DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule scriptRecorderAspNetModule1;
+        private DevExpress.ExpressApp.Reports.Web.ReportsAspNetModule reportsAspNetModule1;
+        private DevExpress.ExpressApp.PivotGrid.Web.PivotGridAspNetModule pivotGridAspNetModule1;
+        private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
+        private DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule pivotChartAspNetModule1;
+        private DevExpress.ExpressApp.Chart.Web.ChartAspNetModule chartAspNetModule1;
+        private DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule fileAttachmentsAspNetModule1;
+        private Hrm.Web.NpoErmHrmWebModule npoErmHrmWebModule1;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
 
         public NpoErmHrmTestsWebApplication()
@@ -84,6 +103,25 @@ namespace NpoMash.Erm.Hrm.Tests.Web
             this.iagErmModule1 = new IntecoAG.Erm.IagErmModule();
             this.iagXafExtModule1 = new IntecoAG.XafExt.IagXafExtModule();
             this.npoErmHrmModule1 = new NpoMash.Erm.Hrm.NpoErmHrmModule();
+            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
+            this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+            this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
+            this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
+            this.pivotGridModule1 = new DevExpress.ExpressApp.PivotGrid.PivotGridModule();
+            this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
+            this.chartModule1 = new DevExpress.ExpressApp.Chart.ChartModule();
+            this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
+            this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
+            this.treeListEditorsAspNetModule1 = new DevExpress.ExpressApp.TreeListEditors.Web.TreeListEditorsAspNetModule();
+            this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
+            this.scriptRecorderAspNetModule1 = new DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule();
+            this.reportsAspNetModule1 = new DevExpress.ExpressApp.Reports.Web.ReportsAspNetModule();
+            this.pivotGridAspNetModule1 = new DevExpress.ExpressApp.PivotGrid.Web.PivotGridAspNetModule();
+            this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
+            this.pivotChartAspNetModule1 = new DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule();
+            this.chartAspNetModule1 = new DevExpress.ExpressApp.Chart.Web.ChartAspNetModule();
+            this.fileAttachmentsAspNetModule1 = new DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule();
+            this.npoErmHrmWebModule1 = new NpoMash.Erm.Hrm.Web.NpoErmHrmWebModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -91,6 +129,28 @@ namespace NpoMash.Erm.Hrm.Tests.Web
             this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=N" +
     "poMash.Erm.Hrm.Tests";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // validationModule1
+            // 
+            this.validationModule1.AllowValidationDetailsAccess = true;
+            // 
+            // viewVariantsModule1
+            // 
+            this.viewVariantsModule1.GenerateVariantsNode = true;
+            this.viewVariantsModule1.ShowAdditionalNavigation = false;
+            // 
+            // reportsModule1
+            // 
+            this.reportsModule1.EnableInplaceReports = true;
+            this.reportsModule1.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportData);
+            // 
+            // stateMachineModule1
+            // 
+            this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            // 
+            // pivotChartModuleBase1
+            // 
+            this.pivotChartModuleBase1.ShowAdditionalNavigation = false;
             // 
             // NpoErmHrmTestsWebApplication
             // 
@@ -100,8 +160,27 @@ namespace NpoMash.Erm.Hrm.Tests.Web
             this.Modules.Add(this.module2);
             this.Modules.Add(this.iagErmModule1);
             this.Modules.Add(this.iagXafExtModule1);
+            this.Modules.Add(this.cloneObjectModule1);
+            this.Modules.Add(this.conditionalAppearanceModule1);
+            this.Modules.Add(this.validationModule1);
+            this.Modules.Add(this.viewVariantsModule1);
+            this.Modules.Add(this.pivotGridModule1);
+            this.Modules.Add(this.reportsModule1);
+            this.Modules.Add(this.chartModule1);
+            this.Modules.Add(this.stateMachineModule1);
             this.Modules.Add(this.npoErmHrmModule1);
             this.Modules.Add(this.module3);
+            this.Modules.Add(this.treeListEditorsModuleBase1);
+            this.Modules.Add(this.treeListEditorsAspNetModule1);
+            this.Modules.Add(this.scriptRecorderModuleBase1);
+            this.Modules.Add(this.scriptRecorderAspNetModule1);
+            this.Modules.Add(this.reportsAspNetModule1);
+            this.Modules.Add(this.pivotGridAspNetModule1);
+            this.Modules.Add(this.pivotChartModuleBase1);
+            this.Modules.Add(this.pivotChartAspNetModule1);
+            this.Modules.Add(this.chartAspNetModule1);
+            this.Modules.Add(this.fileAttachmentsAspNetModule1);
+            this.Modules.Add(this.npoErmHrmWebModule1);
             this.Modules.Add(this.module4);
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.TestsAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
