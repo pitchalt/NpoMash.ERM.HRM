@@ -40,5 +40,18 @@ namespace NpoMash.Erm.Hrm.Salary
             // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
+
+        private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            HrmPeriodAllocParameter par = (HrmPeriodAllocParameter)e.CurrentObject;
+            IObjectSpace os = e.ShowViewParameters.CreatedView.ObjectSpace.CreateNestedObjectSpace();
+            var OrderControlsCollection = os.GetObjects<HrmPeriodOrderControl>();
+            //List<HrmPeriodOrderControl> Controlled = new List<HrmPeriodOrderControl>();
+            foreach (var a in OrderControlsCollection)
+            { if (a.TypeControl != HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered) {
+                par.OrderControls.Add(a);
+                a.PeriodAllocParameter = par;}}
+            os.CommitChanges();
+        }
     }
 }
