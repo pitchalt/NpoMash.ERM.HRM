@@ -14,6 +14,7 @@ using DevExpress.Persistent.Validation;
 
 using NpoMash.Erm.Hrm.Salary;
 //kovtushenko checkout
+//demin checkout
 namespace NpoMash.Erm.Hrm {
 
     [NavigationItem("A1 Integration")]
@@ -38,7 +39,6 @@ namespace NpoMash.Erm.Hrm {
             get { return _Status; }
             set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
-
 
         //////////////////////Связи
 
