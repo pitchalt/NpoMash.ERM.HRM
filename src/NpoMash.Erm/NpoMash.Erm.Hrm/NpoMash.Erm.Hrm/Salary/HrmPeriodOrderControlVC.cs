@@ -26,7 +26,8 @@ namespace NpoMash.Erm.Hrm.Salary
         public HrmPeriodOrderControlVC()
         { InitializeComponent(); RegisterActions(components);}
         protected override void OnActivated()
-        { base.OnActivated(); }
+        { base.OnActivated(); 
+        }
         protected override void OnViewControlsCreated()
         { base.OnViewControlsCreated(); }
         protected override void OnDeactivated()
@@ -36,8 +37,11 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             IObjectSpace rootObjectspace = Application.CreateObjectSpace();
             HrmPeriodOrderControl p = rootObjectspace.CreateObject<HrmPeriodOrderControl>();
+            var HrmPeriodOrderControlCollection = rootObjectspace.GetObjects<HrmPeriodOrderControl>();
             
-
+            fmCOrder obj1 = rootObjectspace.CreateObject<fmCOrder>();
+            p.Order = obj1;
+          
         }
     }
 }
