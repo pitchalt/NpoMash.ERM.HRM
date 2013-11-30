@@ -50,7 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary
             foreach (var a in OrderControlsCollection)
             { if (a.TypeControl != HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered) {
                 par.OrderControls.Add(a);
-                a.PeriodAllocParameter = par;}}
+                a.AllocParameter = par;}}
             os.CommitChanges();
         }
     }
