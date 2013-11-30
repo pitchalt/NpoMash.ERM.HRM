@@ -110,6 +110,10 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Controllers\Dep.dat" />
+    <None Include="Controllers\Fact.dat" />
+    <None Include="Controllers\OrderGoz.dat" />
+    <None Include="Controllers\Plan.dat" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +134,10 @@
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\IntecoAG.Erm\IntecoAG.Erm\IntecoAG.Erm.csproj">
+      <Project>{71dc7a2b-825e-401c-bb71-2ebe5c3ddce0}</Project>
+      <Name>IntecoAG.Erm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.csproj">
       <Project>{5f15837d-d1e5-44dc-92f0-4f2ebe9c3f8d}</Project>
       <Name>NpoMash.Erm.Hrm</Name>
