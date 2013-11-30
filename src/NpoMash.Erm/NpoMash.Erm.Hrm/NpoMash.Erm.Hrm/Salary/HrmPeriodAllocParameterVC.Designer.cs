@@ -41,15 +41,14 @@ namespace NpoMash.Erm.Hrm.Salary
             this.CreateAllocParameters.Tag = null;
             this.CreateAllocParameters.TargetObjectsCriteria = null;
             this.CreateAllocParameters.TargetViewId = null;
-            this.CreateAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
+            this.CreateAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.CreateAllocParameters.ToolTip = null;
-            this.CreateAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.CreateAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             // 
             // HrmPeriodAllocParameterVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
-            this.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
-            this.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
+            this.TypeOfView = typeof(DevExpress.ExpressApp.View);
 
         }
 
