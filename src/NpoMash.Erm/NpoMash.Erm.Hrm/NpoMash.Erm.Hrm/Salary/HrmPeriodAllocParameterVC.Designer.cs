@@ -40,6 +40,7 @@ namespace NpoMash.Erm.Hrm.Salary
             this.CreateAllocParameters.Shortcut = null;
             this.CreateAllocParameters.Tag = null;
             this.CreateAllocParameters.TargetObjectsCriteria = null;
+            this.CreateAllocParameters.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
             this.CreateAllocParameters.TargetViewId = null;
             this.CreateAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.CreateAllocParameters.ToolTip = null;
