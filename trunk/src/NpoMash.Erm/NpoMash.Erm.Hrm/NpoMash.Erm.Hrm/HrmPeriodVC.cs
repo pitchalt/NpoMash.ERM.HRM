@@ -42,11 +42,9 @@ namespace NpoMash.Erm.Hrm {
         private void OpenPeriodAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace rootObjectspace = Application.CreateObjectSpace();
             HrmPeriod period = rootObjectspace.CreateObject<HrmPeriod>();
-
             var HrmPeriodCollection = rootObjectspace.GetObjects<HrmPeriod>();
             var maxYear = HrmPeriodCollection.Max(Period => Period.Year);
             List<HrmPeriod> HrmPeriodMaxYearsCollection = new List<HrmPeriod>(); //Список периодов с максимальным годом
-
             //Формируем этот лист
             foreach (var a in HrmPeriodCollection) { 
                 if (a.Year == maxYear) { 
@@ -55,19 +53,17 @@ namespace NpoMash.Erm.Hrm {
             }
             var count = HrmPeriodMaxYearsCollection.Count(); //Для проверки работоспособности
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
-
             foreach (var t in HrmPeriodCollection) {
                 if (t.Year == maxYear && t.Month == maxMonth) { 
                     period.PeriodPrevious = t; 
                 }
             }
-
             period.Year = maxYear;
             period.Month = maxMonth;
             period.addMonth();
-            
             HrmPeriodAllocParameter period_parameters = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             period.HrmPeriodAllocParameter = period_parameters;
+            period_parameters.HrmPeriod = period;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, period_parameters);
         }
     }
