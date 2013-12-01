@@ -43,7 +43,8 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            HrmPeriodAllocParameter par = (HrmPeriodAllocParameter)e.CurrentObject;
+            HrmPeriodAllocParameter par = e.CurrentObject as HrmPeriodAllocParameter;
+            if (par == null) return;
             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
                 //    e.ShowViewParameters.CreatedView.ObjectSpace.CreateNestedObjectSpace();
                 var OrderControlsCollection = os.GetObjects<HrmPeriodOrderControl>();
