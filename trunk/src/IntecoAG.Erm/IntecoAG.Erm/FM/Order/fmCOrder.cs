@@ -45,6 +45,11 @@ namespace IntecoAG.Erm.FM.Order
                get { return _NormOZM; }
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
 
+        private Decimal _NormNoControl;
+        public Decimal NormNoControl {
+            get { return _NormNoControl; }
+            set { SetPropertyValue<Decimal>("NormNoControl", ref _NormNoControl, value); } }
+
 
         public enum fmCOrderTypeCOntrol {
             TrudEmk_FOT = 1,
