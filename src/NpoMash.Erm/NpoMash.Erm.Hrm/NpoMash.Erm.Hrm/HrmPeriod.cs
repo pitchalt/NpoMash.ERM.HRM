@@ -50,10 +50,10 @@ namespace NpoMash.Erm.Hrm {
         }
 
         // —слыка на самого себ€ 
-        private HrmPeriod _Previous;
-        public HrmPeriod Previous {
-            get { return _Previous; }
-            set { SetPropertyValue<HrmPeriod>("Previous", ref _Previous, value); }
+        private HrmPeriod _PeriodPrevious;
+        public HrmPeriod PeriodPrevious {
+            get { return _PeriodPrevious; }
+            set { SetPropertyValue<HrmPeriod>("PeriodPrevious", ref _PeriodPrevious, value); }
         }
 
         public HrmPeriod(Session session) : base(session) { }

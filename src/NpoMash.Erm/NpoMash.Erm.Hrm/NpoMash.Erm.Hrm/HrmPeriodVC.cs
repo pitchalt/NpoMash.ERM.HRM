@@ -58,7 +58,7 @@ namespace NpoMash.Erm.Hrm {
 
             foreach (var t in HrmPeriodCollection) {
                 if (t.Year == maxYear && t.Month == maxMonth) { 
-                    period.Previous = t; 
+                    period.PeriodPrevious = t; 
                 }
             }
 
