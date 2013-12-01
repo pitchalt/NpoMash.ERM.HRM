@@ -11,12 +11,11 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+//
+using IntecoAG.Erm.HRM;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    using IntecoAG.Erm.HRM;
-
-    
     [Persistent("HrmPeriodAllocParameter")]
     public class HrmPeriodAllocParameter : BaseObject
     {

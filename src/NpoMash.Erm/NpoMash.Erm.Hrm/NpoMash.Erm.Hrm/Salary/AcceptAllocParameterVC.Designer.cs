@@ -45,6 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary
             this.Accept.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.Accept.ToolTip = null;
             this.Accept.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.Accept.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.Accept_Execute);
             // 
             // AcceptAllocParameterVC
             // 
