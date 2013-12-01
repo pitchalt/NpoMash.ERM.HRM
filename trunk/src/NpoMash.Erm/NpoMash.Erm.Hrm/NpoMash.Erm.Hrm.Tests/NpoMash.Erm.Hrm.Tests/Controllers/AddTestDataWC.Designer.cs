@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
             this.addNewData.TargetObjectsCriteria = null;
             this.addNewData.TargetViewId = null;
             this.addNewData.ToolTip = null;
-            this.addNewData.TypeOfView = null;
+            this.addNewData.TypeOfView = typeof(DevExpress.ExpressApp.View);
             this.addNewData.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.addNewData_Execute);
 
         }

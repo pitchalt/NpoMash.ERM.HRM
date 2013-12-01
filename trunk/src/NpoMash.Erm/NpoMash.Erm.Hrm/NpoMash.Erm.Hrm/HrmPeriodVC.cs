@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm {
             period.Year = maxYear;
             period.Month = maxMonth;
             period.addMonth();
-
+            
             HrmPeriodAllocParameter period_parameters = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             period.HrmPeriodAllocParameter = period_parameters;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, period_parameters);
