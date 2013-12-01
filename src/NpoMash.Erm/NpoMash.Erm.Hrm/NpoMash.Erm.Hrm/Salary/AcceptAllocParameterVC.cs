@@ -17,9 +17,9 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 namespace NpoMash.Erm.Hrm.Salary
 {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
-    public partial class HrmPeriodAllocParameterVC : ViewController
+    public partial class AcceptAllocParameterVC : ViewController
     {
-        public HrmPeriodAllocParameterVC()
+        public AcceptAllocParameterVC()
         {
             InitializeComponent();
             RegisterActions(components);
@@ -39,24 +39,6 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
-        }
-
-        private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
-            HrmPeriodAllocParameter par = e.CurrentObject as HrmPeriodAllocParameter;
-            if (par == null) return;
-            using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-
-                var OrderControlsCollection = os.GetObjects<HrmPeriodOrderControl>();
-                //List<HrmPeriodOrderControl> Controlled = new List<HrmPeriodOrderControl>();
-                foreach (var a in OrderControlsCollection) {
-                    if (a.TypeControl != HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered) {
-                        par.OrderControls.Add(a);
-                        a.AllocParameter = par;
-                    }
-                }
-                os.CommitChanges();
-            }
         }
     }
 }

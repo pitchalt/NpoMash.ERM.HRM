@@ -17,7 +17,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-
+using NpoMash.Erm.Hrm.Salary;
 namespace NpoMash.Erm.Hrm.Tests.Controllers
 {
     public partial class AddTestDataWC : WindowController
@@ -44,13 +44,26 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
             
             #endregion
 
-            string line;
-            StreamReader streamReader = new StreamReader("Dep.dat");
-            while (!streamReader.EndOfStream)
-            {
-                line = streamReader.ReadLine();
-            }
-            streamReader.Close();
+          //  string line;
+           // StreamReader streamReader = new StreamReader("Dep.dat");
+           // while (!streamReader.EndOfStream)
+          //  {
+             //   line = streamReader.ReadLine();
+          //  }
+            //streamReader.Close();
+
+           IObjectSpace os = objectSpace.CreateNestedObjectSpace();
+
+           HrmPeriod period = os.CreateObject<HrmPeriod>();
+           period.Month = 10;
+           period.Year = 2012;       
+            
+            
+            
+            
+               HrmPeriodAllocParameter period_parameters = objectSpace.CreateObject<HrmPeriodAllocParameter>();
+               period.HrmPeriodAllocParameter = period_parameters;
+               e.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, period_parameters);
         }
     }
 }

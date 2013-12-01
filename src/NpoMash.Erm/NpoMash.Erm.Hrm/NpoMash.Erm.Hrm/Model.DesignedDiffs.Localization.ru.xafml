@@ -2,6 +2,7 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="Accept" Caption="Утвердить" />
       <Action Id="CreateAllocParameters" Caption="Сформировать параметры расчета" />
       <Action Id="OpenPeriodAction" Caption="Создать расчетный период" />
     </Actions>
@@ -34,7 +35,7 @@
         <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" Caption="Код оплаты">
       <OwnMembers>
         <Member Name="AllocParameter" Caption="Параметры расчета" />
         <Member Name="PayType" Caption="Код оплаты" />
