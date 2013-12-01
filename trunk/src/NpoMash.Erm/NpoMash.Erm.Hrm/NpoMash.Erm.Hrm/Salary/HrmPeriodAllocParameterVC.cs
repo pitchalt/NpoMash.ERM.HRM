@@ -14,6 +14,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 
+using IntecoAG.Erm.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary
 {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
@@ -45,19 +46,40 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             HrmPeriodAllocParameter par = e.CurrentObject as HrmPeriodAllocParameter;
             if (par == null) return;
-
-            using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-                //var OrderControlsCollection = os.GetObjects<HrmPeriodOrderControl>();
-                foreach (var pay in par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter.PeriodPayTypes)
-                    if (!par.PeriodPayTypes.Contains(pay)) par.PeriodPayTypes.Add(pay);
-
-                /*foreach (var a in OrderControlsCollection) {
-                    if (a.TypeControl != HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered) {
-                        par.OrderControls.Add(a);
-                        a.AllocParameter = par;
+            using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
+            {
+                if (par.HrmPeriod.PeriodPrevious != null)
+                {
+                    foreach (var pay in par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter.PeriodPayTypes)
+                    {
+                        bool alreadyThere = false;
+                        foreach (var existingPay in par.PeriodPayTypes)
+                            if (pay.PayType == existingPay.PayType) alreadyThere = true;
+                        if (!alreadyThere)
+                            par.PeriodPayTypes.Add(os.CreateObject<HrmPeriodPayType>());
                     }
-
-                }*/
+                }
+                foreach (var order in os.GetObjects<fmCOrder>())
+                {
+                    if (order.TypeControl != fmCOrder.fmCOrderTypeCOntrol.No_Ordered)
+                    {
+                        bool alreadyThere = false;
+                        foreach (var existingControl in par.OrderControls)
+                            if (existingControl.Order == order) alreadyThere = true;
+                        if (!alreadyThere)
+                        {
+                            HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
+                            oc.Order = order;
+                            oc.NormKB = order.NormKB;
+                            oc.NormOZM = order.NormOZM;
+                            oc.NormNoControl = order.NormNoControl;
+                            if (order.TypeControl == fmCOrder.fmCOrderTypeCOntrol.FOT)
+                                oc.TypeControl=HrmPeriodOrderControl.HrmPeriodOrderTypeControl.FOT;
+                            else oc.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.TrudEmk_FOT;
+                            par.OrderControls.Add(oc);
+                        }
+                    }
+                }
                 os.CommitChanges();
             }
         }
