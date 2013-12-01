@@ -19,52 +19,56 @@ using DevExpress.Persistent.BaseImpl;
 //
 using NpoMash.Erm.Hrm.Salary;
 
-namespace NpoMash.Erm.Hrm
-{
+namespace NpoMash.Erm.Hrm {
 
-    public partial class HrmPeriodVC : ViewController
-    {
-        public HrmPeriodVC()
-        {   InitializeComponent();
-            RegisterActions(components); }
+    public partial class HrmPeriodVC : ViewController {
+        public HrmPeriodVC() {
+            InitializeComponent();
+            RegisterActions(components);
+        }
 
-        protected override void OnActivated()
-        { base.OnActivated(); }
+        protected override void OnActivated() { 
+            base.OnActivated(); 
+        }
 
-        protected override void OnViewControlsCreated()
-        { base.OnViewControlsCreated(); }
+        protected override void OnViewControlsCreated() { 
+            base.OnViewControlsCreated(); 
+        }
 
-        protected override void OnDeactivated()
-        { base.OnDeactivated(); }
+        protected override void OnDeactivated() { 
+            base.OnDeactivated(); 
+        }
 
-
-        private void OpenPeriodAction_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
+        private void OpenPeriodAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace rootObjectspace = Application.CreateObjectSpace();
-            HrmPeriod obj = rootObjectspace.CreateObject<HrmPeriod>();
+            HrmPeriod period = rootObjectspace.CreateObject<HrmPeriod>();
 
             var HrmPeriodCollection = rootObjectspace.GetObjects<HrmPeriod>();
             var maxYear = HrmPeriodCollection.Max(Period => Period.Year);
             List<HrmPeriod> HrmPeriodMaxYearsCollection = new List<HrmPeriod>(); //Список периодов с максимальным годом
 
             //Формируем этот лист
-            foreach (var a in HrmPeriodCollection) 
-            { if (a.Year == maxYear) { HrmPeriodMaxYearsCollection.Add(a); }}
+            foreach (var a in HrmPeriodCollection) { 
+                if (a.Year == maxYear) { 
+                    HrmPeriodMaxYearsCollection.Add(a); 
+                } 
+            }
             var count = HrmPeriodMaxYearsCollection.Count(); //Для проверки работоспособности
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
 
-            foreach (var t in HrmPeriodCollection)
-            {   if (t.Year == maxYear && t.Month == maxMonth)
-                {obj.Previous = t; } 
+            foreach (var t in HrmPeriodCollection) {
+                if (t.Year == maxYear && t.Month == maxMonth) { 
+                    period.Previous = t; 
+                }
             }
 
-            obj.Year = maxYear;
-            obj.Month = Convert.ToInt16(maxMonth);
-            obj.addMonth();
-            
-            HrmPeriodAllocParameter obj1 = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
-            obj.HrmPeriodAllocParameter = obj1;
-            e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, obj1);
+            period.Year = maxYear;
+            period.Month = maxMonth;
+            period.addMonth();
+
+            HrmPeriodAllocParameter period_parameters = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
+            period.HrmPeriodAllocParameter = period_parameters;
+            e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, period_parameters);
         }
 
 
