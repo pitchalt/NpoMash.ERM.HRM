@@ -70,7 +70,5 @@ namespace NpoMash.Erm.Hrm {
             period.HrmPeriodAllocParameter = period_parameters;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, period_parameters);
         }
-
-
     }
 }
