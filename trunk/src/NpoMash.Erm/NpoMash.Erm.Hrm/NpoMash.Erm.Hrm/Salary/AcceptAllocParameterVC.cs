@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
+//
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
-using System.Collections.Generic;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Layout;
@@ -16,29 +17,22 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
+
     public partial class AcceptAllocParameterVC : ViewController
     {
-        public AcceptAllocParameterVC()
+
+
+        private void Accept_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            InitializeComponent();
-            RegisterActions(components);
-            // Target required Views (via the TargetXXX properties) and create their Actions.
+
         }
+
+        public AcceptAllocParameterVC() { InitializeComponent(); RegisterActions(components); }
         protected override void OnActivated()
-        {
-            base.OnActivated();
-            // Perform various tasks depending on the target View.
-        }
+        { base.OnActivated(); }
         protected override void OnViewControlsCreated()
-        {
-            base.OnViewControlsCreated();
-            // Access and customize the target View control.
-        }
+        { base.OnViewControlsCreated(); }
         protected override void OnDeactivated()
-        {
-            // Unsubscribe from previously subscribed events and release other references and resources.
-            base.OnDeactivated();
-        }
+        { base.OnDeactivated(); }
     }
 }
