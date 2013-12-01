@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="NpoMash.Erm.Hrm.Tests" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="AddTestData" Caption="Добавить тестовые данные" />
+    </Actions>
+  </ActionDesign>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
   </SchemaModules>
 </Application>

@@ -34,6 +34,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
             // addNewData
             // 
             this.addNewData.Caption = "Add Test Data";
+            this.addNewData.Category = "Tools";
             this.addNewData.ConfirmationMessage = null;
             this.addNewData.Id = "AddTestData";
             this.addNewData.ImageName = null;
