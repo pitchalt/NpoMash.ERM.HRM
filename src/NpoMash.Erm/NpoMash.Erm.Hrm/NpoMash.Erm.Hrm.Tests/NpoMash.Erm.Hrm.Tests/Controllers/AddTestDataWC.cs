@@ -45,7 +45,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
 
             foreach (var each in hrmPeriodCollection)
             {
-
+                fmCorder.Code = "1234";
             }
             
         }
