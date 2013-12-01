@@ -28,39 +28,24 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
 
         private void addNewData_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            #region Collections and objectSpaces
+            #region Collections and objectSpace
 
             IObjectSpace objectSpace = Application.CreateObjectSpace();
             fmCOrder fmCorder = objectSpace.CreateObject<fmCOrder>();
             HrmSalaryPayType hrmSalaryPayType = objectSpace.CreateObject<HrmSalaryPayType>();
-            Department department = objectSpace.CreateObject<Department>();
 
             var fmCorderCollection = objectSpace.GetObjects<fmCOrder>();
             var hrmSalaryPayTypeCollection = objectSpace.GetObjects<HrmSalaryPayType>();
-            var departmentCollection = objectSpace.GetObjects<Department>();
             
             #endregion
 
-          //  string line;
-           // StreamReader streamReader = new StreamReader("Dep.dat");
-           // while (!streamReader.EndOfStream)
-          //  {
-             //   line = streamReader.ReadLine();
-          //  }
-            //streamReader.Close();
+            int i = 1;
 
-           IObjectSpace os = objectSpace.CreateNestedObjectSpace();
-
-           HrmPeriod period = os.CreateObject<HrmPeriod>();
-           period.Month = 10;
-           period.Year = 2012;       
+            foreach (var each in fmCorderCollection)
+            {
+                
+            }
             
-            
-            
-            
-               HrmPeriodAllocParameter period_parameters = objectSpace.CreateObject<HrmPeriodAllocParameter>();
-               period.HrmPeriodAllocParameter = period_parameters;
-               e.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, period_parameters);
         }
 
         public AddTestDataWC() { InitializeComponent(); RegisterActions(components); }
