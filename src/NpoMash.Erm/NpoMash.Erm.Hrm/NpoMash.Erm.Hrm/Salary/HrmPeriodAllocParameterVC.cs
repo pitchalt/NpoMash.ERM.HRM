@@ -47,40 +47,48 @@ namespace NpoMash.Erm.Hrm.Salary
             HrmPeriodAllocParameter par = e.CurrentObject as HrmPeriodAllocParameter;
             if (par == null) return;
             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
-            {
-                if (par.HrmPeriod.PeriodPrevious != null)
-                {
+            {//проверяем есть ли предыдущий период и назначены ли ему параметры
+                if (par.HrmPeriod.PeriodPrevious != null &&
+                    par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter != null)
+                {//теперь создаем PeriodPayTypes-ы, беря их из предыдущего периода
                     foreach (var pay in par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter.PeriodPayTypes)
                     {
                         bool alreadyThere = false;
-                        foreach (var existingPay in par.PeriodPayTypes)
+                        foreach (var existingPay in par.PeriodPayTypes)// перебираем уже назначенные
+                            //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
                             if (pay.PayType == existingPay.PayType) alreadyThere = true;
-                        if (!alreadyThere)
-                            par.PeriodPayTypes.Add(os.CreateObject<HrmPeriodPayType>());
+                        if (!alreadyThere)//если такой еще не добавляли...
+                        {
+                            HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
+                            pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
+                            par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
+                        }
                     }
                 }
+                //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
                 foreach (var order in os.GetObjects<fmCOrder>())
                 {
-                    if (order.TypeControl != fmCOrder.fmCOrderTypeCOntrol.No_Ordered)
+                    if (order.TypeControl != fmCOrder.fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
                     {
-                        bool alreadyThere = false;
+                        bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
                         foreach (var existingControl in par.OrderControls)
                             if (existingControl.Order == order) alreadyThere = true;
-                        if (!alreadyThere)
-                        {
+                        if (!alreadyThere)//если такого еще не было
+                        {//то создаем новый HrmPeriodOrderControl и копируем в него параметры из fmCOrder-а
                             HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
                             oc.Order = order;
                             oc.NormKB = order.NormKB;
                             oc.NormOZM = order.NormOZM;
                             oc.NormNoControl = order.NormNoControl;
+                            //oc.TypeControl = order.TypeControl;  вот так почему-то нельзя, приходится делать как написано ниже:
                             if (order.TypeControl == fmCOrder.fmCOrderTypeCOntrol.FOT)
                                 oc.TypeControl=HrmPeriodOrderControl.HrmPeriodOrderTypeControl.FOT;
                             else oc.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.TrudEmk_FOT;
-                            par.OrderControls.Add(oc);
+                            par.OrderControls.Add(oc);//и добавляем в коллекцию
                         }
                     }
                 }
-                os.CommitChanges();
+                os.CommitChanges(); //сохраняем изменения в корневой ObjectSpace
             }
         }
     }
