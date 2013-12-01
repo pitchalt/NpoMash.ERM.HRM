@@ -68,7 +68,7 @@
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl+HrmPeriodOrderTypeControl">
         <LocalizationItem Name="FOT" Value="ФОТ" />
-        <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
+        <LocalizationItem Name="NormNoControl" Value="Единый норматив для всех неконтролируемых заказов" />
         <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
       </LocalizationGroup>
     </LocalizationGroup>

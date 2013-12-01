@@ -28,7 +28,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
                 var OrderControlsCollection = os.GetObjects<HrmPeriodOrderControl>();
                 foreach (var a in OrderControlsCollection) {
-                    if (a.TypeControl != HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered) {
+                    if (a.TypeControl != HrmPeriodOrderControl.HrmPeriodOrderTypeControl.NormNoControl) {
                         par.OrderControls.Add(a);
                         a.AllocParameter = par;
                     }
