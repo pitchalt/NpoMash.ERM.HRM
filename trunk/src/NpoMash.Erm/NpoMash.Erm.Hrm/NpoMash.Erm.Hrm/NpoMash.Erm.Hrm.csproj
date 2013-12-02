@@ -120,6 +120,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AddInfoWinControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AddInfoWinControl.Designer.cs">
+      <DependentUpon>AddInfoWinControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="HrmPeriod.cs" />
     <Compile Include="HrmPeriodVC.cs">
       <SubType>Component</SubType>
@@ -152,6 +158,9 @@
     <Compile Include="Salary\HrmPeriodPayType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\AddInfoWinControl.resx">
+      <DependentUpon>AddInfoWinControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HrmPeriodVC.resx">
       <DependentUpon>HrmPeriodVC.cs</DependentUpon>
     </EmbeddedResource>
