@@ -44,10 +44,13 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            HrmPeriodAllocParameter par = e.CurrentObject as HrmPeriodAllocParameter;
-            if (par == null) return;
+            
             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
-            {//проверяем есть ли предыдущий период и назначены ли ему параметры
+            {
+                HrmPeriodAllocParameter par0 = e.CurrentObject as HrmPeriodAllocParameter;
+                if (par0 == null) return;
+                HrmPeriodAllocParameter par = os.GetObject<HrmPeriodAllocParameter>(par0);
+                //проверяем есть ли предыдущий период и назначены ли ему параметры
                 if (par.HrmPeriod.PeriodPrevious != null &&
                     par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter != null)
                 {//теперь создаем PeriodPayTypes-ы, беря их из предыдущего периода
