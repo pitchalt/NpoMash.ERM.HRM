@@ -24,14 +24,14 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
         public override void UpdateDatabaseAfterUpdateSchema()
         {
             base.UpdateDatabaseAfterUpdateSchema();
-            HrmPeriod hp=ObjectSpace.FindObject<HrmPeriod>(CriteriaOperator.Parse( "Year == '2013' && Month == '10'"));
+          HrmPeriod hp=ObjectSpace.FindObject<HrmPeriod>(CriteriaOperator.Parse( "Year == '2013' && Month == '10'"));
             if (hp == null)
             {
-               hp = ObjectSpace.CreateObject<HrmPeriod>();
+              hp = ObjectSpace.CreateObject<HrmPeriod>();
                hp.Year = Convert.ToInt16(DateTime.Now.Year);
                hp.Month = Convert.ToInt16(DateTime.Now.Month);
                hp.Save();
-            }            
+           }            
         }
 
         public override void UpdateDatabaseBeforeUpdateSchema()

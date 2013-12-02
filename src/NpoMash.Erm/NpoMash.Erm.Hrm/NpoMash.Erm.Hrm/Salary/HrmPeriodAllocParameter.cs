@@ -17,6 +17,7 @@ using IntecoAG.Erm.HRM;
 namespace NpoMash.Erm.Hrm.Salary
 {
     [Persistent("HrmPeriodAllocParameter")]
+    [NavigationItem("A1 Integration")]
     public class HrmPeriodAllocParameter : BaseObject
     {
 

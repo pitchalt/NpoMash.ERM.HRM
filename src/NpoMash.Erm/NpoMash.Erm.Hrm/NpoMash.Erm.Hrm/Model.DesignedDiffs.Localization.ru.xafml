@@ -3,6 +3,7 @@
   <ActionDesign>
     <Actions>
       <Action Id="Accept" Caption="Утвердить" />
+      <Action Id="AddDemoInfo" Caption="Заполнить базу" />
       <Action Id="CreateAllocParameters" Caption="Сформировать параметры расчета" />
       <Action Id="OpenPeriodAction" Caption="Создать расчетный период" />
     </Actions>

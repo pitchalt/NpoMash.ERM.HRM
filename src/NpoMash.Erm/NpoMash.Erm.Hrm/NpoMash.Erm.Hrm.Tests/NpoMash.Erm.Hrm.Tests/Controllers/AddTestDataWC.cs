@@ -28,26 +28,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
 
         private void addNewData_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            #region Collections and objectSpace
-
-            IObjectSpace objectSpace = Application.CreateObjectSpace();
-            fmCOrder fmCorder = objectSpace.CreateObject<fmCOrder>();
-            HrmSalaryPayType hrmSalaryPayType = objectSpace.CreateObject<HrmSalaryPayType>();
-            HrmPeriod hrmPeriod = objectSpace.CreateObject<HrmPeriod>();
-
-            var fmCorderCollection = objectSpace.GetObjects<fmCOrder>();
-            var hrmSalaryPayTypeCollection = objectSpace.GetObjects<HrmSalaryPayType>();
-            var hrmPeriodCollection = objectSpace.GetObjects<HrmPeriod>();
-            
-            #endregion
-
-            int val = 0;
-
-            foreach (var each in hrmPeriodCollection)
-            {
-                fmCorder.Code = "1234";
-            }
-            
+           
         }
 
         public AddTestDataWC() { InitializeComponent(); RegisterActions(components); }
