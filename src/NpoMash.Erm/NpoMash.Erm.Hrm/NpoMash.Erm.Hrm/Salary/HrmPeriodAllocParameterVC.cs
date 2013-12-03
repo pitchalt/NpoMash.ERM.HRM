@@ -63,6 +63,7 @@ namespace NpoMash.Erm.Hrm.Salary
                         {
                             HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
                             pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
+                            pt.AllocParameter = par;
                             par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
                         }
                     }
@@ -82,7 +83,7 @@ namespace NpoMash.Erm.Hrm.Salary
                             oc.NormKB = order.NormKB;
                             oc.NormOZM = order.NormOZM;
                             oc.NormNoControl = order.NormNoControl;
-                            //oc.TypeControl = order.TypeControl;  вот так почему-то нельзя, приходится делать как написано ниже:
+                            //oc.TypeControl = order.TypeControl; вот так почему-то нельзя, приходится делать как написано ниже:
                             if (order.TypeControl == fmCOrder.fmCOrderTypeCOntrol.FOT)
                                 oc.TypeControl=HrmPeriodOrderControl.HrmPeriodOrderTypeControl.FOT;
                             else oc.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.TrudEmk_FOT;
