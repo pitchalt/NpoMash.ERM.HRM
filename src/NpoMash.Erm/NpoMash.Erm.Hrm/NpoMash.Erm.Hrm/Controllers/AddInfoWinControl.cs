@@ -74,7 +74,7 @@ namespace NpoMash.Erm.Hrm.Controllers
             var _AllocParameters = objectSpace.CreateObject<HrmPeriodAllocParameter>(); // Создаем объект параметров расчета
             _AllocParameters.Status = HrmPeriodAllocParameter.HrmPeriodAllocParameterStatus.ListOfOrderAccepted; // Устанавливаем статус
             _AllocParameters.HrmPeriod = _Period_One; //Устанавливаем созданный период
-
+            _Period_One.HrmPeriodAllocParameter = _AllocParameters;
 
 
             foreach (var order in _OrderList) // Контроль заказа относительно того контроллируемый заказ или нет
