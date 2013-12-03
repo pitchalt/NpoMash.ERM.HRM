@@ -16,6 +16,8 @@ using DevExpress.Persistent.Validation;
 namespace IntecoAG.Erm.FM.Order
 {
 
+
+
     [Persistent("fmCOrder")]
     public class fmCOrder : BaseObject
     {
@@ -50,12 +52,13 @@ namespace IntecoAG.Erm.FM.Order
             get { return _NormNoControl; }
             set { SetPropertyValue<Decimal>("NormNoControl", ref _NormNoControl, value); } }
 
-
-        public enum fmCOrderTypeCOntrol {
+        public enum fmCOrderTypeCOntrol
+        {
             TrudEmk_FOT = 1,
             FOT = 2,
-            No_Ordered = 3}
-        public enum fmCOrdertypeConstancy {Null=1,One=2}
+            No_Ordered = 3
+        }
+        public enum fmCOrdertypeConstancy { Null = 1, One = 2 }
 
         public fmCOrder(Session session) : base(session) { }
         public override void AfterConstruction()

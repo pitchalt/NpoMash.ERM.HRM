@@ -79,7 +79,7 @@ namespace NpoMash.Erm.Hrm.Controllers
                     var _OrderControl = objectSpace.CreateObject<HrmPeriodOrderControl>();
                     int variant_control = random.Next(1, 4);
                     if (variant_control == 1) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.FOT; }
-                    if (variant_control == 2) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.NormNoControl; }
+                    if (variant_control == 2) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered; }
                     if (variant_control == 3) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.TrudEmk_FOT; }
                     _OrderControl.NormKB = Convert.ToDecimal(random.Next(100, 1000));
                     _OrderControl.NormOZM = Convert.ToDecimal(random.Next(100, 1000));
