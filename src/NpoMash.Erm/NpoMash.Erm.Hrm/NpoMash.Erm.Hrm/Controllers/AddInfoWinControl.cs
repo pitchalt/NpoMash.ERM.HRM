@@ -65,11 +65,6 @@ namespace NpoMash.Erm.Hrm.Controllers
             _Period_One.Month = 10;
             _Period_One.Year = 2013;
             _Period_One.Status = HrmPeriod.HrmPeriodStatus.closed;
-           // var _Period_Two = objectSpace.CreateObject<HrmPeriod>(); // Создаем второй период
-           // _Period_Two.Month = 11;
-            //_Period_Two.Year = 2013;
-            //_Period_Two.Status = HrmPeriod.HrmPeriodStatus.closed;
-
 
             var _AllocParameters = objectSpace.CreateObject<HrmPeriodAllocParameter>(); // Создаем объект параметров расчета
             _AllocParameters.Status = HrmPeriodAllocParameter.HrmPeriodAllocParameterStatus.ListOfOrderAccepted; // Устанавливаем статус
