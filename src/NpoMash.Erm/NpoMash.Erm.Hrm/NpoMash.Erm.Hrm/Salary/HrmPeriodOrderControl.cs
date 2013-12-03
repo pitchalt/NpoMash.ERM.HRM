@@ -25,7 +25,8 @@ namespace NpoMash.Erm.Hrm.Salary
         public enum HrmPeriodOrderTypeControl {
             TrudEmk_FOT = 1,
             FOT = 2,
-            NormNoControl = 3}
+            No_Ordered = 3
+        }
 
         private HrmPeriodOrderTypeControl _TypeControl;
         public HrmPeriodOrderTypeControl TypeControl{
