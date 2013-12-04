@@ -4,7 +4,7 @@
 		<!-- Win -->
 		<Application
 			Name="NpoMash.Erm.Hrm.Tests.Win"
-			FileName="[WinAppBin]\NpoMash.Erm.Hrm.Tests.Win.exe"
+			FileName="[WinAppBin]\NpoMash.Erm.Hrm.Tests.AppWin.exe"
 			AdapterAssemblyName="[WinAdapterAssemblyName]"
 			CommunicationPort="4100"/>
 		<!-- Web -->
@@ -27,7 +27,7 @@
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
 		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
 		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\NpoMash.Erm.Hrm.Tests.Win\Bin\EasyTest" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\NpoMash.Erm.Hrm.Tests.AppWin\Bin\EasyTest" />
 		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\NpoMash.Erm.Hrm.Tests.Web" />
 	</Aliases>
 </Options>
