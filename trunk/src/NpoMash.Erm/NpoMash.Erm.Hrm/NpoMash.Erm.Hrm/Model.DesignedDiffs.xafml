@@ -4,11 +4,6 @@
     <LocalizationGroup Name="DialogButtons">
       <LocalizationItem Name="Ignore" Value="a" />
     </LocalizationGroup>
-    <LocalizationGroup Name="Enums">
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl+HrmPeriodOrderTypeControl">
-        <LocalizationItem Name="FOT" Value="FOT" />
-      </LocalizationGroup>
-    </LocalizationGroup>
   </Localization>
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="13.1.8.0" IsNewNode="True" />

@@ -45,11 +45,11 @@
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
-      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrder+fmCOrdertypeConstancy">
+      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrdertypeConstancy">
         <LocalizationItem Name="Null" Value="0" />
         <LocalizationItem Name="One" Value="1" />
       </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrder+fmCOrderTypeCOntrol">
+      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrderTypeCOntrol">
         <LocalizationItem Name="FOT" Value="ФОТ" />
         <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
         <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
@@ -58,18 +58,18 @@
         <LocalizationItem Name="KB" Value="КБ" />
         <LocalizationItem Name="OZM" Value="ОЗМ" />
       </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriod+HrmPeriodStatus">
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
         <LocalizationItem Name="closed" Value="Закрыт" />
         <LocalizationItem Name="Opened" Value="Открыт" />
       </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter+HrmPeriodAllocParameterStatus">
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
         <LocalizationItem Name="AllocParametersAccepted" Value="Утверждены параметры расчета" />
-        <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контроллируемых заказов" />
         <LocalizationItem Name="OpenToEdit" Value="Открыт для редактирования" />
       </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl+HrmPeriodOrderTypeControl">
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderTypeControl">
         <LocalizationItem Name="FOT" Value="ФОТ" />
-        <LocalizationItem Name="NormNoControl" Value="Единый норматив для всех неконтролируемых заказов" />
+        <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
         <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
       </LocalizationGroup>
     </LocalizationGroup>
