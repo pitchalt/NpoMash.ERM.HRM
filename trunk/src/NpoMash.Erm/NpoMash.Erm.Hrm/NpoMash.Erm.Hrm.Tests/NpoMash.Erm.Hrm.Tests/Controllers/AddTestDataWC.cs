@@ -30,13 +30,13 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
         {
             #region Constants
 
-            HrmPeriod tmpHrmPeriod = null;
             int collectionCount = 0;
-            int startDate = 2000;
+            int startDate = 2013;
             int startMonth = 0;
             int hrmPeriodCount = 10;
             int fmCOrderCount = 10;
             int hrmPeriodPayTypeCount = 10;
+            HrmPeriod tmpHrmPeriod = null;
             Random random = new Random();
 
             #endregion
@@ -60,15 +60,13 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
                 HrmPeriodPayType hrmPeriodPayType = objectSpace.CreateObject<HrmPeriodPayType>();
             }
 
-            objectSpace.CommitChanges();
-
-            var hrmPeriodCollection = objectSpace.GetObjects<HrmPeriod>();
-            var fmCorderCollection = objectSpace.GetObjects<fmCOrder>();
-            var hrmPeriodPayTypeColection = objectSpace.GetObjects<HrmPeriodPayType>();
+            var hrmPeriodCollection = objectSpace.GetObjects<HrmPeriod>(null,true);
+            var fmCorderCollection = objectSpace.GetObjects<fmCOrder>(null, true);
+            var hrmPeriodPayTypeColection = objectSpace.GetObjects<HrmPeriodPayType>(null, true);
 
             #endregion
 
-            #region HrmPeriod Generation
+            #region Data Generation
 
             foreach (var each in hrmPeriodCollection)
             {
