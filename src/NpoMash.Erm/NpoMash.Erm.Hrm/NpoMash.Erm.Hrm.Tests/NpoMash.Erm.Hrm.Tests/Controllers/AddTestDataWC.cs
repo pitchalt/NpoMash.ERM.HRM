@@ -78,11 +78,11 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
                 each.Month = Convert.ToInt16(random.Next(1, 13));
                 if (random.Next(50) < 25)
                 {
-                    each.Status = HrmPeriod.HrmPeriodStatus.Opened;
+                    each.Status = HrmPeriodStatus.Opened;
                 }
                 else
                 {
-                    each.Status = HrmPeriod.HrmPeriodStatus.closed;
+                    each.Status = HrmPeriodStatus.closed;
                 }
                 each.HrmPeriodAllocParameter = objectSpace.CreateObject<HrmPeriodAllocParameter>();
                 each.HrmPeriodAllocParameter.HrmPeriod = each;

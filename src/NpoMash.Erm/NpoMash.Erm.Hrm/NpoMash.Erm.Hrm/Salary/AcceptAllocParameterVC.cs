@@ -25,7 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary
         private void Accept_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             HrmPeriodAllocParameter ap = (HrmPeriodAllocParameter)e.CurrentObject;
-            ap.Status = HrmPeriodAllocParameter.HrmPeriodAllocParameterStatus.AllocParametersAccepted;
+            ap.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
             //HrmPeriod hp=ObjectSpace.GetObject<HrmPeriod>(ap.HrmPeriod);
             //hp.Status = HrmPeriod.HrmPeriodStatus.closed;
             ObjectSpace.CommitChanges();
