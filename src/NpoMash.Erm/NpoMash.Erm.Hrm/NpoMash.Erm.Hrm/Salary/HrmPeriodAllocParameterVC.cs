@@ -71,7 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary
                 //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
                 foreach (var order in os.GetObjects<fmCOrder>())
                 {
-                    if (order.TypeControl != fmCOrder.fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
+                    if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
                     {
                         bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
                         foreach (var existingControl in par.OrderControls)
@@ -84,9 +84,9 @@ namespace NpoMash.Erm.Hrm.Salary
                             oc.NormOZM = order.NormOZM;
                             oc.NormNoControl = order.NormNoControl;
                             //oc.TypeControl = order.TypeControl; вот так почему-то нельзя, приходится делать как написано ниже:
-                            if (order.TypeControl == fmCOrder.fmCOrderTypeCOntrol.FOT)
-                                oc.TypeControl=HrmPeriodOrderControl.HrmPeriodOrderTypeControl.FOT;
-                            else oc.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.TrudEmk_FOT;
+                            if (order.TypeControl == fmCOrderTypeCOntrol.FOT)
+                                oc.TypeControl=HrmPeriodOrderTypeControl.FOT;
+                            else oc.TypeControl = HrmPeriodOrderTypeControl.TrudEmk_FOT;
                             par.OrderControls.Add(oc);//и добавляем в коллекцию
                         }
                     }

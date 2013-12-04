@@ -16,6 +16,7 @@ using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm {
 
+    public enum HrmPeriodStatus { Opened = 1, closed = 2 }
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
     public class HrmPeriod : BaseObject {
@@ -31,8 +32,6 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<Int16>("Month", ref _Month, value); }
         }
 
-
-        public enum HrmPeriodStatus { Opened = 1, closed = 2 }
         private HrmPeriodStatus _Status;
         public HrmPeriodStatus Status {
             get { return _Status; }

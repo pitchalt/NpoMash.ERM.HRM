@@ -16,17 +16,17 @@ using IntecoAG.Erm.HRM;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
+
+    public enum HrmPeriodAllocParameterStatus
+    {
+        OpenToEdit = 1,
+        ListOfOrderAccepted = 2,
+        AllocParametersAccepted = 3
+    }
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
     public class HrmPeriodAllocParameter : BaseObject
     {
-
-        public enum HrmPeriodAllocParameterStatus
-        { 
-            OpenToEdit=1,
-            ListOfOrderAccepted=2,
-            AllocParametersAccepted=3
-        }
 
         private HrmPeriodAllocParameterStatus _Status;
         public HrmPeriodAllocParameterStatus Status {
