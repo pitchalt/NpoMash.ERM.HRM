@@ -33,7 +33,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
             int collectionCount = 0;
             int startDate = 2013;
             int startMonth = 0;
-            int hrmPeriodCount = 1;
+            int hrmPeriodCount = 2;
             int fmCOrderCount = 10;
             int hrmPeriodPayTypeCount = 10;
             HrmPeriod tmpHrmPeriod = null;

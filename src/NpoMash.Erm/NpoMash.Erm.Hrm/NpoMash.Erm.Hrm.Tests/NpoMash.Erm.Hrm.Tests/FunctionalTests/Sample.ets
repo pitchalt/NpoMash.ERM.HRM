@@ -1,18 +1,9 @@
-;#DropDB NpoMash.Erm.Hrm.TestsEasyTest
 
+;#DropDB NpoMash.Erm.Hrm.Test
 #Application NpoMash.Erm.Hrm.Tests.Win
-#Application NpoMash.Erm.Hrm.Tests.Web
 
-#IfDef NpoMash.Erm.Hrm.Tests.Win
-
-*Action About...
- 
-*Action OK
-
-#EndIf
-
-#IfDef NpoMash.Erm.Hrm.Tests.Web
-
-*Action Choose Theme(Black Glass)
-
-#EndIf
+*Action CreatePeriod
+*Action Сформировать параметры расчета
+*Action Утвердить
+*Action Обновить
+*Action Закрыть
