@@ -49,12 +49,12 @@ namespace NpoMash.Erm.Hrm.Controllers
                 var _Order = objectSpace.CreateObject<fmCOrder>();
                 _Order.Code = Convert.ToString(random.Next(100000, 1000000));
                 int variant_control = random.Next(1, 4);
-                if (variant_control == 1) { _Order.TypeControl = fmCOrder.fmCOrderTypeCOntrol.No_Ordered; }
-                if (variant_control == 2) { _Order.TypeControl = fmCOrder.fmCOrderTypeCOntrol.FOT; }
-                if (variant_control == 3) { _Order.TypeControl = fmCOrder.fmCOrderTypeCOntrol.TrudEmk_FOT; }
+                if (variant_control == 1) { _Order.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
+                if (variant_control == 2) { _Order.TypeControl = fmCOrderTypeCOntrol.FOT; }
+                if (variant_control == 3) { _Order.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
                 int variant_constansy = random.Next(1, 3);
-                if (variant_constansy == 1) { _Order.TypeConstancy = fmCOrder.fmCOrdertypeConstancy.Null; }
-                if (variant_constansy == 2) { _Order.TypeConstancy = fmCOrder.fmCOrdertypeConstancy.One; }
+                if (variant_constansy == 1) { _Order.TypeConstancy = fmCOrdertypeConstancy.Null; }
+                if (variant_constansy == 2) { _Order.TypeConstancy = fmCOrdertypeConstancy.One; }
                 _Order.NormKB = Convert.ToDecimal(random.Next(100, 1000));
                 _Order.NormOZM = Convert.ToDecimal(random.Next(100, 1000));
                 _Order.NormNoControl = Convert.ToDecimal(random.Next(100, 1000));
@@ -64,23 +64,23 @@ namespace NpoMash.Erm.Hrm.Controllers
             var _Period_One = objectSpace.CreateObject<HrmPeriod>(); // Создаем первый период
             _Period_One.Month = 10;
             _Period_One.Year = 2013;
-            _Period_One.Status = HrmPeriod.HrmPeriodStatus.closed;
+            _Period_One.Status =HrmPeriodStatus.closed;
 
             var _AllocParameters = objectSpace.CreateObject<HrmPeriodAllocParameter>(); // Создаем объект параметров расчета
-            _AllocParameters.Status = HrmPeriodAllocParameter.HrmPeriodAllocParameterStatus.ListOfOrderAccepted; // Устанавливаем статус
+            _AllocParameters.Status = HrmPeriodAllocParameterStatus.ListOfOrderAccepted; // Устанавливаем статус
             _AllocParameters.HrmPeriod = _Period_One; //Устанавливаем созданный период
             _Period_One.HrmPeriodAllocParameter = _AllocParameters;
 
 
             foreach (var order in _OrderList) // Контроль заказа относительно того контроллируемый заказ или нет
             {
-                if (order.TypeControl == fmCOrder.fmCOrderTypeCOntrol.FOT || order.TypeControl == fmCOrder.fmCOrderTypeCOntrol.TrudEmk_FOT)
+                if (order.TypeControl == fmCOrderTypeCOntrol.FOT || order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT)
                 {
                     var _OrderControl = objectSpace.CreateObject<HrmPeriodOrderControl>();
                     int variant_control = random.Next(1, 4);
-                    if (variant_control == 1) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.FOT; }
-                    if (variant_control == 2) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.No_Ordered; }
-                    if (variant_control == 3) { _OrderControl.TypeControl = HrmPeriodOrderControl.HrmPeriodOrderTypeControl.TrudEmk_FOT; }
+                    if (variant_control == 1) { _OrderControl.TypeControl = HrmPeriodOrderTypeControl.FOT; }
+                    if (variant_control == 2) { _OrderControl.TypeControl = HrmPeriodOrderTypeControl.No_Ordered; }
+                    if (variant_control == 3) { _OrderControl.TypeControl = HrmPeriodOrderTypeControl.TrudEmk_FOT; }
                     _OrderControl.NormKB = Convert.ToDecimal(random.Next(100, 1000));
                     _OrderControl.NormOZM = Convert.ToDecimal(random.Next(100, 1000));
                     _OrderControl.NormNoControl = Convert.ToDecimal(random.Next(100, 1000));
