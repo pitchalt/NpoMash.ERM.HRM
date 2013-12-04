@@ -30,7 +30,13 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
         {
             #region Constants
 
+            HrmPeriod tmpHrmPeriod = null;
+            int collectionCount = 0;
+            int startDate = 2000;
+            int startMonth = 0;
             int hrmPeriodCount = 10;
+            int fmCOrderCount = 10;
+            int hrmPeriodPayTypeCount = 10;
             Random random = new Random();
 
             #endregion
@@ -44,39 +50,35 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
                 HrmPeriod hrmPeriod = objectSpace.CreateObject<HrmPeriod>();
             }
 
-            /*
-            for (int i = 0; i < hrmPeriodCount+4; i++)
+            for (int i = 0; i < fmCOrderCount; i++)
             {
-                HrmSalaryPayType hrmSalaryPayType = objectSpace.CreateObject<HrmSalaryPayType>();
+                fmCOrder fmCorder = objectSpace.CreateObject<fmCOrder>();
             }
-            */
+
+            for (int i = 0; i < hrmPeriodPayTypeCount; i++)
+            {
+                HrmPeriodPayType hrmPeriodPayType = objectSpace.CreateObject<HrmPeriodPayType>();
+            }
+
             objectSpace.CommitChanges();
 
             var hrmPeriodCollection = objectSpace.GetObjects<HrmPeriod>();
-            var hrmSalaryPayTypeCollection = objectSpace.GetObjects<HrmSalaryPayType>();
-            var hrmPeriodPayTypeCollection = objectSpace.GetObjects<HrmPeriodPayType>();
+            var fmCorderCollection = objectSpace.GetObjects<fmCOrder>();
+            var hrmPeriodPayTypeColection = objectSpace.GetObjects<HrmPeriodPayType>();
 
             #endregion
 
             #region HrmPeriod Generation
 
-            /*
-            int salaryPayTypeCode = 10000;
-
-
-            foreach (var a in hrmSalaryPayTypeCollection)
-            {
-                a.Code = salaryPayTypeCode.ToString();
-                a.Name = salaryPayTypeCode.ToString();
-                salaryPayTypeCode += 1;
-            }
-            */
-
             foreach (var each in hrmPeriodCollection)
             {
-                each.Year = Convert.ToInt16(random.Next(1990, 2021));
-                each.Month = Convert.ToInt16(random.Next(1, 13));
-                if (random.Next(50) < 25)
+                collectionCount += 1;
+                each.Year = Convert.ToInt16(startDate);
+                each.Month = Convert.ToInt16(startMonth);
+                each.addMonth();
+                startDate = each.Year;
+                startMonth = each.Month;
+                if (collectionCount == hrmPeriodCollection.Count())
                 {
                     each.Status = HrmPeriodStatus.Opened;
                 }
@@ -86,16 +88,56 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
                 }
                 each.HrmPeriodAllocParameter = objectSpace.CreateObject<HrmPeriodAllocParameter>();
                 each.HrmPeriodAllocParameter.HrmPeriod = each;
-                /*
-                foreach (var b in hrmSalaryPayTypeCollection)
+                if (collectionCount == 1)
                 {
-                    HrmPeriodAllocParameter eachParameter = each.HrmPeriodAllocParameter;
-                    HrmPeriodPayType hrmPeriodPayType = objectSpace.CreateObject<HrmPeriodPayType>();
-                    hrmPeriodPayType.PayType = b;
-                    eachParameter.PeriodPayTypes.Add(hrmPeriodPayType);
+                    tmpHrmPeriod = each;
+                    each.PeriodPrevious = each;
                 }
-                */
+                else
+                {
+                    each.PeriodPrevious = tmpHrmPeriod;
+                    tmpHrmPeriod = each;
+                }
+
+                foreach (var order in fmCorderCollection)
+                {
+                    order.Code = random.Next(1000, 5000).ToString();
+                    int rnd = random.Next(99);
+                    if (rnd < 33)
+                    {
+                        order.TypeControl = fmCOrderTypeCOntrol.FOT;
+                        order.TypeConstancy = fmCOrdertypeConstancy.One;
+                        HrmPeriodOrderControl hrmPeriodOrderControl = objectSpace.CreateObject<HrmPeriodOrderControl>();
+                        hrmPeriodOrderControl.Order = order;
+                        hrmPeriodOrderControl.AllocParameter = each.HrmPeriodAllocParameter;
+                    }
+                    if ((rnd >= 33) && (rnd < 66))
+                    {
+                        order.TypeControl = fmCOrderTypeCOntrol.No_Ordered;
+                        order.TypeConstancy = fmCOrdertypeConstancy.One;
+                    }
+                    if (rnd >= 66)
+                    {
+                        order.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT;
+                        order.TypeConstancy = fmCOrdertypeConstancy.One;
+                        HrmPeriodOrderControl hrmPeriodOrderControl = objectSpace.CreateObject<HrmPeriodOrderControl>();
+                        hrmPeriodOrderControl.Order = order;
+                    }
+                        order.NormKB = random.Next(10000, 20000);
+                        order.NormNoControl = random.Next(10000, 20000);
+                        order.NormOZM = random.Next(10000, 20000);
+                    }
+
+                    foreach (var periodPayType in hrmPeriodPayTypeColection)
+                    {
+                        HrmSalaryPayType hrmSalaryPayType = objectSpace.CreateObject<HrmSalaryPayType>();
+                        hrmSalaryPayType.Code = random.Next(100000).ToString();
+                        hrmSalaryPayType.Name = random.Next(10000000).ToString();
+                        periodPayType.PayType = hrmSalaryPayType;
+                        periodPayType.AllocParameter = each.HrmPeriodAllocParameter;
+                    }
             }
+
             objectSpace.CommitChanges();
 
             #endregion
