@@ -31,10 +31,6 @@ namespace NpoMash.Erm.Hrm.Salary
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter obj) { }
 
 
-
-
-
-
         public AllocParametersLogic(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();

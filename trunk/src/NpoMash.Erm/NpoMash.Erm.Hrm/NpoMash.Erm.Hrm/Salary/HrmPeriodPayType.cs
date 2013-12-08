@@ -27,6 +27,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private HrmSalaryPayType _PayType;  //Ñâÿçü ñ HrmSalaryPayType
+        [Indexed("AllocParameter", Unique = true)]
         public HrmSalaryPayType PayType {
             get { return _PayType; }
             set { SetPropertyValue<HrmSalaryPayType>("PayType", ref _PayType, value); }
