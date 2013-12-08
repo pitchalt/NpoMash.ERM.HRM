@@ -17,8 +17,8 @@ using IntecoAG.Erm.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary
 {
     public static class AllocParametersLogic {
-        private static const Int16 INIT_NORM_NO_CONTROL_KB = 1000;
-        private static const Int16 INIT_NORM_NO_CONTROL_OZM = 2000;
+        private const Int16 INIT_NORM_NO_CONTROL_KB = 1000;
+        private const Int16 INIT_NORM_NO_CONTROL_OZM = 2000;
 
         public static HrmPeriodAllocParameter createParameters(IObjectSpace os) {
             HrmPeriod new_period = HrmPeriodLogic.createPeriod(os); // здесь если уже есть открытый период сгенерируется исключение
