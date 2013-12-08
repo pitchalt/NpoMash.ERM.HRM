@@ -49,13 +49,13 @@ namespace NpoMash.Erm.Hrm
             return new_period;
         }
 
-        public static void addMonth(HrmPeriod hp, Int16 m, Int16 y) {
+        public static void addMonth(HrmPeriod hp, Int16 y, Int16 m) {
             m++;
             if (m > 12) {
                 m = 1;
                 y++;
             }
-            hp.Init(m, y);
+            hp.Init(y, m);
         }
     }
 }

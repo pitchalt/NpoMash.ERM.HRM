@@ -15,26 +15,26 @@ using NpoMash.Erm.Hrm;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    //[Persistent("AllocParametersLogic")]
-    public class AllocParametersLogic : BaseObject {
+    public class AllocParametersLogic {
 
         public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) {
-          /*  HrmPeriod current_period = HrmPeriodLogic.findLastPeriod(os);
-            if (current_period.Status == HrmPeriodStatus.closed) throw new Exception("ѕоследний период закрыт");
-            
-            current_period.CurrentAllocParameter != null &&
-                current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit){
-
+            HrmPeriod last_period = HrmPeriodLogic.findLastPeriod(os);
+            if (last_period != null && last_period.Status == HrmPeriodStatus.Opened)
+            {
+                if (last_period.CurrentAllocParameter != null){
+                    if (last_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit ||
+                        last_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted)
+                        throw new Exception("”же есть параметры, открытые дл€ редактировани€");
+                    if (last_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.AllocParametersAccepted)
+                        throw new Exception("ѕараметры дл€ текущего периода уже утверждены");
+                }
+                else
+                    throw new Exception("≈сть открытый период без параметров");
+                    //throw new Exception("ѕоследний период не закрыт");
+            HrmPeriod current_period = HrmPeriodLogic.createPeriod(os);
             }
-            */
+            
         }
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter obj) { }
-
-
-        public AllocParametersLogic(Session session) : base(session) { }
-        public override void AfterConstruction() {
-            base.AfterConstruction();
-        }
-       
     }
 }
