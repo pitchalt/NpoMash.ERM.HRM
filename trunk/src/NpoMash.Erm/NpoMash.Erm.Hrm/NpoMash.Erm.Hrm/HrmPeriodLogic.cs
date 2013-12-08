@@ -14,7 +14,7 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm
 {
-    [Persistent("HrmPeriodLogic")]
+    //[Persistent("HrmPeriodLogic")]
     public static class HrmPeriodLogic : BaseObject {
 
 
@@ -43,8 +43,13 @@ namespace NpoMash.Erm.Hrm
 
         public static HrmPeriod createPeriod(IObjectSpace os) {
             HrmPeriod last_period = findLastPeriod(os);
+            if (last_period.Status == HrmPeriodStatus.Opened){
+                throw new Exception("Есть незакрытый период");
+            }
             HrmPeriod new_period = os.CreateObject<HrmPeriod>();
             addMonth(new_period, last_period.Year, last_period.Month);
+            new_period.Status = HrmPeriodStatus.Opened;
+            new_period.PeriodPrevious = last_period;
             return new_period;
         }
 
