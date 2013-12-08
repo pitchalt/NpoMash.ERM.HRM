@@ -30,6 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             this.components = new System.ComponentModel.Container();
             this.CreateAllocParameters = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.AcceptAllocParameters = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // CreateAllocParameters
             // 
@@ -47,6 +48,21 @@ namespace NpoMash.Erm.Hrm.Salary
             this.CreateAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.CreateAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.CreateAllocParameters_Execute);
             // 
+            // AcceptAllocParameters
+            // 
+            this.AcceptAllocParameters.Caption = "Accept Alloc Parameters";
+            this.AcceptAllocParameters.ConfirmationMessage = null;
+            this.AcceptAllocParameters.Id = "AcceptAllocParameters";
+            this.AcceptAllocParameters.ImageName = null;
+            this.AcceptAllocParameters.Shortcut = null;
+            this.AcceptAllocParameters.Tag = null;
+            this.AcceptAllocParameters.TargetObjectsCriteria = null;
+            this.AcceptAllocParameters.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
+            this.AcceptAllocParameters.TargetViewId = null;
+            this.AcceptAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.AcceptAllocParameters.ToolTip = null;
+            this.AcceptAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            // 
             // HrmPeriodAllocParameterVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
@@ -57,5 +73,6 @@ namespace NpoMash.Erm.Hrm.Salary
         #endregion
 
         private DevExpress.ExpressApp.Actions.SimpleAction CreateAllocParameters;
+        private DevExpress.ExpressApp.Actions.SimpleAction AcceptAllocParameters;
     }
 }

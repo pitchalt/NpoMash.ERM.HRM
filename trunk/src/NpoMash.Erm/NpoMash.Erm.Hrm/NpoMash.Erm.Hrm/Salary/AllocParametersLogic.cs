@@ -15,10 +15,10 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary
 {
     [Persistent("AllocParametersLogic")]
-    public class AllocParametersLogic : BaseObject { 
+    public class AllocParametersLogic : BaseObject {
 
-
-
+        public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) { }
+        public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter obj) { }
 
 
 

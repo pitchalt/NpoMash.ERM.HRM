@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary
             set { SetPropertyValue<Decimal>("NormNoControlOZM", ref _NormNoControlOZM, value); }
         }
 
-        private HrmPeriod _Period;
+        private HrmPeriod _Period; // סגÿחü ס HrmPeriod
         [Association("Period-AllocParameters")]
         public HrmPeriod Period {
             get { return _Period; }
@@ -64,9 +64,6 @@ namespace NpoMash.Erm.Hrm.Salary
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
        
-
-
-      
         public HrmPeriodAllocParameter(Session session) : base(session) { }
 
         public override void AfterConstruction(){
