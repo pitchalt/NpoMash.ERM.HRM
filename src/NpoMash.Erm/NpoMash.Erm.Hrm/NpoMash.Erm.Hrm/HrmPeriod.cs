@@ -23,6 +23,7 @@ namespace NpoMash.Erm.Hrm {
 
 
         private Int16 _Year;
+        [RuleRequiredField(DefaultContexts.Save)]
         [Indexed("Month",Unique = true)]
         public Int16 Year {
             get { return _Year; }

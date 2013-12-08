@@ -19,14 +19,14 @@ namespace NpoMash.Erm.Hrm.Salary
     public class AllocParametersLogic : BaseObject {
 
         public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) {
-            HrmPeriod current_period = HrmPeriodLogic.findLastPeriod(os);
+          /*  HrmPeriod current_period = HrmPeriodLogic.findLastPeriod(os);
             if (current_period.Status == HrmPeriodStatus.closed) throw new Exception("Последний период закрыт");
             
             current_period.CurrentAllocParameter != null &&
                 current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit){
 
             }
-            
+            */
         }
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter obj) { }
 
