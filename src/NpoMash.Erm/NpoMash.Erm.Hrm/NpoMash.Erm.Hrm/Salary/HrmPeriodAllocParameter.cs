@@ -45,7 +45,13 @@ namespace NpoMash.Erm.Hrm.Salary
             get { return _NormNoControlKB; }
             set { SetPropertyValue<Decimal>("NormNoControlOZM", ref _NormNoControlOZM, value); }
         }
-        
+
+        private HrmPeriod _Period;
+        [Association("Period-AllocParameters")]
+        public HrmPeriod Period {
+            get { return _Period; }
+            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
+        }  
 
         [Association("AllocParameter-OrderControls"), Aggregated]  // связь с HrmPeriodOrderControl
         public XPCollection<HrmPeriodOrderControl> OrderControls {
@@ -57,12 +63,8 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
+       
 
-        private HrmPeriod _Period;  //Связь с HrmPeriod
-        public HrmPeriod Period { 
-               get { return _Period; }
-               set { SetPropertyValue<HrmPeriod>("HrmPeriod", ref _Period, value); }
-        }
 
       
         public HrmPeriodAllocParameter(Session session) : base(session) { }
