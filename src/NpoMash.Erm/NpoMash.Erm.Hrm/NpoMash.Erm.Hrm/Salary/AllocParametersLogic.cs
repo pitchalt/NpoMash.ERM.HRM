@@ -12,30 +12,79 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using NpoMash.Erm.Hrm;
+using IntecoAG.Erm.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
     public static class AllocParametersLogic {
+        private static const Int16 INIT_NORM_NO_CONTROL_KB = 1000;
+        private static const Int16 INIT_NORM_NO_CONTROL_OZM = 2000;
 
-        public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) {
-            HrmPeriod last_period = HrmPeriodLogic.findLastPeriod(os);
-            if (last_period != null && last_period.Status == HrmPeriodStatus.Opened)
-            {
-                if (last_period.CurrentAllocParameter != null){
-                    if (last_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit ||
-                        last_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted)
-                        throw new Exception("Уже есть параметры, открытые для редактирования");
-                    if (last_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.AllocParametersAccepted)
-                        throw new Exception("Параметры для текущего периода уже утверждены");
-                }
-                else
-                    throw new Exception("Есть открытый период без параметров");
-                    //throw new Exception("Последний период не закрыт");
-            HrmPeriod current_period = HrmPeriodLogic.createPeriod(os);
-            }
-            
+        public static HrmPeriodAllocParameter createParameters(IObjectSpace os) {
+            HrmPeriod new_period = HrmPeriodLogic.createPeriod(os); // здесь если уже есть открытый период сгенерируется исключение
+            HrmPeriodAllocParameter alloc_parameter = initParameters(os,new_period);
+            return alloc_parameter;
         }
 
+        private static HrmPeriodAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
+            HrmPeriodAllocParameter par = os.CreateObject<HrmPeriodAllocParameter>();
+            par.Period = current_period;
+            current_period.CurrentAllocParameter = par;
+            par.Status = HrmPeriodAllocParameterStatus.OpenToEdit;
+            initParametersFromPreviousPeriod(os, par);
+            initOrderControls(os, par);
+            return par;
+        }
+
+
+        private static void initParametersFromPreviousPeriod(IObjectSpace os, HrmPeriodAllocParameter par) {
+            if (par.Period.PeriodPrevious == par.Period) {
+                par.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
+                par.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
+            }
+            else {
+                par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
+                par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
+            }
+
+            foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
+                bool alreadyThere = false;
+                foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
+                    //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
+                    if (pay.PayType == existingPay.PayType) alreadyThere = true;
+                if (!alreadyThere)//если такой еще не добавляли...
+                {
+                    HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
+                    pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
+                    pt.AllocParameter = par;
+                    par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
+                }
+            }
+        }
+
+        private static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
+            //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
+            foreach (var order in os.GetObjects<fmCOrder>()) {
+                if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
+                {
+                    bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
+                    foreach (var existingControl in par.OrderControls)
+                        if (existingControl.Order == order) alreadyThere = true;
+                    if (!alreadyThere)//если такого еще не было
+                    {//то создаем новый HrmPeriodOrderControl и копируем в него параметры из fmCOrder-а
+                        HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
+                        oc.Order = order;
+                        oc.NormKB = order.NormKB;
+                        oc.NormOZM = order.NormOZM;
+                        //oc.TypeControl = order.TypeControl; вот так почему-то нельзя, приходится делать как написано ниже:
+                        if (order.TypeControl == fmCOrderTypeCOntrol.FOT)
+                            oc.TypeControl = HrmPeriodOrderTypeControl.FOT;
+                        else oc.TypeControl = HrmPeriodOrderTypeControl.TrudEmk_FOT;
+                        par.OrderControls.Add(oc);//и добавляем в коллекцию
+                    }
+                }
+            }
+        }
 
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
