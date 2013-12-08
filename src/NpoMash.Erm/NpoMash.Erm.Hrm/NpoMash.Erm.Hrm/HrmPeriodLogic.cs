@@ -16,20 +16,22 @@ namespace NpoMash.Erm.Hrm
 {
     public static class HrmPeriodLogic {
 
+        private static const Int16 INIT_YEAR = 2013;
+        private static const Int16 INIT_MONTH = 12;
+
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
             var period_list = os.GetObjects<HrmPeriod>();
             HrmPeriod last_period=null;
             var maxYear = period_list.Max(Period => Period.Year);
             List<HrmPeriod> HrmPeriodMaxYearsCollection = new List<HrmPeriod>(); //Список периодов с максимальным годом
             //Формируем этот лист
-            foreach (var a in period_list) {
+            foreach (HrmPeriod a in period_list) {
                 if (a.Year == maxYear) {
                     HrmPeriodMaxYearsCollection.Add(a);
                 }
             }
-            var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
-            //var last_period = os.CreateObject<HrmPeriod>();
-            foreach (var a in period_list) {
+            Int16 maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
+            foreach (HrmPeriod a in period_list) {
                 if ((a.Year == maxYear) && (a.Month == maxMonth)) {
                     last_period=a;
                 }
@@ -39,23 +41,30 @@ namespace NpoMash.Erm.Hrm
 
         public static HrmPeriod createPeriod(IObjectSpace os) {
             HrmPeriod last_period = findLastPeriod(os);
-            if (last_period.Status == HrmPeriodStatus.Opened){
+            if (last_period != null && last_period.Status == HrmPeriodStatus.Opened){
                 throw new Exception("Есть незакрытый период");
             }
             HrmPeriod new_period = os.CreateObject<HrmPeriod>();
-            addMonth(new_period, last_period.Year, last_period.Month);
+            if (last_period == null)
+            {
+                new_period.PeriodPrevious = new_period;
+                new_period.Init(INIT_YEAR,INIT_MONTH);
+            }
+            else {
+                addMonth(new_period, last_period.Year, last_period.Month);
+                new_period.PeriodPrevious = last_period;
+            }
             new_period.Status = HrmPeriodStatus.Opened;
-            new_period.PeriodPrevious = last_period;
             return new_period;
         }
 
-        public static void addMonth(HrmPeriod hp, Int16 y, Int16 m) {
+        public static void addMonth(HrmPeriod period_with_next_month, Int16 y, Int16 m) {
             m++;
             if (m > 12) {
                 m = 1;
                 y++;
             }
-            hp.Init(y, m);
+            period_with_next_month.Init(y, m);
         }
     }
 }
