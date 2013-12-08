@@ -14,6 +14,13 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm
 {
+    class OpenPeriodExistsException : Exception
+    {
+        public OpenPeriodExistsException() : base() { }
+        public OpenPeriodExistsException(string message):base(message){}
+    }
+
+
     public static class HrmPeriodLogic {
 
         private static const Int16 INIT_YEAR = 2013;
@@ -42,7 +49,7 @@ namespace NpoMash.Erm.Hrm
         public static HrmPeriod createPeriod(IObjectSpace os) {
             HrmPeriod last_period = findLastPeriod(os);
             if (last_period != null && last_period.Status == HrmPeriodStatus.Opened){
-                throw new Exception("Есть незакрытый период");
+                throw new OpenPeriodExistsException("Есть незакрытый период");
             }
             HrmPeriod new_period = os.CreateObject<HrmPeriod>();
             if (last_period == null)
