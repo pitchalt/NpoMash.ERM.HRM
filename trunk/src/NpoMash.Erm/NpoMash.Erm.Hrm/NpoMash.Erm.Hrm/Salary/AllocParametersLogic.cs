@@ -15,7 +15,7 @@ using NpoMash.Erm.Hrm;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    public class AllocParametersLogic {
+    public static class AllocParametersLogic {
 
         public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) {
             HrmPeriod last_period = HrmPeriodLogic.findLastPeriod(os);
@@ -35,6 +35,12 @@ namespace NpoMash.Erm.Hrm.Salary
             }
             
         }
-        public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter obj) { }
-    }
-}
+
+
+        public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
+            alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
+        }
+
+
+    }//end of AllocParametersLogic class
+}//end of namespace
