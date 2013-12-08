@@ -11,13 +11,23 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using NpoMash.Erm.Hrm;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    [Persistent("AllocParametersLogic")]
+    //[Persistent("AllocParametersLogic")]
     public class AllocParametersLogic : BaseObject {
 
-        public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) { }
+        public static void createParameters(IObjectSpace os,HrmPeriodAllocParameter obj ) {
+            HrmPeriod current_period = HrmPeriodLogic.findLastPeriod(os);
+            if (current_period.Status == HrmPeriodStatus.closed) throw new Exception("Последний период закрыт");
+            
+            current_period.CurrentAllocParameter != null &&
+                current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit){
+
+            }
+            
+        }
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter obj) { }
 
 
