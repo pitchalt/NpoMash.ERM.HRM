@@ -27,7 +27,20 @@ namespace NpoMash.Erm.Hrm.Salary
     [NavigationItem("A1 Integration")]
     public class HrmPeriodAllocParameter : BaseObject
     {
+        
+        [PersistentAlias("Period.Year")]
+        public Int16 Year {
+            get { return Period.Year; }
+        }
 
+        [PersistentAlias("Period.Month")]
+        public Int16 Month {
+            get { return Period.Month; }
+        }
+
+        public Int16 Month {
+            get { return Period.Month; }
+        }
         private HrmPeriodAllocParameterStatus _Status;
         public HrmPeriodAllocParameterStatus Status {
                get { return _Status; }
@@ -70,6 +83,12 @@ namespace NpoMash.Erm.Hrm.Salary
             base.AfterConstruction();
             Status = HrmPeriodAllocParameterStatus.OpenToEdit;
         }
-    
+
+
     }
+
+    
+    
 }
+
+

@@ -20,7 +20,10 @@ namespace NpoMash.Erm.Hrm {
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
     public class HrmPeriod : BaseObject {
+
+
         private Int16 _Year;
+        [Indexed("Month",Unique = true)]
         public Int16 Year {
             get { return _Year; }
             //set { SetPropertyValue<Int16>("Year", ref _Year, value); }

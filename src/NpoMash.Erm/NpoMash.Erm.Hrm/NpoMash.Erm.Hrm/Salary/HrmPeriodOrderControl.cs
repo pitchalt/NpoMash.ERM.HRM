@@ -49,6 +49,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         // סגÿחü ס FmCOrder
         private fmCOrder _Order;
+        [Indexed("AllocParameter", Unique = true)]
         public fmCOrder Order{
                get { return _Order; }
                set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }}
