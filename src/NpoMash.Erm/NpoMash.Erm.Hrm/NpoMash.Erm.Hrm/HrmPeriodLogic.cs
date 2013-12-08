@@ -41,25 +41,21 @@ namespace NpoMash.Erm.Hrm
             return last_period; // Возваращем последний период
         }
 
-    public static void createPeriod(IObjectSpace os, HrmPeriod obj) { 
-    
-    
-    
-    }
-
-    /*public void addMonth() {
-        Int16 m = Month;
-        m++;
-        if (m > 12) {
-            m = 1;
-            Int16 y = Year;
-            y++;
-            SetPropertyValue<Int16>("Year", ref _Year, y);
+        public static HrmPeriod createPeriod(IObjectSpace os) {
+            HrmPeriod last_period = findLastPeriod(os);
+            HrmPeriod new_period = os.CreateObject<HrmPeriod>();
+            addMonth(new_period, last_period.Year, last_period.Month);
+            return new_period;
         }
-        SetPropertyValue<Int16>("Month", ref _Month, m);
-    }
-        */
 
+        public static void addMonth(HrmPeriod hp, Int16 m, Int16 y) {
+            m++;
+            if (m > 12) {
+                m = 1;
+                y++;
+            }
+            hp.Init(m, y);
+        }
 
         public HrmPeriodLogic(Session session): base(session){ }
         public override void AfterConstruction() {
