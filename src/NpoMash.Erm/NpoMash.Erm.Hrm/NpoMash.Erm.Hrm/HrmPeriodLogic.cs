@@ -15,14 +15,23 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm
 {
     [Persistent("HrmPeriodLogic")]
-    public class HrmPeriodLogic : BaseObject { 
+    public static class HrmPeriodLogic : BaseObject {
 
+    public static void createPeriod(IObjectSpace os, HrmPeriod obj) 
+    { }
 
-
-
-
-
-
+    public void addMonth() {
+        Int16 m = Month;
+        m++;
+        if (m > 12) {
+            m = 1;
+            Int16 y = Year;
+            y++;
+            SetPropertyValue<Int16>("Year", ref _Year, y);
+        }
+        SetPropertyValue<Int16>("Month", ref _Month, m);
+    }
+        
 
 
         public HrmPeriodLogic(Session session): base(session){ }

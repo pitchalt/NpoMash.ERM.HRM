@@ -23,13 +23,13 @@ namespace NpoMash.Erm.Hrm {
         private Int16 _Year;
         public Int16 Year {
             get { return _Year; }
-            set { SetPropertyValue<Int16>("Year", ref _Year, value); }
+            //set { SetPropertyValue<Int16>("Year", ref _Year, value); }
         }
 
         private Int16 _Month;
         public Int16 Month {
             get { return _Month; }
-            set { SetPropertyValue<Int16>("Month", ref _Month, value); }
+            //set { SetPropertyValue<Int16>("Month", ref _Month, value); }
         }
 
         private HrmPeriodStatus _Status;
@@ -52,7 +52,6 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmPeriodAllocParameter>("AllocParameters"); }
         }
 
-
         // —слыка на самого себ€ 
         private HrmPeriod _PeriodPrevious;
         public HrmPeriod PeriodPrevious {
@@ -66,16 +65,7 @@ namespace NpoMash.Erm.Hrm {
             Status = HrmPeriodStatus.Opened;
         }
 
-        public void addMonth() {
-            Int16 m = Month;
-            m++;
-            if (m > 12) {
-                m = 1;
-                Int16 y = Year;
-                y++;
-                SetPropertyValue<Int16>("Year", ref _Year, y);
-            }
-            SetPropertyValue<Int16>("Month", ref _Month, m);
-        }
+
+
     }
 }
