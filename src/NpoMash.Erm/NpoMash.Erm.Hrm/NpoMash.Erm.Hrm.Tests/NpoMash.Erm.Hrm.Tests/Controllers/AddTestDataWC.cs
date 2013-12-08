@@ -28,7 +28,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
 
         private void addNewData_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            #region Constants
+          /*  #region Constants
 
             int collectionCount = 0;
             int startDate = 2013;
@@ -155,7 +155,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers
 
             objectSpace.CommitChanges();
 
-            #endregion
+            #endregion*/
         }
 
         public AddTestDataWC() { InitializeComponent(); RegisterActions(components); }

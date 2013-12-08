@@ -34,6 +34,18 @@ namespace NpoMash.Erm.Hrm.Salary
                set { SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, value); } 
         }
 
+        private Decimal _NormNoControlKB;
+        public Decimal NormNoControlKB {
+            get { return _NormNoControlKB; }
+            set { SetPropertyValue<Decimal>("NormNoControlKB", ref _NormNoControlKB, value); }
+        }
+
+        private Decimal _NormNoControlOZM;
+        public Decimal NormNoControlOZM {
+            get { return _NormNoControlKB; }
+            set { SetPropertyValue<Decimal>("NormNoControlOZM", ref _NormNoControlOZM, value); }
+        }
+        
 
         [Association("AllocParameter-OrderControls"), Aggregated]  // ñâÿçü ñ HrmPeriodOrderControl
         public XPCollection<HrmPeriodOrderControl> OrderControls {
@@ -46,10 +58,10 @@ namespace NpoMash.Erm.Hrm.Salary
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
 
-        private HrmPeriod _HrmPeriod;  //Ñâÿçü ñ HrmPeriod
-        public HrmPeriod HrmPeriod { 
-               get { return _HrmPeriod; }
-               set { SetPropertyValue<HrmPeriod>("HrmPeriod", ref _HrmPeriod, value); }
+        private HrmPeriod _Period;  //Ñâÿçü ñ HrmPeriod
+        public HrmPeriod Period { 
+               get { return _Period; }
+               set { SetPropertyValue<HrmPeriod>("HrmPeriod", ref _Period, value); }
         }
 
       

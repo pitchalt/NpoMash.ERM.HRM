@@ -44,7 +44,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
+            /*using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
             {
                 HrmPeriodAllocParameter par0 = e.CurrentObject as HrmPeriodAllocParameter;
                 if (par0 == null) return;
@@ -92,7 +92,7 @@ namespace NpoMash.Erm.Hrm.Salary
                     }
                 }
                 os.CommitChanges(); //сохраняем изменения в корневой ObjectSpace
-            }
+            }*/
         }
     }
 }

@@ -127,6 +127,7 @@
       <DependentUpon>AddInfoWinControl.cs</DependentUpon>
     </Compile>
     <Compile Include="HrmPeriod.cs" />
+    <Compile Include="HrmPeriodLogic.cs" />
     <Compile Include="HrmPeriodVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -147,6 +148,7 @@
     <Compile Include="Salary\AcceptAllocParameterVC.Designer.cs">
       <DependentUpon>AcceptAllocParameterVC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Salary\AllocParametersLogic.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameterVC.cs">
       <SubType>Component</SubType>

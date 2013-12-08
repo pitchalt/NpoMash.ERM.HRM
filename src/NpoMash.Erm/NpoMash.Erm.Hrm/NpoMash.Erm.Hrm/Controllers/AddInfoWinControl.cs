@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Controllers
 
         private void AddDemoInfo_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-
+            /*
             IObjectSpace objectSpace = Application.CreateObjectSpace();
             Random random = new Random();
 
@@ -97,7 +97,7 @@ namespace NpoMash.Erm.Hrm.Controllers
                 _AllocParameters.PeriodPayTypes.Add(PeriodPayType);
             }
 
-            objectSpace.CommitChanges(); //Отправляем данные в базу     
+            objectSpace.CommitChanges(); //Отправляем данные в базу     */
         }
 
         public AddInfoWinControl()
