@@ -14,12 +14,9 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm
 {
-    //[Persistent("HrmPeriodLogic")]
-    public static class HrmPeriodLogic : BaseObject {
-
+    public static class HrmPeriodLogic {
 
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
-
             var period_list = os.GetObjects<HrmPeriod>();
             HrmPeriod last_period=null;
             var maxYear = period_list.Max(Period => Period.Year);
@@ -32,7 +29,6 @@ namespace NpoMash.Erm.Hrm
             }
             var maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
             //var last_period = os.CreateObject<HrmPeriod>();
-
             foreach (var a in period_list) {
                 if ((a.Year == maxYear) && (a.Month == maxMonth)) {
                     last_period=a;
@@ -61,11 +57,5 @@ namespace NpoMash.Erm.Hrm
             }
             hp.Init(m, y);
         }
-
-        public HrmPeriodLogic(Session session): base(session){ }
-        public override void AfterConstruction() {
-            base.AfterConstruction();
-        }
-        
     }
 }
