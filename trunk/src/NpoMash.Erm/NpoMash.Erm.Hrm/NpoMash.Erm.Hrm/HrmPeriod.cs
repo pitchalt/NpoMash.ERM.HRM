@@ -60,8 +60,8 @@ namespace NpoMash.Erm.Hrm {
         }
 
         public void Init(Int16 Year, Int16 Month) {
-            this._Year = Year;
-            this._Month = Month;
+            SetPropertyValue<Int16>("Year", ref _Year, Year);
+            SetPropertyValue<Int16>("Month", ref _Month, Month);
         }
 
         public HrmPeriod(Session session) : base(session) { }
