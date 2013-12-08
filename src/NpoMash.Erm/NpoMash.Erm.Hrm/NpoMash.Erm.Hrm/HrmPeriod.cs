@@ -59,6 +59,11 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmPeriod>("PeriodPrevious", ref _PeriodPrevious, value); }
         }
 
+        public void Init(Int16 Year, Int16 Month) {
+            this._Year = Year;
+            this._Month = Month;
+        }
+
         public HrmPeriod(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();

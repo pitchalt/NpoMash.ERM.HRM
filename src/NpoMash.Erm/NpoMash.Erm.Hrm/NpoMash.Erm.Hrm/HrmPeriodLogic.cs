@@ -17,8 +17,7 @@ namespace NpoMash.Erm.Hrm
     [Persistent("HrmPeriodLogic")]
     public static class HrmPeriodLogic : BaseObject {
 
-    public static void createPeriod(IObjectSpace os, HrmPeriod obj) 
-    { }
+    public static void createPeriod(IObjectSpace os, HrmPeriod obj) {  }
 
     public void addMonth() {
         Int16 m = Month;
