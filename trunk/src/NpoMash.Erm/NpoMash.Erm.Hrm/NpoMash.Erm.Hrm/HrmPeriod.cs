@@ -38,14 +38,20 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
+
         //////////////////////Связи
 
-        // связь с HrmPeriodAllocParameter
-        private HrmPeriodAllocParameter _HrmPeriodAllocParameter;
-        public HrmPeriodAllocParameter HrmPeriodAllocParameter {
-            get { return _HrmPeriodAllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _HrmPeriodAllocParameter, value); }
+        private HrmPeriodAllocParameter _CurrentAllocParameter; // Ссылка на HrmPeriodAllocParameter
+        public HrmPeriodAllocParameter CurrentAllocParameter {
+            get { return _CurrentAllocParameter; }
+            set { SetPropertyValue<HrmPeriodAllocParameter>("CurrentAllocParameter", ref _CurrentAllocParameter, value); }
         }
+
+        [Association("Period-AllocParameters")]   // коллекция HrmPeriodAllocParameter
+        public XPCollection<HrmPeriodAllocParameter> AllocParameters {
+            get { return GetCollection<HrmPeriodAllocParameter>("AllocParameters"); }
+        }
+
 
         // Сслыка на самого себя 
         private HrmPeriod _PeriodPrevious;

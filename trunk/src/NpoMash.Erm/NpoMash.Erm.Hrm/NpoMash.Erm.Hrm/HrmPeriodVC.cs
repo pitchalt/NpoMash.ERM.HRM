@@ -40,7 +40,7 @@ namespace NpoMash.Erm.Hrm {
         }
 
         private void OpenPeriodAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace rootObjectspace = Application.CreateObjectSpace();
+          /*  IObjectSpace rootObjectspace = Application.CreateObjectSpace();
             HrmPeriod period = rootObjectspace.CreateObject<HrmPeriod>();
             var HrmPeriodCollection = rootObjectspace.GetObjects<HrmPeriod>();
             var maxYear = HrmPeriodCollection.Max(Period => Period.Year);
@@ -64,7 +64,7 @@ namespace NpoMash.Erm.Hrm {
             HrmPeriodAllocParameter period_parameters = rootObjectspace.CreateObject<HrmPeriodAllocParameter>();
             period.HrmPeriodAllocParameter = period_parameters;
             period_parameters.HrmPeriod = period;
-            e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, period_parameters);
+            e.ShowViewParameters.CreatedView = Application.CreateDetailView(rootObjectspace, period_parameters);*/
         }
     }
 }
