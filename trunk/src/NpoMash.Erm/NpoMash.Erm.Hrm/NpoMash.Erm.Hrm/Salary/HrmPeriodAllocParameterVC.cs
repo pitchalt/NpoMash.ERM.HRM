@@ -13,8 +13,8 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-
 using IntecoAG.Erm.FM.Order;
+
 namespace NpoMash.Erm.Hrm.Salary
 {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
@@ -49,8 +49,10 @@ namespace NpoMash.Erm.Hrm.Salary
                 HrmPeriodAllocParameter created_alloc_parameters = AllocParametersLogic.createParameters(root_object_space);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, created_alloc_parameters);
             }
-            catch (OpenPeriodExistsException) {
-
+            catch (OpenPeriodExistsException) {/*
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                e.ShowViewParameters.Context = TemplateContext.PopupWindow;
+                e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());*/
             }
 
 
