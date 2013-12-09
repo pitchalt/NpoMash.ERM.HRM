@@ -73,8 +73,5 @@ namespace NpoMash.Erm.Hrm {
             base.AfterConstruction();
             Status = HrmPeriodStatus.Opened;
         }
-
-
-
     }
 }
