@@ -44,6 +44,16 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            IObjectSpace root_object_space = Application.CreateObjectSpace();
+            try {
+                HrmPeriodAllocParameter created_alloc_parameters = AllocParametersLogic.createParameters(root_object_space);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, created_alloc_parameters);
+            }
+            catch (OpenPeriodExistsException) {
+
+            }
+
+
             /*using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
             {
                 HrmPeriodAllocParameter par0 = e.CurrentObject as HrmPeriodAllocParameter;
