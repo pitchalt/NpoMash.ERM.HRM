@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private Decimal _NormNoControlOZM;
         public Decimal NormNoControlOZM {
-            get { return _NormNoControlKB; }
+            get { return _NormNoControlOZM; }
             set { SetPropertyValue<Decimal>("NormNoControlOZM", ref _NormNoControlOZM, value); }
         }
 
