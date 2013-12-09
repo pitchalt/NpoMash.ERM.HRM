@@ -83,11 +83,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AddTestDataWC.cs">
+    <Compile Include="Controllers\TestWCLogic.cs" />
+    <Compile Include="Controllers\TesterWC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\AddTestDataWC.Designer.cs">
-      <DependentUpon>AddTestDataWC.cs</DependentUpon>
+    <Compile Include="Controllers\TesterWC.Designer.cs">
+      <DependentUpon>TesterWC.cs</DependentUpon>
     </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -99,8 +100,8 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\AddTestDataWC.resx">
-      <DependentUpon>AddTestDataWC.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\TesterWC.resx">
+      <DependentUpon>TesterWC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Module.resx">
@@ -135,7 +136,9 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\IntecoAG.Erm\IntecoAG.Erm\IntecoAG.Erm.csproj">
@@ -146,6 +149,9 @@
       <Project>{5f15837d-d1e5-44dc-92f0-4f2ebe9c3f8d}</Project>
       <Name>NpoMash.Erm.Hrm</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="StructuralTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
