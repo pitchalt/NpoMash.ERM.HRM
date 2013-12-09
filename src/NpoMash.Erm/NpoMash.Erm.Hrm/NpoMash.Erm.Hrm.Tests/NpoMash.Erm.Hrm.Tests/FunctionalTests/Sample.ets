@@ -1,9 +1,8 @@
-
-;#DropDB NpoMash.Erm.Hrm.Test
+п»ї;#DropDB NpoMash.Erm.Hrm.Test
 #Application NpoMash.Erm.Hrm.Tests.Win
 
-*Action CreatePeriod
-*Action Сформировать параметры расчета
-*Action Утвердить
-*Action Обновить
-*Action Закрыть
+*Action РЎРѕР·РґР°С‚СЊ СЂР°СЃС‡РµС‚РЅС‹Р№ РїРµСЂРёРѕРґ
+*Action РЎС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РїР°СЂР°РјРµС‚СЂС‹ СЂР°СЃС‡РµС‚Р°
+*Action РЈС‚РІРµСЂРґРёС‚СЊ
+*Action РћР±РЅРѕРІРёС‚СЊ
+*Action Р—Р°РєСЂС‹С‚СЊ
