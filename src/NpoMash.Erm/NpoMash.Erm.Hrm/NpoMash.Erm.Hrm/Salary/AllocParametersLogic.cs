@@ -30,6 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary
             HrmPeriodAllocParameter par = os.CreateObject<HrmPeriodAllocParameter>();
             par.Period = current_period;
             current_period.CurrentAllocParameter = par;
+            current_period.AllocParameters.Add(par);
             par.Status = HrmPeriodAllocParameterStatus.OpenToEdit;
             initParametersFromPreviousPeriod(os, par);
             initOrderControls(os, par);

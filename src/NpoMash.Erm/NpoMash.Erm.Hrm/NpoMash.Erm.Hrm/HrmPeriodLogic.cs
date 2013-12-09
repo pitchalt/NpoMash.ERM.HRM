@@ -29,18 +29,20 @@ namespace NpoMash.Erm.Hrm
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
             var period_list = os.GetObjects<HrmPeriod>();
             HrmPeriod last_period=null;
-            var maxYear = period_list.Max(Period => Period.Year);
-            List<HrmPeriod> HrmPeriodMaxYearsCollection = new List<HrmPeriod>(); //Список периодов с максимальным годом
-            //Формируем этот лист
-            foreach (HrmPeriod a in period_list) {
-                if (a.Year == maxYear) {
-                    HrmPeriodMaxYearsCollection.Add(a);
+            if (period_list.Count() != 0) {
+                var maxYear = period_list.Max(Period => Period.Year);
+                List<HrmPeriod> HrmPeriodMaxYearsCollection = new List<HrmPeriod>(); //Список периодов с максимальным годом
+                //Формируем этот лист
+                foreach (HrmPeriod a in period_list) {
+                    if (a.Year == maxYear) {
+                        HrmPeriodMaxYearsCollection.Add(a);
+                    }
                 }
-            }
-            Int16 maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
-            foreach (HrmPeriod a in period_list) {
-                if ((a.Year == maxYear) && (a.Month == maxMonth)) {
-                    last_period=a;
+                Int16 maxMonth = HrmPeriodMaxYearsCollection.Max(myProd => myProd.Month); //Максимальный месяц в этой коллекции
+                foreach (HrmPeriod a in period_list) {
+                    if ((a.Year == maxYear) && (a.Month == maxMonth)) {
+                        last_period = a;
+                    }
                 }
             }
             return last_period; // Возваращем последний период
