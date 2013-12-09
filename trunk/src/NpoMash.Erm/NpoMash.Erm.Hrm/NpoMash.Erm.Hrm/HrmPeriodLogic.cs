@@ -23,8 +23,8 @@ namespace NpoMash.Erm.Hrm
 
     public static class HrmPeriodLogic {
 
-        private const Int16 INIT_YEAR = 2013;
-        private const Int16 INIT_MONTH = 12;
+      public static  Int16 INIT_YEAR = 2013;
+      public static Int16 INIT_MONTH = 12;
 
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
             var period_list = os.GetObjects<HrmPeriod>(null,true);
@@ -48,6 +48,15 @@ namespace NpoMash.Erm.Hrm
             return last_period; // Возваращем последний период
         }
 
+        public static void addMonth(HrmPeriod period_with_next_month, Int16 y, Int16 m) {
+            m++;
+            if (m > 12) {
+                m = 1;
+                y++;
+            }
+            period_with_next_month.Init(y, m);
+        }
+
         public static HrmPeriod createPeriod(IObjectSpace os) {
             HrmPeriod last_period = findLastPeriod(os);
             if (last_period != null && last_period.Status == HrmPeriodStatus.Opened){
@@ -66,13 +75,6 @@ namespace NpoMash.Erm.Hrm
             return new_period;
         }
 
-        public static void addMonth(HrmPeriod period_with_next_month, Int16 y, Int16 m) {
-            m++;
-            if (m > 12) {
-                m = 1;
-                y++;
-            }
-            period_with_next_month.Init(y, m);
-        }
+        
     }
 }

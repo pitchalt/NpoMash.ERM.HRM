@@ -29,14 +29,17 @@ namespace NpoMash.Erm.Hrm {
             get { return _Year; }
             private set { SetPropertyValue<Int16>("Year", ref _Year, value); }
         }
-
+        
         private Int16 _Month;
+        [RuleRange("", DefaultContexts.Save, 1, 12)]
         public Int16 Month {
             get { return _Month; }
             private set { SetPropertyValue<Int16>("Month", ref _Month, value); }
         }
-
+        
+       
         private HrmPeriodStatus _Status;
+         //[RuleRequiredField(DefaultContexts.Save)]
         public HrmPeriodStatus Status {
             get { return _Status; }
             set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }

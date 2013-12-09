@@ -43,9 +43,9 @@ namespace NpoMash.Erm.Hrm.Salary
             this.CreateAllocParameters.TargetObjectsCriteria = null;
             this.CreateAllocParameters.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
             this.CreateAllocParameters.TargetViewId = null;
-            this.CreateAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.CreateAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.CreateAllocParameters.ToolTip = null;
-            this.CreateAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.CreateAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
             this.CreateAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.CreateAllocParameters_Execute);
             // 
             // AcceptAllocParameters
@@ -62,6 +62,7 @@ namespace NpoMash.Erm.Hrm.Salary
             this.AcceptAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptAllocParameters.ToolTip = null;
             this.AcceptAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.AcceptAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptAllocParameters_Execute);
             // 
             // HrmPeriodAllocParameterVC
             // 

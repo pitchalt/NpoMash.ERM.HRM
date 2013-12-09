@@ -72,7 +72,9 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
-       
+
+
+
         public HrmPeriodAllocParameter(Session session) : base(session) { }
 
         public override void AfterConstruction(){
