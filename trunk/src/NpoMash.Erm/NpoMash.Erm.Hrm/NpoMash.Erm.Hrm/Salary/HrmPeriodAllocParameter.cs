@@ -37,7 +37,6 @@ namespace NpoMash.Erm.Hrm.Salary
         public Int16 Month {
             get { return Period.Month; }
         }
-
         private HrmPeriodAllocParameterStatus _Status;
         public HrmPeriodAllocParameterStatus Status {
                get { return _Status; }

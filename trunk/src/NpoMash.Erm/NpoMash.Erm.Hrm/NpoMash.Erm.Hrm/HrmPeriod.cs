@@ -27,13 +27,13 @@ namespace NpoMash.Erm.Hrm {
         [Indexed("Month",Unique = true)]
         public Int16 Year {
             get { return _Year; }
-            //set { SetPropertyValue<Int16>("Year", ref _Year, value); }
+            private set { SetPropertyValue<Int16>("Year", ref _Year, value); }
         }
 
         private Int16 _Month;
         public Int16 Month {
             get { return _Month; }
-            //set { SetPropertyValue<Int16>("Month", ref _Month, value); }
+            private set { SetPropertyValue<Int16>("Month", ref _Month, value); }
         }
 
         private HrmPeriodStatus _Status;
@@ -63,9 +63,11 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmPeriod>("PeriodPrevious", ref _PeriodPrevious, value); }
         }
 
-        public void Init(Int16 Year, Int16 Month) {
-            SetPropertyValue<Int16>("Year", ref _Year, Year);
-            SetPropertyValue<Int16>("Month", ref _Month, Month);
+        public void Init(Int16 y, Int16 m) {
+            //SetPropertyValue<Int16>("Year", ref _Year, y);
+            //SetPropertyValue<Int16>("Month", ref _Month, m);
+            Year = y;
+            Month = m;
         }
 
         public HrmPeriod(Session session) : base(session) { }
