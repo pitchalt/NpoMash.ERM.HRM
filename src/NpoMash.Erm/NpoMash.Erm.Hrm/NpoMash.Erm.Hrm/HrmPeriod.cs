@@ -21,25 +21,28 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     public class HrmPeriod : BaseObject {
 
-
+        [Persistent("Year")]
         private Int16 _Year;
         [RuleRequiredField(DefaultContexts.Save)]
         [Indexed("Month",Unique = true)]
+        [PersistentAlias("_Year")]
         public Int16 Year {
             get { return _Year; }
-            private set { SetPropertyValue<Int16>("Year", ref _Year, value); }
+            //private set { SetPropertyValue<Int16>("Year", ref _Year, value); }
         }
         
+        [Persistent("Month")]
         private Int16 _Month;
         [RuleRange("", DefaultContexts.Save, 1, 12)]
+        [PersistentAlias("_Month")]
         public Int16 Month {
             get { return _Month; }
-            private set { SetPropertyValue<Int16>("Month", ref _Month, value); }
+            //private set { SetPropertyValue<Int16>("Month", ref _Month, value); }
         }
         
        
         private HrmPeriodStatus _Status;
-         //[RuleRequiredField(DefaultContexts.Save)]
+        [RuleRequiredField(DefaultContexts.Save)]
         public HrmPeriodStatus Status {
             get { return _Status; }
             set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
@@ -67,10 +70,10 @@ namespace NpoMash.Erm.Hrm {
         }
 
         public void Init(Int16 y, Int16 m) {
-            //SetPropertyValue<Int16>("Year", ref _Year, y);
-            //SetPropertyValue<Int16>("Month", ref _Month, m);
-            Year = y;
-            Month = m;
+            SetPropertyValue<Int16>("Year", ref _Year, y);
+            SetPropertyValue<Int16>("Month", ref _Month, m);
+            //Year = y;
+            //Month = m;
         }
 
         public HrmPeriod(Session session) : base(session) { }
