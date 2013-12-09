@@ -27,7 +27,7 @@ namespace NpoMash.Erm.Hrm
         private const Int16 INIT_MONTH = 12;
 
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
-            var period_list = os.GetObjects<HrmPeriod>();
+            var period_list = os.GetObjects<HrmPeriod>(null,true);
             HrmPeriod last_period=null;
             if (period_list.Count() != 0) {
                 var maxYear = period_list.Max(Period => Period.Year);
@@ -54,8 +54,7 @@ namespace NpoMash.Erm.Hrm
                 throw new OpenPeriodExistsException("Есть незакрытый период");
             }
             HrmPeriod new_period = os.CreateObject<HrmPeriod>();
-            if (last_period == null)
-            {
+            if (last_period == null) {
                 new_period.PeriodPrevious = new_period;
                 new_period.Init(INIT_YEAR,INIT_MONTH);
             }
