@@ -130,12 +130,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Salary\AcceptAllocParameterVC.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Salary\AcceptAllocParameterVC.Designer.cs">
-      <DependentUpon>AcceptAllocParameterVC.cs</DependentUpon>
-    </Compile>
     <Compile Include="Salary\AllocParametersLogic.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameterVC.cs">
@@ -154,9 +148,6 @@
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="Salary\AcceptAllocParameterVC.resx">
-      <DependentUpon>AcceptAllocParameterVC.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
       <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
     </EmbeddedResource>
