@@ -104,5 +104,9 @@ namespace NpoMash.Erm.Hrm.Salary
                 os.CommitChanges(); //сохраняем изменения в корневой ObjectSpace
             }*/
         }
+
+        private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
+
+        }
     }
 }

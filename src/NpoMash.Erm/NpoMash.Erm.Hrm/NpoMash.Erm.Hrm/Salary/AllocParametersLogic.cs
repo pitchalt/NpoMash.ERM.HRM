@@ -90,7 +90,7 @@ namespace NpoMash.Erm.Hrm.Salary
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
         }
-
+        
 
     }//end of AllocParametersLogic class
 }//end of namespace
