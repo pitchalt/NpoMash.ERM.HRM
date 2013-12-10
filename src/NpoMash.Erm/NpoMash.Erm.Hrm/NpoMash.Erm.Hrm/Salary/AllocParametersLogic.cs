@@ -13,6 +13,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using NpoMash.Erm.Hrm;
 using IntecoAG.Erm.FM.Order;
+using IntecoAG.Erm.HRM;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
@@ -42,30 +43,39 @@ namespace NpoMash.Erm.Hrm.Salary
             if (par.Period.PeriodPrevious == par.Period) {
                 par.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
                 par.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
+                addAllPayTypes(os, par);
             }
             else {
                 par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
                 par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
-            }
-
-            foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
-                bool alreadyThere = false;
-                foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
-                    //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
-                    if (pay.PayType == existingPay.PayType) alreadyThere = true;
-                if (!alreadyThere)//если такой еще не добавляли...
-                {
-                    HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
-                    pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
-                    pt.AllocParameter = par;
-                    par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
+                foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
+                    bool alreadyThere = false;
+                    foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
+                        //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
+                        if (pay.PayType == existingPay.PayType) alreadyThere = true;
+                    if (!alreadyThere)//если такой еще не добавляли...
+                    {
+                        HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
+                        pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
+                        pt.AllocParameter = par;
+                        par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
+                    }
                 }
+            }
+        }
+
+        private static void addAllPayTypes(IObjectSpace os, HrmPeriodAllocParameter par) {
+            foreach (HrmSalaryPayType salary in os.GetObjects<HrmSalaryPayType>()) {
+                HrmPeriodPayType pay_type = os.CreateObject<HrmPeriodPayType>();
+                pay_type.PayType = salary;
+                pay_type.AllocParameter = par;
+                par.PeriodPayTypes.Add(pay_type);
             }
         }
 
         private static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
             //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
-            foreach (var order in os.GetObjects<fmCOrder>()) {
+            foreach (fmCOrder order in os.GetObjects<fmCOrder>()) {
                 if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
                 {
                     bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
