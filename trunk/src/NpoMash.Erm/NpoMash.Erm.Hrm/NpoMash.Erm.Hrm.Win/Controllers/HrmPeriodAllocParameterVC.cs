@@ -13,7 +13,8 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using IntecoAG.Erm.FM.Order;
+using System.Windows.Forms;
+//using IntecoAG.Erm.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
@@ -49,62 +50,32 @@ namespace NpoMash.Erm.Hrm.Salary
                 HrmPeriodAllocParameter created_alloc_parameters = AllocParametersLogic.createParameters(root_object_space);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, created_alloc_parameters);
             }
-            catch (OpenPeriodExistsException) {/*
-                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                e.ShowViewParameters.Context = TemplateContext.PopupWindow;
-                e.ShowViewParameters.Controllers.Add(Application.CreateController<DialogController>());*/
+            catch (OpenPeriodExistsException) {
+                HrmPeriodAllocParameter existing_alloc_parameters =
+                    HrmPeriodLogic.findLastPeriod(root_object_space).CurrentAllocParameter;
+                if (existing_alloc_parameters.Status == HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
+                    const string message = "Открыть карточку параметров периода для просмотра?";
+                    const string caption = "Параметры расчета для данного периода уже утверждены.";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes) {
+                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space,
+                            existing_alloc_parameters);
+                    }
+                }
+                else {
+                    const string message = "Хотите открыть параметры расчета текущего периода для редактирования?";
+                    const string caption = "Параметры расчета для данного периода уже существуют.";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes) {
+                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space,
+                            existing_alloc_parameters);
+                    }
+                }
             }
-
-
-            /*using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace())
-            {
-                HrmPeriodAllocParameter par0 = e.CurrentObject as HrmPeriodAllocParameter;
-                if (par0 == null) return;
-                HrmPeriodAllocParameter par = os.GetObject<HrmPeriodAllocParameter>(par0);
-                //проверяем есть ли предыдущий период и назначены ли ему параметры
-                if (par.HrmPeriod.PeriodPrevious != null &&
-                    par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter != null)
-                {//теперь создаем PeriodPayTypes-ы, беря их из предыдущего периода
-                    foreach (var pay in par.HrmPeriod.PeriodPrevious.HrmPeriodAllocParameter.PeriodPayTypes)
-                    {
-                        bool alreadyThere = false;
-                        foreach (var existingPay in par.PeriodPayTypes)// перебираем уже назначенные
-                            //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
-                            if (pay.PayType == existingPay.PayType) alreadyThere = true;
-                        if (!alreadyThere)//если такой еще не добавляли...
-                        {
-                            HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
-                            pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
-                            pt.AllocParameter = par;
-                            par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
-                        }
-                    }
-                }
-                //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
-                foreach (var order in os.GetObjects<fmCOrder>())
-                {
-                    if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
-                    {
-                        bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
-                        foreach (var existingControl in par.OrderControls)
-                            if (existingControl.Order == order) alreadyThere = true;
-                        if (!alreadyThere)//если такого еще не было
-                        {//то создаем новый HrmPeriodOrderControl и копируем в него параметры из fmCOrder-а
-                            HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
-                            oc.Order = order;
-                            oc.NormKB = order.NormKB;
-                            oc.NormOZM = order.NormOZM;
-                            oc.NormNoControl = order.NormNoControl;
-                            //oc.TypeControl = order.TypeControl; вот так почему-то нельзя, приходится делать как написано ниже:
-                            if (order.TypeControl == fmCOrderTypeCOntrol.FOT)
-                                oc.TypeControl=HrmPeriodOrderTypeControl.FOT;
-                            else oc.TypeControl = HrmPeriodOrderTypeControl.TrudEmk_FOT;
-                            par.OrderControls.Add(oc);//и добавляем в коллекцию
-                        }
-                    }
-                }
-                os.CommitChanges(); //сохраняем изменения в корневой ObjectSpace
-            }*/
         }
 
         private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
