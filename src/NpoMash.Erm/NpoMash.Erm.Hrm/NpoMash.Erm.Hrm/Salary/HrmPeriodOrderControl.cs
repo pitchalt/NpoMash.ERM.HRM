@@ -21,8 +21,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmPeriodOrderControl")]
 
-    [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)] //5
-    [Appearance("En", TargetItems = "Order.TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)] //5
+    [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", Enabled = false)] //5
+    //[Appearance("En", TargetItems = "Order.TypeControl.TrudEmk_FOT", Criteria = "AllocParameter.Status=='ListOfOrderAccepted'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)] //5
 
     public class HrmPeriodOrderControl : BaseObject {
 
