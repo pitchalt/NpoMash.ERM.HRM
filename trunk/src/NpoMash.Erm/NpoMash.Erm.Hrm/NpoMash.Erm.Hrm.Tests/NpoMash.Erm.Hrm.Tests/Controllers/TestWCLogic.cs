@@ -17,28 +17,23 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         private const int _REFERENCE_COUNT = 10;
         private const int _ALLOCPARAMETER_COUNT = 3;
 
-        public static int intRandomValue() {
-            var random = new Random();
-            return random.Next( 1000, 100000 );
-        }
-
         public static void referenceClassesGenerate( IObjectSpace local_object_space ) {
-            var random_way = new Random();
+            var random = new Random();
             for ( int i = 0 ; i < _REFERENCE_COUNT ; i++ ) {
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
                 var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
-                int type_control = random_way.Next( 1, 4 );
-                int type_constancy = random_way.Next( 1, 3 );
-                fmCorder.Code = Convert.ToString( intRandomValue() );
+                int type_control = random.Next( 1, 4 );
+                int type_constancy = random.Next( 1, 3 );
+                fmCorder.Code = Convert.ToString( random.Next( 1000, 100000 ) );
                 if ( type_control == 1 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.FOT; }
                 if ( type_control == 2 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
                 if ( type_control == 3 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
                 if ( type_constancy == 1 ) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.Null; }
                 if ( type_constancy == 2 ) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.One; }
-                fmCorder.NormKB = Convert.ToDecimal( intRandomValue() );
-                fmCorder.NormOZM = Convert.ToDecimal( intRandomValue() );
-                hrmSalaryPayType.Code = Convert.ToString( intRandomValue() );
-                hrmSalaryPayType.Name = Convert.ToString( intRandomValue() );
+                fmCorder.NormKB = Convert.ToDecimal( random.Next( 1000, 100000 ) );
+                fmCorder.NormOZM = Convert.ToDecimal( random.Next( 1000, 100000 ) );
+                hrmSalaryPayType.Code = Convert.ToString( random.Next( 1000, 100000 ) );
+                hrmSalaryPayType.Name = Convert.ToString( random.Next( 1000, 100000 ) );
             }
         }
 
