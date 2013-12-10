@@ -12,6 +12,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.Erm.FM.Order;
 //
@@ -31,15 +33,19 @@ namespace NpoMash.Erm.Hrm.Salary
         private fmCOrderTypeCOntrol _TypeControl;
         public fmCOrderTypeCOntrol TypeControl {
             get { return _TypeControl; }
-            set { SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value); }
+            set { SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value);
+            }
         }
 
+
         private Decimal _NormKB;
+        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'", SkipNullOrEmptyValues = false)]
         public Decimal NormKB {
                get { return _NormKB; }
                set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); } }
 
         private Decimal _NormOZM;
+        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'", SkipNullOrEmptyValues = false)]
         public Decimal NormOZM {
                get { return _NormOZM; }
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
@@ -51,6 +57,7 @@ namespace NpoMash.Erm.Hrm.Salary
         // סגÿחü ס FmCOrder
         private fmCOrder _Order;
         [Indexed("AllocParameter", Unique = true)]
+        [RuleRequiredField(DefaultContexts.Save)]
         public fmCOrder Order{
                get { return _Order; }
                set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }}

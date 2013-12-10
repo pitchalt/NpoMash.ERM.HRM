@@ -32,6 +32,7 @@ namespace IntecoAG.Erm
             // IagErmModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
 
         }
 

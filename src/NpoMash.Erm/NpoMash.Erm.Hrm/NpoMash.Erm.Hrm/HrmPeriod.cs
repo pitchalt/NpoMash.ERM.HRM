@@ -13,7 +13,6 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
-
 using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm {
@@ -22,11 +21,12 @@ namespace NpoMash.Erm.Hrm {
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
 
+
+    [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]
         private Int16 _Year;
-        [RuleRequiredField(DefaultContexts.Save)]
         [Indexed("Month",Unique = true)]
         [PersistentAlias("_Year")]
         public Int16 Year {
@@ -36,7 +36,6 @@ namespace NpoMash.Erm.Hrm {
         
         [Persistent("Month")]
         private Int16 _Month;
-        [RuleRange("", DefaultContexts.Save, 1, 12)]
         [PersistentAlias("_Month")]
         public Int16 Month {
             get { return _Month; }
