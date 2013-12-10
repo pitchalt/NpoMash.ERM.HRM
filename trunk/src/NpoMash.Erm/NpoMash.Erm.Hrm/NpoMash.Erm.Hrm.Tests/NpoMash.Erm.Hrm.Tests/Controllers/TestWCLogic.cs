@@ -41,6 +41,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             referenceClassesGenerate( a_object_space );
             for ( int i = 0 ; i < _ALLOCPARAMETER_COUNT ; i++ ) {
                 var alloc_parameter = AllocParametersLogic.createParameters( a_object_space );
+                alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
                 foreach ( var each in a_object_space.GetObjects<HrmPeriod>( null, true ) ) {
                     each.Status = HrmPeriodStatus.closed;
                 }
