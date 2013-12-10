@@ -13,7 +13,6 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
 using IntecoAG.Erm.HRM;
-
 namespace NpoMash.Erm.Hrm.Salary
 {
 
@@ -23,6 +22,7 @@ namespace NpoMash.Erm.Hrm.Salary
         ListOfOrderAccepted = 2,
         AllocParametersAccepted = 3
     }
+
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
     public class HrmPeriodAllocParameter : BaseObject

@@ -17,21 +17,22 @@ using IntecoAG.Erm.FM.Order;
 //
 namespace NpoMash.Erm.Hrm.Salary
 {
-    public enum HrmPeriodOrderTypeControl
-    {
-        TrudEmk_FOT = 1,
-        FOT = 2,
-        No_Ordered = 3
-    }
+  //  public enum HrmPeriodOrderTypeControl
+   // {
+      //  TrudEmk_FOT = 1,
+      //  FOT = 2,
+      //  No_Ordered = 3
+   // }
 
     [Persistent("HrmPeriodOrderControl")]
     public class HrmPeriodOrderControl : BaseObject
     {
 
-        private HrmPeriodOrderTypeControl _TypeControl;
-        public HrmPeriodOrderTypeControl TypeControl{
+        private fmCOrderTypeCOntrol _TypeControl;
+        public fmCOrderTypeCOntrol TypeControl {
             get { return _TypeControl; }
-            set { SetPropertyValue<HrmPeriodOrderTypeControl>("TypeControl", ref _TypeControl, value); } }
+            set { SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value); }
+        }
 
         private Decimal _NormKB;
         public Decimal NormKB {
@@ -66,7 +67,7 @@ namespace NpoMash.Erm.Hrm.Salary
         public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction()
         { base.AfterConstruction();
-        TypeControl = HrmPeriodOrderTypeControl.FOT;
+        TypeControl = fmCOrderTypeCOntrol.FOT;
         }
 
     }
