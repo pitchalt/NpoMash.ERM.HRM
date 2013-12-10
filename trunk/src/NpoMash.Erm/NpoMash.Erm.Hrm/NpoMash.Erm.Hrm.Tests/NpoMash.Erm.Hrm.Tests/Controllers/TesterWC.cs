@@ -28,12 +28,6 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         private void PopulateDB_Execute( object sender, SimpleActionExecuteEventArgs e ) {
             IObjectSpace object_space = Application.CreateObjectSpace();
             TestWCLogic.addTestData( object_space );
-            var hrmPeriodCollection = object_space.GetObjects<HrmPeriod>( null, true );
-            Int16 year = 2013;
-            Int16 month = 9;
-            foreach ( var i in hrmPeriodCollection ) {
-                i.Init( year, month );
-            }
             object_space.CommitChanges();
         }
     }
