@@ -27,7 +27,11 @@ namespace NpoMash.Erm.Hrm.Salary
    // }
 
     [Persistent("HrmPeriodOrderControl")]
-    public class HrmPeriodOrderControl : BaseObject
+
+    [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)] //5
+    [Appearance("En", TargetItems = "Order.TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)] //5
+   
+        public class HrmPeriodOrderControl : BaseObject
     {
 
         private fmCOrderTypeCOntrol _TypeControl;
@@ -39,13 +43,13 @@ namespace NpoMash.Erm.Hrm.Salary
 
 
         private Decimal _NormKB;
-        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'", SkipNullOrEmptyValues = false)]
+        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'")]
         public Decimal NormKB {
                get { return _NormKB; }
                set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); } }
 
         private Decimal _NormOZM;
-        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'", SkipNullOrEmptyValues = false)]
+        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'")]
         public Decimal NormOZM {
                get { return _NormOZM; }
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
