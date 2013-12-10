@@ -14,7 +14,7 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm
 {
-    class OpenPeriodExistsException : Exception
+    public class OpenPeriodExistsException : Exception
     {
         public OpenPeriodExistsException() : base() { }
         public OpenPeriodExistsException(string message):base(message){}
