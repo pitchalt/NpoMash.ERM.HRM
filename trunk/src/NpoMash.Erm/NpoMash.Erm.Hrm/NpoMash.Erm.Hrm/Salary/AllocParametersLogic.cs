@@ -79,8 +79,8 @@ namespace NpoMash.Erm.Hrm.Salary
                         oc.NormOZM = order.NormOZM;
                         //oc.TypeControl = order.TypeControl; вот так почему-то нельзя, приходится делать как написано ниже:
                         if (order.TypeControl == fmCOrderTypeCOntrol.FOT)
-                            oc.TypeControl = HrmPeriodOrderTypeControl.FOT;
-                        else oc.TypeControl = HrmPeriodOrderTypeControl.TrudEmk_FOT;
+                            oc.TypeControl = fmCOrderTypeCOntrol.FOT;
+                        else oc.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT;
                         par.OrderControls.Add(oc);//и добавляем в коллекцию
                     }
                 }

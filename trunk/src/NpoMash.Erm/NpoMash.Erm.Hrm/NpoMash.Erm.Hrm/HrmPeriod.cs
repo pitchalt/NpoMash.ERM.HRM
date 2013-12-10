@@ -11,6 +11,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 
 using NpoMash.Erm.Hrm.Salary;
 
@@ -19,6 +21,7 @@ namespace NpoMash.Erm.Hrm {
     public enum HrmPeriodStatus { Opened = 1, closed = 2 }
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
+
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]
