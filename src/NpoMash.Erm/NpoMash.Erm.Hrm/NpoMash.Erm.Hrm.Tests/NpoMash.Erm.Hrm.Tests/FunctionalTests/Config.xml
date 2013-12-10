@@ -20,7 +20,7 @@
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
 	</Applications>
 	<TestDatabases>
-		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="NpoMash.Erm.Hrm.TestsEasyTest"/>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="NpoMash.Erm.Hrm.Test"/>
 	</TestDatabases>
 
 	<Aliases>
