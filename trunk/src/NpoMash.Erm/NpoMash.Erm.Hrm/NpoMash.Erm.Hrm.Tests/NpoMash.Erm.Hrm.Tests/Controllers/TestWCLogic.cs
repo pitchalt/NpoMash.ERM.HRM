@@ -18,15 +18,17 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         private const int _ALLOCPARAMETER_COUNT = 3;
 
         public static int intRandomValue() {
-            return new Random().Next( 1000, 1000000 );
+            var random = new Random();
+            return random.Next( 1000, 100000 );
         }
 
         public static void referenceClassesGenerate( IObjectSpace local_object_space ) {
             for ( int i = 0 ; i < _REFERENCE_COUNT ; i++ ) {
+                var random = new Random();
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
                 var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
-                int type_control = new Random().Next(1,4);
-                int type_constancy = new Random().Next( 1, 3 );
+                int type_control = random.Next( 1, 4 );
+                int type_constancy = random.Next( 1, 3 );
                 fmCorder.Code = Convert.ToString( intRandomValue() );
                 if ( type_control == 1 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.FOT; }
                 if ( type_control == 2 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
