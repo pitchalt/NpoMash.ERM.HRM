@@ -12,6 +12,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace IntecoAG.Erm.FM.Order
 {
@@ -26,6 +27,7 @@ namespace IntecoAG.Erm.FM.Order
     public enum fmCOrdertypeConstancy { Null = 1, One = 2 }
 
     [Persistent("fmCOrder")]
+   // [Appearance("Enable", TargetItems = "TypeControl", Criteria = "TypeControl = 'TrudEmk_FOT'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
     public class fmCOrder : BaseObject
     {
         
@@ -37,7 +39,13 @@ namespace IntecoAG.Erm.FM.Order
         private fmCOrderTypeCOntrol _TypeControl;
         public fmCOrderTypeCOntrol TypeControl{
                get { return _TypeControl; }
-            set { SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value); } }
+               set {
+                   SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value);
+                   if (IsSaving) { }
+               } 
+        
+        
+        }
 
         private fmCOrdertypeConstancy _TypeConstancy;
         public fmCOrdertypeConstancy TypeConstancy {
@@ -45,21 +53,29 @@ namespace IntecoAG.Erm.FM.Order
             set { SetPropertyValue<fmCOrdertypeConstancy>("TypeConstancy", ref _TypeConstancy, value); } }
 
         private Decimal _NormKB;
+        [RuleRequiredField(DefaultContexts.Save,TargetCriteria = "TypeControl!='No_Ordered'", SkipNullOrEmptyValues = false)]
         public Decimal NormKB {
                get { return _NormKB; }
                set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); } }
 
         private Decimal _NormOZM;
+        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl!='No_Ordered'", SkipNullOrEmptyValues = false)]
         public Decimal NormOZM {
                get { return _NormOZM; }
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
+
+
+        private void check() {  }
+
 
 
         public fmCOrder(Session session) : base(session) { }
         public override void AfterConstruction()
         {  base.AfterConstruction();
         TypeControl = fmCOrderTypeCOntrol.FOT;
-        TypeConstancy = fmCOrdertypeConstancy.One; }
+        TypeConstancy = fmCOrdertypeConstancy.One;
+        }
 
+        
     }
 }

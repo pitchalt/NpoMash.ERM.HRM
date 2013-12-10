@@ -11,8 +11,11 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.Erm.HRM;
+using IntecoAG.Erm.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary
 {
 
@@ -25,6 +28,10 @@ namespace NpoMash.Erm.Hrm.Salary
 
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
+
+
+    [Appearance("Enable", TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
+   // [Appearance("En", TargetItems = "fmCOrder.TypeControl", Criteria = "Status = 'ListOfOrderAccepted' and OrderControls.TypeControl='TrudEmk_FOT' ", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
     public class HrmPeriodAllocParameter : BaseObject
     {
         
@@ -38,18 +45,21 @@ namespace NpoMash.Erm.Hrm.Salary
             get { return Period.Month; }
         }
         private HrmPeriodAllocParameterStatus _Status;
+        [RuleRequiredField(DefaultContexts.Save)]
         public HrmPeriodAllocParameterStatus Status {
                get { return _Status; }
                set { SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, value); } 
         }
 
         private Decimal _NormNoControlKB;
+        [RuleRequiredField(DefaultContexts.Save)]
         public Decimal NormNoControlKB {
             get { return _NormNoControlKB; }
             set { SetPropertyValue<Decimal>("NormNoControlKB", ref _NormNoControlKB, value); }
         }
 
         private Decimal _NormNoControlOZM;
+        [RuleRequiredField(DefaultContexts.Save)]
         public Decimal NormNoControlOZM {
             get { return _NormNoControlOZM; }
             set { SetPropertyValue<Decimal>("NormNoControlOZM", ref _NormNoControlOZM, value); }
@@ -57,6 +67,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private HrmPeriod _Period; // סגÿחü ס HrmPeriod
         [Association("Period-AllocParameters")]
+        [RuleRequiredField(DefaultContexts.Save)]
         public HrmPeriod Period {
             get { return _Period; }
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
