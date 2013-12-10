@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary
     [NavigationItem("A1 Integration")]
 
 
-    [Appearance("Enable", TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
+    [Appearance("Enable", TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any",  Enabled = false)]
    // [Appearance("En", TargetItems = "fmCOrder.TypeControl", Criteria = "Status = 'ListOfOrderAccepted' and OrderControls.TypeControl='TrudEmk_FOT' ", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
     public class HrmPeriodAllocParameter : BaseObject
     {

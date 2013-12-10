@@ -22,7 +22,7 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
 
 
-    [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
+    [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]
