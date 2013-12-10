@@ -46,8 +46,8 @@ namespace NpoMash.Erm.Hrm.Salary
                 addAllPayTypes(os, par);
             }
             else {
-                par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
-                par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
+                par.NormNoControlKB = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB;
+                par.NormNoControlOZM = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM;
                 foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
                     bool alreadyThere = false;
                     foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private static void addAllPayTypes(IObjectSpace os, HrmPeriodAllocParameter par) {
-            foreach (HrmSalaryPayType salary in os.GetObjects<HrmSalaryPayType>()) {
+            foreach (HrmSalaryPayType salary in os.GetObjects<HrmSalaryPayType>(null,true)) {
                 HrmPeriodPayType pay_type = os.CreateObject<HrmPeriodPayType>();
                 pay_type.PayType = salary;
                 pay_type.AllocParameter = par;
@@ -75,7 +75,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
             //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
-            foreach (fmCOrder order in os.GetObjects<fmCOrder>()) {
+            foreach (fmCOrder order in os.GetObjects<fmCOrder>(null,true)) {
                 if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
                 {
                     bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
