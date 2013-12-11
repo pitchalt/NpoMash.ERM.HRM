@@ -22,7 +22,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmPeriodOrderControl")]
 
     [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", Enabled = false)] //5
-    //[Appearance("En", TargetItems = "Order.TypeControl.TrudEmk_FOT", Criteria = "AllocParameter.Status=='ListOfOrderAccepted'", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)] //5
+    [Appearance("RuleMethod", AppearanceItemType = "Action", TargetItems = "Save", Context = "Any", Enabled=false)]
 
     public class HrmPeriodOrderControl : BaseObject {
 
@@ -52,6 +52,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
+        public bool RuleMethod() {
+            if (AllocParameter.Status==HrmPeriodAllocParameterStatus.ListOfOrderAccepted && Order.TypeControl==fmCOrderTypeCOntrol.TrudEmk_FOT) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 
         //////////////////////Связи
 
