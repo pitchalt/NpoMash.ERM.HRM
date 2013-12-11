@@ -31,8 +31,8 @@ namespace NpoMash.Erm.Hrm.Salary
 
 
     [Appearance("Enable", TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any",  Enabled = false)]
-   // [Appearance("En", TargetItems = "fmCOrder.TypeControl", Criteria = "Status = 'ListOfOrderAccepted' and OrderControls.TypeControl='TrudEmk_FOT' ", Context = "Any", BackColor = "Green", FontColor = "White", Enabled = false)]
-    public class HrmPeriodAllocParameter : BaseObject
+    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Criteria = "Status = 'AllocParametersAccepted' or Status = 'OpenToEdit' or Status = 'ListOfOrderAccepted'", Visibility = ViewItemVisibility.Hide)]
+      public class HrmPeriodAllocParameter : BaseObject
     {
         
         [PersistentAlias("Period.Year")]
