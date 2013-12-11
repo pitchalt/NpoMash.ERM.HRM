@@ -20,9 +20,7 @@ using IntecoAG.Erm.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmPeriodOrderControl")]
-
     [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", Enabled = false)] //5
-    [Appearance("RuleMethod", AppearanceItemType = "Action", TargetItems = "Save", Context = "Any", Enabled=false)]
 
     public class HrmPeriodOrderControl : BaseObject {
 
@@ -34,9 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-
         private Decimal _NormKB;
-        //        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl != 'No_Ordered'")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
         public Decimal NormKB {
             get { return _NormKB; }
@@ -44,7 +40,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _NormOZM;
-        //        [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "TypeControl != 'No_Ordered'")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
         public Decimal NormOZM {
             get { return _NormOZM; }
@@ -83,9 +78,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Association("AllocParameter-OrderControls")]// связь с HrmPeriodAllocParameter
         public HrmPeriodAllocParameter AllocParameter {
             get { return _AllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); }
+            set {
+               // if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted && Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT) { throw new OpenPeriodExistsException("Есть незакрытый период"); }else { 
+                    SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); 
+            
+            }
         }
-
 
         public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction() {
