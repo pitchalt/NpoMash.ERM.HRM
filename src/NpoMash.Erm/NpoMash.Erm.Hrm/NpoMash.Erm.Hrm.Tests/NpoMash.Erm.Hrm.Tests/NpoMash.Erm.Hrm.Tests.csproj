@@ -99,6 +99,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="StructuralTests\AllocParameterVCUnitTest.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controllers\TesterWC.resx">
@@ -147,14 +150,16 @@
       <Project>{71dc7a2b-825e-401c-bb71-2ebe5c3ddce0}</Project>
       <Name>IntecoAG.Erm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Win\NpoMash.Erm.Hrm.Win.csproj">
+      <Project>{7964f87d-bc5d-4c4e-8b2f-71e89739aa97}</Project>
+      <Name>NpoMash.Erm.Hrm.Win</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.csproj">
       <Project>{5f15837d-d1e5-44dc-92f0-4f2ebe9c3f8d}</Project>
       <Name>NpoMash.Erm.Hrm</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StructuralTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
