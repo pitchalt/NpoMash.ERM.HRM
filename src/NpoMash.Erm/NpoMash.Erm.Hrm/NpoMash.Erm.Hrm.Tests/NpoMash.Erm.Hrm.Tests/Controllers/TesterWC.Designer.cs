@@ -31,6 +31,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SimpleAction PopulateAction;
+        public DevExpress.ExpressApp.Actions.SimpleAction PopulateAction;
+
     }
 }
