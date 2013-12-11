@@ -187,6 +187,7 @@
     <ProjectReference Include="..\..\..\IntecoAG.Erm\IntecoAG.Erm\IntecoAG.Erm.csproj">
       <Project>{71dc7a2b-825e-401c-bb71-2ebe5c3ddce0}</Project>
       <Name>IntecoAG.Erm</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\IntecoAG.XafExt\IntecoAG.XafExt\IntecoAG.XafExt.csproj">
       <Project>{62ea4432-7bd3-4a77-8478-ca2e358d0f3b}</Project>
