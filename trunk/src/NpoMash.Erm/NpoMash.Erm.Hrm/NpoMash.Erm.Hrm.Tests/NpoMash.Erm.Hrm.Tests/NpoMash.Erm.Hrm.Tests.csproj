@@ -124,7 +124,7 @@
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\Sample.ets" />
+    <None Include="FunctionalTests\Main_Way.ets" />
     <None Include="Images\ReadMe.txt" />
     <EmbeddedResource Include="Model.DesignedDiffs.Localization.en.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
@@ -137,6 +137,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Alternative_step_4.ets" />
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
