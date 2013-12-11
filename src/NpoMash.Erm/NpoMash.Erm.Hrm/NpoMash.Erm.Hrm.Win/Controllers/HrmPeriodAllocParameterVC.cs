@@ -79,9 +79,10 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace os = ObjectSpace;
             HrmPeriodAllocParameter alloc_parameters = (HrmPeriodAllocParameter)e.CurrentObject;
-            alloc_parameters.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
-            ObjectSpace.CommitChanges();
+            AllocParametersLogic.acceptParameters(os, alloc_parameters);
+            os.CommitChanges();
         }
     }
 }

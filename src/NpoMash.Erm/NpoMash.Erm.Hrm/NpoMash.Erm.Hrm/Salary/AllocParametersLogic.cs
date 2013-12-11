@@ -99,7 +99,14 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
+            os.GetObjects<fmCOrder>();
+            //обновление заказов в справочнике
+            foreach (HrmPeriodOrderControl order_control in alloc_parameter.OrderControls) {
+                if (order_control.TypeControl != order_control.Order.TypeControl)
+                    order_control.Order.TypeControl = order_control.TypeControl;
+            }
         }
+
         
 
     }//end of AllocParametersLogic class
