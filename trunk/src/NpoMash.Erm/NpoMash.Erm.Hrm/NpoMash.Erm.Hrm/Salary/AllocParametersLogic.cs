@@ -98,12 +98,19 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
-            alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
-            os.GetObjects<fmCOrder>();
-            //обновление заказов в справочнике
-            foreach (HrmPeriodOrderControl order_control in alloc_parameter.OrderControls) {
-                if (order_control.TypeControl != order_control.Order.TypeControl)
+            if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
+                if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit)
+                    alloc_parameter.Status = HrmPeriodAllocParameterStatus.ListOfOrderAccepted;
+                else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted)
+                    alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
+
+                os.GetObjects<fmCOrder>();
+                //обновление заказов в справочнике
+                foreach (HrmPeriodOrderControl order_control in alloc_parameter.OrderControls) {
                     order_control.Order.TypeControl = order_control.TypeControl;
+                    order_control.Order.NormKB = order_control.NormKB;
+                    order_control.Order.NormOZM = order_control.NormOZM;
+                }
             }
         }
 
