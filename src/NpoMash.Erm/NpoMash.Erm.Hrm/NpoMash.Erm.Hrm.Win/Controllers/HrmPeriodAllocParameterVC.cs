@@ -81,8 +81,28 @@ namespace NpoMash.Erm.Hrm.Salary
         private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace os = ObjectSpace;
             HrmPeriodAllocParameter alloc_parameters = (HrmPeriodAllocParameter)e.CurrentObject;
-            AllocParametersLogic.acceptParameters(os, alloc_parameters);
-            os.CommitChanges();
+            if (alloc_parameters.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted)
+            {
+                string message = "";
+                string caption = "";
+                if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.OpenToEdit) {
+                    caption = "”тверждение списка контролируемых заказов";
+                    message = "¬ы уверены что хотите утвердить списко контролируемых заказов?";
+                }
+                if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted) {
+                    caption = "”тверждение параметров расчета";
+                    message = "¬ы уверены что хотите утвердить параметры расчета? ¬ случае подтверждени€ дальнейшее редактирование данных параметров расчета будет невозможно";
+                }
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) {
+                    AllocParametersLogic.acceptParameters(os, alloc_parameters);
+                    os.CommitChanges();
+                }
+            }
         }
+
+
     }
 }
