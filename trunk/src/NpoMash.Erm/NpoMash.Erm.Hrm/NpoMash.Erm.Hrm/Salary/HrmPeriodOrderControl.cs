@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmPeriodOrderControl")]
     [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", Enabled = false)] //5
-
+    [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Order, AllocParameter")]
     public class HrmPeriodOrderControl : BaseObject {
 
         private fmCOrderTypeCOntrol _TypeControl;
