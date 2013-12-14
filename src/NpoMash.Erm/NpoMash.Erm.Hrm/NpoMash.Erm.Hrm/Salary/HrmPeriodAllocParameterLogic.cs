@@ -17,7 +17,7 @@ using IntecoAG.Erm.HRM;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
-    public static class AllocParametersLogic {
+    public static class HrmPeriodAllocParameterLogic {
         private const Int16 INIT_NORM_NO_CONTROL_KB = 1000;
         private const Int16 INIT_NORM_NO_CONTROL_OZM = 2000;
 

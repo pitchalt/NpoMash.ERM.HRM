@@ -8,6 +8,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Layout;
 
+using IntecoAG.Erm.FM.Order;
+using NpoMash.Erm.Hrm;
 using NpoMash.Erm.Hrm.Salary;
 using NpoMash.Erm.Hrm.Tests.Controllers;
 
@@ -46,7 +48,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         }
     }
 
-    class TestApplication : XafApplication {
+    public class TestApplication : XafApplication {
         public TestApplication() : base() {
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.TestsWindowsFormsApplication_DatabaseVersionMismatch);
         }

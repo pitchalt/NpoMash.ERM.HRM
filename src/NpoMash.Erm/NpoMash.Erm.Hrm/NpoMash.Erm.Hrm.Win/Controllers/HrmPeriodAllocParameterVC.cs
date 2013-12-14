@@ -47,7 +47,7 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             IObjectSpace root_object_space = Application.CreateObjectSpace();
             try {
-                HrmPeriodAllocParameter created_alloc_parameters = AllocParametersLogic.createParameters(root_object_space);
+                HrmPeriodAllocParameter created_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(root_object_space);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, created_alloc_parameters);
             }
             catch (OpenPeriodExistsException) {
@@ -97,7 +97,7 @@ namespace NpoMash.Erm.Hrm.Salary
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) {
-                    AllocParametersLogic.acceptParameters(os, alloc_parameters);
+                    HrmPeriodAllocParameterLogic.acceptParameters(os, alloc_parameters);
                     os.CommitChanges();
                 }
             }
