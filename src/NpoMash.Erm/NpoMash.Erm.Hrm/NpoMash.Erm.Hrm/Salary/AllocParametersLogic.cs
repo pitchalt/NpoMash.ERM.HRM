@@ -32,7 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary
             par.Period = current_period;
             current_period.CurrentAllocParameter = par;
             current_period.AllocParameters.Add(par);
-            par.Status = HrmPeriodAllocParameterStatus.OpenToEdit;
+            par.setStatus(HrmPeriodAllocParameterStatus.OpenToEdit);
             initParametersFromPreviousPeriod(os, par);
             initOrderControls(os, par);
             return par;
@@ -100,9 +100,9 @@ namespace NpoMash.Erm.Hrm.Salary
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
                 if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit)
-                    alloc_parameter.Status = HrmPeriodAllocParameterStatus.ListOfOrderAccepted;
+                    alloc_parameter.setStatus(HrmPeriodAllocParameterStatus.ListOfOrderAccepted);
                 else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted)
-                    alloc_parameter.Status = HrmPeriodAllocParameterStatus.AllocParametersAccepted;
+                    alloc_parameter.setStatus(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
 
                 os.GetObjects<fmCOrder>();
                 //обновление заказов в справочнике

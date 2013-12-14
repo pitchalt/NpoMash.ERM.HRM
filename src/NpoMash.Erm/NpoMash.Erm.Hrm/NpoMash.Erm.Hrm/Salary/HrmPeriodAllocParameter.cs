@@ -44,11 +44,14 @@ namespace NpoMash.Erm.Hrm.Salary
         public Int16 Month {
             get { return Period.Month; }
         }
+
+        [Persistent("Status")]
         private HrmPeriodAllocParameterStatus _Status;
         [RuleRequiredField(DefaultContexts.Save)]
+        [PersistentAlias("_Status")]
         public HrmPeriodAllocParameterStatus Status {
                get { return _Status; }
-               set { SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, value); } 
+               //set { SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, value); } 
         }
 
         private Decimal _NormNoControlKB;
@@ -90,9 +93,12 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public override void AfterConstruction(){
             base.AfterConstruction();
-            Status = HrmPeriodAllocParameterStatus.OpenToEdit;
+            setStatus(HrmPeriodAllocParameterStatus.OpenToEdit);
         }
 
+        public void setStatus(HrmPeriodAllocParameterStatus s){
+            SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, s);
+        }
 
     }
 

@@ -87,7 +87,7 @@ namespace NpoMash.Erm.Hrm.Salary
                 string caption = "";
                 if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.OpenToEdit) {
                     caption = "Утверждение списка контролируемых заказов";
-                    message = "Вы уверены что хотите утвердить списко контролируемых заказов?";
+                    message = "Вы уверены что хотите утвердить список контролируемых заказов?";
                 }
                 if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted) {
                     caption = "Утверждение параметров расчета";
