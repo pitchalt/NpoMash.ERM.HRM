@@ -15,6 +15,7 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.Erm.HRM;
 namespace NpoMash.Erm.Hrm.Salary {
 
+    [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]
     [Persistent("HrmPeriodPayType")]
     public class HrmPeriodPayType : BaseObject {
 
