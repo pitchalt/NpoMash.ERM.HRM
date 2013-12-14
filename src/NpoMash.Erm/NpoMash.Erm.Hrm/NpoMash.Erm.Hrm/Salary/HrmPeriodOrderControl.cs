@@ -47,14 +47,18 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public bool RuleMethod() {
-            if (AllocParameter.Status==HrmPeriodAllocParameterStatus.ListOfOrderAccepted && Order.TypeControl==fmCOrderTypeCOntrol.TrudEmk_FOT) {
-                return true;
+        /*[NonPersistent()]
+        public bool RuleMethod {
+            get {
+                if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted &&
+                    Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
             }
-            else {
-                return false;
-            }
-        }
+        }*/
 
         //////////////////////Связи
 

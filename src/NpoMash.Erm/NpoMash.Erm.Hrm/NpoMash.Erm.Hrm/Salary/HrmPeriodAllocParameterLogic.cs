@@ -103,18 +103,36 @@ namespace NpoMash.Erm.Hrm.Salary
                     alloc_parameter.setStatus(HrmPeriodAllocParameterStatus.ListOfOrderAccepted);
                 else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted)
                     alloc_parameter.setStatus(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
-
-                os.GetObjects<fmCOrder>();
                 //обновление заказов в справочнике
-                foreach (HrmPeriodOrderControl order_control in alloc_parameter.OrderControls) {
-                    order_control.Order.TypeControl = order_control.TypeControl;
-                    order_control.Order.NormKB = order_control.NormKB;
-                    order_control.Order.NormOZM = order_control.NormOZM;
-                }
+                updateFmCOrders(os, alloc_parameter);
             }
         }
 
-        
+        private static void updateFmCOrders(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
+            List<HrmPeriodOrderControl> order_controls_to_delete = new List<HrmPeriodOrderControl>();
+            foreach (var order in os.GetObjects<fmCOrder>()) {
+                bool in_order_controls = false;
+                
+                foreach (var order_control in alloc_parameter.OrderControls) {
+                    if (order_control.Order == order) {
+                        if (order_control.TypeControl == fmCOrderTypeCOntrol.No_Ordered) {
+                            //alloc_parameter.OrderControls.Remove(order_control);
+                            //order_control.Delete();
+                            order_controls_to_delete.Add(order_control);
+                        }
+                        else {
+                            in_order_controls = true;
+                            order.TypeControl = order_control.TypeControl;
+                            order.NormKB = order_control.NormKB;
+                            order.NormOZM = order_control.NormOZM;
+                        }
+                    }
+                }
+                if (!in_order_controls) order.TypeControl = fmCOrderTypeCOntrol.No_Ordered;
+            }
+            foreach (HrmPeriodOrderControl order_control in order_controls_to_delete)
+                alloc_parameter.OrderControls.Remove(order_control);
+        }
 
     }//end of AllocParametersLogic class
 }//end of namespace
