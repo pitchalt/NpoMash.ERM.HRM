@@ -22,6 +22,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmPeriodOrderControl")]
     [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted' and TypeControl=='TrudEmk_FOT'", Context = "Any", Enabled = false)] //5
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Order, AllocParameter")]
+    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Criteria = "AllocParameter.Status == 'ListOfOrderAccepted' and TypeControl == 'TrudEmk_FOT'", Visibility = ViewItemVisibility.Hide)]
     public class HrmPeriodOrderControl : BaseObject {
 
         private fmCOrderTypeCOntrol _TypeControl;
