@@ -97,6 +97,7 @@ namespace NpoMash.Erm.Hrm.Salary
                                              MessageBoxButtons.YesNo,
                                              MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) {
+                    ObjectSpace.CommitChanges();
                     HrmPeriodAllocParameterLogic.acceptParameters(os, alloc_parameters);
                     os.CommitChanges();
                 }

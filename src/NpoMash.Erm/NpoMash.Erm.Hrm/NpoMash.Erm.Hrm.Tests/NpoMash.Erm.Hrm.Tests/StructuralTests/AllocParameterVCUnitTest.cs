@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
     [TestFixture]
     public class AllocParameterVCUnitTest {
-//        IObjectSpace object_space;
+  //      IObjectSpace object_space;
         TestApplication application;
         [SetUp]
         public void setUp() {

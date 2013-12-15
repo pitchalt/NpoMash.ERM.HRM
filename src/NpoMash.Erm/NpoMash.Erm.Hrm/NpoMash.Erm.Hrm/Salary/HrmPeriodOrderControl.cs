@@ -27,7 +27,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private fmCOrderTypeCOntrol _TypeControl;
-        [RuleValueComparison(DefaultContexts.Save, ValueComparisonType.NotEquals, true, TargetCriteria = "RuleMethod", TargetPropertyName = "TypeControl")]
+        [RuleValueComparison(DefaultContexts.Save, ValueComparisonType.NotEquals, fmCOrderTypeCOntrol.TrudEmk_FOT, TargetCriteria = "RuleMethod")]
         public fmCOrderTypeCOntrol TypeControl {
             get { return _TypeControl; }
             set {
@@ -49,31 +49,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }
         }
 
-<<<<<<< .mine       
+     
         
-        //[RuleValueComparison(DefaultContexts.Save,ValueComparisonType.NotEquals,false,TargetPropertyName="TypeControl")]
-=======
-        /*[NonPersistent()]
+        [Browsable(false)]
         public bool RuleMethod {
->>>>>>> .theirs            get {
-<<<<<<< .mine            get {
-                if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted && Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT && Session.IsNewObject(this)==true) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-=======                if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted &&
-                    Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
->>>>>>> .theirs            }
-<<<<<<< .mine        }
-=======        }*/
->>>>>>> .theirs
+            get { 
+                return AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted && TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT && Session.IsNewObject(this);
+            }
+        }
         //////////////////////Связи
 
         // связь с FmCOrder
@@ -97,7 +80,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmPeriodAllocParameter AllocParameter {
             get { return _AllocParameter; }
             set {
-               // if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted && Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT) { throw new OpenPeriodExistsException("Есть незакрытый период"); }else { 
                     SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); 
             
             }

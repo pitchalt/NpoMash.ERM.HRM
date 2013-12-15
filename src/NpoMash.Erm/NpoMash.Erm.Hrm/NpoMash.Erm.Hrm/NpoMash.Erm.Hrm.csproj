@@ -131,9 +131,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameterLogic.cs" />
+    <Compile Include="Salary\HrmAccount.cs" />
+    <Compile Include="Salary\HrmAccountOperation.cs" />
+    <Compile Include="Salary\HrmMatrix.cs" />
+    <Compile Include="Salary\HrmMatrixAllocPlan.cs" />
+    <Compile Include="Salary\HrmMatrixAllocResult.cs" />
+    <Compile Include="Salary\HrmMatrixCell.cs" />
+    <Compile Include="Salary\HrmMatrixColumn.cs" />
+    <Compile Include="Salary\HrmMatrixRow.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
+    <Compile Include="Salary\HrmTimeSheet.cs" />
+    <Compile Include="Salary\HrmTimeSheetDep.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

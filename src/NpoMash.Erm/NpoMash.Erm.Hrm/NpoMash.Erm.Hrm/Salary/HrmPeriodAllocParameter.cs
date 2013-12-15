@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.Erm.HRM;
 using IntecoAG.Erm.FM.Order;
+
 namespace NpoMash.Erm.Hrm.Salary
 {
 
