@@ -63,16 +63,133 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             os.CommitChanges();
         }
 
-        [Test]
-        public void TestHrmPeriodAllocParameterCreate() {
+        [Test] //(Параметры расчета 2) Создание параметров и проверка статуса
+        public void TestHrmPeriodAllocParameter_Create() {
             IObjectSpace os = application.CreateObjectSpace();
-            IList<fmCOrder> orders = os.GetObjects<fmCOrder>(); 
-            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters(os);
-            ValidateAllocParameterWithOrders(os, param);
-            Assert.AreEqual(param.Status, HrmPeriodAllocParameterStatus.OpenToEdit);
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.OpenToEdit );
         }
 
-        [Test]
+
+        [Test] //(Параметры расчета 4) Повторное создание параметров
+        public void TestHrmPeriodAllocParameter_CreateDoubleParameters() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            try { HrmPeriodAllocParameter new_param = HrmPeriodAllocParameterLogic.createParameters( os ); }
+            catch ( OpenPeriodExistsException ) { }
+        }
+
+        [Test] //Проверка статуса Утвержден список контролируемых заказов
+        public void TestHrmPeriodAllocParameter_CheckOfOrderAcceptedStatus() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.ListOfOrderAccepted );
+        }
+
+        [Test] //(Параметры расчета 5) Выполняться не должно
+        public void TestHrmPeriodAllocParameter_EditingControlType() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters(os, param);
+//            var orderCollection = os.GetObjects<fmCOrder>();
+            foreach ( var each in param.OrderControls ) {
+                if ( each.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT ) { each.TypeControl = fmCOrderTypeCOntrol.FOT; }
+            }
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+        }
+
+        [Test] //(Параметры расчета 6) Выполняться не должно
+        public void TestHrmPeriodAllocParameter_AddNew_TF_Order() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            var new_order = os.CreateObject<fmCOrder>();
+            new_order.Code = "newCode";
+            new_order.NormKB = 40;
+            new_order.NormOZM = 60;
+ //           new_order.TypeConstancy = fmCOrdertypeConstancy.One;
+            new_order.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT;
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+        }
+
+        [Test] //(Параметры расчета 7) Выполняться не должно
+        public void TestHrmPeriodAllocParameter_Delete_TF_Order() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            var orderCollection = os.GetObjects<fmCOrder>();
+            IList<fmCOrder> delete_list = null;
+            foreach ( var each in orderCollection ) {
+                if ( each.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT ) { delete_list.Add( each ); }
+            }
+            os.Delete( delete_list );
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+        }
+
+        [Test] //(Параметры расчета 8) Выполняться не должно
+        public void TestHrmPeriodAllocParameter_TF_EditingControlType() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            var orderCollection = os.GetObjects<fmCOrder>();
+            foreach ( var each in orderCollection ) {
+                if ( each.TypeControl != fmCOrderTypeCOntrol.TrudEmk_FOT ) { each.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
+            }
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+        }
+
+        [Test]//Проверка статуса утверждены параметры расчета
+        public void TestHrmPeriodAllocParameter_CheckStatus_AllocParametersAccepted() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            ValidateAllocParameterWithOrders( os, param );
+            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.AllocParametersAccepted );
+        }
+
+        [Test]//(Параметры расчета 9) Выполняться не должно
+        public void TestHrmPeriodAllocParameter_AllocFieldEditing() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            param.NormNoControlKB = 50;
+            param.NormNoControlOZM = 11111;
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+        }
+
+        [Test]//(Параметры расчета 10) Выполняться не должно
+        public void TestHrmPeriodAllocParameter_DeleteCreatedAndSavedAllocs() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            ValidateAllocParameterWithOrders( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
+            os.Delete( os.GetObjects<fmCOrder>() );
+            os.CommitChanges();
+            ValidateAllocParameterWithOrders( os, param );
+        }
+
+
+
+        [Test] //Радактирование параметров до их утверждения
         public void TestHrmPeriodAllocParameter_ConfirmTrud_EditAdd() {
             IObjectSpace os = application.CreateObjectSpace();
             IList<fmCOrder> orders = os.GetObjects<fmCOrder>();
@@ -95,7 +212,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ValidateAllocParameterWithOrders(os, param);
         }
 
-        [Test]
+        [Test] // удаление параметров до их утверждения
         public void TestHrmPeriodAllocParameter_ConfirmTrud_AddRemoveOrderControl() {
             IObjectSpace os = application.CreateObjectSpace();
             IList<fmCOrder> orders = os.GetObjects<fmCOrder>();

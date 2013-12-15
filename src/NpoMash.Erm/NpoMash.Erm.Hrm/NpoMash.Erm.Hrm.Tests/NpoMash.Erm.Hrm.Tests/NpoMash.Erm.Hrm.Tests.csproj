@@ -131,6 +131,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\UCS_UCF3\Main.ets" />
+    <None Include="FunctionalTests\UCS_UCF3\Alternative_Step4.ets" />
+    <None Include="FunctionalTests\UCS_UCF3\Alternative_Step6_Save.ets" />
+    <None Include="FunctionalTests\UCS_UCF3\Alternative_Step6_notSave.ets" />
+    <None Include="FunctionalTests\UCS_UCF3\Alternative_Step6_addNorms.ets" />
+    <None Include="FunctionalTests\UCS_UCF3\Alternative_Step6_addCodes.ets" />
+    <None Include="FunctionalTests\UCS_UCF6\Alternative_Step6_addCodes.ets" />
+    <None Include="FunctionalTests\UCS_UCF6\Alternative_Step6_addNorms.ets" />
+    <None Include="FunctionalTests\UCS_UCF6\Main.ets" />
+    <None Include="FunctionalTests\UCS_UCF6\Alternative_Step6_Saving.ets" />
+    <None Include="FunctionalTests\UCS_UCF6\Alternative_Step6_notSaving.ets" />
     <None Include="Images\ReadMe.txt" />
     <EmbeddedResource Include="Model.DesignedDiffs.Localization.en.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
@@ -143,10 +153,13 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\UCS_UCF3\Alternative_step_4.ets" />
     <Content Include="FunctionalTests\UCS_UCF3\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\UCS_UCF6\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\UCS_UCF3\Alternative_Step5.ets" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\IntecoAG.Erm\IntecoAG.Erm\IntecoAG.Erm.csproj">
