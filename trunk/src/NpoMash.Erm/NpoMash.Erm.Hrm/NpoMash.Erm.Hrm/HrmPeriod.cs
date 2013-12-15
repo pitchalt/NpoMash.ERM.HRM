@@ -3,9 +3,9 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Collections.Generic;
+//
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
@@ -13,6 +13,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
+//
 using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm {
@@ -30,7 +31,6 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Year")]
         public Int16 Year {
             get { return _Year; }
-            //private set { SetPropertyValue<Int16>("Year", ref _Year, value); }
         }
         
         [Persistent("Month")]
@@ -38,10 +38,22 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Month")]
         public Int16 Month {
             get { return _Month; }
-            //private set { SetPropertyValue<Int16>("Month", ref _Month, value); }
+
         }
-        
-       
+
+        private HrmTimeSheet _CurrentTimeSheet; // Ссылка на HrmTimeSheet
+        public HrmTimeSheet CurrentTimeSheet {
+            get { return _CurrentTimeSheet; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheet", ref _CurrentTimeSheet, value); }
+        }
+
+        [Association("Period-TimeSheets")] // Коллекция HrmTimeSheet
+        public XPCollection<HrmTimeSheet> TimeSheets {
+            get { return GetCollection<HrmTimeSheet>("TimeSheets"); }
+        }
+
+
+
         private HrmPeriodStatus _Status;
         [RuleRequiredField(DefaultContexts.Save)]
         public HrmPeriodStatus Status {
@@ -49,8 +61,6 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
-
-        //////////////////////Связи
 
         private HrmPeriodAllocParameter _CurrentAllocParameter; // Ссылка на HrmPeriodAllocParameter
         public HrmPeriodAllocParameter CurrentAllocParameter {
@@ -63,18 +73,21 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmPeriodAllocParameter>("AllocParameters"); }
         }
 
-        // Сслыка на самого себя 
-        private HrmPeriod _PeriodPrevious;
+        private HrmPeriod _PeriodPrevious; // Сслыка на самого себя 
         public HrmPeriod PeriodPrevious {
             get { return _PeriodPrevious; }
             set { SetPropertyValue<HrmPeriod>("PeriodPrevious", ref _PeriodPrevious, value); }
         }
 
+
+        [Association("Period-Matrixs"), Aggregated] //Коллекция Matrixs
+        public XPCollection<HrmMatrix> Matrixs {
+            get { return GetCollection<HrmMatrix>("Matrixs"); }
+        }
+
         public void Init(Int16 y, Int16 m) {
             SetPropertyValue<Int16>("Year", ref _Year, y);
             SetPropertyValue<Int16>("Month", ref _Month, m);
-            //Year = y;
-            //Month = m;
         }
 
         public HrmPeriod(Session session) : base(session) { }
