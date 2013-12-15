@@ -25,7 +25,9 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Criteria = "AllocParameter.Status == 'ListOfOrderAccepted' and TypeControl == 'TrudEmk_FOT'", Visibility = ViewItemVisibility.Hide)]
     public class HrmPeriodOrderControl : BaseObject {
 
+
         private fmCOrderTypeCOntrol _TypeControl;
+        [RuleValueComparison(DefaultContexts.Save, ValueComparisonType.NotEquals, true, TargetCriteria = "RuleMethod", TargetPropertyName = "TypeControl")]
         public fmCOrderTypeCOntrol TypeControl {
             get { return _TypeControl; }
             set {
@@ -47,20 +49,31 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }
         }
 
-
+<<<<<<< .mine       
+        
+        //[RuleValueComparison(DefaultContexts.Save,ValueComparisonType.NotEquals,false,TargetPropertyName="TypeControl")]
+=======
         /*[NonPersistent()]
         public bool RuleMethod {
-            get {
-                if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted &&
+>>>>>>> .theirs            get {
+<<<<<<< .mine            get {
+                if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted && Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT && Session.IsNewObject(this)==true) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+=======                if (AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted &&
                     Order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT) {
                     return false;
                 }
                 else {
                     return true;
                 }
-            }
-        }*/
-
+>>>>>>> .theirs            }
+<<<<<<< .mine        }
+=======        }*/
+>>>>>>> .theirs
         //////////////////////Связи
 
         // связь с FmCOrder
