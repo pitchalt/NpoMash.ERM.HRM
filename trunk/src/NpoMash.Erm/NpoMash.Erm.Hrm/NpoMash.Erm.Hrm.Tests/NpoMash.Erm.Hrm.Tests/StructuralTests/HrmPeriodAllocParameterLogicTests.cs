@@ -127,9 +127,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
-            var orderCollection = os.GetObjects<fmCOrder>();
-            IList<fmCOrder> delete_list = null;
-            foreach ( var each in orderCollection ) {
+            IList<HrmPeriodOrderControl> delete_list = null;
+            foreach ( var each in param.OrderControls ) {
                 if ( each.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT ) { delete_list.Add( each ); }
             }
             os.Delete( delete_list );
@@ -144,7 +143,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             var orderCollection = os.GetObjects<fmCOrder>();
-            foreach ( var each in orderCollection ) {
+            foreach ( var each in param.OrderControls ) {
                 if ( each.TypeControl != fmCOrderTypeCOntrol.TrudEmk_FOT ) { each.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
             }
             os.CommitChanges();
@@ -182,7 +181,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
-            os.Delete( os.GetObjects<fmCOrder>() );
+            os.Delete( os.GetObjects<HrmPeriodOrderControl>() );
             os.CommitChanges();
             ValidateAllocParameterWithOrders( os, param );
         }
