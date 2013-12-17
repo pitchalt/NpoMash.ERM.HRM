@@ -15,7 +15,7 @@ using DevExpress.Persistent.Validation;
 
 namespace IntecoAG.Erm.HRM.Organization
 {
-    public enum DepartmentGroupDep { KB = 0, OZM = 1 }
+    public enum DEPARTMENT_GROUP_DEP { KB = 0, OZM = 1 }
 
     [Persistent("Department")]
     public class Department : BaseObject
@@ -25,14 +25,14 @@ namespace IntecoAG.Erm.HRM.Organization
             get { return _Code; }
             set { SetPropertyValue<String>("Code", ref _Code, value); } }
 
-        private DepartmentGroupDep _GroupDep;
-        public DepartmentGroupDep GroupDep {
+        private DEPARTMENT_GROUP_DEP _GroupDep;
+        public DEPARTMENT_GROUP_DEP GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); } }
+            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); } }
  
         public Department(Session session) : base(session){ }
         public override void AfterConstruction()
-        { base.AfterConstruction(); GroupDep = DepartmentGroupDep.KB; }
+        { base.AfterConstruction(); GroupDep = DEPARTMENT_GROUP_DEP.KB; }
         
     }
 }

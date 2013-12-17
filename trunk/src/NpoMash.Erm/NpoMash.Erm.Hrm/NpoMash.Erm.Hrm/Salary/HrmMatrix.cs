@@ -16,62 +16,63 @@ using DevExpress.ExpressApp.Editors;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public enum HrmMatrixStatus {
+    public enum HRM_MATRIX_STATUS {
         Opened = 0,
         Saved = 1,
         Accepted,
         Closed
     }
 
-    public enum HrmMatrixType {
+    public enum HRM_MATRIX_TYPE {
         Matrix = 0,
         AllocResult = 1
     }
 
-    public enum HrmMatrixTypeMatrix {
+    public enum HRM_MATRIX_TYPE_MATRIX {
         Planned = 0,
         Coerced = 1,
         ReserveMatrix = 2
     }
 
-    public enum HrmMatrixGroupDep {
+    public enum HRM_MATRIX_GROUP_DEP {
         KB = 0,
         OZM = 1
     }
 
-    public enum HrmMatrixVariant { }
+    public enum HRM_MATRIX_VARIANT { }
 
     [Persistent("HrmMatrix")]
+    [NavigationItem("UNKNOWN")]
     public class HrmMatrix : BaseObject {
 
-        private HrmMatrixType _Type;
-        public HrmMatrixType Type {
+        private HRM_MATRIX_TYPE _Type;
+        public HRM_MATRIX_TYPE Type {
             get { return _Type; }
-            set { SetPropertyValue<HrmMatrixType>("Type", ref _Type, value); }
+            set { SetPropertyValue<HRM_MATRIX_TYPE>("Type", ref _Type, value); }
         }
 
-        private HrmMatrixTypeMatrix _TypeMatrix;
-        public HrmMatrixTypeMatrix TypeMatrix {
+        private HRM_MATRIX_TYPE_MATRIX _TypeMatrix;
+        public HRM_MATRIX_TYPE_MATRIX TypeMatrix {
             get { return _TypeMatrix; }
-            set { SetPropertyValue<HrmMatrixTypeMatrix>("TypeMatrix", ref _TypeMatrix, value); }
+            set { SetPropertyValue<HRM_MATRIX_TYPE_MATRIX>("TypeMatrix", ref _TypeMatrix, value); }
         }
 
-        private HrmMatrixGroupDep _GroupDep;
-        public HrmMatrixGroupDep GroupDep {
+        private HRM_MATRIX_GROUP_DEP _GroupDep;
+        public HRM_MATRIX_GROUP_DEP GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<HrmMatrixGroupDep>("GroupDep", ref _GroupDep, value); }
+            set { SetPropertyValue<HRM_MATRIX_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
         }
 
-        private HrmMatrixStatus _Status;
-        public HrmMatrixStatus Status {
+        private HRM_MATRIX_STATUS _Status;
+        public HRM_MATRIX_STATUS Status {
             get { return _Status; }
-            set { SetPropertyValue<HrmMatrixStatus>("Status", ref _Status, value); }
+            set { SetPropertyValue<HRM_MATRIX_STATUS>("Status", ref _Status, value); }
         }
 
-        private HrmMatrixVariant _Variant;
-        public HrmMatrixVariant Variant {
+        private HRM_MATRIX_VARIANT _Variant;
+        public HRM_MATRIX_VARIANT Variant {
             get { return _Variant; }
-            set { SetPropertyValue<HrmMatrixVariant>("Variant", ref _Variant, value); }
+            set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
         }
 
         [Association("Matrix-Rows"), Aggregated] //Коллекция HrmMatrixRow
