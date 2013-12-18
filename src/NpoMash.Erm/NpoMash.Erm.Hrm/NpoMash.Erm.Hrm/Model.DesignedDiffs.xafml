@@ -54,9 +54,106 @@
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="HrmMatrixCell_DetailView">
+      <Items>
+        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixCell_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixCell_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixColumn_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixColumn_DetailView">
+      <Items>
+        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixColumn_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixColumn_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixRow_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixRow_DetailView">
+      <Items>
+        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixRow_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixRow_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Items>
+        <PropertyEditor Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
+        <PropertyEditor Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmPeriodAllocParameter_ListView">
+      <Columns>
+        <ColumnInfo Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriodAllocParameter_LookupListView">
+      <Columns>
+        <ColumnInfo Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriodAllocParameter_OrderControls_ListView">
+      <Columns>
+        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
     <ListView Id="HrmPeriodAllocParameter_PeriodPayTypes_ListView">
       <Columns>
         <ColumnInfo Id="PayType.Name" PropertyName="PayType.Name" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodOrderControl_DetailView">
+      <Items>
+        <PropertyEditor Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <PropertyEditor Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmPeriodOrderControl_ListView">
+      <Columns>
+        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriodOrderControl_LookupListView">
+      <Columns>
+        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
       </Columns>
     </ListView>
   </Views>

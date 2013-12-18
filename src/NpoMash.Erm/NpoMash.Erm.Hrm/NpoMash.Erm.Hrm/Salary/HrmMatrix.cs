@@ -40,9 +40,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     }
 
     public enum HRM_MATRIX_VARIANT { }
-
+    [DefaultProperty("Type")] 
     [Persistent("HrmMatrix")]
-    [NavigationItem("UNKNOWN")]
     public class HrmMatrix : BaseObject {
 
         private HRM_MATRIX_TYPE _Type;
