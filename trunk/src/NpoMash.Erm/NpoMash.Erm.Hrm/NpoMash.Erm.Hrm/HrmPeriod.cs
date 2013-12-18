@@ -23,6 +23,7 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
     [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
+    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]
