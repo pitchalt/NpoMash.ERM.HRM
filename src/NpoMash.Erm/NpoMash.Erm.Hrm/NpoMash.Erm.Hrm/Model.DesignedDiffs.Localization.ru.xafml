@@ -9,6 +9,59 @@
         <Member Name="Year" Caption="Год" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAccountOperation" Caption="БухПроводка">
+      <OwnMembers>
+        <Member Name="AllocResult" Caption="Результат Расчета" />
+        <Member Name="Cell" Caption="Ячейка матрицы" />
+        <Member Name="Credit" Caption="Кредит" />
+        <Member Name="Debit" Caption="Дебит" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="PayType" Caption="Код оплаты" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" Caption="Матрица &amp; РезультатРаспределения">
+      <OwnMembers>
+        <Member Name="Columns" Caption="Столбцы" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="Rows" Caption="Строки" />
+        <Member Name="Status" Caption="Статус" />
+        <Member Name="Type" Caption="Тип" />
+        <Member Name="TypeMatrix" Caption="Тип матрицы" />
+        <Member Name="Variant" Caption="Номер итерации" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocPlan" Caption="Матрица" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocResult" Caption="РезультатРаспределения">
+      <OwnMembers>
+        <Member Name="AccountOperations" Caption="БухПроводки" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" Caption="ЯчейкаМатрицы">
+      <OwnMembers>
+        <Member Name="Column" Caption="Столбец" />
+        <Member Name="Row" Caption="Ячейка" />
+        <Member Name="Sum" Caption="Итого" />
+        <Member Name="Time" Caption="Временной интервал" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" Caption="Столбец">
+      <OwnMembers>
+        <Member Name="Cells" Caption="Ячейки" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Sum" Caption="Итого" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" Caption="Строка">
+      <OwnMembers>
+        <Member Name="Cells" Caption="Ячейки" />
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="Sum" Caption="Итого" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" Caption="Параметры расчета">
       <OwnMembers>
         <Member Name="Month" Caption="Месяц" />
@@ -36,6 +89,8 @@
         <Member Name="PayType" Caption="Код оплаты" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр" />
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
@@ -48,9 +103,32 @@
         <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
         <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
       </LocalizationGroup>
+      <LocalizationGroup Name="IntecoAG.Erm.HRM.Organization.DEPARTMENT_GROUP_DEP">
+        <LocalizationItem Name="KB" Value="КБ" />
+        <LocalizationItem Name="OZM" Value="ОЗМ" />
+      </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
         <LocalizationItem Name="closed" Value="Закрыт" />
         <LocalizationItem Name="Opened" Value="Открыт" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_GROUP_DEP">
+        <LocalizationItem Name="KB" Value="КБ" />
+        <LocalizationItem Name="OZM" Value="ОЗМ" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
+        <LocalizationItem Name="Accepted" Value="Утверждена" />
+        <LocalizationItem Name="Closed" Value="Закрыта" />
+        <LocalizationItem Name="Opened" Value="Открыта" />
+        <LocalizationItem Name="Saved" Value="Сохранена" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_TYPE">
+        <LocalizationItem Name="AllocResult" Value="Результат распределения" />
+        <LocalizationItem Name="Matrix" Value="Матрица" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_TYPE_MATRIX">
+        <LocalizationItem Name="Coerced" Value="Приведенная" />
+        <LocalizationItem Name="Planned" Value="Плановая" />
+        <LocalizationItem Name="ReserveMatrix" Value="Матрица резерва" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
         <LocalizationItem Name="AllocParametersAccepted" Value="Утверждены параметры расчета" />
