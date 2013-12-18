@@ -231,6 +231,33 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ValidateAllocParameterWithOrders(os, param);
         }
 
+        [Test] // Выявление наличия мусора в базе после первой стадии подтвеждения заказов
+        public void Test_SearchDataTrashFirst() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter alloc_parameter = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, alloc_parameter );
+            os.CommitChanges();
+            foreach ( var each in os.GetObjects<HrmPeriodOrderControl>() ) {
+                Assert.NotNull( each.AllocParameter );
+                Assert.NotNull( each.Order );
+                Assert.NotNull( each.This );
+            }
+        }
+
+        [Test] // Выявление наличия мусора в базу после второй стадии подтверждения
+        public void Test_SearchDataTrashSecond() {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmPeriodAllocParameter alloc_parameter = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, alloc_parameter );
+            HrmPeriodAllocParameterLogic.acceptParameters( os, alloc_parameter );
+            os.CommitChanges();
+            foreach ( var each in os.GetObjects<HrmPeriodOrderControl>() ) {
+                Assert.NotNull( each.AllocParameter );
+                Assert.NotNull( each.Order );
+                Assert.NotNull( each.This );
+            }
+        }
+
         private void ValidateAllocParameterWithOrders(IObjectSpace os, HrmPeriodAllocParameter param) {
             IList<fmCOrder> orders = os.GetObjects<fmCOrder>();
             Int32 order_count = 0;
