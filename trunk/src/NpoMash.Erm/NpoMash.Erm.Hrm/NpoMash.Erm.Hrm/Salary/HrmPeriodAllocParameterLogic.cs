@@ -130,6 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary
                 }
                 if (!in_order_controls) order.TypeControl = fmCOrderTypeCOntrol.No_Ordered;
             }
+            alloc_parameter.OrderControls.DeleteObjectOnRemove = true;
             foreach (HrmPeriodOrderControl order_control in order_controls_to_delete)
                 alloc_parameter.OrderControls.Remove(order_control);
         }
