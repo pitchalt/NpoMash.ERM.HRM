@@ -27,7 +27,7 @@ namespace NpoMash.Erm.Hrm.Salary
             return alloc_parameter;
         }
 
-        private static HrmPeriodAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
+        public static HrmPeriodAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
             HrmPeriodAllocParameter par = os.CreateObject<HrmPeriodAllocParameter>();
             par.Period = current_period;
             current_period.CurrentAllocParameter = par;
@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
 
-        private static void initParametersFromPreviousPeriod(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void initParametersFromPreviousPeriod(IObjectSpace os, HrmPeriodAllocParameter par) {
             if (par.Period.PeriodPrevious == par.Period) {
                 par.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
                 par.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
@@ -64,7 +64,7 @@ namespace NpoMash.Erm.Hrm.Salary
             }
         }
 
-        private static void addAllPayTypes(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void addAllPayTypes(IObjectSpace os, HrmPeriodAllocParameter par) {
             foreach (HrmSalaryPayType salary in os.GetObjects<HrmSalaryPayType>(null,true)) {
                 HrmPeriodPayType pay_type = os.CreateObject<HrmPeriodPayType>();
                 pay_type.PayType = salary;
@@ -73,7 +73,7 @@ namespace NpoMash.Erm.Hrm.Salary
             }
         }
 
-        private static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
             //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
             foreach (fmCOrder order in os.GetObjects<fmCOrder>(null,true)) {
                 if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
@@ -108,7 +108,7 @@ namespace NpoMash.Erm.Hrm.Salary
             }
         }
 
-        private static void updateFmCOrders(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
+       public static void updateFmCOrders(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             List<HrmPeriodOrderControl> order_controls_to_delete = new List<HrmPeriodOrderControl>();
             foreach (var order in os.GetObjects<fmCOrder>()) {
                 bool in_order_controls = false;
