@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application PreferredLanguage="ru">
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />

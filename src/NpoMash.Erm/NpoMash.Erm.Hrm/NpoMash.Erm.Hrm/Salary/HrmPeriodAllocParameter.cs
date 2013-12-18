@@ -56,6 +56,9 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private Decimal _NormNoControlKB;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
         public Decimal NormNoControlKB {
             get { return _NormNoControlKB; }
@@ -63,6 +66,9 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private Decimal _NormNoControlOZM;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
         public Decimal NormNoControlOZM {
             get { return _NormNoControlOZM; }
@@ -72,6 +78,9 @@ namespace NpoMash.Erm.Hrm.Salary
         private HrmPeriod _Period; // סגÿחü ס HrmPeriod
         [Association("Period-AllocParameters")]
         [RuleRequiredField(DefaultContexts.Save)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmPeriod Period {
             get { return _Period; }
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
