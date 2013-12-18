@@ -71,7 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set {
                 SetPropertyValue<fmCOrder>("Order", ref _Order, value);
                 if (!IsLoading && value != null) {
-                    TypeControl = value.TypeControl;
+                    TypeControl = fmCOrderTypeCOntrol.FOT;
                     NormKB = value.NormKB;
                     NormOZM = value.NormOZM;
                 }

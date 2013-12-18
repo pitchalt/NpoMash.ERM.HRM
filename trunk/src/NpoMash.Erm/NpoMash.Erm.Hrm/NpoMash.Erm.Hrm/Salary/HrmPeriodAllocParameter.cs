@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
     [Appearance("Enable", TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any",  Enabled = false)]
-    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Criteria = "Status = 'AllocParametersAccepted' or Status = 'OpenToEdit' or Status = 'ListOfOrderAccepted'", Visibility = ViewItemVisibility.Hide)]
+    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]       
     public class HrmPeriodAllocParameter : BaseObject
     {
