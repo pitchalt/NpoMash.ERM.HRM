@@ -40,7 +40,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameter param = os.CreateObject<HrmPeriodAllocParameter>();
             period.AllocParameters.Add(param);
             period.CurrentAllocParameter = param;
-            period.PeriodPrevious = period;
+            param.Period.PeriodPrevious = period; ;
             //            object_space = application.CreateObjectSpace();
             order1 = os.CreateObject<fmCOrder>();
             order1.Code = "Code1";
@@ -78,6 +78,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_CreateDoubleParameters() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             try { HrmPeriodAllocParameter new_param = HrmPeriodAllocParameterLogic.createParameters( os ); }
             catch ( OpenPeriodExistsException ) { }
@@ -87,6 +88,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_CheckOfOrderAcceptedStatus() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.ListOfOrderAccepted );
@@ -96,6 +98,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_EditingControlType() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters(os, param);
 //            var orderCollection = os.GetObjects<fmCOrder>();
@@ -110,6 +113,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_AddNew_TF_Order() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             os.CommitChanges();
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
@@ -127,6 +131,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_Delete_TF_Order() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             IList<HrmPeriodOrderControl> delete_list = null;
@@ -142,6 +147,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_TF_EditingControlType() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             var orderCollection = os.GetObjects<fmCOrder>();
@@ -156,6 +162,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_CheckStatus_AllocParametersAccepted() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
@@ -167,6 +174,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_AllocFieldEditing() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
@@ -180,6 +188,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_DeleteCreatedAndSavedAllocs() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
@@ -193,6 +202,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             IObjectSpace os = application.CreateObjectSpace();
             IList<fmCOrder> orders = os.GetObjects<fmCOrder>();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters(os);
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             os.CommitChanges();
             os = application.CreateObjectSpace();
             param = os.GetObject<HrmPeriodAllocParameter>(param);
@@ -216,6 +226,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             IObjectSpace os = application.CreateObjectSpace();
             IList<fmCOrder> orders = os.GetObjects<fmCOrder>();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters(os);
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             os.CommitChanges();
             os = application.CreateObjectSpace();
             param = os.GetObject<HrmPeriodAllocParameter>(param);
@@ -235,6 +246,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void Test_SearchDataTrashFirst() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter alloc_parameter = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, alloc_parameter );
             HrmPeriodAllocParameterLogic.acceptParameters( os, alloc_parameter );
             os.CommitChanges();
             foreach ( var each in os.GetObjects<HrmPeriodOrderControl>() ) {
