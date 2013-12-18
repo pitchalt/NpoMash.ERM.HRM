@@ -42,11 +42,6 @@
         </Items>
       </Item>
       <Item Id="State Machine" Removed="True" />
-      <Item Id="UNKNOWN" Removed="True">
-        <Items>
-          <Item Id="HrmMatrix_ListView" Removed="True" />
-        </Items>
-      </Item>
     </Items>
   </NavigationItems>
   <SchemaModules>
@@ -116,12 +111,6 @@
       </Items>
     </DetailView>
     <ListView Id="HrmPeriodAllocParameter_ListView">
-      <Columns>
-        <ColumnInfo Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmPeriodAllocParameter_LookupListView">
       <Columns>
         <ColumnInfo Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
         <ColumnInfo Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
