@@ -3,6 +3,7 @@
   <ActionDesign>
     <Actions>
       <Action Id="AcceptAllocParameters" Caption="Утвердить параметры расчета" />
+      <Action Id="CreateAllocParameters" Caption="Создать параметры расчета" />
     </Actions>
   </ActionDesign>
 </Application>
