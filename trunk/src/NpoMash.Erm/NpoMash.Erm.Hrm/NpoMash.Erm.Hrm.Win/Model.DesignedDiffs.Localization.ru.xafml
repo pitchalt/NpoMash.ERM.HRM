@@ -2,7 +2,7 @@
 <Application>
   <ActionDesign>
     <Actions>
-      <Action Id="TesterWC_PopulateAction" Caption="Добавить тестовые данные" />
+      <Action Id="AcceptAllocParameters" Caption="Утвердить параметры расчета" />
     </Actions>
   </ActionDesign>
 </Application>
