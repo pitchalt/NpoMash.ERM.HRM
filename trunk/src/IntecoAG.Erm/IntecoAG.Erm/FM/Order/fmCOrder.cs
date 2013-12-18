@@ -29,6 +29,7 @@ namespace IntecoAG.Erm.FM.Order
     [Persistent("fmCOrder")]
     [DefaultProperty("Code")]
     [NavigationItem("ERM")]
+    [DefaultProperty("Code")] 
     public class fmCOrder : BaseObject
     {
         

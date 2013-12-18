@@ -20,6 +20,7 @@ using IntecoAG.Erm.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmAccountOperation")]
+    [DefaultProperty("Department")] 
     public class HrmAccountOperation : BaseObject {
 
         private HrmAccount _Debit;

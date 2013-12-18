@@ -4,25 +4,7 @@
     <Class Name="IntecoAG.Erm.FM.Order.fmCOrder" Caption="Заказ">
       <OwnMembers>
         <Member Name="Code" Caption="Код" />
-        <Member Name="NormNoControl" Caption="Норма неконтроллируемых заказов" />
       </OwnMembers>
     </Class>
   </BOModel>
-  <Localization>
-    <LocalizationGroup Name="Enums">
-      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrder+fmCOrdertypeConstancy">
-        <LocalizationItem Name="Null" Value="0" />
-        <LocalizationItem Name="One" Value="1" />
-      </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrder+fmCOrderTypeCOntrol">
-        <LocalizationItem Name="FOT" Value="ФОТ" />
-        <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
-        <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ ФОТ" />
-      </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.Erm.HRM.Organization.Department+DepartmentGroupDep">
-        <LocalizationItem Name="KB" Value="КБ" />
-        <LocalizationItem Name="OZM" Value="ОЗМ" />
-      </LocalizationGroup>
-    </LocalizationGroup>
-  </Localization>
 </Application>

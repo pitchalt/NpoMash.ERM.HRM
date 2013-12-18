@@ -16,7 +16,8 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmAccount")]   
+    [Persistent("HrmAccount")]
+    [DefaultProperty("Code")] 
     public class HrmAccount : BaseObject {
 
         private String _Code;

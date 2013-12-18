@@ -17,6 +17,7 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixCell")]
+    [DefaultProperty("Sum")]     
     public class HrmMatrixCell : BaseObject {
 
         private Int16 _Time;
