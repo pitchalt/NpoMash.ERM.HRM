@@ -39,6 +39,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameter param = os.CreateObject<HrmPeriodAllocParameter>();
             period.AllocParameters.Add(param);
             period.CurrentAllocParameter = param;
+            period.PeriodPrevious = period;
             //            object_space = application.CreateObjectSpace();
             order1 = os.CreateObject<fmCOrder>();
             order1.Code = "Code1";
@@ -67,6 +68,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_Create() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.OpenToEdit );
         }
