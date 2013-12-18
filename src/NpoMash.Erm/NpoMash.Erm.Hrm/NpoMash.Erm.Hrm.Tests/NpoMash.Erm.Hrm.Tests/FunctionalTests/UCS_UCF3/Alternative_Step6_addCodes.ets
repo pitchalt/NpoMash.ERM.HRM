@@ -1,11 +1,12 @@
 ﻿#DropDB NpoMash.Erm.Hrm.Test
-#Application NpoMash.Erm.Hrm.Tests.Win
+#Application NpoMash.Erm.Hrm.TestsWin
 
-*Action Создать
-*Action Alloc Parameters
-*Action Alloc Parameters.Сформировать параметры расчета
+*Action Добавить тестовые данные
+*Action Обновить
+*Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
+*Action Создать параметры расчета
 *Action Код оплаты
 *Action Код оплаты.Создать
 *FillForm
- Код оплаты = 50749
+ Код оплаты = 69176
 *Action Сохранить

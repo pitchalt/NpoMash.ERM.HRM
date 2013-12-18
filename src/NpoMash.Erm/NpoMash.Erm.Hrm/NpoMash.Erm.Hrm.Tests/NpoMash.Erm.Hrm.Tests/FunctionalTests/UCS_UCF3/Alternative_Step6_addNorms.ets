@@ -1,14 +1,23 @@
 ﻿#DropDB NpoMash.Erm.Hrm.Test
 #Application NpoMash.Erm.Hrm.Tests.Win
-
-*Action TesterWC_PopulateAction
+*Action Добавить тестовые данные
 *Action Обновить
-*Action Создать
-*Action Alloc Parameters
-*Action Alloc Parameters.Сформировать параметры расчета
+
+*Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
+;*CompareScreenshot
+
+*Action Создать параметры расчета
+;*CompareScreenshot
+
 *Action Контроль заказа
+;*CompareScreenshot
+
 *Action Контроль заказа.Создать
+;*CompareScreenshot
+
 *FillForm
- Заказ = IntecoAG.Erm.FM.Order.fmCOrder(01ecc80c-646f-412d-a8c6-cb6e7b6a5668)
+ Заказ = 90139
+;*CompareScreenshot
+
 *Action Сохранить
-*Action Закрыть
+;*CompareScreenshot

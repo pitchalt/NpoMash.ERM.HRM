@@ -159,6 +159,7 @@
     <Content Include="FunctionalTests\UCS_UCF6\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\UCS_UCF6\Alternative_Step4.ets" />
     <None Include="FunctionalTests\UCS_UCF3\Alternative_Step5.ets" />
   </ItemGroup>
   <ItemGroup>

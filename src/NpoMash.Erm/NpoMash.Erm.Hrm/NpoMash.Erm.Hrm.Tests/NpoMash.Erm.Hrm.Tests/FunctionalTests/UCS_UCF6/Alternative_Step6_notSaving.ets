@@ -1,11 +1,23 @@
 ﻿#DropDB NpoMash.Erm.Hrm.Test
 #Application NpoMash.Erm.Hrm.Tests.Win
-
-*Action TesterWC_PopulateAction
+*Action Добавить тестовые данные
 *Action Обновить
-*Action Создать
-*Action Alloc Parameters
-*Action Alloc Parameters.Сформировать параметры расчета
+
+*Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
+;*CompareScreenshot
+
+*Action Создать параметры расчета
+;*CompareScreenshot
+
+*Action Утвердить параметры расчета
+;*CompareScreenshot
+
 *Action Закрыть
-*HandleDialog
- Respond = No
+;*CompareScreenshot
+
+*ProcessRecord 
+ Статус контроля = ListOfOrderAccepted
+;*CompareScreenshot
+
+*Action Закрыть
+;*CompareScreenshot
