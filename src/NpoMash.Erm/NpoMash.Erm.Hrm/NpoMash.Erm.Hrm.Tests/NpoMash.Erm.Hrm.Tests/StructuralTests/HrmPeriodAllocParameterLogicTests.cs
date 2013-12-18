@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Layout;
 
 using IntecoAG.Erm.FM.Order;
+using IntecoAG.Erm.HRM;
 using NpoMash.Erm.Hrm;
 using NpoMash.Erm.Hrm.Salary;
 using NpoMash.Erm.Hrm.Tests.Controllers;
@@ -34,14 +35,21 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             application.Modules.Add(test_module);
             application.Setup("TestApplication", object_space_provider);
             IObjectSpace os = application.CreateObjectSpace();
+            var random = new Random();
             HrmPeriod period = os.CreateObject<HrmPeriod>();
             period.Init(2013, 10);
             period.Status = HrmPeriodStatus.closed;
             HrmPeriodAllocParameter param = os.CreateObject<HrmPeriodAllocParameter>();
             period.AllocParameters.Add(param);
             period.CurrentAllocParameter = param;
-            param.Period.PeriodPrevious = period; ;
+            HrmPeriodPayType period_pay_type = os.CreateObject<HrmPeriodPayType>();
+            HrmSalaryPayType salary_pay_type = os.CreateObject<HrmSalaryPayType>();
+            param.PeriodPayTypes.Add( period_pay_type);
+            period_pay_type.AllocParameter = param;
+            period_pay_type.PayType = salary_pay_type;
+//            period.PeriodPrevious = period; ;
             //            object_space = application.CreateObjectSpace();
+            /*
             order1 = os.CreateObject<fmCOrder>();
             order1.Code = "Code1";
             order1.NormKB = 11;
@@ -62,6 +70,21 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             order4.NormKB = 0;
             order4.NormOZM = 0;
             order4.TypeControl = fmCOrderTypeCOntrol.No_Ordered;
+             * */
+            TestWCLogic.referenceClassesGenerate( os );
+            os.CommitChanges();
+        }
+
+        [Test]
+        public void TestChangingStatus() {
+            IObjectSpace os = application.CreateObjectSpace();
+            TestWCLogic.referenceClassesGenerate( os );
+            HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
+            foreach ( var each in param.OrderControls ) {
+                if ( each.TypeControl == fmCOrderTypeCOntrol.FOT ) { each.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
+            }
+            HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             os.CommitChanges();
         }
 
@@ -69,6 +92,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public void TestHrmPeriodAllocParameter_Create() {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
+            param.Period.PeriodPrevious = param.Period;
             HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.OpenToEdit );
