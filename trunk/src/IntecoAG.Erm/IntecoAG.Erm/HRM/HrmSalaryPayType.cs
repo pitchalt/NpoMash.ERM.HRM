@@ -18,6 +18,7 @@ namespace IntecoAG.Erm.HRM
 
     [Persistent("HrmSalaryPayType")]
     [DefaultProperty("Code")]
+    [NavigationItem("ERM")]
     public class HrmSalaryPayType : BaseObject
     {
        

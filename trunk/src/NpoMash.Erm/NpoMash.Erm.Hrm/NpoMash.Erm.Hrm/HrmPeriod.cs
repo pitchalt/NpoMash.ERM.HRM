@@ -42,6 +42,9 @@ namespace NpoMash.Erm.Hrm {
         }
 
         private HrmTimeSheet _CurrentTimeSheet; // —сылка на HrmTimeSheet
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmTimeSheet CurrentTimeSheet {
             get { return _CurrentTimeSheet; }
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheet", ref _CurrentTimeSheet, value); }
@@ -63,6 +66,9 @@ namespace NpoMash.Erm.Hrm {
 
 
         private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmPeriodAllocParameter CurrentAllocParameter {
             get { return _CurrentAllocParameter; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("CurrentAllocParameter", ref _CurrentAllocParameter, value); }
@@ -73,7 +79,10 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmPeriodAllocParameter>("AllocParameters"); }
         }
 
-        private HrmPeriod _PeriodPrevious; // —слыка на самого себ€ 
+        private HrmPeriod _PeriodPrevious; // —слыка на самого себ€
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmPeriod PeriodPrevious {
             get { return _PeriodPrevious; }
             set { SetPropertyValue<HrmPeriod>("PeriodPrevious", ref _PeriodPrevious, value); }

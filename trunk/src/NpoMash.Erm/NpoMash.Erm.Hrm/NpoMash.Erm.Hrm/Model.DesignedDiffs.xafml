@@ -1,12 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter">
+      <OwnMembers>
+        <Member Name="Month" DisplayFormat="{0:N0}" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <Localization>
     <LocalizationGroup Name="DialogButtons">
       <LocalizationItem Name="Ignore" Value="a" />
     </LocalizationGroup>
   </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="A1 Integration" ChildItemsDisplayStyle="List">
+        <Items>
+          <Item Id="SalaryAllocation" Index="0" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="HrmMatrix_ListView" ViewId="HrmMatrix_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="HrmPeriod_ListView" ViewId="HrmPeriod_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="HrmPeriodAllocParameter_ListView" ViewId="HrmPeriodAllocParameter_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="HrmPeriod_ListView" Removed="True" />
+          <Item Id="HrmPeriodAllocParameter_ListView" Removed="True" />
+          <Item Id="References" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Department_ListView" ViewId="Department_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="fmCOrder_ListView" ViewId="fmCOrder_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="HrmSalaryPayType_ListView" ViewId="HrmSalaryPayType_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="ERM" Removed="True">
+        <Items>
+          <Item Id="Department_ListView" Removed="True" />
+          <Item Id="fmCOrder_ListView" Removed="True" />
+          <Item Id="HrmSalaryPayType_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="State Machine" Removed="True" />
+      <Item Id="UNKNOWN" Removed="True">
+        <Items>
+          <Item Id="HrmMatrix_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <ListView Id="HrmPeriodAllocParameter_PeriodPayTypes_ListView">
+      <Columns>
+        <ColumnInfo Id="PayType.Name" PropertyName="PayType.Name" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>

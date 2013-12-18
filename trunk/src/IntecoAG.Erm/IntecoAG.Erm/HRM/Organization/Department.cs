@@ -18,6 +18,8 @@ namespace IntecoAG.Erm.HRM.Organization
     public enum DEPARTMENT_GROUP_DEP { KB = 0, OZM = 1 }
 
     [Persistent("Department")]
+    [NavigationItem("ERM")]
+    [DefaultProperty("Code")]
     public class Department : BaseObject
     {
         private String _Code;

@@ -1,17 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <ActionDesign>
-    <Actions>
-      <Action Id="Accept" Caption="Утвердить" />
-      <Action Id="AddDemoInfo" Caption="Заполнить базу" />
-      <Action Id="CreateAllocParameters" Caption="Сформировать параметры расчета" />
-      <Action Id="OpenPeriodAction" Caption="Создать расчетный период" />
-    </Actions>
-  </ActionDesign>
   <BOModel>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
       <OwnMembers>
-        <Member Name="HrmPeriodAllocParameter" Caption="Параметры расчета" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="PeriodPrevious" Caption="Предыдущий период" />
         <Member Name="Status" Caption="Статус контроля" />
@@ -20,17 +11,20 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" Caption="Параметры расчета">
       <OwnMembers>
-        <Member Name="HrmPeriod" Caption="Период" />
+        <Member Name="Month" Caption="Месяц" />
+        <Member Name="NormNoControlKB" Caption="Норма по неконтр. заказам КБ" />
+        <Member Name="NormNoControlOZM" Caption="Норма по неконтр. заказам ОЗМ" />
         <Member Name="OrderControls" Caption="Контроль заказа" />
+        <Member Name="Period" Caption="Период" />
         <Member Name="PeriodPayTypes" Caption="Код оплаты" />
         <Member Name="Status" Caption="Статус контроля" />
+        <Member Name="Year" Caption="Год" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl" Caption="Контроль заказа">
       <OwnMembers>
         <Member Name="AllocParameter" Caption="Параметры расчета" />
         <Member Name="NormKB" Caption="Норма КБ" />
-        <Member Name="NormNoControl" Caption="Норма неконтроллируемых заказов" />
         <Member Name="NormOZM" Caption="Норма ОЗМ" />
         <Member Name="Order" Caption="Заказ" />
         <Member Name="TypeControl" Caption="Тип контроля" />
@@ -54,10 +48,6 @@
         <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
         <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
       </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.Erm.HRM.Organization.Department+DepartmentGroupDep">
-        <LocalizationItem Name="KB" Value="КБ" />
-        <LocalizationItem Name="OZM" Value="ОЗМ" />
-      </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
         <LocalizationItem Name="closed" Value="Закрыт" />
         <LocalizationItem Name="Opened" Value="Открыт" />
@@ -67,16 +57,16 @@
         <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контроллируемых заказов" />
         <LocalizationItem Name="OpenToEdit" Value="Открыт для редактирования" />
       </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderTypeControl">
-        <LocalizationItem Name="FOT" Value="ФОТ" />
-        <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
-        <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
-      </LocalizationGroup>
     </LocalizationGroup>
   </Localization>
   <NavigationItems>
     <Items>
-      <Item Id="A1 Integration" Caption="Интеграция с А1" />
+      <Item Id="A1 Integration" Caption="Интеграция с А1">
+        <Items>
+          <Item Id="SalaryAllocation" Caption="Списание затрат" />
+          <Item Id="References" Caption="Справочники" />
+        </Items>
+      </Item>
     </Items>
   </NavigationItems>
 </Application>

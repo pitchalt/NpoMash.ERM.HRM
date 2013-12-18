@@ -27,7 +27,8 @@ namespace IntecoAG.Erm.FM.Order
     public enum fmCOrdertypeConstancy { Null = 1, One = 2 }
 
     [Persistent("fmCOrder")]
-
+    [DefaultProperty("Code")]
+    [NavigationItem("ERM")]
     public class fmCOrder : BaseObject
     {
         
