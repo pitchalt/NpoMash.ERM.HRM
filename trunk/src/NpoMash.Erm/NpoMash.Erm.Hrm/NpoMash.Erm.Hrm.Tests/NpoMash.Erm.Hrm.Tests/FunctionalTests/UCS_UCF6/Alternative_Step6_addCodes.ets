@@ -1,11 +1,32 @@
 ﻿#DropDB NpoMash.Erm.Hrm.Test
 #Application NpoMash.Erm.Hrm.Tests.Win
+*Action Добавить тестовые данные
+*Action Обновить
 
-*Action Создать
-*Action Alloc Parameters
-*Action Alloc Parameters.Сформировать параметры расчета
-*Action Код оплаты
-*Action Код оплаты.Создать
+*Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
+;*CompareScreenshot
+
+*Action Создать параметры расчета
+;*CompareScreenshot
+
+*Action Утвердить параметры расчета
+;*CompareScreenshot
+
+*Action Закрыть
+;*CompareScreenshot
+
+*ProcessRecord 
+ Статус контроля = ListOfOrderAccepted
+ ;*CompareScreenshot
+
+*Action Контроль заказа
+;*CompareScreenshot
+
+*Action Контроль заказа.Создать
+;*CompareScreenshot
+
 *FillForm
- Код оплаты = 50749
+ Заказ = 53514
+;*CompareScreenshot
+
 *Action Сохранить
