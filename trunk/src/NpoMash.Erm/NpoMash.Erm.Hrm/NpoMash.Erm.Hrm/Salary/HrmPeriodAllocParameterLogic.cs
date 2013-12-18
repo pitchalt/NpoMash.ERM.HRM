@@ -49,17 +49,17 @@ namespace NpoMash.Erm.Hrm.Salary
                 par.NormNoControlKB = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB;
                 par.NormNoControlOZM = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM;
                 foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
-                    bool alreadyThere = false;
+                    /*bool alreadyThere = false;
                     foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
                         //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
                         if (pay.PayType == existingPay.PayType) alreadyThere = true;
                     if (!alreadyThere)//если такой еще не добавляли...
-                    {
+                    {*/
                         HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
                         pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
                         pt.AllocParameter = par;
                         par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
-                    }
+                    //}
                 }
             }
         }
@@ -78,11 +78,11 @@ namespace NpoMash.Erm.Hrm.Salary
             foreach (fmCOrder order in os.GetObjects<fmCOrder>(null,true)) {
                 if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
                 {
-                    bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
+                    /*bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
                     foreach (var existingControl in par.OrderControls)
                         if (existingControl.Order == order) alreadyThere = true;
                     if (!alreadyThere)//если такого еще не было
-                    {//то создаем новый HrmPeriodOrderControl и копируем в него параметры из fmCOrder-а
+                    {//то создаем новый HrmPeriodOrderControl и копируем в него параметры из fmCOrder-а */
                         HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
                         oc.Order = order;
                         oc.NormKB = order.NormKB;
@@ -95,7 +95,7 @@ namespace NpoMash.Erm.Hrm.Salary
                     }
                 }
             }
-        }
+        
 
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
