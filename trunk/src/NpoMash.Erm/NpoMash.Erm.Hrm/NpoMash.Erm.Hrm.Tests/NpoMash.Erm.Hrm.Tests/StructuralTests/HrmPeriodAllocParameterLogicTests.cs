@@ -17,6 +17,7 @@ using NpoMash.Erm.Hrm.Tests.Controllers;
 
 namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
+
     [TestFixture]
     public class HrmPeriodAllocParameterLogicTests {
         private TestApplication application;
@@ -72,7 +73,6 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ValidateAllocParameterWithOrders( os, param );
             Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.OpenToEdit );
         }
-
 
         [Test] //(Параметры расчета 4) Повторное создание параметров
         public void TestHrmPeriodAllocParameter_CreateDoubleParameters() {
@@ -187,8 +187,6 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             os.CommitChanges();
             ValidateAllocParameterWithOrders( os, param );
         }
-
-
 
         [Test] //Радактирование параметров до их утверждения
         public void TestHrmPeriodAllocParameter_ConfirmTrud_EditAdd() {
