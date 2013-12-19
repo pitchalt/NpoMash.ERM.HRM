@@ -72,5 +72,148 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="HrmMatrixCell_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixCell_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixColumn_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixColumn_DetailView">
+      <Items>
+        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixColumn_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixColumn_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixRow_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixRow_DetailView">
+      <Items>
+        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixRow_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixRow_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_AllocParameters_ListView">
+      <Columns>
+        <ColumnInfo Id="Year" Index="0" />
+        <ColumnInfo Id="Month" Index="1" />
+        <ColumnInfo Id="Status" Index="2" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriod_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
+            <LayoutItem Id="Year" ViewItem="Year" ShowCaption="" Index="0" IsNewNode="True" />
+            <LayoutItem Id="Month" ViewItem="Month" ShowCaption="" Index="1" IsNewNode="True" />
+            <LayoutItem Id="Status" ViewItem="Status" ShowCaption="" Index="2" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors" Removed="True">
+            <LayoutGroup Id="HrmPeriod">
+              <LayoutItem Id="Month" Removed="True" />
+              <LayoutItem Id="Status" Removed="True" />
+              <LayoutItem Id="Year" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriod_ListView">
+      <Columns>
+        <ColumnInfo Id="Year" Index="0" />
+        <ColumnInfo Id="Month" Index="1" />
+        <ColumnInfo Id="Status" Index="2" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Items>
+        <PropertyEditor Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
+        <PropertyEditor Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
+            <LayoutItem Id="Year" ViewItem="Year" ShowCaption="" Index="0" IsNewNode="True" />
+            <LayoutItem Id="Month" ViewItem="Month" ShowCaption="" Index="1" IsNewNode="True" />
+            <LayoutItem Id="Status" ViewItem="Status" ShowCaption="" Index="2" IsNewNode="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="0" />
+          <LayoutGroup Id="SimpleEditors" Removed="True">
+            <LayoutGroup Id="HrmPeriodAllocParameter">
+              <LayoutItem Id="Month" Removed="True" />
+              <LayoutItem Id="Status" Removed="True" />
+              <LayoutItem Id="Year" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriodAllocParameter_ListView">
+      <Columns>
+        <ColumnInfo Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="Year" Index="0" />
+        <ColumnInfo Id="Month" Index="1" />
+        <ColumnInfo Id="Status" Index="2" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriodAllocParameter_OrderControls_ListView">
+      <Columns>
+        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriodAllocParameter_PeriodPayTypes_ListView">
+      <Columns>
+        <ColumnInfo Id="PayType.Name" PropertyName="PayType.Name" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodOrderControl_DetailView">
+      <Items>
+        <PropertyEditor Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <PropertyEditor Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmPeriodOrderControl_ListView">
+      <Columns>
+        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriodOrderControl_LookupListView">
+      <Columns>
+        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
+        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>
