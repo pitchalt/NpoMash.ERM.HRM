@@ -3,4 +3,20 @@
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="MessageBox_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="MessageBox">
+              <LayoutItem Id="MessageCaption" ShowCaption="False" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors">
+            <LayoutItem Id="MessageText" ShowCaption="False" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

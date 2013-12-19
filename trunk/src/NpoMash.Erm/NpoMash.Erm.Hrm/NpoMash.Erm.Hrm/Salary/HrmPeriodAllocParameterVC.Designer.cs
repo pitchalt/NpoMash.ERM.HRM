@@ -29,30 +29,13 @@ namespace NpoMash.Erm.Hrm.Salary
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.CreateAllocParameters = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.AcceptAllocParameters = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
-            // 
-            // CreateAllocParameters
-            // 
-            this.CreateAllocParameters.Caption = "Create Alloc Parameters";
-            this.CreateAllocParameters.ConfirmationMessage = null;
-            this.CreateAllocParameters.Id = "CreateAllocParameters";
-            this.CreateAllocParameters.ImageName = null;
-            this.CreateAllocParameters.Shortcut = null;
-            this.CreateAllocParameters.Tag = null;
-            this.CreateAllocParameters.TargetObjectsCriteria = null;
-            this.CreateAllocParameters.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
-            this.CreateAllocParameters.TargetViewId = null;
-            this.CreateAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
-            this.CreateAllocParameters.ToolTip = null;
-            this.CreateAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.ListView);
-            this.CreateAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.CreateAllocParameters_Execute);
             // 
             // AcceptAllocParameters
             // 
-            this.AcceptAllocParameters.Caption = "Accept Alloc Parameters";
+            this.AcceptAllocParameters.Caption = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
             this.AcceptAllocParameters.ConfirmationMessage = null;
-            this.AcceptAllocParameters.Id = "AcceptAllocParameters";
+            this.AcceptAllocParameters.Id = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
             this.AcceptAllocParameters.ImageName = null;
             this.AcceptAllocParameters.Shortcut = null;
             this.AcceptAllocParameters.Tag = null;
@@ -73,7 +56,6 @@ namespace NpoMash.Erm.Hrm.Salary
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SimpleAction CreateAllocParameters;
         private DevExpress.ExpressApp.Actions.SimpleAction AcceptAllocParameters;
     }
 }

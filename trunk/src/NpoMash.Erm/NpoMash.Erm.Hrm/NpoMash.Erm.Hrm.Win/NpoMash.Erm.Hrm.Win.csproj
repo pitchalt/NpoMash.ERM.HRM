@@ -202,12 +202,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\HrmPeriodAllocParameterVC.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\HrmPeriodAllocParameterVC.Designer.cs">
-      <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -217,11 +211,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\HrmPeriodAllocParameterVC.resx">
-      <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>

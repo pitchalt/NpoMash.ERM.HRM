@@ -140,6 +140,12 @@
     <Compile Include="Salary\HrmMatrixColumn.cs" />
     <Compile Include="Salary\HrmMatrixRow.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
+    <Compile Include="Salary\HrmPeriodAllocParameterVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmPeriodAllocParameterVC.Designer.cs">
+      <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmTimeSheet.cs" />
@@ -152,6 +158,9 @@
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
+      <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
