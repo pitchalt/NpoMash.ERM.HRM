@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ValidationContexts="" />
+    </Actions>
+  </ActionDesign>
   <BOModel>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter">
       <OwnMembers>
@@ -11,6 +16,12 @@
     <LocalizationGroup Name="DialogButtons">
       <LocalizationItem Name="Ignore" Value="a" />
     </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationGroup Name="HrmPariodAllocParameterVC" IsNewNode="True">
+        <LocalizationItem Name="MessageBoxCaption" IsNewNode="True" />
+        <LocalizationItem Name="MessageBoxText" IsNewNode="True" />
+      </LocalizationGroup>
+    </LocalizationGroup>
   </Localization>
   <NavigationItems>
     <Items>
@@ -18,20 +29,20 @@
         <Items>
           <Item Id="SalaryAllocation" Index="0" IsNewNode="True">
             <Items IsNewNode="True">
-              <Item Id="NpoMash.Erm.Hrm.HrmPeriod_ListView" ViewId="NpoMash.Erm.Hrm.HrmPeriod_ListView" ObjectKey="" Index="0" IsNewNode="True" />
-              <Item Id="NpoMash.Erm.Hrm.Salary.HrmMatrix_ListView" ViewId="NpoMash.Erm.Hrm.Salary.HrmMatrix_ListView" IsNewNode="True" />
-              <Item Id="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter_ListView" ViewId="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="HrmPeriod_ListView" ViewId="HrmPeriod_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+              <Item Id="HrmMatrix_ListView" ViewId="HrmMatrix_ListView" IsNewNode="True" />
+              <Item Id="HrmPeriodAllocParameter_ListView" ViewId="HrmPeriodAllocParameter_ListView" ObjectKey="" IsNewNode="True" />
             </Items>
           </Item>
           <Item Id="References" Index="1" IsNewNode="True">
             <Items IsNewNode="True">
-              <Item Id="Department_ListView" ViewId="IntecoAG.Erm.HRM.Organization.Department_ListView" IsNewNode="True" />
-              <Item Id="fmCOrder_ListView" ViewId="IntecoAG.Erm.FM.Order.fmCOrder_ListView" IsNewNode="True" />
-              <Item Id="HrmSalaryPayType_ListView" ViewId="IntecoAG.Erm.HRM.HrmSalaryPayType_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="Department_ListView" ViewId="Department_ListView" IsNewNode="True" />
+              <Item Id="fmCOrder_ListView" ViewId="fmCOrder_ListView" IsNewNode="True" />
+              <Item Id="HrmSalaryPayType_ListView" ViewId="HrmSalaryPayType_ListView" ObjectKey="" IsNewNode="True" />
             </Items>
           </Item>
-          <Item Id="NpoMash.Erm.Hrm.HrmPeriod_ListView" Removed="True" />
-          <Item Id="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter_ListView" Removed="True" />
+          <Item Id="HrmPeriod_ListView" Removed="True" />
+          <Item Id="HrmPeriodAllocParameter_ListView" Removed="True" />
         </Items>
       </Item>
       <Item Id="ERM" Removed="True">
@@ -45,33 +56,10 @@
     </Items>
   </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.5.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="Status" ViewItem="Status" ShowCaption="" Index="0" CaptionLocation="Top" IsNewNode="True" />
-            <LayoutItem Id="Year" ViewItem="Year" ShowCaption="" Index="1" CaptionLocation="Top" IsNewNode="True" />
-            <LayoutItem Id="Month" ViewItem="Month" ShowCaption="" Index="2" CaptionLocation="Top" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Norms" Index="1" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="NormNoControlKB" ViewItem="NormNoControlKB" IsNewNode="True" />
-            <LayoutItem Id="NormNoControlOZM" ViewItem="NormNoControlOZM" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="SimpleEditors" Index="2" Removed="True">
-            <LayoutGroup Id="HrmPeriodAllocParameter">
-              <LayoutItem Id="Month" Removed="True" />
-              <LayoutItem Id="Status" Removed="True" />
-              <LayoutItem Id="Year" Removed="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs" Index="3" />
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
     <ListView Id="HrmMatrixCell_ListView">
       <Columns>
         <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
@@ -133,9 +121,9 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="Year" ViewItem="Year" ShowCaption="" Index="0" IsNewNode="True" />
-            <LayoutItem Id="Month" ViewItem="Month" ShowCaption="" Index="1" IsNewNode="True" />
-            <LayoutItem Id="Status" ViewItem="Status" ShowCaption="" Index="2" IsNewNode="True" />
+            <LayoutItem Id="Year" ViewItem="Year" Index="0" IsNewNode="True" />
+            <LayoutItem Id="Month" ViewItem="Month" Index="1" IsNewNode="True" />
+            <LayoutItem Id="Status" ViewItem="Status" Index="2" IsNewNode="True" />
           </LayoutGroup>
           <LayoutGroup Id="SimpleEditors" Removed="True">
             <LayoutGroup Id="HrmPeriod">
@@ -162,18 +150,22 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="Year" ViewItem="Year" ShowCaption="" Index="0" IsNewNode="True" />
-            <LayoutItem Id="Month" ViewItem="Month" ShowCaption="" Index="1" IsNewNode="True" />
-            <LayoutItem Id="Status" ViewItem="Status" ShowCaption="" Index="2" IsNewNode="True" />
+            <LayoutItem Id="Status" ViewItem="Status" Index="0" CaptionLocation="Top" IsNewNode="True" />
+            <LayoutItem Id="Year" ViewItem="Year" Index="1" CaptionLocation="Top" IsNewNode="True" />
+            <LayoutItem Id="Month" ViewItem="Month" Index="2" CaptionLocation="Top" IsNewNode="True" />
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" Index="0" />
-          <LayoutGroup Id="SimpleEditors" Removed="True">
+          <LayoutGroup Id="Norms" Index="1" Direction="Horizontal" IsNewNode="True">
+            <LayoutItem Id="NormNoControlKB" ViewItem="NormNoControlKB" IsNewNode="True" />
+            <LayoutItem Id="NormNoControlOZM" ViewItem="NormNoControlOZM" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors" Index="2" Removed="True">
             <LayoutGroup Id="HrmPeriodAllocParameter">
               <LayoutItem Id="Month" Removed="True" />
               <LayoutItem Id="Status" Removed="True" />
               <LayoutItem Id="Year" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="2" />
         </LayoutGroup>
       </Layout>
     </DetailView>

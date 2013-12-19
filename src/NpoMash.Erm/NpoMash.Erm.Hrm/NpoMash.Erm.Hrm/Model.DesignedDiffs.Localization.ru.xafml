@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" />
+    </Actions>
+  </ActionDesign>
   <BOModel>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
       <OwnMembers>
@@ -134,6 +139,12 @@
         <LocalizationItem Name="AllocParametersAccepted" Value="Утверждены параметры расчета" />
         <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контроллируемых заказов" />
         <LocalizationItem Name="OpenToEdit" Value="Открыт для редактирования" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationGroup Name="HrmPariodAllocParameterVC">
+        <LocalizationItem Name="MessageBoxCaption" Value="Параметры расчета для данного периода уже существуют." />
+        <LocalizationItem Name="MessageBoxText" Value="Хотите открыть параметры расчета текущего периода?" />
       </LocalizationGroup>
     </LocalizationGroup>
   </Localization>

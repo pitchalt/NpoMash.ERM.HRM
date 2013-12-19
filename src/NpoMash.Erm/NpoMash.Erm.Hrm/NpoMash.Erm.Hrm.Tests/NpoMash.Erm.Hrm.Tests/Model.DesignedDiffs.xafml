@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="NpoMash.Erm.Hrm.Tests" Logo="ExpressAppLogo">
+<Application Title="NpoMash.Erm.Hrm.Tests" Logo="ExpressAppLogo" PreferredLanguage="ru">
+  <Options UseServerMode="True" LookupSmallCollectionItemCount="256" />
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />

@@ -29,8 +29,8 @@ namespace NpoMash.Erm.Hrm.Salary
 
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
-    [Appearance("Enable", TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any",  Enabled = false)]
-    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any",  Enabled = false)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled=false)]
     [DefaultProperty("Status")]       
     public class HrmPeriodAllocParameter : BaseObject
     {
@@ -104,11 +104,12 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public override void AfterConstruction(){
             base.AfterConstruction();
-            setStatus(HrmPeriodAllocParameterStatus.OpenToEdit);
+            StatusSet(HrmPeriodAllocParameterStatus.OpenToEdit);
         }
 
-        public void setStatus(HrmPeriodAllocParameterStatus s){
-            SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, s);
+        public void StatusSet(HrmPeriodAllocParameterStatus status){
+//            _Status = status;
+            SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, status);
         }
 
     }
