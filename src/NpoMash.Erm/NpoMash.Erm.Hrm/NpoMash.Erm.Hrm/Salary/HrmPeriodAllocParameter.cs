@@ -59,6 +59,7 @@ namespace NpoMash.Erm.Hrm.Salary
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormNoControlKB {
             get { return _NormNoControlKB; }
             set { SetPropertyValue<Decimal>("NormNoControlKB", ref _NormNoControlKB, value); }
@@ -69,6 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormNoControlOZM {
             get { return _NormNoControlOZM; }
             set { SetPropertyValue<Decimal>("NormNoControlOZM", ref _NormNoControlOZM, value); }

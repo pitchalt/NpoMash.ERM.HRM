@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted'", Context = "Any", Enabled = false)] //5
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Order, AllocParameter")]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Criteria = "AllocParameter.Status == 'ListOfOrderAccepted' and TypeControl == 'TrudEmk_FOT'", Visibility = ViewItemVisibility.Hide)]
-    [ModelDefault("DisplayFormat", "format c#")]
+//    [ModelDefault("DisplayFormat", "format c#")]
     public class HrmPeriodOrderControl : BaseObject {
 
 
@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         private Decimal _NormKB;
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
         [RuleRequiredField(DefaultContexts.Save)]
-
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormKB {
             get { return _NormKB; }
             set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); }
@@ -47,6 +47,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private Decimal _NormOZM;
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormOZM {
             get { return _NormOZM; }
             set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }

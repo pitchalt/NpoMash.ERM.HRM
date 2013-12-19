@@ -20,7 +20,7 @@
         <Member Name="PayType" Caption="Код оплаты" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" Caption="Расчетный период">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" Caption="Матрица">
       <OwnMembers>
         <Member Name="Columns" Caption="Столбцы" />
         <Member Name="GroupDep" Caption="Группа" />
@@ -32,7 +32,7 @@
         <Member Name="Variant" Caption="Номер итерации" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocPlan" Caption="Матрица" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocPlan" Caption="Матрица Плановая" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocResult" Caption="РезультатРаспределения">
       <OwnMembers>
         <Member Name="AccountOperations" Caption="БухПроводки" />

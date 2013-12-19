@@ -55,12 +55,14 @@ namespace IntecoAG.Erm.FM.Order
 
         private Decimal _NormKB;
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormKB {
                get { return _NormKB; }
                set { SetPropertyValue<Decimal>("NormKB", ref _NormKB, value); } }
 
         private Decimal _NormOZM;
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormOZM {
                get { return _NormOZM; }
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
