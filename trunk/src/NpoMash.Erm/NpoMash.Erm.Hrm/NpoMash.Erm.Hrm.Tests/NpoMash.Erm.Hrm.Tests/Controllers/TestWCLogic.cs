@@ -28,8 +28,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 if ( type_control == 1 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.FOT; }
                 if ( type_control == 2 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
                 if ( type_control == 3 ) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
-                if ( type_constancy == 1 ) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.Null; }
-                if ( type_constancy == 2 ) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.One; }
+                if ( type_constancy == 1 ) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.UnConstOrderType; }
+                if ( type_constancy == 2 ) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.ConstOrderType; }
                 fmCorder.NormKB = Convert.ToDecimal( random.Next( 1000, 100000 ) );
                 fmCorder.NormOZM = Convert.ToDecimal( random.Next( 1000, 100000 ) );
                 hrmSalaryPayType.Code = Convert.ToString( random.Next( 1000, 100000 ) );
@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters( a_object_space );
                 alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
                 foreach ( var each in a_object_space.GetObjects<HrmPeriod>( null, true ) ) {
-                    each.Status = HrmPeriodStatus.closed;
+                    each.Status = HrmPeriodStatus.Closed;
                 }
             }
             /*

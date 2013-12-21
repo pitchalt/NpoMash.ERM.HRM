@@ -19,8 +19,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     public enum HRM_MATRIX_STATUS {
         Opened = 0,
         Saved = 1,
-        Accepted,
-        Closed
+        Accepted=2,
+        Closed=3
     }
 
     public enum HRM_MATRIX_TYPE {
@@ -39,8 +39,25 @@ namespace NpoMash.Erm.Hrm.Salary {
         OZM = 1
     }
 
-    public enum HRM_MATRIX_VARIANT { }
-    [DefaultProperty("Type")] 
+    public enum HRM_MATRIX_VARIANT { 
+        MinimizeNumberOfDeviations=0,
+        MinimizeMaximumDeviations=1,
+        ProportionsMethod=2
+    }
+
+    public enum HRM_MATRIX_ITERATION_NUMBER { 
+        One=0,
+        Two=1,
+        Three=2,
+        Four=3,
+        Five=4,
+        Six=5,
+        Seven=6,
+        Eight=7,
+        Nine=8,
+        Ten=9
+    }
+
     [Persistent("HrmMatrix")]
     public class HrmMatrix : BaseObject {
 
@@ -72,6 +89,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HRM_MATRIX_VARIANT Variant {
             get { return _Variant; }
             set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
+        }
+
+        private HRM_MATRIX_ITERATION_NUMBER _IterationNumber;
+        public HRM_MATRIX_ITERATION_NUMBER IterationNumber {
+            get { return _IterationNumber; }
+            set { SetPropertyValue<HRM_MATRIX_ITERATION_NUMBER>("IterationNumber", ref _IterationNumber, value); }
         }
 
         [Association("Matrix-Rows"), Aggregated] //Коллекция HrmMatrixRow

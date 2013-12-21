@@ -8,9 +8,14 @@
   <BOModel>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
       <OwnMembers>
+        <Member Name="AllocParameters" Caption="Параметры расчета" />
+        <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
+        <Member Name="CurrentTimeSheet" Caption=" Текущий факт(табель)" />
+        <Member Name="Matrixs" Caption="Матрицы" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="PeriodPrevious" Caption="Предыдущий период" />
         <Member Name="Status" Caption="Статус контроля" />
+        <Member Name="TimeSheets" Caption="Факты (табель)" />
         <Member Name="Year" Caption="Год" />
       </OwnMembers>
     </Class>
@@ -29,12 +34,13 @@
       <OwnMembers>
         <Member Name="Columns" Caption="Столбцы" />
         <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="IterationNumber" Caption="Номер итерации" />
         <Member Name="Period" Caption="Период" />
         <Member Name="Rows" Caption="Строки" />
         <Member Name="Status" Caption="Статус" />
         <Member Name="Type" Caption="Тип" />
         <Member Name="TypeMatrix" Caption="Тип матрицы" />
-        <Member Name="Variant" Caption="Номер итерации" />
+        <Member Name="Variant" Caption="Вариант алгоритма" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocPlan" Caption="Матрица Плановая" />
@@ -100,8 +106,8 @@
   <Localization>
     <LocalizationGroup Name="Enums">
       <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrdertypeConstancy">
-        <LocalizationItem Name="Null" Value="0" />
-        <LocalizationItem Name="One" Value="1" />
+        <LocalizationItem Name="ConstOrderType" Value="Пост. шифр заказа" />
+        <LocalizationItem Name="UnConstOrderType" Value="Не пост. шифр заказа" />
       </LocalizationGroup>
       <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrderTypeCOntrol">
         <LocalizationItem Name="FOT" Value="ФОТ" />
@@ -113,12 +119,27 @@
         <LocalizationItem Name="OZM" Value="ОЗМ" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
-        <LocalizationItem Name="closed" Value="Закрыт" />
+        <LocalizationItem Name="Closed" Value="Закрыт" />
+        <LocalizationItem Name="ListOfControlledOrdersAccepted" Value="Утвержден список контролируемых заказов" />
         <LocalizationItem Name="Opened" Value="Открыт" />
+        <LocalizationItem Name="ReadyToCalculateCoercedMatrixs" Value="Готов к расчету приведенных матриц" />
+        <LocalizationItem Name="SourceDataLoaded" Value="Исходные данные загружены" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_GROUP_DEP">
         <LocalizationItem Name="KB" Value="КБ" />
         <LocalizationItem Name="OZM" Value="ОЗМ" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_ITERATION_NUMBER">
+        <LocalizationItem Name="Eight" Value="8" />
+        <LocalizationItem Name="Five" Value="5" />
+        <LocalizationItem Name="Four" Value="4" />
+        <LocalizationItem Name="Nine" Value="9" />
+        <LocalizationItem Name="One" Value="1" />
+        <LocalizationItem Name="Seven" Value="7" />
+        <LocalizationItem Name="Six" Value="6" />
+        <LocalizationItem Name="Ten" Value="10" />
+        <LocalizationItem Name="Three" Value="3" />
+        <LocalizationItem Name="Two" Value="2" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
         <LocalizationItem Name="Accepted" Value="Утверждена" />
@@ -134,6 +155,11 @@
         <LocalizationItem Name="Coerced" Value="Приведенная" />
         <LocalizationItem Name="Planned" Value="Плановая" />
         <LocalizationItem Name="ReserveMatrix" Value="Матрица резерва" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_VARIANT">
+        <LocalizationItem Name="MinimizeMaximumDeviations" Value="Метод минимизации максимальных отклонений" />
+        <LocalizationItem Name="MinimizeNumberOfDeviations" Value="Метод минимизации числа отклонений" />
+        <LocalizationItem Name="ProportionsMethod" Value="Метод пропорции" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
         <LocalizationItem Name="AllocParametersAccepted" Value="Утверждены параметры расчета" />
