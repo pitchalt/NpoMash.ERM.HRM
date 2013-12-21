@@ -64,7 +64,7 @@
         <Member Name="Cells" Caption="Ячейки" />
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="Matrix" Caption="Матрица" />
-        <Member Name="Sum" Caption="Итого" />
+        <Member Name="Sum" Caption="План по подразделению" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" Caption="Строка">
@@ -72,7 +72,7 @@
         <Member Name="Cells" Caption="Ячейки" />
         <Member Name="Matrix" Caption="Матрица" />
         <Member Name="Order" Caption="Заказ" />
-        <Member Name="Sum" Caption="Итого" />
+        <Member Name="Sum" Caption="План по заказу" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" Caption="Параметры расчета">

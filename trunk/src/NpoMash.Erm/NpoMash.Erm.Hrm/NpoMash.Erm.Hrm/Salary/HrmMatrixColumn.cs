@@ -20,8 +20,7 @@ using IntecoAG.Erm.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixColumn")]
-    [DefaultProperty("Department")]     
+    [Persistent("HrmMatrixColumn")]    
     public class HrmMatrixColumn : BaseObject {
 
         private Decimal _Sum;
@@ -31,6 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Department _Department; //—сылка на Department 
+        [Index(0), VisibleInListView(true), VisibleInDetailView(true)] 
         public Department Department {
             get { return _Department; }
             set { SetPropertyValue<Department>("Department", ref _Department, value); }

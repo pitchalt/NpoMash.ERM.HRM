@@ -46,10 +46,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                     each.Status = HrmPeriodStatus.Closed;
                 }
             }
-            /*
-            IList<HrmPeriod> period_list = a_object_space.GetObjects<HrmPeriod>();
-            period_list[period_list.Count - 1].Status = HrmPeriodStatus.Opened;
-            */
         }
+
     }
 }
