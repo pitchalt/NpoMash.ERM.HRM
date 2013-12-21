@@ -2,7 +2,9 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="BringingMatrix" Caption="Приведение матрицы" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" />
+      <Action Id="ImportSourceData" Caption="Загрузить исходные данные" />
     </Actions>
   </ActionDesign>
   <BOModel>
@@ -11,7 +13,7 @@
         <Member Name="AllocParameters" Caption="Параметры расчета" />
         <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
         <Member Name="CurrentTimeSheet" Caption=" Текущий факт(табель)" />
-        <Member Name="Matrixs" Caption="Матрицы" />
+        <Member Name="Matrixs" Caption="Матрицы распределения" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="PeriodPrevious" Caption="Предыдущий период" />
         <Member Name="Status" Caption="Статус контроля" />
