@@ -24,11 +24,12 @@ namespace IntecoAG.Erm.FM.Order
         FOT = 2,
         No_Ordered = 3
     }
-    public enum fmCOrdertypeConstancy { Null = 1, One = 2 }
+    public enum fmCOrdertypeConstancy { UnConstOrderType = 0, ConstOrderType = 1 }
 
     [Persistent("fmCOrder")]
     [DefaultProperty("Code")]
     [NavigationItem("ERM")]
+    [RuleCriteria("", DefaultContexts.Save, "NormKB>= 0 and NormOZM>= 0", CustomMessageTemplate = "Значения НормаКБ или НормаОЗМ не должны быть меньше нуля.")]
     public class fmCOrder : BaseObject
     {
         
@@ -76,7 +77,7 @@ namespace IntecoAG.Erm.FM.Order
         public override void AfterConstruction()
         {  base.AfterConstruction();
         TypeControl = fmCOrderTypeCOntrol.FOT;
-        TypeConstancy = fmCOrdertypeConstancy.One;
+        TypeConstancy = fmCOrdertypeConstancy.ConstOrderType;
         }
 
         

@@ -18,7 +18,13 @@ using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm {
 
-    public enum HrmPeriodStatus { Opened = 1, closed = 2 }
+    public enum HrmPeriodStatus { 
+        Opened = 0,
+        SourceDataLoaded=1,
+        ListOfControlledOrdersAccepted=2,
+        ReadyToCalculateCoercedMatrixs=3,        
+        Closed = 4 }
+
     [NavigationItem("A1 Integration")]
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
