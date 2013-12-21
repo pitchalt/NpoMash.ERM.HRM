@@ -6,11 +6,14 @@
     </Actions>
   </ActionDesign>
   <BOModel>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter">
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" ImageName="ModelEditor_Action_Modules" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" ImageName="Action_Inline_Edit">
       <OwnMembers>
         <Member Name="Month" DisplayFormat="{0:N0}" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
   </BOModel>
   <Localization>
     <LocalizationGroup Name="DialogButtons">
