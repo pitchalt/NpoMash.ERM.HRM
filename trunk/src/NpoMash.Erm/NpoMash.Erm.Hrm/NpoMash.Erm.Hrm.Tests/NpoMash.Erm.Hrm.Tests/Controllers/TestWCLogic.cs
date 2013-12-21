@@ -47,6 +47,5 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 }
             }
         }
-
     }
 }

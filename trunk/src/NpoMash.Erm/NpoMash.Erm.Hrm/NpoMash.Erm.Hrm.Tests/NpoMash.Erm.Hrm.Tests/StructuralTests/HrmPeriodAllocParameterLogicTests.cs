@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Layout;
 
-using IntecoAG.Erm.FM.Order;
-using IntecoAG.Erm.HRM;
 using NpoMash.Erm.Hrm;
+using IntecoAG.Erm.HRM;
+using IntecoAG.Erm.FM.Order;
 using NpoMash.Erm.Hrm.Salary;
 using NpoMash.Erm.Hrm.Tests.Controllers;
 
@@ -35,7 +35,6 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             application.Modules.Add(test_module);
             application.Setup("TestApplication", object_space_provider);
             IObjectSpace os = application.CreateObjectSpace();
-            var random = new Random();
             HrmPeriod period = os.CreateObject<HrmPeriod>();
             period.Init(2013, 10);
             period.Status = HrmPeriodStatus.Closed;
