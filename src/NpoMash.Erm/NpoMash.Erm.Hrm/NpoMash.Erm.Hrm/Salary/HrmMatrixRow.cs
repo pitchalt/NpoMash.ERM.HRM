@@ -19,8 +19,7 @@ using IntecoAG.Erm.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixRow")]
-    [DefaultProperty("Order")]     
+    [Persistent("HrmMatrixRow")]  
     public class HrmMatrixRow : BaseObject {
 
         private Decimal _Sum;
@@ -35,6 +34,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private fmCOrder _Order; //—сылка на fmCOrder
+        [Index(0), VisibleInListView(true), VisibleInDetailView(true)] 
         public fmCOrder Order {
             get { return _Order; }
             set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }
