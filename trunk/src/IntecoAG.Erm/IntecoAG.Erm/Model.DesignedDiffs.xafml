@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="IntecoAG.Erm" Logo="ExpressAppLogo">
   <BOModel>
-    <Class Name="IntecoAG.Erm.FM.Order.fmCOrder" Caption="fmCOrder">
+    <Class Name="IntecoAG.Erm.FM.Order.fmCOrder" Caption="fmCOrder" ImageName="BO_Product">
       <OwnMembers>
         <Member Name="Code" Caption="Code" />
         <Member Name="NormKB" Caption="Норма КБ" />
@@ -10,13 +10,13 @@
         <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
     </Class>
-    <Class Name="IntecoAG.Erm.HRM.HrmSalaryPayType" Caption="Код оплаты">
+    <Class Name="IntecoAG.Erm.HRM.HrmSalaryPayType" Caption="Код оплаты" ImageName="BO_List">
       <OwnMembers>
         <Member Name="Code" Caption="Код" />
         <Member Name="Name" Caption="Наименование" />
       </OwnMembers>
     </Class>
-    <Class Name="IntecoAG.Erm.HRM.Organization.Department" Caption="Подразделение">
+    <Class Name="IntecoAG.Erm.HRM.Organization.Department" Caption="Подразделение" ImageName="BO_Organization">
       <OwnMembers>
         <Member Name="Code" Caption="Код" />
         <Member Name="GroupDep" Caption="Группа" />
