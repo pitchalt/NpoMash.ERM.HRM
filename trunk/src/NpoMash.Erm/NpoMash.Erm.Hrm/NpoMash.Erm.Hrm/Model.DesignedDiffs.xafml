@@ -85,11 +85,6 @@
         <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
       </Columns>
     </ListView>
-    <ListView Id="HrmMatrixColumn_LookupListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
     <ListView Id="HrmMatrixRow_Cells_ListView">
       <Columns>
         <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
@@ -101,11 +96,6 @@
       </Items>
     </DetailView>
     <ListView Id="HrmMatrixRow_ListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmMatrixRow_LookupListView">
       <Columns>
         <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
       </Columns>
