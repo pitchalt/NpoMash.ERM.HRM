@@ -24,6 +24,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmMatrixColumn : BaseObject {
 
         private Decimal _Sum;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
         public Decimal Sum {
             get { return _Sum; }
             set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
