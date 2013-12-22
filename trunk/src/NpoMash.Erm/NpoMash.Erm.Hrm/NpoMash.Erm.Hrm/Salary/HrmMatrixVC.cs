@@ -74,10 +74,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (current_period.Status == HrmPeriodStatus.Opened || 
                 current_period.Status == HrmPeriodStatus.ListOfControlledOrdersAccepted) {
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                        /*
                         HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period);
-                        e.ShowViewParameters.CreatedView = 
-                            Application.CreateDetailView(os, matrix);*/
+                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrix);
                     }
                     if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
 
