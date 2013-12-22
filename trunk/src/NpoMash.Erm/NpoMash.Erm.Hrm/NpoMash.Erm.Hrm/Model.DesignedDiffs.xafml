@@ -2,6 +2,18 @@
 <Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
   <ActionDesign>
     <Actions>
+      <Action Id="GetSourceDataAction">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
+          <ChoiceActionItem Id="GetDataFromFile" Caption="Данные из файла">
+            <ChoiceActionItems>
+              <ChoiceActionItem Id="StructuredFile" Caption="Структурированный файл" />
+              <ChoiceActionItem Id="XmlFile" Caption="XML-файл" />
+            </ChoiceActionItems>
+          </ChoiceActionItem>
+          <ChoiceActionItem Id="GetDataFromServer" Caption="Загрузить из сервера" />
+        </ChoiceActionItems>
+      </Action>
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ValidationContexts="" />
     </Actions>
   </ActionDesign>

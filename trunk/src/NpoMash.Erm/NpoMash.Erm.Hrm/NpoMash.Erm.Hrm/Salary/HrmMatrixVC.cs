@@ -21,7 +21,7 @@ using System.Collections;
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmMatrixVC : ViewController {
 
-        public enum dataSource {
+       /* public enum dataSource {
             GENERATED_DATA=1,
             DATA_FROM_SERVER=2,
             
@@ -30,10 +30,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             DATA_FROM_XML_FILE = 1,
             DATA_FROM_STRUCTURED_FILE = 2
         }
+        */
 
-
-        private ChoiceActionItem setDataSourceItem;
-        private ChoiceActionItem setFileTypeItem;
+       // private ChoiceActionItem setDataSourceItem;
+       // private ChoiceActionItem setFileTypeItem;
         
         public HrmMatrixVC() { 
             InitializeComponent(); 
@@ -52,14 +52,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         */
         }
 
-        private void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)  {
+       /* private void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)  {
       
             foreach(object current in Enum.GetValues(enumType)) {
          EnumDescriptor ed = new EnumDescriptor(enumType);
          ChoiceActionItem item = new ChoiceActionItem(ed.GetCaption(current), current);
          parentItem.Items.Add(item);
       }
-   }
+   }*/
 
         
         protected override void OnActivated() { base.OnActivated(); }
