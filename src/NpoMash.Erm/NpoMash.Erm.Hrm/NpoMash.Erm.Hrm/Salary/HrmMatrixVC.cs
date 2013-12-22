@@ -14,7 +14,6 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.Editors;
 using System.Collections;
 
 
@@ -70,8 +69,30 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void GetSourceDataAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            HrmPeriod current_period = (HrmPeriod)e.CurrentObject;
+            IObjectSpace os = ObjectSpace.CreateNestedObjectSpace();
+            if (current_period.Status == HrmPeriodStatus.Opened || 
+                current_period.Status == HrmPeriodStatus.ListOfControlledOrdersAccepted) {
+                    if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
+                        /*
+                        HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period);
+                        e.ShowViewParameters.CreatedView = 
+                            Application.CreateDetailView(os, matrix);*/
+                    }
+                    if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
 
+                    }
+                    if (e.SelectedChoiceActionItem.Id == "XmlFile") {
 
+                    }
+                    if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
+
+                    }
+
+            }
         }
+
+
+
     }
 }
