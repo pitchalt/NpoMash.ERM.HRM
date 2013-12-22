@@ -69,6 +69,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HRM_MATRIX_TYPE_MATRIX _TypeMatrix;
+     //   [Appearance("", Criteria = "'Planned'", Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_TYPE_MATRIX TypeMatrix {
             get { return _TypeMatrix; }
             set { SetPropertyValue<HRM_MATRIX_TYPE_MATRIX>("TypeMatrix", ref _TypeMatrix, value); }
@@ -81,18 +82,21 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HRM_MATRIX_STATUS _Status;
+        [Appearance("", Criteria ="isPlanned",Context="Any" ,Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_STATUS Status {
             get { return _Status; }
             set { SetPropertyValue<HRM_MATRIX_STATUS>("Status", ref _Status, value); }
         }
 
         private HRM_MATRIX_VARIANT _Variant;
+        [Appearance("", Criteria = "isPlanned", Context = "Any", Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_VARIANT Variant {
             get { return _Variant; }
             set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
         }
 
         private HRM_MATRIX_ITERATION_NUMBER _IterationNumber;
+        [Appearance("", Criteria = "isPlanned", Context = "Any", Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_ITERATION_NUMBER IterationNumber {
             get { return _IterationNumber; }
             set { SetPropertyValue<HRM_MATRIX_ITERATION_NUMBER>("IterationNumber", ref _IterationNumber, value); }
@@ -114,6 +118,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _Period; }
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
+
+        [Browsable(false)]
+        public bool isPlanned { get { return TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned; } }
 
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {base.AfterConstruction(); }
