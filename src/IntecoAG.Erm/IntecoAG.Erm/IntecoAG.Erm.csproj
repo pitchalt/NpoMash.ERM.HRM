@@ -87,6 +87,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CS\Common\ConverterType2String.cs" />
+    <Compile Include="CS\Common\ValueConverter.cs" />
+    <Compile Include="CS\csCCodedComponent.cs" />
+    <Compile Include="CS\csCComponent.cs" />
+    <Compile Include="CS\csICodedComponent.cs" />
+    <Compile Include="CS\csIComponent.cs" />
+    <Compile Include="FM\FinAccount\fmCFAAccount.cs" />
+    <Compile Include="FM\FinAccount\fmCFAAccountSystem.cs" />
     <Compile Include="FM\Order\fmCOrder.cs" />
     <Compile Include="HRM\HrmSalaryPayType.cs" />
     <Compile Include="HRM\Organization\Department.cs" />
