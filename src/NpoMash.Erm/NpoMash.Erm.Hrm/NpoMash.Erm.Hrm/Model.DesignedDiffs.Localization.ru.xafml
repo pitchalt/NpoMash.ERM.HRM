@@ -3,6 +3,12 @@
   <ActionDesign>
     <Actions>
       <Action Id="BringingMatrix" Caption="Приведение матрицы" />
+      <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="FileType" Caption="Из файла" />
+          <ChoiceActionItem Id="Source" Caption="Выберите источник" />
+        </ChoiceActionItems>
+      </Action>
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" />
     </Actions>
   </ActionDesign>

@@ -24,8 +24,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem1 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem2 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             this.BringingMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.GetSourceDataAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             // 
@@ -51,16 +49,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.GetSourceDataAction.ConfirmationMessage = null;
             this.GetSourceDataAction.Id = "GetSourceDataAction";
             this.GetSourceDataAction.ImageName = null;
-            choiceActionItem1.Caption = "Entry 1";
-            choiceActionItem1.ImageName = null;
-            choiceActionItem1.Shortcut = null;
-            choiceActionItem1.ToolTip = null;
-            choiceActionItem2.Caption = "Entry 2";
-            choiceActionItem2.ImageName = null;
-            choiceActionItem2.Shortcut = null;
-            choiceActionItem2.ToolTip = null;
-            this.GetSourceDataAction.Items.Add(choiceActionItem1);
-            this.GetSourceDataAction.Items.Add(choiceActionItem2);
             this.GetSourceDataAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.GetSourceDataAction.Shortcut = null;
             this.GetSourceDataAction.Tag = null;
@@ -70,6 +58,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.GetSourceDataAction.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.GetSourceDataAction.ToolTip = null;
             this.GetSourceDataAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.GetSourceDataAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.GetSourceDataAction_Execute);
 
         }
 
