@@ -16,6 +16,7 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.Erm.HRM;
 using IntecoAG.Erm.HRM.Organization;
 using IntecoAG.Erm.FM.Order;
+using IntecoAG.ERM.FM.FinAccount;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -23,16 +24,16 @@ namespace NpoMash.Erm.Hrm.Salary {
     [DefaultProperty("Department")] 
     public class HrmAccountOperation : BaseObject {
 
-        private HrmAccount _Debit;
-        public HrmAccount Debit {
+        private fmCFAAccount _Debit;
+        public fmCFAAccount Debit {
             get { return _Debit; }
-            set { SetPropertyValue<HrmAccount>("Debit", ref _Debit, value); }
+            set { SetPropertyValue<fmCFAAccount>("Debit", ref _Debit, value); }
         }
 
-        private HrmAccount _Credit;
-        public HrmAccount Credit {
+        private fmCFAAccount _Credit;
+        public fmCFAAccount Credit {
             get { return _Credit; }
-            set { SetPropertyValue<HrmAccount>("Credit", ref _Credit, value); }
+            set { SetPropertyValue<fmCFAAccount>("Credit", ref _Credit, value); }
         }
 
         private HrmSalaryPayType _PayType; //—сылка на HrmSalaryPayType 

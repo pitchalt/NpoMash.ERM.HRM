@@ -4,7 +4,6 @@
     <Actions>
       <Action Id="BringingMatrix" Caption="Приведение матрицы" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" />
-      <Action Id="ImportSourceData" Caption="Загрузить исходные данные" />
     </Actions>
   </ActionDesign>
   <BOModel>
@@ -56,7 +55,7 @@
         <Member Name="Column" Caption="Столбец" />
         <Member Name="Row" Caption="Строка" />
         <Member Name="Sum" Caption="Значение" />
-        <Member Name="Time" Caption="Временной интервал" />
+        <Member Name="Time" Caption="Трудочасы" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" Caption="Столбец">
