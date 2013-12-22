@@ -38,7 +38,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrixVC() { 
             InitializeComponent(); 
             RegisterActions(components); 
-           
+           /*
             GetSourceDataAction.Items.Clear();
             setDataSourceItem=new ChoiceActionItem(CaptionHelper.GetMemberCaption(typeof(HrmPeriod), "Source"), null);
             FillItemWithEnumValues(setDataSourceItem, typeof(dataSource));
@@ -49,7 +49,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             FillItemWithEnumValues(setFileTypeItem, typeof(fileSource));
             GetSourceDataAction.Items.Add(setFileTypeItem);
             
-        
+        */
         }
 
         private void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)  {

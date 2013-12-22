@@ -24,6 +24,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem1 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem2 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem3 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem4 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem5 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             this.BringingMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.GetSourceDataAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             // 
@@ -49,6 +54,31 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.GetSourceDataAction.ConfirmationMessage = null;
             this.GetSourceDataAction.Id = "GetSourceDataAction";
             this.GetSourceDataAction.ImageName = null;
+            choiceActionItem1.Caption = "GenerateTestData";
+            choiceActionItem1.ImageName = null;
+            choiceActionItem1.Shortcut = null;
+            choiceActionItem1.ToolTip = null;
+            choiceActionItem2.Caption = "GetDataFromServer";
+            choiceActionItem2.ImageName = null;
+            choiceActionItem2.Shortcut = null;
+            choiceActionItem2.ToolTip = null;
+            choiceActionItem3.Caption = "GetDataFromFile";
+            choiceActionItem3.ImageName = null;
+            choiceActionItem4.Caption = "XmlFile";
+            choiceActionItem4.ImageName = null;
+            choiceActionItem4.Shortcut = null;
+            choiceActionItem4.ToolTip = null;
+            choiceActionItem5.Caption = "StructuredFile";
+            choiceActionItem5.ImageName = null;
+            choiceActionItem5.Shortcut = null;
+            choiceActionItem5.ToolTip = null;
+            choiceActionItem3.Items.Add(choiceActionItem4);
+            choiceActionItem3.Items.Add(choiceActionItem5);
+            choiceActionItem3.Shortcut = null;
+            choiceActionItem3.ToolTip = null;
+            this.GetSourceDataAction.Items.Add(choiceActionItem1);
+            this.GetSourceDataAction.Items.Add(choiceActionItem2);
+            this.GetSourceDataAction.Items.Add(choiceActionItem3);
             this.GetSourceDataAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.GetSourceDataAction.Shortcut = null;
             this.GetSourceDataAction.Tag = null;
