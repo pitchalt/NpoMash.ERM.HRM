@@ -12,11 +12,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.ConditionalAppearance;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixAllocPlan")]
+
     public class HrmMatrixAllocPlan : HrmMatrix {
        
         public HrmMatrixAllocPlan(Session session) : base(session) { }
