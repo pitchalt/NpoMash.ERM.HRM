@@ -98,6 +98,7 @@ namespace NpoMash.Erm.Hrm {
 
 
         [Association("Period-Matrixs"), Aggregated] //Коллекция Matrixs
+        [Index(0), VisibleInListView(true), VisibleInDetailView(true)] 
         public XPCollection<HrmMatrix> Matrixs {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }

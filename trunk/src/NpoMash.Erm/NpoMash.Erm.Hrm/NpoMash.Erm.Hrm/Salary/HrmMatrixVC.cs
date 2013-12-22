@@ -61,7 +61,6 @@ namespace NpoMash.Erm.Hrm.Salary {
       }
    }*/
 
-        
         protected override void OnActivated() { base.OnActivated(); }
         protected override void OnViewControlsCreated() { base.OnViewControlsCreated(); }
         protected override void OnDeactivated() { base.OnDeactivated(); }

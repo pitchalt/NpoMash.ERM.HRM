@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="Salary\HrmMatrixLogic.cs" />
     <Compile Include="Salary\HrmMatrixVC.cs">
       <SubType>Component</SubType>
     </Compile>
