@@ -69,8 +69,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void GetSourceDataAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
-            HrmPeriod current_period = (HrmPeriod)e.CurrentObject;
+            HrmPeriod period = (HrmPeriod)e.CurrentObject;
             IObjectSpace os = ObjectSpace.CreateNestedObjectSpace();
+            HrmPeriod current_period = os.GetObject<HrmPeriod>(period);
             if (current_period.Status == HrmPeriodStatus.Opened || 
                 current_period.Status == HrmPeriodStatus.ListOfControlledOrdersAccepted) {
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
