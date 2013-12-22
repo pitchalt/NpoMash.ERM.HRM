@@ -21,10 +21,14 @@ using System.Collections;
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmMatrixVC : ViewController {
 
-        public enum DATA_SOURCE {
-            generateTestData=0,
-            dataFromFile=1,
-            dataFromServer=2
+        public enum dataSource {
+            GENERATED_DATA=1,
+            DATA_FROM_SERVER=2,
+            
+        }
+        public enum fileSource {
+            DATA_FROM_XML_FILE = 1,
+            DATA_FROM_STRUCTURED_FILE = 2
         }
 
 
@@ -35,23 +39,25 @@ namespace NpoMash.Erm.Hrm.Salary {
             InitializeComponent(); 
             RegisterActions(components); 
            
-            GetSourceDataAction.Items.Clear(); 
+            GetSourceDataAction.Items.Clear();
             setDataSourceItem=new ChoiceActionItem(CaptionHelper.GetMemberCaption(typeof(HrmPeriod), "Source"), null);
+            FillItemWithEnumValues(setDataSourceItem, typeof(dataSource));
             GetSourceDataAction.Items.Add(setDataSourceItem);
-            FillItemWithEnumValues(setDataSourceItem, typeof(DATA_SOURCE));
+            
 
             setFileTypeItem = new ChoiceActionItem(CaptionHelper.GetMemberCaption(typeof(HrmPeriod), "FileType"), null);
+            FillItemWithEnumValues(setFileTypeItem, typeof(fileSource));
             GetSourceDataAction.Items.Add(setFileTypeItem);
-            FillItemWithEnumValues(setDataSourceItem, typeof(DATA_SOURCE));
+            
         
         }
 
-        private void FillItemWithEnumValues(ChoiceActionItem setDataSourceItem, Type enumType)  {
+        private void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)  {
       
             foreach(object current in Enum.GetValues(enumType)) {
          EnumDescriptor ed = new EnumDescriptor(enumType);
          ChoiceActionItem item = new ChoiceActionItem(ed.GetCaption(current), current);
-        
+         parentItem.Items.Add(item);
       }
    }
 
