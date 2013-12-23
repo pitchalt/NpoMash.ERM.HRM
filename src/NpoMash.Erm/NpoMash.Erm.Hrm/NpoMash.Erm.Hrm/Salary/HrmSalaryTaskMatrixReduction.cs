@@ -16,41 +16,26 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTaskMatrixReduction")]
-    [NavigationItem("A1 Integration")] 
-     
-    public class HrmSalaryTaskMatrixReduction : BaseObject {  public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
+    [NavigationItem("A1 Integration")]
 
-    private HrmPeriodAllocParameter _AllocParameter;
-    public HrmPeriodAllocParameter AllocParameter {
-        get { return _AllocParameter; }
-        set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); }
-    }
+    public class HrmSalaryTaskMatrixReduction : BaseObject {
+        public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
-    private HrmMatrix _Matrix;
-    public HrmMatrix Matrix {
-        get { return _Matrix; }
-        set { SetPropertyValue<HrmMatrix>("Matrix", ref _Matrix, value); }
-    }
-    private HrmPeriod _Period;
-    public HrmPeriod Period {
-        get { return _Period; }
-        set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value);}
-    }
+        public IList<Matr> Matrix;
+        public DateTime Period;
 
-    [NonPersistent]
-    public class ReducingCardCollection : XPCustomObject {
-        private String _A;
-        public String A {
-            get { return _A; }
+        [NonPersistent] // Отображаем аттрибуты которые нужны 
+        public class Matr : XPCustomObject {
+            public string Department;
+            public string Order;
+            public string TypeControl;
+            public string PlanTrudEmk;
+            public string NewTrudEmk;
+            public string DepartmentTrudEmk;
         }
+        IList<Matr> collection { get { return new List<Matr>(); } }
+
+            public override void AfterConstruction() { base.AfterConstruction(); }
     }
 
-    IList<ReducingCardCollection> collection {
-        get {
-            return new List<ReducingCardCollection>();
-        }
     }
-
-    public override void AfterConstruction() {  base.AfterConstruction();  }
-    }
-}

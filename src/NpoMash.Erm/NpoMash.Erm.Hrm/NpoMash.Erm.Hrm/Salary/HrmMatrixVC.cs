@@ -95,7 +95,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void BringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            
+
         }
 
 
