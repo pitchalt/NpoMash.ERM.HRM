@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+using System.Collections;
 //
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
@@ -14,7 +15,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using System.Collections;
+
 
 
 namespace NpoMash.Erm.Hrm.Salary {
@@ -91,6 +92,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
 
             }
+        }
+
+        private void BringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            
         }
 
 
