@@ -10,10 +10,10 @@
   <BOModel>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
       <OwnMembers>
+        <Member Name="Matrixs" Caption="Матрицы распределения" />
         <Member Name="AllocParameters" Caption="Параметры расчета" />
         <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
         <Member Name="CurrentTimeSheet" Caption=" Текущий факт(табель)" />
-        <Member Name="Matrixs" Caption="Матрицы распределения" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="PeriodPrevious" Caption="Предыдущий период" />
         <Member Name="Status" Caption="Статус контроля" />
@@ -100,6 +100,22 @@
       <OwnMembers>
         <Member Name="AllocParameter" Caption="Параметры расчета" />
         <Member Name="PayType" Caption="Код оплаты" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Карточка управления приведением">
+      <OwnMembers>
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Period" Caption="Период" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+Matr">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="DepartmentTrudEmk" Caption="Трудоемкость по подразделению" />
+        <Member Name="NewTrudEmk" Caption=" Приведенная трудоемкость" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="PlanTrudEmk" Caption="Плановая трудоемкость" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)" />

@@ -103,6 +103,15 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }
 
+        private HrmSalaryTaskMatrixReduction _Card;
+        public HrmSalaryTaskMatrixReduction Card {
+            get { return _Card; }
+            set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
+        }
+
+
+
+
         public void Init(Int16 y, Int16 m) {
             SetPropertyValue<Int16>("Year", ref _Year, y);
             SetPropertyValue<Int16>("Month", ref _Month, m);
