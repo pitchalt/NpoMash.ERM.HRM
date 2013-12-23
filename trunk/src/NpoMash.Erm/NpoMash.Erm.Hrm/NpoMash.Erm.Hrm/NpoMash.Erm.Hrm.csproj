@@ -157,6 +157,7 @@
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmTimeSheet.cs" />
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
+    <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -164,6 +165,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Salary\HrmMatrixVC.resx">
       <DependentUpon>HrmMatrixVC.cs</DependentUpon>
     </EmbeddedResource>

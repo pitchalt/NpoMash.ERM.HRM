@@ -21,6 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public class HrmMatrixLogic : BaseObject {
 
+
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os,HrmPeriod current_period ) {
             var random = new Random();
             var order_list = os.GetObjects<fmCOrder>();
@@ -89,6 +90,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             return plan_matrix;
         }
+   
+        
+        
+        
+
+
 
         public HrmMatrixLogic(Session session): base(session) { }
         public override void AfterConstruction() {base.AfterConstruction();}
