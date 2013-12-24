@@ -4,7 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Web;
 using System.Collections.Generic;
-//using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security;
 
 namespace NpoMash.Erm.Hrm.Tests.Web
 {
@@ -15,7 +15,7 @@ namespace NpoMash.Erm.Hrm.Tests.Web
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule module3;
         private NpoMash.Erm.Hrm.Tests.Web.NpoErmHrmTestsWebModule module4;
-        private IntecoAG.Erm.IagErmModule iagErmModule1;
+        private IntecoAG.ERM.IagErmModule iagErmModule1;
         private IntecoAG.XafExt.IagXafExtModule iagXafExtModule1;
         private NpoErmHrmModule npoErmHrmModule1;
         private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
@@ -100,7 +100,7 @@ namespace NpoMash.Erm.Hrm.Tests.Web
             this.module3 = new NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule();
             this.module4 = new NpoMash.Erm.Hrm.Tests.Web.NpoErmHrmTestsWebModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.iagErmModule1 = new IntecoAG.Erm.IagErmModule();
+            this.iagErmModule1 = new IntecoAG.ERM.IagErmModule();
             this.iagXafExtModule1 = new IntecoAG.XafExt.IagXafExtModule();
             this.npoErmHrmModule1 = new NpoMash.Erm.Hrm.NpoErmHrmModule();
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();

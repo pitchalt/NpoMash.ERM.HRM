@@ -73,6 +73,12 @@ namespace NpoMash.Erm.Hrm {
             //set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
+        private HrmSalaryTaskMatrixReduction _MatrixReduction;
+        [Association("MatrixReduction-Period")]//ссылка на HrmSalaryTaskMatrixReduction
+        public HrmSalaryTaskMatrixReduction MatrixReduction {
+            get { return _MatrixReduction; }
+            set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("MatrixReduction", ref _MatrixReduction, value); }
+        }
 
         private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
         [VisibleInDetailView(false)]
