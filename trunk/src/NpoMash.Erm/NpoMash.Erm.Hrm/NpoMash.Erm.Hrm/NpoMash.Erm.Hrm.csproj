@@ -156,8 +156,10 @@
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmTimeSheet.cs" />
+    <Compile Include="Salary\HrmTimeSheetBase.cs" />
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
+    <Compile Include="Salary\HrmTimeSheetGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
