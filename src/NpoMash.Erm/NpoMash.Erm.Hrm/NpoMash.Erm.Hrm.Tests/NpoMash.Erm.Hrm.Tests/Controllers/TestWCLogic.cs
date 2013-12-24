@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters( a_object_space );
                 alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
                 foreach ( var each in a_object_space.GetObjects<HrmPeriod>( null, true ) ) {
-                    each.Status = HrmPeriodStatus.Closed;
+                    each.setStatus(HrmPeriodStatus.Closed);
                 }
             }
         }

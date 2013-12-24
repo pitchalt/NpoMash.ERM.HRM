@@ -64,12 +64,13 @@ namespace NpoMash.Erm.Hrm {
         }
 
 
-
+        [Persistent("Status")]
         private HrmPeriodStatus _Status;
         [RuleRequiredField(DefaultContexts.Save)]
+        [PersistentAlias("_Status")]
         public HrmPeriodStatus Status {
             get { return _Status; }
-            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+            //set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
 
@@ -109,6 +110,13 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
         }
 
+        public void setStatus(HrmPeriodStatus stat) {
+            if (Status == HrmPeriodStatus.SourceDataLoaded && stat == HrmPeriodStatus.ListOfControlledOrdersAccepted ||
+                Status == HrmPeriodStatus.ListOfControlledOrdersAccepted && stat == HrmPeriodStatus.SourceDataLoaded)
+                stat = HrmPeriodStatus.ReadyToCalculateCoercedMatrixs;
+            SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat); ;
+        }
+
 
 
 
@@ -120,7 +128,8 @@ namespace NpoMash.Erm.Hrm {
         public HrmPeriod(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
-            Status = HrmPeriodStatus.Opened;
+            setStatus(HrmPeriodStatus.Opened);
+            //Status = HrmPeriodStatus.Opened;
         }
     }
 }

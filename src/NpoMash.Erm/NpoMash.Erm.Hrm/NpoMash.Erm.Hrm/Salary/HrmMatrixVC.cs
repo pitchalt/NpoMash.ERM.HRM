@@ -77,7 +77,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 current_period.Status == HrmPeriodStatus.ListOfControlledOrdersAccepted) {
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
                         HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period);
-                        current_period.Status = HrmPeriodStatus.SourceDataLoaded;
+                        current_period.setStatus(HrmPeriodStatus.SourceDataLoaded);
                         matrix.Status = HRM_MATRIX_STATUS.Accepted;
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrix);
                     }

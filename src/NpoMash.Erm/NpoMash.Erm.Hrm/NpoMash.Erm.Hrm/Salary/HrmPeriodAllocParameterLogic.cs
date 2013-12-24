@@ -101,8 +101,10 @@ namespace NpoMash.Erm.Hrm.Salary
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
                 if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit)
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ListOfOrderAccepted);
-                else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted)
+                else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
+                    alloc_parameter.Period.setStatus(HrmPeriodStatus.ListOfControlledOrdersAccepted);
+                }
                 //обновление заказов в справочнике
                 updateFmCOrders(os, alloc_parameter);
             }
