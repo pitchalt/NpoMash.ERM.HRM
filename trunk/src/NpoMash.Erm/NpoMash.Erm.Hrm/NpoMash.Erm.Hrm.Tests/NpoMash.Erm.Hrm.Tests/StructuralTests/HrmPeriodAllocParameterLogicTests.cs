@@ -37,7 +37,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriod period = os.CreateObject<HrmPeriod>();
             period.Init(2013, 10);
-            period.Status = HrmPeriodStatus.Closed;
+            period.setStatus(HrmPeriodStatus.Closed);
             HrmPeriodAllocParameter param = os.CreateObject<HrmPeriodAllocParameter>();
             period.AllocParameters.Add(param);
             period.CurrentAllocParameter = param;

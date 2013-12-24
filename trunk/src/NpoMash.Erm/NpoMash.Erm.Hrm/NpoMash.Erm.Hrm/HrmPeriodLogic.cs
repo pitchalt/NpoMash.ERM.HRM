@@ -71,7 +71,7 @@ namespace NpoMash.Erm.Hrm
                 addMonth(new_period, last_period.Year, last_period.Month);
                 new_period.PeriodPrevious = last_period;
             }
-            new_period.Status = HrmPeriodStatus.Opened;
+            new_period.setStatus(HrmPeriodStatus.Opened);
             return new_period;
         }
 
