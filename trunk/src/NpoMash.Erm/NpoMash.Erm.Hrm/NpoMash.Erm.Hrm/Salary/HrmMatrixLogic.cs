@@ -19,18 +19,16 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
 
-    public class HrmMatrixLogic : BaseObject {
-
+    public static class HrmMatrixLogic{
 
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os,HrmPeriod current_period ) {
             Random random = new Random();
-            //IList<fmCOrder> order_list = os.GetObjects<fmCOrder>();
             const DEPARTMENT_GROUP_DEP GROUP_DEP_OF_MATRIX = DEPARTMENT_GROUP_DEP.KB;
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
             List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
             HrmMatrixAllocPlan plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
 
-            for (int i = 0; i < 20; i++) {
+            /*for (int i = 0; i < 20; i++) {
                 Department new_department = os.CreateObject<Department>();
                 //var new_column = os.CreateObject<HrmMatrixColumn>();
                 new_department.Code = Convert.ToString(random.Next(10000, 99999));
@@ -40,7 +38,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 //new_column.Sum = random.Next(10000, 99999);
                 //new_column.Department = new_department;
                 //columns.Add(new_column);
-            }
+            }*/
             foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()){
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
                 current_row.Sum = 0;
@@ -56,6 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             current_column = os.CreateObject<HrmMatrixColumn>();
                             current_column.Department = current_department;
                             current_column.Matrix = plan_matrix;
+                            plan_matrix.Columns.Add(current_column);
                             current_column.Sum = 0;
                         }
                         HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
@@ -68,41 +67,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                         current_row.Sum += new_cell.Time;
                         current_column.Sum += new_cell.Time;
                     }
+                    current_column = null;
                 }
             }
-            /*//Ячейки
-            var cells = new List<HrmMatrixCell>();
-            for (int i = 0; i <= order_count * 10; i++) {
-                var new_cell = os.CreateObject<HrmMatrixCell>();
-                new_cell.Sum = random.Next(10000, 99999);
-                new_cell.Time = Convert.ToInt16(random.Next(100, 999)); 
-                cells.Add(new_cell);
-            }*/
 
-        //Подразделений и колонок матрицы
-            
-            
-
-            //Теперь хочу строк 
-            /*
-            foreach (var order in order_list) {
-                var new_row = os.CreateObject<HrmMatrixRow>();
-                new_row.Sum = random.Next(10000, 99999);
-                new_row.Order = order;
-                rows.Add(new_row);
-            }*/
-            /*
-            int a = 0;
-            foreach (var c in columns) {
-                c.Cells.Add(cells[a]);
-                a++;
-            }
-
-            foreach (var r in rows) {
-                r.Cells.Add(cells[a]);
-                a++;
-            }*/
-        //Создаем плановую матрицу
             plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
             plan_matrix.GroupDep = HRM_MATRIX_GROUP_DEP.KB;
@@ -111,18 +79,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             plan_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
             plan_matrix.Period = current_period;
             current_period.Matrixs.Add(plan_matrix);
-            
-            /*foreach (var c in columns) {
-                plan_matrix.Columns.Add(c);
-            }
 
-            foreach (var r in rows) {
-                plan_matrix.Rows.Add(r);
-            }*/
             return plan_matrix;
         }
 
-        public HrmMatrixLogic(Session session): base(session) { }
-        public override void AfterConstruction() {base.AfterConstruction();}
     }
 }
