@@ -13,7 +13,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace IntecoAG.Erm.HRM
+namespace IntecoAG.ERM.HRM
 {
 
     [Persistent("HrmSalaryPayType")]

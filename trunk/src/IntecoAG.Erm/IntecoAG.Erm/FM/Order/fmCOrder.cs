@@ -14,7 +14,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 
-namespace IntecoAG.Erm.FM.Order
+namespace IntecoAG.ERM.FM.Order
 {
 
 

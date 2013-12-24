@@ -1,9 +1,9 @@
 ;#DropDB IntecoAG.ErmEasyTest
 
-#Application IntecoAG.Erm.Win
-#Application IntecoAG.Erm.Web
+#Application IntecoAG.ERM.Win
+#Application IntecoAG.ERM.Web
 
-#IfDef IntecoAG.Erm.Win
+#IfDef IntecoAG.ERM.Win
 
 *Action About...
  
@@ -11,7 +11,7 @@
 
 #EndIf
 
-#IfDef IntecoAG.Erm.Web
+#IfDef IntecoAG.ERM.Web
 
 *Action Choose Theme(Black Glass)
 

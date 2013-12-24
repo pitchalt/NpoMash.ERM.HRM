@@ -12,7 +12,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
-using IntecoAG.Erm.HRM;
+using IntecoAG.ERM.HRM;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IntecoAG.Erm.Module")]
+[assembly: AssemblyTitle("IntecoAG.ERM.Module")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("-")]
-[assembly: AssemblyProduct("IntecoAG.Erm.Module")]
+[assembly: AssemblyProduct("IntecoAG.ERM.Module")]
 [assembly: AssemblyCopyright("Copyright © - 2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

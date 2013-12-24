@@ -10,8 +10,8 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Layout;
 
 using NpoMash.Erm.Hrm;
-using IntecoAG.Erm.HRM;
-using IntecoAG.Erm.FM.Order;
+using IntecoAG.ERM.HRM;
+using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Salary;
 using NpoMash.Erm.Hrm.Tests.Controllers;
 

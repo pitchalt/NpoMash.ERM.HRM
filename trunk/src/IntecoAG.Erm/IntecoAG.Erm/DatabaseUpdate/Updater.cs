@@ -11,9 +11,9 @@ using DevExpress.ExpressApp.Security;
 //using DevExpress.ExpressApp.Reports;
 //using DevExpress.ExpressApp.PivotChart;
 //using DevExpress.ExpressApp.Security.Strategy;
-//using IntecoAG.Erm.Module.BusinessObjects;
+//using IntecoAG.ERM.Module.BusinessObjects;
 
-namespace IntecoAG.Erm.DatabaseUpdate
+namespace IntecoAG.ERM.DatabaseUpdate
 {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppUpdatingModuleUpdatertopic
     public class Updater : ModuleUpdater

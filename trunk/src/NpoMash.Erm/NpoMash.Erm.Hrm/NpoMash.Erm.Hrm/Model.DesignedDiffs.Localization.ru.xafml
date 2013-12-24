@@ -123,16 +123,16 @@
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
-      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrdertypeConstancy">
+      <LocalizationGroup Name="IntecoAG.ERM.FM.Order.fmCOrdertypeConstancy">
         <LocalizationItem Name="ConstOrderType" Value="Пост. шифр заказа" />
         <LocalizationItem Name="UnConstOrderType" Value="Не пост. шифр заказа" />
       </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.Erm.FM.Order.fmCOrderTypeCOntrol">
+      <LocalizationGroup Name="IntecoAG.ERM.FM.Order.fmCOrderTypeCOntrol">
         <LocalizationItem Name="FOT" Value="ФОТ" />
         <LocalizationItem Name="No_Ordered" Value="Неконтролируемый" />
         <LocalizationItem Name="TrudEmk_FOT" Value="Трудоемкость+ФОТ" />
       </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.Erm.HRM.Organization.DEPARTMENT_GROUP_DEP">
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP">
         <LocalizationItem Name="KB" Value="КБ" />
         <LocalizationItem Name="OZM" Value="ОЗМ" />
       </LocalizationGroup>

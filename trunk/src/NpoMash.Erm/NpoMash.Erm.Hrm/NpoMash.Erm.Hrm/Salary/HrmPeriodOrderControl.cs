@@ -15,7 +15,7 @@ using DevExpress.Xpo;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
-using IntecoAG.Erm.FM.Order;
+using IntecoAG.ERM.FM.Order;
 //
 namespace NpoMash.Erm.Hrm.Salary {
 

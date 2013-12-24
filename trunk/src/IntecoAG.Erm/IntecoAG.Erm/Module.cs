@@ -14,7 +14,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 
-namespace IntecoAG.Erm
+namespace IntecoAG.ERM
 {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppModuleBasetopic.
     public sealed partial class IagErmModule : ModuleBase
