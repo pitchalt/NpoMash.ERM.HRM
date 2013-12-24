@@ -33,7 +33,7 @@ namespace NpoMash.Erm.Hrm.Tests.Win
             this.module3 = new NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule();
             this.module4 = new NpoMash.Erm.Hrm.Tests.Win.NpoErmHrmTestsWinModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.iagErmModule1 = new IntecoAG.Erm.IagErmModule();
+            this.iagErmModule1 = new IntecoAG.ERM.IagErmModule();
             this.iagXafExtModule1 = new IntecoAG.XafExt.IagXafExtModule();
             this.npoErmHrmModule1 = new NpoMash.Erm.Hrm.NpoErmHrmModule();
             this.npoErmHrmWinModule1 = new NpoMash.Erm.Hrm.Win.NpoErmHrmWinModule();
@@ -130,7 +130,7 @@ namespace NpoMash.Erm.Hrm.Tests.Win
         private NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule module3;
         private NpoMash.Erm.Hrm.Tests.Win.NpoErmHrmTestsWinModule module4;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
-        private IntecoAG.Erm.IagErmModule iagErmModule1;
+        private IntecoAG.ERM.IagErmModule iagErmModule1;
         private IntecoAG.XafExt.IagXafExtModule iagXafExtModule1;
         private NpoErmHrmModule npoErmHrmModule1;
         private Hrm.Win.NpoErmHrmWinModule npoErmHrmWinModule1;

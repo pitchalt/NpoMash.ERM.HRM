@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="IntecoAG.Erm" Logo="ExpressAppLogo">
+<Application Title="IntecoAG.Erm" Logo="ExpressAppLogo" Company="">
   <BOModel>
-    <Class Name="IntecoAG.Erm.FM.Order.fmCOrder" Caption="fmCOrder" ImageName="BO_Product">
+    <Class Name="IntecoAG.ERM.FM.Order.fmCOrder" Caption="fmCOrder" ImageName="BO_Product">
       <OwnMembers>
         <Member Name="Code" Caption="Code" />
         <Member Name="NormKB" Caption="Норма КБ" />
@@ -10,13 +10,13 @@
         <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
     </Class>
-    <Class Name="IntecoAG.Erm.HRM.HrmSalaryPayType" Caption="Код оплаты" ImageName="BO_List">
+    <Class Name="IntecoAG.ERM.HRM.HrmSalaryPayType" Caption="Код оплаты" ImageName="BO_List">
       <OwnMembers>
         <Member Name="Code" Caption="Код" />
         <Member Name="Name" Caption="Наименование" />
       </OwnMembers>
     </Class>
-    <Class Name="IntecoAG.Erm.HRM.Organization.Department" Caption="Подразделение" ImageName="BO_Organization">
+    <Class Name="IntecoAG.ERM.HRM.Organization.Department" Caption="Подразделение" ImageName="BO_Organization">
       <OwnMembers>
         <Member Name="Code" Caption="Код" />
         <Member Name="GroupDep" Caption="Группа" />
@@ -24,20 +24,6 @@
     </Class>
   </BOModel>
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
   </SchemaModules>
-  <Views>
-    <DetailView Id="fmCOrder_DetailView">
-      <Items>
-        <PropertyEditor Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
-        <PropertyEditor Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Items>
-    </DetailView>
-    <ListView Id="fmCOrder_ListView">
-      <Columns>
-        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-  </Views>
 </Application>

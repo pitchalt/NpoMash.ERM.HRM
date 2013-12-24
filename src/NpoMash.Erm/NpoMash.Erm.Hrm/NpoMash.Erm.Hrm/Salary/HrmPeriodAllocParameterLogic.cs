@@ -12,8 +12,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using NpoMash.Erm.Hrm;
-using IntecoAG.Erm.FM.Order;
-using IntecoAG.Erm.HRM;
+using IntecoAG.ERM.FM.Order;
+using IntecoAG.ERM.HRM;
 
 namespace NpoMash.Erm.Hrm.Salary
 {

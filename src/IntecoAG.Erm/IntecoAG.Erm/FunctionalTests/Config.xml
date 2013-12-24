@@ -3,20 +3,20 @@
 	<Applications>
 		<!-- Win -->
 		<Application
-			Name="IntecoAG.Erm.Win"
-			FileName="[WinAppBin]\IntecoAG.Erm.Win.exe"
+			Name="IntecoAG.ERM.Win"
+			FileName="[WinAppBin]\IntecoAG.ERM.Win.exe"
 			AdapterAssemblyName="[WinAdapterAssemblyName]"
 			CommunicationPort="4100"/>
 		<!-- Web -->
 		<Application
-			Name="IntecoAG.Erm.Web"
+			Name="IntecoAG.ERM.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
 		<!-- For IIS -->
 		<!--Application
-			Name="IntecoAG.Erm.Web"
-			Url="http://localhost/IntecoAG.Erm.Web/Default.aspx"
+			Name="IntecoAG.ERM.Web"
+			Url="http://localhost/IntecoAG.ERM.Web/Default.aspx"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
 	</Applications>
 	<TestDatabases>
@@ -27,7 +27,7 @@
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
 		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
 		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\IntecoAG.Erm.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\IntecoAG.Erm.Web" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\IntecoAG.ERM.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\IntecoAG.ERM.Web" />
 	</Aliases>
 </Options>

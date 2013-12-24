@@ -2,10 +2,10 @@
 using System.Text;
 using System.Collections.Generic;
 
-using IntecoAG.Erm.HRM;
-using IntecoAG.Erm.FM.Order;
+using IntecoAG.ERM.HRM;
+using IntecoAG.ERM.FM.Order;
+using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Salary;
-using IntecoAG.Erm.HRM.Organization;
 
 using DevExpress.ExpressApp;
 

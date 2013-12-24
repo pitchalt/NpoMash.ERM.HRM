@@ -13,7 +13,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace IntecoAG.Erm.HRM.Organization
+namespace IntecoAG.ERM.HRM.Organization
 {
     public enum DEPARTMENT_GROUP_DEP { KB = 0, OZM = 1 }
 

@@ -32,7 +32,7 @@ namespace NpoMash.Erm.Hrm
             // NpoErmHrmModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
-            this.RequiredModuleTypes.Add(typeof(IntecoAG.Erm.IagErmModule));
+            this.RequiredModuleTypes.Add(typeof(IntecoAG.ERM.IagErmModule));
             this.RequiredModuleTypes.Add(typeof(IntecoAG.XafExt.IagXafExtModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));

@@ -1,4 +1,4 @@
-namespace IntecoAG.Erm
+namespace IntecoAG.ERM
 {
     partial class IagErmModule
     {
