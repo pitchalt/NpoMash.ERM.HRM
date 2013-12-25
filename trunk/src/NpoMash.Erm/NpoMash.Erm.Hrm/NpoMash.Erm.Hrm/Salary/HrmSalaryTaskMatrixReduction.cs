@@ -106,9 +106,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item = new OrderItem() {
                         Order = row.Order
                     };
-                    orderList.Add(item);
                 }
                 item.OrderPlan += row.Cells.Sum(x => x.Time);
+                orderList.Add(item);
+
             }
             return orderList;
         }
@@ -121,9 +122,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item = new DepartmentItem() {
                         Department = col.Department
                     };
-                    departmentList.Add(item);
                 }
                 item.DepartmentPlan += col.Cells.Sum(x => x.Time);
+                departmentList.Add(item);
+
             }
             return departmentList;
         }

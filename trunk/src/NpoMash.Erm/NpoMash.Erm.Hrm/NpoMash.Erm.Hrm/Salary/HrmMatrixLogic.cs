@@ -84,13 +84,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         static public void makeAllocMatrix(HRM_MATRIX_VARIANT variant, HrmSalaryTaskMatrixReduction AllocMatrix) {
 
-
-
-
-
-
-
-
+            if (variant == HRM_MATRIX_VARIANT.ProportionsMethod) { 
+            
+            
+            
+            }
 
 
 
