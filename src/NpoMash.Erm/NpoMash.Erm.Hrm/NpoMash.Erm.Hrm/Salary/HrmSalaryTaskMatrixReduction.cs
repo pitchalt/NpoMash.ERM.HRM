@@ -22,30 +22,28 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmSalaryTaskMatrixReduction : BaseObject {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
-        [Persistent("MatrixPlan")]
         private HrmMatrix _MatrixPlan;
-         [PersistentAlias("_MatrixPlan")]
         public HrmMatrix MatrixPlan {
             get { return _MatrixPlan; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
+
         }
 
-        [Persistent("MatrixAlloc")]
         private HrmMatrix _MatrixAlloc;
-         [PersistentAlias("_MatrixAlloc")]
         public HrmMatrix MatrixAlloc {
             get { return _MatrixAlloc; }
+            set { SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, value); }
+
+
         }
 
-         [Persistent("TimeSheetGroup")]
          private HrmTimeSheetGroup _TimeSheetGroup;
-         [PersistentAlias("_TimeSheetGroup")]
          public HrmTimeSheetGroup TimeSheetGroup {
              get { return _TimeSheetGroup; }
+             set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
         }
 
-         [Persistent("AllocParameters")]
         private HrmPeriodAllocParameter _AllocParameters;
-         [PersistentAlias("_AllocParameters")]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
              set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
@@ -60,12 +58,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             var MatrixReduction= os.CreateObject<HrmSalaryTaskMatrixReduction>();
             MatrixReduction.Period.Add(Period);
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
+            MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
+
+            foreach(var matrix in Period.Matrixs){
+                if (matrix.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned) {
+                    MatrixReduction.MatrixPlan = matrix;
+                }
+            }
+           MatrixReduction.MatrixAlloc=HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os);
+        
             return MatrixReduction;
         }
 
-        public void setMatrixAlloc(HrmMatrix MatrixAlloc) {
-            SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, MatrixAlloc);        
-        }
+       
 
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
