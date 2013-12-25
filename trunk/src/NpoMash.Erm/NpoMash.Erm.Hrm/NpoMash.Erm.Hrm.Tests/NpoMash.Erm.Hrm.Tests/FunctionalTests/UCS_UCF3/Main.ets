@@ -6,8 +6,8 @@
 *Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
 ;*CompareScreenshot
 
-*Action Создать параметры расчета
+*Action Создать
 ;*CompareScreenshot
 
-*Action Утвердить параметры расчета
+*Action Утвердить
 ;*CompareScreenshot

@@ -6,18 +6,23 @@
 *Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
 ;*CompareScreenshot
 
-*Action Создать параметры расчета
+*Action Создать
 ;*CompareScreenshot
 
-*Action Утвердить параметры расчета
+*Action Утвердить
 ;*CompareScreenshot
 
 *Action Закрыть
 ;*CompareScreenshot
 
-*ProcessRecord 
- Статус контроля = ListOfOrderAccepted
+*Action Обновить
 ;*CompareScreenshot
 
-*Action Сохранить и закрыть
+*Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
 ;*CompareScreenshot
+
+*ProcessRecord 
+ Статус контроля = Утвержден список контроллируемых заказов
+;*CompareScreenshot
+
+*Action Сохранить

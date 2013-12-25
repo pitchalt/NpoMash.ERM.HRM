@@ -1,15 +1,15 @@
 ﻿#DropDB NpoMash.Erm.Hrm.Test
-#Application NpoMash.Erm.Hrm.Tests.Win
+#Application NpoMash.Erm.Hrm.TestsWin
 *Action Добавить тестовые данные
 *Action Обновить
 
 *Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
 ;*CompareScreenshot
 
-*Action Создать параметры расчета
+*Action Создать
 ;*CompareScreenshot
 
-*Action Утвердить параметры расчета
+*Action Утвердить
 ;*CompareScreenshot
 
 *Action Закрыть
@@ -19,5 +19,4 @@
  Статус контроля = ListOfOrderAccepted
 ;*CompareScreenshot
 
-*Action Утвердить параметры расчета
-;*CompareScreenshot
+*Action Утвердить
