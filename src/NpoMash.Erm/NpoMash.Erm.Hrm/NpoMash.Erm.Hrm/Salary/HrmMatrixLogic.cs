@@ -19,9 +19,9 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
 
-    public static class HrmMatrixLogic{
+    public static class HrmMatrixLogic {
 
-        static public HrmMatrixAllocPlan setTestData(IObjectSpace os,HrmPeriod current_period ) {
+        static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period) {
             Random random = new Random();
             const DEPARTMENT_GROUP_DEP GROUP_DEP_OF_MATRIX = DEPARTMENT_GROUP_DEP.KB;
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 //new_column.Department = new_department;
                 //columns.Add(new_column);
             }*/
-            foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()){
+            foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()) {
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
                 //current_row.Sum = 0;
                 current_row.Matrix = plan_matrix;
@@ -83,43 +83,36 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os) {
-           
+
             var result_matrix = os.CreateObject<HrmMatrix>();
 
-                foreach (var dep in AllocMatrix.Department){
-                var new_column=os.CreateObject<HrmMatrixColumn>(); //новый стобец
-                var new_cell=os.CreateObject<HrmMatrixCell>(); //нова€ €чейка 
-                    new_column.Department=dep.Department; //задаем новой колонке значение
-                    new_cell.Time = Convert.ToInt16(dep.DepartmentFact / AllocMatrix.Department.Count()); // задаем значение €чейке
-                    new_column.Cells.Add(new_cell); // записываем новую €чейку в созданный столбец
-                    result_matrix.Columns.Add(new_column); // ƒобавл€ем колонку в матрицу
-                }
-
-                foreach (var order in AllocMatrix.Order) {
-                    var new_row = os.CreateObject<HrmMatrixRow>();
-                    new_row.Order = order.Order;
-                    result_matrix.Rows.Add(new_row);
-                }
-                result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
-                result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
-                result_matrix.GroupDep = HRM_MATRIX_GROUP_DEP.KB;
-                result_matrix.Status = HRM_MATRIX_STATUS.Accepted;
-                result_matrix.IterationNumber = 2;
-                result_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
-
-                return result_matrix;
+            foreach (HrmMatrixColumn col in AllocMatrix.MatrixPlan.Columns) {
+                HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
+                new_col.Department = col.Department;
+                result_matrix.Columns.Add(new_col);
             }
+            foreach (HrmMatrixRow row in AllocMatrix.MatrixPlan.Rows) {
+                HrmMatrixRow new_row = os.CreateObject<HrmMatrixRow>();
+                new_row.Order = row.Order;
+                result_matrix.Rows.Add(new_row);
+                foreach (HrmMatrixCell cell in row.Cells) {
+                    HrmMatrixColumn new_col = result_matrix.Columns.FirstOrDefault(x => x.Department == cell.Column.Department);
+                    HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
+                    new_row.Cells.Add(new_cell);
+                    new_col.Cells.Add(new_cell);
+                    new_cell.Time = (Int16) (cell.Time * 9 / 10);
+                    new_cell.Sum = cell.Sum * 9 / 10;
+                }
+            }
+            result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
+            result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
+            result_matrix.GroupDep = HRM_MATRIX_GROUP_DEP.KB;
+            result_matrix.Status = HRM_MATRIX_STATUS.Accepted;
+            result_matrix.IterationNumber = 2;
+            result_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
 
-
-
-
-
-
-
-
-
-
-
+            return result_matrix;
         }
     }
+}
 
