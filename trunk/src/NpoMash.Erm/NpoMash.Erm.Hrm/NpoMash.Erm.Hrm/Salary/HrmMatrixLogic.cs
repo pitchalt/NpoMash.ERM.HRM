@@ -41,7 +41,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }*/
             foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()){
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
-                current_row.Sum = 0;
+                //current_row.Sum = 0;
                 current_row.Matrix = plan_matrix;
                 plan_matrix.Rows.Add(current_row);
                 current_row.Order = current_order;
@@ -55,7 +55,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             current_column.Department = current_department;
                             current_column.Matrix = plan_matrix;
                             plan_matrix.Columns.Add(current_column);
-                            current_column.Sum = 0;
+                            //current_column.Sum = 0;
                         }
                         HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
                         new_cell.Time = Convert.ToInt16(random.Next(100, 500));
@@ -64,8 +64,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         new_cell.Row = current_row;
                         current_row.Cells.Add(new_cell);
                         current_column.Cells.Add(new_cell);
-                        current_row.Sum += new_cell.Time;
-                        current_column.Sum += new_cell.Time;
+                        //current_row.Sum += new_cell.Time;
+                        //current_column.Sum += new_cell.Time;
                     }
                     current_column = null;
                 }
