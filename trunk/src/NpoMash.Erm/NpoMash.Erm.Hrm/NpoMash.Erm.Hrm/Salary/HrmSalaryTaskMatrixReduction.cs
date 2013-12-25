@@ -55,10 +55,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return GetCollection<HrmPeriod>("Period"); }
         }
 
-        public void initTaskMatrixReduction(HrmMatrix MatrixPlan, HrmTimeSheetGroup TimeSheet, HrmPeriodAllocParameter AllocParameters) {
-            SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, MatrixPlan);
-            SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup,TimeSheet);
-            SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, AllocParameters); 
+        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os) {
+            var MatrixReduction= os.CreateObject<HrmSalaryTaskMatrixReduction>();
+            return MatrixReduction;
+            // SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, MatrixPlan);
+           // SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup,TimeSheet);
+           // SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, AllocParameters); 
+       
         }
 
         public void setMatrixAlloc(HrmMatrix MatrixAlloc) {

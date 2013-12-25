@@ -82,27 +82,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             return plan_matrix;
         }
 
-        static public void makeAllocMatrix(HRM_MATRIX_VARIANT variant, HrmSalaryTaskMatrixReduction AllocMatrix) {
+        static public void makeAllocMatrix( HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os) {
+                    
+                int i=0;
+                foreach (var t in AllocMatrix.Department){
+                var new_column=os.CreateObject<HrmMatrixColumn>();
+                    new_column.Department=t.Department;
+               // AllocMatrix.MatrixAlloc.Columns.Add();
 
-            if (variant == HRM_MATRIX_VARIANT.ProportionsMethod) {
-            //    HrmMatrix new_matrix;
-                //foreach (var t in AllocMatrix.Order) {
-                   
+                }
                // }
 
 
                 //new_matrix.Rows = AllocMatrix.Order;
 
 
-
-
-
-
-
-
-
-            
-            
             }
 
 
