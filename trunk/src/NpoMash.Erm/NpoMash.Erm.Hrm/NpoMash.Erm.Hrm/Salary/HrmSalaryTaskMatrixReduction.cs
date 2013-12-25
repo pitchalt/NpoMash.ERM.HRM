@@ -69,7 +69,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class DepartmentItem : XPCustomObject {
             public Department Department;
             public Int32 DepartmentPlan;
-            public Int32 NewTrudEmk;
             public Int32 DepartmentFact;
         }
 
@@ -104,12 +103,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 OrderItem item = orderList.FirstOrDefault(x => x.Order ==row.Order);
                 if (item == null) {
                     item = new OrderItem() {
-                        Order = row.Order
+                        Order = row.Order //Заказ
                     };
                 }
-                item.OrderPlan += row.Cells.Sum(x => x.Time);
+                item.OrderPlan = Convert.ToInt32(row.Sum);//План по заказу
+                item.TypeControl = row.Order.TypeControl; // Тип контроля
                 orderList.Add(item);
-
             }
             return orderList;
         }
@@ -120,14 +119,20 @@ namespace NpoMash.Erm.Hrm.Salary {
                 DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
                     item = new DepartmentItem() {
-                        Department = col.Department
+                        Department = col.Department // Подразделение
                     };
                 }
-                item.DepartmentPlan = Convert.ToInt32(col.Sum);
+                item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
                 departmentList.Add(item);
             }
-
-           // foreach (var t in TimeSheetGroup.t)
+            //заполняем факт по подразделению
+            foreach (var t in TimeSheetGroup.TimeSheetDeps) {
+                for (int i = 0; i < departmentList.Count; i++) {
+                    if (t.Department.Code == departmentList[i].Department.Code) {
+                        departmentList[i].DepartmentFact = t.MatrixWorkTime;
+                    }
+                }
+            }
             return departmentList;
         }
 
