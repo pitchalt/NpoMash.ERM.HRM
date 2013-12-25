@@ -22,12 +22,18 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmMatrixRow")]  
     public class HrmMatrixRow : BaseObject {
 
-        private Decimal _Sum;
+        //private Decimal _Sum;
          [ModelDefault("DisplayFormat", "{0:N}")]
          [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
+        [NonPersistent()]
         public Decimal Sum {
-            get { return _Sum; }
-            set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
+            get {
+                Decimal result = 0;
+                foreach (HrmMatrixCell current_cell in Cells) result += current_cell.Time;
+                return result;
+                //return _Sum; 
+            }
+            //set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
         }
         
         [Association("Row-Cells"), Aggregated]  //Коллекция HrmMatrixCell
