@@ -49,6 +49,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmMatrix")]
     [Appearance("Enabled", TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmMatrix : BaseObject {
+       public HrmMatrix();
 
         private HRM_MATRIX_TYPE _Type;
         public HRM_MATRIX_TYPE Type {
