@@ -77,6 +77,7 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" Caption="Параметры расчета">
       <OwnMembers>
+        <Member Name="IterationNumber" Caption="Номер итерации" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="NormNoControlKB" Caption="Норма по неконтр. заказам КБ" />
         <Member Name="NormNoControlOZM" Caption="Норма по неконтр. заказам ОЗМ" />
@@ -104,22 +105,44 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Карточка управления приведением">
       <OwnMembers>
-        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="AllocParameters" Caption="Параметры расчета" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="MatrixAlloc" Caption="Приведенная матрица" />
+        <Member Name="MatrixPlan" Caption="Плановая матрица" />
+        <Member Name="Order" Caption="Заказ" />
         <Member Name="Period" Caption="Период" />
+        <Member Name="TimeSheetGroup" Caption="Факт. табель" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+Matr">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem">
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
-        <Member Name="DepartmentTrudEmk" Caption="Трудоемкость по подразделению" />
-        <Member Name="NewTrudEmk" Caption=" Приведенная трудоемкость" />
+        <Member Name="DepartmentFact" Caption="Факт по подразделению" />
+        <Member Name="DepartmentPlan" Caption="План по подразделению" />
+        <Member Name="NewTrudEmk" Caption="Искомая фактическая трудоемкость " />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem">
+      <OwnMembers>
         <Member Name="Order" Caption="Заказ" />
-        <Member Name="PlanTrudEmk" Caption="Плановая трудоемкость" />
+        <Member Name="OrderPlan" Caption="План по заказу" />
         <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="MatrixWorkTime" Caption="Основные трудочасы " />
+        <Member Name="OtherWorkTime" Caption="Доп. трудочасы" />
+        <Member Name="TimeSheet" Caption="Факт. табель" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetGroup">
+      <OwnMembers>
+        <Member Name="GroupDep" Caption="Подразделение" />
+      </OwnMembers>
+    </Class>
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
@@ -146,18 +169,6 @@
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_GROUP_DEP">
         <LocalizationItem Name="KB" Value="КБ" />
         <LocalizationItem Name="OZM" Value="ОЗМ" />
-      </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_ITERATION_NUMBER">
-        <LocalizationItem Name="Eight" Value="8" />
-        <LocalizationItem Name="Five" Value="5" />
-        <LocalizationItem Name="Four" Value="4" />
-        <LocalizationItem Name="Nine" Value="9" />
-        <LocalizationItem Name="One" Value="1" />
-        <LocalizationItem Name="Seven" Value="7" />
-        <LocalizationItem Name="Six" Value="6" />
-        <LocalizationItem Name="Ten" Value="10" />
-        <LocalizationItem Name="Three" Value="3" />
-        <LocalizationItem Name="Two" Value="2" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
         <LocalizationItem Name="Accepted" Value="Утверждена" />

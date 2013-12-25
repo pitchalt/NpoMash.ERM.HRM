@@ -18,8 +18,7 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTaskMatrixReduction")]
-    [NavigationItem("A1 Integration")]
-
+   
     public class HrmSalaryTaskMatrixReduction : BaseObject {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
@@ -56,47 +55,78 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return GetCollection<HrmPeriod>("Period"); }
         }
 
-        public void initialize(HrmMatrix MatrixPlan, HrmTimeSheetGroup TimeSheet, HrmPeriodAllocParameter AllocParameters) {
+        public void initTaskMatrixReduction(HrmMatrix MatrixPlan, HrmTimeSheetGroup TimeSheet, HrmPeriodAllocParameter AllocParameters) {
             SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, MatrixPlan);
             SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup,TimeSheet);
-            SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, AllocParameters); }
+            SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, AllocParameters); 
+        }
+
+        public void setMatrixAlloc(HrmMatrix MatrixAlloc) {
+            SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, MatrixAlloc);        
+        }
 
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
             public Department Department;
-            public Int32 PlanTrudEmk;
+            public Int32 DepartmentPlan;
             public Int32 NewTrudEmk;
-            public Int32 DepartmentTrudEmk;
+            public Int32 DepartmentFact;
         }
 
-        IList<DepartmentItem> _A;
-        public IList<DepartmentItem> A {
-            get {
-                if (_A == null)
-                    _A = ACreate();
-                return _A; 
+        [NonPersistent]
+        public class OrderItem : XPCustomObject {
+            public fmCOrder Order;
+            public fmCOrderTypeCOntrol TypeControl;
+            public Int32 OrderPlan;
+        }
+
+
+        private IList<DepartmentItem> _Department;
+        public IList<DepartmentItem> Department {
+            get { if (_Department == null)
+                    _Department = departmentCreate();
+                return _Department; 
             }
         }
 
-        protected IList<DepartmentItem> ACreate() {
-            IList<DepartmentItem> result = new List<DepartmentItem>();
+        private IList<OrderItem> _Order;
+        public IList<OrderItem> Order {
+            get {
+                if (_Order == null)
+                    _Order = orderCreate();
+                return _Order;
+            }
+        }
+
+        protected IList<OrderItem> orderCreate() {
+            IList<OrderItem> orderList = new List<OrderItem>();
+            foreach (HrmMatrixRow row in MatrixPlan.Rows) {
+                OrderItem item = orderList.FirstOrDefault(x => x.Order ==row.Order);
+                if (item == null) {
+                    item = new OrderItem() {
+                        Order = row.Order
+                    };
+                    orderList.Add(item);
+                }
+                item.OrderPlan += row.Cells.Sum(x => x.Time);
+            }
+            return orderList;
+        }
+
+        protected IList<DepartmentItem> departmentCreate() {
+            IList<DepartmentItem> departmentList = new List<DepartmentItem>();
             foreach (HrmMatrixColumn col in MatrixPlan.Columns) {
-                DepartmentItem item = result.FirstOrDefault(x => x.Department == col.Department);
+                DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
                     item = new DepartmentItem() {
                         Department = col.Department
                     };
+                    departmentList.Add(item);
                 }
-                item.PlanTrudEmk += col.Cells.Sum(x => x.Time);
+                item.DepartmentPlan += col.Cells.Sum(x => x.Time);
             }
-            return result;
+            return departmentList;
         }
-
-        public void CreateDep() {
-            DepartmentItem B = new DepartmentItem();
-            A.Add(B);
-        }
-
 
         public override void AfterConstruction() {
             base.AfterConstruction();

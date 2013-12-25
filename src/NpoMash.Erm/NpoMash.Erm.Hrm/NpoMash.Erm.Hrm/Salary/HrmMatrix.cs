@@ -45,18 +45,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         ProportionsMethod=2
     }
 
-    public enum HRM_MATRIX_ITERATION_NUMBER { 
-        One=0,
-        Two=1,
-        Three=2,
-        Four=3,
-        Five=4,
-        Six=5,
-        Seven=6,
-        Eight=7,
-        Nine=8,
-        Ten=9
-    }
 
     [Persistent("HrmMatrix")]
     [Appearance("Enabled", TargetItems = "*", Context = "Any", Enabled = false)]
@@ -95,11 +83,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
         }
 
-        private HRM_MATRIX_ITERATION_NUMBER _IterationNumber;
+        private Int16 _IterationNumber;
         [Appearance("", Criteria = "isPlanned", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-        public HRM_MATRIX_ITERATION_NUMBER IterationNumber {
+        public Int16 IterationNumber {
             get { return _IterationNumber; }
-            set { SetPropertyValue<HRM_MATRIX_ITERATION_NUMBER>("IterationNumber", ref _IterationNumber, value); }
+            set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
         }
 
         [Association("Matrix-Rows"), Aggregated] //Коллекция HrmMatrixRow
