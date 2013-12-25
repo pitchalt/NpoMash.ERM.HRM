@@ -2,31 +2,31 @@
 #Application NpoMash.Erm.Hrm.Tests.Win
 *Action Добавить тестовые данные
 *Action Обновить
+*Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
+*Action Создать
+*Action Утвердить
+*Action Закрыть
+*Action Обновить
 
 *Action Навигация(Интеграция с А1.Списание затрат.Параметры расчета)
 ;*CompareScreenshot
 
-*Action Создать параметры расчета
-;*CompareScreenshot
-
-*Action Утвердить параметры расчета
-;*CompareScreenshot
-
-*Action Закрыть
-;*CompareScreenshot
-
 *ProcessRecord 
- Статус контроля = ListOfOrderAccepted
- ;*CompareScreenshot
-
-*Action Контроль заказа
+ Статус контроля = Утвержден список контроллируемых заказов
 ;*CompareScreenshot
 
-*Action Контроль заказа.Создать
+*Action Код оплаты
 ;*CompareScreenshot
 
+*Action Код оплаты.Создать
+;*CompareScreenshot
+
+*ExecuteEditorAction Код оплаты
+*Action Создать
 *FillForm
- Заказ = 53514
+ Код = 1111
+*Action Сохранить и закрыть
 ;*CompareScreenshot
 
 *Action Сохранить
+;*CompareScreenshot
