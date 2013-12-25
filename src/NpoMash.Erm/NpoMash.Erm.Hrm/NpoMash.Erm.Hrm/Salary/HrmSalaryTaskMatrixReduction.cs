@@ -37,16 +37,16 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-         private HrmTimeSheetGroup _TimeSheetGroup;
-         public HrmTimeSheetGroup TimeSheetGroup {
-             get { return _TimeSheetGroup; }
-             set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
+        private HrmTimeSheetGroup _TimeSheetGroup;
+        public HrmTimeSheetGroup TimeSheetGroup {
+            get { return _TimeSheetGroup; }
+            set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
         }
 
         private HrmPeriodAllocParameter _AllocParameters;
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
-             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
+            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
         [Association("MatrixReduction-Period")]
@@ -55,28 +55,31 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os) {
-            var MatrixReduction= os.CreateObject<HrmSalaryTaskMatrixReduction>();
+            var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
             MatrixReduction.Period.Add(Period);
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
             MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
 
-            foreach(var matrix in Period.Matrixs){
+            foreach (var matrix in Period.Matrixs) {
                 if (matrix.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned) {
                     MatrixReduction.MatrixPlan = matrix;
                 }
             }
-           MatrixReduction.MatrixAlloc=HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os);
-        
+            MatrixReduction.MatrixAlloc = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os);
+
             return MatrixReduction;
         }
 
-       
+
 
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
             public Department Department;
             public Int32 DepartmentPlan;
+            public Int32 DepartmentAlloc;
             public Int32 DepartmentFact;
+
+            public DepartmentItem(Session session) : base(session) { }
         }
 
         [NonPersistent]
@@ -84,14 +87,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             public fmCOrder Order;
             public fmCOrderTypeCOntrol TypeControl;
             public Int32 OrderPlan;
+
+            public OrderItem(Session session) : base(session) { }
         }
 
 
         private IList<DepartmentItem> _Department;
         public IList<DepartmentItem> Department {
-            get { if (_Department == null)
+            get {
+                if (_Department == null)
                     _Department = departmentCreate();
-                return _Department; 
+                return _Department;
             }
         }
 
@@ -108,10 +114,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected IList<OrderItem> orderCreate() {
             IList<OrderItem> orderList = new List<OrderItem>();
             foreach (HrmMatrixRow row in MatrixPlan.Rows) {
-                OrderItem item = orderList.FirstOrDefault(x => x.Order ==row.Order);
+                OrderItem item = orderList.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
-                  item = new OrderItem() 
-                    {
+                    item = new OrderItem(this.Session) {
                         Order = row.Order //Заказ
                     };
                 }
@@ -127,11 +132,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             foreach (HrmMatrixColumn col in MatrixPlan.Columns) {
                 DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
-                    item = new DepartmentItem() {
+                    item = new DepartmentItem(this.Session) {
                         Department = col.Department // Подразделение
                     };
                 }
                 item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
+                departmentList.Add(item);
+            }
+            foreach (HrmMatrixColumn col in MatrixAlloc.Columns) {
+                DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
+                if (item == null) {
+                    item = new DepartmentItem(this.Session) {
+                        Department = col.Department // Подразделение
+                    };
+                }
+                item.DepartmentAlloc = Convert.ToInt32(col.Sum);// План по подразделению
                 departmentList.Add(item);
             }
             //заполняем факт по подразделению
@@ -148,5 +163,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
-    }}
+    }
+}
 
