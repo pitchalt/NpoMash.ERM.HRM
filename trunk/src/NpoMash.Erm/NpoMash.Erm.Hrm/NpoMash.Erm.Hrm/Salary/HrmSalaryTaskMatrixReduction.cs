@@ -37,87 +37,50 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _MatrixAlloc; }
         }
 
-        private HrmTimeSheetGroup _Group;
-        public HrmTimeSheetGroup Group {
-            get { return _Group; }
-            set { SetPropertyValue<HrmTimeSheetGroup>("Group", ref _Group, value); }
+         [Persistent("TimeSheetGroup")]
+         private HrmTimeSheetGroup _TimeSheetGroup;
+         [PersistentAlias("_TimeSheetGroup")]
+         public HrmTimeSheetGroup TimeSheetGroup {
+             get { return _TimeSheetGroup; }
         }
 
+         [Persistent("AllocParameters")]
         private HrmPeriodAllocParameter _AllocParameters;
+         [PersistentAlias("_AllocParameters")]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
-        [Association("MatrixReduction-Period"),Aggregated]
+        [Association("MatrixReduction-Period")]
         public XPCollection<HrmPeriod> Period {
             get { return GetCollection<HrmPeriod>("Period"); }
         }
 
+        public void initialize(HrmMatrix MatrixPlan, HrmTimeSheetGroup TimeSheet, HrmPeriodAllocParameter AllocParameters) {
+            SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, MatrixPlan);
+            SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup,TimeSheet);
+            SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, AllocParameters); }
 
-        IList<DepartmentItem> departmentItems=new List<DepartmentItem>();
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
             public Department Department;
             public Int32 PlanTrudEmk;
             public Int32 NewTrudEmk;
             public Int32 DepartmentTrudEmk;
-            //еще должна быть ссылка на конкретный заказ
+        }
+        
+        IList<DepartmentItem> A {
+         get {  return new List<DepartmentItem>(); }
         }
 
-        public void initDepartmentList(HrmMatrix MatrixPlan, HrmTimeSheet TimeSheet) {
-            SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, MatrixPlan);
-            // Идем по колонкам
-            foreach (var column in MatrixPlan.Columns) {
-                DepartmentItem item = new DepartmentItem();
-                    item.Department = column.Department;
-                    item.PlanTrudEmk = Convert.ToInt32(column.Sum);
-                    item.NewTrudEmk = AllocProperty();  //Вычисляемое поле           
-                    item.DepartmentTrudEmk = 000000000000000000000; //Сюда значение из TimeSheet
-                departmentItems.Add(item);
-            }
-
-            departmentItems.Distinct();// Выделяем уникальные подразделения
-        }
-
-        IList<OrderItem> orderItems = new List<OrderItem>();
-        [NonPersistent]
-        public class OrderItem : XPCustomObject {
-            public fmCOrder Order;
-            public Int32 PlanTrudEmk;
-            public Int32 NewTrudEmk;
-            //Сюда ссыль на подразделение
-        }
-
-        public void initOrderList(HrmMatrix MatrixPlan) { 
-        //идем по строкам
-            foreach (var row in MatrixPlan.Rows) {
-                OrderItem item = new OrderItem();
-                    item.Order = row.Order;
-                    item.PlanTrudEmk = Convert.ToInt32(row.Sum);
-                    item.NewTrudEmk = AllocProperty(); //Вычисляемое поле
-                    orderItems.Add(item);
-            }
-            orderItems.Distinct();
-        }
-
-
-        public Int32 AllocProperty() {
-
-            //
-            //
-            //
-            //
-            //Сюда алгоритм
-            HrmMatrix Alloc=null;//Новая матрица
-            SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, Alloc);
-            return 1;
+        public void CreateDep() {
+            DepartmentItem B = new DepartmentItem();
+            A.Add(B);
         }
 
 
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
-    }
+    }}
 
-}
