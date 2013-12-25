@@ -17,8 +17,8 @@ using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
+
     [Persistent("HrmSalaryTaskMatrixReduction")]
-   
     public class HrmSalaryTaskMatrixReduction : BaseObject {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
@@ -48,6 +48,7 @@ namespace NpoMash.Erm.Hrm.Salary {
          [PersistentAlias("_AllocParameters")]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
+             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
         [Association("MatrixReduction-Period")]
@@ -57,11 +58,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os) {
             var MatrixReduction= os.CreateObject<HrmSalaryTaskMatrixReduction>();
+            MatrixReduction.Period.Add(Period);
+            MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
             return MatrixReduction;
-            // SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, MatrixPlan);
-           // SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup,TimeSheet);
-           // SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, AllocParameters); 
-       
         }
 
         public void setMatrixAlloc(HrmMatrix MatrixAlloc) {
