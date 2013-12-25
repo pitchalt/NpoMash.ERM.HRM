@@ -79,6 +79,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period);
                         current_period.setStatus(HrmPeriodStatus.SourceDataLoaded);
                         matrix.Status = HRM_MATRIX_STATUS.Accepted;
+                        HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, current_period);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrix);
                     }
                     if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
