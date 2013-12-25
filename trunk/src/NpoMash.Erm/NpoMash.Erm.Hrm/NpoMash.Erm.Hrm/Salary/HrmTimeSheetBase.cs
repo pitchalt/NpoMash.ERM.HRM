@@ -16,20 +16,7 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
     public class HrmTimeSheetBase : BaseObject { 
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         public HrmTimeSheetBase(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }

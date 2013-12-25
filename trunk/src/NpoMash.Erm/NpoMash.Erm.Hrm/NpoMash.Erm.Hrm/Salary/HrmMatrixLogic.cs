@@ -75,13 +75,30 @@ namespace NpoMash.Erm.Hrm.Salary {
             plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
             plan_matrix.GroupDep = HRM_MATRIX_GROUP_DEP.KB;
             plan_matrix.Status = HRM_MATRIX_STATUS.Opened;
-            plan_matrix.IterationNumber = HRM_MATRIX_ITERATION_NUMBER.One;
+            plan_matrix.IterationNumber = 1;
             plan_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
             plan_matrix.Period = current_period;
             current_period.Matrixs.Add(plan_matrix);
-
             return plan_matrix;
         }
+
+        static public void makeAllocMatrix(HRM_MATRIX_VARIANT variant, HrmSalaryTaskMatrixReduction AllocMatrix) {
+
+
+
+
+
+
+
+
+
+
+
+        HrmMatrix a=null;
+        AllocMatrix.setMatrixAlloc(a);
+        }
+
+
 
     }
 }

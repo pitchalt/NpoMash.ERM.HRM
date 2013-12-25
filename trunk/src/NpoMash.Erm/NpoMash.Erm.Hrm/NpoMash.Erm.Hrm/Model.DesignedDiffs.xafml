@@ -26,11 +26,6 @@
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction">
-      <OwnMembers>
-        <Member Name="Matrix" Caption="Matrix" />
-      </OwnMembers>
-    </Class>
   </BOModel>
   <Localization>
     <LocalizationGroup Name="DialogButtons">

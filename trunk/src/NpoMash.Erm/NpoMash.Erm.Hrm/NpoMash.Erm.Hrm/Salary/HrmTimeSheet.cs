@@ -18,7 +18,7 @@ using DevExpress.ExpressApp.Editors;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmTimeSheet")]
-    public class HrmTimeSheet : BaseObject {
+    public class HrmTimeSheet : HrmTimeSheetBase {
 
         [Association("TimeSheet-TimeSheetDeps"), Aggregated] // Коллекция TimeSheetDeps
         public XPCollection<HrmTimeSheetDep> TimeSheetDeps {
@@ -32,6 +32,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
+        private HrmTimeSheetGroup _KB;
+        public HrmTimeSheetGroup KB {
+            get { return _KB; }
+            set { SetPropertyValue<HrmTimeSheetGroup>("KB", ref _KB, value); }
+        }
+
+        private HrmTimeSheetGroup _OZM;
+        public HrmTimeSheetGroup OZM {
+            get { return _OZM; }
+            set { SetPropertyValue<HrmTimeSheetGroup>("OZM", ref _OZM, value); }
+        }
 
         public HrmTimeSheet(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }

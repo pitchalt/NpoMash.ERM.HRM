@@ -87,7 +87,13 @@ namespace NpoMash.Erm.Hrm.Salary
         public HrmPeriod Period {
             get { return _Period; }
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
-        }  
+        }
+
+        private Int16 _IterationNumber;
+        public Int16 IterationNumber {
+            get { return _IterationNumber; }
+            set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
+        }
 
         [Association("AllocParameter-OrderControls"), Aggregated]  // סגÿחü ס HrmPeriodOrderControl
         public XPCollection<HrmPeriodOrderControl> OrderControls {
