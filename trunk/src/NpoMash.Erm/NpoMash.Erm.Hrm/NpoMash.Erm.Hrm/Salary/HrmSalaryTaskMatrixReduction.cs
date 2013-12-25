@@ -23,12 +23,16 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmSalaryTaskMatrixReduction : BaseObject {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
+        [Persistent("MatrixPlan")]
         private HrmMatrix _MatrixPlan;
+         [PersistentAlias("_MatrixPlan")]
         public HrmMatrix MatrixPlan {
             get { return _MatrixPlan; }
         }
 
+        [Persistent("MatrixAlloc")]
         private HrmMatrix _MatrixAlloc;
+         [PersistentAlias("_MatrixAlloc")]
         public HrmMatrix MatrixAlloc {
             get { return _MatrixAlloc; }
         }
