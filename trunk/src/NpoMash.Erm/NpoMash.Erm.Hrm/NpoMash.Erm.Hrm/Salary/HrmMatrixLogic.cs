@@ -83,16 +83,29 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os) {
+           
             var result_matrix = os.CreateObject<HrmMatrix>();
+
                 foreach (var dep in AllocMatrix.Department){
-                var new_column=os.CreateObject<HrmMatrixColumn>();
-                    new_column.Department=dep.Department;
+                var new_column=os.CreateObject<HrmMatrixColumn>(); //новый стобец
+                var new_cell=os.CreateObject<HrmMatrixCell>(); //нова€ €чейка 
+                    new_column.Department=dep.Department; //задаем новой колонке значение
+                    new_cell.Time = Convert.ToInt16(dep.DepartmentFact / AllocMatrix.Department.Count()); // задаем значение €чейке
+                    new_column.Cells.Add(new_cell); // записываем новую €чейку в созданный столбец
+                    result_matrix.Columns.Add(new_column); // ƒобавл€ем колонку в матрицу
                 }
 
                 foreach (var order in AllocMatrix.Order) {
                     var new_row = os.CreateObject<HrmMatrixRow>();
                     new_row.Order = order.Order;
+                    result_matrix.Rows.Add(new_row);
                 }
+                result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
+                result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
+                result_matrix.GroupDep = HRM_MATRIX_GROUP_DEP.KB;
+                result_matrix.Status = HRM_MATRIX_STATUS.Accepted;
+                result_matrix.IterationNumber = 2;
+                result_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
 
                 return result_matrix;
             }
