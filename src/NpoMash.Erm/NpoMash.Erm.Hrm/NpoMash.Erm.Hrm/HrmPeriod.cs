@@ -74,7 +74,7 @@ namespace NpoMash.Erm.Hrm {
         }
 
         private HrmSalaryTaskMatrixReduction _MatrixReduction;
-        [Association("MatrixReduction-Period")]//ссылка на HrmSalaryTaskMatrixReduction
+        [Association("MatrixReduction-Period"), Aggregated]//ссылка на HrmSalaryTaskMatrixReduction
         public HrmSalaryTaskMatrixReduction MatrixReduction {
             get { return _MatrixReduction; }
             set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("MatrixReduction", ref _MatrixReduction, value); }
