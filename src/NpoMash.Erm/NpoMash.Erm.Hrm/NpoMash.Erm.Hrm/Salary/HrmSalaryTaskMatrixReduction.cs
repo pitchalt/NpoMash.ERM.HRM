@@ -68,9 +68,28 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 NewTrudEmk;
             public Int32 DepartmentTrudEmk;
         }
-        
-        IList<DepartmentItem> A {
-         get {  return new List<DepartmentItem>(); }
+
+        IList<DepartmentItem> _A;
+        public IList<DepartmentItem> A {
+            get {
+                if (_A == null)
+                    _A = ACreate();
+                return _A; 
+            }
+        }
+
+        protected IList<DepartmentItem> ACreate() {
+            IList<DepartmentItem> result = new List<DepartmentItem>();
+            foreach (HrmMatrixColumn col in MatrixPlan.Columns) {
+                DepartmentItem item = result.FirstOrDefault(x => x.Department == col.Department);
+                if (item == null) {
+                    item = new DepartmentItem() {
+                        Department = col.Department
+                    };
+                }
+                item.PlanTrudEmk += col.Cells.Sum(x => x.Time);
+            }
+            return result;
         }
 
         public void CreateDep() {
