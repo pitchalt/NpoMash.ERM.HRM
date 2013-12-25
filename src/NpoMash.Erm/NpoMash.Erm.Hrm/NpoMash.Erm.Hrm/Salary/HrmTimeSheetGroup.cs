@@ -16,7 +16,7 @@ using DevExpress.ExpressApp.Editors;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
-
+    [DefaultProperty("GroupDep")]
     public class HrmTimeSheetGroup : HrmTimeSheetBase {
 
         private HrmTimeSheet _TimeSheet;

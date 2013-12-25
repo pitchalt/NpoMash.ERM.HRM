@@ -19,10 +19,10 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixRow")]  
+    [Persistent("HrmMatrixRow")]
+    [DefaultProperty("Order")]
     public class HrmMatrixRow : BaseObject {
 
-        //private Decimal _Sum;
          [ModelDefault("DisplayFormat", "{0:N}")]
          [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
         [NonPersistent()]

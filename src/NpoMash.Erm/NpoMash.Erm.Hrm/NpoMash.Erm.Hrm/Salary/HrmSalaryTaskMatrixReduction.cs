@@ -104,12 +104,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+        IObjectSpace os;
         protected IList<OrderItem> orderCreate() {
             IList<OrderItem> orderList = new List<OrderItem>();
             foreach (HrmMatrixRow row in MatrixPlan.Rows) {
                 OrderItem item = orderList.FirstOrDefault(x => x.Order ==row.Order);
                 if (item == null) {
-                    item = new OrderItem() {
+                  item = new OrderItem() 
+                    {
                         Order = row.Order //Заказ
                     };
                 }
