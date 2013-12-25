@@ -34,6 +34,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
 
+        private HrmTimeSheetGroup _TimeSheetGroup;
+        [Association("TimeSheetDeps-TimeSheetGroup")]
+        public HrmTimeSheetGroup TimeSheetGroup {
+            get { return _TimeSheetGroup; }
+            set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
+        }
+
+
         private Int32 _MatrixWorkTime;
         public Int32 MatrixWorkTime {
             get { return _MatrixWorkTime; }

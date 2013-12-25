@@ -123,10 +123,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Department = col.Department
                     };
                 }
-                item.DepartmentPlan += col.Cells.Sum(x => x.Time);
+                item.DepartmentPlan = Convert.ToInt32(col.Sum);
                 departmentList.Add(item);
-
             }
+
+           // foreach (var t in TimeSheetGroup.t)
             return departmentList;
         }
 

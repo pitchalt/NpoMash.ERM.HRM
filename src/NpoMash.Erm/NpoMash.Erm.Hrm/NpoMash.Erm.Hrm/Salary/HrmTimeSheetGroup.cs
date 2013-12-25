@@ -6,12 +6,12 @@ using System.ComponentModel;
 //
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
 
@@ -30,6 +30,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _GroupDep; }
             set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); } }
  
+        [Association("TimeSheetDeps-TimeSheetGroup"),Aggregated]
+        public XPCollection<HrmTimeSheetDep> TimeSheetDeps {
+            get { return GetCollection<HrmTimeSheetDep>("TimeSheetDeps"); }
+        }
 
 
         public HrmTimeSheetGroup(Session session) : base(session) { }
