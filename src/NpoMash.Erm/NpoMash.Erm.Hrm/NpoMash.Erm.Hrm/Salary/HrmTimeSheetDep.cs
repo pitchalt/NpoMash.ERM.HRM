@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         private Int32 _OtherWorkTime;
         public Int32 OtherWorkTime {
             get { return _OtherWorkTime; }
-            set { SetPropertyValue<Int32>("OtherWorkTime", ref _MatrixWorkTime, value); }
+            set { SetPropertyValue<Int32>("OtherWorkTime", ref _OtherWorkTime, value); }
         }
 
         public HrmTimeSheetDep(Session session) : base(session) { }
