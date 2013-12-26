@@ -93,6 +93,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private IList<DepartmentItem> _Department;
+        //[VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public IList<DepartmentItem> Department {
             get {
                 if (_Department == null)
@@ -102,6 +105,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private IList<OrderItem> _Order;
+     //[VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public IList<OrderItem> Order {
             get {
                 if (_Order == null)
