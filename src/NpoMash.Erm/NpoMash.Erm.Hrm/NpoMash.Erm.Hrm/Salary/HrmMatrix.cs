@@ -13,7 +13,8 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
-
+//
+using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HRM_MATRIX_STATUS {
@@ -34,10 +35,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         ReserveMatrix = 2
     }
 
-    public enum HRM_MATRIX_GROUP_DEP {
-        KB = 0,
-        OZM = 1
-    }
+    //public enum HRM_MATRIX_GROUP_DEP {
+       // KB = 0,
+       // OZM = 1
+   // }
 
     public enum HRM_MATRIX_VARIANT { 
         MinimizeNumberOfDeviations=0,
@@ -63,10 +64,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HRM_MATRIX_TYPE_MATRIX>("TypeMatrix", ref _TypeMatrix, value); }
         }
 
-        private HRM_MATRIX_GROUP_DEP _GroupDep;
-        public HRM_MATRIX_GROUP_DEP GroupDep {
+        private DEPARTMENT_GROUP_DEP _GroupDep;
+        public DEPARTMENT_GROUP_DEP GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<HRM_MATRIX_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
+            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
         }
 
         private HRM_MATRIX_STATUS _Status;

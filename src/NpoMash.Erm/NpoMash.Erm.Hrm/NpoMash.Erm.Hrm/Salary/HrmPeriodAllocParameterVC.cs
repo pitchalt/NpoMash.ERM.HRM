@@ -134,6 +134,10 @@ namespace NpoMash.Erm.Hrm.Salary
             }
         }
 
+        private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
+
+        }
+
 
     }
 }
