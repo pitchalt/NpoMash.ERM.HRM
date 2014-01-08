@@ -2,9 +2,10 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
       <Action Id="BringingMatrix" Caption="Приведение матрицы" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
-      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" ConfirmationMessage="Вы уверены что хотите утвердить параметры?" />
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
     </Actions>
   </ActionDesign>
   <BOModel>
@@ -172,10 +173,6 @@
         <LocalizationItem Name="Opened" Value="Открыт" />
         <LocalizationItem Name="ReadyToCalculateCoercedMatrixs" Value="Готов к расчету приведенных матриц" />
         <LocalizationItem Name="SourceDataLoaded" Value="Исходные данные загружены" />
-      </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_GROUP_DEP">
-        <LocalizationItem Name="KB" Value="КБ" />
-        <LocalizationItem Name="OZM" Value="ОЗМ" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
         <LocalizationItem Name="Accepted" Value="Утверждена" />

@@ -14,7 +14,7 @@
           <ChoiceActionItem Id="GetDataFromServer" Caption="Загрузить из сервера" />
         </ChoiceActionItems>
       </Action>
-      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ValidationContexts="" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета?" />
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ValidationContexts="" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." />
     </Actions>
   </ActionDesign>
   <BOModel>
