@@ -103,7 +103,6 @@ namespace NpoMash.Erm.Hrm.Salary
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, existing_alloc_parameters);
         }
 
-    [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptAllocParameters, AcceptAllocParameters1", Context = "Any", Visibility = ViewItemVisibility.Hide,Criteria="isStatus")]
         private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
 //            IObjectSpace os = ObjectSpace;
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;

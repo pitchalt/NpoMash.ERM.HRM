@@ -58,8 +58,9 @@ namespace NpoMash.Erm.Hrm.Salary
             this.AcceptAllocParameters.Tag = null;
             this.AcceptAllocParameters.TargetObjectsCriteria = null;
             this.AcceptAllocParameters.TargetViewId = null;
+            this.AcceptAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptAllocParameters.ToolTip = null;
-            this.AcceptAllocParameters.TypeOfView = null;
+            this.AcceptAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.AcceptAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptAllocParameters1_Execute);
             // 
             // HrmPeriodAllocParameterVC
