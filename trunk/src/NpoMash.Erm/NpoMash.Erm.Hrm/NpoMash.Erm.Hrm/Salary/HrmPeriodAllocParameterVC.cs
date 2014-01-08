@@ -107,6 +107,7 @@ namespace NpoMash.Erm.Hrm.Salary
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
             if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted)
             {
+             
                 //string message = "";
                 //string caption = "";
                 //if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.OpenToEdit) {

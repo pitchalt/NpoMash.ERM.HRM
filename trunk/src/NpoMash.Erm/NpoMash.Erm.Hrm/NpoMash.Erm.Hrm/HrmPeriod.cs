@@ -73,14 +73,19 @@ namespace NpoMash.Erm.Hrm {
             //set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
-        private HrmSalaryTaskMatrixReduction _MatrixReduction;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        [Association("MatrixReduction-Period"), Aggregated]//ссылка на HrmSalaryTaskMatrixReduction
-        public HrmSalaryTaskMatrixReduction MatrixReduction {
-            get { return _MatrixReduction; }
-            set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("MatrixReduction", ref _MatrixReduction, value); }
+        //private HrmSalaryTaskMatrixReduction _MatrixReduction;
+        //[VisibleInDetailView(false)]
+        //[VisibleInListView(false)]
+        //[VisibleInLookupListView(false)]
+        //[Association("MatrixReduction-Period"), Aggregated]//ссылка на HrmSalaryTaskMatrixReduction
+        //public HrmSalaryTaskMatrixReduction MatrixReduction {
+            //get { return _MatrixReduction; }
+//set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("MatrixReduction", ref _MatrixReduction, value); }
+        //}
+
+        [Association("MatrixReduction-Period"),Aggregated]
+        public XPCollection<HrmSalaryTaskMatrixReduction> MatrixReduction {
+            get { return GetCollection<HrmSalaryTaskMatrixReduction>("MatrixReduction"); }
         }
 
         private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
@@ -114,20 +119,20 @@ namespace NpoMash.Erm.Hrm {
         }
 
 
-        private HrmSalaryTaskMatrixReduction _Card;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public HrmSalaryTaskMatrixReduction Card {
-            get { return _Card; }
-            set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
-        }
+        //private HrmSalaryTaskMatrixReduction _Card;
+        //[VisibleInDetailView(false)]
+        //[VisibleInListView(false)]
+        //[VisibleInLookupListView(false)]
+        //public HrmSalaryTaskMatrixReduction Card {
+            //get { return _Card; }
+            //set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
+        //}
 
         public void setStatus(HrmPeriodStatus stat) {
             if (Status == HrmPeriodStatus.SourceDataLoaded && stat == HrmPeriodStatus.ListOfControlledOrdersAccepted ||
                 Status == HrmPeriodStatus.ListOfControlledOrdersAccepted && stat == HrmPeriodStatus.SourceDataLoaded)
                 stat = HrmPeriodStatus.ReadyToCalculateCoercedMatrixs;
-            SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat); ;
+            SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat); 
         }
 
 

@@ -49,14 +49,16 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
+        private HrmPeriod _Period; // סגÿחü ס HrmPeriod
         [Association("MatrixReduction-Period")]
-        public XPCollection<HrmPeriod> Period {
-            get { return GetCollection<HrmPeriod>("Period"); }
+        public HrmPeriod Period {
+            get { return _Period; }
+            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
         public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os) {
             var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
-            MatrixReduction.Period.Add(Period);
+            MatrixReduction.Period = Period;
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
             MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
 
