@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using DevExpress.ExpressApp.ConditionalAppearance;
 //using System.Windows.Forms;
 using IntecoAG.XafExt.UI;
 
@@ -102,6 +103,7 @@ namespace NpoMash.Erm.Hrm.Salary
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, existing_alloc_parameters);
         }
 
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptAllocParameters, AcceptAllocParameters1", Context = "Any", Visibility = ViewItemVisibility.Hide,Criteria="isStatus")]
         private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
 //            IObjectSpace os = ObjectSpace;
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
