@@ -50,7 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary
             // 
             // AcceptAllocParameters
             // 
-            this.AcceptAllocParameters.Caption = null;
+            this.AcceptAllocParameters.Caption = "2d94d822-2168-40ba-8b1e-e83439c92d7c";
             this.AcceptAllocParameters.ConfirmationMessage = null;
             this.AcceptAllocParameters.Id = "2d94d822-2168-40ba-8b1e-e83439c92d7c";
             this.AcceptAllocParameters.ImageName = null;
