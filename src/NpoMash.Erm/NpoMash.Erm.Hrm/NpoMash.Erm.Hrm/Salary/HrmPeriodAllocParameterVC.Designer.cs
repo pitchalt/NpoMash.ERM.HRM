@@ -29,39 +29,38 @@ namespace NpoMash.Erm.Hrm.Salary
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.AcceptControlledOrderList = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.AcceptAllocParameters = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
-            this.AcceptAllocParameters1 = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            // 
+            // AcceptControlledOrderList
+            // 
+            this.AcceptControlledOrderList.Caption = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
+            this.AcceptControlledOrderList.ConfirmationMessage = null;
+            this.AcceptControlledOrderList.Id = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
+            this.AcceptControlledOrderList.ImageName = null;
+            this.AcceptControlledOrderList.Shortcut = null;
+            this.AcceptControlledOrderList.Tag = null;
+            this.AcceptControlledOrderList.TargetObjectsCriteria = null;
+            this.AcceptControlledOrderList.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
+            this.AcceptControlledOrderList.TargetViewId = null;
+            this.AcceptControlledOrderList.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.AcceptControlledOrderList.ToolTip = null;
+            this.AcceptControlledOrderList.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.AcceptControlledOrderList.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptAllocParameters_Execute);
             // 
             // AcceptAllocParameters
             // 
-            this.AcceptAllocParameters.Caption = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
-            this.AcceptAllocParameters.Id = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
+            this.AcceptAllocParameters.Caption = null;
+            this.AcceptAllocParameters.ConfirmationMessage = null;
+            this.AcceptAllocParameters.Id = "2d94d822-2168-40ba-8b1e-e83439c92d7c";
             this.AcceptAllocParameters.ImageName = null;
             this.AcceptAllocParameters.Shortcut = null;
             this.AcceptAllocParameters.Tag = null;
             this.AcceptAllocParameters.TargetObjectsCriteria = null;
-            this.AcceptAllocParameters.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
             this.AcceptAllocParameters.TargetViewId = null;
-            this.AcceptAllocParameters.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptAllocParameters.ToolTip = null;
-            this.AcceptAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.AcceptAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptAllocParameters_Execute);
-            // 
-            // AcceptAllocParameters1
-            // 
-            this.AcceptAllocParameters1.Caption = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
-            this.AcceptAllocParameters1.ConfirmationMessage = null;
-            this.AcceptAllocParameters1.Id = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
-            this.AcceptAllocParameters1.ImageName = null;
-            this.AcceptAllocParameters1.Shortcut = null;
-            this.AcceptAllocParameters1.Tag = null;
-            this.AcceptAllocParameters1.TargetObjectsCriteria = null;
-            this.AcceptAllocParameters1.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
-            this.AcceptAllocParameters1.TargetViewId = null;
-            this.AcceptAllocParameters1.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
-            this.AcceptAllocParameters1.ToolTip = null;
-            this.AcceptAllocParameters1.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.AcceptAllocParameters1.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.simpleAction1_Execute);
+            this.AcceptAllocParameters.TypeOfView = null;
+            this.AcceptAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptAllocParameters1_Execute);
             // 
             // HrmPeriodAllocParameterVC
             // 
@@ -72,7 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         #endregion
 
+        private DevExpress.ExpressApp.Actions.SimpleAction AcceptControlledOrderList;
         private DevExpress.ExpressApp.Actions.SimpleAction AcceptAllocParameters;
-        private DevExpress.ExpressApp.Actions.SimpleAction AcceptAllocParameters1;
     }
 }
