@@ -43,9 +43,9 @@ namespace NpoMash.Erm.Hrm.Salary
 
         protected void UpdateActionState(HrmPeriodAllocParameter param) {
             if (param.Status == HrmPeriodAllocParameterStatus.AllocParametersAccepted)
-                AcceptAllocParameters.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
+                AcceptControlledOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
             else
-                AcceptAllocParameters.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
+                AcceptControlledOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
         }
 
         void new_controller_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
@@ -135,6 +135,10 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
+
+        }
+
+        private void AcceptAllocParameters1_Execute(object sender, SimpleActionExecuteEventArgs e) {
 
         }
 
