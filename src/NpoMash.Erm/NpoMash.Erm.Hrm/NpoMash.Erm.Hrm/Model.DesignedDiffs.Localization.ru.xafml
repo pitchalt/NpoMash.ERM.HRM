@@ -4,7 +4,7 @@
     <Actions>
       <Action Id="BringingMatrix" Caption="Приведение матрицы" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
-      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" />
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" Caption="Утвердить" ConfirmationMessage="Вы уверены что хотите утвердить параметры?" />
     </Actions>
   </ActionDesign>
   <BOModel>

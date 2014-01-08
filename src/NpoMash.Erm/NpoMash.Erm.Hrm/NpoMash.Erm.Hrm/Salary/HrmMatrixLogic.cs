@@ -21,9 +21,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmMatrixLogic {
 
-        static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period) {
+        static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {
             Random random = new Random();
-            const DEPARTMENT_GROUP_DEP GROUP_DEP_OF_MATRIX = DEPARTMENT_GROUP_DEP.KB;
+            //const DEPARTMENT_GROUP_DEP GROUP_DEP_OF_MATRIX = DEPARTMENT_GROUP_DEP.KB;
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
             List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
             HrmMatrixAllocPlan plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
@@ -47,7 +47,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 current_row.Order = current_order;
                 HrmMatrixColumn current_column = null;
                 foreach (Department current_department in os.GetObjects<Department>()) {
-                    if (current_department.GroupDep == GROUP_DEP_OF_MATRIX) {
+                    if (current_department.GroupDep == group) {
                         foreach (HrmMatrixColumn col in plan_matrix.Columns)
                             if (col.Department == current_department) current_column = col;
                         if (current_column == null) {
@@ -73,7 +73,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
-            plan_matrix.GroupDep = HRM_MATRIX_GROUP_DEP.KB;
+            plan_matrix.GroupDep = group;
             plan_matrix.Status = HRM_MATRIX_STATUS.Opened;
             plan_matrix.IterationNumber = 1;
             plan_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
