@@ -14,6 +14,7 @@
         <Member Name="AllocParameters" Caption="Параметры расчета" />
         <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
         <Member Name="CurrentTimeSheet" Caption=" Текущий факт(табель)" />
+        <Member Name="MatrixReduction" Caption="Карточка управления приведением" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="PeriodPrevious" Caption="Предыдущий период" />
         <Member Name="Status" Caption="Статус контроля" />
