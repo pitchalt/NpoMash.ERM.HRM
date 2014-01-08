@@ -34,7 +34,6 @@ namespace NpoMash.Erm.Hrm.Salary
             // AcceptAllocParameters
             // 
             this.AcceptAllocParameters.Caption = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
-            this.AcceptAllocParameters.ConfirmationMessage = null;
             this.AcceptAllocParameters.Id = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
             this.AcceptAllocParameters.ImageName = null;
             this.AcceptAllocParameters.Shortcut = null;
