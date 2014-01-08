@@ -30,6 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary
         {
             this.components = new System.ComponentModel.Container();
             this.AcceptAllocParameters = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.AcceptAllocParameters1 = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // AcceptAllocParameters
             // 
@@ -46,6 +47,22 @@ namespace NpoMash.Erm.Hrm.Salary
             this.AcceptAllocParameters.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.AcceptAllocParameters.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptAllocParameters_Execute);
             // 
+            // AcceptAllocParameters1
+            // 
+            this.AcceptAllocParameters1.Caption = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
+            this.AcceptAllocParameters1.ConfirmationMessage = null;
+            this.AcceptAllocParameters1.Id = "HrmPeriodAllocParameterVC_AcceptAllocParameters";
+            this.AcceptAllocParameters1.ImageName = null;
+            this.AcceptAllocParameters1.Shortcut = null;
+            this.AcceptAllocParameters1.Tag = null;
+            this.AcceptAllocParameters1.TargetObjectsCriteria = null;
+            this.AcceptAllocParameters1.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
+            this.AcceptAllocParameters1.TargetViewId = null;
+            this.AcceptAllocParameters1.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.AcceptAllocParameters1.ToolTip = null;
+            this.AcceptAllocParameters1.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.AcceptAllocParameters1.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.simpleAction1_Execute);
+            // 
             // HrmPeriodAllocParameterVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
@@ -56,5 +73,6 @@ namespace NpoMash.Erm.Hrm.Salary
         #endregion
 
         private DevExpress.ExpressApp.Actions.SimpleAction AcceptAllocParameters;
+        private DevExpress.ExpressApp.Actions.SimpleAction AcceptAllocParameters1;
     }
 }
