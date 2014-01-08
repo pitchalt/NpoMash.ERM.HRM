@@ -76,7 +76,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (current_period.Status == HrmPeriodStatus.Opened || 
                 current_period.Status == HrmPeriodStatus.ListOfControlledOrdersAccepted) {
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                        HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period);
+                        HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB);
                         current_period.setStatus(HrmPeriodStatus.SourceDataLoaded);
                         matrix.Status = HRM_MATRIX_STATUS.Accepted;
                         HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, current_period);
