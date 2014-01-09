@@ -99,11 +99,12 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
-                if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit)
+                if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OpenToEdit) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ListOfOrderAccepted);
+                    alloc_parameter.Period.setStatus(HrmPeriodStatus.ListOfControlledOrdersAccepted);
+                }
                 else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
-                    alloc_parameter.Period.setStatus(HrmPeriodStatus.ListOfControlledOrdersAccepted);
                 }
                 //обновление заказов в справочнике
                 updateFmCOrders(os, alloc_parameter);
