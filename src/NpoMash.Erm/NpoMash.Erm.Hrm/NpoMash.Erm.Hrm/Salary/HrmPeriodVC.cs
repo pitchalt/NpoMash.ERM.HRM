@@ -19,7 +19,7 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public partial class HrmMatrixVC : ViewController {
+    public partial class HrmPeriodVC : ViewController {
 
        /* public enum dataSource {
             GENERATED_DATA=1,
@@ -35,7 +35,7 @@ namespace NpoMash.Erm.Hrm.Salary {
        // private ChoiceActionItem setDataSourceItem;
        // private ChoiceActionItem setFileTypeItem;
         
-        public HrmMatrixVC() { 
+        public HrmPeriodVC() { 
             InitializeComponent(); 
             RegisterActions(components); 
            /*
@@ -96,11 +96,23 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void BringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace os = Application.CreateObjectSpace();
+            /*IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = (HrmPeriod)e.CurrentObject;
             if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
                 HrmSalaryTaskMatrixReduction reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
+            }*/
+        }
+
+        private void BringingMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if (e.SelectedChoiceActionItem.Id == "ProportionsMethod") {
+                IObjectSpace os = Application.CreateObjectSpace();
+                HrmPeriod period = (HrmPeriod)e.CurrentObject;
+                if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
+                    HrmSalaryTaskMatrixReduction reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os);
+                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
+                }
+           
             }
         }
 

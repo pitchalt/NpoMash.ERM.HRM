@@ -44,16 +44,21 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private Int32 _MatrixWorkTime;
         public Int32 MatrixWorkTime {
-            get { return _MatrixWorkTime; }
-            set { SetPropertyValue<Int32>("MatrixWorkTime", ref _MatrixWorkTime, value); }
+            get { return _AdditionWorkTime; }
+            set { SetPropertyValue<Int32>("MatrixWorkTime", ref _AdditionWorkTime, value); }
         }
 
-        private Int32 _OtherWorkTime;
-        public Int32 OtherWorkTime {
-            get { return _OtherWorkTime; }
-            set { SetPropertyValue<Int32>("OtherWorkTime", ref _OtherWorkTime, value); }
+        private Int32 _BaseWorkTime;
+        public Int32 BaseWorkTime {
+            get { return _BaseWorkTime; }
+            set { SetPropertyValue<Int32>("BaseWorkTime", ref _BaseWorkTime, value); }
         }
 
+        private Int32 _AdditionWorkTime;
+        public Int32 AdditionWorkTime {
+            get { return _AdditionWorkTime; }
+            set { SetPropertyValue<Int32>("AdditionWorkTime", ref _AdditionWorkTime, value); }
+        }
         public HrmTimeSheetDep(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction();}
     }
