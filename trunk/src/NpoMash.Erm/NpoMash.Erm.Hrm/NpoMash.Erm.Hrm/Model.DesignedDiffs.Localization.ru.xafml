@@ -126,6 +126,7 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem">
       <OwnMembers>
         <Member Name="Order" Caption="Заказ" />
+        <Member Name="OrderAlloc" Caption="Расчет" />
         <Member Name="OrderPlan" Caption="План по заказу" />
         <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
@@ -217,4 +218,21 @@
       </Item>
     </Items>
   </NavigationItems>
+  <Views>
+    <DetailView Id="OrderItem_DetailView">
+      <Items>
+        <PropertyEditor Id="OrderAlloc" Caption="Расчет" />
+      </Items>
+    </DetailView>
+    <ListView Id="OrderItem_ListView">
+      <Columns>
+        <ColumnInfo Id="OrderAlloc" Caption="Расчет" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderItem_LookupListView">
+      <Columns>
+        <ColumnInfo Id="OrderAlloc" Caption="Расчет" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>
