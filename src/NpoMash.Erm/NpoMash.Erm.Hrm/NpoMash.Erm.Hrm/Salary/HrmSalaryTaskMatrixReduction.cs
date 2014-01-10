@@ -89,6 +89,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             public fmCOrder Order;
             public fmCOrderTypeCOntrol TypeControl;
             public Int32 OrderPlan;
+            public Int32 OrderAlloc;
 
             public OrderItem(Session session) : base(session) { }
         }
@@ -130,6 +131,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 item.OrderPlan = Convert.ToInt32(row.Sum);//План по заказу
                 item.TypeControl = row.Order.TypeControl; // Тип контроля
+                item.OrderAlloc = Convert.ToInt32(row.Sum);
                 orderList.Add(item);
             }
             return orderList;
