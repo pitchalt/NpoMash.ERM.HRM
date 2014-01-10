@@ -16,11 +16,13 @@ using IntecoAG.ERM.HRM;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]
+   // [Persistent("RelationsManyToManyCCLinkCD")]
+   
     [Persistent("HrmPeriodPayType")]
     public class HrmPeriodPayType : BaseObject {
 
         private HrmPeriodAllocParameter _AllocParameter;
-        [Association("AllocParameter-PeriodPayTypes")]// סגÿחü ס HrmPeriodAllocParameter
+        [Association("HrmPeriodAllocParameter-HrmPeriodPayType")]// סגÿחü ס HrmPeriodAllocParameter
         public HrmPeriodAllocParameter AllocParameter {
             get { return _AllocParameter; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); }

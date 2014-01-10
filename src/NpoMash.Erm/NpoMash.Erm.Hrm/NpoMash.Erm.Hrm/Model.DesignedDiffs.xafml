@@ -194,11 +194,6 @@
         <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
       </Columns>
     </ListView>
-    <ListView Id="HrmPeriodAllocParameter_PeriodPayTypes_ListView">
-      <Columns>
-        <ColumnInfo Id="PayType.Name" PropertyName="PayType.Name" IsNewNode="True" />
-      </Columns>
-    </ListView>
     <DetailView Id="HrmPeriodOrderControl_DetailView">
       <Items>
         <PropertyEditor Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />

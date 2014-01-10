@@ -85,7 +85,7 @@
         <Member Name="NormNoControlOZM" Caption="Норма по неконтр. заказам ОЗМ" />
         <Member Name="OrderControls" Caption="Контроль заказа" />
         <Member Name="Period" Caption="Период" />
-        <Member Name="PeriodPayTypes" Caption="Код оплаты" />
+        <Member Name="SimpleWorkButNotLegal" Caption="Код оплаты" />
         <Member Name="Status" Caption="Статус контроля" />
         <Member Name="Year" Caption="Год" />
       </OwnMembers>
