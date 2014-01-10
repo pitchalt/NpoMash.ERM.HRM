@@ -58,7 +58,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HRM_MATRIX_TYPE_MATRIX _TypeMatrix;
-     //   [Appearance("", Criteria = "'Planned'", Visibility = ViewItemVisibility.Hide)]
+        //[Appearance("", Criteria = "'Planned'", Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_TYPE_MATRIX TypeMatrix {
             get { return _TypeMatrix; }
             set { SetPropertyValue<HRM_MATRIX_TYPE_MATRIX>("TypeMatrix", ref _TypeMatrix, value); }
@@ -71,21 +71,21 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HRM_MATRIX_STATUS _Status;
-       // [Appearance("", Criteria ="isPlanned",Context="Any" ,Visibility = ViewItemVisibility.Hide)]
+        [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_STATUS Status {
             get { return _Status; }
             set { SetPropertyValue<HRM_MATRIX_STATUS>("Status", ref _Status, value); }
         }
 
         private HRM_MATRIX_VARIANT _Variant;
-       // [Appearance("", Criteria = "isPlanned", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
         public HRM_MATRIX_VARIANT Variant {
             get { return _Variant; }
             set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
         }
 
         private Int16 _IterationNumber;
-       // [Appearance("", Criteria = "isPlanned", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
         public Int16 IterationNumber {
             get { return _IterationNumber; }
             set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }

@@ -3,7 +3,13 @@
   <ActionDesign>
     <Actions>
       <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
-      <Action Id="BringingMatrix" Caption="Приведение матрицы" />
+      <Action Id="BringingMatrixAction" Caption="Приведение матрицы">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Метод минимизации максимальных отклонений" />
+          <ChoiceActionItem Id="ProportionsMethod" Caption="Метод пропорции" />
+        </ChoiceActionItems>
+      </Action>
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
     </Actions>
@@ -143,7 +149,6 @@
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="MatrixWorkTime" Caption="Основные трудочасы " />
-        <Member Name="OtherWorkTime" Caption="Доп. трудочасы" />
         <Member Name="TimeSheet" Caption="Факт. табель" />
       </OwnMembers>
     </Class>
