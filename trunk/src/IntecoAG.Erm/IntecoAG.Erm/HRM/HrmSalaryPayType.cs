@@ -15,6 +15,7 @@ using DevExpress.Persistent.Validation;
 
 namespace IntecoAG.ERM.HRM
 {
+    
 
     [Persistent("HrmSalaryPayType")]
     [DefaultProperty("Code")]

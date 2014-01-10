@@ -26,6 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary
         ListOfOrderAccepted = 2,
         AllocParametersAccepted = 3
     }
+    
 
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
@@ -103,12 +104,19 @@ namespace NpoMash.Erm.Hrm.Salary
                get{ return GetCollection<HrmPeriodOrderControl>("OrderControls");} 
         }
 
-        [Association("AllocParameter-PeriodPayTypes"), Aggregated]  // סגÿחü ס HrmPeriodPayTypes
+//      
+        [Browsable(false)]
+        [Association("HrmPeriodAllocParameter-HrmPeriodPayType"), Aggregated]  // סגÿחü ס HrmPeriodPayTypes
         public XPCollection<HrmPeriodPayType> PeriodPayTypes
         {
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
 
+        [ManyToManyAlias("PeriodPayTypes", "PayType")]
+        public IList<HrmSalaryPayType> SimpleWorkButNotLegal {
+            get { return GetList<HrmSalaryPayType>("SimpleWorkButNotLegal"); }
+        }
+//
 
 
         public HrmPeriodAllocParameter(Session session) : base(session) { }
