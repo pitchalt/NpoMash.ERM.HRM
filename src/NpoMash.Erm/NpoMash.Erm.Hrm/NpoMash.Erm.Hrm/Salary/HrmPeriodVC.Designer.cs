@@ -32,8 +32,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem6 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem7 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem8 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem9 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem10 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem11 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             this.GetSourceDataAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
-            this.BringingMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
+            this.BringingKBMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
+            this.BringingOZMMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -69,6 +73,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.GetSourceDataAction.Items.Add(choiceActionItem3);
             this.GetSourceDataAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.GetSourceDataAction.Shortcut = null;
+            this.GetSourceDataAction.ShowItemsOnClick = true;
             this.GetSourceDataAction.Tag = null;
             this.GetSourceDataAction.TargetObjectsCriteria = null;
             this.GetSourceDataAction.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -78,13 +83,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.GetSourceDataAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.GetSourceDataAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.GetSourceDataAction_Execute);
             // 
-            // BringingMatrixAction
+            // BringingKBMatrixAction
             // 
-            this.BringingMatrixAction.Caption = "BringingMatrixAction";
-            this.BringingMatrixAction.Category = "Edit";
-            this.BringingMatrixAction.ConfirmationMessage = null;
-            this.BringingMatrixAction.Id = "BringingMatrixAction";
-            this.BringingMatrixAction.ImageName = null;
+            this.BringingKBMatrixAction.Caption = "BringingMatrixAction";
+            this.BringingKBMatrixAction.Category = "Edit";
+            this.BringingKBMatrixAction.ConfirmationMessage = null;
+            this.BringingKBMatrixAction.Id = "BringingMatrixAction";
+            this.BringingKBMatrixAction.ImageName = null;
             choiceActionItem6.Caption = "ProportionsMethod";
             choiceActionItem6.ImageName = null;
             choiceActionItem6.Shortcut = null;
@@ -97,22 +102,56 @@ namespace NpoMash.Erm.Hrm.Salary {
             choiceActionItem8.ImageName = null;
             choiceActionItem8.Shortcut = null;
             choiceActionItem8.ToolTip = null;
-            this.BringingMatrixAction.Items.Add(choiceActionItem6);
-            this.BringingMatrixAction.Items.Add(choiceActionItem7);
-            this.BringingMatrixAction.Items.Add(choiceActionItem8);
-            this.BringingMatrixAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
-            this.BringingMatrixAction.Shortcut = null;
-            this.BringingMatrixAction.ShowItemsOnClick = true;
-            this.BringingMatrixAction.Tag = null;
-            this.BringingMatrixAction.TargetObjectsCriteria = null;
-            this.BringingMatrixAction.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
-            this.BringingMatrixAction.TargetViewId = null;
-            this.BringingMatrixAction.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
-            this.BringingMatrixAction.ToolTip = null;
-            this.BringingMatrixAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.BringingMatrixAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringingMatrixAction_Execute);
+            this.BringingKBMatrixAction.Items.Add(choiceActionItem6);
+            this.BringingKBMatrixAction.Items.Add(choiceActionItem7);
+            this.BringingKBMatrixAction.Items.Add(choiceActionItem8);
+            this.BringingKBMatrixAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
+            this.BringingKBMatrixAction.Shortcut = null;
+            this.BringingKBMatrixAction.ShowItemsOnClick = true;
+            this.BringingKBMatrixAction.Tag = null;
+            this.BringingKBMatrixAction.TargetObjectsCriteria = null;
+            this.BringingKBMatrixAction.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.BringingKBMatrixAction.TargetViewId = null;
+            this.BringingKBMatrixAction.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.BringingKBMatrixAction.ToolTip = null;
+            this.BringingKBMatrixAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.BringingKBMatrixAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringingMatrixAction_Execute);
             // 
-            // HrmMatrixVC
+            // BringingOZMMatrixAction
+            // 
+            this.BringingOZMMatrixAction.Caption = "BringingOZMMatrixAction";
+            this.BringingOZMMatrixAction.Category = "Edit";
+            this.BringingOZMMatrixAction.ConfirmationMessage = null;
+            this.BringingOZMMatrixAction.Id = "BringingOZMMatrixAction";
+            this.BringingOZMMatrixAction.ImageName = null;
+            choiceActionItem9.Caption = "ProportionsMethod";
+            choiceActionItem9.ImageName = null;
+            choiceActionItem9.Shortcut = null;
+            choiceActionItem9.ToolTip = null;
+            choiceActionItem10.Caption = "MinimizeDifferenceNumber";
+            choiceActionItem10.ImageName = null;
+            choiceActionItem10.Shortcut = null;
+            choiceActionItem10.ToolTip = null;
+            choiceActionItem11.Caption = "MinimizeMaxDifference";
+            choiceActionItem11.ImageName = null;
+            choiceActionItem11.Shortcut = null;
+            choiceActionItem11.ToolTip = null;
+            this.BringingOZMMatrixAction.Items.Add(choiceActionItem9);
+            this.BringingOZMMatrixAction.Items.Add(choiceActionItem10);
+            this.BringingOZMMatrixAction.Items.Add(choiceActionItem11);
+            this.BringingOZMMatrixAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
+            this.BringingOZMMatrixAction.Shortcut = null;
+            this.BringingOZMMatrixAction.ShowItemsOnClick = true;
+            this.BringingOZMMatrixAction.Tag = null;
+            this.BringingOZMMatrixAction.TargetObjectsCriteria = null;
+            this.BringingOZMMatrixAction.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.BringingOZMMatrixAction.TargetViewId = null;
+            this.BringingOZMMatrixAction.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.BringingOZMMatrixAction.ToolTip = null;
+            this.BringingOZMMatrixAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.BringingOZMMatrixAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringingOZMMatrixAction_Execute);
+            // 
+            // HrmPeriodVC
             // 
             this.TypeOfView = typeof(DevExpress.ExpressApp.View);
 
@@ -121,6 +160,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         #endregion
 
         private DevExpress.ExpressApp.Actions.SingleChoiceAction GetSourceDataAction;
-        private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingMatrixAction;
+        private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingKBMatrixAction;
+        private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingOZMMatrixAction;
     }
 }

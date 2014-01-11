@@ -82,7 +82,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             return plan_matrix;
         }
 
-        static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os) {
+        static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os,
+            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
 
             var result_matrix = os.CreateObject<HrmMatrix>();
 
@@ -100,16 +101,34 @@ namespace NpoMash.Erm.Hrm.Salary {
                     HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
                     new_row.Cells.Add(new_cell);
                     new_col.Cells.Add(new_cell);
-                    new_cell.Time = (Int16) (cell.Time * 9 / 10);
-                    new_cell.Sum = cell.Sum * 9 / 10;
+                    Int16 coefficient = 0;
+                    switch (bringing_method){
+                    case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
+                        {
+                            coefficient = 2;
+                            break;
+                        }
+                    case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
+                        {
+                            coefficient = 3;
+                            break;
+                        }
+                    case HRM_MATRIX_VARIANT.ProportionsMethod:
+                        {
+                            coefficient = 4;
+                            break;
+                        }
+                    }
+                    new_cell.Time = (Int16) (cell.Time * coefficient);
+                    new_cell.Sum = cell.Sum * coefficient;
                 }
             }
             result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
-            result_matrix.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            result_matrix.GroupDep = group_dep;
             result_matrix.Status = HRM_MATRIX_STATUS.Accepted;
             result_matrix.IterationNumber = 2;
-            result_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
+            result_matrix.Variant = bringing_method;
 
             return result_matrix;
         }

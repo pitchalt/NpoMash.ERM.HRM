@@ -56,18 +56,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
-        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os) {
+        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os,
+            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
             var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
             MatrixReduction.Period = Period;
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
-            MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
+            if (group_dep == DEPARTMENT_GROUP_DEP.KB)
+                MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
+            else MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.OZM;
 
             foreach (var matrix in Period.Matrixs) {
                 if (matrix.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned) {
                     MatrixReduction.MatrixPlan = matrix;
                 }
             }
-            MatrixReduction.MatrixAlloc = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os);
+            MatrixReduction.MatrixAlloc = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method);
 
             return MatrixReduction;
         }
