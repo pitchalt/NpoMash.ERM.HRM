@@ -105,16 +105,51 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void BringingMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
-            if (e.SelectedChoiceActionItem.Id == "ProportionsMethod") {
-                IObjectSpace os = Application.CreateObjectSpace();
-                HrmPeriod period = (HrmPeriod)e.CurrentObject;
-                if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
-                    HrmSalaryTaskMatrixReduction reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os);
-                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
+            IObjectSpace os = Application.CreateObjectSpace();
+            HrmPeriod period = (HrmPeriod)e.CurrentObject;
+            if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
+                HRM_MATRIX_VARIANT bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
+                if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
+                    bringing_method = HRM_MATRIX_VARIANT.ProportionsMethod;
+                if (e.SelectedChoiceActionItem.Id == "MinimizeDifferenceNumber") 
+                    bringing_method = HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations;
+                if (e.SelectedChoiceActionItem.Id == "MinimizeMaxDifference")
+                    bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
+                HrmSalaryTaskMatrixReduction reduc = null;
+                if (period.MatrixReduction.Count == 0) {
+                    reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os,
+                        IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB, bringing_method);
                 }
-           
+                else {
+                        reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.MatrixReduction.First());
+                }
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
             }
         }
+
+        private void BringingOZMMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            IObjectSpace os = Application.CreateObjectSpace();
+            HrmPeriod period = (HrmPeriod)e.CurrentObject;
+            if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
+                HRM_MATRIX_VARIANT bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
+                if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
+                    bringing_method = HRM_MATRIX_VARIANT.ProportionsMethod;
+                if (e.SelectedChoiceActionItem.Id == "MinimizeDifferenceNumber")
+                    bringing_method = HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations;
+                if (e.SelectedChoiceActionItem.Id == "MinimizeMaxDifference")
+                    bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
+                HrmSalaryTaskMatrixReduction reduc = null;
+                if (period.MatrixReduction.Count == 0) {
+                    reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os,
+                        IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM, bringing_method);
+                }
+                else {
+                    reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.MatrixReduction.First());
+                }
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
+            }
+        }
+
 
     }
 }
