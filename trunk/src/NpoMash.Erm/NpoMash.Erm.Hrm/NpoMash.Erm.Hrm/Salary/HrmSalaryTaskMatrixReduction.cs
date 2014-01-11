@@ -84,6 +84,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 DepartmentAlloc;
             public Int32 DepartmentFact;
 
+            public IList<OrderItem> OrderItems;
+
             public DepartmentItem(Session session) : base(session) { }
         }
 
@@ -93,6 +95,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             public fmCOrderTypeCOntrol TypeControl;
             public Int32 OrderPlan;
             public Int32 OrderAlloc;
+
+            public IList<DepartmentItem> DepartmentItems;
 
             public OrderItem(Session session) : base(session) { }
         }
