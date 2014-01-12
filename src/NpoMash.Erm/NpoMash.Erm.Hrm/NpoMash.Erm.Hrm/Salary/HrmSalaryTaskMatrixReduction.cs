@@ -88,6 +88,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os,
             DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
             var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
+            MatrixReduction.GroupDep = group_dep;
             MatrixReduction.Period = Period;
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
             if (group_dep == DEPARTMENT_GROUP_DEP.KB)
