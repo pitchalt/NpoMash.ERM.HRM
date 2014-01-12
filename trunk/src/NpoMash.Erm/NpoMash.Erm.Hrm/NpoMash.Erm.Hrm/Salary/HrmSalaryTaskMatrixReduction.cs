@@ -30,6 +30,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
         [Browsable(false)]
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmMatrix MinimizeNumberOfDeviationsMatrix {
             get { return _MinimizeNumberOfDeviationsMatrix; }
             set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
@@ -37,6 +40,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Browsable(false)]
         private HrmMatrix _MinimizeMaximumDeviationsMatrix;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmMatrix MinimizeMaximumDeviationsMatrix {
             get { return _MinimizeMaximumDeviationsMatrix; }
             set { SetPropertyValue<HrmMatrix>("MinimizeMaximumDeviationsMatrix", ref _MinimizeMaximumDeviationsMatrix, value); }
@@ -44,6 +50,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Browsable(false)]
         private HrmMatrix _ProportionsMethodMatrix;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public HrmMatrix ProportionsMethodMatrix {
             get { return _ProportionsMethodMatrix; }
             set { SetPropertyValue<HrmMatrix>("ProportionsMethodMatrix", ref _ProportionsMethodMatrix, value); }
@@ -108,7 +117,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeNumberOfDeviationsAlloc;
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
-            public IList<OrderItem> OrderItems;
+            public IList<OrderItem> OrderItems = new List<OrderItem>();
 
             public DepartmentItem(Session session) : base(session) { }
         }
@@ -121,12 +130,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeNumberOfDeviationsAlloc;
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
-            //private List<DepartmentItem> _DepartmentItems;
-            //[DefaultListViewOptions(MasterDetailMode.ListViewAndDetailView, true, NewItemRowPosition.Top)] 
-            public IList<DepartmentItem> DepartmentItems=new List<DepartmentItem>();// {
-                //get { return _DepartmentItems; }
-                //set { SetPropertyValue<DepartmentItem>("DepartmentItems", ref _DepartmentItems, value); }
-            //}
+            
+            public IList<DepartmentItem> DepartmentItems=new List<DepartmentItem>();
+                
             
 
             public OrderItem(Session session) : base(session) { }
@@ -158,7 +164,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         protected IList<OrderItem> orderCreate() {
             IList<OrderItem> orderList = new List<OrderItem>();
-            
+
             foreach (HrmMatrixRow row in MatrixPlan.Rows) {
                 OrderItem item = orderList.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
@@ -180,12 +186,32 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 orderList.Add(item);
             }
+
             return orderList;
         }
-        
+
+        protected IList<OrderItem> orderCreate1() {
+            IList<OrderItem> orderList = new List<OrderItem>();
+
+            foreach (HrmMatrixRow row in MatrixPlan.Rows) {
+                OrderItem item = orderList.FirstOrDefault(x => x.Order == row.Order);
+                if (item == null) {
+                    item = new OrderItem(this.Session) {
+                        Order = row.Order //Заказ
+                    };
+                }
+                item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
+                item.TypeControl = row.Order.TypeControl; // Тип контроля
+                orderList.Add(item);
+            }
+            return orderList;
+        }
+
+
 
         protected IList<DepartmentItem> departmentCreate() {
             IList<DepartmentItem> departmentList = new List<DepartmentItem>();
+
             foreach (HrmMatrixColumn col in MatrixPlan.Columns) {
                 DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
@@ -194,18 +220,31 @@ namespace NpoMash.Erm.Hrm.Salary {
                     };
                 }
                 item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
+                var orders = orderCreate1();
+                foreach (var cells in col.Cells) {
+                    foreach (var order in orders) {
+                        if (cells.Row.Order == order.Order) {
+                            item.OrderItems.Add(order);
+                        }
+                    }
+                }
                 departmentList.Add(item);
+
             }
 
-            //foreach (HrmMatrixColumn col in MatrixAlloc.Columns) {
-            //DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
-            // if (item == null) {
-            // item = new DepartmentItem(this.Session) {
-            //  Department = col.Department // Подразделение
-            // };/
-            // }
+            /* if (MinimizeNumberOfDeviationsMatrix != null) {
+                 foreach (HrmMatrixColumn col in MinimizeNumberOfDeviationsMatrix.Columns) {
+                     DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
+                     if (item == null) {
+              item = new DepartmentItem(this.Session) {
+                  Department = col.Department  }; // Подразделение
+              } 
+                 }
+                 departmentList.Add(item);
 
-            // departmentList.Add(item);
+             }
+             //*/
+            // 
 
             //заполняем факт по подразделению
             foreach (var t in TimeSheetGroup.TimeSheetDeps) {
