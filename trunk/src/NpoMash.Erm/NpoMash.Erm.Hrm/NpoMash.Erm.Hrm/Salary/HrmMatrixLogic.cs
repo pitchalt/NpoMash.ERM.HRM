@@ -23,25 +23,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {
             Random random = new Random();
-            //const DEPARTMENT_GROUP_DEP GROUP_DEP_OF_MATRIX = DEPARTMENT_GROUP_DEP.KB;
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
             List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
             HrmMatrixAllocPlan plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
 
-            /*for (int i = 0; i < 20; i++) {
-                Department new_department = os.CreateObject<Department>();
-                //var new_column = os.CreateObject<HrmMatrixColumn>();
-                new_department.Code = Convert.ToString(random.Next(10000, 99999));
-                int type_group = random.Next(1, 2);
-                if (type_group == 1) { new_department.GroupDep = DEPARTMENT_GROUP_DEP.KB; }
-                if (type_group == 2) { new_department.GroupDep = DEPARTMENT_GROUP_DEP.OZM; }
-                //new_column.Sum = random.Next(10000, 99999);
-                //new_column.Department = new_department;
-                //columns.Add(new_column);
-            }*/
             foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()) {
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
-                //current_row.Sum = 0;
                 current_row.Matrix = plan_matrix;
                 plan_matrix.Rows.Add(current_row);
                 current_row.Order = current_order;
@@ -55,7 +42,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                             current_column.Department = current_department;
                             current_column.Matrix = plan_matrix;
                             plan_matrix.Columns.Add(current_column);
-                            //current_column.Sum = 0;
                         }
                         HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
                         new_cell.Time = Convert.ToInt16(random.Next(100, 500));
@@ -64,8 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         new_cell.Row = current_row;
                         current_row.Cells.Add(new_cell);
                         current_column.Cells.Add(new_cell);
-                        //current_row.Sum += new_cell.Time;
-                        //current_column.Sum += new_cell.Time;
+
                     }
                     current_column = null;
                 }
@@ -96,6 +81,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmMatrixRow new_row = os.CreateObject<HrmMatrixRow>();
                 new_row.Order = row.Order;
                 result_matrix.Rows.Add(new_row);
+                
                 foreach (HrmMatrixCell cell in row.Cells) {
                     HrmMatrixColumn new_col = result_matrix.Columns.FirstOrDefault(x => x.Department == cell.Column.Department);
                     HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();

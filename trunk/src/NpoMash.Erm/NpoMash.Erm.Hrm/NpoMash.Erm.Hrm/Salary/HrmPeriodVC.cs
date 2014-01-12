@@ -96,12 +96,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void BringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            /*IObjectSpace os = Application.CreateObjectSpace();
-            HrmPeriod period = (HrmPeriod)e.CurrentObject;
-            if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
-                HrmSalaryTaskMatrixReduction reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os);
-                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
-            }*/
+            
         }
 
         private void BringingMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
