@@ -29,13 +29,24 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        private HrmMatrix _MatrixAlloc;
-        public HrmMatrix MatrixAlloc {
-            get { return _MatrixAlloc; }
-            set { SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, value); }
-
-
+        private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
+        public HrmMatrix MinimizeNumberOfDeviationsMatrix {
+            get { return _MinimizeNumberOfDeviationsMatrix; }
+            set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
         }
+
+        private HrmMatrix _MinimizeMaximumDeviationsMatrix;
+        public HrmMatrix MinimizeMaximumDeviationsMatrix {
+            get { return _MinimizeMaximumDeviationsMatrix; }
+            set { SetPropertyValue<HrmMatrix>("MinimizeMaximumDeviationsMatrix", ref _MinimizeMaximumDeviationsMatrix, value); }
+        }
+
+        private HrmMatrix _ProportionsMethodMatrix;
+        public HrmMatrix ProportionsMethodMatrix {
+            get { return _ProportionsMethodMatrix; }
+            set { SetPropertyValue<HrmMatrix>("ProportionsMethodMatrix", ref _ProportionsMethodMatrix, value); }
+        }
+
 
         private HrmTimeSheetGroup _TimeSheetGroup;
         public HrmTimeSheetGroup TimeSheetGroup {
@@ -48,6 +59,15 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
+
+        [Browsable(false)]
+        private HRM_MATRIX_VARIANT _Var;
+        public HRM_MATRIX_VARIANT Var {
+            get { return _Var; }
+            set { SetPropertyValue<HRM_MATRIX_VARIANT>("Var", ref _Var, value); }
+        
+        }
+
 
         private HrmPeriod _Period; // связь с HrmPeriod
         [Association("MatrixReduction-Period")]
@@ -71,7 +91,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
             MatrixReduction.MatrixAlloc = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method);
-
+            MatrixReduction.Var = bringing_method;
             return MatrixReduction;
         }
 
@@ -81,9 +101,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class DepartmentItem : XPCustomObject {
             public Department Department;
             public Int32 DepartmentPlan;
-            public Int32 DepartmentAlloc;
             public Int32 DepartmentFact;
-
+            public Int32 MinimizeNumberOfDeviationsAlloc;
+            public Int32 MinimizeMaximumDeviationsAlloc;
+            public Int32 ProportionsMethodAlloc;
             public IList<OrderItem> OrderItems;
 
             public DepartmentItem(Session session) : base(session) { }
@@ -94,8 +115,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             public fmCOrder Order;
             public fmCOrderTypeCOntrol TypeControl;
             public Int32 OrderPlan;
-            public Int32 OrderAlloc;
-
+            public Int32 MinimizeNumberOfDeviationsAlloc;
+            public Int32 MinimizeMaximumDeviationsAlloc;
+            public Int32 ProportionsMethodAlloc;
             public IList<DepartmentItem> DepartmentItems;
 
             public OrderItem(Session session) : base(session) { }
@@ -136,9 +158,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Order = row.Order //Заказ
                     };
                 }
-                item.OrderPlan = Convert.ToInt32(row.Sum);//План по заказу
+                item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
                 item.TypeControl = row.Order.TypeControl; // Тип контроля
-                item.OrderAlloc = Convert.ToInt32(row.Sum);
                 orderList.Add(item);
             }
             return orderList;
@@ -163,7 +184,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Department = col.Department // Подразделение
                     };
                 }
-                item.DepartmentAlloc = Convert.ToInt32(col.Sum);// План по подразделению
+
                 departmentList.Add(item);
             }
             //заполняем факт по подразделению
