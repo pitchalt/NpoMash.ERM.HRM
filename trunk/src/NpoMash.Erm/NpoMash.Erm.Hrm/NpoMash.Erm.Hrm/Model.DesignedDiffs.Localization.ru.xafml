@@ -204,11 +204,13 @@
         <LocalizationItem Name="ListOfControlledOrdersAccepted" Value="Утвержден список контролируемых заказов" />
         <LocalizationItem Name="Opened" Value="Открыт" />
         <LocalizationItem Name="ReadyToCalculateCoercedMatrixs" Value="Готов к расчету приведенных матриц" />
+        <LocalizationItem Name="ReadyToExportCoercedMatrixs" Value="Готов к экспорту приведенных матриц" />
         <LocalizationItem Name="SourceDataLoaded" Value="Исходные данные загружены" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
         <LocalizationItem Name="Accepted" Value="Утверждена" />
         <LocalizationItem Name="Closed" Value="Закрыта" />
+        <LocalizationItem Name="Exported" Value="Экспортирована" />
         <LocalizationItem Name="Opened" Value="Открыта" />
         <LocalizationItem Name="Saved" Value="Сохранена" />
       </LocalizationGroup>
