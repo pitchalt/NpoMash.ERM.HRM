@@ -163,14 +163,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                 
 
                 if (MinimizeNumberOfDeviationsMatrix != null) {
-                    var departments = departmentCreate();
+                    /*var departments = departmentCreate();
                     foreach (var t in MinimizeNumberOfDeviationsMatrix.Rows) {
                         foreach (var v in departments) { 
                         if(v.Department==){}
                         
                         }
                         
-                    }
+                    }*/
                 }
                 if (MinimizeMaximumDeviationsMatrix != null) { 
                 
