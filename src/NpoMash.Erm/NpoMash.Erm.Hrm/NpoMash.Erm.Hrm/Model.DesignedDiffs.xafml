@@ -27,6 +27,8 @@
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" DefaultListViewMasterDetailMode="ListViewAndDetailView" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" DefaultListViewMasterDetailMode="ListViewOnly" />
   </BOModel>
   <Localization>
     <LocalizationGroup Name="DialogButtons">
