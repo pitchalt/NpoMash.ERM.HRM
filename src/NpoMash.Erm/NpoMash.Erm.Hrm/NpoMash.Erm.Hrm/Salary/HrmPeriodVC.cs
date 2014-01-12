@@ -111,6 +111,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HRM_MATRIX_VARIANT bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
                 if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
                     bringing_method = HRM_MATRIX_VARIANT.ProportionsMethod;
+            
                 if (e.SelectedChoiceActionItem.Id == "MinimizeDifferenceNumber") 
                     bringing_method = HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations;
                 if (e.SelectedChoiceActionItem.Id == "MinimizeMaxDifference")
