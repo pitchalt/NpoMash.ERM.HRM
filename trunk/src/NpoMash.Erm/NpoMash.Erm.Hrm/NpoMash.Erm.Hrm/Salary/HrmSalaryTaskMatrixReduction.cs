@@ -122,7 +122,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
             //private List<DepartmentItem> _DepartmentItems;
-            [DefaultListViewOptions(MasterDetailMode.ListViewAndDetailView, true, NewItemRowPosition.Top)] 
+            //[DefaultListViewOptions(MasterDetailMode.ListViewAndDetailView, true, NewItemRowPosition.Top)] 
             public IList<DepartmentItem> DepartmentItems=new List<DepartmentItem>();// {
                 //get { return _DepartmentItems; }
                 //set { SetPropertyValue<DepartmentItem>("DepartmentItems", ref _DepartmentItems, value); }

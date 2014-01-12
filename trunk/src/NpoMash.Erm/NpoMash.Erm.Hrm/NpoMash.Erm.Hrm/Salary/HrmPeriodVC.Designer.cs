@@ -115,7 +115,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingKBMatrixAction.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.BringingKBMatrixAction.ToolTip = null;
             this.BringingKBMatrixAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.BringingKBMatrixAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringingMatrixAction_Execute);
+            this.BringingKBMatrixAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringingKBMatrixAction_Execute);
             // 
             // BringingOZMMatrixAction
             // 

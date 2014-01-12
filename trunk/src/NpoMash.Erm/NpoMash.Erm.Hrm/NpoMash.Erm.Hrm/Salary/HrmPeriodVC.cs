@@ -21,45 +21,12 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmPeriodVC : ViewController {
 
-       /* public enum dataSource {
-            GENERATED_DATA=1,
-            DATA_FROM_SERVER=2,
-            
-        }
-        public enum fileSource {
-            DATA_FROM_XML_FILE = 1,
-            DATA_FROM_STRUCTURED_FILE = 2
-        }
-        */
-
-       // private ChoiceActionItem setDataSourceItem;
-       // private ChoiceActionItem setFileTypeItem;
         
         public HrmPeriodVC() { 
             InitializeComponent(); 
             RegisterActions(components); 
-           /*
-            GetSourceDataAction.Items.Clear();
-            setDataSourceItem=new ChoiceActionItem(CaptionHelper.GetMemberCaption(typeof(HrmPeriod), "Source"), null);
-            FillItemWithEnumValues(setDataSourceItem, typeof(dataSource));
-            GetSourceDataAction.Items.Add(setDataSourceItem);
-            
 
-            setFileTypeItem = new ChoiceActionItem(CaptionHelper.GetMemberCaption(typeof(HrmPeriod), "FileType"), null);
-            FillItemWithEnumValues(setFileTypeItem, typeof(fileSource));
-            GetSourceDataAction.Items.Add(setFileTypeItem);
-            
-        */
         }
-
-       /* private void FillItemWithEnumValues(ChoiceActionItem parentItem, Type enumType)  {
-      
-            foreach(object current in Enum.GetValues(enumType)) {
-         EnumDescriptor ed = new EnumDescriptor(enumType);
-         ChoiceActionItem item = new ChoiceActionItem(ed.GetCaption(current), current);
-         parentItem.Items.Add(item);
-      }
-   }*/
 
         protected override void OnActivated() { base.OnActivated(); }
         protected override void OnViewControlsCreated() { base.OnViewControlsCreated(); }
@@ -70,17 +37,19 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void GetSourceDataAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = (HrmPeriod)e.CurrentObject;
-            IObjectSpace os = ObjectSpace.CreateNestedObjectSpace();
             HrmPeriod current_period = os.GetObject<HrmPeriod>(period);
             if (current_period.Status == HrmPeriodStatus.Opened || 
                 current_period.Status == HrmPeriodStatus.ListOfControlledOrdersAccepted) {
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                        HrmMatrix matrix = HrmMatrixLogic.setTestData(os, current_period, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB);
-                        current_period.setStatus(HrmPeriodStatus.SourceDataLoaded);
-                        matrix.Status = HRM_MATRIX_STATUS.Accepted;
+                        HrmMatrix matrixKB = HrmMatrixLogic.setTestData(os, current_period, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB);
+                        matrixKB.Status = HRM_MATRIX_STATUS.Accepted;
+                        HrmMatrix matrixOZM = HrmMatrixLogic.setTestData(os, current_period, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM);
+                        matrixOZM.Status = HRM_MATRIX_STATUS.Accepted;
                         HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, current_period);
-                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrix);
+                        current_period.setStatus(HrmPeriodStatus.SourceDataLoaded);
+                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrixKB);
                     }
                     if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
 
@@ -95,29 +64,40 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        private void BringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
+/*        private void BringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
             
-        }
+        }*/
 
-        private void BringingMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+        private void BringingKBMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace os = Application.CreateObjectSpace();
-            HrmPeriod period = (HrmPeriod)e.CurrentObject;
+            HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
                 HRM_MATRIX_VARIANT bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
                 if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
                     bringing_method = HRM_MATRIX_VARIANT.ProportionsMethod;
-            
                 if (e.SelectedChoiceActionItem.Id == "MinimizeDifferenceNumber") 
                     bringing_method = HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations;
                 if (e.SelectedChoiceActionItem.Id == "MinimizeMaxDifference")
                     bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
                 HrmSalaryTaskMatrixReduction reduc = null;
-                if (period.MatrixReduction.Count == 0) {
-                    reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os,
+                if (period.CurrentKBmatrixReduction == null) {
+                    reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(period, os,
                         IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB, bringing_method);
                 }
                 else {
-                        reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.MatrixReduction.First());
+                        reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentKBmatrixReduction);
+                        if (reduc.MinimizeMaximumDeviationsMatrix == null &&
+                            bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations)
+                            HrmMatrixLogic.makeAllocMatrix(reduc, os, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB,
+                                bringing_method, period);
+                        if (reduc.MinimizeNumberOfDeviationsMatrix == null &&
+                            bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations)
+                            HrmMatrixLogic.makeAllocMatrix(reduc, os, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB,
+                                bringing_method, period);
+                        if (reduc.ProportionsMethodMatrix == null &&
+                            bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod)
+                            HrmMatrixLogic.makeAllocMatrix(reduc, os, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB,
+                                bringing_method, period);
                 }
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
             }
@@ -125,7 +105,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void BringingOZMMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace os = Application.CreateObjectSpace();
-            HrmPeriod period = (HrmPeriod)e.CurrentObject;
+            HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
                 HRM_MATRIX_VARIANT bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
                 if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
@@ -135,16 +115,32 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (e.SelectedChoiceActionItem.Id == "MinimizeMaxDifference")
                     bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
                 HrmSalaryTaskMatrixReduction reduc = null;
-                if (period.MatrixReduction.Count == 0) {
-                    reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(os.GetObject<HrmPeriod>(period), os,
+                if (period.CurrentOZMmatrixReduction == null) {
+                    reduc = HrmSalaryTaskMatrixReduction.initTaskMatrixReduction(period, os,
                         IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM, bringing_method);
                 }
                 else {
-                    reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.MatrixReduction.First());
+                    reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentOZMmatrixReduction);
+                    if (reduc.MinimizeMaximumDeviationsMatrix == null &&
+                        bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations)
+                        HrmMatrixLogic.makeAllocMatrix(reduc, os, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM,
+                            bringing_method, period);
+                    if (reduc.MinimizeNumberOfDeviationsMatrix == null &&
+                        bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations)
+                        HrmMatrixLogic.makeAllocMatrix(reduc, os, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM,
+                            bringing_method, period);
+                    if (reduc.ProportionsMethodMatrix == null &&
+                        bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod)
+                        HrmMatrixLogic.makeAllocMatrix(reduc, os, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM,
+                            bringing_method, period);
                 }
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
             }
         }
+
+/*       private void BringingKBMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+
+        }*/
 
 
     }

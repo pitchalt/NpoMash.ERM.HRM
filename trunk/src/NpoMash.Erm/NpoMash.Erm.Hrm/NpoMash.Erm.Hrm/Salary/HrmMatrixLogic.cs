@@ -92,16 +92,19 @@ namespace NpoMash.Erm.Hrm.Salary {
                     case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
                         {
                             coefficient = 2;
+                            AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
                             break;
                         }
                     case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
                         {
                             coefficient = 3;
+                            AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
                             break;
                         }
                     case HRM_MATRIX_VARIANT.ProportionsMethod:
                         {
                             coefficient = 4;
+                            AllocMatrix.ProportionsMethodMatrix = result_matrix;
                             break;
                         }
                     }
