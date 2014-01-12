@@ -24,7 +24,8 @@ namespace NpoMash.Erm.Hrm {
         ListOfControlledOrdersAccepted=2,
         ReadyToCalculateCoercedMatrixs=3,        
         Closed = 4,
-        ReadyToExportCoercedMatrixs = 5
+        ReadyToExportCoercedMatrixs = 5,
+        CoercedMatrixesExported = 6
     }
 
     [NavigationItem("A1 Integration")]

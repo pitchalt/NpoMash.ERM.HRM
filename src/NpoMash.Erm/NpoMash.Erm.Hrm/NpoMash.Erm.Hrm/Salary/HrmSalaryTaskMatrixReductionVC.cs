@@ -81,6 +81,16 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void ExportCoercedMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
+            HrmPeriod current_period = ObjectSpace.GetObject<HrmPeriod>(reduc.Period);
+            if (reduc.Period.Status == HrmPeriodStatus.ReadyToExportCoercedMatrixs
+                && reduc.GroupDep == IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB) {
+                foreach (HrmMatrix m in current_period.Matrixs)
+                    if (m.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Coerced && m.Status == HRM_MATRIX_STATUS.Accepted)
+                        m.Status = HRM_MATRIX_STATUS.Exported;
+                current_period.setStatus(HrmPeriodStatus.CoercedMatrixesExported);
+                ObjectSpace.CommitChanges();
+            }
 
         }
 

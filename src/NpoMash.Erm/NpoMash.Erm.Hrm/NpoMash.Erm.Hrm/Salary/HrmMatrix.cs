@@ -21,7 +21,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         Opened = 0,
         Saved = 1,
         Accepted=2,
-        Closed=3
+        Closed=3,
+        Exported=4
     }
 
     public enum HRM_MATRIX_TYPE {
