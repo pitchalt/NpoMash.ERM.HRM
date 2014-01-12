@@ -115,6 +115,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             result_matrix.Status = HRM_MATRIX_STATUS.Saved;
             result_matrix.IterationNumber = 2;
             result_matrix.Variant = bringing_method;
+            result_matrix.Period = period;
             return result_matrix;
         }
     }
