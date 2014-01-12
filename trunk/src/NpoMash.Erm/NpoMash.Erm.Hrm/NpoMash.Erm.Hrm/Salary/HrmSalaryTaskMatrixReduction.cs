@@ -100,11 +100,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     MatrixReduction.MatrixPlan = matrix;
                 }
             }
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) { MatrixReduction.MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method,Period); }
+            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) { MatrixReduction.MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
             if (bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations) { MatrixReduction.MinimizeNumberOfDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
             if (bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod) { MatrixReduction.ProportionsMethodMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
             if (group_dep == DEPARTMENT_GROUP_DEP.KB) { MatrixReduction.Period.CurrentKBmatrixReduction = MatrixReduction; } else { MatrixReduction.Period.CurrentOZMmatrixReduction = MatrixReduction; }
-            
+
             return MatrixReduction;
         }
 
@@ -130,7 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeNumberOfDeviationsAlloc;
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
-            public IList<DepartmentItem> DepartmentItems=new List<DepartmentItem>();
+            public IList<DepartmentItem> DepartmentItems = new List<DepartmentItem>();
             public OrderItem(Session session) : base(session) { }
         }
 
@@ -160,193 +160,110 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         protected IList<OrderItem> orderCreate() {
             IList<OrderItem> orderList = new List<OrderItem>();
-
-            foreach (HrmMatrixRow row in MatrixPlan.Rows) {
-                OrderItem item = orderList.FirstOrDefault(x => x.Order == row.Order);
-                if (item == null) {
-                    item = new OrderItem(this.Session) {
-                        Order = row.Order //Заказ
-                    };
-                }
-                item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
-                item.TypeControl = row.Order.TypeControl; // Тип контроля
-
-                var departments = departmentCreate();
-                foreach (var cells in row.Cells) {
-                    foreach (var department in departments) {
-                        if (cells.Column.Department == department.Department) {
-                            item.DepartmentItems.Add(department);
-                        }
-                    }
-                }
-                if (ProportionsMethodMatrix != null) {
-                    foreach (var c in ProportionsMethodMatrix.Rows) {
-                        if (row.Order==c.Order) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.ProportionsMethodAlloc = summa;
-                        }
-                    }
-                }
-
-                if (MinimizeNumberOfDeviationsMatrix != null) {
-                    foreach (var c in MinimizeNumberOfDeviationsMatrix.Rows) {
-                        if (row.Order == c.Order) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.MinimizeNumberOfDeviationsAlloc = summa;
-                        }
-                    }
-                }
-
-                if (MinimizeMaximumDeviationsMatrix!=null) {
-                    foreach (var c in MinimizeMaximumDeviationsMatrix.Rows) {
-                        if (row.Order == c.Order) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.MinimizeMaximumDeviationsAlloc = summa;
-                        }
-                    }
-                }
-
-                orderList.Add(item);
-            }
-
-            return orderList;
-        }
-
-        protected IList<OrderItem> orderCreate1() {
-            IList<OrderItem> orderList = new List<OrderItem>();
-
-            foreach (HrmMatrixRow row in MatrixPlan.Rows) {
-                OrderItem item = orderList.FirstOrDefault(x => x.Order == row.Order);
-                if (item == null) {
-                    item = new OrderItem(this.Session) {
-                        Order = row.Order //Заказ
-                    };
-                }
-                item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
-                item.TypeControl = row.Order.TypeControl ; // Тип контроля
-                if (ProportionsMethodMatrix != null) {
-                    foreach (var c in ProportionsMethodMatrix.Rows) {
-                        if (row.Order == c.Order) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.ProportionsMethodAlloc = summa;
-                        }
-                    }
-                }
-
-                if (MinimizeNumberOfDeviationsMatrix != null) {
-                    foreach (var c in MinimizeNumberOfDeviationsMatrix.Rows) {
-                        if (row.Order == c.Order) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.MinimizeNumberOfDeviationsAlloc = summa;
-                        }
-                    }
-                }
-
-                if (MinimizeMaximumDeviationsMatrix != null) {
-                    foreach (var c in MinimizeMaximumDeviationsMatrix.Rows) {
-                        if (row.Order == c.Order) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.MinimizeMaximumDeviationsAlloc = summa;
-                        }
-                    }
-                }
-                orderList.Add(item);
-            }
+            //
+            LoadMatrixOrder(MatrixPlan, null, orderList);
+            if (ProportionsMethodMatrix != null) 
+                LoadMatrixOrder(ProportionsMethodMatrix, null, orderList);
+            if (MinimizeNumberOfDeviationsMatrix != null)
+                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, orderList);
+            if (MinimizeMaximumDeviationsMatrix != null)
+                LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, orderList);
             return orderList;
         }
 
 
+        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
+            foreach (HrmMatrixRow row in matrix.Rows) {
+                if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
+                    continue;
+                OrderItem item = items.FirstOrDefault(x => x.Order == row.Order);
+                if (item == null) {
+                    item = new OrderItem(this.Session) {
+                        Order = row.Order
+                    };
+                    items.Add(item);
+                }
+                foreach (HrmMatrixCell cell in row.Cells) {
+                    if (col != null && cell.Column != col)
+                        continue;
+                    switch (matrix.TypeMatrix) {
+                        case HRM_MATRIX_TYPE_MATRIX.Planned:
+                            item.OrderPlan += cell.Time;
+                            break;
+                        case HRM_MATRIX_TYPE_MATRIX.Coerced:
+                            switch (matrix.Variant) {
+                                case HRM_MATRIX_VARIANT.ProportionsMethod:
+                                    item.ProportionsMethodAlloc += cell.Time;
+                                    break;
+                                case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
+                                    item.MinimizeMaximumDeviationsAlloc += cell.Time;
+                                    break;
+                                case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
+                                    item.MinimizeNumberOfDeviationsAlloc += cell.Time;
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                item.DepartmentItems = new List<DepartmentItem>();
+                if (col == null)
+                    LoadMatrixDepartment(matrix, row, item.DepartmentItems);
+            }
+        }
 
-        protected IList<DepartmentItem> departmentCreate() {
-            IList<DepartmentItem> departmentList = new List<DepartmentItem>();
-
-            foreach (HrmMatrixColumn col in MatrixPlan.Columns) {
-                DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
+        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItem> items) {
+            foreach (HrmMatrixColumn col in matrix.Columns) {
+                if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)
+                    continue;
+                DepartmentItem item = items.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
                     item = new DepartmentItem(this.Session) {
                         Department = col.Department // Подразделение
                     };
+                    items.Add(item);
                 }
-
-                item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
-                var orders = orderCreate1();
-                foreach (var cells in col.Cells) {
-                    foreach (var order in orders) {
-                        if (cells.Row.Order == order.Order) {
-                            item.OrderItems.Add(order);
-                        }
-                    }
-                }
-
-                if (ProportionsMethodMatrix != null) {
-                    foreach (var c in ProportionsMethodMatrix.Columns) {
-                        if (col.Department == c.Department) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
+                foreach (HrmMatrixCell cell in col.Cells) {
+                    if (row != null && cell.Row != row)
+                        continue;
+                    switch (matrix.TypeMatrix) {
+                        case HRM_MATRIX_TYPE_MATRIX.Planned:
+                            item.DepartmentPlan += cell.Time;
+                            break;
+                        case HRM_MATRIX_TYPE_MATRIX.Coerced:
+                            switch (matrix.Variant) {
+                                case HRM_MATRIX_VARIANT.ProportionsMethod:
+                                    item.ProportionsMethodAlloc += cell.Time;
+                                    break;
+                                case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
+                                    item.MinimizeMaximumDeviationsAlloc += cell.Time;
+                                    break;
+                                case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
+                                    item.MinimizeNumberOfDeviationsAlloc += cell.Time;
+                                    break;
                             }
-                            item.ProportionsMethodAlloc = summa;
-                        }
+                            break;
+                        default:
+                            break;
                     }
                 }
-
-                if (MinimizeNumberOfDeviationsMatrix != null) {
-                    foreach (var c in MinimizeNumberOfDeviationsMatrix.Columns) {
-                        if (col.Department == c.Department) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.MinimizeNumberOfDeviationsAlloc = summa;
-                        }
-                    }
-                }
-
-                if (MinimizeMaximumDeviationsMatrix != null) {
-                    foreach (var c in MinimizeMaximumDeviationsMatrix.Columns) {
-                        if (col.Department == c.Department) {
-                            var summa = 0;
-                            foreach (var a in c.Cells) {
-                                summa += a.Time;
-                            }
-                            item.MinimizeMaximumDeviationsAlloc = summa;
-                        }
-                    }
-                }
-                departmentList.Add(item);
-
+                item.OrderItems = new List<OrderItem>();
+                if (row == null)
+                    LoadMatrixOrder(matrix, col, item.OrderItems);
             }
+        }
 
-             /*//if (MinimizeNumberOfDeviationsMatrix == null) {
-                 foreach (HrmMatrixColumn col in MinimizeNumberOfDeviationsMatrix.Columns) {
-                     DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
-                     if (item == null) {
-              item = new DepartmentItem(this.Session) {
-                  Department = col.Department  }; // Подразделение
-              }
-                     departmentList.Add(item);
-
-                 }
-
-             //}*/
+        protected IList<DepartmentItem> departmentCreate() {
+            IList<DepartmentItem> departmentList = new List<DepartmentItem>();
+            //
+            LoadMatrixDepartment(MatrixPlan, null, departmentList);
+            if (ProportionsMethodMatrix != null)
+                LoadMatrixDepartment(ProportionsMethodMatrix, null, departmentList);
+            if (MinimizeNumberOfDeviationsMatrix != null)
+                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, departmentList);
+            if (MinimizeMaximumDeviationsMatrix != null)
+                LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, departmentList);
 
             //заполняем факт по подразделению
             foreach (var t in TimeSheetGroup.TimeSheetDeps) {
