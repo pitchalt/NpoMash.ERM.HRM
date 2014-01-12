@@ -112,7 +112,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
             result_matrix.GroupDep = group_dep;
-            result_matrix.Status = HRM_MATRIX_STATUS.Accepted;
+            result_matrix.Status = HRM_MATRIX_STATUS.Saved;
             result_matrix.IterationNumber = 2;
             result_matrix.Variant = bringing_method;
 
