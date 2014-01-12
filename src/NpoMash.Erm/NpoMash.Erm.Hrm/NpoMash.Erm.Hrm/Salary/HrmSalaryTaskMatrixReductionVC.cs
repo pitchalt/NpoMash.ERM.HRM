@@ -40,7 +40,31 @@ namespace NpoMash.Erm.Hrm.Salary {
         }*/
 
         private void BringingMatrixInReduc_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
-
+            IObjectSpace os = ObjectSpace;
+            HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
+            HrmPeriod period = os.GetObject<HrmPeriod>(reduc.Period);
+            if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
+                HRM_MATRIX_VARIANT bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
+                if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
+                    bringing_method = HRM_MATRIX_VARIANT.ProportionsMethod;
+                if (e.SelectedChoiceActionItem.Id == "MinimizeNumberOfDeviations")
+                    bringing_method = HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations;
+                if (e.SelectedChoiceActionItem.Id == "MinimizeMaximumDeviations")
+                    bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;
+                //HrmSalaryTaskMatrixReduction reduc = null;
+                if (reduc.MinimizeMaximumDeviationsMatrix == null &&
+                    bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations)
+                    HrmMatrixLogic.makeAllocMatrix(reduc, os, reduc.GroupDep,
+                        bringing_method, period);
+                if (reduc.MinimizeNumberOfDeviationsMatrix == null &&
+                    bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations)
+                    HrmMatrixLogic.makeAllocMatrix(reduc, os, reduc.GroupDep,
+                        bringing_method, period);
+                if (reduc.ProportionsMethodMatrix == null &&
+                    bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod)
+                    HrmMatrixLogic.makeAllocMatrix(reduc, os, reduc.GroupDep,
+                        bringing_method, period);
+                }
         }
 
         private void AcceptCoercedMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
