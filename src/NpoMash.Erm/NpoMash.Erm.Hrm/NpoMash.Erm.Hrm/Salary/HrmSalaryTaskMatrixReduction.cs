@@ -60,14 +60,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
-        [Browsable(false)]
-        private HRM_MATRIX_VARIANT _Var;
-        public HRM_MATRIX_VARIANT Var {
-            get { return _Var; }
-            set { SetPropertyValue<HRM_MATRIX_VARIANT>("Var", ref _Var, value); }
-        
-        }
-
 
         private HrmPeriod _Period; // связь с HrmPeriod
         [Association("MatrixReduction-Period")]
@@ -90,8 +82,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     MatrixReduction.MatrixPlan = matrix;
                 }
             }
-            MatrixReduction.MatrixAlloc = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method);
-            MatrixReduction.Var = bringing_method;
+            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) { MatrixReduction._MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method); }
+            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations) { MatrixReduction._MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method); }
+            if (bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod) { MatrixReduction._MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method); }
+           
             return MatrixReduction;
         }
 
@@ -125,7 +119,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private IList<DepartmentItem> _Department;
-        //[VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         public IList<DepartmentItem> Department {
@@ -137,7 +130,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private IList<OrderItem> _Order;
-     //[VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         public IList<OrderItem> Order {
@@ -148,7 +140,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        IObjectSpace os;
+
         protected IList<OrderItem> orderCreate() {
             IList<OrderItem> orderList = new List<OrderItem>();
             foreach (HrmMatrixRow row in MatrixPlan.Rows) {
@@ -177,16 +169,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
                 departmentList.Add(item);
             }
-            foreach (HrmMatrixColumn col in MatrixAlloc.Columns) {
-                DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
-                if (item == null) {
-                    item = new DepartmentItem(this.Session) {
-                        Department = col.Department // Подразделение
-                    };
-                }
+            //foreach (HrmMatrixColumn col in MatrixAlloc.Columns) {
+            //DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
+            // if (item == null) {
+            // item = new DepartmentItem(this.Session) {
+            //  Department = col.Department // Подразделение
+            // };/
+            // }
 
-                departmentList.Add(item);
-            }
+            // departmentList.Add(item);
+
             //заполняем факт по подразделению
             foreach (var t in TimeSheetGroup.TimeSheetDeps) {
                 for (int i = 0; i < departmentList.Count; i++) {
