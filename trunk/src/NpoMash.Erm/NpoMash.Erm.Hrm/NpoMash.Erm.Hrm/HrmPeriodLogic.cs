@@ -59,7 +59,7 @@ namespace NpoMash.Erm.Hrm
 
         public static HrmPeriod createPeriod(IObjectSpace os) {
             HrmPeriod last_period = findLastPeriod(os);
-            if (last_period != null && last_period.Status == HrmPeriodStatus.Opened){
+            if (last_period != null && last_period.Status != HrmPeriodStatus.Closed){
                 throw new OpenPeriodExistsException("Есть незакрытый период");
             }
             HrmPeriod new_period = os.CreateObject<HrmPeriod>();
