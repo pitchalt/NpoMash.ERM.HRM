@@ -15,7 +15,8 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-
+//
+using FileHelpers;
 
 
 namespace NpoMash.Erm.Hrm.Salary {
@@ -58,6 +59,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                     }
                     if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
+                        var file_engine = new FileHelperEngine( typeof( MatrixPlanInput ) );
+                        var stream = file_engine.ReadFile( "Matrix_Plan.dat" ) as MatrixPlanInput[];
 
                     }
 
