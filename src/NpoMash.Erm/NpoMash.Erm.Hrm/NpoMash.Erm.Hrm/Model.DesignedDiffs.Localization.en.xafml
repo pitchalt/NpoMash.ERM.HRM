@@ -2,6 +2,7 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="BringingMatrixAction" Caption="BringingMatrixKBAction" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Do you want to accept parameters?" />
       <Action Id="Link" ConfirmationMessage="Are you sure you want to accept parameters?" />
     </Actions>

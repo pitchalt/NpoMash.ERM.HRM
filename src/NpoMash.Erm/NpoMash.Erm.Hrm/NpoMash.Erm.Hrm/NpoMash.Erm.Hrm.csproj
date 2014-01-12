@@ -90,6 +90,7 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -109,11 +110,14 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -155,6 +159,12 @@
     </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
+    <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmTimeSheet.cs" />
     <Compile Include="Salary\HrmTimeSheetBase.cs" />
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
@@ -174,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
       <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskMatrixReductionVC.resx">
+      <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -203,19 +216,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
-    <None Include="UnusableNodes2_ru.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes1_ru.xml">
+    <None Include="UnusableNodes_ru.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>
     <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes_ru.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>

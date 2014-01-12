@@ -2,6 +2,7 @@
 <Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
   <ActionDesign>
     <Actions>
+      <Action Id="BringingMatrixInReduc" SelectionDependencyType="Independent" />
       <Action Id="GetSourceDataAction">
         <ChoiceActionItems>
           <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
@@ -26,11 +27,6 @@
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem">
-      <OwnMembers>
-        <Member Name="DepartmentAlloc" Caption="Расчет" />
-      </OwnMembers>
-    </Class>
   </BOModel>
   <Localization>
     <LocalizationGroup Name="DialogButtons">
