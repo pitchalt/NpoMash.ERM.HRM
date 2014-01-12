@@ -44,6 +44,39 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void AcceptCoercedMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
+            HrmMatrix matrix_to_accept = null;
+            HrmPeriod current_period = ObjectSpace.GetObject<HrmPeriod>(reduc.Period);
+            if (e.SelectedChoiceActionItem.Id == "AcceptProportionsMethod") {
+                matrix_to_accept = reduc.ProportionsMethodMatrix;
+            }
+            if (e.SelectedChoiceActionItem.Id == "AcceptMinimizeNumberOfDeviationsMethod")
+                matrix_to_accept = reduc.MinimizeNumberOfDeviationsMatrix;
+            if (e.SelectedChoiceActionItem.Id == "AcceptMinimizeDeviationsMethod")
+                matrix_to_accept = reduc.MinimizeMaximumDeviationsMatrix;
+            if (matrix_to_accept != null && matrix_to_accept.Status == HRM_MATRIX_STATUS.Saved) {
+                if (reduc.MinimizeMaximumDeviationsMatrix != null)
+                    reduc.MinimizeMaximumDeviationsMatrix.Status = HRM_MATRIX_STATUS.Closed;
+                if (reduc.MinimizeNumberOfDeviationsMatrix != null)
+                    reduc.MinimizeNumberOfDeviationsMatrix.Status = HRM_MATRIX_STATUS.Closed;
+                if (reduc.ProportionsMethodMatrix != null)
+                    reduc.ProportionsMethodMatrix.Status = HRM_MATRIX_STATUS.Closed;
+                matrix_to_accept.Status = HRM_MATRIX_STATUS.Accepted;
+                bool kb_accepted = false;
+                bool ozm_accepted = false;
+                if (matrix_to_accept.GroupDep == IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB)
+                    kb_accepted = true;
+                else ozm_accepted = true;
+                foreach (var m in current_period.Matrixs) {
+                    if (m.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Coerced && m.Status == HRM_MATRIX_STATUS.Accepted)
+                        if (m.GroupDep == IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB)
+                            kb_accepted = true;
+                        else ozm_accepted = true;
+                }
+                if (kb_accepted && ozm_accepted)
+                    current_period.setStatus(HrmPeriodStatus.ReadyToExportCoercedMatrixs);
+                ObjectSpace.CommitChanges();
+            }
 
         }
 
