@@ -201,6 +201,7 @@
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
         <LocalizationItem Name="Closed" Value="Закрыт" />
+        <LocalizationItem Name="CoercedMatrixesExported" Value="Приведенные матрицы выгружены" />
         <LocalizationItem Name="ListOfControlledOrdersAccepted" Value="Утвержден список контролируемых заказов" />
         <LocalizationItem Name="Opened" Value="Открыт" />
         <LocalizationItem Name="ReadyToCalculateCoercedMatrixs" Value="Готов к расчету приведенных матриц" />
@@ -210,7 +211,7 @@
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
         <LocalizationItem Name="Accepted" Value="Утверждена" />
         <LocalizationItem Name="Closed" Value="Закрыта" />
-        <LocalizationItem Name="Exported" Value="Экспортирована" />
+        <LocalizationItem Name="Exported" Value="Выгружена" />
         <LocalizationItem Name="Opened" Value="Открыта" />
         <LocalizationItem Name="Saved" Value="Сохранена" />
       </LocalizationGroup>
