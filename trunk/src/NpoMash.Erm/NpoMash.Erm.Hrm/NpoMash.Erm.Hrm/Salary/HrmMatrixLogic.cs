@@ -68,15 +68,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os,
-            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
+            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method,HrmPeriod period) {
 
             var result_matrix = os.CreateObject<HrmMatrix>();
-
             foreach (HrmMatrixColumn col in AllocMatrix.MatrixPlan.Columns) {
                 HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
                 new_col.Department = col.Department;
                 result_matrix.Columns.Add(new_col);
             }
+
             foreach (HrmMatrixRow row in AllocMatrix.MatrixPlan.Rows) {
                 HrmMatrixRow new_row = os.CreateObject<HrmMatrixRow>();
                 new_row.Order = row.Order;
@@ -115,7 +115,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             result_matrix.Status = HRM_MATRIX_STATUS.Saved;
             result_matrix.IterationNumber = 2;
             result_matrix.Variant = bringing_method;
-
             return result_matrix;
         }
     }

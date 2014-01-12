@@ -28,19 +28,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
 
         }
-
+        [Browsable(false)]
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         public HrmMatrix MinimizeNumberOfDeviationsMatrix {
             get { return _MinimizeNumberOfDeviationsMatrix; }
             set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
         }
 
+        [Browsable(false)]
         private HrmMatrix _MinimizeMaximumDeviationsMatrix;
         public HrmMatrix MinimizeMaximumDeviationsMatrix {
             get { return _MinimizeMaximumDeviationsMatrix; }
             set { SetPropertyValue<HrmMatrix>("MinimizeMaximumDeviationsMatrix", ref _MinimizeMaximumDeviationsMatrix, value); }
         }
 
+        [Browsable(false)]
         private HrmMatrix _ProportionsMethodMatrix;
         public HrmMatrix ProportionsMethodMatrix {
             get { return _ProportionsMethodMatrix; }
@@ -60,6 +62,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
+        [Browsable(false)]
+        private DEPARTMENT_GROUP_DEP _GroupDep;
+        public DEPARTMENT_GROUP_DEP GroupDep {
+            get { return _GroupDep; }
+            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
+        }
 
         private HrmPeriod _Period; // связь с HrmPeriod
         [Association("MatrixReduction-Period")]
@@ -71,7 +79,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os,
             DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
             var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
-            MatrixReduction.Period = Period;
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
             if (group_dep == DEPARTMENT_GROUP_DEP.KB)
                 MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
@@ -82,10 +89,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     MatrixReduction.MatrixPlan = matrix;
                 }
             }
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) { MatrixReduction._MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method); }
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations) { MatrixReduction._MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method); }
-            if (bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod) { MatrixReduction._MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method); }
-           
+            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) { MatrixReduction.MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method,Period); }
+            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations) { MatrixReduction.MinimizeNumberOfDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
+            if (bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod) { MatrixReduction.ProportionsMethodMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
+            if (group_dep == DEPARTMENT_GROUP_DEP.KB) { MatrixReduction.Period.CurrentKBmatrixReduction = MatrixReduction; } else { MatrixReduction.Period.CurrentOZMmatrixReduction = MatrixReduction; }
+            
             return MatrixReduction;
         }
 
@@ -152,6 +160,25 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
                 item.TypeControl = row.Order.TypeControl; // Тип контроля
+                
+
+                if (MinimizeNumberOfDeviationsMatrix != null) {
+                    var departments = departmentCreate();
+                    foreach (var t in MinimizeNumberOfDeviationsMatrix.Rows) {
+                        foreach (var v in departments) { 
+                        if(v.Department==){}
+                        
+                        }
+                        
+                    }
+                }
+                if (MinimizeMaximumDeviationsMatrix != null) { 
+                
+                }
+                if (ProportionsMethodMatrix != null) { 
+                
+                }
+
                 orderList.Add(item);
             }
             return orderList;
@@ -169,6 +196,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
                 departmentList.Add(item);
             }
+
             //foreach (HrmMatrixColumn col in MatrixAlloc.Columns) {
             //DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
             // if (item == null) {

@@ -58,12 +58,14 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheet", ref _CurrentTimeSheet, value); }
         }
 
+        [Browsable(false)]
         private HrmSalaryTaskMatrixReduction _CurrentOZMmatrixReduction;
         public HrmSalaryTaskMatrixReduction CurrentOZMmatrixReduction {
             get { return _CurrentOZMmatrixReduction; }
             set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("CurrentOZMmatrixReduction", ref _CurrentOZMmatrixReduction, value); }
         }
 
+        [Browsable(false)]
         private HrmSalaryTaskMatrixReduction _CurrentKBmatrixReduction;
         public HrmSalaryTaskMatrixReduction CurrentKBmatrixReduction {
             get { return _CurrentKBmatrixReduction; }
