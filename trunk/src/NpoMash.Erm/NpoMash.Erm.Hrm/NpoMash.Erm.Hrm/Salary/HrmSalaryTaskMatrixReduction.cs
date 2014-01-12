@@ -79,6 +79,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os,
             DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
             var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
+            MatrixReduction.Period = Period;
             MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
             if (group_dep == DEPARTMENT_GROUP_DEP.KB)
                 MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
@@ -120,7 +121,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeNumberOfDeviationsAlloc;
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
-            public IList<DepartmentItem> DepartmentItems;
+            //private List<DepartmentItem> _DepartmentItems;
+            [DefaultListViewOptions(MasterDetailMode.ListViewAndDetailView, true, NewItemRowPosition.Top)] 
+            public IList<DepartmentItem> DepartmentItems=new List<DepartmentItem>();// {
+                //get { return _DepartmentItems; }
+                //set { SetPropertyValue<DepartmentItem>("DepartmentItems", ref _DepartmentItems, value); }
+            //}
+            
 
             public OrderItem(Session session) : base(session) { }
         }
@@ -151,6 +158,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         protected IList<OrderItem> orderCreate() {
             IList<OrderItem> orderList = new List<OrderItem>();
+            
             foreach (HrmMatrixRow row in MatrixPlan.Rows) {
                 OrderItem item = orderList.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
@@ -160,29 +168,21 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
                 item.TypeControl = row.Order.TypeControl; // Тип контроля
-                
 
-                if (MinimizeNumberOfDeviationsMatrix != null) {
-                    /*var departments = departmentCreate();
-                    foreach (var t in MinimizeNumberOfDeviationsMatrix.Rows) {
-                        foreach (var v in departments) { 
-                        if(v.Department==){}
-                        
+                var departments = departmentCreate();
+                foreach (var cells in row.Cells) {
+                    foreach (var department in departments) {
+                        if (cells.Column.Department == department.Department) {
+                            item.DepartmentItems.Add(department);
                         }
-                        
-                    }*/
-                }
-                if (MinimizeMaximumDeviationsMatrix != null) { 
-                
-                }
-                if (ProportionsMethodMatrix != null) { 
-                
+                    }
                 }
 
                 orderList.Add(item);
             }
             return orderList;
         }
+        
 
         protected IList<DepartmentItem> departmentCreate() {
             IList<DepartmentItem> departmentList = new List<DepartmentItem>();
