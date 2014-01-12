@@ -148,12 +148,18 @@
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="DepartmentFact" Caption="Факт по подразделению" />
         <Member Name="DepartmentPlan" Caption="План по подразделению" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />
+        <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem">
       <OwnMembers>
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />
         <Member Name="Order" Caption="Заказ" />
         <Member Name="OrderPlan" Caption="План по заказу" />
+        <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
         <Member Name="TypeControl" Caption="Тип контроля" />
       </OwnMembers>
     </Class>

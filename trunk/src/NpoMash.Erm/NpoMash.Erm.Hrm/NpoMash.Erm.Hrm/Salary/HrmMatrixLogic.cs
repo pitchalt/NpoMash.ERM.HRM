@@ -68,7 +68,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os,
-            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method,HrmPeriod period) {
+            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method, HrmPeriod period) {
 
             var result_matrix = os.CreateObject<HrmMatrix>();
             foreach (HrmMatrixColumn col in AllocMatrix.MatrixPlan.Columns) {
@@ -81,46 +81,46 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmMatrixRow new_row = os.CreateObject<HrmMatrixRow>();
                 new_row.Order = row.Order;
                 result_matrix.Rows.Add(new_row);
-                
+
                 foreach (HrmMatrixCell cell in row.Cells) {
                     HrmMatrixColumn new_col = result_matrix.Columns.FirstOrDefault(x => x.Department == cell.Column.Department);
                     HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
                     new_row.Cells.Add(new_cell);
                     new_col.Cells.Add(new_cell);
                     Int16 coefficient = 0;
-                    switch (bringing_method){
-                    case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
-                        {
-                            coefficient = 2;
-                            AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
-                            break;
-                        }
-                    case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
-                        {
-                            coefficient = 3;
-                            AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
-                            break;
-                        }
-                    case HRM_MATRIX_VARIANT.ProportionsMethod:
-                        {
-                            coefficient = 4;
-                            AllocMatrix.ProportionsMethodMatrix = result_matrix;
-                            break;
-                        }
+                    switch (bringing_method) {
+                        case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations: {
+                                coefficient = 2;
+                                AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
+                                break;
+                            }
+                        case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations: {
+                                coefficient = 3;
+                                AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
+                                break;
+                            }
+                        case HRM_MATRIX_VARIANT.ProportionsMethod: {
+                                coefficient = 4;
+                                AllocMatrix.ProportionsMethodMatrix = result_matrix;
+                                break;
+                            }
                     }
-                    new_cell.Time = (Int16) (cell.Time * coefficient);
+                    new_cell.Time = (Int16)(cell.Time * coefficient);
                     new_cell.Sum = cell.Sum * coefficient;
+
+                    result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
+                    result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
+                    result_matrix.GroupDep = group_dep;
+                    result_matrix.Status = HRM_MATRIX_STATUS.Saved;
+                    result_matrix.IterationNumber = 2;
+                    result_matrix.Variant = bringing_method;
+                    result_matrix.Period = period;
+
                 }
             }
-            result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
-            result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
-            result_matrix.GroupDep = group_dep;
-            result_matrix.Status = HRM_MATRIX_STATUS.Saved;
-            result_matrix.IterationNumber = 2;
-            result_matrix.Variant = bringing_method;
-            result_matrix.Period = period;
             return result_matrix;
         }
     }
 }
+
 

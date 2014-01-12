@@ -118,7 +118,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
             public IList<OrderItem> OrderItems = new List<OrderItem>();
-
             public DepartmentItem(Session session) : base(session) { }
         }
 
@@ -130,11 +129,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int32 MinimizeNumberOfDeviationsAlloc;
             public Int32 MinimizeMaximumDeviationsAlloc;
             public Int32 ProportionsMethodAlloc;
-            
             public IList<DepartmentItem> DepartmentItems=new List<DepartmentItem>();
-                
-            
-
             public OrderItem(Session session) : base(session) { }
         }
 
@@ -183,6 +178,41 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     }
                 }
+                if (ProportionsMethodMatrix != null) {
+                    foreach (var c in ProportionsMethodMatrix.Rows) {
+                        if (row.Order==c.Order) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.ProportionsMethodAlloc = summa;
+                        }
+                    }
+                }
+
+                if (MinimizeNumberOfDeviationsMatrix != null) {
+                    foreach (var c in MinimizeNumberOfDeviationsMatrix.Rows) {
+                        if (row.Order == c.Order) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.MinimizeNumberOfDeviationsAlloc = summa;
+                        }
+                    }
+                }
+
+                if (MinimizeMaximumDeviationsMatrix!=null) {
+                    foreach (var c in MinimizeMaximumDeviationsMatrix.Rows) {
+                        if (row.Order == c.Order) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.MinimizeMaximumDeviationsAlloc = summa;
+                        }
+                    }
+                }
 
                 orderList.Add(item);
             }
@@ -201,7 +231,42 @@ namespace NpoMash.Erm.Hrm.Salary {
                     };
                 }
                 item.OrderPlan = Convert.ToInt32(row.Sum); //План по заказу
-                item.TypeControl = row.Order.TypeControl; // Тип контроля
+                item.TypeControl = row.Order.TypeControl ; // Тип контроля
+                if (ProportionsMethodMatrix != null) {
+                    foreach (var c in ProportionsMethodMatrix.Rows) {
+                        if (row.Order == c.Order) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.ProportionsMethodAlloc = summa;
+                        }
+                    }
+                }
+
+                if (MinimizeNumberOfDeviationsMatrix != null) {
+                    foreach (var c in MinimizeNumberOfDeviationsMatrix.Rows) {
+                        if (row.Order == c.Order) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.MinimizeNumberOfDeviationsAlloc = summa;
+                        }
+                    }
+                }
+
+                if (MinimizeMaximumDeviationsMatrix != null) {
+                    foreach (var c in MinimizeMaximumDeviationsMatrix.Rows) {
+                        if (row.Order == c.Order) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.MinimizeMaximumDeviationsAlloc = summa;
+                        }
+                    }
+                }
                 orderList.Add(item);
             }
             return orderList;
@@ -219,6 +284,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Department = col.Department // Подразделение
                     };
                 }
+
                 item.DepartmentPlan = Convert.ToInt32(col.Sum);// План по подразделению
                 var orders = orderCreate1();
                 foreach (var cells in col.Cells) {
@@ -228,23 +294,58 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     }
                 }
+
+                if (ProportionsMethodMatrix != null) {
+                    foreach (var c in ProportionsMethodMatrix.Columns) {
+                        if (col.Department == c.Department) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.ProportionsMethodAlloc = summa;
+                        }
+                    }
+                }
+
+                if (MinimizeNumberOfDeviationsMatrix != null) {
+                    foreach (var c in MinimizeNumberOfDeviationsMatrix.Columns) {
+                        if (col.Department == c.Department) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.MinimizeNumberOfDeviationsAlloc = summa;
+                        }
+                    }
+                }
+
+                if (MinimizeMaximumDeviationsMatrix != null) {
+                    foreach (var c in MinimizeMaximumDeviationsMatrix.Columns) {
+                        if (col.Department == c.Department) {
+                            var summa = 0;
+                            foreach (var a in c.Cells) {
+                                summa += a.Time;
+                            }
+                            item.MinimizeMaximumDeviationsAlloc = summa;
+                        }
+                    }
+                }
                 departmentList.Add(item);
 
             }
 
-            /* if (MinimizeNumberOfDeviationsMatrix != null) {
+             /*//if (MinimizeNumberOfDeviationsMatrix == null) {
                  foreach (HrmMatrixColumn col in MinimizeNumberOfDeviationsMatrix.Columns) {
                      DepartmentItem item = departmentList.FirstOrDefault(x => x.Department == col.Department);
                      if (item == null) {
               item = new DepartmentItem(this.Session) {
                   Department = col.Department  }; // Подразделение
-              } 
-                 }
-                 departmentList.Add(item);
+              }
+                     departmentList.Add(item);
 
-             }
-             //*/
-            // 
+                 }
+
+             //}*/
 
             //заполняем факт по подразделению
             foreach (var t in TimeSheetGroup.TimeSheetDeps) {
