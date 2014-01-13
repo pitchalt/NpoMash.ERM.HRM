@@ -27,7 +27,7 @@
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" DefaultListViewMasterDetailMode="ListViewAndDetailView" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" DefaultListViewMasterDetailMode="ListViewOnly" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" DefaultListViewMasterDetailMode="ListViewOnly" />
   </BOModel>
   <Localization>
@@ -59,8 +59,6 @@
               <Item Id="HrmSalaryPayType_ListView" ViewId="HrmSalaryPayType_ListView" ObjectKey="" IsNewNode="True" />
             </Items>
           </Item>
-          <Item Id="HrmPeriod_ListView" Removed="True" />
-          <Item Id="HrmPeriodAllocParameter_ListView" Removed="True" />
         </Items>
       </Item>
       <Item Id="ERM" Removed="True">
@@ -74,141 +72,44 @@
     </Items>
   </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="HrmMatrixCell_ListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmMatrixCell_LookupListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmMatrixColumn_Cells_ListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <DetailView Id="HrmMatrixColumn_DetailView">
-      <Items>
-        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
+    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" />
+    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" />
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentFact" PropertyName="DepartmentFact" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_OrderItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
       </Items>
-    </DetailView>
-    <ListView Id="HrmMatrixColumn_ListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmMatrixRow_Cells_ListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <DetailView Id="HrmMatrixRow_DetailView">
-      <Items>
-        <PropertyEditor Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Items>
-    </DetailView>
-    <ListView Id="HrmMatrixRow_ListView">
-      <Columns>
-        <ColumnInfo Id="Sum" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmPeriod_AllocParameters_ListView">
-      <Columns>
-        <ColumnInfo Id="Year" Index="0" />
-        <ColumnInfo Id="Month" Index="1" />
-        <ColumnInfo Id="Status" Index="2" />
-      </Columns>
-    </ListView>
-    <DetailView Id="HrmPeriod_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="Year" ViewItem="Year" Index="0" IsNewNode="True" />
-            <LayoutItem Id="Month" ViewItem="Month" Index="1" IsNewNode="True" />
-            <LayoutItem Id="Status" ViewItem="Status" Index="2" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="SimpleEditors" Removed="True">
-            <LayoutGroup Id="HrmPeriod">
-              <LayoutItem Id="Month" Removed="True" />
-              <LayoutItem Id="Status" Removed="True" />
-              <LayoutItem Id="Year" Removed="True" />
-            </LayoutGroup>
-          </LayoutGroup>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutItem Id="OrderItems" ViewItem="OrderItems" ShowCaption="" Index="0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="HrmPeriod_ListView">
-      <Columns>
-        <ColumnInfo Id="Year" Index="0" />
-        <ColumnInfo Id="Month" Index="1" />
-        <ColumnInfo Id="Status" Index="2" />
-      </Columns>
-    </ListView>
-    <DetailView Id="HrmPeriodAllocParameter_DetailView">
-      <Items>
-        <PropertyEditor Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
-        <PropertyEditor Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
+    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_OrderItems_ListView" MasterDetailMode="ListViewOnly" />
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_DepartmentItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="Order" PropertyName="Order" IsNewNode="True" />
+        <PropertyEditor Id="OrderPlan" PropertyName="OrderPlan" IsNewNode="True" />
+        <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
+        <PropertyEditor Id="TypeControl" PropertyName="TypeControl" IsNewNode="True" />
       </Items>
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="Header" Index="0" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="Status" ViewItem="Status" Index="0" CaptionLocation="Top" IsNewNode="True" />
-            <LayoutItem Id="Year" ViewItem="Year" Index="1" CaptionLocation="Top" IsNewNode="True" />
-            <LayoutItem Id="Month" ViewItem="Month" Index="2" CaptionLocation="Top" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Norms" Index="1" Direction="Horizontal" IsNewNode="True">
-            <LayoutItem Id="NormNoControlKB" ViewItem="NormNoControlKB" IsNewNode="True" />
-            <LayoutItem Id="NormNoControlOZM" ViewItem="NormNoControlOZM" IsNewNode="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="SimpleEditors" Index="2" Removed="True">
-            <LayoutGroup Id="HrmPeriodAllocParameter">
-              <LayoutItem Id="Month" Removed="True" />
-              <LayoutItem Id="Status" Removed="True" />
-              <LayoutItem Id="Year" Removed="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs" Index="2" />
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" ShowCaption="" Index="0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="HrmPeriodAllocParameter_ListView">
-      <Columns>
-        <ColumnInfo Id="NormNoControlKB" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="NormNoControlOZM" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="Year" Index="0" />
-        <ColumnInfo Id="Month" Index="1" />
-        <ColumnInfo Id="Status" Index="2" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmPeriodAllocParameter_OrderControls_ListView">
-      <Columns>
-        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <DetailView Id="HrmPeriodOrderControl_DetailView">
-      <Items>
-        <PropertyEditor Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
-        <PropertyEditor Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Items>
-    </DetailView>
-    <ListView Id="HrmPeriodOrderControl_ListView">
-      <Columns>
-        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
-    <ListView Id="HrmPeriodOrderControl_LookupListView">
-      <Columns>
-        <ColumnInfo Id="NormKB" EditMask="N" DisplayFormat="{0:N}" />
-        <ColumnInfo Id="NormOZM" EditMask="N" DisplayFormat="{0:N}" />
-      </Columns>
-    </ListView>
   </Views>
 </Application>
