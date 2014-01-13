@@ -15,49 +15,10 @@ using DevExpress.Persistent.Validation;
 //
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
-//
-using FileHelpers;
-using FileHelpers.DataLink;
-using FileHelpers.Detection;
-using FileHelpers.Dynamic;
-using FileHelpers.Events;
-using FileHelpers.ExcelNPOIStorage;
-using FileHelpers.MasterDetail;
-using FileHelpers.Options;
+
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-
-    [FixedLengthRecord()]
-    public class MatrixPlanInput {
-
-        [FieldFixedLength( 4 )]
-        [FieldConverter(typeof (ToInt16Converter))]
-        private Int16 _YEAR;
-
-        [FieldFixedLength( 2 )]
-        [FieldConverter(typeof(ToInt16Converter))]
-        private Int16 _MONTH;
-
-        [FieldFixedLength( 5 )]
-        private string _DEPARTMENT;
-
-        [FieldFixedLength( 8 )]
-        private string _CODE;
-
-        [FieldFixedLength( 9 )]
-        private string _NORM;
-
-        //Конвертер
-        internal class ToInt16Converter : ConverterBase {
-            public override object StringToField( string from ) {
-                Int16 res = Convert.ToInt16( from );
-                return res;
-            }
-        }
-
-        public void LoadData() { }
-    }
 
     public static class HrmMatrixLogic {
 
