@@ -22,10 +22,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
     [TestFixture]
     public class HrmPeriodAllocParameterLogicTests {
         private TestApplication application;
-        private fmCOrder order1;
-        private fmCOrder order2;
         private fmCOrder order3;
-        private fmCOrder order4;
         [SetUp]
         public void setUp() {
             IObjectSpaceProvider object_space_provider = new XPObjectSpaceProvider(new MemoryDataStoreProvider());

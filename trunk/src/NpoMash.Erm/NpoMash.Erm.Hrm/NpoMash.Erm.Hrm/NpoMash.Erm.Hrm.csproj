@@ -137,9 +137,9 @@
   <ItemGroup>
     <Compile Include="HrmPeriod.cs" />
     <Compile Include="HrmPeriodLogic.cs" />
-    <Compile Include="Import\ImportAccountOperation.cs" />
-    <Compile Include="Import\ImportMatrixPlan.cs" />
-    <Compile Include="Import\ImportMatrixTimeSheet.cs" />
+    <Compile Include="Exchange\ImportAccountOperation.cs" />
+    <Compile Include="Exchange\ImportMatrixPlan.cs" />
+    <Compile Include="Exchange\ImportMatrixTimeSheet.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
