@@ -2,8 +2,10 @@
 using System.Text;
 //
 using FileHelpers;
+//
+using DevExpress;
 
-namespace NpoMash.Erm.Hrm.Import {
+namespace NpoMash.Erm.Hrm.Exchange {
 
 
     [FixedLengthRecord()]
@@ -25,23 +27,25 @@ namespace NpoMash.Erm.Hrm.Import {
 
         [FieldFixedLength(5)]
         private String _Department;
-        public string Department {
+        public String Department {
             get { return _Department; }
             set { _Department = value; }
         }
 
         [FieldFixedLength(8)]
         private String _Code;
-        public string Code {
+        public String Code {
             get { return _Code; }
             set { _Code = value; }
         }
 
         [FieldFixedLength(9)]
         private String _Norm;
-        public string Norm {
+        public String Norm {
             get { return _Norm; }
             set { _Norm = value; }
         }
+
+        public void ImportData() { }
     }
 }
