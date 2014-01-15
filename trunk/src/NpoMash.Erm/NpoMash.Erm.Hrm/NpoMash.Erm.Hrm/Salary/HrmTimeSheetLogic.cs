@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public static class HrmTimeSheetLogic{
+    public static class HrmTimeSheetLogic {
 
         public static void loadTimeSheetIntoPeriod(IObjectSpace os, HrmPeriod period) {
             Random rand = new Random();
@@ -36,7 +37,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
             kb_time_sheet.TimeSheet = time_sheet;
             ozm_time_sheet.TimeSheet = time_sheet;
-            foreach (Department current_department in os.GetObjects<Department>()){
+            foreach (Department current_department in os.GetObjects<Department>()) {
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = current_department;
                 sheet_dep.TimeSheet = time_sheet;
@@ -54,10 +55,41 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void ImportData() {
+        public static void ImportData(IObjectSpace object_space, HrmPeriod period) {
             var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
+            HrmTimeSheet time_sheet = object_space.CreateObject<HrmTimeSheet>();
+            HrmTimeSheetGroup kb_time_sheet = object_space.CreateObject<HrmTimeSheetGroup>();
+            HrmTimeSheetGroup ozm_time_sheet = object_space.CreateObject<HrmTimeSheetGroup>();
+            time_sheet.Period = period;
+            period.TimeSheets.Add(time_sheet);
+            period.CurrentTimeSheet = time_sheet;
+            time_sheet.KB = kb_time_sheet;
+            kb_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            time_sheet.OZM = ozm_time_sheet;
+            ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+            kb_time_sheet.TimeSheet = time_sheet;
+            ozm_time_sheet.TimeSheet = time_sheet;
             ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
-            foreach (var each in stream) { }
+            foreach (var each in stream) {
+                foreach (Department current_department in object_space.GetObjects<Department>()) {
+                    if (String.Compare(current_department.Code, each.Code) == 0) {
+                        HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                        sheet_dep.Department = current_department;
+                        sheet_dep.TimeSheet = time_sheet;
+                        time_sheet.TimeSheetDeps.Add(sheet_dep);
+                        sheet_dep.MatrixWorkTime = each.MatrixWorkTime;
+                        sheet_dep.AdditionWorkTime = 0;
+                        if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
+                            sheet_dep.TimeSheetGroup = kb_time_sheet;
+                            kb_time_sheet.TimeSheetDeps.Add(sheet_dep);
+                        }
+                        if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.OZM) {
+                            sheet_dep.TimeSheetGroup = ozm_time_sheet;
+                            ozm_time_sheet.TimeSheetDeps.Add(sheet_dep);
+                        }
+                    }
+                }
+            }
         }
     }
 }
