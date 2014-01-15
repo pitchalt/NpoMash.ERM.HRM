@@ -52,8 +52,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             bool fl = false;
             OrdrerImport[] order_list = order_data.ReadFile("../../../../../../../var/referential/OrderGoz.dat");
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
-            foreach (var order in order_list) {
-                foreach (var plan in plan_list) {
+            foreach (var plan in plan_list) {
+                foreach (var order in order_list) {
                     if (Convert.ToDecimal(order.Code) == Convert.ToDecimal(plan.OrderCode)) { 
                         fl = true; 
                     }
