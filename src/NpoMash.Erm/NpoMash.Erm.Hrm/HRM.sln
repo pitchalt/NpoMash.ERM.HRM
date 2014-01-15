@@ -10,9 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntecoAG.Erm", "..\..\IntecoAG.Erm\IntecoAG.Erm\IntecoAG.Erm.csproj", "{71DC7A2B-825E-401C-BB71-2EBE5C3DDCE0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8984B7E9-B475-40A8-B070-545FAE397A8F}"
-	ProjectSection(SolutionItems) = preProject
-		OurCommonExtensions.cs = OurCommonExtensions.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntecoAG.XafExt", "..\..\IntecoAG.XafExt\IntecoAG.XafExt\IntecoAG.XafExt.csproj", "{62EA4432-7BD3-4A77-8478-CA2E358D0F3B}"
 EndProject
