@@ -34,7 +34,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             IObjectSpace os = application.CreateObjectSpace();
             HrmPeriod period = os.CreateObject<HrmPeriod>();
             period.Init(2013, 10);
-            period.setStatus(HrmPeriodStatus.Closed);
+            period.setStatus(HrmPeriodStatus.CLOSED);
             HrmPeriodAllocParameter param = os.CreateObject<HrmPeriodAllocParameter>();
             period.AllocParameters.Add(param);
             period.CurrentAllocParameter = param;
@@ -91,7 +91,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             param.Period.PeriodPrevious = param.Period;
             HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
-            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.OpenToEdit );
+            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.OPEN_TO_EDIT );
         }
 
         [Test] //(Параметры расчета 4) Повторное создание параметров
@@ -111,7 +111,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             ValidateAllocParameterWithOrders( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
-            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.ListOfOrderAccepted );
+            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED );
         }
 
         [Test] //(Параметры расчета 5) Выполняться не должно
@@ -187,7 +187,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             ValidateAllocParameterWithOrders( os, param );
-            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.AllocParametersAccepted );
+            Assert.AreEqual( param.Status, HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED );
         }
 
         [Test]//(Параметры расчета 9) Выполняться не должно

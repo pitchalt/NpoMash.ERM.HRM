@@ -18,11 +18,13 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HRM_MATRIX_STATUS {
-        Opened = 0,
-        Saved = 1,
-        Accepted=2,
-        Closed=3,
-        Exported=4
+        OPENED = 0,
+        SAVED = 1,
+        ACCEPTED=2,
+        CLOSED=3,
+        EXPORTED=4,
+        PRIMARY_ACCEPTED=5,
+        ARCHIVE=6
     }
 
     public enum HRM_MATRIX_TYPE {
@@ -36,11 +38,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         ReserveMatrix = 2
     }
 
-    //public enum HRM_MATRIX_GROUP_DEP {
-       // KB = 0,
-       // OZM = 1
-   // }
-
     public enum HRM_MATRIX_VARIANT { 
         MinimizeNumberOfDeviations=0,
         MinimizeMaximumDeviations=1,
@@ -49,10 +46,15 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     [Persistent("HrmMatrix")]
-   // [Appearance("Enabled", TargetItems = "*", Context = "Any", Criteria = "TypeMatrix='Planned'", Enabled = false)]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+//   [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Enabled=false)]
+    [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
+
+    [DefaultProperty("Status")]       
     public class HrmMatrix : BaseObject {
 
         private HRM_MATRIX_TYPE _Type;
+        [Appearance("",Enabled=false)]
         public HRM_MATRIX_TYPE Type {
             get { return _Type; }
             set { SetPropertyValue<HRM_MATRIX_TYPE>("Type", ref _Type, value); }
@@ -60,12 +62,14 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private HRM_MATRIX_TYPE_MATRIX _TypeMatrix;
         //[Appearance("", Criteria = "'Planned'", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("",Enabled=false)]
         public HRM_MATRIX_TYPE_MATRIX TypeMatrix {
             get { return _TypeMatrix; }
             set { SetPropertyValue<HRM_MATRIX_TYPE_MATRIX>("TypeMatrix", ref _TypeMatrix, value); }
         }
 
         private DEPARTMENT_GROUP_DEP _GroupDep;
+        [Appearance("",Enabled=false)]
         public DEPARTMENT_GROUP_DEP GroupDep {
             get { return _GroupDep; }
             set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
@@ -73,6 +77,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private HRM_MATRIX_STATUS _Status;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("",Enabled=false)]
         public HRM_MATRIX_STATUS Status {
             get { return _Status; }
             set { SetPropertyValue<HRM_MATRIX_STATUS>("Status", ref _Status, value); }
@@ -80,6 +85,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private HRM_MATRIX_VARIANT _Variant;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("",Enabled=false)]
         public HRM_MATRIX_VARIANT Variant {
             get { return _Variant; }
             set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
@@ -87,6 +93,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private Int16 _IterationNumber;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("",Enabled=false)]
         public Int16 IterationNumber {
             get { return _IterationNumber; }
             set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
@@ -103,6 +110,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmPeriod _Period; // —сылка на HrmPeriod
+        [Appearance("",Enabled=false)]
         [Association("Period-Matrixs")]
         public HrmPeriod Period {
             get { return _Period; }

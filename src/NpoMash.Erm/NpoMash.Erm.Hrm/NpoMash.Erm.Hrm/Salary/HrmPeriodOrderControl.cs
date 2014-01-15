@@ -59,7 +59,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Browsable(false)]
         public bool RuleMethod {
             get { 
-                return AllocParameter.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted && TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT && Session.IsNewObject(this);
+                return AllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED && TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT && Session.IsNewObject(this);
             }
         }
         //////////////////////Связи

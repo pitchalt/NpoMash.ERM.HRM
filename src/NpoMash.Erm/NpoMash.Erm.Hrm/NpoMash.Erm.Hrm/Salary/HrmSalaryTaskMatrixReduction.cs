@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.ConditionalAppearance;
 //
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
@@ -23,6 +24,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
         private HrmMatrix _MatrixPlan;
+        [Appearance("", Enabled = false)]
         public HrmMatrix MatrixPlan {
             get { return _MatrixPlan; }
             set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
@@ -60,19 +62,24 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private HrmTimeSheetGroup _TimeSheetGroup;
+        [Appearance("", Enabled = false)]
         public HrmTimeSheetGroup TimeSheetGroup {
             get { return _TimeSheetGroup; }
             set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
         }
 
         private HrmPeriodAllocParameter _AllocParameters;
+        [Appearance("", Enabled = false)]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
-        [Browsable(false)]
+
         private DEPARTMENT_GROUP_DEP _GroupDep;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public DEPARTMENT_GROUP_DEP GroupDep {
             get { return _GroupDep; }
             set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }

@@ -18,6 +18,7 @@ using DevExpress.ExpressApp.Editors;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmTimeSheet")]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmTimeSheet : HrmTimeSheetBase {
 
         [Association("TimeSheet-TimeSheetDeps"), Aggregated] // Коллекция TimeSheetDeps
@@ -33,12 +34,18 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmTimeSheetGroup _KB;
+        [VisibleInDetailView(false)]
+        //[VisibleInListView(false)]
+        //[VisibleInLookupListView(false)]
         public HrmTimeSheetGroup KB {
             get { return _KB; }
             set { SetPropertyValue<HrmTimeSheetGroup>("KB", ref _KB, value); }
         }
 
         private HrmTimeSheetGroup _OZM;
+        [VisibleInDetailView(false)]
+        //[VisibleInListView(false)]
+        //[VisibleInLookupListView(false)]
         public HrmTimeSheetGroup OZM {
             get { return _OZM; }
             set { SetPropertyValue<HrmTimeSheetGroup>("OZM", ref _OZM, value); }
