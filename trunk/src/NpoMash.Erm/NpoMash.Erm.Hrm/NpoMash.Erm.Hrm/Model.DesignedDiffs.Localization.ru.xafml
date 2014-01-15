@@ -165,10 +165,10 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)">
       <OwnMembers>
+        <Member Name="TimeSheetDeps" Caption="Табель(факт)" />
         <Member Name="KB" Caption="КБ" />
         <Member Name="OZM" Caption="ОЗМ" />
         <Member Name="Period" Caption="Период" />
-        <Member Name="TimeSheetDeps" Caption="Табель(факт)" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
