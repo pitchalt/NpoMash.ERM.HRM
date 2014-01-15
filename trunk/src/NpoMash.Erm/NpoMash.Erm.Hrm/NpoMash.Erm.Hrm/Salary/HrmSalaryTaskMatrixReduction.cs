@@ -85,28 +85,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
-        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os,
-            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
-            var MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
-            MatrixReduction.GroupDep = group_dep;
-            MatrixReduction.Period = Period;
-            MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
-            if (group_dep == DEPARTMENT_GROUP_DEP.KB)
-                MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
-            else MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.OZM;
-
-            foreach (var matrix in Period.Matrixs) {
-                if (matrix.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned) {
-                    MatrixReduction.MatrixPlan = matrix;
-                }
-            }
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) { MatrixReduction.MinimizeMaximumDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations) { MatrixReduction.MinimizeNumberOfDeviationsMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
-            if (bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod) { MatrixReduction.ProportionsMethodMatrix = HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); }
-            if (group_dep == DEPARTMENT_GROUP_DEP.KB) { MatrixReduction.Period.CurrentKBmatrixReduction = MatrixReduction; } else { MatrixReduction.Period.CurrentOZMmatrixReduction = MatrixReduction; }
-
-            return MatrixReduction;
-        }
+        
 
 
 
