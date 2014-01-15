@@ -38,6 +38,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             IObjectSpace object_space = Application.CreateObjectSpace();
             TestWCLogic.ImportDeps(object_space);
             TestWCLogic.ImportOrders(object_space);
+            TestWCLogic.SalaryPayTypeGenerate(object_space);
             TestWCLogic.addTestData(object_space);
             object_space.CommitChanges();
         }

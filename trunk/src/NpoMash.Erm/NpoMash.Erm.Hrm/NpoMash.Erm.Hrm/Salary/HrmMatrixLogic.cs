@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
 using System.Text;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Collections.Generic;
+//
+using FileHelpers;
 //
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
@@ -15,12 +17,36 @@ using DevExpress.Persistent.Validation;
 //
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
+using NpoMash.Erm.Hrm.Exchange;
 
 
 namespace NpoMash.Erm.Hrm.Salary {
 
 
     public static class HrmMatrixLogic {
+
+        public static void ImportPlanMatrix(IObjectSpace object_space, HrmPeriod period) {
+            var plan_data = new FixedFileEngine<ImportMatrixPlan>();
+            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
+            HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
+            foreach (var each in plan_list) {
+                if ((each.Year == period.Year)&&(each.Month == period.Month)) {
+                    var new_cell = object_space.CreateObject<HrmMatrixCell>();
+                    foreach (var dep in object_space.GetObjects<Department>()) {
+                        if (String.Compare(each.Department, dep.Code) == 0) {
+                            if (dep.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
+                                var cell = object_space.CreateObject<HrmMatrixCell>();
+                                cell.Time = each.Norm;
+                                cell.Sum = 0;
+                                
+                            }
+                            else {
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {
             Random random = new Random();

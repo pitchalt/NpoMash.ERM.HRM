@@ -31,9 +31,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             time_sheet.Period = period;
             period.TimeSheets.Add(time_sheet);
             period.CurrentTimeSheet = time_sheet;
-            time_sheet.KB = kb_time_sheet;
             kb_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.KB;
-            time_sheet.OZM = ozm_time_sheet;
             ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
             kb_time_sheet.TimeSheet = time_sheet;
             ozm_time_sheet.TimeSheet = time_sheet;
@@ -63,9 +61,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             time_sheet.Period = period;
             period.TimeSheets.Add(time_sheet);
             period.CurrentTimeSheet = time_sheet;
-            time_sheet.KB = kb_time_sheet;
             kb_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.KB;
-            time_sheet.OZM = ozm_time_sheet;
             ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
             kb_time_sheet.TimeSheet = time_sheet;
             ozm_time_sheet.TimeSheet = time_sheet;
