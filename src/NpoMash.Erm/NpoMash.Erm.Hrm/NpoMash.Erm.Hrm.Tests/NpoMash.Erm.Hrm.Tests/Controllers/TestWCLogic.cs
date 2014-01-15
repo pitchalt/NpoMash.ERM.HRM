@@ -37,7 +37,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             DepartmentImport[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
             foreach (var each in stream) {
                 var department = local_object_space.CreateObject<Department>();
-                department.Code = each.Code;
+                department.Code = each.Code.Trim();
                 if (each.Group == "01") {
                     department.GroupDep = DEPARTMENT_GROUP_DEP.KB;
                 }
