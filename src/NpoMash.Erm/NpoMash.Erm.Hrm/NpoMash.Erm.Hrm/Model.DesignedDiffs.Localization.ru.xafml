@@ -231,7 +231,7 @@
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
         <LocalizationItem Name="AllocParametersAccepted" Value="Утверждены параметры расчета" />
-        <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контроллируемых заказов" />
+        <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контролируемых заказов" />
         <LocalizationItem Name="OpenToEdit" Value="Открыт для редактирования" />
       </LocalizationGroup>
     </LocalizationGroup>

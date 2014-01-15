@@ -72,12 +72,12 @@
     </Items>
   </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.5.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" />
-    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" />
+    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" />
+    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" />
     <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
@@ -90,11 +90,10 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
-          <LayoutItem Id="OrderItems" ViewItem="OrderItems" ShowCaption="" Index="0" IsNewNode="True" />
+          <LayoutItem Id="OrderItems" ViewItem="OrderItems" Index="0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_OrderItems_ListView" MasterDetailMode="ListViewOnly" />
     <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_DepartmentItems_ListView" IsNewNode="True" />
@@ -107,7 +106,7 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
-          <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" ShowCaption="" Index="0" IsNewNode="True" />
+          <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" Index="0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
