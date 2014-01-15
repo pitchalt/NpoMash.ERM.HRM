@@ -11,6 +11,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.PopulateAction = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.AddReferenceData = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // PopulateAction
             // 
@@ -26,12 +27,28 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             this.PopulateAction.ToolTip = null;
             this.PopulateAction.TypeOfView = null;
             this.PopulateAction.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.PopulateDB_Execute);
+            // 
+            // AddReferenceData
+            // 
+            this.AddReferenceData.Caption = "TesterWC_AddReferenceData";
+            this.AddReferenceData.Category = "Tools";
+            this.AddReferenceData.ConfirmationMessage = null;
+            this.AddReferenceData.Id = "TesterWC_AddReferenceData";
+            this.AddReferenceData.ImageName = null;
+            this.AddReferenceData.Shortcut = null;
+            this.AddReferenceData.Tag = null;
+            this.AddReferenceData.TargetObjectsCriteria = null;
+            this.AddReferenceData.TargetViewId = null;
+            this.AddReferenceData.ToolTip = null;
+            this.AddReferenceData.TypeOfView = null;
+            this.AddReferenceData.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AddReferenceData_Execute);
 
         }
 
         #endregion
 
         public DevExpress.ExpressApp.Actions.SimpleAction PopulateAction;
+        private DevExpress.ExpressApp.Actions.SimpleAction AddReferenceData;
 
     }
 }

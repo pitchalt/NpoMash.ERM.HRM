@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
+using System.Collections.Generic;
+
+using FileHelpers;
+
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
-using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+
+using NpoMash.Erm.Hrm.Exchange;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
@@ -46,11 +51,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                     sheet_dep.TimeSheetGroup = ozm_time_sheet;
                     ozm_time_sheet.TimeSheetDeps.Add(sheet_dep);
                 }
-
             }
-
-
         }
 
+        public static void ImportData() {
+            var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
+            ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
+            foreach (var each in stream) { }
+        }
     }
 }

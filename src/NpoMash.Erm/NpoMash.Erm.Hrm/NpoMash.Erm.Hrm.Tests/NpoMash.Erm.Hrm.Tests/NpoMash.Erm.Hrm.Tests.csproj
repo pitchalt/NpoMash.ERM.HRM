@@ -69,6 +69,16 @@
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="FileHelpers, Version=3.0.2.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers.ExcelNPOIStorage">
+      <HintPath>..\..\..\..\..\lib\FileHelpers.ExcelNPOIStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers.ExcelStorage">
+      <HintPath>..\..\..\..\..\lib\FileHelpers.ExcelStorage.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\..\..\..\..\..\..\Program Files\TestDriven.NET 3\NUnit\2.6\framework\nunit.framework.dll</HintPath>
     </Reference>
@@ -101,6 +111,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="ReferentialData\DepartmentImport.cs" />
+    <Compile Include="ReferentialData\OrdrerImport.cs" />
     <Compile Include="StructuralTests\AllocParameterVCUnitTest.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -115,6 +127,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
