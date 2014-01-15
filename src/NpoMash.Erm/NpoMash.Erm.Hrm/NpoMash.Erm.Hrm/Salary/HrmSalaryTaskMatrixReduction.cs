@@ -20,6 +20,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmSalaryTaskMatrixReduction")]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskMatrixReduction : BaseObject {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
@@ -165,10 +166,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                 OrderItem item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
                     item = new OrderItem(this.Session) {
-                        Order = row.Order
+                    Order = row.Order
                     };
+                    
+                    
                     items.Add(item);
                 }
+                item.TypeControl = row.Order.TypeControl;
+                
                 foreach (HrmMatrixCell cell in row.Cells) {
                     if (col != null && cell.Column != col)
                         continue;
@@ -197,6 +202,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
             }
+            
         }
 
         protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItem> items) {
@@ -208,8 +214,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item = new DepartmentItem(this.Session) {
                         Department = col.Department // Подразделение
                     };
-                    items.Add(item);
                 }
+                
                 foreach (HrmMatrixCell cell in col.Cells) {
                     if (row != null && cell.Row != row)
                         continue;
@@ -234,6 +240,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                             break;
                     }
                 }
+                items.Add(item);
+
                 item.OrderItems = new List<OrderItem>();
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
