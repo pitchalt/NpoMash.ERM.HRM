@@ -19,8 +19,8 @@
       </Action>
       <Action Id="BringingMatrixInReduc" Caption="Приведение матрицы">
         <ChoiceActionItems>
-          <ChoiceActionItem Id="MinimizeMaximumDeviations" Caption="Минимизация максимальных отклонений" />
-          <ChoiceActionItem Id="MinimizeNumberOfDeviations" Caption="Минимизация числа отклонений" />
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
           <ChoiceActionItem Id="ProportionsMethod" Caption="Метод пропорций" />
         </ChoiceActionItems>
       </Action>
