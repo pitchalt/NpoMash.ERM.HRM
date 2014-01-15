@@ -54,6 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         current_period.setStatus(HrmPeriodStatus.SourceDataLoaded);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrixKB);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                        os.Committed += new EventHandler(refresher);
                     }
                     if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
 
@@ -82,6 +83,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
             }
         }
 
@@ -99,7 +101,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
             }
+        }
+
+        private void refresher(Object sender, EventArgs e) {
+            Frame.GetController<RefreshController>().RefreshAction.DoExecute();
         }
 
     }
