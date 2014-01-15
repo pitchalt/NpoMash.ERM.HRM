@@ -54,6 +54,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public HrmTimeSheet(Session session): base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
+        public override void AfterConstruction() { 
+            base.AfterConstruction();
+            OZM = new HrmTimeSheetGroup(this.Session);
+            KB = new HrmTimeSheetGroup(this.Session);
+        }
     }
 }
