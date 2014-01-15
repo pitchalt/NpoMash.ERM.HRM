@@ -56,7 +56,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             foreach (var plan in plan_list) {
                 foreach (var order in order_list) {
-                    if (Convert.ToDecimal(order.Code) == Convert.ToDecimal(plan.OrderCode)) { 
+                    if (String.Compare(order.Code, plan.OrderCode) == 0) { 
                         fl = true; 
                     }
                     else {

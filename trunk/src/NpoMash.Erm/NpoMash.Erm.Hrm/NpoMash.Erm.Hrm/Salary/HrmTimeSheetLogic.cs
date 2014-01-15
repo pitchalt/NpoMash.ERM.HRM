@@ -26,8 +26,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void loadTimeSheetIntoPeriod(IObjectSpace os, HrmPeriod period) {
             Random rand = new Random();
             HrmTimeSheet time_sheet = os.CreateObject<HrmTimeSheet>();
-            HrmTimeSheetGroup kb_time_sheet = os.CreateObject<HrmTimeSheetGroup>();
-            HrmTimeSheetGroup ozm_time_sheet = os.CreateObject<HrmTimeSheetGroup>();
+            HrmTimeSheetGroup kb_time_sheet = time_sheet.KB;
+            HrmTimeSheetGroup ozm_time_sheet = time_sheet.OZM;
             time_sheet.Period = period;
             period.TimeSheets.Add(time_sheet);
             period.CurrentTimeSheet = time_sheet;
