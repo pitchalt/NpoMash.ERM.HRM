@@ -7,7 +7,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
     public class ImportMatrixTimeSheet {
 
         [FieldFixedLength(5)]
-        public String Department;
+        public String Code;
 
         [FieldFixedLength(7)]
         public Int32 MatrixWorkTime;
