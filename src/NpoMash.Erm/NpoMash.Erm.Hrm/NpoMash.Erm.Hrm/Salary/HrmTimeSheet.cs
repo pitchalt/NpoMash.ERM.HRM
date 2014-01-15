@@ -34,18 +34,20 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmTimeSheetGroup _KB;
-        [VisibleInDetailView(false)]
+        [VisibleInDetailView(true)]
         //[VisibleInListView(false)]
         //[VisibleInLookupListView(false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheetGroup KB {
             get { return _KB; }
             set { SetPropertyValue<HrmTimeSheetGroup>("KB", ref _KB, value); }
         }
 
         private HrmTimeSheetGroup _OZM;
-        [VisibleInDetailView(false)]
+        [VisibleInDetailView(true)]
         //[VisibleInListView(false)]
         //[VisibleInLookupListView(false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheetGroup OZM {
             get { return _OZM; }
             set { SetPropertyValue<HrmTimeSheetGroup>("OZM", ref _OZM, value); }
