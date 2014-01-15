@@ -73,7 +73,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         sheet_dep.Department = current_department;
                         sheet_dep.TimeSheet = time_sheet;
                         time_sheet.TimeSheetDeps.Add(sheet_dep);
-                        sheet_dep.MatrixWorkTime = each.MatrixWorkTime;
+                        sheet_dep.BaseWorkTime = each.MatrixWorkTime;
                         sheet_dep.AdditionWorkTime = 0;
                         if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
                             sheet_dep.TimeSheetGroup = kb_time_sheet;
