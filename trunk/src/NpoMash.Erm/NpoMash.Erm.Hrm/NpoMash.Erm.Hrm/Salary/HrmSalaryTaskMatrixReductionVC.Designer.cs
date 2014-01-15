@@ -40,11 +40,11 @@
             this.BringingMatrixInReduc.ConfirmationMessage = null;
             this.BringingMatrixInReduc.Id = "BringingMatrixInReduc";
             this.BringingMatrixInReduc.ImageName = null;
-            choiceActionItem1.Caption = "MinimizeNumberOfDeviations";
+            choiceActionItem1.Caption = "MinimizeDifferenceNumber";
             choiceActionItem1.ImageName = null;
             choiceActionItem1.Shortcut = null;
             choiceActionItem1.ToolTip = null;
-            choiceActionItem2.Caption = "MinimizeMaximumDeviations";
+            choiceActionItem2.Caption = "MinimizeMaxDifference";
             choiceActionItem2.ImageName = null;
             choiceActionItem2.Shortcut = null;
             choiceActionItem2.ToolTip = null;

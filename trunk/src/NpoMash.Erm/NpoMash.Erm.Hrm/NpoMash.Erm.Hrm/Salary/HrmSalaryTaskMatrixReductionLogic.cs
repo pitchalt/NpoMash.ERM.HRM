@@ -93,5 +93,50 @@ namespace NpoMash.Erm.Hrm.Salary {
             return bringing_method;
         }
 
+        public static HrmMatrix DetermineSelectedMatrixToAccept(SingleChoiceActionExecuteEventArgs e,
+            HrmSalaryTaskMatrixReduction reduc) {
+            HrmMatrix matrix_to_accept = null;
+            if (e.SelectedChoiceActionItem.Id == "AcceptProportionsMethod")
+                matrix_to_accept = reduc.ProportionsMethodMatrix;
+            if (e.SelectedChoiceActionItem.Id == "AcceptMinimizeNumberOfDeviationsMethod")
+                matrix_to_accept = reduc.MinimizeNumberOfDeviationsMatrix;
+            if (e.SelectedChoiceActionItem.Id == "AcceptMinimizeDeviationsMethod")
+                matrix_to_accept = reduc.MinimizeMaximumDeviationsMatrix;
+            return matrix_to_accept;
+        }
+
+        public static void ExportMatrixes(HrmPeriod current_period){
+            foreach (HrmMatrix m in current_period.Matrixs)
+                if (m.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Coerced && m.Status == HRM_MATRIX_STATUS.Accepted)
+                    m.Status = HRM_MATRIX_STATUS.Exported;
+        }
+
+        public static bool AllCoercedMatrixesAccepted(HrmMatrix matrix_to_accept, HrmPeriod current_period) {
+            bool kb_accepted = false;
+            bool ozm_accepted = false;
+            if (matrix_to_accept.GroupDep == DEPARTMENT_GROUP_DEP.KB)
+                kb_accepted = true;
+            else ozm_accepted = true;
+            foreach (HrmMatrix m in current_period.Matrixs) {
+                if (m.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Coerced && m.Status == HRM_MATRIX_STATUS.Accepted)
+                    if (m.GroupDep == DEPARTMENT_GROUP_DEP.KB)
+                        kb_accepted = true;
+                    else ozm_accepted = true;
+            }
+            if (kb_accepted && ozm_accepted)
+                return true;
+            else return false;
+        }
+
+        public static void AcceptSelectedMatrix(HrmSalaryTaskMatrixReduction reduc, HrmMatrix matrix_to_accept) {
+            if (reduc.MinimizeMaximumDeviationsMatrix != null)
+                reduc.MinimizeMaximumDeviationsMatrix.Status = HRM_MATRIX_STATUS.Closed;
+            if (reduc.MinimizeNumberOfDeviationsMatrix != null)
+                reduc.MinimizeNumberOfDeviationsMatrix.Status = HRM_MATRIX_STATUS.Closed;
+            if (reduc.ProportionsMethodMatrix != null)
+                reduc.ProportionsMethodMatrix.Status = HRM_MATRIX_STATUS.Closed;
+            matrix_to_accept.Status = HRM_MATRIX_STATUS.Accepted;
+        }
+
     }
 }
