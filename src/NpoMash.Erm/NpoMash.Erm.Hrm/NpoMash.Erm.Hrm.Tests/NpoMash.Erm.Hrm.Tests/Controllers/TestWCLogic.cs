@@ -72,8 +72,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 if (fl == true) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
                 if (fl == false) { fmCorder.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
                 if (type_control == 1) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
-                fmCorder.NormKB = 0;
-                fmCorder.NormOZM = 0;
+                fmCorder.NormKB = 1;
+                fmCorder.NormOZM = 1;
                 fmCorder.TypeConstancy = fmCOrdertypeConstancy.ConstOrderType;
                 codes[fmCorder.Code] = true;
             }
