@@ -65,8 +65,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
                         HrmMatrixAllocPlan matrixKB = null;
                         HrmMatrixAllocPlan matrixOZM = null;
-                        HrmMatrixLogic.ImportPlanMatrixes(os, period, out matrixKB, out matrixOZM);
-                        HrmTimeSheetLogic.ImportData(os, period);
+                        HrmMatrixLogic.ImportPlanMatrixes(os, current_period, out matrixKB, out matrixOZM);
+                        HrmTimeSheetLogic.ImportData(os, current_period);
                         current_period.setStatus(HrmPeriodStatus.SOURCE_DATA_LOADED);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrixKB);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
