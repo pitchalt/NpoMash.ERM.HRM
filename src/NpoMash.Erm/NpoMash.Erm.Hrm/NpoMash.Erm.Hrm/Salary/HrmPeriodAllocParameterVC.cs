@@ -131,6 +131,8 @@ namespace NpoMash.Erm.Hrm.Salary
                 }
                 ObjectSpace.CommitChanges();
                 UpdateActionState(alloc_parameters);
+                Window win = Frame as Window;
+                if (win != null) win.Close();
                 //}
             }
         }
@@ -149,6 +151,8 @@ namespace NpoMash.Erm.Hrm.Salary
                 }
                 ObjectSpace.CommitChanges();
                 UpdateActionState(alloc_parameters);
+                Window win = Frame as Window;
+                if (win != null) win.Close();
             }
         }
 

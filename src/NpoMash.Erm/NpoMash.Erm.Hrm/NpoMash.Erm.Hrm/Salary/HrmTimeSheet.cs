@@ -58,6 +58,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.AfterConstruction();
             OZM = new HrmTimeSheetGroup(this.Session);
             KB = new HrmTimeSheetGroup(this.Session);
+            OZM.TimeSheet = this;
+            KB.TimeSheet = this;
         }
     }
 }
