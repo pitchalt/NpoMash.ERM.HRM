@@ -19,33 +19,91 @@ using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Exchange;
 
-
 namespace NpoMash.Erm.Hrm.Salary {
 
 
     public static class HrmMatrixLogic {
 
-        public static void ImportPlanMatrix(IObjectSpace object_space, HrmPeriod period) {
+        public static HrmMatrixAllocPlan ImportPlanMatrix(IObjectSpace os, HrmPeriod period) {
             var plan_data = new FixedFileEngine<ImportMatrixPlan>();
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
-            HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
+            //Инициализируем плановые матрицы кб и озм
+            HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
+            kb_plan_matrix.Status = HRM_MATRIX_STATUS.ACCEPTED;
+            kb_plan_matrix.Period = period;
+            kb_plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
+            kb_plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
+            kb_plan_matrix.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            kb_plan_matrix.IterationNumber = 1;
+            period.Matrixs.Add(kb_plan_matrix);
+            HrmMatrixAllocPlan ozm_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
+            ozm_plan_matrix.Status = HRM_MATRIX_STATUS.ACCEPTED;
+            ozm_plan_matrix.Period = period;
+            ozm_plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
+            ozm_plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
+            ozm_plan_matrix.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+            ozm_plan_matrix.IterationNumber = 1;
+            period.Matrixs.Add(ozm_plan_matrix);
+
+            Int16 current_year = period.Year;
+            Int16 current_month = period.Month;
+            //начинаем перебирать строки в файле
             foreach (var each in plan_list) {
-                if ((each.Year == period.Year)&&(each.Month == period.Month)) {
-                    var new_cell = object_space.CreateObject<HrmMatrixCell>();
-                    foreach (var dep in object_space.GetObjects<Department>()) {
-                        if (String.Compare(each.Department, dep.Code) == 0) {
-                            if (dep.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
-                                var cell = object_space.CreateObject<HrmMatrixCell>();
-                                cell.Time = each.Norm;
-                                cell.Sum = 0;
-                                
-                            }
-                            else {
-                            }
-                        }
+                //если запись относится к нашему периоду то начинаем обработку
+                if (each.Year == current_year && each.Month == current_month) {
+                    HrmMatrix plan_matrix = null;
+                    //определяем к какой группе подразделений относится запись
+                    foreach (Department dep in os.GetObjects<Department>()) {
+                        if (String.Compare(each.Department.Trim(), dep.Code) == 0)
+                            if (dep.GroupDep == DEPARTMENT_GROUP_DEP.KB)
+                                plan_matrix = kb_plan_matrix;
+                            else plan_matrix = ozm_plan_matrix;
+                        //теперь мы знаем с какой матрицей работаем
                     }
+                    //если не нашли такого подразделения - все плохо
+                    if (plan_matrix == null) 
+                        throw new Exception("There is no department with code " + each.Department.Trim());
+                    //иначе - создаем ячейку и начинаем ее заполнять
+                    HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
+                    cell.Time = each.Norm;
+                    cell.Sum = 0;
+                    //разбираемся с колонкой
+                    HrmMatrixColumn current_column = null;
+                    foreach (HrmMatrixColumn col in plan_matrix.Columns)
+                        if (col.Department.Code == each.Department.Trim())
+                            current_column = col;
+                    //если колонки еще не было - то создаем и инициализируем новую
+                    if (current_column == null) {
+                        current_column = os.CreateObject<HrmMatrixColumn>();
+                        current_column.Matrix = plan_matrix;
+                        plan_matrix.Columns.Add(current_column);
+                        foreach (Department dep in os.GetObjects<Department>())
+                            if (System.String.Compare(dep.Code, each.Department.Trim()) == 0)
+                                current_column.Department = dep;
+                    }
+                    //теперь связываем колонку с ячейкой, больше с колонкой делать нечего
+                    cell.Column = current_column;
+                    current_column.Cells.Add(cell);
+                    //теперь разбираемся со строчкой
+                    HrmMatrixRow current_row = null;
+                    foreach (HrmMatrixRow row in plan_matrix.Rows)
+                        if (System.String.Compare(row.Order.Code, each.OrderCode.Trim()) == 0)
+                            current_row = row;
+                    //если строчки еще не было - тогда создаем и инициализируем новую
+                    if (current_row == null) {
+                        current_row = os.CreateObject<HrmMatrixRow>();
+                        current_row.Matrix = plan_matrix;
+                        plan_matrix.Rows.Add(current_row);
+                        foreach (fmCOrder order in os.GetObjects<fmCOrder>())
+                            if (System.String.Compare(order.Code, each.OrderCode.Trim()) == 0)
+                                current_row.Order = order;
+                    }
+                    //теперь связываем строчку с ячейкой, больше со строчкой делать нечего
+                    cell.Row = current_row;
+                    current_row.Cells.Add(cell);
                 }
             }
+            return kb_plan_matrix;
         }
 
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {
