@@ -23,6 +23,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         private const int _REFERENCE_COUNT = 10;
         private const int _DEPARTMENT_COUNT = 20;
         private const int _ALLOCPARAMETER_COUNT = 3;
+        private const int _SALARYPAYTYPE_COUNT = 100;
 
         public static void addTimeSheets(IObjectSpace local_object_space) {
             foreach (var each in local_object_space.GetObjects<HrmPeriod>()) {
@@ -56,7 +57,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             foreach (var plan in plan_list) {
                 foreach (var order in order_list) {
-                    if (String.Compare(order.Code, plan.OrderCode) == 0) { 
+                    if (String.Compare(order.Code.Trim(), plan.OrderCode.Trim()) == 0) { 
                         fl = true; 
                     }
                     else {
@@ -66,24 +67,24 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 if (codes.ContainsKey(plan.OrderCode.Trim()))
                     continue;
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
-//                var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
                 fmCorder.Code = plan.OrderCode.Trim();
+                int type_control = random.Next(1, 3);
                 if (fl == true) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
                 if (fl == false) { fmCorder.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
+                if (type_control == 1) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
                 fmCorder.NormKB = 0;
                 fmCorder.NormOZM = 0;
                 fmCorder.TypeConstancy = fmCOrdertypeConstancy.ConstOrderType;
-                //
                 codes[fmCorder.Code] = true;
-                /*
-                if (type_control == 1) { fmCorder.TypeControl = fmCOrderTypeCOntrol.FOT; }
-                if (type_control == 2) { fmCorder.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
-                if (type_control == 3) { fmCorder.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
-                if (type_constancy == 1) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.UnConstOrderType; }
-                if (type_constancy == 2) { fmCorder.TypeConstancy = fmCOrdertypeConstancy.ConstOrderType; }
-                */
-//                hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
-//                hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
+            }
+        }
+
+        public static void SalaryPayTypeGenerate(IObjectSpace local_object_space) {
+            var random = new Random();
+            for (int i = 0 ; i<_SALARYPAYTYPE_COUNT ; i++) {
+                var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
+                hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
+                hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
             }
         }
 

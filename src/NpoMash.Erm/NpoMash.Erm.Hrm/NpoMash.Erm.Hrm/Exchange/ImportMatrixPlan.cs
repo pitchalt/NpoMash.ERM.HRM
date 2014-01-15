@@ -20,6 +20,6 @@ namespace NpoMash.Erm.Hrm.Exchange {
         public String OrderCode;
 
         [FieldFixedLength(9)]
-        public String Norm;
+        public Int16 Norm;
     }
 }
