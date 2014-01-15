@@ -1,12 +1,13 @@
 ﻿using System;
-
 using FileHelpers;
 
-using DevExpress.ExpressApp;
-
-using IntecoAG.ERM.FM.Order;
-
 namespace NpoMash.Erm.Hrm.Tests.ReferentialData {
-    class OrdrerImport {
+    
+    
+    [FixedLengthRecord()]
+    public class OrdrerImport {
+
+        [FieldFixedLength(8)]
+        public String Code;
     }
 }
