@@ -58,8 +58,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ImportData(IObjectSpace object_space, HrmPeriod period) {
             var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
             HrmTimeSheet time_sheet = object_space.CreateObject<HrmTimeSheet>();
-            HrmTimeSheetGroup kb_time_sheet = object_space.CreateObject<HrmTimeSheetGroup>();
-            HrmTimeSheetGroup ozm_time_sheet = object_space.CreateObject<HrmTimeSheetGroup>();
+            HrmTimeSheetGroup kb_time_sheet = time_sheet.KB;
+            HrmTimeSheetGroup ozm_time_sheet = time_sheet.OZM;
             time_sheet.Period = period;
             period.TimeSheets.Add(time_sheet);
             period.CurrentTimeSheet = time_sheet;
