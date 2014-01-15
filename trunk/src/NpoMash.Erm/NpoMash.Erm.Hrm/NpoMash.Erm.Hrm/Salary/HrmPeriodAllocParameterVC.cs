@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         protected void UpdateActionState(HrmPeriodAllocParameter param) {
-            if (param.Status == HrmPeriodAllocParameterStatus.AllocParametersAccepted)
+            if (param.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)
                 AcceptControlledOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
             else
                 AcceptControlledOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
@@ -106,7 +106,7 @@ namespace NpoMash.Erm.Hrm.Salary
         private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
 //            IObjectSpace os = ObjectSpace;
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
-            if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted)
+            if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)
             {
              
                 //string message = "";
@@ -141,7 +141,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         private void AcceptAllocParameters1_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
-            if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.AllocParametersAccepted) {
+            if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 ObjectSpace.CommitChanges();
                 using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
                     HrmPeriodAllocParameterLogic.acceptParameters(os, os.GetObject<HrmPeriodAllocParameter>(alloc_parameters));

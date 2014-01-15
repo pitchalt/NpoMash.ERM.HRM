@@ -22,9 +22,12 @@ namespace NpoMash.Erm.Hrm.Salary
 
     public enum HrmPeriodAllocParameterStatus
     {
-        OpenToEdit = 1,
-        ListOfOrderAccepted = 2,
-        AllocParametersAccepted = 3
+        OPEN_TO_EDIT  = 1,
+        LIST_OF_ORDER_ACCEPTED  = 2,
+        ALLOC_PARAMETERS_ACCEPTED  = 3,
+        CREATED=4,
+        ARCHIVE=5
+
     }
     
 
@@ -34,7 +37,6 @@ namespace NpoMash.Erm.Hrm.Salary
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled=false)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptAllocParameters", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OpenToEdit' or Status=='AllocParametersAccepted'")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "HrmPeriodAllocParameterVC_AcceptAllocParameters", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='AllocParametersAccepted' or Status=='ListOfOrderAccepted'")]
-  
     [DefaultProperty("Status")]       
     public class HrmPeriodAllocParameter : BaseObject
     {
@@ -123,7 +125,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         public override void AfterConstruction(){
             base.AfterConstruction();
-            StatusSet(HrmPeriodAllocParameterStatus.OpenToEdit);
+            StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
         }
 
         public void StatusSet(HrmPeriodAllocParameterStatus status){

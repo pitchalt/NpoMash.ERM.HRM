@@ -19,13 +19,18 @@ using NpoMash.Erm.Hrm.Salary;
 namespace NpoMash.Erm.Hrm {
 
     public enum HrmPeriodStatus { 
-        Opened = 0,
-        SourceDataLoaded=1,
-        ListOfControlledOrdersAccepted=2,
-        ReadyToCalculateCoercedMatrixs=3,        
-        Closed = 4,
-        ReadyToExportCoercedMatrixs = 5,
-        CoercedMatrixesExported = 6
+        OPENED = 0,
+        SOURCE_DATA_LOADED=1,
+        LIST_OF_CONTROLLED_ORDERS_ACCEPTED=2,
+        READY_TO_CALCULATE_COERCED_MATRIXS=3,        
+        CLOSED = 4,
+        READY_TO_EXPORT_CORCED_MATRIXS = 5,
+        COERCED_MATRIXES_EXPORTED = 6,
+        ACCOUNT_OPERATION_FIRST_IMPORTED=7,
+        READY_TO_RESERVE_MATRIX_CREATE=8,
+        READY_TO_RESERVE_MATRIX_UPLOAD=9,
+        RESERVE_MATRIX_UPLOADED = 10,
+        ACCOUNT_OPERATION_LAST_IMPORTED=11
     }
 
     [NavigationItem("A1 Integration")]
@@ -143,9 +148,9 @@ namespace NpoMash.Erm.Hrm {
         //}
 
         public void setStatus(HrmPeriodStatus stat) {
-            if (Status == HrmPeriodStatus.SourceDataLoaded && stat == HrmPeriodStatus.ListOfControlledOrdersAccepted ||
-                Status == HrmPeriodStatus.ListOfControlledOrdersAccepted && stat == HrmPeriodStatus.SourceDataLoaded)
-                stat = HrmPeriodStatus.ReadyToCalculateCoercedMatrixs;
+            if (Status == HrmPeriodStatus.SOURCE_DATA_LOADED && stat == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED ||
+                Status == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED && stat == HrmPeriodStatus.SOURCE_DATA_LOADED)
+                stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;
             SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat); 
         }
 
@@ -160,7 +165,7 @@ namespace NpoMash.Erm.Hrm {
         public HrmPeriod(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
-            setStatus(HrmPeriodStatus.Opened);
+            setStatus(HrmPeriodStatus.OPENED);
             //Status = HrmPeriodStatus.Opened;
         }
     }

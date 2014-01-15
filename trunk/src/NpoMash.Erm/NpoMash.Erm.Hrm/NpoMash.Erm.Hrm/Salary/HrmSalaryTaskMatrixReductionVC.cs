@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             IObjectSpace os = ObjectSpace;
             HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
             HrmPeriod period = os.GetObject<HrmPeriod>(reduc.Period);
-            if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
+            if (period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
                 HRM_MATRIX_VARIANT bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, reduc.GroupDep, bringing_method, period);
             }
@@ -55,10 +55,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod current_period = os.GetObject<HrmPeriod>(reduc.Period);
             //HrmSalaryTaskMatrixReduction reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(red);
             HrmMatrix matrix_to_accept = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedMatrixToAccept(e, reduc);            
-            if (matrix_to_accept != null && matrix_to_accept.Status == HRM_MATRIX_STATUS.Saved) {
+            if (matrix_to_accept != null && matrix_to_accept.Status == HRM_MATRIX_STATUS.SAVED) {
                 HrmSalaryTaskMatrixReductionLogic.AcceptSelectedMatrix(reduc, matrix_to_accept);
                 if (HrmSalaryTaskMatrixReductionLogic.AllCoercedMatrixesAccepted(matrix_to_accept, current_period))
-                    current_period.setStatus(HrmPeriodStatus.ReadyToExportCoercedMatrixs);
+                    current_period.setStatus(HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS);
                 os.CommitChanges();
             }
 
@@ -68,10 +68,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
             IObjectSpace os = ObjectSpace;
             HrmPeriod current_period = os.GetObject<HrmPeriod>(reduc.Period);
-            if (reduc.Period.Status == HrmPeriodStatus.ReadyToExportCoercedMatrixs
+            if (reduc.Period.Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS
                 && reduc.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
                 HrmSalaryTaskMatrixReductionLogic.ExportMatrixes(current_period);
-                current_period.setStatus(HrmPeriodStatus.CoercedMatrixesExported);
+                current_period.setStatus(HrmPeriodStatus.COERCED_MATRIXES_EXPORTED);
                 os.CommitChanges();
             }
         }

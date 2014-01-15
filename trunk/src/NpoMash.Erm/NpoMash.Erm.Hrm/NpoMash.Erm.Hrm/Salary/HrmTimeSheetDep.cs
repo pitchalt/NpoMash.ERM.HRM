@@ -19,6 +19,7 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmTimeSheetDep")]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmTimeSheetDep : BaseObject {
 
         private Department _Department; //—сылка на Department
@@ -43,6 +44,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private Int32 _MatrixWorkTime;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public Int32 MatrixWorkTime {
             get { return _AdditionWorkTime; }
             set { SetPropertyValue<Int32>("MatrixWorkTime", ref _AdditionWorkTime, value); }
@@ -55,6 +59,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Int32 _AdditionWorkTime;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public Int32 AdditionWorkTime {
             get { return _AdditionWorkTime; }
             set { SetPropertyValue<Int32>("AdditionWorkTime", ref _AdditionWorkTime, value); }

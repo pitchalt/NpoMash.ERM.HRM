@@ -60,7 +60,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
             plan_matrix.GroupDep = group;
-            plan_matrix.Status = HRM_MATRIX_STATUS.Opened;
+            plan_matrix.Status = HRM_MATRIX_STATUS.OPENED;
             plan_matrix.IterationNumber = 1;
             plan_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
             plan_matrix.Period = current_period;
@@ -112,7 +112,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
                     result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
                     result_matrix.GroupDep = group_dep;
-                    result_matrix.Status = HRM_MATRIX_STATUS.Saved;
+                    result_matrix.Status = HRM_MATRIX_STATUS.SAVED;
                     result_matrix.IterationNumber = 2;
                     result_matrix.Variant = bringing_method;
                     result_matrix.Period = period;

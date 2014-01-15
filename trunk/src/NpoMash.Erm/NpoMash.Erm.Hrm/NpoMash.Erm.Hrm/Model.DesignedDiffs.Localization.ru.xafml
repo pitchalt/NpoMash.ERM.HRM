@@ -174,7 +174,7 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
-        <Member Name="MatrixWorkTime" Caption="Основные трудочасы " />
+        <Member Name="MatrixWorkTime" Caption="Трудочасы " />
         <Member Name="TimeSheet" Caption="Факт. табель" />
       </OwnMembers>
     </Class>
@@ -200,20 +200,27 @@
         <LocalizationItem Name="OZM" Value="ОЗМ" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
-        <LocalizationItem Name="Closed" Value="Закрыт" />
-        <LocalizationItem Name="CoercedMatrixesExported" Value="Приведенные матрицы выгружены" />
-        <LocalizationItem Name="ListOfControlledOrdersAccepted" Value="Утвержден список контролируемых заказов" />
-        <LocalizationItem Name="Opened" Value="Открыт" />
-        <LocalizationItem Name="ReadyToCalculateCoercedMatrixs" Value="Готов к расчету приведенных матриц" />
-        <LocalizationItem Name="ReadyToExportCoercedMatrixs" Value="Готов к экспорту приведенных матриц" />
-        <LocalizationItem Name="SourceDataLoaded" Value="Исходные данные загружены" />
+        <LocalizationItem Name="ACCOUNT_OPERATION_FIRST_IMPORTED" Value="Импортирована первичная проводка" />
+        <LocalizationItem Name="ACCOUNT_OPERATION_LAST_IMPORTED" Value="Импортирована проводка" />
+        <LocalizationItem Name="CLOSED" Value="Закрыт" />
+        <LocalizationItem Name="COERCED_MATRIXES_EXPORTED" Value="Приведенные матрицы выгружены" />
+        <LocalizationItem Name="LIST_OF_CONTROLLED_ORDERS_ACCEPTED" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="OPENED" Value="Открыт" />
+        <LocalizationItem Name="READY_TO_CALCULATE_COERCED_MATRIXS" Value="Готов к созданию приведенных матриц" />
+        <LocalizationItem Name="READY_TO_EXPORT_CORCED_MATRIXS" Value="Готов к выгрузке приведенных матриц" />
+        <LocalizationItem Name="READY_TO_RESERVE_MATRIX_CREATE" Value="Готов к созданию матрицы резерва" />
+        <LocalizationItem Name="READY_TO_RESERVE_MATRIX_UPLOAD" Value="Готов к выгрузке матрицы резерва" />
+        <LocalizationItem Name="RESERVE_MATRIX_UPLOADED" Value="Матрица резерва выгружена" />
+        <LocalizationItem Name="SOURCE_DATA_LOADED" Value="Исходные данные загружены" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_STATUS">
-        <LocalizationItem Name="Accepted" Value="Утверждена" />
-        <LocalizationItem Name="Closed" Value="Закрыта" />
-        <LocalizationItem Name="Exported" Value="Выгружена" />
-        <LocalizationItem Name="Opened" Value="Открыта" />
-        <LocalizationItem Name="Saved" Value="Сохранена" />
+        <LocalizationItem Name="ACCEPTED" Value="Приведенная матрица утверждена" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="CLOSED" Value="Закрыта" />
+        <LocalizationItem Name="EXPORTED" Value="Приведенная матрица экспортирована" />
+        <LocalizationItem Name="OPENED" Value="Открыта" />
+        <LocalizationItem Name="PRIMARY_ACCEPTED" Value="Приведенная матрица утверждена предварительно" />
+        <LocalizationItem Name="SAVED" Value="Приведенная матрица сохранена" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HRM_MATRIX_TYPE">
         <LocalizationItem Name="AllocResult" Value="Результат распределения" />
@@ -230,9 +237,11 @@
         <LocalizationItem Name="ProportionsMethod" Value="Метод пропорции" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
-        <LocalizationItem Name="AllocParametersAccepted" Value="Утверждены параметры расчета" />
-        <LocalizationItem Name="ListOfOrderAccepted" Value="Утвержден список контролируемых заказов" />
-        <LocalizationItem Name="OpenToEdit" Value="Открыт для редактирования" />
+        <LocalizationItem Name="ALLOC_PARAMETERS_ACCEPTED" Value="Утверждены параметры расчета" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="CREATED" Value="Параметры расчета созданы" />
+        <LocalizationItem Name="LIST_OF_ORDER_ACCEPTED" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="OPEN_TO_EDIT" Value="Открыты для редактирования" />
       </LocalizationGroup>
     </LocalizationGroup>
     <LocalizationGroup Name="Messages">
