@@ -2,12 +2,16 @@
 using System.Text;
 using System.Collections.Generic;
 
+using FileHelpers;
+
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
-using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Salary;
+using IntecoAG.ERM.HRM.Organization;
+using NpoMash.Erm.Hrm.Tests.ReferentialData;
 
 using DevExpress.ExpressApp;
+
 
 namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
@@ -22,6 +26,21 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             foreach ( var each in local_object_space.GetObjects<HrmPeriod>() ) {
                 var time_sheet = local_object_space.CreateObject<HrmTimeSheet>();
                 var time_sheet_deps = local_object_space.CreateObject<HrmTimeSheetDep>();
+            }
+        }
+
+        public static void ImportData(IObjectSpace object_space) {
+            var engine = new FixedFileEngine<DepartmentImport>();
+            DepartmentImport[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
+            foreach (var each in stream) {
+                var department = object_space.CreateObject<Department>();
+                department.Code = each.Code;
+                if (each.Group == "01") {
+                    department.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+                }
+                else {
+                    department.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+                }
             }
         }
 
@@ -56,7 +75,6 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         public static void addTestData( IObjectSpace a_object_space ) {
-            referenceClassesGenerate( a_object_space );
             for ( int i = 0 ; i < _ALLOCPARAMETER_COUNT ; i++ ) {
                 var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters( a_object_space );
                 alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.AllocParametersAccepted);
