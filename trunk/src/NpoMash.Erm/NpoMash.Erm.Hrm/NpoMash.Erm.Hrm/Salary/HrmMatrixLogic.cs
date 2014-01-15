@@ -24,7 +24,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmMatrixLogic {
 
-        public static HrmMatrixAllocPlan ImportPlanMatrix(IObjectSpace os, HrmPeriod period) {
+        public static void ImportPlanMatrixes(IObjectSpace os, HrmPeriod period,
+            out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
             var plan_data = new FixedFileEngine<ImportMatrixPlan>();
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             //Инициализируем плановые матрицы кб и озм
@@ -103,7 +104,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     current_row.Cells.Add(cell);
                 }
             }
-            return kb_plan_matrix;
+            KBMatrix = kb_plan_matrix;
+            OZMMatrix = ozm_plan_matrix;
         }
 
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {

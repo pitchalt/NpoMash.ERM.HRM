@@ -46,9 +46,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (current_period.Status == HrmPeriodStatus.OPENED || 
                 current_period.Status == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED) {
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                        HrmMatrix matrixKB = HrmMatrixLogic.setTestData(os, current_period, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.KB);
+                        HrmMatrix matrixKB = HrmMatrixLogic.setTestData(os, current_period, DEPARTMENT_GROUP_DEP.KB);
                         matrixKB.Status = HRM_MATRIX_STATUS.ACCEPTED;
-                        HrmMatrix matrixOZM = HrmMatrixLogic.setTestData(os, current_period, IntecoAG.ERM.HRM.Organization.DEPARTMENT_GROUP_DEP.OZM);
+                        HrmMatrix matrixOZM = HrmMatrixLogic.setTestData(os, current_period, DEPARTMENT_GROUP_DEP.OZM);
                         matrixOZM.Status = HRM_MATRIX_STATUS.ACCEPTED;
                         HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, current_period);
                         current_period.setStatus(HrmPeriodStatus.SOURCE_DATA_LOADED);
@@ -63,7 +63,14 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                     }
                     if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
-                        
+                        HrmMatrixAllocPlan matrixKB = null;
+                        HrmMatrixAllocPlan matrixOZM = null;
+                        HrmMatrixLogic.ImportPlanMatrixes(os, period, out matrixKB, out matrixOZM);
+                        HrmTimeSheetLogic.ImportData(os, period);
+                        current_period.setStatus(HrmPeriodStatus.SOURCE_DATA_LOADED);
+                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, matrixKB);
+                        e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                        os.Committed += new EventHandler(refresher);
                     }
 
             }
