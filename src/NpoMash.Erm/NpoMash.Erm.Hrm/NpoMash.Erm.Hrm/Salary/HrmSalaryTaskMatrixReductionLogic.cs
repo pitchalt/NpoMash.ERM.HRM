@@ -17,7 +17,6 @@ using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Templates;
-using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 
@@ -49,26 +48,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     MatrixReduction.MatrixPlan = matrix;
                 }
             }
-            /*
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations) {
-                MatrixReduction.MinimizeMaximumDeviationsMatrix = 
-                    HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period);
-            }
-            if (bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations) {
-                MatrixReduction.MinimizeNumberOfDeviationsMatrix = 
-                    HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period); 
-            }
-            if (bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod) {
-                MatrixReduction.ProportionsMethodMatrix = 
-                    HrmMatrixLogic.makeAllocMatrix(MatrixReduction, os, group_dep, bringing_method, Period);
-            }*/
-            /*if (group_dep == DEPARTMENT_GROUP_DEP.KB) {
-                MatrixReduction.Period.CurrentKBmatrixReduction = MatrixReduction;
-            }
-            else {
-                MatrixReduction.Period.CurrentOZMmatrixReduction = MatrixReduction; 
-            }*/
-
             return MatrixReduction;
         }
 

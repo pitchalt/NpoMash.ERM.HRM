@@ -38,54 +38,25 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.OnDeactivated();
         }
 
-/*        private void BringingOZMMatrixInReduc_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
-
-        }*/
 
         private void BringingMatrixInReduc_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
-            IObjectSpace os = Application.CreateObjectSpace();
+            IObjectSpace os = ObjectSpace;
             HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
             HrmPeriod period = os.GetObject<HrmPeriod>(reduc.Period);
             if (period.Status == HrmPeriodStatus.ReadyToCalculateCoercedMatrixs) {
                 HRM_MATRIX_VARIANT bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
-                /*if (e.SelectedChoiceActionItem.Id == "ProportionsMethod")
-                    bringing_method = HRM_MATRIX_VARIANT.ProportionsMethod;
-                if (e.SelectedChoiceActionItem.Id == "MinimizeDifferenceNumber")
-                    bringing_method = HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations;
-                if (e.SelectedChoiceActionItem.Id == "MinimizeMaxDifference")
-                    bringing_method = HRM_MATRIX_VARIANT.MinimizeMaximumDeviations;*/
-                //HrmSalaryTaskMatrixReduction reduc = null;
-                HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, reduc.GroupDep,
-                        bringing_method, period);
-                /*if (reduc.MinimizeMaximumDeviationsMatrix == null &&
-                    bringing_method == HRM_MATRIX_VARIANT.MinimizeMaximumDeviations)
-                    HrmMatrixLogic.makeAllocMatrix(reduc, os, reduc.GroupDep,
-                        bringing_method, period);
-                if (reduc.MinimizeNumberOfDeviationsMatrix == null &&
-                    bringing_method == HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations)
-                    HrmMatrixLogic.makeAllocMatrix(reduc, os, reduc.GroupDep,
-                        bringing_method, period);
-                if (reduc.ProportionsMethodMatrix == null &&
-                    bringing_method == HRM_MATRIX_VARIANT.ProportionsMethod)
-                    HrmMatrixLogic.makeAllocMatrix(reduc, os, reduc.GroupDep,
-                        bringing_method, period);*/
-                }
+                HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, reduc.GroupDep, bringing_method, period);
+            }
         }
 
         private void AcceptCoercedMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            IObjectSpace os = ObjectSpace;
             HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
-            IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod current_period = os.GetObject<HrmPeriod>(reduc.Period);
+            //HrmSalaryTaskMatrixReduction reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(red);
             HrmMatrix matrix_to_accept = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedMatrixToAccept(e, reduc);            
             if (matrix_to_accept != null && matrix_to_accept.Status == HRM_MATRIX_STATUS.Saved) {
                 HrmSalaryTaskMatrixReductionLogic.AcceptSelectedMatrix(reduc, matrix_to_accept);
-                /*if (reduc.MinimizeMaximumDeviationsMatrix != null)
-                    reduc.MinimizeMaximumDeviationsMatrix.Status = HRM_MATRIX_STATUS.Closed;
-                if (reduc.MinimizeNumberOfDeviationsMatrix != null)
-                    reduc.MinimizeNumberOfDeviationsMatrix.Status = HRM_MATRIX_STATUS.Closed;
-                if (reduc.ProportionsMethodMatrix != null)
-                    reduc.ProportionsMethodMatrix.Status = HRM_MATRIX_STATUS.Closed;
-                matrix_to_accept.Status = HRM_MATRIX_STATUS.Accepted;*/
                 if (HrmSalaryTaskMatrixReductionLogic.AllCoercedMatrixesAccepted(matrix_to_accept, current_period))
                     current_period.setStatus(HrmPeriodStatus.ReadyToExportCoercedMatrixs);
                 os.CommitChanges();
@@ -95,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void ExportCoercedMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskMatrixReduction reduc = (HrmSalaryTaskMatrixReduction)e.CurrentObject;
-            IObjectSpace os = Application.CreateObjectSpace();
+            IObjectSpace os = ObjectSpace;
             HrmPeriod current_period = os.GetObject<HrmPeriod>(reduc.Period);
             if (reduc.Period.Status == HrmPeriodStatus.ReadyToExportCoercedMatrixs
                 && reduc.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
