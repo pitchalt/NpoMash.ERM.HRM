@@ -67,7 +67,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //иначе - создаем ячейку и начинаем ее заполнять
                     HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
                     cell.Time = each.Norm;
-                    cell.Sum = 0;
+                    cell.Sum = 1;
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
                     foreach (HrmMatrixColumn col in plan_matrix.Columns)
