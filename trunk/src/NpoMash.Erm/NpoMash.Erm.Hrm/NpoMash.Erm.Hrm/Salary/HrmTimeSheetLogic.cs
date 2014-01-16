@@ -68,7 +68,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
             foreach (var each in stream) {
                 foreach (Department current_department in object_space.GetObjects<Department>()) {
-                    if (String.Compare(current_department.Code, each.Code) == 0) {
+                    if (String.Compare(current_department.Code, each.Code.Trim()) == 0) {
                         HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
                         sheet_dep.Department = current_department;
                         sheet_dep.TimeSheet = time_sheet;
