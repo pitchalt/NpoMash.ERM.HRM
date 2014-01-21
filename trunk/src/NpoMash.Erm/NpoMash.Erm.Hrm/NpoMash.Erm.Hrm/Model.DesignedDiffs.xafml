@@ -19,11 +19,7 @@
     </Actions>
   </ActionDesign>
   <BOModel>
-    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress">
-      <OwnMembers>
-        <Member Name="TimeSheets" Index="" />
-      </OwnMembers>
-    </Class>
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" ImageName="ModelEditor_Action_Modules" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" ImageName="Action_Inline_Edit">
       <OwnMembers>
@@ -81,12 +77,11 @@
     </Items>
   </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" />
-    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" />
+    <ListView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_ListView" GroupSummary="" />
     <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />

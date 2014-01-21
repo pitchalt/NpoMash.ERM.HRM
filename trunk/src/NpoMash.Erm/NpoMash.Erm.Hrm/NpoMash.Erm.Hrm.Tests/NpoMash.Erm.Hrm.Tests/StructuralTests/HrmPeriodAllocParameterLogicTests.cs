@@ -22,6 +22,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
     [TestFixture]
     public class HrmPeriodAllocParameterLogicTests {
         private TestApplication application;
+        // !!! What it is???
         private fmCOrder order3;
         [SetUp]
         public void setUp() {
