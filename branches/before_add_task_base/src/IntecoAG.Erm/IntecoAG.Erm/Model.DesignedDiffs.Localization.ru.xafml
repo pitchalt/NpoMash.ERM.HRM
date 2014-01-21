@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="IntecoAG.ERM.FM.Order.fmCOrder" Caption="Заказ">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>
