@@ -19,9 +19,10 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmSalaryTaskMatrixReduction")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class HrmSalaryTaskMatrixReduction : BaseObject {
+    [MapInheritance(MapInheritanceType.OwnTable)]
+    [Persistent("HrmSalaryTaskMatrixReduction")]
+    public class HrmSalaryTaskMatrixReduction : HrmSalaryTask {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
         private HrmMatrix _MatrixPlan;
@@ -62,11 +63,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        private HrmTimeSheetGroup _TimeSheetGroup;
+        private HrmTimeSheet _TimeSheet;
         [Appearance("", Enabled = false)]
-        public HrmTimeSheetGroup TimeSheetGroup {
-            get { return _TimeSheetGroup; }
-            set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
+        public HrmTimeSheet TimeSheet {
+            get { return _TimeSheet; }
+            set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
 
         private HrmPeriodAllocParameter _AllocParameters;
@@ -75,27 +76,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
-
-
-        private DEPARTMENT_GROUP_DEP _GroupDep;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public DEPARTMENT_GROUP_DEP GroupDep {
-            get { return _GroupDep; }
-            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
-        }
-
-        private HrmPeriod _Period; // связь с HrmPeriod
-        [Association("MatrixReduction-Period")]
-        public HrmPeriod Period {
-            get { return _Period; }
-            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
-        }
-
-        
-
-
 
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
@@ -260,7 +240,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, departmentList);
 
             //заполняем факт по подразделению
-            foreach (var t in TimeSheetGroup.TimeSheetDeps) {
+            foreach (var t in TimeSheet.TimeSheetDeps) {
                 for (int i = 0; i < departmentList.Count; i++) {
                     if (t.Department.Code == departmentList[i].Department.Code) {
                         departmentList[i].DepartmentFact = t.MatrixWorkTime;

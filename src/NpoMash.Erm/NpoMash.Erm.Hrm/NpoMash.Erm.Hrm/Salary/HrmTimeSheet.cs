@@ -14,13 +14,14 @@ using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
-
+using IntecoAG.ERM.HRM.Organization;
+//
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmTimeSheet")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public class HrmTimeSheet : HrmTimeSheetBase {
+    public class HrmTimeSheet : BaseObject {
 
         [Association("TimeSheet-TimeSheetDeps"), Aggregated] // Коллекция TimeSheetDeps
         public XPCollection<HrmTimeSheetDep> TimeSheetDeps {
@@ -34,33 +35,39 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
-        private HrmTimeSheetGroup _KB;
-        [VisibleInDetailView(true)]
-        //[VisibleInListView(false)]
-        //[VisibleInLookupListView(false)]
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmTimeSheetGroup KB {
-            get { return _KB; }
-            set { SetPropertyValue<HrmTimeSheetGroup>("KB", ref _KB, value); }
+        private DEPARTMENT_GROUP_DEP _GroupDep;
+        public DEPARTMENT_GROUP_DEP GroupDep {
+            get { return _GroupDep; }
+            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
         }
 
-        private HrmTimeSheetGroup _OZM;
-        [VisibleInDetailView(true)]
-        //[VisibleInListView(false)]
-        //[VisibleInLookupListView(false)]
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmTimeSheetGroup OZM {
-            get { return _OZM; }
-            set { SetPropertyValue<HrmTimeSheetGroup>("OZM", ref _OZM, value); }
-        }
+        //private HrmTimeSheetGroup _KB;
+        //[VisibleInDetailView(true)]
+        ////[VisibleInListView(false)]
+        ////[VisibleInLookupListView(false)]
+        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        //public HrmTimeSheetGroup KB {
+        //    get { return _KB; }
+        //    set { SetPropertyValue<HrmTimeSheetGroup>("KB", ref _KB, value); }
+        //}
+
+        //private HrmTimeSheetGroup _OZM;
+        //[VisibleInDetailView(true)]
+        ////[VisibleInListView(false)]
+        ////[VisibleInLookupListView(false)]
+        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        //public HrmTimeSheetGroup OZM {
+        //    get { return _OZM; }
+        //    set { SetPropertyValue<HrmTimeSheetGroup>("OZM", ref _OZM, value); }
+        //}
 
         public HrmTimeSheet(Session session): base(session) { }
         public override void AfterConstruction() { 
             base.AfterConstruction();
-            OZM = new HrmTimeSheetGroup(this.Session);
-            KB = new HrmTimeSheetGroup(this.Session);
-            OZM.TimeSheet = this;
-            KB.TimeSheet = this;
+            //OZM = new HrmTimeSheetGroup(this.Session);
+            //KB = new HrmTimeSheetGroup(this.Session);
+            //OZM.TimeSheet = this;
+            //KB.TimeSheet = this;
         }
     }
 }

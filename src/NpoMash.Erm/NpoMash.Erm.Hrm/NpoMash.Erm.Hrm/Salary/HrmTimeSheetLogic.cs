@@ -23,68 +23,70 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmTimeSheetLogic {
 
-        public static void loadTimeSheetIntoPeriod(IObjectSpace os, HrmPeriod period) {
+        public static void TaskSheetInit(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
+            task.TimeSheetKB = os.CreateObject<HrmTimeSheet>();
+            task.TimeSheetKB.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            task.Period.TimeSheets.Add(task.TimeSheetKB);
+            task.Period.CurrentTimeSheetKB = task.TimeSheetKB;
+            //
+            task.TimeSheetOZM = os.CreateObject<HrmTimeSheet>();
+            task.TimeSheetOZM.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+            task.Period.TimeSheets.Add(task.TimeSheetOZM);
+            task.Period.CurrentTimeSheetOZM = task.TimeSheetOZM;
+        }   
+     
+        public static void loadTimeSheetIntoPeriod(IObjectSpace os,  HrmSalaryTaskImportSourceData task) {
             Random rand = new Random();
-            HrmTimeSheet time_sheet = os.CreateObject<HrmTimeSheet>();
-            HrmTimeSheetGroup kb_time_sheet = time_sheet.KB;
-            HrmTimeSheetGroup ozm_time_sheet = time_sheet.OZM;
-            time_sheet.Period = period;
-            period.TimeSheets.Add(time_sheet);
-            period.CurrentTimeSheet = time_sheet;
-            kb_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.KB;
-            ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
-            kb_time_sheet.TimeSheet = time_sheet;
-            ozm_time_sheet.TimeSheet = time_sheet;
+            //
+            TaskSheetInit(os, task);
+            //            HrmTimeSheetGroup kb_time_sheet = time_sheet.KB;
+            //            HrmTimeSheetGroup ozm_time_sheet = time_sheet.OZM;
+            //            time_sheet.Period = period;
+            //kb_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            //ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+            //kb_time_sheet.TimeSheet = time_sheet;
+            //ozm_time_sheet.TimeSheet = time_sheet;
             foreach (Department current_department in os.GetObjects<Department>()) {
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = current_department;
-                sheet_dep.TimeSheet = time_sheet;
-                time_sheet.TimeSheetDeps.Add(sheet_dep);
-                sheet_dep.MatrixWorkTime = rand.Next(100, 999);
+                //sheet_dep.TimeSheet = time_sheet;
+                //time_sheet.TimeSheetDeps.Add(sheet_dep);
+                sheet_dep.BaseWorkTime = rand.Next(100, 999);
                 sheet_dep.AdditionWorkTime = rand.Next(100, 999);
                 if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
-                    sheet_dep.TimeSheetGroup = kb_time_sheet;
-                    kb_time_sheet.TimeSheetDeps.Add(sheet_dep);
+                    //sheet_dep.TimeSheetGroup = kb_time_sheet;
+                    task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                 }
                 if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.OZM) {
-                    sheet_dep.TimeSheetGroup = ozm_time_sheet;
-                    ozm_time_sheet.TimeSheetDeps.Add(sheet_dep);
+                    //sheet_dep.TimeSheetGroup = ozm_time_sheet;
+                    task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
                 }
             }
         }
 
-        public static void ImportData(IObjectSpace object_space, HrmPeriod period) {
+        public static void ImportData(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
+            TaskSheetInit(os, task);
             var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
-            HrmTimeSheet time_sheet = object_space.CreateObject<HrmTimeSheet>();
-            HrmTimeSheetGroup kb_time_sheet = time_sheet.KB;
-            HrmTimeSheetGroup ozm_time_sheet = time_sheet.OZM;
-            time_sheet.Period = period;
-            period.TimeSheets.Add(time_sheet);
-            period.CurrentTimeSheet = time_sheet;
-            kb_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.KB;
-            ozm_time_sheet.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
-            kb_time_sheet.TimeSheet = time_sheet;
-            ozm_time_sheet.TimeSheet = time_sheet;
             ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
+            IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in stream) {
-                foreach (Department current_department in object_space.GetObjects<Department>()) {
-                    if (String.Compare(current_department.Code, each.Code.Trim()) == 0) {
-                        HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
-                        sheet_dep.Department = current_department;
-                        sheet_dep.TimeSheet = time_sheet;
-                        time_sheet.TimeSheetDeps.Add(sheet_dep);
+                Department dep = deps.FirstOrDefault(x => x.Code == each.Code.Trim());
+                        HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
+                        sheet_dep.Department = dep;
+                        //sheet_dep.TimeSheet = time_sheet;
+                        //time_sheet.TimeSheetDeps.Add(sheet_dep);
                         sheet_dep.BaseWorkTime = each.MatrixWorkTime;
                         sheet_dep.AdditionWorkTime = 0;
-                        if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
-                            sheet_dep.TimeSheetGroup = kb_time_sheet;
-                            kb_time_sheet.TimeSheetDeps.Add(sheet_dep);
+                        if (dep.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
+                            task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                         }
-                        if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.OZM) {
-                            sheet_dep.TimeSheetGroup = ozm_time_sheet;
-                            ozm_time_sheet.TimeSheetDeps.Add(sheet_dep);
+                        if (dep.GroupDep == DEPARTMENT_GROUP_DEP.OZM) {
+                            task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
                         }
-                    }
-                }
+                //foreach (Department current_department in ) {
+                //    if (String.Compare(current_department.Code, each.Code.Trim()) == 0) {
+                //    }
+                //}
             }
         }
     }

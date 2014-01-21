@@ -24,30 +24,30 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmMatrixLogic {
 
-        public static void ImportPlanMatrixes(IObjectSpace os, HrmPeriod period,
-            out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
+        public static void ImportPlanMatrixes(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
+//            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
             var plan_data = new FixedFileEngine<ImportMatrixPlan>();
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
             kb_plan_matrix.Status = HRM_MATRIX_STATUS.ACCEPTED;
-            kb_plan_matrix.Period = period;
+//            kb_plan_matrix.Period = period;
             kb_plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
             kb_plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             kb_plan_matrix.GroupDep = DEPARTMENT_GROUP_DEP.KB;
             kb_plan_matrix.IterationNumber = 1;
-            period.Matrixs.Add(kb_plan_matrix);
+            task.Period.Matrixs.Add(kb_plan_matrix);
             HrmMatrixAllocPlan ozm_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
             ozm_plan_matrix.Status = HRM_MATRIX_STATUS.ACCEPTED;
-            ozm_plan_matrix.Period = period;
+//            ozm_plan_matrix.Period = period;
             ozm_plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
             ozm_plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
             ozm_plan_matrix.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
             ozm_plan_matrix.IterationNumber = 1;
-            period.Matrixs.Add(ozm_plan_matrix);
+            task.Period.Matrixs.Add(ozm_plan_matrix);
 
-            Int16 current_year = period.Year;
-            Int16 current_month = period.Month;
+            Int16 current_year = task.Period.Year;
+            Int16 current_month = task.Period.Month;
             //начинаем перебирать строки в файле
             foreach (var each in plan_list) {
                 //если запись относится к нашему периоду то начинаем обработку
@@ -104,8 +104,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     current_row.Cells.Add(cell);
                 }
             }
-            KBMatrix = kb_plan_matrix;
-            OZMMatrix = ozm_plan_matrix;
+            task.MatrixPlanKB = kb_plan_matrix;
+            task.MatrixPlanOZM = ozm_plan_matrix;
         }
 
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {

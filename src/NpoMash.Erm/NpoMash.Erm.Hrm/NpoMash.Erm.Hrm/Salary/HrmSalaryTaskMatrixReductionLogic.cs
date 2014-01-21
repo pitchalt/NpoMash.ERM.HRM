@@ -26,29 +26,31 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskMatrixReductionLogic {
 
-        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(HrmPeriod Period, IObjectSpace os,
+        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(IObjectSpace os, HrmPeriod period, 
             DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method) {
-            HrmSalaryTaskMatrixReduction MatrixReduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
-            MatrixReduction.GroupDep = group_dep;
-            MatrixReduction.Period = Period;
-            Period.MatrixReduction.Add(MatrixReduction);
-            MatrixReduction.AllocParameters = Period.CurrentAllocParameter;
+            HrmSalaryTaskMatrixReduction task_matrix_reduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
+            task_matrix_reduction.GroupDep = group_dep;
+            //!!!Поскольку это ассоциация, то этот оператор дублирует следующий 
+            //task_matrix_reduction.Period = period;
+            period.PeriodTasks.Add(task_matrix_reduction);
+            task_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
             if (group_dep == DEPARTMENT_GROUP_DEP.KB) {
-                MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.KB;
-                MatrixReduction.Period.CurrentKBmatrixReduction = MatrixReduction;
+                task_matrix_reduction.TimeSheet = period.CurrentTimeSheetKB;
+                period.CurrentKBmatrixReduction = task_matrix_reduction;
             }
-            else {
-                MatrixReduction.TimeSheetGroup = Period.CurrentTimeSheet.OZM;
-                MatrixReduction.Period.CurrentOZMmatrixReduction = MatrixReduction; 
+            else if (group_dep == DEPARTMENT_GROUP_DEP.OZM) {
+                task_matrix_reduction.TimeSheet = period.CurrentTimeSheetOZM;
+                period.CurrentOZMmatrixReduction = task_matrix_reduction; 
             }
 
-            foreach (HrmMatrix matrix in Period.Matrixs) {
+            foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned &&
+                    matrix.Status == HRM_MATRIX_STATUS.ACCEPTED &&
                     matrix.GroupDep == group_dep) {
-                    MatrixReduction.MatrixPlan = matrix;
+                    task_matrix_reduction.MatrixPlan = matrix;
                 }
             }
-            return MatrixReduction;
+            return task_matrix_reduction;
         }
 
         public static void CreateMatrixInReduc(HrmSalaryTaskMatrixReduction reduc, IObjectSpace os, DEPARTMENT_GROUP_DEP group_dep,

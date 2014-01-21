@@ -57,16 +57,24 @@ namespace NpoMash.Erm.Hrm {
 
         }
 
-        private HrmTimeSheet _CurrentTimeSheet; // —сылка на HrmTimeSheet
+        private HrmTimeSheet _CurrentTimeSheetKB; // —сылка на HrmTimeSheet
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public HrmTimeSheet CurrentTimeSheet {
-            get { return _CurrentTimeSheet; }
-            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheet", ref _CurrentTimeSheet, value); }
+        public HrmTimeSheet CurrentTimeSheetKB {
+            get { return _CurrentTimeSheetKB; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetKB", ref _CurrentTimeSheetKB, value); }
         }
-
-       
+        
+        private HrmTimeSheet _CurrentTimeSheetOZM; // —сылка на HrmTimeSheet
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public HrmTimeSheet CurrentTimeSheetOZM {
+            get { return _CurrentTimeSheetOZM; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetOZM", ref _CurrentTimeSheetOZM, value); }
+        }
+        
         private HrmSalaryTaskMatrixReduction _CurrentOZMmatrixReduction;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -101,10 +109,9 @@ namespace NpoMash.Erm.Hrm {
             //set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
-
-        [Association("MatrixReduction-Period"),Aggregated]
-        public XPCollection<HrmSalaryTaskMatrixReduction> MatrixReduction {
-            get { return GetCollection<HrmSalaryTaskMatrixReduction>("MatrixReduction"); }
+        [Association("HrmPeriod-HrmSalaryTask"), Aggregated]
+        public XPCollection<HrmSalaryTask> PeriodTasks {
+            get { return GetCollection<HrmSalaryTask>("PeriodTasks"); }
         }
 
         private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
