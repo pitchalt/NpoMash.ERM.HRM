@@ -21,6 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmTimeSheet")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+    [DefaultProperty("GroupDep")]
     public class HrmTimeSheet : BaseObject {
 
         [Association("TimeSheet-TimeSheetDeps"), Aggregated] // Коллекция TimeSheetDeps
@@ -35,10 +36,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
-        private DEPARTMENT_GROUP_DEP _GroupDep;
-        public DEPARTMENT_GROUP_DEP GroupDep {
+        private DepartmentGroupDep _GroupDep;
+        public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
+            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
         }
 
         //private HrmTimeSheetGroup _KB;

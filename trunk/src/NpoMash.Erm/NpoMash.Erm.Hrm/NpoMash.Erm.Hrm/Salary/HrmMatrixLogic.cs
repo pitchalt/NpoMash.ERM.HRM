@@ -30,19 +30,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            kb_plan_matrix.Status = HRM_MATRIX_STATUS.ACCEPTED;
+            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
 //            kb_plan_matrix.Period = period;
-            kb_plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
-            kb_plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
-            kb_plan_matrix.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            kb_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
+            kb_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
+            kb_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             kb_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(kb_plan_matrix);
             HrmMatrixAllocPlan ozm_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            ozm_plan_matrix.Status = HRM_MATRIX_STATUS.ACCEPTED;
+            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
 //            ozm_plan_matrix.Period = period;
-            ozm_plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
-            ozm_plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
-            ozm_plan_matrix.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+            ozm_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
+            ozm_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
+            ozm_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             ozm_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(ozm_plan_matrix);
 
@@ -56,7 +56,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //определяем к какой группе подразделений относится запись
                     foreach (Department dep in os.GetObjects<Department>()) {
                         if (String.Compare(each.Department.Trim(), dep.Code) == 0)
-                            if (dep.GroupDep == DEPARTMENT_GROUP_DEP.KB)
+                            if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
                                 plan_matrix = kb_plan_matrix;
                             else plan_matrix = ozm_plan_matrix;
                         //теперь мы знаем с какой матрицей работаем
@@ -108,7 +108,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.MatrixPlanOZM = ozm_plan_matrix;
         }
 
-        static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DEPARTMENT_GROUP_DEP group) {
+        static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DepartmentGroupDep group) {
             Random random = new Random();
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
             List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
@@ -143,19 +143,19 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
-            plan_matrix.Type = HRM_MATRIX_TYPE.Matrix;
-            plan_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Planned;
+            plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
+            plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             plan_matrix.GroupDep = group;
-            plan_matrix.Status = HRM_MATRIX_STATUS.OPENED;
+            plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             plan_matrix.IterationNumber = 1;
-            plan_matrix.Variant = HRM_MATRIX_VARIANT.ProportionsMethod;
+            plan_matrix.Variant = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT;
             plan_matrix.Period = current_period;
             current_period.Matrixs.Add(plan_matrix);
             return plan_matrix;
         }
 
         static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os,
-            DEPARTMENT_GROUP_DEP group_dep, HRM_MATRIX_VARIANT bringing_method, HrmPeriod period) {
+            DepartmentGroupDep group_dep, HrmMatrixVariant bringing_method, HrmPeriod period) {
 
             var result_matrix = os.CreateObject<HrmMatrix>();
             foreach (HrmMatrixColumn col in AllocMatrix.MatrixPlan.Columns) {
@@ -176,17 +176,17 @@ namespace NpoMash.Erm.Hrm.Salary {
                     new_col.Cells.Add(new_cell);
                     Int16 coefficient = 0;
                     switch (bringing_method) {
-                        case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations: {
+                        case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
                                 coefficient = 2;
                                 AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
                                 break;
                             }
-                        case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations: {
+                        case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
                                 coefficient = 3;
                                 AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
                                 break;
                             }
-                        case HRM_MATRIX_VARIANT.ProportionsMethod: {
+                        case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT: {
                                 coefficient = 4;
                                 AllocMatrix.ProportionsMethodMatrix = result_matrix;
                                 break;
@@ -195,10 +195,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     new_cell.Time = (Int16)(cell.Time * coefficient);
                     new_cell.Sum = cell.Sum * coefficient;
 
-                    result_matrix.Type = HRM_MATRIX_TYPE.Matrix;
-                    result_matrix.TypeMatrix = HRM_MATRIX_TYPE_MATRIX.Coerced;
+                    result_matrix.Type = HrmMatrixType.TYPE_MATIX;
+                    result_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_COERCED;
                     result_matrix.GroupDep = group_dep;
-                    result_matrix.Status = HRM_MATRIX_STATUS.SAVED;
+                    result_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
                     result_matrix.IterationNumber = 2;
                     result_matrix.Variant = bringing_method;
                     result_matrix.Period = period;

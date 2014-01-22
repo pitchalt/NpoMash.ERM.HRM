@@ -4,17 +4,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 //
-using DevExpress.Data.Filtering;
+using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
+using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
-using DevExpress.Xpo;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
-// With XPO, the data model is declared by classes (so-called Persistent Objects) that will define the database structure, and consequently, the user interface (http://documentation.devexpress.com/#Xaf/CustomDocument2600).
+
 namespace NpoMash.Erm.Hrm.Salary {
     /// <summary>
     /// Состояние задачи
@@ -37,6 +38,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     /// Абстарктный класс для всех задач  периода
     /// </summary>
     [Persistent("HrmSalaryTask")]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public abstract class HrmSalaryTask : BaseObject { // You can use a different base persistent class based on your requirements (http://documentation.devexpress.com/#Xaf/CustomDocument3146).
         private HrmPeriod _Period; 
         /// <summary>
@@ -67,13 +70,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             SetPropertyValue<HrmSalaryTaskState>("State", ref _State, state);
         }
 
-        private DEPARTMENT_GROUP_DEP _GroupDep;
+        private DepartmentGroupDep _GroupDep;
         /// <summary>
         /// Для задач которые имеют разделение по КБ / ОЗМ
         /// </summary>
-        public DEPARTMENT_GROUP_DEP GroupDep {
+        public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
+            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
         }
 
         [Persistent("CreateTime")]

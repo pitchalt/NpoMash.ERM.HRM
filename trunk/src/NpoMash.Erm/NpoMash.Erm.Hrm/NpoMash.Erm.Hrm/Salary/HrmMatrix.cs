@@ -17,31 +17,31 @@ using DevExpress.ExpressApp.Editors;
 using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public enum HRM_MATRIX_STATUS {
-        OPENED = 0,
-        SAVED = 1,
-        ACCEPTED=2,
-        CLOSED=3,
-        EXPORTED=4,
-        PRIMARY_ACCEPTED=5,
-        ARCHIVE=6
+    public enum HrmMatrixStatus {
+        MATRIX_OPENED = 0,
+        MATRIX_SAVED = 1,
+        MATRIX_ACCEPTED=2,
+        MATRIX_CLOSED=3,
+        MATRIX_EXPORTED=4,
+        MATRIX_PRIMARY_ACCEPTED=5,
+        MATRIX_ARCHIVE=6
     }
 
-    public enum HRM_MATRIX_TYPE {
-        Matrix = 0,
-        AllocResult = 1
+    public enum HrmMatrixType {
+        TYPE_MATIX = 0,
+        TYPE_ALLOC_RESULT = 1
     }
 
-    public enum HRM_MATRIX_TYPE_MATRIX {
-        Planned = 0,
-        Coerced = 1,
-        ReserveMatrix = 2
+    public enum HrmMatrixTypeMatrix {
+        MATRIX_PLANNED = 0,
+        MATRIX_COERCED = 1,
+        MATRIX_RESERVE = 2
     }
 
-    public enum HRM_MATRIX_VARIANT { 
-        MinimizeNumberOfDeviations=0,
-        MinimizeMaximumDeviations=1,
-        ProportionsMethod=2
+    public enum HrmMatrixVariant { 
+        MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT=0,
+        MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT=1,
+        PROPORTIONS_METHOD_VARIANT=2
     }
 
 
@@ -53,42 +53,41 @@ namespace NpoMash.Erm.Hrm.Salary {
     [DefaultProperty("Status")]       
     public class HrmMatrix : BaseObject {
 
-        private HRM_MATRIX_TYPE _Type;
+        private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
-        public HRM_MATRIX_TYPE Type {
+        public HrmMatrixType Type {
             get { return _Type; }
-            set { SetPropertyValue<HRM_MATRIX_TYPE>("Type", ref _Type, value); }
+            set { SetPropertyValue<HrmMatrixType>("Type", ref _Type, value); }
         }
 
-        private HRM_MATRIX_TYPE_MATRIX _TypeMatrix;
-        //[Appearance("", Criteria = "'Planned'", Visibility = ViewItemVisibility.Hide)]
+        private HrmMatrixTypeMatrix _TypeMatrix;
         [Appearance("",Enabled=false)]
-        public HRM_MATRIX_TYPE_MATRIX TypeMatrix {
+        public HrmMatrixTypeMatrix TypeMatrix {
             get { return _TypeMatrix; }
-            set { SetPropertyValue<HRM_MATRIX_TYPE_MATRIX>("TypeMatrix", ref _TypeMatrix, value); }
+            set { SetPropertyValue<HrmMatrixTypeMatrix>("TypeMatrix", ref _TypeMatrix, value); }
         }
 
-        private DEPARTMENT_GROUP_DEP _GroupDep;
+        private DepartmentGroupDep _GroupDep;
         [Appearance("",Enabled=false)]
-        public DEPARTMENT_GROUP_DEP GroupDep {
+        public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<DEPARTMENT_GROUP_DEP>("GroupDep", ref _GroupDep, value); }
+            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
         }
 
-        private HRM_MATRIX_STATUS _Status;
+        private HrmMatrixStatus _Status;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
         [Appearance("",Enabled=false)]
-        public HRM_MATRIX_STATUS Status {
+        public HrmMatrixStatus Status {
             get { return _Status; }
-            set { SetPropertyValue<HRM_MATRIX_STATUS>("Status", ref _Status, value); }
+            set { SetPropertyValue<HrmMatrixStatus>("Status", ref _Status, value); }
         }
 
-        private HRM_MATRIX_VARIANT _Variant;
+        private HrmMatrixVariant _Variant;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
         [Appearance("",Enabled=false)]
-        public HRM_MATRIX_VARIANT Variant {
+        public HrmMatrixVariant Variant {
             get { return _Variant; }
-            set { SetPropertyValue<HRM_MATRIX_VARIANT>("Variant", ref _Variant, value); }
+            set { SetPropertyValue<HrmMatrixVariant>("Variant", ref _Variant, value); }
         }
 
         private Int16 _IterationNumber;
@@ -99,12 +98,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
         }
 
-        [Association("Matrix-Rows"), Aggregated] //Коллекция HrmMatrixRow
+        [Association("TYPE_MATIX-Rows"), Aggregated] //Коллекция HrmMatrixRow
         public XPCollection<HrmMatrixRow> Rows {
             get { return GetCollection<HrmMatrixRow>("Rows"); }
         }
 
-        [Association("Matrix-Columns"), Aggregated] //Коллекция HrmMatrixColumn
+        [Association("TYPE_MATIX-Columns"), Aggregated] //Коллекция HrmMatrixColumn
         public XPCollection<HrmMatrixColumn> Columns {
             get { return GetCollection<HrmMatrixColumn>("Columns"); }
         }
@@ -118,7 +117,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [Browsable(false)]
-        public bool isPlanned { get { return TypeMatrix == HRM_MATRIX_TYPE_MATRIX.Planned; } }
+        public bool isPlanned { get { return TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED; } }
 
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {base.AfterConstruction(); }

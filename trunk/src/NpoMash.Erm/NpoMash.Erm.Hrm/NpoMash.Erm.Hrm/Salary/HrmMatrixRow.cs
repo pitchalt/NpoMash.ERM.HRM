@@ -49,10 +49,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmMatrix _Matrix; //—сылка на HrmMatrix
-        [Association("Matrix-Rows")]
+        [Association("TYPE_MATIX-Rows")]
         public HrmMatrix Matrix {
             get { return _Matrix; }
-            set { SetPropertyValue<HrmMatrix>("Matrix", ref _Matrix, value); }
+            set { SetPropertyValue<HrmMatrix>("TYPE_MATIX", ref _Matrix, value); }
         }
 
         public HrmMatrixRow(Session session): base(session) {}
