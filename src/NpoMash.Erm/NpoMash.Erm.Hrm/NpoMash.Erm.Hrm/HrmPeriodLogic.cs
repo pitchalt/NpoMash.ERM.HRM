@@ -12,6 +12,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
+using IntecoAG.ERM.HRM.Organization;
+using NpoMash.Erm.Hrm.Salary;
+
 namespace NpoMash.Erm.Hrm
 {
     public class OpenPeriodExistsException : Exception
@@ -75,6 +78,34 @@ namespace NpoMash.Erm.Hrm
             return new_period;
         }
 
-        
+        public static HrmPeriodStatus SetReadyToCalculateCoercedMatrixesStatus(HrmPeriod period){
+            bool ok = false;
+            HrmPeriodStatus stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;
+            if ((period.CurrentAllocParameter.Status == Salary.HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED ||
+                period.CurrentAllocParameter.Status == Salary.HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)) {
+                bool kb_plan_mat_imported = false;
+                bool ozm_plan_mat_imported = false;
+                bool kb_time_sheet_imported = false;
+                bool ozm_time_sheet_imported = false;
+                foreach (HrmMatrix mat in period.Matrixs) {
+                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
+                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
+                        kb_plan_mat_imported = true;
+                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
+                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
+                        ozm_plan_mat_imported = true;
+                }
+                foreach (HrmTimeSheet ts in period.TimeSheets) {
+                    if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
+                        kb_time_sheet_imported = true;
+                    if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
+                        ozm_time_sheet_imported = true;
+                }
+                ok = kb_plan_mat_imported && ozm_plan_mat_imported && kb_time_sheet_imported && ozm_time_sheet_imported;
+            }
+            if (ok) return stat;
+            else throw new InvalidOperationException();
+        }
+
     }
 }
