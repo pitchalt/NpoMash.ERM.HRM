@@ -53,7 +53,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         task.MatrixPlanOZM = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_OZM);
                         task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
                         HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, task);
-                        current_period.setStatus(HrmPeriodStatus.SOURCE_DATA_LOADED);
+                        current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                         os.Committed += new EventHandler(refresher);
@@ -69,7 +69,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 //                        HrmMatrixAllocPlan matrixOZM = null;
                         HrmMatrixLogic.ImportPlanMatrixes(os, task); //current_period, out matrixKB, out matrixOZM);
                         HrmTimeSheetLogic.ImportData(os, task);
-                        current_period.setStatus(HrmPeriodStatus.SOURCE_DATA_LOADED);
+                        current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                         os.Committed += new EventHandler(refresher);

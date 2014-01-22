@@ -101,11 +101,12 @@ namespace NpoMash.Erm.Hrm.Salary
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OPEN_TO_EDIT) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED);
-                    alloc_parameter.Period.setStatus(HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED);
+                    //alloc_parameter.Period.setStatus(HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED);
                 }
                 else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
                 }
+                alloc_parameter.Period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                 //обновление заказов в справочнике
                 updateFmCOrders(os, alloc_parameter);
             }

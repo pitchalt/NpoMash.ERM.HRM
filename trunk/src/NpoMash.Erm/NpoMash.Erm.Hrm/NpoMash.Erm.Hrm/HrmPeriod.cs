@@ -155,10 +155,18 @@ namespace NpoMash.Erm.Hrm {
         //}
 
         public void setStatus(HrmPeriodStatus stat) {
-            if (Status == HrmPeriodStatus.SOURCE_DATA_LOADED && stat == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED ||
+            /*if (Status == HrmPeriodStatus.SOURCE_DATA_LOADED && stat == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED ||
                 Status == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED && stat == HrmPeriodStatus.SOURCE_DATA_LOADED)
-                stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;
-            SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat); 
+                stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;*/
+            if (stat == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
+                try {
+                    stat = HrmPeriodLogic.SetReadyToCalculateCoercedMatrixesStatus(this);
+                }
+                catch (InvalidOperationException) {
+                    stat = Status;
+                }
+            }
+            SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat);
         }
 
 
