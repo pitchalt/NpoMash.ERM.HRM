@@ -49,7 +49,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         //[VisibleInLookupListView(false)]
         public Int32 MatrixWorkTime {
             get { return BaseWorkTime + AdditionWorkTime; }
-//            set { SetPropertyValue<Int32>("MatrixWorkTime", ref _MatrixWorkTime, value); }
+
         }
 
         private Int32 _BaseWorkTime;
@@ -59,9 +59,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Int32 _AdditionWorkTime;
-        //[VisibleInDetailView(false)]
-        //[VisibleInListView(false)]
-        //[VisibleInLookupListView(false)]
         public Int32 AdditionWorkTime {
             get { return _AdditionWorkTime; }
             set { SetPropertyValue<Int32>("AdditionWorkTime", ref _AdditionWorkTime, value); }

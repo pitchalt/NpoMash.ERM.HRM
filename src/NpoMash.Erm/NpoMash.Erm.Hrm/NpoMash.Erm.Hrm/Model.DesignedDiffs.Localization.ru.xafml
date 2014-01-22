@@ -192,9 +192,10 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
       <OwnMembers>
-        <Member Name="BaseWorkTime" Caption="Base Work Time" />
+        <Member Name="AdditionWorkTime" Caption="Сверхурочное время" />
+        <Member Name="BaseWorkTime" Caption="Рабочее время" />
         <Member Name="Department" Caption="Подразделение" />
-        <Member Name="MatrixWorkTime" Caption="Трудочасы " />
+        <Member Name="MatrixWorkTime" Caption="Полное время " />
         <Member Name="TimeSheet" Caption="Факт. табель" />
       </OwnMembers>
     </Class>
