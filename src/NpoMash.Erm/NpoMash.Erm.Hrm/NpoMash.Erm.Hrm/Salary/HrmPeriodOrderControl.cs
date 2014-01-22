@@ -27,12 +27,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmPeriodOrderControl : BaseObject {
 
 
-        private fmCOrderTypeCOntrol _TypeControl;
-        [RuleValueComparison(DefaultContexts.Save, ValueComparisonType.NotEquals, fmCOrderTypeCOntrol.TrudEmk_FOT, TargetCriteria = "RuleMethod")]
-        public fmCOrderTypeCOntrol TypeControl {
+        private FmCOrderTypeControl _TypeControl;
+        [RuleValueComparison(DefaultContexts.Save, ValueComparisonType.NotEquals, FmCOrderTypeControl.TRUDEMK_FOT, TargetCriteria = "RuleMethod")]
+        public FmCOrderTypeControl TypeControl {
             get { return _TypeControl; }
             set {
-                SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value);
+                SetPropertyValue<FmCOrderTypeControl>("TypeControl", ref _TypeControl, value);
             }
         }
 
@@ -59,7 +59,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Browsable(false)]
         public bool RuleMethod {
             get { 
-                return AllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED && TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT && Session.IsNewObject(this);
+                return AllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED && TypeControl == FmCOrderTypeControl.TRUDEMK_FOT && Session.IsNewObject(this);
             }
         }
         //////////////////////Связи
@@ -73,7 +73,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set {
                 SetPropertyValue<fmCOrder>("Order", ref _Order, value);
                 if (!IsLoading && value != null) {
-                    TypeControl = fmCOrderTypeCOntrol.FOT;
+                    TypeControl = FmCOrderTypeControl.FOT;
                     NormKB = value.NormKB;
                     NormOZM = value.NormOZM;
                 }
@@ -93,7 +93,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmPeriodOrderControl(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
-            TypeControl = fmCOrderTypeCOntrol.FOT;
+            TypeControl = FmCOrderTypeControl.FOT;
         }
 
     }

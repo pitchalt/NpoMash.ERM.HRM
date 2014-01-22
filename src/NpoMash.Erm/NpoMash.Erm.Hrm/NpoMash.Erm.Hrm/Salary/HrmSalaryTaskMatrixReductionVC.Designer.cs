@@ -36,7 +36,7 @@
             // 
             // BringingMatrixInReduc
             // 
-            this.BringingMatrixInReduc.Caption = "Bringing Matrix In Reduc";
+            this.BringingMatrixInReduc.Caption = "Bringing TYPE_MATIX In Reduc";
             this.BringingMatrixInReduc.ConfirmationMessage = null;
             this.BringingMatrixInReduc.Id = "BringingMatrixInReduc";
             this.BringingMatrixInReduc.ImageName = null;
@@ -48,7 +48,7 @@
             choiceActionItem2.ImageName = null;
             choiceActionItem2.Shortcut = null;
             choiceActionItem2.ToolTip = null;
-            choiceActionItem3.Caption = "ProportionsMethod";
+            choiceActionItem3.Caption = "PROPORTIONS_METHOD_VARIANT";
             choiceActionItem3.ImageName = null;
             choiceActionItem3.Shortcut = null;
             choiceActionItem3.ToolTip = null;
@@ -69,7 +69,7 @@
             // 
             // AcceptCoercedMatrix
             // 
-            this.AcceptCoercedMatrix.Caption = "Accept Coerced Matrix";
+            this.AcceptCoercedMatrix.Caption = "Accept MATRIX_COERCED TYPE_MATIX";
             this.AcceptCoercedMatrix.ConfirmationMessage = null;
             this.AcceptCoercedMatrix.Id = "AcceptCoercedMatrix";
             this.AcceptCoercedMatrix.ImageName = null;
@@ -102,7 +102,7 @@
             // 
             // ExportCoercedMatrix
             // 
-            this.ExportCoercedMatrix.Caption = "Export Coerced Matrix";
+            this.ExportCoercedMatrix.Caption = "Export MATRIX_COERCED TYPE_MATIX";
             this.ExportCoercedMatrix.ConfirmationMessage = null;
             this.ExportCoercedMatrix.Id = "ExportCoercedMatrix";
             this.ExportCoercedMatrix.ImageName = null;

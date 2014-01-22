@@ -79,7 +79,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameter param = HrmPeriodAllocParameterLogic.createParameters( os );
             HrmPeriodAllocParameterLogic.initParametersFromPreviousPeriod( os, param );
             foreach ( var each in param.OrderControls ) {
-                if ( each.TypeControl == fmCOrderTypeCOntrol.FOT ) { each.TypeControl = fmCOrderTypeCOntrol.No_Ordered; }
+                if ( each.TypeControl == FmCOrderTypeControl.FOT ) { each.TypeControl = FmCOrderTypeControl.NO_ORDERED; }
             }
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             os.CommitChanges();
@@ -124,7 +124,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameterLogic.acceptParameters(os, param);
 //            var orderCollection = os.GetObjects<fmCOrder>();
             foreach ( var each in param.OrderControls ) {
-                if ( each.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT ) { each.TypeControl = fmCOrderTypeCOntrol.FOT; }
+                if ( each.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT ) { each.TypeControl = FmCOrderTypeControl.FOT; }
             }
             os.CommitChanges();
             ValidateAllocParameterWithOrders( os, param );
@@ -143,7 +143,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             new_order.NormKB = 40;
             new_order.NormOZM = 60;
  //           new_order.TypeConstancy = fmCOrdertypeConstancy.One;
-            new_order.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT;
+            new_order.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
             os.CommitChanges();
             ValidateAllocParameterWithOrders( os, param );
         }
@@ -157,7 +157,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             IList<HrmPeriodOrderControl> delete_list = null;
             foreach ( var each in param.OrderControls ) {
-                if ( each.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT ) { delete_list.Add( each ); }
+                if ( each.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT ) { delete_list.Add( each ); }
             }
             os.Delete( delete_list );
             os.CommitChanges();
@@ -173,7 +173,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             HrmPeriodAllocParameterLogic.acceptParameters( os, param );
             var orderCollection = os.GetObjects<fmCOrder>();
             foreach ( var each in param.OrderControls ) {
-                if ( each.TypeControl != fmCOrderTypeCOntrol.TrudEmk_FOT ) { each.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT; }
+                if ( each.TypeControl != FmCOrderTypeControl.TRUDEMK_FOT ) { each.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT; }
             }
             os.CommitChanges();
             ValidateAllocParameterWithOrders( os, param );
@@ -231,7 +231,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             change_norm.NormKB = 5;
             change_norm.NormOZM = 15;
             HrmPeriodOrderControl change_remove = param.OrderControls[1];
-            change_remove.TypeControl = fmCOrderTypeCOntrol.No_Ordered;
+            change_remove.TypeControl = FmCOrderTypeControl.NO_ORDERED;
             HrmPeriodOrderControl change_add = os.CreateObject<HrmPeriodOrderControl>();
             param.OrderControls.Add(change_add);
             change_add.Order = os.GetObject<fmCOrder>(order3);
@@ -297,8 +297,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             Int32 order_control_count = param.OrderControls.Count;
             foreach (fmCOrder order in orders) {
                 HrmPeriodOrderControl order_control = param.OrderControls.FirstOrDefault(x => x.Order == order);
-                if (order.TypeControl == fmCOrderTypeCOntrol.TrudEmk_FOT ||
-                    order.TypeControl == fmCOrderTypeCOntrol.FOT) {
+                if (order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT ||
+                    order.TypeControl == FmCOrderTypeControl.FOT) {
                     order_count++;
                     Assert.IsNotNull(order_control);
                     Assert.AreEqual(order_control.TypeControl, order.TypeControl);
@@ -307,7 +307,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                 }
                 else {
                     if (order_control != null) {
-                        Assert.AreEqual(order_control.TypeControl, fmCOrderTypeCOntrol.No_Ordered);
+                        Assert.AreEqual(order_control.TypeControl, FmCOrderTypeControl.NO_ORDERED);
                         order_control_count--;
                     }
                     else

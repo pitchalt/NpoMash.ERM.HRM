@@ -48,10 +48,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     HrmSalaryTaskImportSourceData task = os.CreateObject<HrmSalaryTaskImportSourceData>();
                     current_period.PeriodTasks.Add(task);
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                        task.MatrixPlanKB = HrmMatrixLogic.setTestData(os, current_period, DEPARTMENT_GROUP_DEP.KB);
-                        task.MatrixPlanKB.Status = HRM_MATRIX_STATUS.ACCEPTED;
-                        task.MatrixPlanOZM = HrmMatrixLogic.setTestData(os, current_period, DEPARTMENT_GROUP_DEP.OZM);
-                        task.MatrixPlanOZM.Status = HRM_MATRIX_STATUS.ACCEPTED;
+                        task.MatrixPlanKB = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_KB);
+                        task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                        task.MatrixPlanOZM = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_OZM);
+                        task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
                         HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, task);
                         current_period.setStatus(HrmPeriodStatus.SOURCE_DATA_LOADED);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
@@ -81,9 +81,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void BringingKBMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-            DEPARTMENT_GROUP_DEP group_dep = DEPARTMENT_GROUP_DEP.KB;
+            DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
             if (period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
-                HRM_MATRIX_VARIANT bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
+                HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                 HrmSalaryTaskMatrixReduction reduc = null;
                 if (period.CurrentKBmatrixReduction == null)
                     reduc = HrmSalaryTaskMatrixReductionLogic.initTaskMatrixReduction(os, period, 
@@ -98,10 +98,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void BringingOZMMatrixAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace os = Application.CreateObjectSpace();
-            DEPARTMENT_GROUP_DEP group_dep = DEPARTMENT_GROUP_DEP.OZM;
+            DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_OZM;
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
-                HRM_MATRIX_VARIANT bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
+                HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                 HrmSalaryTaskMatrixReduction reduc = null;
                 if (period.CurrentOZMmatrixReduction == null)
                     reduc = HrmSalaryTaskMatrixReductionLogic.initTaskMatrixReduction(os, period,

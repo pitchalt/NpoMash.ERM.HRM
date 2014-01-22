@@ -76,7 +76,7 @@ namespace NpoMash.Erm.Hrm.Salary
         public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
             //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
             foreach (fmCOrder order in os.GetObjects<fmCOrder>(null,true)) {
-                if (order.TypeControl != fmCOrderTypeCOntrol.No_Ordered)//если контролируемый
+                if (order.TypeControl != FmCOrderTypeControl.NO_ORDERED)//если контролируемый
                 {
                     /*bool alreadyThere = false;//то проверяем не добавляли ли уже HrmPeriodOrderControl для него
                     foreach (var existingControl in par.OrderControls)
@@ -88,9 +88,9 @@ namespace NpoMash.Erm.Hrm.Salary
                         oc.NormKB = order.NormKB;
                         oc.NormOZM = order.NormOZM;
                         //oc.TypeControl = order.TypeControl; вот так почему-то нельзя, приходится делать как написано ниже:
-                        if (order.TypeControl == fmCOrderTypeCOntrol.FOT)
-                            oc.TypeControl = fmCOrderTypeCOntrol.FOT;
-                        else oc.TypeControl = fmCOrderTypeCOntrol.TrudEmk_FOT;
+                        if (order.TypeControl == FmCOrderTypeControl.FOT)
+                            oc.TypeControl = FmCOrderTypeControl.FOT;
+                        else oc.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
                         par.OrderControls.Add(oc);//и добавляем в коллекцию
                     }
                 }
@@ -118,7 +118,7 @@ namespace NpoMash.Erm.Hrm.Salary
                 
                 foreach (var order_control in alloc_parameter.OrderControls) {
                     if (order_control.Order == order) {
-                        if (order_control.TypeControl == fmCOrderTypeCOntrol.No_Ordered) {
+                        if (order_control.TypeControl == FmCOrderTypeControl.NO_ORDERED) {
                             //alloc_parameter.OrderControls.Remove(order_control);
                             //order_control.Delete();
                             order_controls_to_delete.Add(order_control);
@@ -131,7 +131,7 @@ namespace NpoMash.Erm.Hrm.Salary
                         }
                     }
                 }
-                if (!in_order_controls) order.TypeControl = fmCOrderTypeCOntrol.No_Ordered;
+                if (!in_order_controls) order.TypeControl = FmCOrderTypeControl.NO_ORDERED;
             }
             alloc_parameter.OrderControls.DeleteObjectOnRemove = true;
             foreach (HrmPeriodOrderControl order_control in order_controls_to_delete)

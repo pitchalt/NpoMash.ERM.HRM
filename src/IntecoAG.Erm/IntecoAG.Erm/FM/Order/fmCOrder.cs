@@ -18,13 +18,16 @@ namespace IntecoAG.ERM.FM.Order
 {
 
 
-    public enum fmCOrderTypeCOntrol
+    public enum FmCOrderTypeControl
     {
-        TrudEmk_FOT = 1,
+        TRUDEMK_FOT = 1,
         FOT = 2,
-        No_Ordered = 3
+        NO_ORDERED = 3
     }
-    public enum fmCOrdertypeConstancy { UnConstOrderType = 0, ConstOrderType = 1 }
+    public enum FmCOrderTypeConstancy { 
+        UN_CONST_ORDER_TYPE = 0, 
+        CONST_ORDER_TYPE = 1 
+    }
 
     [Persistent("fmCOrder")]
     [DefaultProperty("Code")]
@@ -38,21 +41,21 @@ namespace IntecoAG.ERM.FM.Order
                get { return _Code; }
                set { SetPropertyValue<string>("Code", ref _Code, value); } }
 
-        private fmCOrderTypeCOntrol _TypeControl;
-        public fmCOrderTypeCOntrol TypeControl{
+        private FmCOrderTypeControl _TypeControl;
+        public FmCOrderTypeControl TypeControl{
                get { return _TypeControl; }
                set {
-                   SetPropertyValue<fmCOrderTypeCOntrol>("TypeControl", ref _TypeControl, value);
+                   SetPropertyValue<FmCOrderTypeControl>("TypeControl", ref _TypeControl, value);
                    if (IsSaving) { }
                } 
         
         
         }
 
-        private fmCOrdertypeConstancy _TypeConstancy;
-        public fmCOrdertypeConstancy TypeConstancy {
+        private FmCOrderTypeConstancy _TypeConstancy;
+        public FmCOrderTypeConstancy TypeConstancy {
                get { return _TypeConstancy; }
-            set { SetPropertyValue<fmCOrdertypeConstancy>("TypeConstancy", ref _TypeConstancy, value); } }
+            set { SetPropertyValue<FmCOrderTypeConstancy>("TypeConstancy", ref _TypeConstancy, value); } }
 
         private Decimal _NormKB;
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
@@ -76,8 +79,8 @@ namespace IntecoAG.ERM.FM.Order
         public fmCOrder(Session session) : base(session) { }
         public override void AfterConstruction()
         {  base.AfterConstruction();
-        TypeControl = fmCOrderTypeCOntrol.FOT;
-        TypeConstancy = fmCOrdertypeConstancy.ConstOrderType;
+        TypeControl = FmCOrderTypeControl.FOT;
+        TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
         }
 
         

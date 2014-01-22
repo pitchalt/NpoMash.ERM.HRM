@@ -90,7 +90,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingKBMatrixAction.ConfirmationMessage = null;
             this.BringingKBMatrixAction.Id = "BringingMatrixAction";
             this.BringingKBMatrixAction.ImageName = null;
-            choiceActionItem6.Caption = "ProportionsMethod";
+            choiceActionItem6.Caption = "PROPORTIONS_METHOD_VARIANT";
             choiceActionItem6.ImageName = null;
             choiceActionItem6.Shortcut = null;
             choiceActionItem6.ToolTip = null;
@@ -124,7 +124,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingOZMMatrixAction.ConfirmationMessage = null;
             this.BringingOZMMatrixAction.Id = "BringingOZMMatrixAction";
             this.BringingOZMMatrixAction.ImageName = null;
-            choiceActionItem9.Caption = "ProportionsMethod";
+            choiceActionItem9.Caption = "PROPORTIONS_METHOD_VARIANT";
             choiceActionItem9.ImageName = null;
             choiceActionItem9.Shortcut = null;
             choiceActionItem9.ToolTip = null;

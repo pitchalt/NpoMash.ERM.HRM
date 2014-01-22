@@ -92,7 +92,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         [NonPersistent]
         public class OrderItem : XPCustomObject {
             public fmCOrder Order;
-            public fmCOrderTypeCOntrol TypeControl;
+            public FmCOrderTypeControl TypeControl;
             public Int32 OrderPlan;
             public Int32 MinimizeNumberOfDeviationsAlloc;
             public Int32 MinimizeMaximumDeviationsAlloc;
@@ -158,18 +158,18 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (col != null && cell.Column != col)
                         continue;
                     switch (matrix.TypeMatrix) {
-                        case HRM_MATRIX_TYPE_MATRIX.Planned:
+                        case HrmMatrixTypeMatrix.MATRIX_PLANNED:
                             item.OrderPlan += cell.Time;
                             break;
-                        case HRM_MATRIX_TYPE_MATRIX.Coerced:
+                        case HrmMatrixTypeMatrix.MATRIX_COERCED:
                             switch (matrix.Variant) {
-                                case HRM_MATRIX_VARIANT.ProportionsMethod:
+                                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
                                     item.ProportionsMethodAlloc += cell.Time;
                                     break;
-                                case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
+                                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
                                     item.MinimizeMaximumDeviationsAlloc += cell.Time;
                                     break;
-                                case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
+                                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
                                     item.MinimizeNumberOfDeviationsAlloc += cell.Time;
                                     break;
                             }
@@ -200,18 +200,18 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (row != null && cell.Row != row)
                         continue;
                     switch (matrix.TypeMatrix) {
-                        case HRM_MATRIX_TYPE_MATRIX.Planned:
+                        case HrmMatrixTypeMatrix.MATRIX_PLANNED:
                             item.DepartmentPlan += cell.Time;
                             break;
-                        case HRM_MATRIX_TYPE_MATRIX.Coerced:
+                        case HrmMatrixTypeMatrix.MATRIX_COERCED:
                             switch (matrix.Variant) {
-                                case HRM_MATRIX_VARIANT.ProportionsMethod:
+                                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
                                     item.ProportionsMethodAlloc += cell.Time;
                                     break;
-                                case HRM_MATRIX_VARIANT.MinimizeMaximumDeviations:
+                                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
                                     item.MinimizeMaximumDeviationsAlloc += cell.Time;
                                     break;
-                                case HRM_MATRIX_VARIANT.MinimizeNumberOfDeviations:
+                                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
                                     item.MinimizeNumberOfDeviationsAlloc += cell.Time;
                                     break;
                             }

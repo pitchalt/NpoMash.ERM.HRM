@@ -61,10 +61,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmMatrixAllocResult _AllocResult; //—сылка на HrmMatrixAllocResult
-        [Association("AccountOperations-AllocResult")]
+        [Association("AccountOperations-TYPE_ALLOC_RESULT")]
         public HrmMatrixAllocResult AllocResult {
             get { return _AllocResult; }
-            set { SetPropertyValue<HrmMatrixAllocResult>("AllocResult", ref _AllocResult, value); }
+            set { SetPropertyValue<HrmMatrixAllocResult>("TYPE_ALLOC_RESULT", ref _AllocResult, value); }
         }
 
 

@@ -25,12 +25,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void TaskSheetInit(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             task.TimeSheetKB = os.CreateObject<HrmTimeSheet>();
-            task.TimeSheetKB.GroupDep = DEPARTMENT_GROUP_DEP.KB;
+            task.TimeSheetKB.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             task.Period.TimeSheets.Add(task.TimeSheetKB);
             task.Period.CurrentTimeSheetKB = task.TimeSheetKB;
             //
             task.TimeSheetOZM = os.CreateObject<HrmTimeSheet>();
-            task.TimeSheetOZM.GroupDep = DEPARTMENT_GROUP_DEP.OZM;
+            task.TimeSheetOZM.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             task.Period.TimeSheets.Add(task.TimeSheetOZM);
             task.Period.CurrentTimeSheetOZM = task.TimeSheetOZM;
         }   
@@ -53,11 +53,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                 //time_sheet.TimeSheetDeps.Add(sheet_dep);
                 sheet_dep.BaseWorkTime = rand.Next(100, 999);
                 sheet_dep.AdditionWorkTime = rand.Next(100, 999);
-                if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
+                if (current_department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     //sheet_dep.TimeSheetGroup = kb_time_sheet;
                     task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                 }
-                if (current_department.GroupDep == DEPARTMENT_GROUP_DEP.OZM) {
+                if (current_department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
                     //sheet_dep.TimeSheetGroup = ozm_time_sheet;
                     task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
                 }
@@ -77,10 +77,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                         //time_sheet.TimeSheetDeps.Add(sheet_dep);
                         sheet_dep.BaseWorkTime = each.MatrixWorkTime;
                         sheet_dep.AdditionWorkTime = 0;
-                        if (dep.GroupDep == DEPARTMENT_GROUP_DEP.KB) {
+                        if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                             task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                         }
-                        if (dep.GroupDep == DEPARTMENT_GROUP_DEP.OZM) {
+                        if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
                             task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
                         }
                 //foreach (Department current_department in ) {

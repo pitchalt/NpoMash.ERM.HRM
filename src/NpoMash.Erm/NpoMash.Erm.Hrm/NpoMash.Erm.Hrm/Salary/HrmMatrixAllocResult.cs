@@ -19,7 +19,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmMatrixAllocResult")]
     public class HrmMatrixAllocResult : HrmMatrix {
 
-        [Association("AccountOperations-AllocResult"), Aggregated] //Коллекция HrmAccountOperation
+        [Association("AccountOperations-TYPE_ALLOC_RESULT"), Aggregated] //Коллекция HrmAccountOperation
         public XPCollection<HrmAccountOperation> AccountOperations {
             get { return GetCollection<HrmAccountOperation>("AccountOperations"); }
         }
