@@ -14,18 +14,21 @@
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
           <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Метод минимизации максимальных отклонений" />
+          <ChoiceActionItem Id="PROPORTIONS_METHOD_VARIANT" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
       <Action Id="BringingMatrixInReduc" Caption="Приведение матрицы">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
           <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
+          <ChoiceActionItem Id="PROPORTIONS_METHOD_VARIANT" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
       <Action Id="BringingOZMMatrixAction" Caption="Приведение матрицы ОЗМ">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
           <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
+          <ChoiceActionItem Id="PROPORTIONS_METHOD_VARIANT" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
       <Action Id="ExportCoercedMatrix" Caption="Экспорт" />
@@ -183,11 +186,13 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)">
       <OwnMembers>
         <Member Name="TimeSheetDeps" Caption="Табель(факт)" />
+        <Member Name="GroupDep" Caption="Группа" />
         <Member Name="Period" Caption="Период" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
       <OwnMembers>
+        <Member Name="BaseWorkTime" Caption="Base Work Time" />
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="MatrixWorkTime" Caption="Трудочасы " />
         <Member Name="TimeSheet" Caption="Факт. табель" />
