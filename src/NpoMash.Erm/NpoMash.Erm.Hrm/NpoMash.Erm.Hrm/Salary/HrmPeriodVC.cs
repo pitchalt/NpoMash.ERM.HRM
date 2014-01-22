@@ -31,9 +31,49 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        protected override void OnActivated() { base.OnActivated(); }
-        protected override void OnViewControlsCreated() { base.OnViewControlsCreated(); }
-        protected override void OnDeactivated() { base.OnDeactivated(); }
+        protected override void OnActivated() { 
+            base.OnActivated();
+            DetailView detail_view = View as DetailView;
+            // Если мы в карточке
+            if (detail_view != null) {
+                // Получим доступ к редактору списка задач периода
+                ListPropertyEditor list_editor = detail_view.FindItem("PeriodTasks") as ListPropertyEditor;
+                if (list_editor != null) 
+                    // Подпишемся на событие создание реального контрола редактора (XAF использует ленивую загрузку контролов)
+                    list_editor.ControlCreated += new EventHandler<EventArgs>(TaskListEditor_ControlCreated);
+            }
+        }
+
+        void TaskListEditor_ControlCreated(object sender, EventArgs e) {
+            // ПОдпишемся на события контроллера управляющего реакцией на действие открыть в списке
+            ListPropertyEditor list_editor = (ListPropertyEditor) sender;
+            // Найдем в фрейме редактора нужный нам контроллер 
+            ListViewProcessCurrentObjectController list_view_controller = list_editor.Frame.GetController<ListViewProcessCurrentObjectController>();
+            if (list_view_controller != null) 
+                // Подпишемся на событие открыть объект в списке
+                list_view_controller.CustomProcessSelectedItem += new EventHandler<CustomProcessListViewSelectedItemEventArgs>(TaskListView_CustomProcessSelectedItem);
+        }
+
+        void TaskListView_CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {
+            HrmSalaryTask task = e.InnerArgs.CurrentObject as HrmSalaryTask;
+            if (task != null) {
+                IObjectSpace os = Application.CreateObjectSpace();
+                task = os.GetObject<HrmSalaryTask>(task);
+                e.Handled = true;
+                e.InnerArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
+                e.InnerArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
+            }
+
+        }
+
+        protected override void OnViewControlsCreated() { 
+            base.OnViewControlsCreated(); 
+        }
+
+        protected override void OnDeactivated() { 
+            base.OnDeactivated(); 
+        }
 
         private void ImportSourceData_Execute(object sender, ParametrizedActionExecuteEventArgs e) {
 

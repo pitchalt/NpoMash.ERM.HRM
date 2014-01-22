@@ -153,6 +153,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             // 
             // HrmPeriodVC
             // 
+            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
             this.TypeOfView = typeof(DevExpress.ExpressApp.View);
 
         }
