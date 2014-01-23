@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
 using NpoMash.Erm.Hrm.Salary;
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm {
 
@@ -37,8 +38,12 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
     [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
+    
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]
     public class HrmPeriod : BaseObject {
@@ -191,5 +196,30 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
+
+        [Browsable(false)]
+        private bool kbAccepted {
+            get {
+                foreach (HrmMatrix mat in Matrixs)
+                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
+                        mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
+                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
+                        return true;
+                return false;
+            }
+        }
+
+        [Browsable(false)]
+        private bool ozmAccepted {
+            get {
+                foreach (HrmMatrix mat in Matrixs)
+                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
+                        mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
+                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
+                        return true;
+                return false;
+            }
+        }
+
     }
 }

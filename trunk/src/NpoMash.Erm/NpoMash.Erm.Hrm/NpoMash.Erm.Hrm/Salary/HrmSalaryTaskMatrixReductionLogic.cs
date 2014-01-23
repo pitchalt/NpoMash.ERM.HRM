@@ -119,5 +119,15 @@ namespace NpoMash.Erm.Hrm.Salary {
             matrix_to_accept.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
         }
 
+        public static bool matrixIsAccepted(HrmSalaryTaskMatrixReduction reduc) {
+            if (reduc.MinimizeMaximumDeviationsMatrix != null && reduc.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                return true;
+            else if (reduc.MinimizeNumberOfDeviationsMatrix != null && reduc.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                return true;
+            else if (reduc.ProportionsMethodMatrix != null && reduc.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                return true;
+            return false;
+        }
+
     }
 }
