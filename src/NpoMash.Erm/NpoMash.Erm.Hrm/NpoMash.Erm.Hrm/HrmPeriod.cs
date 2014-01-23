@@ -46,6 +46,7 @@ namespace NpoMash.Erm.Hrm {
     
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]
+  
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]

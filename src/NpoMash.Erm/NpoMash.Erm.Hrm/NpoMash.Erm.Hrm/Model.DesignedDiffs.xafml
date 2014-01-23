@@ -28,7 +28,16 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" DefaultListViewMasterDetailMode="ListViewOnly" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" DefaultListViewMasterDetailMode="ListViewOnly" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" DefaultListViewMasterDetailMode="ListViewOnly">
+      <OwnMembers>
+        <Member Name="OrderPlan" Index="-1" />
+        <Member Name="Order" Index="0" />
+        <Member Name="TypeControl" Index="1" />
+        <Member Name="ProportionsMethodAlloc" Index="2" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Index="3" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Index="4" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet">
       <OwnMembers>
         <Member Name="TimeSheetDeps" Index="0" />
@@ -81,8 +90,40 @@
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="DepartmentItem_ListView" GroupSummary="" />
-    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" IsNewNode="True">
+    <ListView Id="DepartmentItem_ListView" GroupSummary="">
+      <Columns>
+        <ColumnInfo Id="DepartmentFact" Index="-2" />
+        <ColumnInfo Id="DepartmentPlan" Index="-1" />
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_ListView">
+      <Columns>
+        <ColumnInfo Id="Year" SortOrder="Ascending" SortIndex="1" />
+        <ColumnInfo Id="Month" SortIndex="2" SortOrder="None" />
+      </Columns>
+      <Sorting>
+        <SortProperty Id="AscMonth" PropertyName="Month" IsNewNode="True" />
+        <SortProperty Id="AscYear" PropertyName="Year" Direction="Ascending" IsNewNode="True" />
+      </Sorting>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" CaptionVerticalAlignment="Bottom" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
         <PropertyEditor Id="DepartmentFact" PropertyName="DepartmentFact" IsNewNode="True" />
@@ -93,7 +134,7 @@
         <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" Direction="Horizontal" IsNewNode="True">
           <LayoutItem Id="OrderItems" ViewItem="OrderItems" Index="0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
@@ -114,5 +155,13 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="OrderItem_ListView">
+      <Columns>
+        <ColumnInfo Id="OrderPlan" Index="-1" />
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

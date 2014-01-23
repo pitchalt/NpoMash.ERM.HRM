@@ -75,7 +75,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmMatrixStatus _Status;
-        [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
+       // [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
         [Appearance("",Enabled=false)]
         public HrmMatrixStatus Status {
             get { return _Status; }

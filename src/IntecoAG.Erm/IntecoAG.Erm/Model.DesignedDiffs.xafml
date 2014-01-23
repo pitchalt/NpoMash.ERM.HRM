@@ -3,7 +3,7 @@
   <BOModel>
     <Class Name="IntecoAG.ERM.FM.Order.fmCOrder" Caption="fmCOrder" ImageName="BO_Product">
       <OwnMembers>
-        <Member Name="Code" Caption="Code" />
+        <Member Name="Code" Caption="Code" RowCount="1" />
         <Member Name="NormKB" Caption="Норма КБ" />
         <Member Name="NormOZM" Caption="Норма ОЗМ" />
         <Member Name="TypeConstancy" Caption="Признак заказа" />
