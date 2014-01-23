@@ -147,7 +147,7 @@
         <Member Name="TaskType" Caption="Тип задачи" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportSourceData">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportSourceData" Caption="Импорт исходных данных">
       <OwnMembers>
         <Member Name="MatrixPlanKB" Caption="Плановая матрица КБ" />
         <Member Name="MatrixPlanOZM" Caption="Плановая матрица ОЗМ" />
@@ -155,15 +155,16 @@
         <Member Name="TimeSheetOZM" Caption="Факт(табель) ОЗМ" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Карточка управления приведением">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Приведение матрицы">
       <OwnMembers>
         <Member Name="AllocParameters" Caption="Параметры расчета" />
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="MatrixPlan" Caption="Плановая матрица" />
         <Member Name="Order" Caption="Заказ" />
+        <Member Name="TimeSheet" Caption="Табель" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" Caption="Подразделение">
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="DepartmentFact" Caption="Факт по подразделению" />
@@ -173,14 +174,14 @@
         <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" Caption="Заказ">
       <OwnMembers>
-        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
-        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />
-        <Member Name="Order" Caption="Заказ" />
         <Member Name="OrderPlan" Caption="План по заказу" />
-        <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
+        <Member Name="Order" Caption="Заказ" />
         <Member Name="TypeControl" Caption="Тип контроля" />
+        <Member Name="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)">
@@ -269,4 +270,27 @@
       </Item>
     </Items>
   </NavigationItems>
+  <Views>
+    <ListView Id="DepartmentItem_ListView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>
