@@ -8,7 +8,6 @@ using FileHelpers;
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Salary;
-using NpoMash.Erm.Hrm.Exchange;
 using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Tests.ReferentialData;
 
@@ -48,34 +47,23 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         public static void ImportOrders(IObjectSpace local_object_space) {
-            var random = new Random();
-            var order_data = new FixedFileEngine<OrdrerImport>();
-            var plan_data = new FixedFileEngine<ImportMatrixPlan>();
-            bool fl = false;
-            IDictionary<String, Boolean> codes = new Dictionary<String, Boolean>();
-            OrdrerImport[] order_list = order_data.ReadFile("../../../../../../../var/referential/OrderGoz.dat");
-            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
-            foreach (var plan in plan_list) {
-                foreach (var order in order_list) {
-                    if (String.Compare(order.Code.Trim(), plan.OrderCode.Trim()) == 0) { 
-                        fl = true; 
-                    }
-                    else {
-                        fl = false;
-                    }
-                }
-                if (codes.ContainsKey(plan.OrderCode.Trim()))
-                    continue;
+            var order_data = new FixedFileEngine<OrderImport>();
+            OrderImport[] order_list = order_data.ReadFile("../../../../../../../var/referential/Orders.dat");
+            foreach (var order in order_list) {
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
-                fmCorder.Code = plan.OrderCode.Trim();
-                int type_control = random.Next(1, 3);
-                if (fl == true) { fmCorder.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT; }
-                if (fl == false) { fmCorder.TypeControl = FmCOrderTypeControl.NO_ORDERED; }
-                if (type_control == 1) { fmCorder.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT; }
-                fmCorder.NormKB = 1;
-                fmCorder.NormOZM = 1;
+                fmCorder.Code = order.Code.Trim();
+                fmCorder.NormKB = order.NormKB;
+                fmCorder.NormOZM = order.NormOZM;
                 fmCorder.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
-                codes[fmCorder.Code] = true;
+                if (order.TypeControl.Trim() == "Ф") {
+                    fmCorder.TypeControl = FmCOrderTypeControl.FOT;
+                }
+                if (order.TypeControl.Trim() == "ТФ") {
+                    fmCorder.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
+                }
+                if (order.TypeControl.Trim() == "") {
+                    fmCorder.TypeControl = FmCOrderTypeControl.NO_ORDERED;
+                }
             }
         }
 

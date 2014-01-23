@@ -175,6 +175,7 @@
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportSourceData.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportSourceDataLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReductionLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.cs">
       <SubType>Component</SubType>
