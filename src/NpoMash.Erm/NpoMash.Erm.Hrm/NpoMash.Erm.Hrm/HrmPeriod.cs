@@ -37,8 +37,10 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
     [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [DefaultProperty("Status")]     
+    [DefaultProperty("Status")]
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]
@@ -183,5 +185,11 @@ namespace NpoMash.Erm.Hrm {
             setStatus(HrmPeriodStatus.OPENED);
             //Status = HrmPeriodStatus.Opened;
         }
+
+        [Browsable(false)]
+        private bool isReadyToBringMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS); } }
+
+        [Browsable(false)]
+        private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
     }
 }
