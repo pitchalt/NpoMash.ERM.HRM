@@ -63,31 +63,5 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
         }
-
-        public static void ImportData(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
-            TaskSheetInit(os, task);
-            var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
-            ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
-            IList<Department> deps = os.GetObjects<Department>();
-            foreach (var each in stream) {
-                Department dep = deps.FirstOrDefault(x => x.Code == each.Code.Trim());
-                        HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
-                        sheet_dep.Department = dep;
-                        //sheet_dep.TimeSheet = time_sheet;
-                        //time_sheet.TimeSheetDeps.Add(sheet_dep);
-                        sheet_dep.BaseWorkTime = each.MatrixWorkTime;
-                        sheet_dep.AdditionWorkTime = 0;
-                        if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                            task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
-                        }
-                        if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                            task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
-                        }
-                //foreach (Department current_department in ) {
-                //    if (String.Compare(current_department.Code, each.Code.Trim()) == 0) {
-                //    }
-                //}
-            }
-        }
     }
 }
