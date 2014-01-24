@@ -28,14 +28,6 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmSalaryTaskMatrixReduction : HrmSalaryTask {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
-        private HrmMatrix _MatrixPlan;
-        [Appearance("", Enabled = false)]
-        public HrmMatrix MatrixPlan {
-            get { return _MatrixPlan; }
-            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
-
-        }
-        [Browsable(false)]
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -45,7 +37,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
         }
 
-        [Browsable(false)]
         private HrmMatrix _MinimizeMaximumDeviationsMatrix;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -55,7 +46,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MinimizeMaximumDeviationsMatrix", ref _MinimizeMaximumDeviationsMatrix, value); }
         }
 
-        [Browsable(false)]
         private HrmMatrix _ProportionsMethodMatrix;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -65,16 +55,25 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("ProportionsMethodMatrix", ref _ProportionsMethodMatrix, value); }
         }
 
+        private HrmMatrix _MatrixPlan;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix MatrixPlan {
+            get { return _MatrixPlan; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
+
+        }
 
         private HrmTimeSheet _TimeSheet;
-        [Appearance("", Enabled = false)]
+//        [Appearance("", Enabled = false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet TimeSheet {
             get { return _TimeSheet; }
             set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
 
         private HrmPeriodAllocParameter _AllocParameters;
-        [Appearance("", Enabled = false)]
+//        [Appearance("", Enabled = false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
