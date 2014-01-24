@@ -27,7 +27,6 @@ namespace NpoMash.Erm.Hrm.Salary
         ALLOC_PARAMETERS_ACCEPTED  = 3,
         CREATED=4,
         ARCHIVE=5
-
     }
     
 

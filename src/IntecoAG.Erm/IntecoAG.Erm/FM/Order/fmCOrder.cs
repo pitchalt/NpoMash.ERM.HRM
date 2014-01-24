@@ -72,17 +72,11 @@ namespace IntecoAG.ERM.FM.Order
                set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); } }
 
 
-        private void check() {  }
-
-
-
         public fmCOrder(Session session) : base(session) { }
         public override void AfterConstruction()
         {  base.AfterConstruction();
         TypeControl = FmCOrderTypeControl.FOT;
         TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
-        }
-
-        
+        }        
     }
 }
