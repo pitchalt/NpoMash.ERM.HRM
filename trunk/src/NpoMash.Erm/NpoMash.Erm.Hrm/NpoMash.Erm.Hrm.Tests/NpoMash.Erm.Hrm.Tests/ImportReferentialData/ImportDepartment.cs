@@ -1,11 +1,11 @@
 ﻿using System;
 using FileHelpers;
 
-namespace NpoMash.Erm.Hrm.Tests.ReferentialData {
+namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
 
     [FixedLengthRecord()]
-    public class DepartmentImport {
+    public class ImportDepartment {
 
         [FieldFixedLength(5)]
         public String Code;

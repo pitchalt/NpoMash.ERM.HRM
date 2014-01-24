@@ -2,11 +2,11 @@
 using FileHelpers;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Tests.ReferentialData {
+namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
     
     
     [FixedLengthRecord()]
-    public class OrderImport {
+    public class ImportOrder {
 
         [FieldFixedLength(4)]
         public Int16 Year;

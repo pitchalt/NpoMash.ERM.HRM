@@ -1,5 +1,5 @@
 namespace NpoMash.Erm.Hrm.Tests.Controllers {
-    partial class TesterWC {
+    partial class TestWC {
         private System.ComponentModel.IContainer components = null;
         protected override void Dispose( bool disposing ) {
             if ( disposing && ( components != null ) ) { components.Dispose(); }

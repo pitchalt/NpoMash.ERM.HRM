@@ -9,7 +9,7 @@ using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Salary;
 using IntecoAG.ERM.HRM.Organization;
-using NpoMash.Erm.Hrm.Tests.ReferentialData;
+using NpoMash.Erm.Hrm.Tests.ImportReferentialData;
 
 using DevExpress.ExpressApp;
 
@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         private const int _REFERENCE_COUNT = 10;
         private const int _DEPARTMENT_COUNT = 20;
-        private const int _ALLOCPARAMETER_COUNT = 3;
+        private const int _ALLOCPARAMETER_COUNT = 1;
         private const int _SALARYPAYTYPE_COUNT = 100;
 
         public static void addTimeSheets(IObjectSpace local_object_space) {
@@ -32,8 +32,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         public static void ImportDeps(IObjectSpace local_object_space) {
-            var engine = new FixedFileEngine<DepartmentImport>();
-            DepartmentImport[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
+            var engine = new FixedFileEngine<ImportDepartment>();
+            ImportDepartment[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
             foreach (var each in stream) {
                 var department = local_object_space.CreateObject<Department>();
                 department.Code = Convert.ToString(Convert.ToInt32(each.Code.Trim()));
@@ -47,8 +47,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         public static void ImportOrders(IObjectSpace local_object_space) {
-            var order_data = new FixedFileEngine<OrderImport>();
-            OrderImport[] order_list = order_data.ReadFile("../../../../../../../var/referential/Orders.dat");
+            var order_data = new FixedFileEngine<ImportOrder>();
+            ImportOrder[] order_list = order_data.ReadFile("../../../../../../../var/referential/Orders.dat");
             foreach (var order in order_list) {
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
                 fmCorder.Code = order.Code.Trim();
