@@ -38,6 +38,14 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
+        public void DoubleCreationAllocParameters() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            try { var double_param = HrmPeriodAllocParameterLogic.createParameters(test_object_space); }
+            catch (OpenPeriodExistsException) { }
+        }
+
+        [Test]
         public void CreateAllocParametersFromPrevious() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
@@ -45,7 +53,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
             Assert.IsNotNull(new_alloc_parameters.OrderControls);
             Assert.IsNotNull(new_alloc_parameters.PeriodPayTypes);
             Assert.AreEqual(0, new_alloc_parameters.IterationNumber);
-            Assert.AreEqual(HrmPeriodLogic.INIT_YEAR + 1, new_alloc_parameters.Year);
+            Assert.AreEqual(HrmPeriodLogic.INIT_YEAR, new_alloc_parameters.Year);
             Assert.AreEqual(HrmPeriodLogic.INIT_MONTH + 1, new_alloc_parameters.Month);
             Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_KB, new_alloc_parameters.NormNoControlKB);
             Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_OZM, new_alloc_parameters.NormNoControlOZM);
