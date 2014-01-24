@@ -33,6 +33,17 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmSalaryTaskImportSourceDataLogic {
 
+        public static HrmSalaryTaskImportSourceData InitTaskImportSourceData(IObjectSpace object_space, HrmPeriod period, DepartmentGroupDep group_dep) {
+            var task_import_source_data = object_space.CreateObject<HrmSalaryTaskImportSourceData>();
+            task_import_source_data.GroupDep = group_dep;
+            period.PeriodTasks.Add(task_import_source_data);
+            task_import_source_data.Period = period;
+            if (group_dep == DepartmentGroupDep.DEPARTMENT_KB) {
+                task_import_source_data.TimeSheetKB = period.CurrentTimeSheetKB;
+            }
+            return task_import_source_data;
+        }
+
         public static void ImportTimeSheet(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             HrmTimeSheetLogic.TaskSheetInit(os, task);
             var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
@@ -84,7 +95,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     HrmMatrix plan_matrix = null;
                     //определяем к какой группе подразделений относится запись
                     foreach (Department dep in os.GetObjects<Department>()) {
-                        if (String.Compare(each.Department.Trim(), dep.Code) == 0)
+                        if (String.Compare(Convert.ToString(Convert.ToInt32(each.Department.Trim())), dep.Code) == 0)
                             if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
                                 plan_matrix = kb_plan_matrix;
                             else plan_matrix = ozm_plan_matrix;

@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             DepartmentImport[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
             foreach (var each in stream) {
                 var department = local_object_space.CreateObject<Department>();
-                department.Code = each.Code.Trim();
+                department.Code = Convert.ToString(Convert.ToInt32(each.Code.Trim()));
                 if (each.Group == "01") {
                     department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
                 }
@@ -54,6 +54,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 fmCorder.Code = order.Code.Trim();
                 fmCorder.NormKB = order.NormKB;
                 fmCorder.NormOZM = order.NormOZM;
+                if (fmCorder.NormKB == 0) { fmCorder.NormKB = 1; }
+                if (fmCorder.NormOZM == 0) { fmCorder.NormOZM = 1; }
                 fmCorder.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
                 if (order.TypeControl.Trim() == "Ф") {
                     fmCorder.TypeControl = FmCOrderTypeControl.FOT;
