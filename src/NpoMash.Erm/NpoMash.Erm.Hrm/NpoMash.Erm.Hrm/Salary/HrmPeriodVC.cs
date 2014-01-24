@@ -107,8 +107,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
 //                        HrmMatrixAllocPlan matrixKB = null;
 //                        HrmMatrixAllocPlan matrixOZM = null;
-                        HrmMatrixLogic.ImportPlanMatrixes(os, task); //current_period, out matrixKB, out matrixOZM);
-                        HrmTimeSheetLogic.ImportData(os, task);
+                        HrmSalaryTaskImportSourceDataLogic.ImportPlanMatrixes(os, task); //current_period, out matrixKB, out matrixOZM);
+                        HrmSalaryTaskImportSourceDataLogic.ImportTimeSheet(os, task);
                         current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
