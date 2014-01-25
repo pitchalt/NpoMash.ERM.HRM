@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.ExpressApp.ConditionalAppearance;
 
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
@@ -19,16 +20,22 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
     public class PrimaryAllocParameters {
         
         protected TestApplication application;
+        protected AppearanceTarget target;
+        protected AppearanceController controller;
+        protected DetailView detail_view;
 
         [SetUp]
-        public void SetUp() {
+        protected virtual void SetUp() {
             IObjectSpaceProvider object_space_provider = new XPObjectSpaceProvider(new MemoryDataStoreProvider());
             application = new TestApplication();
             ModuleBase test_module = new ModuleBase();
             test_module.AdditionalExportedTypes.Add(typeof(HrmPeriod));
+            application.Modules.Add(new ConditionalAppearanceModule());
             application.Modules.Add(test_module);
             application.Setup("TestApplication", object_space_provider);
             IObjectSpace object_space = application.CreateObjectSpace();
+            target = new AppearanceTarget();
+            controller = new AppearanceController();
             TestWCLogic.referenceClassesGenerate(object_space);
             TestWCLogic.addTestData(object_space);
             object_space.CommitChanges();
