@@ -176,6 +176,12 @@
     <Compile Include="Salary\HrmSalaryTask.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportSourceData.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportSourceDataLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportSourceDataVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskImportSourceDataVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmSalaryTaskMatrixReductionLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.cs">
       <SubType>Component</SubType>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
       <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskImportSourceDataVC.resx">
+      <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskMatrixReductionVC.resx">
       <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
