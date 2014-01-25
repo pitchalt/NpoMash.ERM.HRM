@@ -44,6 +44,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -113,8 +114,10 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="ImportReferentialData\ImportDepartment.cs" />
     <Compile Include="ImportReferentialData\ImportOrder.cs" />
+    <Compile Include="StructuralTests\AppearanceTarget.cs" />
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\AllreadyExistAllocParameters.cs" />
-    <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\NewAllocParameterCreation.cs" />
+    <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\AllocParameterCreationFromPrevious.cs" />
+    <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\NewAllocParametersCreation.cs" />
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\PrimaryAllocParameters.cs" />
     <Compile Include="StructuralTests\TestApplication.cs">
       <SubType>Component</SubType>
