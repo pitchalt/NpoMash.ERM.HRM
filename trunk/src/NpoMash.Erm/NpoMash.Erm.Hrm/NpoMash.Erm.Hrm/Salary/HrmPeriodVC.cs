@@ -89,11 +89,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     current_period.PeriodTasks.Add(task);
                     if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
                         task.MatrixPlanKB = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_KB);
-                        task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                        task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_OPENED;
                         task.MatrixPlanOZM = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_OZM);
-                        task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                        task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_OPENED;
                         HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, task);
-                        current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                        //current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                         os.Committed += new EventHandler(refresher);
@@ -109,7 +109,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 //                        HrmMatrixAllocPlan matrixOZM = null;
                         HrmSalaryTaskImportSourceDataLogic.ImportPlanMatrixes(os, task); //current_period, out matrixKB, out matrixOZM);
                         HrmSalaryTaskImportSourceDataLogic.ImportTimeSheet(os, task);
-                        current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                        //current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                         os.Committed += new EventHandler(refresher);
