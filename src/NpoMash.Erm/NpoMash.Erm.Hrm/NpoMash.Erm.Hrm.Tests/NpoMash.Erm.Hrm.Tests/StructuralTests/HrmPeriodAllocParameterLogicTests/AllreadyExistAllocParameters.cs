@@ -20,7 +20,9 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
             foreach (var alloc_parameter in alloc_parameters_list) {
                 Assert.IsNotNull(alloc_parameter.Period);
                 Assert.IsNotNull(alloc_parameter.OrderControls);
+                Assert.IsNotEmpty(alloc_parameter.OrderControls);
                 Assert.IsNotNull(alloc_parameter.PeriodPayTypes);
+                Assert.IsNotEmpty(alloc_parameter.PeriodPayTypes);
                 Assert.GreaterOrEqual(alloc_parameter.IterationNumber, 0);
                 Assert.AreEqual(HrmPeriodLogic.INIT_YEAR, alloc_parameter.Year);
                 Assert.AreEqual(HrmPeriodLogic.INIT_MONTH, alloc_parameter.Month);

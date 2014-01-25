@@ -51,10 +51,24 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
+        public void OrderControllCollectionIsNotEmty() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            Assert.IsNotEmpty(new_alloc_parameters.OrderControls);
+        }
+
+        [Test]
         public void PeriodPayTypeCOllectionIsExist() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.PeriodPayTypes);
+        }
+
+        [Test]
+        public void PeriodPayTypeCOllectionIsNotEmpty() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            Assert.IsNotEmpty(new_alloc_parameters.PeriodPayTypes);
         }
 
         [Test]

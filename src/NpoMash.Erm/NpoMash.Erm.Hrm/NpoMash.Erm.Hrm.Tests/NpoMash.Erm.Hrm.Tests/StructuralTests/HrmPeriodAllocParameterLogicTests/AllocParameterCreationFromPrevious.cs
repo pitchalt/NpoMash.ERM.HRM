@@ -154,11 +154,27 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
+        public void OrderControllCollectionIsNotEmptyFirstAccept() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            Assert.IsNotEmpty(new_alloc_parameters.OrderControls);
+        }
+
+        [Test]
         public void PeriodPayTypeCOllectionIsExistFirstAccept() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
             Assert.IsNotNull(new_alloc_parameters.PeriodPayTypes);
+        }
+
+        [Test]
+        public void PeriodPayTypeCOllectionIsNotEmptyFirstAccept() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            Assert.IsNotEmpty(new_alloc_parameters.PeriodPayTypes);
         }
 
         [Test]
@@ -223,12 +239,30 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
+        public void OrderControllCollectionIsNotEmptyLastAccept() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            Assert.IsNotEmpty(new_alloc_parameters.OrderControls);
+        }
+
+        [Test]
         public void PeriodPayTypeCOllectionIsExistLasttAccept() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
             Assert.IsNotNull(new_alloc_parameters.PeriodPayTypes);
+        }
+
+        [Test]
+        public void PeriodPayTypeCOllectionIsNotEmptyLasttAccept() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            Assert.IsNotEmpty(new_alloc_parameters.PeriodPayTypes);
         }
 
         [Test]
