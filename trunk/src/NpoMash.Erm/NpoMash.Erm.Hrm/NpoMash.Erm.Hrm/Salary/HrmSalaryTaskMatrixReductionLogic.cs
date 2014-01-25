@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static HrmMatrixVariant DetermineSelectedBringingMethod(SingleChoiceActionExecuteEventArgs e) {
             HrmMatrixVariant bringing_method = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT;
-            if (e.SelectedChoiceActionItem.Id == "PROPORTIONS_METHOD_VARIANT")
+            if (e.SelectedChoiceActionItem.Id == "ProportionsMethodVariant")
                 bringing_method = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT;
             if (e.SelectedChoiceActionItem.Id == "MinimizeDifferenceNumber")
                 bringing_method = HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT;
