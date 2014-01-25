@@ -41,8 +41,8 @@ namespace NpoMash.Erm.Hrm {
     
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbPrimaryAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmPrimaryAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]
@@ -199,26 +199,28 @@ namespace NpoMash.Erm.Hrm {
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
 
         [Browsable(false)]
-        private bool kbPrimaryAccepted {
+        private bool kbReductionExists {
             get {
-                foreach (HrmMatrix mat in Matrixs)
+                return (CurrentKBmatrixReduction != null);
+                /*foreach (HrmMatrix mat in Matrixs)
                     if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
                         mat.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
                         mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
                         return true;
-                return false;
+                return false;*/
             }
         }
 
         [Browsable(false)]
-        private bool ozmPrimaryAccepted {
+        private bool ozmReductionExists {
             get {
-                foreach (HrmMatrix mat in Matrixs)
+                return (CurrentOZMmatrixReduction != null);
+                /*foreach (HrmMatrix mat in Matrixs)
                     if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
                         mat.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
                         mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
                         return true;
-                return false;
+                return false;*/
             }
         }
 

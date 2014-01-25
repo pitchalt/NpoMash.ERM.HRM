@@ -22,8 +22,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [MapInheritance(MapInheritanceType.OwnTable)]
     [Persistent("HrmSalaryTaskMatrixReduction")]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixInReduc", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrix", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskMatrixReduction : HrmSalaryTask {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
@@ -263,18 +263,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             return HrmSalaryTaskMatrixReductionLogic.matrixIsAccepted(this);
         } }
 
-        /*[Browsable(false)]
-        private bool matrixIsAccepted {
-            get {
-                if (MinimizeMaximumDeviationsMatrix != null && MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                    return true;
-                else if (MinimizeNumberOfDeviationsMatrix != null && MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                    return true;
-                else if (ProportionsMethodMatrix != null && ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                    return true;
-                return false;
-            }
-        }*/
 
         [Browsable(false)]
         private bool isNotReadyToExport { get { return (Period.Status != HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS || GroupDep != DepartmentGroupDep.DEPARTMENT_KB); } }

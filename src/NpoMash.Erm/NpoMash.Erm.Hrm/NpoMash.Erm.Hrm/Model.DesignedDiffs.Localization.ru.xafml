@@ -3,37 +3,25 @@
   <ActionDesign>
     <Actions>
       <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
-      <Action Id="AcceptCoercedMatrix" Caption="Утвердить приведенную матрицу">
-        <ChoiceActionItems>
-          <ChoiceActionItem Id="AcceptMinimizeDeviationsMethod" Caption="Утвердить матрицу, приведенную по алгоритму минимизации максимальных отклонений" />
-          <ChoiceActionItem Id="AcceptMinimizeNumberOfDeviationsMethod" Caption="Утвердить матрицу, приведенную по алгоритму минимизации числа отклонений" />
-          <ChoiceActionItem Id="AcceptProportionsMethod" Caption="Утвердить матрицу, приведенную по методу пропорций" />
-        </ChoiceActionItems>
-      </Action>
       <Action Id="BringingMatrixAction" Caption="Приведение матрицы КБ">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
           <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Метод минимизации максимальных отклонений" />
-          <ChoiceActionItem Id="PROPORTIONS_METHOD_VARIANT" Caption="Метод пропорции" />
-        </ChoiceActionItems>
-      </Action>
-      <Action Id="BringingMatrixInReduc" Caption="Приведение матрицы">
-        <ChoiceActionItems>
-          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
-          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
-          <ChoiceActionItem Id="PROPORTIONS_METHOD_VARIANT" Caption="Метод пропорции" />
+          <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
       <Action Id="BringingOZMMatrixAction" Caption="Приведение матрицы ОЗМ">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
           <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
-          <ChoiceActionItem Id="PROPORTIONS_METHOD_VARIANT" Caption="Метод пропорции" />
+          <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
       <Action Id="ExportCoercedMatrix" Caption="Экспорт" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction" Caption="Утвердить" />
+      <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
     </Actions>
   </ActionDesign>
   <BOModel>
@@ -231,7 +219,7 @@
         <LocalizationItem Name="TYPE_MATIX" Value="Матрица" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixTypeMatrix">
-        <LocalizationItem Name="MATRIX_COERCED" Value="Прведенная матрица" />
+        <LocalizationItem Name="MATRIX_COERCED" Value="Приведенная матрица" />
         <LocalizationItem Name="MATRIX_PLANNED" Value="Плановая матрица" />
         <LocalizationItem Name="MATRIX_RESERVE" Value="Матрица резерва" />
       </LocalizationGroup>

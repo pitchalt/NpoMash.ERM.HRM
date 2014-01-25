@@ -2,7 +2,6 @@
 <Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
   <ActionDesign>
     <Actions>
-      <Action Id="BringingMatrixInReduc" SelectionDependencyType="Independent" />
       <Action Id="GetSourceDataAction">
         <ChoiceActionItems>
           <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
