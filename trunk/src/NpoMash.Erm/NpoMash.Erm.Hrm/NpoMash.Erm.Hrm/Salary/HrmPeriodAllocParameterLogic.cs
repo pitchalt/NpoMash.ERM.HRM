@@ -106,7 +106,8 @@ namespace NpoMash.Erm.Hrm.Salary
                 else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
                 }
-                alloc_parameter.Period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                if (alloc_parameter.Period.Status == HrmPeriodStatus.OPENED)
+                    alloc_parameter.Period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
                 //обновление заказов в справочнике
                 updateFmCOrders(os, alloc_parameter);
             }

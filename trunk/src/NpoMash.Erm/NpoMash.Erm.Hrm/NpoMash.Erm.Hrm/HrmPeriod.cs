@@ -41,8 +41,8 @@ namespace NpoMash.Erm.Hrm {
     
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbPrimaryAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmPrimaryAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]
@@ -199,11 +199,11 @@ namespace NpoMash.Erm.Hrm {
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
 
         [Browsable(false)]
-        private bool kbAccepted {
+        private bool kbPrimaryAccepted {
             get {
                 foreach (HrmMatrix mat in Matrixs)
                     if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
-                        mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
+                        mat.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
                         mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
                         return true;
                 return false;
@@ -211,11 +211,11 @@ namespace NpoMash.Erm.Hrm {
         }
 
         [Browsable(false)]
-        private bool ozmAccepted {
+        private bool ozmPrimaryAccepted {
             get {
                 foreach (HrmMatrix mat in Matrixs)
                     if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
-                        mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
+                        mat.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
                         mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
                         return true;
                 return false;
