@@ -88,7 +88,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void ExportMatrixes(HrmPeriod current_period){
             foreach (HrmMatrix m in current_period.Matrixs)
-                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
                     m.Status = HrmMatrixStatus.MATRIX_EXPORTED;
         }
 
@@ -99,7 +99,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 kb_accepted = true;
             else ozm_accepted = true;
             foreach (HrmMatrix m in current_period.Matrixs) {
-                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
                     if (m.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
                         kb_accepted = true;
                     else ozm_accepted = true;
@@ -116,15 +116,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                 reduc.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_CLOSED;
             if (reduc.ProportionsMethodMatrix != null)
                 reduc.ProportionsMethodMatrix.Status = HrmMatrixStatus.MATRIX_CLOSED;
-            matrix_to_accept.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            matrix_to_accept.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
         }
 
         public static bool matrixIsAccepted(HrmSalaryTaskMatrixReduction reduc) {
-            if (reduc.MinimizeMaximumDeviationsMatrix != null && reduc.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+            if (reduc.MinimizeMaximumDeviationsMatrix != null && reduc.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
                 return true;
-            else if (reduc.MinimizeNumberOfDeviationsMatrix != null && reduc.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+            else if (reduc.MinimizeNumberOfDeviationsMatrix != null && reduc.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
                 return true;
-            else if (reduc.ProportionsMethodMatrix != null && reduc.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+            else if (reduc.ProportionsMethodMatrix != null && reduc.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
                 return true;
             return false;
         }
