@@ -278,5 +278,28 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
                 Assert.AreNotEqual(FmCOrderTypeControl.NO_ORDERED, order.TypeControl);
             }
         }
+
+        [Test]
+        public void ChangeOrderTypeControlFirstAccept() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            foreach (var order in new_alloc_parameters.OrderControls) {
+                order.TypeControl = FmCOrderTypeControl.NO_ORDERED;
+            }
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            Assert.IsEmpty(new_alloc_parameters.OrderControls);
+        }
+
+        [Test]
+        public void ChangeOrderTypeControlLastAccept() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            foreach (var order in new_alloc_parameters.OrderControls) {
+                order.TypeControl = FmCOrderTypeControl.NO_ORDERED;
+            }
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
+            Assert.IsEmpty(new_alloc_parameters.OrderControls);
+        }
     }
 }
