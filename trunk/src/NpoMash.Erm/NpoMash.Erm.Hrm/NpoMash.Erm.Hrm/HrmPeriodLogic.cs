@@ -83,25 +83,7 @@ namespace NpoMash.Erm.Hrm
             HrmPeriodStatus stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;
             if ((period.CurrentAllocParameter.Status == Salary.HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED ||
                 period.CurrentAllocParameter.Status == Salary.HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)) {
-                /*bool kb_plan_mat_imported = false;
-                bool ozm_plan_mat_imported = false;
-                bool kb_time_sheet_imported = false;
-                bool ozm_time_sheet_imported = false;
-                foreach (HrmMatrix mat in period.Matrixs) {
-                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
-                        kb_plan_mat_imported = true;
-                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
-                        ozm_plan_mat_imported = true;
-                }
-                foreach (HrmTimeSheet ts in period.TimeSheets) {
-                    if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
-                        kb_time_sheet_imported = true;
-                    if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
-                        ozm_time_sheet_imported = true;
-                }*/
-                ok = SourceDataIsLoaded(period);
+                ok = SourceDataIsAccepted(period);
             }
             if (ok) return stat;
             else throw new InvalidOperationException();
@@ -114,19 +96,49 @@ namespace NpoMash.Erm.Hrm
             bool ozm_time_sheet_imported = false;
             foreach (HrmMatrix mat in period.Matrixs) {
                 if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
+                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
+                    mat.Status != HrmMatrixStatus.MATRIX_ARCHIVE)
                     kb_plan_mat_imported = true;
                 if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
+                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
+                    mat.Status != HrmMatrixStatus.MATRIX_ARCHIVE)
                     ozm_plan_mat_imported = true;
             }
             foreach (HrmTimeSheet ts in period.TimeSheets) {
-                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
+                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
+                    ts.Status != HrmTimeSheetStatus.ARCHIVE)
                     kb_time_sheet_imported = true;
-                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
+                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
+                    ts.Status != HrmTimeSheetStatus.ARCHIVE)
                     ozm_time_sheet_imported = true;
             }
             return kb_plan_mat_imported && ozm_plan_mat_imported && kb_time_sheet_imported && ozm_time_sheet_imported;
+        }
+
+        public static bool SourceDataIsAccepted(HrmPeriod period){
+            bool kb_plan_mat_accepted = false;
+            bool ozm_plan_mat_accepted = false;
+            bool kb_time_sheet_accepted = false;
+            bool ozm_time_sheet_accepted = false;
+            foreach (HrmMatrix mat in period.Matrixs) {
+                if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
+                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
+                    mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    kb_plan_mat_accepted = true;
+                if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
+                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
+                    mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    ozm_plan_mat_accepted = true;
+            }
+            foreach (HrmTimeSheet ts in period.TimeSheets) {
+                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
+                    ts.Status == HrmTimeSheetStatus.ACCEPTED)
+                    kb_time_sheet_accepted = true;
+                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
+                    ts.Status == HrmTimeSheetStatus.ACCEPTED)
+                    ozm_time_sheet_accepted = true;
+            }
+            return kb_plan_mat_accepted && ozm_plan_mat_accepted && kb_time_sheet_accepted && ozm_time_sheet_accepted;
         }
 
     }

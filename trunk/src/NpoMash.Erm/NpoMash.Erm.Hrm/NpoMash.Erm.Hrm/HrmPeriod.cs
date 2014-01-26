@@ -200,28 +200,12 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool kbReductionExists {
-            get {
-                return (CurrentKBmatrixReduction != null);
-                /*foreach (HrmMatrix mat in Matrixs)
-                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
-                        mat.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
-                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
-                        return true;
-                return false;*/
-            }
+            get { return (CurrentKBmatrixReduction != null); }
         }
 
         [Browsable(false)]
         private bool ozmReductionExists {
-            get {
-                return (CurrentOZMmatrixReduction != null);
-                /*foreach (HrmMatrix mat in Matrixs)
-                    if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
-                        mat.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
-                        mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM)
-                        return true;
-                return false;*/
-            }
+            get { return (CurrentOZMmatrixReduction != null); }
         }
 
     }

@@ -3,6 +3,7 @@
   <ActionDesign>
     <Actions>
       <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
+      <Action Id="AcceptImport" Caption="Утвердить импортированные данные" />
       <Action Id="BringingMatrixAction" Caption="Приведение матрицы КБ">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
@@ -177,6 +178,7 @@
         <Member Name="TimeSheetDeps" Caption="Табель(факт)" />
         <Member Name="GroupDep" Caption="Группа" />
         <Member Name="Period" Caption="Период" />
+        <Member Name="Status" Caption="Статус" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
@@ -239,6 +241,11 @@
         <LocalizationItem Name="HRM_SALARY_TASK_ABORTED" Value="Задача отклонена" />
         <LocalizationItem Name="HRM_SALARY_TASK_ACTIVED" Value="Задача активна" />
         <LocalizationItem Name="HRM_SALARY_TASK_COMPLETED" Value="Задача выполнена успешно" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetStatus">
+        <LocalizationItem Name="ACCEPTED" Value="Утвержден" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="DOWNLOADED" Value="Загружен" />
       </LocalizationGroup>
     </LocalizationGroup>
     <LocalizationGroup Name="Messages">
