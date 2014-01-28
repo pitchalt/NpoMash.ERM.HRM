@@ -54,7 +54,11 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         private Matrix _matrix;
         public Matrix matrix { get { return _matrix; } set { _matrix = value; } }
         private Int32 _fact;
-        public Int32 fact { get { return _fact; } set { _fact = value; } }
+        public Int32 fact { get { return _fact; } set {
+            freeSpace += value - fact;
+            _fact = value;
+            }
+        }
         private Int32 _plan;
         public Int32 plan { get { return _plan; } set { _plan = value; } }
         private Int32 _planControlled;
@@ -66,7 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
 
         public Dep() {
             cells = new List<Cell>();
-            fact = 0;
+            _fact = 0;
             plan = 0;
             planControlled = 0;
             freeSpace = 0;
@@ -80,13 +84,34 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Ord order { get { return _order; } set { _order = value; } }
         private Dep _dep;
         public Dep dep { get { return _dep; } set { _dep = value; } }
+        private Int32 _nonZeroUncontrolled;
+        public Int32 nonZeroUncontrolled { get { return _nonZeroUncontrolled; } set { _nonZeroUncontrolled = value; } }
         private Int32 _time;
-        public Int32 time { get { return _time; } set { _time = value; } }
+        public Int32 time { get { return _time; }
+            set {
+                if (value != time) {
+                    Int32 x = value - time;
+                    dep.plan += x;
+                    if (order.isControlled) {
+                        dep.planControlled += x;
+                        dep.freeSpace -= x;
+                    }
+                    else {
+                        if (time == 0) {
+                            dep.freeSpace -= 1;
+                            nonZeroUncontrolled += 1;
+                        }
+                    }
+                }
+                _time = value; 
+            } }
+
         public List<Operation> minusOperations;
         public List<Operation> plusOperations;
 
         public Cell() {
-            time = 0;
+            _time = 0;
+            nonZeroUncontrolled = 0;
             minusOperations = new List<Operation>();
             plusOperations = new List<Operation>();
             order = null;
@@ -151,7 +176,6 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         }
         public void RevertToStep(Int16 n) { }
         public void PrintLog() { }
-        
     }
 
     
