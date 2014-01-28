@@ -115,6 +115,7 @@
     <Compile Include="ImportReferentialData\ImportDepartment.cs" />
     <Compile Include="ImportReferentialData\ImportOrder.cs" />
     <Compile Include="StructuralTests\AppearanceTarget.cs" />
+    <Compile Include="StructuralTests\BringingLogicTests\OptionsBringingLogic.cs" />
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\AllreadyExistAllocParameters.cs" />
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\CreationFromPreviousAllocParameters.cs" />
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\NewCreationAllocParameters.cs" />
