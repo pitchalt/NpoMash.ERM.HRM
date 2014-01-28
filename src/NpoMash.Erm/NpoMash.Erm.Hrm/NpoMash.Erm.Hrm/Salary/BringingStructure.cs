@@ -20,11 +20,14 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Dictionary<String,Ord> orders;
         public Dictionary<String,Dep> deps;
         public Dictionary<Tuple<Dep, Ord>, Cell> cellsInDictionary;
+        private Journal _journal;
+        public Journal journal { get { return _journal; } set { _journal = value; } }
 
         public Matrix() {
             orders = new Dictionary<string, Ord>();
             deps = new Dictionary<string, Dep>();
             cellsInDictionary = new Dictionary<Tuple<Dep, Ord>, Cell>();
+            journal = new Journal();
         }
     }
 
@@ -139,17 +142,43 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             operationNode = null;
         }
 
+        public Operation(Int32 time, Cell take_from, Cell put_into) {
+            sum = time;
+            operationNumber = 0;
+            takeFrom = null;
+            putInto = null;
+            operationNode = null;
+            if (take_from != null) {
+                takeFrom = take_from;
+                take_from.minusOperations.Add(this);
+                take_from.time -= time;
+            }
+            if (put_into != null) {
+                putInto = put_into;
+                put_into.plusOperations.Add(this);
+                put_into.time += time;
+            
+            }
+        }
+
         public bool CompareOperations(Operation op) {
             return false;
         }
 
-        public void revertChanges() { }
+        public void revertChanges() {
+            takeFrom.time += sum;
+            putInto.time -= sum;
+            takeFrom.minusOperations.Remove(this);
+            putInto.plusOperations.Remove(this);
+        }
 
         public void print() { }
 
     }
 
     public class OperationNode {
+        private Int16 _nodeNumber;
+        public Int16 nodeNumber { get { return _nodeNumber; } set { _nodeNumber = value; } }
         private Operation _currentOperation;
         public Operation currentOperation { get { return _currentOperation; } set { _currentOperation = value; } }
         public List<Operation> abortedOperations;
@@ -162,20 +191,49 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             journal = null;
         }
 
-        public void AbortOperation(){}
+        public void AbortOperation() {
+            currentOperation.revertChanges();
+            abortedOperations.Add(currentOperation);
+            currentOperation = null;
+        }
+
     }
 
     public class Journal {
-        public List<OperationNode> operationsTree;
-        private OperationNode _currentLastNode;
-        public OperationNode currentLastNode { get { return _currentLastNode; } set { _currentLastNode = value; } }
-
+        public Dictionary<Int16,OperationNode> operationsTree;
+        private Int16 _stepNumber;
+        public Int16 stepNumber { get { return _stepNumber; } set { _stepNumber = value; } }
         public Journal() {
-            operationsTree = new List<OperationNode>();
-            currentLastNode = null;
+            operationsTree = new Dictionary<Int16, OperationNode>();
+            stepNumber = 0;
         }
-        public void RevertToStep(Int16 n) { }
-        public void PrintLog() { }
+
+        public void MakeOperation( Int32 sum, Cell take_from, Cell put_into) {
+            stepNumber += 1;
+            OperationNode on = new OperationNode();
+            on.journal = this;
+            on.nodeNumber = stepNumber;
+            operationsTree[stepNumber] = on;
+            Operation op = new Operation(sum, take_from, put_into);
+            on.currentOperation = op;
+            op.operationNumber = stepNumber;
+            op.operationNode = on;
+        }
+
+        public void RevertToStep(Int16 n) {
+            if (n < 0 || n > stepNumber) throw new InvalidOperationException("There is now such step!");
+            for (Int16 i = stepNumber; i > n; i-- ) {
+                operationsTree[i].AbortOperation();
+                operationsTree.Remove(i);
+                stepNumber--;
+            }
+            operationsTree[n].AbortOperation();
+        }
+
+        public void PrintLog() {
+            for (Int16 i = 1; i <= stepNumber; i++)
+                operationsTree[i].currentOperation.print();
+        }
     }
 
     

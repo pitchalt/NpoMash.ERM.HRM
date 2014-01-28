@@ -62,7 +62,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             return mat;
         }
 
-
+        public static void BringUncontrolledOrders(Matrix mat){
+            
+            foreach (Dep dep in mat.deps.Values){
+                if (dep.fact > dep.plan) {
+                    
+                }
+            }
+        }
 
 
         
