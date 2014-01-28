@@ -14,12 +14,14 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     public class Matrix {
-        public List<Ord> orders;
-        public List<Dep> deps;
+        public Dictionary<String,Ord> orders;
+        public Dictionary<String,Dep> deps;
         public Dictionary<Tuple<Dep, Ord>, Cell> cellsInDictionary;
     }
 
     public class Ord {
+        private String _code;
+        public String code { get { return _code; } set { _code = value; } }
         public List<Cell> cells;
         private Matrix _matrix;
         public Matrix matrix { get { return _matrix; } set { _matrix = value; } }
@@ -29,7 +31,11 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     }
 
     public class Dep {
+        private String _code;
+        public String code { get { return _code; } set { _code = value; } }
         public List<Cell> cells;
+        private Matrix _matrix;
+        public Matrix matrix { get { return _matrix; } set { _matrix = value; } }
         private Int16 _fact;
         public Int16 fact { get { return _fact; } set { _fact = value; } }
         private Int16 _plan;
