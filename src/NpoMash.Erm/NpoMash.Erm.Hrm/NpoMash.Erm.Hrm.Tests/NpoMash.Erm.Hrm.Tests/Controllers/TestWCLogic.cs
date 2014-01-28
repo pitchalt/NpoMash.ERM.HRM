@@ -19,10 +19,29 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
     public static class TestWCLogic {
 
-        private const int _REFERENCE_COUNT = 10;
-        private const int _DEPARTMENT_COUNT = 20;
-        private const int _ALLOCPARAMETER_COUNT = 1;
-        private const int _SALARYPAYTYPE_COUNT = 100;
+        private static int _Reference_Count = 10;
+        public static int ReferenceCount {
+            get { return _Reference_Count; }
+            set { _Reference_Count = value; }
+        }
+
+        private static int _Department_Count = 20;
+        public static int DepartmentCount {
+            get { return _Department_Count; }
+            set { _Department_Count = value; }
+        }
+
+        private static int _Allocparameter_Count = 1;
+        public static int AllocparameterCount {
+            get { return _Allocparameter_Count; }
+            set { _Allocparameter_Count = value; }
+        }
+
+        private static int _Salarypaytype_Count = 100;
+        public static int SalarypaytypeCount {
+            get { return _Salarypaytype_Count; }
+            set { _Salarypaytype_Count = value; }
+        }
 
         public static void addTimeSheets(IObjectSpace local_object_space) {
             foreach (var each in local_object_space.GetObjects<HrmPeriod>()) {
@@ -71,7 +90,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void SalaryPayTypeGenerate(IObjectSpace local_object_space) {
             var random = new Random();
-            for (int i = 0 ; i<_SALARYPAYTYPE_COUNT ; i++) {
+            for (int i = 0 ; i<_Salarypaytype_Count ; i++) {
                 var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
                 hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
                 hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
@@ -80,17 +99,17 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void referenceClassesGenerate(IObjectSpace local_object_space) {
             var random = new Random();
-            for (int i = 0 ; i < _DEPARTMENT_COUNT ; i++) {
+            for (int i = 0 ; i < _Department_Count ; i++) {
                 var department = local_object_space.CreateObject<Department>();
                 department.Code = Convert.ToString(random.Next(1000, 4001));
-                if (Convert.ToDecimal(i) < System.Math.Round(Convert.ToDecimal(_DEPARTMENT_COUNT / 2))) {
+                if (Convert.ToDecimal(i) < System.Math.Round(Convert.ToDecimal(_Department_Count / 2))) {
                     department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
                 }
                 else {
                     department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
                 }
             }
-            for (int i = 0 ; i < _REFERENCE_COUNT ; i++) {
+            for (int i = 0 ; i < _Reference_Count ; i++) {
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
                 var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
                 int type_control = random.Next(1, 4);
@@ -109,7 +128,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         public static void addTestData(IObjectSpace a_object_space) {
-            for (int i = 0 ; i < _ALLOCPARAMETER_COUNT ; i++) {
+            for (int i = 0 ; i < _Allocparameter_Count ; i++) {
                 var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters(a_object_space);
                 alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
                 foreach (var each in a_object_space.GetObjects<HrmPeriod>(null, true)) {
