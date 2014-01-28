@@ -11,10 +11,10 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
 
 
     [TestFixture]
-    public class AllreadyExistAllocParameters : PrimaryAllocParameters {
+    public class AllreadyExistAllocParameters : OptionsAllocParameters {
 
         [Test]
-        public void TestLastStableState() {
+        public void AddTestData_StableState_ComplexExpext() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var alloc_parameters_list = test_object_space.GetObjects<HrmPeriodAllocParameter>();
             foreach (var alloc_parameter in alloc_parameters_list) {

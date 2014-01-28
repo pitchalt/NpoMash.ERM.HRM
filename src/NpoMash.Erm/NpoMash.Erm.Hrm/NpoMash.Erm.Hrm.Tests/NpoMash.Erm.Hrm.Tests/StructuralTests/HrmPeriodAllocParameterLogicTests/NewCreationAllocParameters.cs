@@ -14,7 +14,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
 
 
     [TestFixture]
-    public class NewAllocParametersCreation : PrimaryAllocParameters {
+    public class NewCreationAllocParameters : OptionsAllocParameters {
 
         [SetUp]
         protected override void SetUp() {
