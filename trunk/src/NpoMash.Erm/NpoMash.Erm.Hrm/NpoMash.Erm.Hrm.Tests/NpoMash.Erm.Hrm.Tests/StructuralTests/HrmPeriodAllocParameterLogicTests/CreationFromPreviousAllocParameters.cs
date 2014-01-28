@@ -12,17 +12,17 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
 
 
     [TestFixture]
-    public class AllocParameterCreationFromPrevious : AllreadyExistAllocParameters {
+    public class CreationFromPreviousAllocParameters : AllreadyExistAllocParameters {
 
         [Test]
-        public void CheckAllocParameterscCreateStatus() {
+        public void CreateParameters_CheckStatus_CreatedExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(HrmPeriodAllocParameterStatus.CREATED, new_alloc_parameters.Status);
         }
 
         [Test]
-        public void CheckAllocParametersFirstAcceptStatus() {
+        public void AcceptParameters_CheckStatus_ListOfOrderAcceptedExept() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void CheckAllocParametersFinalAcceptStatus() {
+        public void AcceptParameters_CheckStatus_AllocParametersAcceptedExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void DoubleCreationAllocParameters() {
+        public void CreateParameters_DoubleCreate_ExeptionExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             try { var double_param = HrmPeriodAllocParameterLogic.createParameters(test_object_space); }
@@ -47,7 +47,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void ConditionalAppearanceIsEnabledCreate() {
+        public void CreateParameters_ConditionalAppearanceEnabled_TrueExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             detail_view = application.CreateDetailView(test_object_space, new_alloc_parameters);
@@ -57,7 +57,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void ConditionalAppearanceIsEnabledFirstAccept() {
+        public void AcceptParameters_ConditionalAppearanceEnabled_TrueExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
@@ -67,7 +67,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
             Assert.IsTrue(target.Enabled);
         }
         [Test]
-        public void ConditionalAppearanceIsEnabledLastAccept() {
+        public void AcceptParameters_ConditionalAppearanceEnabledLastSatus_TrueExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
@@ -79,35 +79,35 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void PeriodLinkIsNotNull() {
+        public void CreateParameters_PeriodLinkExist_NotNullExept() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.Period);
         }
 
         [Test]
-        public void OrderControllCollectionIsExist() {
+        public void CreateParameters_OrderControllExist_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.OrderControls);
         }
 
         [Test]
-        public void PeriodPayTypeCOllectionIsExist() {
+        public void CreateParameters_PeriodPayTypeCOllectionExist_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.PeriodPayTypes);
         }
 
         [Test]
-        public void IterationNumberIsCorrect() {
+        public void CreateParameters_IterationNumberCorrect_1Expect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(1, new_alloc_parameters.IterationNumber);
         }
 
         [Test]
-        public void YearMonthValueIsCorrect() {
+        public void InitPeriod_YearMonthValueIsCorrect_PublicConstsExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(HrmPeriodLogic.INIT_YEAR, new_alloc_parameters.Year);
@@ -115,21 +115,21 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void NormNoContolKbValueIsCorrect() {
+        public void initParametersFromPreviousPeriod_NormKBCorrect_PublicConstExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_KB, new_alloc_parameters.NormNoControlKB);
         }
 
         [Test]
-        public void NormNoControlOZMValueIsCorrect() {
+        public void initParametersFromPreviousPeriod_NormOZMCorrect_PublicConstExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_OZM, new_alloc_parameters.NormNoControlOZM);
         }
 
         [Test]
-        public void NoOrderedOrdersAreNotExist() {
+        public void InitOrderControls_NoOrderedOrdersAreNotExist_NotEqualExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             foreach (var order in new_alloc_parameters.OrderControls) {
@@ -138,7 +138,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void PeriodLinkIsNotNullFirstAccept() {
+        public void initParametersFromPreviousPeriod_LinkExistFirstAccept_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
@@ -146,7 +146,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         }
 
         [Test]
-        public void OrderControllCollectionIsExistFirstAccept() {
+        public void InitOrderControls_OrderControllCollectionExistFirstAccept_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
             HrmPeriodAllocParameterLogic.acceptParameters(test_object_space, new_alloc_parameters);
