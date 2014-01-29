@@ -77,7 +77,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             non_zero_uncontrolled.Add(cell);
                         }
                     }
-                    Double coefficient = (dep.fact - dep.planControlled) / total_uncontrolled_sum;
+                    Double coefficient = (Double)((Double)dep.fact - (Double)dep.planControlled) / (Double)total_uncontrolled_sum;
                     foreach (Cell cell in non_zero_uncontrolled) {
                         Int32 difference = (Int32)Math.Round(cell.time * coefficient) - cell.time;
                         if (difference > 0) mat.journal.MakeOperation(difference, null, cell);
