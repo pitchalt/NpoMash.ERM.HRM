@@ -111,8 +111,12 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 else reduc = prepare_object_space.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentKBmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, prepare_object_space, group_dep, bringing_method, period);
             }
-            foreach (var matrix in prepare_object_space.GetObjects<HrmMatrix>()) {
-                
+            prepare_object_space.CommitChanges();
+            var matrix_list = prepare_object_space.GetObjects<HrmSalaryTaskMatrixReduction>();
+            foreach (var matrix in matrix_list) {
+                foreach (var data in matrix.Department) {
+                    Assert.AreEqual(data.DepartmentFact, data.DepartmentPlan);
+                }
             }
         }
     }
