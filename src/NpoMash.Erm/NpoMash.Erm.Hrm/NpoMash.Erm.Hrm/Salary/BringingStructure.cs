@@ -121,7 +121,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             dep = null;
         }
 
-        public Int32 GetDistributionPotential() {
+        public Int32 DistributionPotential() {
             Int32 result = 0;
             foreach (Cell cell in order.cells) {
                 Int32 x = cell.dep.freeSpace;
@@ -130,6 +130,25 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             }
             return result;
         }
+
+        public Int32 DistributionSize() {
+            return Math.Min(DistributionPotential(), Math.Min(-dep.freeSpace, time - 1));
+        }
+
+        public Int32 DistributionDifficulty() {
+            Int32 result = 0;
+
+            return result;
+        }
+
+        public Double DistributionQuality() {
+            Double result = 0;
+            Int32 dd = DistributionDifficulty();
+            if (dd != 0)
+                result = DistributionSize() / dd;
+            return result;
+        }
+
     }
 
     public class Operation {
