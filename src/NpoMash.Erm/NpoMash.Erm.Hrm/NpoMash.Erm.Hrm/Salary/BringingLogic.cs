@@ -66,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void BringUncontrolledOrders(Matrix mat) {
             foreach (Dep dep in mat.deps.Values) {
-                if (dep.fact != dep.plan) {
+                if (dep.fact >= dep.planControlled) {
                     List<Cell> non_zero_uncontrolled = new List<Cell>();
                     Int32 total_uncontrolled_sum = 0;
                     foreach (Cell cell in dep.cells) {
@@ -110,6 +110,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void BringBigDepartments(Matrix mat) {
+            List<Dep> big_deps = new List<Dep>();
+            List<Dep> small_deps = new List<Dep>();
+            foreach (Dep dep in mat.deps.Values) {
+                if (dep.freeSpace < 0) big_deps.Add(dep);
+                if (dep.freeSpace > 0) small_deps.Add(dep);
+            }
+            big_deps.OrderBy(x => x.freeSpace);
+            small_deps.OrderByDescending(x => x.freeSpace);
+
 
         }
 
