@@ -16,18 +16,18 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
 
         protected TestApplication application;
 
-        [TestFixtureSetUp]
-        protected virtual void SetUp() {
+        [SetUp]
+        protected void SetUp() {
             IObjectSpaceProvider object_space_provider = new XPObjectSpaceProvider(new MemoryDataStoreProvider());
             application = new TestApplication();
             ModuleBase test_module = new ModuleBase();
             test_module.AdditionalExportedTypes.Add(typeof(HrmSalaryTaskMatrixReduction));
             application.Modules.Add(test_module);
             application.Setup("BringingApp", object_space_provider);
-            IObjectSpace object_space = application.CreateObjectSpace();
+            PrepareTestData();
         }
 
-
+        protected virtual void PrepareTestData() { }
 
     }
 }

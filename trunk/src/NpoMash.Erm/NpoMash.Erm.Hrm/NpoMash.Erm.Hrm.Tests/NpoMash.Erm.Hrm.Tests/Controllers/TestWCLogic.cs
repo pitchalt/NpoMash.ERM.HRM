@@ -19,13 +19,13 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
     public static class TestWCLogic {
 
-        private static int _Reference_Count = 10;
+        private static int _Reference_Count = 3;
         public static int ReferenceCount {
             get { return _Reference_Count; }
             set { _Reference_Count = value; }
         }
 
-        private static int _Department_Count = 20;
+        private static int _Department_Count = 1;
         public static int DepartmentCount {
             get { return _Department_Count; }
             set { _Department_Count = value; }
@@ -38,10 +38,6 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         private static int _Salarypaytype_Count = 100;
-        public static int SalarypaytypeCount {
-            get { return _Salarypaytype_Count; }
-            set { _Salarypaytype_Count = value; }
-        }
 
         public static void addTimeSheets(IObjectSpace local_object_space) {
             foreach (var each in local_object_space.GetObjects<HrmPeriod>()) {
@@ -125,6 +121,10 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
                 hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
             }
+            var fmCorderUnConTroll = local_object_space.CreateObject<fmCOrder>();
+            fmCorderUnConTroll.Code = Convert.ToString(random.Next(1000, 100000));
+            fmCorderUnConTroll.TypeControl = FmCOrderTypeControl.NO_ORDERED;
+            fmCorderUnConTroll.TypeConstancy = FmCOrderTypeConstancy.UN_CONST_ORDER_TYPE;
         }
 
         public static void addTestData(IObjectSpace a_object_space) {
