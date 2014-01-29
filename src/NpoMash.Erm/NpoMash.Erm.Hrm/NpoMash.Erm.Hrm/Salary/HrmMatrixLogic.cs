@@ -18,6 +18,7 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Exchange;
+using NpoMash.Erm.Hrm.Salary.BringingStructure;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -91,7 +92,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
                     new_row.Cells.Add(new_cell);
                     new_col.Cells.Add(new_cell);
-                    Int16 coefficient = 0;
+                    /*Int16 coefficient = 0;
                     switch (bringing_method) {
                         case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
                                 coefficient = 2;
@@ -111,19 +112,41 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     new_cell.Time = (Int16)(cell.Time * coefficient);
                     new_cell.Sum = cell.Sum * coefficient;
-
+                    */
                     result_matrix.Type = HrmMatrixType.TYPE_MATIX;
                     result_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_COERCED;
                     result_matrix.GroupDep = group_dep;
                     result_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
-                    result_matrix.IterationNumber = 2;
+                    result_matrix.IterationNumber = 1;
                     result_matrix.Variant = bringing_method;
                     result_matrix.Period = period;
 
                 }
             }
+
+            switch (bringing_method) {
+            case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
+                    //coefficient = 2;
+                    //AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
+                    break;
+                }
+            case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
+                AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
+                Matrix mat = BringingLogic.PrepareBringingStructure(AllocMatrix);
+                BringingLogic.BringUncontrolledOrders(mat);
+                BringingLogic.PutDataInRealMatrix(result_matrix, mat);
+                break;
+                }
+            case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT: {
+                    //coefficient = 4;
+                    //AllocMatrix.ProportionsMethodMatrix = result_matrix;
+                    break;
+                }
+            }
             return result_matrix;
         }
+
+
     }
 }
 
