@@ -62,17 +62,57 @@ namespace NpoMash.Erm.Hrm.Salary {
             return mat;
         }
 
+
+
         public static void BringUncontrolledOrders(Matrix mat){
-            
             foreach (Dep dep in mat.deps.Values){
-                if (dep.fact > dep.plan) {
-                    
+                if (dep.fact != dep.plan) {
+                    List<Cell> non_zero_uncontrolled = new List<Cell>();
+                    Int32 total_uncontrolled_sum = 0;
+                    foreach(Cell cell in dep.cells){
+                        if (!cell.order.isControlled && cell.time !=0 ) {
+                            total_uncontrolled_sum += cell.time;
+                            non_zero_uncontrolled.Add(cell);
+                        }
+                    }
+                    Double coefficient = (dep.fact - dep.planControlled) / total_uncontrolled_sum;
+                    foreach (Cell cell in non_zero_uncontrolled) {
+                        Int32 difference = (Int32)Math.Round(cell.time * coefficient) - cell.time;
+                        if (difference > 0) mat.journal.MakeOperation(difference, null, cell);
+                        if (difference < 0) {
+                            if (difference == cell.time) difference++;
+                            if (difference < 0)
+                                mat.journal.MakeOperation(-difference, cell, null);
+                        }
+                    }
+                    Int32 plan_fact_difference = dep.fact - dep.plan;
+                    List<Cell>.Enumerator en = non_zero_uncontrolled.GetEnumerator();
+                    if (plan_fact_difference > 0) {
+                        mat.journal.MakeOperation(plan_fact_difference, null, en.Current);
+                    }
+
+                    if(plan_fact_difference < 0){
+                        while (plan_fact_difference < 0 && en.Current != null) {
+                            Int32 x = Math.Min(en.Current.time - 1, -plan_fact_difference);
+                            if (x > 0) {
+                                mat.journal.MakeOperation(x, en.Current, null);
+                                plan_fact_difference += x;
+                            }
+                            en.MoveNext();
+                        }
+                    }
                 }
             }
         }
 
+        public static void BringMicroDepartments(Matrix mat) {
+            
+        }
 
-        
+        public static void BringBigDepartments(Matrix mat) {
+            
+        }
+
     }
 
 }
