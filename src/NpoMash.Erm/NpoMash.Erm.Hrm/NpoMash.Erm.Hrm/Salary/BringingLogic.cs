@@ -16,8 +16,8 @@ using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public static class BringingLogic{
-        
+    public static class BringingLogic {
+
         public static Matrix PrepareBringingStructure(HrmSalaryTaskMatrixReduction reduc) {
             HrmMatrix mat_plan = reduc.MatrixPlan;
             HrmTimeSheet time_sheet = reduc.TimeSheet;
@@ -64,13 +64,13 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public static void BringUncontrolledOrders(Matrix mat){
-            foreach (Dep dep in mat.deps.Values){
+        public static void BringUncontrolledOrders(Matrix mat) {
+            foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact != dep.plan) {
                     List<Cell> non_zero_uncontrolled = new List<Cell>();
                     Int32 total_uncontrolled_sum = 0;
-                    foreach(Cell cell in dep.cells){
-                        if (!cell.order.isControlled && cell.time !=0 ) {
+                    foreach (Cell cell in dep.cells) {
+                        if (!cell.order.isControlled && cell.time != 0) {
                             total_uncontrolled_sum += cell.time;
                             non_zero_uncontrolled.Add(cell);
                         }
@@ -91,7 +91,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         mat.journal.MakeOperation(plan_fact_difference, null, en.Current);
                     }
 
-                    if(plan_fact_difference < 0){
+                    if (plan_fact_difference < 0) {
                         while (plan_fact_difference < 0 && en.Current != null) {
                             Int32 x = Math.Min(en.Current.time - 1, -plan_fact_difference);
                             if (x > 0) {
@@ -106,13 +106,22 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void BringMicroDepartments(Matrix mat) {
-            
+
         }
 
         public static void BringBigDepartments(Matrix mat) {
-            
+
         }
 
-    }
+        public static void PutDataInRealMatrix(HrmMatrix real_matrix, Matrix bringing_structure) {
+            foreach (HrmMatrixColumn real_dep in real_matrix.Columns)
+                foreach (HrmMatrixCell real_cell in real_dep.Cells) {
+                    Tuple<Dep, Ord> tuple = new Tuple<Dep, Ord>(bringing_structure.deps[real_cell.Column.Department.Code], bringing_structure.orders[real_cell.Row.Order.Code]);
+                    if(bringing_structure.cellsInDictionary.ContainsKey(tuple))
+                        real_cell.Time = (Int16)bringing_structure.cellsInDictionary[tuple].time;
+                }
+        }
 
+
+    }
 }

@@ -120,6 +120,16 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             order = null;
             dep = null;
         }
+
+        public Int32 GetDistributionPotential() {
+            Int32 result = 0;
+            foreach (Cell cell in order.cells) {
+                Int32 x = cell.dep.freeSpace;
+                if (x > 0 && cell != this)
+                    result += x;
+            }
+            return result;
+        }
     }
 
     public class Operation {
