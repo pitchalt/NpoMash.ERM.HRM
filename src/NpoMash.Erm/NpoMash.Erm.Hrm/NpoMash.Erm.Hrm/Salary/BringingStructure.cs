@@ -89,6 +89,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Dep dep { get { return _dep; } set { _dep = value; } }
         private Int32 _nonZeroUncontrolled;
         public Int32 nonZeroUncontrolled { get { return _nonZeroUncontrolled; } set { _nonZeroUncontrolled = value; } }
+        private Int32 _startTime;
+        public Int32 startTime { get { return _startTime; } set { _startTime = value; time = value; } }
         private Int32 _time;
         public Int32 time { get { return _time; }
             set {
@@ -113,6 +115,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public List<Operation> plusOperations;
 
         public Cell() {
+            _startTime = 0;
             _time = 0;
             nonZeroUncontrolled = 0;
             minusOperations = new List<Operation>();
