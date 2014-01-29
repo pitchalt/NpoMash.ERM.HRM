@@ -43,7 +43,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                         order = mat.orders[cell_plan.Row.Order.Code];
                     else {
                         order = new Ord();
-                        order.isControlled = order_controls[cell_plan.Row.Order.Code];
+                        if (order_controls.ContainsKey(cell_plan.Row.Order.Code))
+                            order.isControlled = order_controls[cell_plan.Row.Order.Code];
+                        else order.isControlled = false;
                         order.realOrder = cell_plan.Row.Order;
                         order.matrix = mat;
                         mat.orders.Add(order.realOrder.Code, order);
