@@ -137,7 +137,14 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
 
         public Int32 DistributionDifficulty() {
             Int32 result = 0;
-
+            Int32 ds = DistributionSize();
+            List<Cell> list = new List<Cell>(order.cells.Where(x => x.dep.freeSpace > 0));
+            list.OrderByDescending(x => x.dep.freeSpace);
+            List<Cell>.Enumerator en = list.GetEnumerator();
+            while (en.Current != null && ds > 0) {
+                ds -= en.Current.dep.freeSpace;
+                result++;
+            }
             return result;
         }
 
