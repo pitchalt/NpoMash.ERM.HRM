@@ -82,11 +82,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
             public Department Department;
-            public Int32 DepartmentPlan;
+            public Int64 DepartmentPlan;
             public Int32 DepartmentFact;
-            public Int32 MinimizeNumberOfDeviationsAlloc;
-            public Int32 MinimizeMaximumDeviationsAlloc;
-            public Int32 ProportionsMethodAlloc;
+            public Int64 MinimizeNumberOfDeviationsAlloc;
+            public Int64 MinimizeMaximumDeviationsAlloc;
+            public Int64 ProportionsMethodAlloc;
             public IList<OrderItem> OrderItems = new List<OrderItem>();
             public DepartmentItem(Session session) : base(session) { }
         }
@@ -95,10 +95,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class OrderItem : XPCustomObject {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
-            public Int32 OrderPlan;
-            public Int32 MinimizeNumberOfDeviationsAlloc;
-            public Int32 MinimizeMaximumDeviationsAlloc;
-            public Int32 ProportionsMethodAlloc;
+            public Int64 OrderPlan;
+            public Int64 MinimizeNumberOfDeviationsAlloc;
+            public Int64 MinimizeMaximumDeviationsAlloc;
+            public Int64 ProportionsMethodAlloc;
             public IList<DepartmentItem> DepartmentItems = new List<DepartmentItem>();
             public OrderItem(Session session) : base(session) { }
         }

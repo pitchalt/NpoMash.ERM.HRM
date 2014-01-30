@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         public void CreateParameters_CheckStatus_CreatedExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
-            Assert.AreEqual(HrmPeriodAllocParameterStatus.CREATED, new_alloc_parameters.Status);
+            Assert.AreEqual(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT, new_alloc_parameters.Status);
         }
 
         [Test]

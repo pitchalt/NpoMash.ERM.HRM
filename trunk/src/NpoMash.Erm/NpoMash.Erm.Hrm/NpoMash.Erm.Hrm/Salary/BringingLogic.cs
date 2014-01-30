@@ -70,7 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact >= dep.planControlled) {
                     List<Cell> non_zero_uncontrolled = new List<Cell>();
-                    Int32 total_uncontrolled_sum = 0;
+                    Int64 total_uncontrolled_sum = 0;
                     foreach (Cell cell in dep.cells) {
                         if (!cell.order.isControlled && cell.time != 0) {
                             total_uncontrolled_sum += cell.time;
@@ -79,7 +79,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     Double coefficient = ((Double)dep.fact - dep.planControlled) / total_uncontrolled_sum;
                     foreach (Cell cell in non_zero_uncontrolled) {
-                        Int32 difference = (Int32)Math.Round(cell.time * coefficient) - cell.time;
+                        Int64 difference = (Int64)Math.Round(cell.time * coefficient) - cell.time;
                         if (difference > 0) mat.journal.MakeOperation(difference, null, cell);
                         if (difference < 0) {
                             if (difference == cell.time) mat.journal.MakeOperation(1,null, cell);
@@ -87,7 +87,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             mat.journal.MakeOperation(-difference, cell, null);
                         }
                     }
-                    Int32 plan_fact_difference = dep.fact - dep.plan;
+                    Int64 plan_fact_difference = dep.fact - dep.plan;
                     List<Cell>.Enumerator en = non_zero_uncontrolled.GetEnumerator();
                     if (plan_fact_difference > 0) {
                         mat.journal.MakeOperation(plan_fact_difference, null, en.Current);
@@ -95,7 +95,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                     if (plan_fact_difference < 0) {
                         while (plan_fact_difference < 0 && en.Current != null) {
-                            Int32 x = Math.Min(en.Current.time - 1, -plan_fact_difference);
+                            Int64 x = Math.Min(en.Current.time - 1, -plan_fact_difference);
                             if (x > 0) {
                                 mat.journal.MakeOperation(x, en.Current, null);
                                 plan_fact_difference += x;

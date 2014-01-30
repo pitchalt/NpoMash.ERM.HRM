@@ -25,7 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary
         OPEN_TO_EDIT  = 1,
         LIST_OF_ORDER_ACCEPTED  = 2,
         ALLOC_PARAMETERS_ACCEPTED  = 3,
-        CREATED=4,
+//        CREATED=4,
         ARCHIVE=5
     }
     
@@ -56,7 +56,6 @@ namespace NpoMash.Erm.Hrm.Salary
         [PersistentAlias("_Status")]
         public HrmPeriodAllocParameterStatus Status {
                get { return _Status; }
-               //set { SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, value); } 
         }
 
         private Decimal _NormNoControlKB;

@@ -56,18 +56,18 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public List<Cell> cells;
         private Matrix _matrix;
         public Matrix matrix { get { return _matrix; } set { _matrix = value; } }
-        private Int32 _fact;
-        public Int32 fact { get { return _fact; } set {
+        private Int64 _fact;
+        public Int64 fact { get { return _fact; } set {
             freeSpace += value - fact;
             _fact = value;
             }
         }
-        private Int32 _plan;
-        public Int32 plan { get { return _plan; } set { _plan = value; } }
-        private Int32 _planControlled;
-        public Int32 planControlled { get { return _planControlled; } set { _planControlled = value; } }
-        private Int32 _freeSpace;
-        public Int32 freeSpace { get { return _freeSpace; } set { _freeSpace = value; } }
+        private Int64 _plan;
+        public Int64 plan { get { return _plan; } set { _plan = value; } }
+        private Int64 _planControlled;
+        public Int64 planControlled { get { return _planControlled; } set { _planControlled = value; } }
+        private Int64 _freeSpace;
+        public Int64 freeSpace { get { return _freeSpace; } set { _freeSpace = value; } }
         private Department _realDepartment;
         public Department realDepartment { get { return _realDepartment; } set { _realDepartment = value; } }
 
@@ -91,11 +91,11 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Int32 nonZeroUncontrolled { get { return _nonZeroUncontrolled; } set { _nonZeroUncontrolled = value; } }
         private Int32 _startTime;
         public Int32 startTime { get { return _startTime; } set { _startTime = value; time = value; } }
-        private Int32 _time;
-        public Int32 time { get { return _time; }
+        private Int64 _time;
+        public Int64 time { get { return _time; }
             set {
                 if (value != time) {
-                    Int32 x = value - time;
+                    Int64 x = value - time;
                     dep.plan += x;
                     if (order.isControlled) {
                         dep.planControlled += x;
@@ -124,23 +124,23 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             dep = null;
         }
 
-        public Int32 DistributionPotential() {
-            Int32 result = 0;
+        public Int64 DistributionPotential() {
+            Int64 result = 0;
             foreach (Cell cell in order.cells) {
-                Int32 x = cell.dep.freeSpace;
+                Int64 x = cell.dep.freeSpace;
                 if (x > 0 && cell != this)
                     result += x;
             }
             return result;
         }
 
-        public Int32 DistributionSize() {
+        public Int64 DistributionSize() {
             return Math.Min(DistributionPotential(), Math.Min(-dep.freeSpace, time - 1));
         }
 
         public Int32 DistributionDifficulty() {
             Int32 result = 0;
-            Int32 ds = DistributionSize();
+            Int64 ds = DistributionSize();
             List<Cell> list = new List<Cell>(order.cells.Where(x => x.dep.freeSpace > 0));
             list.OrderByDescending(x => x.dep.freeSpace);
             List<Cell>.Enumerator en = list.GetEnumerator();
@@ -162,8 +162,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     }
 
     public class Operation {
-        private Int32 _sum;
-        public Int32 sum { get { return _sum; } set { _sum = value; } }
+        private Int64 _sum;
+        public Int64 sum { get { return _sum; } set { _sum = value; } }
         private Int16 _operationNumber;
         public Int16 operationNumber { get { return _operationNumber; } set { _operationNumber = value; } }
         private Cell _takeFrom;
@@ -181,7 +181,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             operationNode = null;
         }
 
-        public Operation(Int32 time, Cell take_from, Cell put_into) {
+        public Operation(Int64 time, Cell take_from, Cell put_into) {
             sum = time;
             operationNumber = 0;
             takeFrom = null;
@@ -247,7 +247,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             stepNumber = 0;
         }
 
-        public void MakeOperation( Int32 sum, Cell take_from, Cell put_into) {
+        public void MakeOperation( Int64 sum, Cell take_from, Cell put_into) {
             stepNumber += 1;
             OperationNode on = new OperationNode();
             on.journal = this;
