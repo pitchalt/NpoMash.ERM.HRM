@@ -19,7 +19,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
     public static class TestWCLogic {
 
-        private static int _Reference_Count = 3;
+        private static int _Reference_Count = 5;
         public static int ReferenceCount {
             get { return _Reference_Count; }
             set { _Reference_Count = value; }
@@ -97,7 +97,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             var random = new Random();
             for (int i = 0 ; i < _Department_Count ; i++) {
                 var department = local_object_space.CreateObject<Department>();
-                department.Code = Convert.ToString(random.Next(1000, 4001));
+                department.Code = Convert.ToString(random.Next(1, 4001));
                 if (Convert.ToDecimal(i) < System.Math.Round(Convert.ToDecimal(_Department_Count / 2))) {
                     department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
                 }

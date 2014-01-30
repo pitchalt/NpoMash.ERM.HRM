@@ -77,14 +77,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                             non_zero_uncontrolled.Add(cell);
                         }
                     }
-                    Double coefficient = (Double)((Double)dep.fact - (Double)dep.planControlled) / (Double)total_uncontrolled_sum;
+                    Double coefficient = ((Double)dep.fact - dep.planControlled) / total_uncontrolled_sum;
                     foreach (Cell cell in non_zero_uncontrolled) {
                         Int32 difference = (Int32)Math.Round(cell.time * coefficient) - cell.time;
                         if (difference > 0) mat.journal.MakeOperation(difference, null, cell);
                         if (difference < 0) {
-                            if (difference == cell.time) difference++;
-                            if (difference < 0)
-                                mat.journal.MakeOperation(-difference, cell, null);
+                            if (difference == cell.time) mat.journal.MakeOperation(1,null, cell);
+                            //if (difference < 0)
+                            mat.journal.MakeOperation(-difference, cell, null);
                         }
                     }
                     Int32 plan_fact_difference = dep.fact - dep.plan;
