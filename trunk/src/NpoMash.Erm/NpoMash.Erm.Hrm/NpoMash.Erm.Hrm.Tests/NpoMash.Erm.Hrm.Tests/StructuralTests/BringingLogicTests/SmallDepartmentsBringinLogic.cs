@@ -102,6 +102,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 loadTimeSheetIntoPeriod(prepare_object_space, task);
             }
             DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
+            period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
             if (period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
                 HrmMatrixVariant bringing_method = HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT;
                 HrmSalaryTaskMatrixReduction reduc = null;
