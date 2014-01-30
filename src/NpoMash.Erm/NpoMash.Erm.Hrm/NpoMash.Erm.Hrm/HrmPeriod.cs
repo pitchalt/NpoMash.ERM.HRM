@@ -38,12 +38,10 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
     [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
-    
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]
   

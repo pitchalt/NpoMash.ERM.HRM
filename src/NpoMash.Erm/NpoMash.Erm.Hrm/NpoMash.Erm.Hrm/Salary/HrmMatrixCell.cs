@@ -19,10 +19,10 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmMatrixCell")]   
     public class HrmMatrixCell : BaseObject {
 
-        private Int16 _Time;
-        public Int16 Time {
+        private Int64 _Time;
+        public Int64 Time {
             get { return _Time; }
-            set { SetPropertyValue<Int16>("Time", ref _Time,value); }
+            set { SetPropertyValue<Int64>("Time", ref _Time, value); }
         }
 
         private Decimal _Sum;
