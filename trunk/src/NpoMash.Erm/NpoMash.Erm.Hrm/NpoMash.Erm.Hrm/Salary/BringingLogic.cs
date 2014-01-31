@@ -54,13 +54,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                     cell.order = order;
                     order.cells.Add(cell);
                     mat.cellsInDictionary.Add(new Tuple<Dep, Ord>(department, order), cell);
-                    cell.time = cell_plan.Time;
+                    cell.startTime = cell_plan.Time;
                 }
             }
 
             foreach (HrmTimeSheetDep tsd in time_sheet.TimeSheetDeps)
-                mat.deps[tsd.Department.Code].fact = tsd.MatrixWorkTime;
-
+                if (mat.deps.ContainsKey(tsd.Department.Code))
+                    mat.deps[tsd.Department.Code].fact += tsd.MatrixWorkTime;
             return mat;
         }
 
@@ -72,36 +72,36 @@ namespace NpoMash.Erm.Hrm.Salary {
                     List<Cell> non_zero_uncontrolled = new List<Cell>();
                     Int64 total_uncontrolled_sum = 0;
                     foreach (Cell cell in dep.cells) {
-                        if (!cell.order.isControlled && cell.time != 0) {
+                        if (!cell.order.isControlled && cell.isNotZero) {
+                            if (cell.time == 0)
+                                cell.time += 1;
                             total_uncontrolled_sum += cell.time;
                             non_zero_uncontrolled.Add(cell);
                         }
                     }
-                    Double coefficient = ((Double)dep.fact - dep.planControlled) / total_uncontrolled_sum;
+                    //Double coefficient = ((Double)dep.fact - dep.planControlled) / total_uncontrolled_sum;
+                    Int64 chislitel = dep.fact - dep.planControlled;
                     foreach (Cell cell in non_zero_uncontrolled) {
-                        Int64 difference = (Int64)Math.Round(cell.time * coefficient) - cell.time;
+                        Int64 difference = cell.time * chislitel / total_uncontrolled_sum - cell.time;
                         if (difference > 0) mat.journal.MakeOperation(difference, null, cell);
                         if (difference < 0) {
-                            if (difference == cell.time) mat.journal.MakeOperation(1,null, cell);
+                            //if (difference == cell.time) mat.journal.MakeOperation(1,null, cell);
                             //if (difference < 0)
-                            mat.journal.MakeOperation(-difference, cell, null);
+                            mat.journal.MakeOperation(difference, cell, null);
                         }
                     }
                     Int64 plan_fact_difference = dep.fact - dep.plan;
                     List<Cell>.Enumerator en = non_zero_uncontrolled.GetEnumerator();
-                    if (plan_fact_difference > 0) {
+                    if (en.Current == null) en.MoveNext();
+                    if (plan_fact_difference > 0)
                         mat.journal.MakeOperation(plan_fact_difference, null, en.Current);
-                    }
+                    
 
-                    if (plan_fact_difference < 0) {
-                        while (plan_fact_difference < 0 && en.Current != null) {
-                            Int64 x = Math.Min(en.Current.time - 1, -plan_fact_difference);
-                            if (x > 0) {
-                                mat.journal.MakeOperation(x, en.Current, null);
-                                plan_fact_difference += x;
-                            }
-                            en.MoveNext();
-                        }
+                    while (plan_fact_difference < 0 && en.Current != null) {
+                        Int64 x = Math.Min(en.Current.time, -plan_fact_difference);
+                        mat.journal.MakeOperation(x, en.Current, null);
+                        plan_fact_difference += x;
+                        en.MoveNext();
                     }
                 }
             }
@@ -124,12 +124,22 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
+        public static void RestoreInitialFact(Matrix mat) {
+            foreach (Cell cell in mat.cellsInDictionary.Values) {
+                if (cell.isNotZero) {
+                    cell.time += 1;
+                    cell.dep.fact += 1;
+                }
+            }
+        }
+
         public static void PutDataInRealMatrix(HrmMatrix real_matrix, Matrix bringing_structure) {
+            RestoreInitialFact(bringing_structure);
             foreach (HrmMatrixColumn real_dep in real_matrix.Columns)
                 foreach (HrmMatrixCell real_cell in real_dep.Cells) {
                     Tuple<Dep, Ord> tuple = new Tuple<Dep, Ord>(bringing_structure.deps[real_cell.Column.Department.Code], bringing_structure.orders[real_cell.Row.Order.Code]);
                     if(bringing_structure.cellsInDictionary.ContainsKey(tuple))
-                        real_cell.Time = (Int16)bringing_structure.cellsInDictionary[tuple].time;
+                        real_cell.Time = bringing_structure.cellsInDictionary[tuple].time;
                 }
         }
 
