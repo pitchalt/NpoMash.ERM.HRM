@@ -70,7 +70,11 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Int64 freeSpace { get { return _freeSpace; } set { _freeSpace = value; } }
         private Department _realDepartment;
         public Department realDepartment { get { return _realDepartment; } set { _realDepartment = value; } }
-
+        private Int32 _nonZeroControlled;
+        public Int32 nonZeroControlled { get { return _nonZeroControlled; } set { _nonZeroControlled = value; } }
+        private Int32 _nonZeroUncontrolled;
+        public Int32 nonZeroUncontrolled { get { return _nonZeroUncontrolled; } set { _nonZeroUncontrolled = value; } }
+        public Int32 numberOfNonZeroOrders { get { return nonZeroControlled + nonZeroUncontrolled; } }
         public Dep() {
             cells = new List<Cell>();
             _fact = 0;
@@ -79,6 +83,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             freeSpace = 0;
             matrix = null;
             realDepartment = null;
+            nonZeroControlled = 0;
+            nonZeroUncontrolled = 0;
         }
     }
 
@@ -87,10 +93,22 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Ord order { get { return _order; } set { _order = value; } }
         private Dep _dep;
         public Dep dep { get { return _dep; } set { _dep = value; } }
-        private Int32 _nonZeroUncontrolled;
-        public Int32 nonZeroUncontrolled { get { return _nonZeroUncontrolled; } set { _nonZeroUncontrolled = value; } }
-        private Int32 _startTime;
-        public Int32 startTime { get { return _startTime; } set { _startTime = value; time = value; } }
+        private bool _isNotZero;
+        public bool isNotZero { get { return _isNotZero; } }
+        private Int64 _startTime;
+        public Int64 startTime { get { return _startTime; } set {
+            _startTime = value;
+            if (value > 0) {
+                dep.fact -= 1;
+                value -= 1;
+                _isNotZero = true;
+                if (order.isControlled)
+                    dep.nonZeroControlled += 1;
+                else dep.nonZeroUncontrolled += 1;
+            }
+            time = value;
+
+        } }
         private Int64 _time;
         public Int64 time { get { return _time; }
             set {
@@ -100,12 +118,6 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
                     if (order.isControlled) {
                         dep.planControlled += x;
                         dep.freeSpace -= x;
-                    }
-                    else {
-                        if (time == 0) {
-                            dep.freeSpace -= 1;
-                            nonZeroUncontrolled += 1;
-                        }
                     }
                 }
                 _time = value; 
@@ -117,7 +129,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Cell() {
             _startTime = 0;
             _time = 0;
-            nonZeroUncontrolled = 0;
+            _isNotZero = false;
+            //nonZeroUncontrolled = 0;
             minusOperations = new List<Operation>();
             plusOperations = new List<Operation>();
             order = null;
@@ -138,7 +151,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             return Math.Min(DistributionPotential(), Math.Min(-dep.freeSpace, time - 1));
         }
 
-        public Int32 DistributionDifficulty() {
+        public Int64 DistributionDifficulty() {
             Int32 result = 0;
             Int64 ds = DistributionSize();
             List<Cell> list = new List<Cell>(order.cells.Where(x => x.dep.freeSpace > 0));
@@ -153,7 +166,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
 
         public Double DistributionQuality() {
             Double result = 0;
-            Int32 dd = DistributionDifficulty();
+            Int64 dd = DistributionDifficulty();
             if (dd != 0)
                 result = DistributionSize() / dd;
             return result;
@@ -164,8 +177,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     public class Operation {
         private Int64 _sum;
         public Int64 sum { get { return _sum; } set { _sum = value; } }
-        private Int16 _operationNumber;
-        public Int16 operationNumber { get { return _operationNumber; } set { _operationNumber = value; } }
+        private Int32 _operationNumber;
+        public Int32 operationNumber { get { return _operationNumber; } set { _operationNumber = value; } }
         private Cell _takeFrom;
         public Cell takeFrom { get { return _takeFrom; } set { _takeFrom = value; } }
         private Cell _putInto;
@@ -182,7 +195,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         }
 
         public Operation(Int64 time, Cell take_from, Cell put_into) {
-            sum = time;
+            sum = Math.Abs(time);
             operationNumber = 0;
             takeFrom = null;
             putInto = null;
@@ -190,12 +203,12 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             if (take_from != null) {
                 takeFrom = take_from;
                 take_from.minusOperations.Add(this);
-                take_from.time -= time;
+                take_from.time -= sum;
             }
             if (put_into != null) {
                 putInto = put_into;
                 put_into.plusOperations.Add(this);
-                put_into.time += time;
+                put_into.time += sum;
             
             }
         }
@@ -216,8 +229,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     }
 
     public class OperationNode {
-        private Int16 _nodeNumber;
-        public Int16 nodeNumber { get { return _nodeNumber; } set { _nodeNumber = value; } }
+        private Int32 _nodeNumber;
+        public Int32 nodeNumber { get { return _nodeNumber; } set { _nodeNumber = value; } }
         private Operation _currentOperation;
         public Operation currentOperation { get { return _currentOperation; } set { _currentOperation = value; } }
         public List<Operation> abortedOperations;
@@ -239,15 +252,16 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     }
 
     public class Journal {
-        public Dictionary<Int16,OperationNode> operationsTree;
-        private Int16 _stepNumber;
-        public Int16 stepNumber { get { return _stepNumber; } set { _stepNumber = value; } }
+        public Dictionary<Int32,OperationNode> operationsTree;
+        private Int32 _stepNumber;
+        public Int32 stepNumber { get { return _stepNumber; } set { _stepNumber = value; } }
         public Journal() {
-            operationsTree = new Dictionary<Int16, OperationNode>();
+            operationsTree = new Dictionary<Int32, OperationNode>();
             stepNumber = 0;
         }
 
         public void MakeOperation( Int64 sum, Cell take_from, Cell put_into) {
+            if (sum == 0) return;
             stepNumber += 1;
             OperationNode on = new OperationNode();
             on.journal = this;
@@ -259,9 +273,9 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             op.operationNode = on;
         }
 
-        public void RevertToStep(Int16 n) {
+        public void RevertToStep(Int32 n) {
             if (n < 0 || n > stepNumber) throw new InvalidOperationException("There is now such step!");
-            for (Int16 i = stepNumber; i > n; i-- ) {
+            for (Int32 i =stepNumber; i > n; i-- ) {
                 operationsTree[i].AbortOperation();
                 operationsTree.Remove(i);
                 stepNumber--;
@@ -270,7 +284,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         }
 
         public void PrintLog() {
-            for (Int16 i = 1; i <= stepNumber; i++)
+            for (Int32 i = 1; i <= stepNumber; i++)
                 operationsTree[i].currentOperation.print();
         }
     }
