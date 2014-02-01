@@ -108,7 +108,25 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void BringMicroDepartments(Matrix mat) {
-
+            IEnumerable<Dep> micro_departments = mat.deps.Values.
+                Where<Dep>(x => x.planControlled < x.fact && x.nonZeroUncontrolled == 0)
+                .OrderByDescending<Dep, Int64>(x => x.freeSpace);
+            foreach (Dep dep in micro_departments) {
+                bool is_not_stuck = true;
+                while (dep.freeSpace > 0 && is_not_stuck){
+                    Cell best_cell_to_take = null;
+                    Int64 best_size = 0;
+                    foreach (Cell cell in dep.cells.Where<Cell>(x => x.isNotZero)) {
+                        Int64 size;
+                        Cell cell_to_take = cell.BestCellToTakeFrom(out size);
+                        if (size > best_size) {
+                            best_cell_to_take = cell_to_take;
+                            best_size = size;
+                        }
+                    }
+                
+                }
+            }
         }
 
         public static void BringBigDepartments(Matrix mat) {

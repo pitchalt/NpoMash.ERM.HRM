@@ -137,6 +137,24 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             dep = null;
         }
 
+        public Cell BestCellToPutIn(out Int64 size) {
+            Cell result = order.cells
+                .Where<Cell>(x => x != this && x.isNotZero)
+                .OrderByDescending<Cell, Int64>(x => x.dep.freeSpace)
+                .ElementAt(0);
+            size = result.dep.freeSpace;
+            return result;
+        }
+
+        public Cell BestCellToTakeFrom(out Int64 size) {
+            Cell result = order.cells
+                .Where<Cell>(x => x != this && x.isNotZero)
+                .OrderBy<Cell, Int64>(x => x.dep.freeSpace)
+                .ElementAt(0);
+            size = Math.Min(result.dep.freeSpace, result.time);
+            return result;
+        }
+
         public Int64 DistributionPotential() {
             Int64 result = 0;
             foreach (Cell cell in order.cells) {
