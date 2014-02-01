@@ -125,6 +125,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             best_cell_to_take = cell_to_take;
                             best_size = size;
                             cell_in_this_dep_to_put = cell;
+                            is_first_iter = false;
                         }
                         else if (size > best_size) {
                             best_cell_to_take = cell_to_take;
@@ -143,14 +144,23 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void BringBigDepartments(Matrix mat) {
-            List<Dep> big_deps = new List<Dep>();
-            List<Dep> small_deps = new List<Dep>();
-            foreach (Dep dep in mat.deps.Values) {
-                if (dep.freeSpace < 0) big_deps.Add(dep);
-                if (dep.freeSpace > 0) small_deps.Add(dep);
+            IEnumerable<Dep> big_deps = mat.deps.Values.Where<Dep>(x => x.freeSpace < 0)
+                .OrderBy<Dep, Int64>(x => x.freeSpace);
+            foreach (Dep dep in big_deps) {
+                Cell best_cell_to_put_in = null;
+                Cell cell_in_this_dep_to_take = null;
+                Int64 best_size = 0;
+                bool is_first_iter = true;
+                foreach (Cell cell in dep.cells) {
+                    Int64 size;
+                    Cell cell_to_put = cell.BestCellToPutIn(out size);
+                    if (is_first_iter) {
+
+                    }
+
+                }
+
             }
-            big_deps.OrderBy(x => x.freeSpace);
-            small_deps.OrderByDescending(x => x.freeSpace);
 
 
         }
