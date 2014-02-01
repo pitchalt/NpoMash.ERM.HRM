@@ -134,7 +134,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     }
                     if (best_cell_to_take == null)
-                        throw new Exception("Can't bring fully conrolled department with code"+dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
+                        throw new Exception("Can't bring fully controlled department with code"+dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
                     else {
                         Int64 size_of_transfer = Math.Min(Math.Abs(best_size), dep.freeSpace);
                         mat.journal.MakeOperation(size_of_transfer, best_cell_to_take, cell_in_this_dep_to_put);
@@ -146,20 +146,38 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void BringBigDepartments(Matrix mat) {
             IEnumerable<Dep> big_deps = mat.deps.Values.Where<Dep>(x => x.freeSpace < 0)
                 .OrderBy<Dep, Int64>(x => x.freeSpace);
+            
             foreach (Dep dep in big_deps) {
-                Cell best_cell_to_put_in = null;
-                Cell cell_in_this_dep_to_take = null;
-                Int64 best_size = 0;
-                bool is_first_iter = true;
-                foreach (Cell cell in dep.cells) {
-                    Int64 size;
-                    Cell cell_to_put = cell.BestCellToPutIn(out size);
-                    if (is_first_iter) {
-
+                bool is_not_stucked = true;
+                while (dep.freeSpace < 0 && is_not_stucked) {
+                    Cell best_cell_to_put_in = null;
+                    Cell cell_in_this_dep_to_take = null;
+                    Int64 best_size = 0;
+                    bool is_first_iter = true;
+                    foreach (Cell cell in dep.cells) {
+                        Int64 size;
+                        Cell cell_to_put = cell.BestCellToPutIn(out size);
+                        if (is_first_iter) {
+                            best_cell_to_put_in = cell_to_put;
+                            cell_in_this_dep_to_take = cell;
+                            best_size = size;
+                            is_first_iter = false;
+                        }
+                        else if (size > best_size) {
+                            best_cell_to_put_in = cell_to_put;
+                            cell_in_this_dep_to_take = cell;
+                            best_size = size;
+                        }
                     }
-
+                    if (best_cell_to_put_in == null) {
+                        is_not_stucked = false;
+                        throw new Exception("Can't bring overloaded order with code " + dep.realDepartment.Code);
+                    }
+                    else {
+                        Int64 size_of_transfer = Math.Min(Math.Abs(dep.freeSpace), best_size);
+                        mat.journal.MakeOperation(size_of_transfer, cell_in_this_dep_to_take, best_cell_to_put_in);
+                    }
                 }
-
             }
 
 
