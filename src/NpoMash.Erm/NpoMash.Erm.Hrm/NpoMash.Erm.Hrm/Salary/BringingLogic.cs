@@ -134,7 +134,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     }
                     if (best_cell_to_take == null)
-                        throw new Exception("Can't bring fully controlled department with code"+dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
+                        throw new Exception("Can't bring fully controlled department with code " + dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
                     else {
                         Int64 size_of_transfer = Math.Min(Math.Abs(best_size), dep.freeSpace);
                         mat.journal.MakeOperation(size_of_transfer, best_cell_to_take, cell_in_this_dep_to_put);
@@ -171,7 +171,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     if (best_cell_to_put_in == null) {
                         is_not_stucked = false;
-                        throw new Exception("Can't bring overloaded order with code " + dep.realDepartment.Code);
+                        throw new Exception("Can't bring overloaded department with code " + dep.realDepartment.Code);
                     }
                     else {
                         Int64 size_of_transfer = Math.Min(Math.Abs(dep.freeSpace), best_size);
