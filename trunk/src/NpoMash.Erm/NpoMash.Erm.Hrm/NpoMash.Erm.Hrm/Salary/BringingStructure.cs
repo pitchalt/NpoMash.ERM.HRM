@@ -148,7 +148,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
 
         public Cell BestCellToTakeFrom(out Int64 size) {
             Cell result = order.cells
-                .Where<Cell>(x => x != this && x.isNotZero &&  x.dep.nonZeroUncontrolled>0)
+                .Where<Cell>(x => x != this && x.isNotZero && (x.dep.nonZeroUncontrolled > 0 || x.dep.freeSpace < 0))
                 .OrderBy<Cell, Int64>(x => x.dep.freeSpace)
                 .ElementAt(0);
             Int64 result_free_space = result.dep.freeSpace;
