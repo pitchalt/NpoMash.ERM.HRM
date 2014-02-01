@@ -133,6 +133,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
                 AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
                 Matrix mat = BringingLogic.PrepareBringingStructure(AllocMatrix);
+                BringingLogic.BringMicroDepartments(mat);
+                BringingLogic.BringBigDepartments(mat);
                 BringingLogic.BringUncontrolledOrders(mat);
                 BringingLogic.PutDataInRealMatrix(result_matrix, mat);
                 break;
