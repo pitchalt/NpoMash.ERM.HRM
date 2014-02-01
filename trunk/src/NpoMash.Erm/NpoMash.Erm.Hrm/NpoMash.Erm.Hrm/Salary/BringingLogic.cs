@@ -116,15 +116,28 @@ namespace NpoMash.Erm.Hrm.Salary {
                 while (dep.freeSpace > 0 && is_not_stuck){
                     Cell best_cell_to_take = null;
                     Int64 best_size = 0;
+                    Cell cell_in_this_dep_to_put = null;
+                    bool is_first_iter = true;
                     foreach (Cell cell in dep.cells.Where<Cell>(x => x.isNotZero)) {
                         Int64 size;
                         Cell cell_to_take = cell.BestCellToTakeFrom(out size);
-                        if (size > best_size) {
+                        if (is_first_iter) {
                             best_cell_to_take = cell_to_take;
                             best_size = size;
+                            cell_in_this_dep_to_put = cell;
+                        }
+                        else if (size > best_size) {
+                            best_cell_to_take = cell_to_take;
+                            best_size = size;
+                            cell_in_this_dep_to_put = cell;
                         }
                     }
-                
+                    if (best_cell_to_take == null)
+                        throw new Exception("Can't bring fully conrolled department with code"+dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
+                    else {
+                        Int64 size_of_transfer = Math.Min(Math.Abs(best_size), dep.freeSpace);
+                        mat.journal.MakeOperation(size_of_transfer, best_cell_to_take, cell_in_this_dep_to_put);
+                    }
                 }
             }
         }

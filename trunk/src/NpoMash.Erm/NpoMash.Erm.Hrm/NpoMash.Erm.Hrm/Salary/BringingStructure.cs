@@ -148,10 +148,14 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
 
         public Cell BestCellToTakeFrom(out Int64 size) {
             Cell result = order.cells
-                .Where<Cell>(x => x != this && x.isNotZero)
+                .Where<Cell>(x => x != this && x.isNotZero &&  x.dep.nonZeroUncontrolled>0)
                 .OrderBy<Cell, Int64>(x => x.dep.freeSpace)
                 .ElementAt(0);
-            size = Math.Min(result.dep.freeSpace, result.time);
+            Int64 result_free_space = result.dep.freeSpace;
+            if (result_free_space > 0)
+                size = Math.Min(result_free_space, result.time);
+            else
+                size = Math.Max(-result.dep.freeSpace, -result.time);
             return result;
         }
 
