@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         }
 
         public TestApplication() : base() {
-            this.DatabaseVersionMismatch+= new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.TestsAppWin_DatabaseVersionMismatch);
+            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.TestsAppWin_DatabaseVersionMismatch);
         }
     }
 }
