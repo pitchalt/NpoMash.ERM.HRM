@@ -66,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public static void BringUncontrolledOrders(Matrix mat) {
+        public static void BringUncontrolledOrders2(Matrix mat) {
             foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact >= dep.planControlled) {
                     List<Cell> non_zero_uncontrolled = new List<Cell>();
@@ -102,6 +102,38 @@ namespace NpoMash.Erm.Hrm.Salary {
                         mat.journal.MakeOperation(x, en.Current, null);
                         plan_fact_difference += x;
                         en.MoveNext();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Приведение трудозатрат подразделений до уровня плана
+        /// за счет неконтролируемых заказам 
+        /// </summary>
+        /// <param name="mat"></param>
+        public static void BringUncontrolledOrders(Matrix mat) {
+            foreach (Dep dep in mat.deps.Values) {
+                if (dep.fact >= dep.planControlled) {
+                    List<Cell> non_zero_uncontrolled = new List<Cell>();
+                    Int64 total_uncontrolled_sum = 0;
+                    foreach (Cell cell in dep.cells) {
+                        if (!cell.order.isControlled && cell.isNotZero) {
+                            total_uncontrolled_sum += cell.time;
+                            non_zero_uncontrolled.Add(cell);
+                        }
+                    }
+                    Int64 summ_rsp = dep.fact - dep.planControlled;
+                    foreach (Cell cell in non_zero_uncontrolled) {
+                        Int64 delta_dep = cell.time * summ_rsp / total_uncontrolled_sum;
+                        summ_rsp -= delta_dep;
+                        total_uncontrolled_sum -= cell.time;
+                        Int64 difference = delta_dep - cell.time;
+                        if (difference > 0)
+                            mat.journal.MakeOperation(difference, null, cell);
+                        else if (difference < 0)
+                            mat.journal.MakeOperation(difference, cell, null);
+                        else
+                            continue;
                     }
                 }
             }
