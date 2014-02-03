@@ -108,7 +108,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
         /// <summary>
         /// Приведение трудозатрат подразделений до уровня плана
-        /// за счет неконтролируемых заказам 
+        /// за счет неконтролируемых заказов 
         /// </summary>
         /// <param name="mat"></param>
         public static void BringUncontrolledOrders(Matrix mat) {
@@ -118,6 +118,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     Int64 total_uncontrolled_sum = 0;
                     foreach (Cell cell in dep.cells) {
                         if (!cell.order.isControlled && cell.isNotZero) {
+                            if (cell.time == 0) // думаю без этого никак, иначе начнем делить на ноль в некоторых случаях
+                                cell.time += 1;
                             total_uncontrolled_sum += cell.time;
                             non_zero_uncontrolled.Add(cell);
                         }
