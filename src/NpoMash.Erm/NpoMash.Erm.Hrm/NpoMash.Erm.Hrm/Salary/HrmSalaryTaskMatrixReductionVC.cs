@@ -95,11 +95,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
                 task = os.GetObject<HrmSalaryTaskMatrixReduction>(task);
                 if (task.Period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
-                    //                HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
+                    //HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                     HrmMatrixVariant bringing_method = (HrmMatrixVariant)e.SelectedChoiceActionItem.Data;
                     HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(task, os, task.GroupDep, bringing_method, task.Period);
                 }
-                os.CommitChanges();
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
             }
             UpdateActionsItemsState();
         }
@@ -145,6 +147,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-
+        private void refresher(Object sender, EventArgs e) {
+            Frame.GetController<RefreshController>().RefreshAction.DoExecute();
+        }
     }
 }
