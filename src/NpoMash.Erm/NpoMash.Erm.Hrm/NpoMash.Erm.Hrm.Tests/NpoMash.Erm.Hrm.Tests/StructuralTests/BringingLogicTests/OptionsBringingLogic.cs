@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
@@ -48,43 +49,50 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
 
         private HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace os, HrmPeriod current_period, DepartmentGroupDep group, Int32 plan_work_time_min, Int32 plan_work_time_max, Boolean pairs) {
             Random random = new Random();
-            List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
-            List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
+            //List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
+            //List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
             HrmMatrixAllocPlan plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()) {
-                HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
-                current_row.Matrix = plan_matrix;
-                plan_matrix.Rows.Add(current_row);
-                current_row.Order = current_order;
-                HrmMatrixColumn current_column = null;
-                foreach (Department current_department in os.GetObjects<Department>()) {
-                    if (current_department.GroupDep == group) {
-                        foreach (HrmMatrixColumn col in plan_matrix.Columns)
-                            if (col.Department == current_department) current_column = col;
-                        if (current_column == null) {
-                            current_column = os.CreateObject<HrmMatrixColumn>();
-                            current_column.Department = current_department;
-                            current_column.Matrix = plan_matrix;
-                            plan_matrix.Columns.Add(current_column);
-                        }
-                        HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
-                        new_cell.Time = Convert.ToInt16(random.Next(plan_work_time_min, plan_work_time_max));
-                        new_cell.Sum = 0;
-                        new_cell.Column = current_column;
-                        new_cell.Row = current_row;
-                        current_row.Cells.Add(new_cell);
-                        current_column.Cells.Add(new_cell);
-
+            List<Department> departments_in_database = os.GetObjects<Department>()
+                .Where<Department>(x => x.GroupDep == group)
+                .ToList<Department>();
+            List<fmCOrder> orders_in_database = os.GetObjects<fmCOrder>()
+                .ToList<fmCOrder>();
+            Dictionary<String, HrmMatrixRow> existing_rows = new Dictionary<String ,HrmMatrixRow>();
+            
+            foreach (Department current_department in departments_in_database){
+                HrmMatrixColumn current_column = os.CreateObject<HrmMatrixColumn>();
+                HrmMatrixRow current_row = null;
+                current_column.Department = current_department;
+                current_column.Matrix = plan_matrix;
+                plan_matrix.Columns.Add(current_column);
+                current_column.Department = current_department;
+                foreach (fmCOrder current_order in orders_in_database) {
+                    // сюды надо вставить логику выброса ячейки и continue
+                    if (existing_rows.ContainsKey(current_order.Code))
+                        current_row = existing_rows[current_order.Code];
+                    else {
+                        current_row = os.CreateObject<HrmMatrixRow>();
+                        current_row.Order = current_order;
+                        plan_matrix.Rows.Add(current_row);
+                        current_row.Matrix = plan_matrix;
+                        existing_rows.Add(current_order.Code, current_row);
                     }
-                    current_column = null;
+                    HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
+                    new_cell.Time = Convert.ToInt16(random.Next(plan_work_time_min, plan_work_time_max));
+                    new_cell.Sum = 0;
+                    new_cell.Column = current_column;
+                    new_cell.Row = current_row;
+                    current_row.Cells.Add(new_cell);
+                    current_column.Cells.Add(new_cell);
                 }
+
             }
             plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
             plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             plan_matrix.GroupDep = group;
             plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             plan_matrix.IterationNumber = 1;
-            plan_matrix.Variant = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT; ;
+            plan_matrix.Variant = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT;
             plan_matrix.Period = current_period;
             current_period.Matrixs.Add(plan_matrix);
             return plan_matrix;
@@ -181,3 +189,55 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
         }
     }
 }
+
+
+/*private HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace os, HrmPeriod current_period, DepartmentGroupDep group, Int32 plan_work_time_min, Int32 plan_work_time_max, Boolean pairs) {
+            Random random = new Random();
+            List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
+            List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
+            HrmMatrixAllocPlan plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
+            Dictionary<String, Department> departments_in_database = os.GetObjects<Department>()
+                .ToDictionary<Department, String>(x => x.Code);
+            Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>()
+                .ToDictionary<fmCOrder, String>(x => x.Code);
+            //foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()) {
+            foreach (Department current_department in departments_in_database.Values) {
+
+                HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
+                current_row.Matrix = plan_matrix;
+                plan_matrix.Rows.Add(current_row);
+                current_row.Order = current_order;
+                HrmMatrixColumn current_column = null;
+                
+                foreach (Department current_department in os.GetObjects<Department>()) {
+                    if (current_department.GroupDep == group) {
+                        foreach (HrmMatrixColumn col in plan_matrix.Columns)
+                            if (col.Department == current_department) current_column = col;
+                        if (current_column == null) {
+                            current_column = os.CreateObject<HrmMatrixColumn>();
+                            current_column.Department = current_department;
+                            current_column.Matrix = plan_matrix;
+                            plan_matrix.Columns.Add(current_column);
+                        }
+                        HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
+                        new_cell.Time = Convert.ToInt16(random.Next(plan_work_time_min, plan_work_time_max));
+                        new_cell.Sum = 0;
+                        new_cell.Column = current_column;
+                        new_cell.Row = current_row;
+                        current_row.Cells.Add(new_cell);
+                        current_column.Cells.Add(new_cell);
+
+                    }
+                    current_column = null;
+                }
+            }
+            plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
+            plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
+            plan_matrix.GroupDep = group;
+            plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
+            plan_matrix.IterationNumber = 1;
+            plan_matrix.Variant = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT; ;
+            plan_matrix.Period = current_period;
+            current_period.Matrixs.Add(plan_matrix);
+            return plan_matrix;
+        }*/
