@@ -155,7 +155,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             if (result_free_space > 0)
                 size = Math.Min(result_free_space, result.time);
             else
-                size = Math.Max(-result.dep.freeSpace, -result.time);
+                size = -result.time;
+                    //Math.Max(result.dep.freeSpace, );
             return result;
         }
 

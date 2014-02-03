@@ -208,7 +208,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         throw new Exception("Can't bring overloaded department with code " + dep.realDepartment.Code);
                     }
                     else {
-                        Int64 size_of_transfer = Math.Min(Math.Abs(dep.freeSpace), best_size);
+                        Int64 size_of_transfer = Math.Min(Math.Abs(dep.freeSpace), Math.Min(best_size, cell_in_this_dep_to_take.time));
                         mat.journal.MakeOperation(size_of_transfer, cell_in_this_dep_to_take, best_cell_to_put_in);
                     }
                 }

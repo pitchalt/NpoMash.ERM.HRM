@@ -70,7 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
             //            kb_plan_matrix.Period = period;
             kb_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             kb_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
@@ -78,7 +78,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             kb_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(kb_plan_matrix);
             HrmMatrixAllocPlan ozm_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
             //            ozm_plan_matrix.Period = period;
             ozm_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             ozm_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
@@ -88,56 +88,95 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             Int16 current_year = task.Period.Year;
             Int16 current_month = task.Period.Month;
+            //создаем необходимые словари, чтобы не наматывать круги в форычах при поиске
+            Dictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
+            Dictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
+            Dictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
+            Dictionary<String, HrmMatrixRow> kb_rows = new Dictionary<string, HrmMatrixRow>();
+            Dictionary<String, HrmMatrixColumn> plan_matrix_columns = null;
+            Dictionary<String, HrmMatrixRow> plan_matrix_rows = null;
+            Dictionary<String, Department> departments_in_database = os.GetObjects<Department>()
+                .ToDictionary<Department, String>(x => x.Code);
+            Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>()
+                .ToDictionary<fmCOrder, String>(x => x.Code);
             //начинаем перебирать строки в файле
             foreach (var each in plan_list) {
                 //если запись относится к нашему периоду то начинаем обработку
                 if (each.Year == current_year && each.Month == current_month) {
                     HrmMatrix plan_matrix = null;
+                    String file_dep_code = each.Department.Trim();
                     //определяем к какой группе подразделений относится запись
-                    foreach (Department dep in os.GetObjects<Department>()) {
+                    if (departments_in_database.ContainsKey(file_dep_code))
+                        if (departments_in_database[file_dep_code].GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                            plan_matrix = kb_plan_matrix;
+                            plan_matrix_columns = kb_columns;
+                            plan_matrix_rows = kb_rows;
+                        }
+                        else {
+                            plan_matrix = ozm_plan_matrix;
+                            plan_matrix_columns = ozm_columns;
+                            plan_matrix_rows = ozm_rows;
+                        }
+                    else throw new Exception("There is no department in database with code " + each.Department.Trim());
+                    /*foreach (Department dep in os.GetObjects<Department>()) {
                         if (String.Compare(Convert.ToString(Convert.ToInt32(each.Department.Trim())), dep.Code) == 0)
                             if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
                                 plan_matrix = kb_plan_matrix;
                             else plan_matrix = ozm_plan_matrix;
                         //теперь мы знаем с какой матрицей работаем
-                    }
+                    }*/
                     //если не нашли такого подразделения - все плохо
-                    if (plan_matrix == null)
-                        throw new Exception("There is no department with code " + each.Department.Trim());
+                    //if (plan_matrix == null)
+                    //    throw new Exception("There is no department with code " + each.Department.Trim());
                     //иначе - создаем ячейку и начинаем ее заполнять
                     HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
                     cell.Time = each.Norm;
                     cell.Sum = 1;
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
-                    foreach (HrmMatrixColumn col in plan_matrix.Columns)
+                    /*foreach (HrmMatrixColumn col in plan_matrix.Columns)
                         if (col.Department.Code == each.Department.Trim())
-                            current_column = col;
+                            current_column = col;*/
+                    if (plan_matrix_columns.ContainsKey(file_dep_code))
+                        current_column = plan_matrix_columns[file_dep_code];
                     //если колонки еще не было - то создаем и инициализируем новую
-                    if (current_column == null) {
+                    else {
                         current_column = os.CreateObject<HrmMatrixColumn>();
                         current_column.Matrix = plan_matrix;
                         plan_matrix.Columns.Add(current_column);
-                        foreach (Department dep in os.GetObjects<Department>())
+                        current_column.Department = departments_in_database[file_dep_code];
+                        plan_matrix_columns.Add(file_dep_code, current_column);
+                        /*foreach (Department dep in os.GetObjects<Department>())
                             if (System.String.Compare(dep.Code, each.Department.Trim()) == 0)
                                 current_column.Department = dep;
+                        */
                     }
                     //теперь связываем колонку с ячейкой, больше с колонкой делать нечего
                     cell.Column = current_column;
                     current_column.Cells.Add(cell);
                     //теперь разбираемся со строчкой
+                    String file_ord_code = each.OrderCode.Trim();
                     HrmMatrixRow current_row = null;
-                    foreach (HrmMatrixRow row in plan_matrix.Rows)
+                    if (plan_matrix_rows.ContainsKey(file_ord_code))
+                        current_row = plan_matrix_rows[file_ord_code];
+                    else {
+
+                        //throw new Exception("There is now order in database wiht code " + file_ord_code);
+                    /*foreach (HrmMatrixRow row in plan_matrix.Rows)
                         if (System.String.Compare(row.Order.Code, each.OrderCode.Trim()) == 0)
-                            current_row = row;
+                            current_row = row;*/
                     //если строчки еще не было - тогда создаем и инициализируем новую
-                    if (current_row == null) {
+                    //if (current_row == null) {
                         current_row = os.CreateObject<HrmMatrixRow>();
                         current_row.Matrix = plan_matrix;
                         plan_matrix.Rows.Add(current_row);
-                        foreach (fmCOrder order in os.GetObjects<fmCOrder>())
+                        plan_matrix_rows.Add(file_ord_code, current_row);
+                        if (orders_in_database.ContainsKey(file_ord_code))
+                            current_row.Order = orders_in_database[file_ord_code];
+                        else throw new Exception("There is now order in database with code " + file_ord_code);
+                        /*foreach (fmCOrder order in os.GetObjects<fmCOrder>())
                             if (System.String.Compare(order.Code, each.OrderCode.Trim()) == 0)
-                                current_row.Order = order;
+                                current_row.Order = order;*/
                     }
                     //теперь связываем строчку с ячейкой, больше со строчкой делать нечего
                     cell.Row = current_row;
