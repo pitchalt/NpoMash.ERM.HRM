@@ -50,7 +50,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in stream) {
-                Department dep = deps.FirstOrDefault(x => x.Code == each.Code.Trim());
+                String code = Convert.ToString(Convert.ToInt32(each.Code.Trim()));
+                Department dep = deps.FirstOrDefault(x => x.Code == code);
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = dep;
                 sheet_dep.BaseWorkTime = each.MatrixWorkTime;
@@ -99,12 +100,19 @@ namespace NpoMash.Erm.Hrm.Salary {
                 .ToDictionary<Department, String>(x => x.Code);
             Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>()
                 .ToDictionary<fmCOrder, String>(x => x.Code);
+            Int32 how_many_mismatches = 0;
             //начинаем перебирать строки в файле
             foreach (var each in plan_list) {
                 //если запись относится к нашему периоду то начинаем обработку
                 if (each.Year == current_year && each.Month == current_month) {
                     HrmMatrix plan_matrix = null;
-                    String file_dep_code = each.Department.Trim();
+                    String file_ord_code = each.OrderCode.Trim();
+                    //if (file_ord_code.Length == 8) continue; //это пока в базе нет заказов с восьмизначным кодом!
+                    String file_dep_code = Convert.ToString(Convert.ToInt32(each.Department.Trim()));
+                    if (!orders_in_database.ContainsKey(file_dep_code) || !departments_in_database.ContainsKey(file_ord_code)) {
+                        how_many_mismatches++;
+                        continue;
+                    }
                     //определяем к какой группе подразделений относится запись
                     if (departments_in_database.ContainsKey(file_dep_code))
                         if (departments_in_database[file_dep_code].GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
@@ -155,7 +163,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     cell.Column = current_column;
                     current_column.Cells.Add(cell);
                     //теперь разбираемся со строчкой
-                    String file_ord_code = each.OrderCode.Trim();
+
                     HrmMatrixRow current_row = null;
                     if (plan_matrix_rows.ContainsKey(file_ord_code))
                         current_row = plan_matrix_rows[file_ord_code];
