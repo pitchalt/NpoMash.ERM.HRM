@@ -102,23 +102,6 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static void AddDepartments(IObjectSpace local_object_space, Int32 count) {
-            var random = new Random();
-            IList<String> list_department_code = new List<String>();
-            for (int i = 0 ; i < count ; i++) {
-                String department_code = Convert.ToString(random.Next(1, 100000));
-                if (!list_department_code.Contains(department_code)) { list_department_code.Add(department_code); }
-                else { count += 1; }
-            }
-            foreach (var code in list_department_code) {
-                var group_dep = random.Next(1,3);
-                var department = local_object_space.CreateObject<Department>();
-                department.Code = code;
-                if (group_dep == 1) { department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
-                else { department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
-            }
-        }
-
         public static void referenceClassesGenerate(IObjectSpace local_object_space) {
             var random = new Random();
             for (int i = 0 ; i < _Department_Count ; i++) {

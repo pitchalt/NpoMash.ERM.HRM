@@ -87,8 +87,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
         }
 
-        protected virtual HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
-            Int32 micro_department_count, Int32 small_department_count, Int32 big_department_count, Int32 uncontrolled_orders_count, Int32 probability) {
+        private void CreateDepartments(IObjectSpace object_space, Int32 micro_department_count, Int32 small_department_count, Int32 big_department_count) {
             var random = new Random();
             departments = new Dictionary<String, DepartmentType>();
             for (int i = 0 ; i < micro_department_count ; i++) {
@@ -113,6 +112,10 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 if (group_dep == 1) { department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
                 else { department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
             }
+        }
+
+        private void CreateUncontrolledOrders(IObjectSpace object_space, Int32 uncontrolled_orders_count) {
+            var random = new Random();
             var orders_list = object_space.GetObjects<fmCOrder>();
             IList<String> exist_orders_code_list = new List<String>();
             IList<String> new_orders_code_list = new List<String>();
@@ -132,15 +135,19 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 if (type_control == 1) { order.TypeControl = FmCOrderTypeControl.FOT; }
                 else { order.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT; }
             }
-            object_space.CommitChanges();
+        }
+
+        protected virtual HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
+            Int32 probability) {
+            var random = new Random();
             HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
-            IList<Department> departments_in_database = object_space.GetObjects<Department>()
+            IList<Department> departments_in_object_space = object_space.GetObjects<Department>()
                 .Where<Department>(x => x.GroupDep == group)
                 .ToList<Department>();
             IList<fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
                 .ToList<fmCOrder>();
             Dictionary<String, HrmMatrixRow> existing_rows = new Dictionary<String, HrmMatrixRow>();
-            foreach (Department current_department in departments_in_database) {
+            foreach (Department current_department in departments_in_object_space) {
                 switch (departments[current_department.Code]) {
                     case DepartmentType.MICRO_DEPARTMENT: {
                             HrmMatrixRow current_row = null;
@@ -251,11 +258,14 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 period = periods;
             }
             HrmPeriod current_period = period;
+            CreateDepartments(prepare_object_space, micro_depaprtment_count, small_department_count, big_department_count);
+            CreateUncontrolledOrders(prepare_object_space, uncontrolled_orders_count);
+            prepare_object_space.CommitChanges();
             HrmSalaryTaskImportSourceData task = prepare_object_space.CreateObject<HrmSalaryTaskImportSourceData>();
             current_period.PeriodTasks.Add(task);
-            task.MatrixPlanKB = CreateMatrixAllocPlan(prepare_object_space, current_period, DepartmentGroupDep.DEPARTMENT_KB, micro_depaprtment_count, small_department_count, big_department_count, uncontrolled_orders_count, probability);
+            task.MatrixPlanKB = CreateMatrixAllocPlan(prepare_object_space, current_period, DepartmentGroupDep.DEPARTMENT_KB, probability);
             task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-            task.MatrixPlanOZM = CreateMatrixAllocPlan(prepare_object_space, current_period, DepartmentGroupDep.DEPARTMENT_OZM, micro_depaprtment_count, small_department_count, big_department_count, uncontrolled_orders_count, probability);
+            task.MatrixPlanOZM = CreateMatrixAllocPlan(prepare_object_space, current_period, DepartmentGroupDep.DEPARTMENT_OZM, probability);
             task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             prepare_object_space.CommitChanges();
             CreateTimeSheet(prepare_object_space, task);
