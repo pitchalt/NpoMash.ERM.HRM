@@ -116,7 +116,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
 
         private void CreateUncontrolledOrders(IObjectSpace object_space, Int32 uncontrolled_orders_count) {
             var random = new Random();
-            var orders_list = object_space.GetObjects<fmCOrder>();
+            var orders_list = object_space.GetObjects<fmCOrder>(null, true);
             IList<String> exist_orders_code_list = new List<String>();
             IList<String> new_orders_code_list = new List<String>();
             foreach (var order in orders_list) {
@@ -250,6 +250,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             Int32 uncontrolled_orders_count, Int32 micro_depaprtment_count, Int32 big_department_count, Int32 small_department_count, Int32 probability) {
             TestWCLogic.AllocparameterCount = 1;
             TestWCLogic.AddControlledOrders(prepare_object_space, controlled_orders_count);
+            CreateUncontrolledOrders(prepare_object_space, uncontrolled_orders_count);
             HrmPeriod period = null;
             TestWCLogic.addTestData(prepare_object_space);
             prepare_object_space.CommitChanges();
@@ -259,7 +260,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
             HrmPeriod current_period = period;
             CreateDepartments(prepare_object_space, micro_depaprtment_count, small_department_count, big_department_count);
-            CreateUncontrolledOrders(prepare_object_space, uncontrolled_orders_count);
+            
             prepare_object_space.CommitChanges();
             HrmSalaryTaskImportSourceData task = prepare_object_space.CreateObject<HrmSalaryTaskImportSourceData>();
             current_period.PeriodTasks.Add(task);
