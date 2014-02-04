@@ -137,7 +137,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
         }
 
-        protected virtual HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
+        private HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
             Int32 probability) {
             var random = new Random();
             HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
