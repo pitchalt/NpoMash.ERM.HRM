@@ -24,5 +24,17 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 Assert.AreEqual(department.plan, department.fact);
             }
         }
+
+        [Test]
+        public void BringMicroBringBig_1on1on1Classic_PlanFactAreEqualExpect() {
+            IObjectSpace test_object_space = application.CreateObjectSpace();
+            Matrix matrix = BringingLogic.PrepareBringingStructure(PrepareTestData(test_object_space, 2, 2, 1, 1, 1, 100));
+            BringingLogic.BringMicroDepartments(matrix);
+            BringingLogic.BringBigDepartments(matrix);
+            BringingLogic.RestoreInitialFact(matrix);
+            foreach (var department in matrix.deps.Values) {
+                Assert.AreEqual(department.plan, department.fact);
+            }
+        }
     }
 }
