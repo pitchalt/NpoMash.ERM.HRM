@@ -18,6 +18,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
         public void BringUncontrolledOrders_1SmallDepClassic_PlanFactEqualExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             Matrix matrix = BringingLogic.PrepareBringingStructure(PrepareTestData(test_object_space, 1, 1, 0, 0, 1, 100));
+            BringingLogic.BringMicroDepartments(matrix);
+            BringingLogic.BringBigDepartments(matrix);
             BringingLogic.BringUncontrolledOrders(matrix);
             BringingLogic.RestoreInitialFact(matrix);
             foreach (var department in matrix.deps.Values) {
@@ -29,6 +31,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
         public void BringUncontrolledOrders_2SmallDepClassic_PlanFactEqualExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             Matrix matrix = BringingLogic.PrepareBringingStructure(PrepareTestData(test_object_space, 2, 5, 0, 0, 3, 50));
+            BringingLogic.BringMicroDepartments(matrix);
+            BringingLogic.BringBigDepartments(matrix);
             BringingLogic.BringUncontrolledOrders(matrix);
             BringingLogic.RestoreInitialFact(matrix);
             foreach (var department in matrix.deps.Values) {

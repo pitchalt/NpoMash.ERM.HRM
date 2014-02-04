@@ -19,6 +19,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             Matrix matrix = BringingLogic.PrepareBringingStructure(PrepareTestData(test_object_space, 2, 2, 1, 1, 0, 50));
             BringingLogic.BringMicroDepartments(matrix);
             BringingLogic.BringBigDepartments(matrix);
+            BringingLogic.BringUncontrolledOrders(matrix);
             BringingLogic.RestoreInitialFact(matrix);
             foreach (var department in matrix.deps.Values) {
                 Assert.AreEqual(department.plan, department.fact);
@@ -31,6 +32,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             Matrix matrix = BringingLogic.PrepareBringingStructure(PrepareTestData(test_object_space, 2, 2, 1, 1, 1, 50));
             BringingLogic.BringMicroDepartments(matrix);
             BringingLogic.BringBigDepartments(matrix);
+            BringingLogic.BringUncontrolledOrders(matrix);
             BringingLogic.RestoreInitialFact(matrix);
             foreach (var department in matrix.deps.Values) {
                 Assert.AreEqual(department.plan, department.fact);
@@ -43,6 +45,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             Matrix matrix = BringingLogic.PrepareBringingStructure(PrepareTestData(test_object_space, 20, 30, 2, 3, 5, 50));
             BringingLogic.BringMicroDepartments(matrix);
             BringingLogic.BringBigDepartments(matrix);
+            BringingLogic.BringUncontrolledOrders(matrix);
             BringingLogic.RestoreInitialFact(matrix);
             foreach (var department in matrix.deps.Values) {
                 Assert.AreEqual(department.plan, department.fact);
