@@ -63,7 +63,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 if (departments[column.Department.Code] == DepartmentType.SMALL_DEPARTMENT) {
                     HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
                     sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(2 * controlled_dep_sum + dep_sum);
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(2 * controlled_dep_sum);
                     sheet_dep.AdditionWorkTime = 0;
                     if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
