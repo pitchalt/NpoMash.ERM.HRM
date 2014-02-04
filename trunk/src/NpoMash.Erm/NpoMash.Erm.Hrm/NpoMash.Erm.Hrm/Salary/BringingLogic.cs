@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-
+        /*
         public static void BringUncontrolledOrders2(Matrix mat) {
             foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact >= dep.planControlled) {
@@ -105,7 +105,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
             }
-        }
+        }*/
         /// <summary>
         /// Приведение трудозатрат подразделений до уровня плана
         /// за счет неконтролируемых заказов 
@@ -152,7 +152,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     Int64 best_size = 0;
                     Cell cell_in_this_dep_to_put = null;
                     bool is_first_iter = true;
-                    foreach (Cell cell in dep.cells.Where<Cell>(x => x.isNotZero)) {
+                    foreach (Cell cell in dep.cells.Where<Cell>(x => x.isNotZero && x.order.isControlled)) {
                         Int64 size;
                         Cell cell_to_take = cell.BestCellToTakeFrom(out size);
                         if (is_first_iter) {
@@ -188,7 +188,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     Cell cell_in_this_dep_to_take = null;
                     Int64 best_size = 0;
                     bool is_first_iter = true;
-                    foreach (Cell cell in dep.cells) {
+                    foreach (Cell cell in dep.cells.Where<Cell>(x => x.time > 0 && x.order.isControlled)) {
                         Int64 size;
                         Cell cell_to_put = cell.BestCellToPutIn(out size);
                         if (is_first_iter) {
@@ -197,7 +197,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             best_size = size;
                             is_first_iter = false;
                         }
-                        else if (size > best_size) {
+                        else if (size > best_size && cell_to_put != null) {
                             best_cell_to_put_in = cell_to_put;
                             cell_in_this_dep_to_take = cell;
                             best_size = size;
