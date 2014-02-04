@@ -39,13 +39,6 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         private static int _Salarypaytype_Count = 100;
 
-        public static void addTimeSheets(IObjectSpace local_object_space) {
-            foreach (var each in local_object_space.GetObjects<HrmPeriod>()) {
-                var time_sheet = local_object_space.CreateObject<HrmTimeSheet>();
-                var time_sheet_deps = local_object_space.CreateObject<HrmTimeSheetDep>();
-            }
-        }
-
         public static void ImportDeps(IObjectSpace local_object_space) {
             var engine = new FixedFileEngine<ImportDepartment>();
             ImportDepartment[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
@@ -93,61 +86,37 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static fmCOrder AddOrder(IObjectSpace local_objecy_space, FmCOrderTypeControl type_control) {
+        public static void AddControlledOrders(IObjectSpace local_objecy_space, Int32 count) {
             var random = new Random();
-            var order = local_objecy_space.CreateObject<fmCOrder>();
-            order.Code = Convert.ToString(random.Next(10000000, 1000000000));
-            order.TypeControl = type_control;
-            order.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
-            return order;
+            IList<String> list_order_code = new List<string>();
+            for (int i = 0 ; i < count ; i++) {
+                String order_code = Convert.ToString(random.Next(100000, 100000000));
+                if (!list_order_code.Contains(order_code)) { list_order_code.Add(order_code); }
+                else { count += 1; }
+            }
+            foreach (var code in list_order_code) {
+                var controlled_order = local_objecy_space.CreateObject<fmCOrder>();
+                controlled_order.Code = code;
+                controlled_order.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
+                controlled_order.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
+            }
         }
 
-        public static void referenceClassesGenerate(IObjectSpace local_object_space, Boolean controlled) {
+        public static void AddDepartments(IObjectSpace local_object_space, Int32 count) {
             var random = new Random();
-            for (int i = 0 ; i < _Department_Count ; i++) {
+            IList<String> list_department_code = new List<String>();
+            for (int i = 0 ; i < count ; i++) {
+                String department_code = Convert.ToString(random.Next(1, 100000));
+                if (!list_department_code.Contains(department_code)) { list_department_code.Add(department_code); }
+                else { count += 1; }
+            }
+            foreach (var code in list_department_code) {
+                var group_dep = random.Next(1,3);
                 var department = local_object_space.CreateObject<Department>();
-                department.Code = Convert.ToString(random.Next(1, 4001));
-                if (Convert.ToDecimal(i) < System.Math.Round(Convert.ToDecimal(_Department_Count / 2))) {
-                    department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
-                }
-                else {
-                    department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
-                }
+                department.Code = code;
+                if (group_dep == 1) { department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
+                else { department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
             }
-            for (int i = 0 ; i < _Reference_Count ; i++) {
-                if (!controlled) {
-                    var fmCorder = local_object_space.CreateObject<fmCOrder>();
-                    var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
-                    int type_control = random.Next(1, 3);
-                    int type_constancy = random.Next(1, 3);
-                    fmCorder.Code = Convert.ToString(random.Next(1000, 100000));
-                    if (type_control == 1) { fmCorder.TypeControl = FmCOrderTypeControl.FOT; }
-                    if (type_control == 2) { fmCorder.TypeControl = FmCOrderTypeControl.NO_ORDERED; }
-                    if (type_constancy == 1) { fmCorder.TypeConstancy = FmCOrderTypeConstancy.UN_CONST_ORDER_TYPE; }
-                    if (type_constancy == 2) { fmCorder.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE; }
-                    fmCorder.NormKB = Convert.ToDecimal(random.Next(1000, 100000));
-                    fmCorder.NormOZM = Convert.ToDecimal(random.Next(1000, 100000));
-                    hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
-                    hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
-                }
-                else {
-                    var fmCorder = local_object_space.CreateObject<fmCOrder>();
-                    var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
-                    int type_constancy = random.Next(1, 3);
-                    fmCorder.Code = Convert.ToString(random.Next(1000, 100000));
-                    fmCorder.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
-                    if (type_constancy == 1) { fmCorder.TypeConstancy = FmCOrderTypeConstancy.UN_CONST_ORDER_TYPE; }
-                    if (type_constancy == 2) { fmCorder.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE; }
-                    fmCorder.NormKB = Convert.ToDecimal(random.Next(1000, 100000));
-                    fmCorder.NormOZM = Convert.ToDecimal(random.Next(1000, 100000));
-                    hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
-                    hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
-                }
-            }
-            var fmCorderUnConTroll = local_object_space.CreateObject<fmCOrder>();
-            fmCorderUnConTroll.Code = Convert.ToString(random.Next(1000, 100000));
-            fmCorderUnConTroll.TypeControl = FmCOrderTypeControl.NO_ORDERED;
-            fmCorderUnConTroll.TypeConstancy = FmCOrderTypeConstancy.UN_CONST_ORDER_TYPE;
         }
 
         public static void referenceClassesGenerate(IObjectSpace local_object_space) {
@@ -162,7 +131,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                     department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
                 }
             }
-            for (int i = 0 ; i < _Reference_Count ; i++) {
+            for (int i = 0 ; i < _Reference_Count; i++) {
                 var fmCorder = local_object_space.CreateObject<fmCOrder>();
                 var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
                 int type_control = random.Next(1, 4);
