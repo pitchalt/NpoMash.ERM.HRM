@@ -138,25 +138,36 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         }
 
         public Cell BestCellToPutIn(out Int64 size) {
-            Cell result = order.cells
-                .Where<Cell>(x => x != this && x.isNotZero)
-                .OrderByDescending<Cell, Int64>(x => x.dep.freeSpace)
-                .ElementAt(0);
-            size = result.dep.freeSpace;
+            Cell result = null;
+            size = 0;
+            try {
+                result = order.cells
+                    .Where<Cell>(x => x != this && x.isNotZero)
+                    .OrderByDescending<Cell, Int64>(x => x.dep.freeSpace)
+                    .First<Cell>();
+                //.ElementAt(0);
+                size = result.dep.freeSpace;
+            }
+            catch (InvalidOperationException) { }
             return result;
         }
 
         public Cell BestCellToTakeFrom(out Int64 size) {
-            Cell result = order.cells
-                .Where<Cell>(x => x != this && x.isNotZero && (x.dep.nonZeroUncontrolled > 0 || x.dep.freeSpace < 0))
-                .OrderBy<Cell, Int64>(x => x.dep.freeSpace)
-                .ElementAt(0);
-            Int64 result_free_space = result.dep.freeSpace;
-            if (result_free_space > 0)
-                size = Math.Min(result_free_space, result.time);
-            else
-                size = -result.time;
-                    //Math.Max(result.dep.freeSpace, );
+            Cell result = null;
+            size = 0;
+            try {
+                result = order.cells
+                    .Where<Cell>(x => x != this && x.isNotZero && (x.dep.nonZeroUncontrolled > 0 || x.dep.freeSpace < 0))
+                    .OrderBy<Cell, Int64>(x => x.dep.freeSpace).First<Cell>();
+                //.ElementAt(0);
+                Int64 result_free_space = result.dep.freeSpace;
+                if (result_free_space > 0)
+                    size = Math.Min(result_free_space, result.time);
+                else
+                    size = -result.time;
+                //Math.Max(result.dep.freeSpace, );
+            }
+            catch (InvalidOperationException) { }
             return result;
         }
 

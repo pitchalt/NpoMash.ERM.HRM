@@ -54,7 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Department dep = deps.FirstOrDefault(x => x.Code == code);
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = dep;
-                sheet_dep.BaseWorkTime = each.MatrixWorkTime;
+                sheet_dep.BaseWorkTime = each.MatrixWorkTime / 1000;
                 sheet_dep.AdditionWorkTime = 0;
                 if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
@@ -109,7 +109,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     String file_ord_code = each.OrderCode.Trim();
                     //if (file_ord_code.Length == 8) continue; //это пока в базе нет заказов с восьмизначным кодом!
                     String file_dep_code = Convert.ToString(Convert.ToInt32(each.Department.Trim()));
-                    if (!orders_in_database.ContainsKey(file_dep_code) || !departments_in_database.ContainsKey(file_ord_code)) {
+                    if (!orders_in_database.ContainsKey(file_ord_code) || !departments_in_database.ContainsKey(file_dep_code)) {
                         how_many_mismatches++;
                         continue;
                     }
