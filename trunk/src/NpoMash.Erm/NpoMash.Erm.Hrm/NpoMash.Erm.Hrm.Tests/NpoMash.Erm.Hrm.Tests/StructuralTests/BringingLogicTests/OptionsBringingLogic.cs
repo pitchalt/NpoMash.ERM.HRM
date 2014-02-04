@@ -19,7 +19,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
     public class OptionsBringingLogic {
 
         protected TestApplication application;
-
+        private IDictionary<String, DepartmentType> departments;
         private enum DepartmentType {
             MICRO_DEPARTMENT = 0,
             SMALL_DEPARTMENT = 1,
@@ -36,11 +36,11 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             application.Setup("BringingApp", object_space_provider);
         }
 
-        private void CreateTimeSheet(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
+        private void CreateTimeSheet(IObjectSpace object_space, HrmSalaryTaskImportSourceData task) {
             Random rand = new Random();
-            HrmTimeSheetLogic.TaskSheetInit(os, task);
-            foreach (Department current_department in os.GetObjects<Department>()) {
-                HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
+            HrmTimeSheetLogic.TaskSheetInit(object_space, task);
+            foreach (Department current_department in object_space.GetObjects<Department>()) {
+                HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = current_department;
                 sheet_dep.BaseWorkTime = 100;
                 sheet_dep.AdditionWorkTime = 0;
@@ -53,10 +53,10 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
         }
 
-       protected virtual HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group, 
+        protected virtual HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
             Int32 micro_department_count, Int32 small_department_count, Int32 big_department_count, Int32 uncontrolled_orders_count, Int32 probability) {
             Random random = new Random();
-            IDictionary<String, DepartmentType> departments = new Dictionary<String, DepartmentType>();
+            departments = new Dictionary<String, DepartmentType>();
             for (int i = 0 ; i < micro_department_count ; i++) {
                 String department_code = Convert.ToString(random.Next(1, 10000));
                 if (!departments.ContainsKey(department_code)) { departments.Add(department_code, DepartmentType.MICRO_DEPARTMENT); }
@@ -91,7 +91,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 else { uncontrolled_orders_count += 1; }
             }
             foreach (var code in new_orders_code_list) {
-                int type_control = random.Next(1,3);
+                int type_control = random.Next(1, 3);
                 fmCOrder order = object_space.CreateObject<fmCOrder>();
                 order.Code = code;
                 order.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
@@ -100,39 +100,99 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
             object_space.CommitChanges();
             HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
-            List<Department> departments_in_database = object_space.GetObjects<Department>()
+            IList<Department> departments_in_database = object_space.GetObjects<Department>()
                 .Where<Department>(x => x.GroupDep == group)
                 .ToList<Department>();
-            List<fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
+            IList<fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
                 .ToList<fmCOrder>();
             Dictionary<String, HrmMatrixRow> existing_rows = new Dictionary<String, HrmMatrixRow>();
             foreach (Department current_department in departments_in_database) {
-                HrmMatrixColumn current_column = object_space.CreateObject<HrmMatrixColumn>();
-                HrmMatrixRow current_row = null;
-                current_column.Department = current_department;
-                current_column.Matrix = plan_matrix;
-                plan_matrix.Columns.Add(current_column);
-                current_column.Department = current_department;
-                foreach (fmCOrder current_order in orders_in_database) {
-                    
-                    if (existing_rows.ContainsKey(current_order.Code))
-                        current_row = existing_rows[current_order.Code];
-                    else {
-                        current_row = object_space.CreateObject<HrmMatrixRow>();
-                        current_row.Order = current_order;
-                        plan_matrix.Rows.Add(current_row);
-                        current_row.Matrix = plan_matrix;
-                        existing_rows.Add(current_order.Code, current_row);
-                    }
-                    HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
-                    new_cell.Time = Convert.ToInt16(random.Next(100));
-                    new_cell.Sum = 0;
-                    new_cell.Column = current_column;
-                    new_cell.Row = current_row;
-                    current_row.Cells.Add(new_cell);
-                    current_column.Cells.Add(new_cell);
+                switch (departments[current_department.Code]) {
+                    case DepartmentType.MICRO_DEPARTMENT: {
+                            HrmMatrixRow current_row = null;
+                            HrmMatrixColumn current_column = object_space.CreateObject<HrmMatrixColumn>();
+                            current_column.Department = current_department;
+                            current_column.Matrix = plan_matrix;
+                            plan_matrix.Columns.Add(current_column);
+                            foreach (var current_order in orders_in_database) {
+                                int span = random.Next(100);
+                                if ((current_order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT)&&(span <= probability)) {
+                                    if (existing_rows.ContainsKey(current_order.Code)) { current_row = existing_rows[current_order.Code]; }
+                                    else {
+                                        current_row = object_space.CreateObject<HrmMatrixRow>();
+                                        current_row.Order = current_order;
+                                        plan_matrix.Rows.Add(current_row);
+                                        current_row.Matrix = plan_matrix;
+                                        existing_rows.Add(current_order.Code, current_row);
+                                    }
+                                    HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
+                                    new_cell.Time = random.Next(750);
+                                    new_cell.Sum = 0;
+                                    new_cell.Column = current_column;
+                                    new_cell.Row = current_row;
+                                    current_column.Cells.Add(new_cell);
+                                    current_row.Cells.Add(new_cell);
+                                }
+                            }
+                            break;
+                        }
+                    case DepartmentType.SMALL_DEPARTMENT: {
+                            HrmMatrixRow current_row = null;
+                            HrmMatrixColumn current_column = object_space.CreateObject<HrmMatrixColumn>();
+                            current_column.Department = current_department;
+                            current_column.Matrix = plan_matrix;
+                            plan_matrix.Columns.Add(current_column);
+                            foreach (var current_order in orders_in_database) {
+                                int span = random.Next(100);
+                                if (span <= probability) {
+                                    if (existing_rows.ContainsKey(current_order.Code)) { current_row = existing_rows[current_order.Code]; }
+                                    else {
+                                        current_row = object_space.CreateObject<HrmMatrixRow>();
+                                        current_row.Order = current_order;
+                                        plan_matrix.Rows.Add(current_row);
+                                        current_row.Matrix = plan_matrix;
+                                        existing_rows.Add(current_order.Code, current_row);
+                                    }
+                                    HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
+                                    new_cell.Time = random.Next(750);
+                                    new_cell.Sum = 0;
+                                    new_cell.Column = current_column;
+                                    new_cell.Row = current_row;
+                                    current_column.Cells.Add(new_cell);
+                                    current_row.Cells.Add(new_cell);
+                                }
+                            }
+                            break;
+                        }
+                    case DepartmentType.BIG_DEPARTMENT: {
+                            HrmMatrixRow current_row = null;
+                            HrmMatrixColumn current_column = object_space.CreateObject<HrmMatrixColumn>();
+                            current_column.Department = current_department;
+                            current_column.Matrix = plan_matrix;
+                            plan_matrix.Columns.Add(current_column);
+                            foreach (var current_order in orders_in_database) {
+                                int span = random.Next(100);
+                                if (span <= probability) {
+                                    if (existing_rows.ContainsKey(current_order.Code)) { current_row = existing_rows[current_order.Code]; }
+                                    else {
+                                        current_row = object_space.CreateObject<HrmMatrixRow>();
+                                        current_row.Order = current_order;
+                                        plan_matrix.Rows.Add(current_row);
+                                        current_row.Matrix = plan_matrix;
+                                        existing_rows.Add(current_order.Code, current_row);
+                                    }
+                                    HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
+                                    new_cell.Time = random.Next(750);
+                                    new_cell.Sum = 0;
+                                    new_cell.Column = current_column;
+                                    new_cell.Row = current_row;
+                                    current_column.Cells.Add(new_cell);
+                                    current_row.Cells.Add(new_cell);
+                                }
+                            }
+                            break;
+                        }
                 }
-
             }
             plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
             plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
