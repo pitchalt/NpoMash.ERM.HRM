@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
@@ -36,26 +36,60 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             application.Setup("BringingApp", object_space_provider);
         }
 
-        private void CreateTimeSheet(IObjectSpace object_space, HrmSalaryTaskImportSourceData task) {
-            Random rand = new Random();
+        protected virtual void CreateTimeSheet(IObjectSpace object_space, HrmSalaryTaskImportSourceData task) {
+            var random = new Random();
             HrmTimeSheetLogic.TaskSheetInit(object_space, task);
-            foreach (Department current_department in object_space.GetObjects<Department>()) {
-                HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
-                sheet_dep.Department = current_department;
-                sheet_dep.BaseWorkTime = 100;
-                sheet_dep.AdditionWorkTime = 0;
-                if (current_department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                    task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
+            foreach (var column in object_space.GetObjects<HrmMatrixColumn>()) {
+                Int64 dep_sum = 0;
+                Int64 controlled_dep_sum = 0;
+                foreach (var cell in column.Cells) {
+                    dep_sum += cell.Time;
+                    if (cell.Row.Order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT) {
+                        controlled_dep_sum += cell.Time;
+                    }
                 }
-                if (current_department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                    task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
+                if (departments[column.Department.Code] == DepartmentType.MICRO_DEPARTMENT) {
+                    HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                    sheet_dep.Department = column.Department;
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(2 * dep_sum);
+                    sheet_dep.AdditionWorkTime = 0;
+                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                        task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
+                    }
+                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
+                        task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
+                    }
+                }
+                if (departments[column.Department.Code] == DepartmentType.SMALL_DEPARTMENT) {
+                    HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                    sheet_dep.Department = column.Department;
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(2 * controlled_dep_sum + dep_sum);
+                    sheet_dep.AdditionWorkTime = 0;
+                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                        task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
+                    }
+                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
+                        task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
+                    }
+                }
+                if (departments[column.Department.Code] == DepartmentType.BIG_DEPARTMENT) {
+                    HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                    sheet_dep.Department = column.Department;
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(Math.Round(Convert.ToDouble(dep_sum) / 1.5, 0));
+                    sheet_dep.AdditionWorkTime = 0;
+                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                        task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
+                    }
+                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
+                        task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
+                    }
                 }
             }
         }
 
         protected virtual HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
             Int32 micro_department_count, Int32 small_department_count, Int32 big_department_count, Int32 uncontrolled_orders_count, Int32 probability) {
-            Random random = new Random();
+            var random = new Random();
             departments = new Dictionary<String, DepartmentType>();
             for (int i = 0 ; i < micro_department_count ; i++) {
                 String department_code = Convert.ToString(random.Next(1, 10000));
@@ -223,6 +257,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.MatrixPlanOZM = CreateMatrixAllocPlan(prepare_object_space, current_period, DepartmentGroupDep.DEPARTMENT_OZM, micro_depaprtment_count, small_department_count, big_department_count, uncontrolled_orders_count, probability);
             task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            prepare_object_space.CommitChanges();
             CreateTimeSheet(prepare_object_space, task);
             DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
             period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
