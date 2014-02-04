@@ -260,7 +260,6 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
             HrmPeriod current_period = period;
             CreateDepartments(prepare_object_space, micro_depaprtment_count, small_department_count, big_department_count);
-            
             prepare_object_space.CommitChanges();
             HrmSalaryTaskImportSourceData task = prepare_object_space.CreateObject<HrmSalaryTaskImportSourceData>();
             current_period.PeriodTasks.Add(task);
