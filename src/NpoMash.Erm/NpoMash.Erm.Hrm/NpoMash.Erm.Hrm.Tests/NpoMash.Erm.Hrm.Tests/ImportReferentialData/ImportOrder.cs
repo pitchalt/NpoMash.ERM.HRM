@@ -24,11 +24,11 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
         [FieldConverter(typeof(TrimConverter))]
         public String TypeControl;
 
-        [FieldFixedLength(7)]
+        [FieldFixedLength(8)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormKB;
 
-        [FieldFixedLength(7)]
+        [FieldFixedLength(8)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormOZM;
 
@@ -41,8 +41,8 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                Decimal src = Convert.ToDecimal(from.Trim());
-                return src*100;
+                Decimal src = Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
+                return src;
             }
         }
     }
