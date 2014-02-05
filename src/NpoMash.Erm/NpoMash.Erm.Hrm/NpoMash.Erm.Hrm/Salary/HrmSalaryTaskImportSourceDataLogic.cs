@@ -50,8 +50,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/TimeSheet.dat");
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in stream) {
-                String code = Convert.ToString(Convert.ToInt32(each.Department_Code.Trim()));
+                String code = each.Department_Code;
                 Department dep = deps.FirstOrDefault(x => x.Code == code);
+                if (dep == null) continue;
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = dep;
                 sheet_dep.BaseWorkTime = each.BaseWorkTime;
@@ -108,9 +109,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                 //если запись относится к нашему периоду то начинаем обработку
                 if (each.Year == current_year && each.Month == current_month) {
                     HrmMatrix plan_matrix = null;
-                    String file_ord_code = each.OrderCode.Trim();
+                    String file_ord_code = each.OrderCode;
                     //if (file_ord_code.Length == 8) continue; //это пока в базе нет заказов с восьмизначным кодом!
-                    String file_dep_code = Convert.ToString(Convert.ToInt32(each.Department_Code.Trim()));
+                    String file_dep_code = each.Department_Code;
                     if (!orders_in_database.ContainsKey(file_ord_code) || !departments_in_database.ContainsKey(file_dep_code)) {
                         how_many_mismatches++;
                         continue;
