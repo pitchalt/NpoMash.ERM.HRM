@@ -83,7 +83,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class DepartmentItem : XPCustomObject {
             public Department Department;
             public Int64 DepartmentPlan;
-            public Int32 DepartmentFact;
+            public Int64 DepartmentFact;
             public Int64 MinimizeNumberOfDeviationsAlloc;
             public Int64 MinimizeMaximumDeviationsAlloc;
             public Int64 ProportionsMethodAlloc;
