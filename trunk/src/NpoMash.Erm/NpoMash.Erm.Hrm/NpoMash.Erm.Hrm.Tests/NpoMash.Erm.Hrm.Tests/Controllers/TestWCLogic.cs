@@ -76,8 +76,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 fmCOrder order_to_db = local_object_space.CreateObject<fmCOrder>();
                 order_to_db.Code = new_order.Key;
                 order_to_db.TypeControl = new_order.Value;
-                if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key]; }
-                if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key]; }
+                if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key] / 100; }
+                if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key] / 100; }
                 if (!kb_norms_of_orders.ContainsKey(new_order.Key) && !ozm_norms_of_orders.ContainsKey(new_order.Key)) {
                     order_to_db.NormKB = 0;
                     order_to_db.NormOZM = 0;
