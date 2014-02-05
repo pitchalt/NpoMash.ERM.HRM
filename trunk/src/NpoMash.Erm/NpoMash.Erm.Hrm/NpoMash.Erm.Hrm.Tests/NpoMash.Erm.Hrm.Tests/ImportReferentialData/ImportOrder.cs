@@ -34,8 +34,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class TrimConverter : ConverterBase {
             public override object StringToField(string from) {
-                String src = from.Trim();
-                return src;
+                return from.Trim();
             }
         }
 
