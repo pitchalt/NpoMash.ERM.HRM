@@ -8,6 +8,7 @@ using FileHelpers;
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Salary;
+using NpoMash.Erm.Hrm.Exchange;
 using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Tests.ImportReferentialData;
 
@@ -39,46 +40,49 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         private static int _Salarypaytype_Count = 100;
 
-        public static void ImportDeps(IObjectSpace local_object_space) {
+        public static void ImportDepartments(IObjectSpace local_object_space) {
             var engine = new FixedFileEngine<ImportDepartment>();
-            ImportDepartment[] department_loaded = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
-            foreach (var department in department_loaded) {
-
-            }
-            
-            /*
-            foreach (var each in stream) {
+            ImportDepartment[] department_loaded = engine.ReadFile("../../../../../../../var/referential/Dep.dat");        
+            foreach (var current_department in department_loaded) {
                 var department = local_object_space.CreateObject<Department>();
-                department.Code = Convert.ToString(Convert.ToInt32(each.Code.Trim()));
-                if (each.Group == "01") {
-                    department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
-                }
-                else {
-                    department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
-                }
-            }*/
+                department.Code = current_department.Code;
+                if (current_department.Group == "01") { department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
+                else { department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
+            }
         }
 
         public static void ImportOrders(IObjectSpace local_object_space) {
             var order_data = new FixedFileEngine<ImportOrder>();
+            var plan_data = new FixedFileEngine<ImportMatrixPlan>();
             ImportOrder[] order_list = order_data.ReadFile("../../../../../../../var/referential/Orders.dat");
+            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/MatrixAllocPlan.dat");
+            IDictionary<String, Decimal> kb_norms_of_orders = new Dictionary<String, Decimal>();
+            IDictionary<String, Decimal> ozm_norms_of_orders = new Dictionary<String, Decimal>(); 
+            IDictionary<String, FmCOrderTypeControl> full_orders_package = new Dictionary<String, FmCOrderTypeControl>();
             foreach (var order in order_list) {
-                var fmCorder = local_object_space.CreateObject<fmCOrder>();
-                fmCorder.Code = order.Code.Trim();
-                fmCorder.NormKB = order.NormKB;
-                fmCorder.NormOZM = order.NormOZM;
-                if (fmCorder.NormKB == 0) { fmCorder.NormKB = 1; }
-                if (fmCorder.NormOZM == 0) { fmCorder.NormOZM = 1; }
-                fmCorder.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
-                if (order.TypeControl.Trim() == "Ф") {
-                    fmCorder.TypeControl = FmCOrderTypeControl.FOT;
+                if (order.TypeControl == "Ф") { 
+                    full_orders_package.Add(order.Order_Code, FmCOrderTypeControl.FOT);
+                    kb_norms_of_orders.Add(order.Order_Code, order.NormKB);
+                    ozm_norms_of_orders.Add(order.Order_Code, order.NormOZM);
                 }
-                if (order.TypeControl.Trim() == "ТФ") {
-                    fmCorder.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
+                else { 
+                    full_orders_package.Add(order.Order_Code, FmCOrderTypeControl.TRUDEMK_FOT);
+                    kb_norms_of_orders.Add(order.Order_Code, order.NormKB);
+                    ozm_norms_of_orders.Add(order.Order_Code, order.NormOZM);
                 }
-                if (order.TypeControl.Trim() == "") {
-                    fmCorder.TypeControl = FmCOrderTypeControl.NO_ORDERED;
+            }
+            foreach (var plan in plan_list) { if (!full_orders_package.ContainsKey(plan.OrderCode)) { full_orders_package.Add(plan.OrderCode, FmCOrderTypeControl.NO_ORDERED); } }
+            foreach (var new_order in full_orders_package) {
+                fmCOrder order_to_db = local_object_space.CreateObject<fmCOrder>();
+                order_to_db.Code = new_order.Key;
+                order_to_db.TypeControl = new_order.Value;
+                if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key]; }
+                if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key]; }
+                if (!kb_norms_of_orders.ContainsKey(new_order.Key) && !ozm_norms_of_orders.ContainsKey(new_order.Key)) {
+                    order_to_db.NormKB = 0;
+                    order_to_db.NormOZM = 0;
                 }
+                order_to_db.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
             }
         }
 

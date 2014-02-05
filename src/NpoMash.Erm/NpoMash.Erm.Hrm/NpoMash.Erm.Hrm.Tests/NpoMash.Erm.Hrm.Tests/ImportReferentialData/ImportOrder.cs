@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         [FieldFixedLength(9)]
         [FieldConverter(typeof(TrimConverter))]
-        public String Code;
+        public String Order_Code;
 
         [FieldFixedLength(2)]
         [FieldConverter(typeof(TrimConverter))]
