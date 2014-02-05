@@ -54,7 +54,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void ImportOrders(IObjectSpace local_object_space) {
             var order_data = new FixedFileEngine<ImportOrder>();
             var plan_data = new FixedFileEngine<ImportMatrixPlan>();
-            ImportOrder[] order_list = order_data.ReadFile("../../../../../../../var/referential/Orders.dat");
+            ImportOrder[] order_list = order_data.ReadFile("../../../../../../../var/referential/ControlOrder.dat");
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/MatrixAllocPlan.dat");
             IDictionary<String, Decimal> kb_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, Decimal> ozm_norms_of_orders = new Dictionary<String, Decimal>(); 
