@@ -41,8 +41,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                Decimal src = Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
-                return src;
+                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
             }
         }
     }
