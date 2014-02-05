@@ -64,7 +64,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmTimeSheet _TimeSheet;
-//        [Appearance("", Enabled = false)]
+        //        [Appearance("", Enabled = false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet TimeSheet {
             get { return _TimeSheet; }
@@ -72,7 +72,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmPeriodAllocParameter _AllocParameters;
-//        [Appearance("", Enabled = false)]
+        //        [Appearance("", Enabled = false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
@@ -126,20 +126,63 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-
-        protected IList<OrderItem> orderCreate() {
-            IList<OrderItem> orderList = new List<OrderItem>();
-            //
-            LoadMatrixOrder(MatrixPlan, null, orderList);
-            if (ProportionsMethodMatrix != null) 
-                LoadMatrixOrder(ProportionsMethodMatrix, null, orderList);
-            if (MinimizeNumberOfDeviationsMatrix != null)
-                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, orderList);
-            if (MinimizeMaximumDeviationsMatrix != null)
-                LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, orderList);
-            return orderList;
+        public void Refresh(HrmMatrixVariant variant) {
+            switch (variant) {
+                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
+                    if (MinimizeMaximumDeviationsMatrix != null) {
+                        LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, Order);
+                        LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, Department);
+                    }
+                    break;
+                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
+                    if (MinimizeNumberOfDeviationsMatrix != null) {
+                        LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, Order);
+                        LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, Department);
+                    }
+                    break;
+                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                    if (ProportionsMethodMatrix != null) {
+                        LoadMatrixOrder(ProportionsMethodMatrix, null, Order);
+                        LoadMatrixDepartment(ProportionsMethodMatrix, null, Department);
+                    }
+                    break;
+            }
         }
 
+        protected IList<OrderItem> orderCreate() {
+            //IList<OrderItem> orderList = new List<OrderItem>();
+            //
+            LoadMatrixOrder(MatrixPlan, null, Order);
+//            if (ProportionsMethodMatrix != null)
+//                LoadMatrixOrder(ProportionsMethodMatrix, null, orderList);
+//            if (MinimizeNumberOfDeviationsMatrix != null)
+//                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, orderList);
+//            if (MinimizeMaximumDeviationsMatrix != null)
+//                LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, orderList);
+            return Order;
+        }
+
+        protected IList<DepartmentItem> departmentCreate() {
+            //IList<DepartmentItem> departmentList = new List<DepartmentItem>();
+            //
+            LoadMatrixDepartment(MatrixPlan, null, Department);
+//            if (ProportionsMethodMatrix != null)
+//                LoadMatrixDepartment(ProportionsMethodMatrix, null, departmentList);
+//            if (MinimizeNumberOfDeviationsMatrix != null)
+//                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, departmentList);
+//            if (MinimizeMaximumDeviationsMatrix != null)
+//                LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, departmentList);
+
+            //заполняем факт по подразделению
+            foreach (var t in TimeSheet.TimeSheetDeps) {
+                for (int i = 0; i < Department.Count; i++) {
+                    if (t.Department.Code == Department[i].Department.Code) {
+                        Department[i].DepartmentFact = t.MatrixWorkTime;
+                    }
+                }
+            }
+            return Department;
+        }
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
@@ -148,14 +191,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                 OrderItem item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
                     item = new OrderItem(this.Session) {
-                    Order = row.Order
+                        Order = row.Order
                     };
-                    
-                    
+
+
                     items.Add(item);
                 }
                 item.TypeControl = row.Order.TypeControl;
-                
+
                 foreach (HrmMatrixCell cell in row.Cells) {
                     if (col != null && cell.Column != col)
                         continue;
@@ -184,7 +227,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
             }
-            
+
         }
 
         protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItem> items) {
@@ -197,7 +240,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Department = col.Department // Подразделение
                     };
                 }
-                
+
                 foreach (HrmMatrixCell cell in col.Cells) {
                     if (row != null && cell.Row != row)
                         continue;
@@ -230,45 +273,26 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected IList<DepartmentItem> departmentCreate() {
-            IList<DepartmentItem> departmentList = new List<DepartmentItem>();
-            //
-            LoadMatrixDepartment(MatrixPlan, null, departmentList);
-            if (ProportionsMethodMatrix != null)
-                LoadMatrixDepartment(ProportionsMethodMatrix, null, departmentList);
-            if (MinimizeNumberOfDeviationsMatrix != null)
-                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, departmentList);
-            if (MinimizeMaximumDeviationsMatrix != null)
-                LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, departmentList);
-
-            //заполняем факт по подразделению
-            foreach (var t in TimeSheet.TimeSheetDeps) {
-                for (int i = 0; i < departmentList.Count; i++) {
-                    if (t.Department.Code == departmentList[i].Department.Code) {
-                        departmentList[i].DepartmentFact = t.MatrixWorkTime;
-                    }
-                }
-            }
-            return departmentList;
-        }
-
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
 
         [Browsable(false)]
-        private bool isNotReadyToBring { get {
-            if (Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS)
-                return true;
-            return HrmSalaryTaskMatrixReductionLogic.matrixIsAccepted(this);
-        } }
+        private bool isNotReadyToBring {
+            get {
+                if (Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS)
+                    return true;
+                return HrmSalaryTaskMatrixReductionLogic.matrixIsAccepted(this);
+            }
+        }
 
 
         [Browsable(false)]
         private bool isNotReadyToExport { get { return (Period.Status != HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS || GroupDep != DepartmentGroupDep.DEPARTMENT_KB); } }
 
         [Browsable(false)]
-        private bool isNotReadyToAccept { get {
+        private bool isNotReadyToAccept {
+            get {
                 return (HrmSalaryTaskMatrixReductionLogic.matrixIsAccepted(this) ||
                 Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
             }
