@@ -50,12 +50,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in stream) {
-                String code = Convert.ToString(Convert.ToInt32(each.Code.Trim()));
+                String code = Convert.ToString(Convert.ToInt32(each.Department_Code.Trim()));
                 Department dep = deps.FirstOrDefault(x => x.Code == code);
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = dep;
-                sheet_dep.BaseWorkTime = each.BaseWorkTime / 1000;
+                sheet_dep.BaseWorkTime = each.BaseWorkTime;
+                sheet_dep.ConstantWorkTime = each.ConstantWorkTime;
                 sheet_dep.AdditionWorkTime = 0;
+                sheet_dep.TravelWorkTime = each.TravelWorkTime;
                 if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                 }
@@ -71,7 +73,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
+            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             //            kb_plan_matrix.Period = period;
             kb_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             kb_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
@@ -79,7 +81,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             kb_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(kb_plan_matrix);
             HrmMatrixAllocPlan ozm_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
-            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
+            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             //            ozm_plan_matrix.Period = period;
             ozm_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             ozm_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
@@ -126,25 +128,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                             plan_matrix_rows = ozm_rows;
                         }
                     else throw new Exception("There is no department in database with code " + each.Department_Code.Trim());
-                    /*foreach (Department dep in os.GetObjects<Department>()) {
-                        if (String.Compare(Convert.ToString(Convert.ToInt32(each.Department.Trim())), dep.Code) == 0)
-                            if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB)
-                                plan_matrix = kb_plan_matrix;
-                            else plan_matrix = ozm_plan_matrix;
-                        //теперь мы знаем с какой матрицей работаем
-                    }*/
-                    //если не нашли такого подразделения - все плохо
-                    //if (plan_matrix == null)
-                    //    throw new Exception("There is no department with code " + each.Department.Trim());
                     //иначе - создаем ячейку и начинаем ее заполнять
                     HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
                     cell.Time = each.Time;
                     cell.Sum = 1;
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
-                    /*foreach (HrmMatrixColumn col in plan_matrix.Columns)
-                        if (col.Department.Code == each.Department.Trim())
-                            current_column = col;*/
                     if (plan_matrix_columns.ContainsKey(file_dep_code))
                         current_column = plan_matrix_columns[file_dep_code];
                     //если колонки еще не было - то создаем и инициализируем новую
@@ -154,27 +143,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                         plan_matrix.Columns.Add(current_column);
                         current_column.Department = departments_in_database[file_dep_code];
                         plan_matrix_columns.Add(file_dep_code, current_column);
-                        /*foreach (Department dep in os.GetObjects<Department>())
-                            if (System.String.Compare(dep.Code, each.Department.Trim()) == 0)
-                                current_column.Department = dep;
-                        */
                     }
                     //теперь связываем колонку с ячейкой, больше с колонкой делать нечего
                     cell.Column = current_column;
                     current_column.Cells.Add(cell);
                     //теперь разбираемся со строчкой
-
                     HrmMatrixRow current_row = null;
                     if (plan_matrix_rows.ContainsKey(file_ord_code))
                         current_row = plan_matrix_rows[file_ord_code];
                     else {
-
-                        //throw new Exception("There is now order in database wiht code " + file_ord_code);
-                    /*foreach (HrmMatrixRow row in plan_matrix.Rows)
-                        if (System.String.Compare(row.Order.Code, each.OrderCode.Trim()) == 0)
-                            current_row = row;*/
-                    //если строчки еще не было - тогда создаем и инициализируем новую
-                    //if (current_row == null) {
                         current_row = os.CreateObject<HrmMatrixRow>();
                         current_row.Matrix = plan_matrix;
                         plan_matrix.Rows.Add(current_row);
@@ -182,9 +159,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (orders_in_database.ContainsKey(file_ord_code))
                             current_row.Order = orders_in_database[file_ord_code];
                         else throw new Exception("There is now order in database with code " + file_ord_code);
-                        /*foreach (fmCOrder order in os.GetObjects<fmCOrder>())
-                            if (System.String.Compare(order.Code, each.OrderCode.Trim()) == 0)
-                                current_row.Order = order;*/
                     }
                     //теперь связываем строчку с ячейкой, больше со строчкой делать нечего
                     cell.Row = current_row;
