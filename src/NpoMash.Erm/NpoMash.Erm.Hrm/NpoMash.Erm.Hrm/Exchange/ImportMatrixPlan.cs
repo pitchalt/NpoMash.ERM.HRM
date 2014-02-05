@@ -8,18 +8,30 @@ namespace NpoMash.Erm.Hrm.Exchange {
     public class ImportMatrixPlan {
 
         [FieldFixedLength(4)]
+        [FieldConverter(typeof(TrimConverter))]
         public Int16 Year;
 
         [FieldFixedLength(2)]
+        [FieldConverter(typeof(TrimConverter))]
         public Int16 Month;
 
         [FieldFixedLength(5)]
-        public String Department;
+        [FieldConverter(typeof(TrimConverter))]
+        public String Department_Code;
 
-        [FieldFixedLength(8)]
+        [FieldFixedLength(9)]
+        [FieldConverter(typeof(TrimConverter))]
         public String OrderCode;
 
         [FieldFixedLength(9)]
-        public Int16 Norm;
+        [FieldConverter(typeof(TrimConverter))]
+        public Int16 Time;
+
+        internal class TrimConverter : ConverterBase {
+            public override object StringToField(string from) {
+                String src = from.Trim();
+                return src;
+            }
+        }
     }
 }

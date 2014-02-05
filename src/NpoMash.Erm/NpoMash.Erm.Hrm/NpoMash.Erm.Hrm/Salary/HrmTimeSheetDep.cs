@@ -47,21 +47,33 @@ namespace NpoMash.Erm.Hrm.Salary {
         //[VisibleInDetailView(false)]
         //[VisibleInListView(false)]
         //[VisibleInLookupListView(false)]
-        public Int32 MatrixWorkTime {
+        public Int64 MatrixWorkTime {
             get { return BaseWorkTime + AdditionWorkTime; }
 
         }
 
-        private Int32 _BaseWorkTime;
-        public Int32 BaseWorkTime {
-            get { return _BaseWorkTime; }
-            set { SetPropertyValue<Int32>("BaseWorkTime", ref _BaseWorkTime, value); }
+        private Int64 _TravelWorkTime;
+        public Int64 TravelWorkTime {
+            get { return _TravelWorkTime; }
+            set { SetPropertyValue<Int64>("TravelWorkTime", ref _TravelWorkTime, value); }
         }
 
-        private Int32 _AdditionWorkTime;
-        public Int32 AdditionWorkTime {
+        private Int64 _ConstantWorkTime;
+        public Int64 ConstantWorkTime {
+            get { return _ConstantWorkTime; }
+            set { SetPropertyValue<Int64>("TravelWorkTime", ref _ConstantWorkTime, value); }
+        }
+
+        private Int64 _BaseWorkTime;
+        public Int64 BaseWorkTime {
+            get { return _BaseWorkTime; }
+            set { SetPropertyValue<Int64>("BaseWorkTime", ref _BaseWorkTime, value); }
+        }
+
+        private Int64 _AdditionWorkTime;
+        public Int64 AdditionWorkTime {
             get { return _AdditionWorkTime; }
-            set { SetPropertyValue<Int32>("AdditionWorkTime", ref _AdditionWorkTime, value); }
+            set { SetPropertyValue<Int64>("AdditionWorkTime", ref _AdditionWorkTime, value); }
         }
         public HrmTimeSheetDep(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction();}

@@ -1,2 +1,8 @@
 ﻿using System;
-namespace NpoMash.Erm.Hrm.Exchange { public class ImportAccountOperation { } }
+using FileHelpers;
+
+namespace NpoMash.Erm.Hrm.Exchange { 
+    public class ImportAccountOperation {
+
+    }
+}

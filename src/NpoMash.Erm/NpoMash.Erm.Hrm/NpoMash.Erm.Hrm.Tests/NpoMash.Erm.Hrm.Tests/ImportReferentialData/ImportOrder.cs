@@ -9,15 +9,19 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
     public class ImportOrder {
 
         [FieldFixedLength(4)]
+        [FieldConverter(typeof(TrimConverter))]
         public Int16 Year;
 
         [FieldFixedLength(2)]
+        [FieldConverter(typeof(TrimConverter))]
         public Int16 Month;
 
-        [FieldFixedLength(6)]
+        [FieldFixedLength(9)]
+        [FieldConverter(typeof(TrimConverter))]
         public String Code;
 
         [FieldFixedLength(2)]
+        [FieldConverter(typeof(TrimConverter))]
         public String TypeControl;
 
         [FieldFixedLength(7)]
@@ -28,10 +32,17 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormOZM;
 
+        internal class TrimConverter : ConverterBase {
+            public override object StringToField(string from) {
+                String src = from.Trim();
+                return src;
+            }
+        }
+
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                decimal src = Convert.ToDecimal(from);
-                return src/100;
+                Decimal src = Convert.ToDecimal(from.Trim());
+                return src*100;
             }
         }
     }
