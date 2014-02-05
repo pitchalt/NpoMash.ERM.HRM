@@ -32,15 +32,13 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class TrimConverter : ConverterBase {
             public override object StringToField(string from) {
-                String src = from.Trim();
-                return src;
+                return from.Trim();
             }
         }
 
         internal class WorkTimeConverter : ConverterBase {
             public override object StringToField(string from) {
-                Int64 src = Convert.ToInt64(from.Trim());
-                return src * 100;
+                return Convert.ToInt64(from.Remove(from.Length - 3, 1).Trim());
             }
         }
     }

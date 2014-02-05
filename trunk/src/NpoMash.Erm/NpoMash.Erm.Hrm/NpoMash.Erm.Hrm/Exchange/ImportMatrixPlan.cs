@@ -29,15 +29,13 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class TrimConverter : ConverterBase {
             public override object StringToField(string from) {
-                String src = from.Trim();
-                return src;
+                return from.Trim();
             }
         }
 
         internal class TimeConverter : ConverterBase {
             public override object StringToField(string from) {
-                Int64 src = Convert.ToInt64(from.Trim());
-                return src;
+                return Convert.ToInt64(from.Trim());
             }
         }
     }
