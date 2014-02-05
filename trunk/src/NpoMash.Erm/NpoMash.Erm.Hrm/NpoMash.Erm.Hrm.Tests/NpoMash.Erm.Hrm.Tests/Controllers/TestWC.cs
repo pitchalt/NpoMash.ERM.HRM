@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         private void AddReferenceData_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
-            TestWCLogic.ImportDeps(object_space);
+            TestWCLogic.ImportDepartments(object_space);
             TestWCLogic.ImportOrders(object_space);
             TestWCLogic.SalaryPayTypeGenerate(object_space);
             TestWCLogic.addTestData(object_space);
