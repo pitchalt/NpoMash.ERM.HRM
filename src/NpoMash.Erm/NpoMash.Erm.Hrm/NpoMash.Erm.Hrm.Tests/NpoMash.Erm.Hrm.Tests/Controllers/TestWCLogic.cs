@@ -41,7 +41,12 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void ImportDeps(IObjectSpace local_object_space) {
             var engine = new FixedFileEngine<ImportDepartment>();
-            ImportDepartment[] stream = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
+            ImportDepartment[] department_loaded = engine.ReadFile("../../../../../../../var/referential/Dep.dat");
+            foreach (var department in department_loaded) {
+
+            }
+            
+            /*
             foreach (var each in stream) {
                 var department = local_object_space.CreateObject<Department>();
                 department.Code = Convert.ToString(Convert.ToInt32(each.Code.Trim()));
@@ -51,7 +56,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 else {
                     department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
                 }
-            }
+            }*/
         }
 
         public static void ImportOrders(IObjectSpace local_object_space) {
