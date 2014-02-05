@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
         [FieldConverter(typeof(TrimConverter))]
         public String Department_Code;
         
-        [FieldFixedLength(7)]
+        [FieldFixedLength(8)]
         [FieldConverter(typeof(WorkTimeConverter))]
         public Int64 BaseWorkTime;
         

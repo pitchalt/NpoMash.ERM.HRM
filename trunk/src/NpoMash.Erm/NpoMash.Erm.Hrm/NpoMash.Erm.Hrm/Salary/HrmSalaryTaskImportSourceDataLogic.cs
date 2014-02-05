@@ -47,7 +47,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ImportTimeSheet(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             HrmTimeSheetLogic.TaskSheetInit(os, task);
             var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
-            ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
+            ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/TimeSheet.dat");
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in stream) {
                 String code = Convert.ToString(Convert.ToInt32(each.Department_Code.Trim()));
@@ -70,7 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ImportPlanMatrixes(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
             var plan_data = new FixedFileEngine<ImportMatrixPlan>();
-            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
+            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/MatrixAllocPlan.dat");
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
             kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
@@ -130,7 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     else throw new Exception("There is no department in database with code " + each.Department_Code.Trim());
                     //иначе - создаем ячейку и начинаем ее заполнять
                     HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
-                    cell.Time = each.Time;
+                    cell.Time = each.Time * 100;
                     cell.Sum = 1;
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
