@@ -98,10 +98,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                     HrmMatrixVariant bringing_method = (HrmMatrixVariant)e.SelectedChoiceActionItem.Data;
                     HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(task, os, task.GroupDep, bringing_method, task.Period);
+                    os.CommitChanges();
                 }
-                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
-                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                os.Committed += new EventHandler(refresher);
             }
             UpdateActionsItemsState();
         }
