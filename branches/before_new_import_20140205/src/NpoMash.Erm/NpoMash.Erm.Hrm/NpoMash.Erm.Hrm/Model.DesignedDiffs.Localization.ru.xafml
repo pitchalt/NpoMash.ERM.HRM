@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
+      <Action Id="AcceptImport" Caption="Утвердить импортированные данные" />
+      <Action Id="BringingMatrixAction" Caption="Приведение матрицы КБ">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Метод минимизации максимальных отклонений" />
+          <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="BringingOZMMatrixAction" Caption="Приведение матрицы ОЗМ">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
+          <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="ExportCoercedMatrix" Caption="Экспорт" />
+      <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction" Caption="Утвердить" />
+      <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
+      <OwnMembers>
+        <Member Name="Matrixs" Caption="Матрицы распределения" />
+        <Member Name="AllocParameters" Caption="Параметры расчета" />
+        <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
+        <Member Name="Month" Caption="Месяц" />
+        <Member Name="PeriodPrevious" Caption="Предыдущий период" />
+        <Member Name="PeriodTasks" Caption="Задачи" />
+        <Member Name="Status" Caption="Статус контроля" />
+        <Member Name="TimeSheets" Caption="Факты (табель)" />
+        <Member Name="Year" Caption="Год" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAccount">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAccountOperation" Caption="БухПроводка">
+      <OwnMembers>
+        <Member Name="AllocResult" Caption="Результат Расчета" />
+        <Member Name="Cell" Caption="Ячейка матрицы" />
+        <Member Name="Credit" Caption="Кредит" />
+        <Member Name="Debit" Caption="Дебит" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="PayType" Caption="Код оплаты" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" Caption="Матрица">
+      <OwnMembers>
+        <Member Name="Columns" Caption="Подразделения" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="IterationNumber" Caption="Номер итерации" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="Rows" Caption="Заказы" />
+        <Member Name="Status" Caption="Статус" />
+        <Member Name="Type" Caption="Тип" />
+        <Member Name="TypeMatrix" Caption="Тип матрицы" />
+        <Member Name="Variant" Caption="Вариант алгоритма" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocPlan" Caption="Матрица Плановая" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocResult" Caption="РезультатРаспределения">
+      <OwnMembers>
+        <Member Name="AccountOperations" Caption="БухПроводки" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" Caption="ЯчейкаМатрицы">
+      <OwnMembers>
+        <Member Name="Column" Caption="Подразделение" />
+        <Member Name="Row" Caption="Заказ" />
+        <Member Name="Sum" Caption="Значение" />
+        <Member Name="Time" Caption="Трудочасы" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" Caption="Подразделения">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Cells" Caption="Ячейки" />
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Sum" Caption="План по подразделению" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" Caption="Заказы">
+      <OwnMembers>
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="Cells" Caption="Ячейки" />
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Sum" Caption="План по заказу" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" Caption="Параметры расчета">
+      <OwnMembers>
+        <Member Name="IterationNumber" Caption="Номер итерации" />
+        <Member Name="Month" Caption="Месяц" />
+        <Member Name="NormNoControlKB" Caption="Норма по неконтр. заказам КБ" />
+        <Member Name="NormNoControlOZM" Caption="Норма по неконтр. заказам ОЗМ" />
+        <Member Name="OrderControls" Caption="Контроль заказа" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="SimpleWorkButNotLegal" Caption="Код оплаты" />
+        <Member Name="Status" Caption="Статус контроля" />
+        <Member Name="Year" Caption="Год" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl" Caption="Контроль заказа">
+      <OwnMembers>
+        <Member Name="AllocParameter" Caption="Параметры расчета" />
+        <Member Name="NormKB" Caption="Норма КБ" />
+        <Member Name="NormOZM" Caption="Норма ОЗМ" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" Caption="Код оплаты">
+      <OwnMembers>
+        <Member Name="AllocParameter" Caption="Параметры расчета" />
+        <Member Name="PayType" Caption="Код оплаты" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTask" Caption="Задачи в данном периоде">
+      <OwnMembers>
+        <Member Name="CreateTime" Caption="Время создания" />
+        <Member Name="FinishTime" Caption="Время завершения" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="State" Caption="Текущее состояние задачи" />
+        <Member Name="TaskType" Caption="Тип задачи" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportSourceData" Caption="Импорт исходных данных">
+      <OwnMembers>
+        <Member Name="MatrixPlanKB" Caption="Плановая матрица КБ" />
+        <Member Name="MatrixPlanOZM" Caption="Плановая матрица ОЗМ" />
+        <Member Name="TimeSheetKB" Caption="Факт(табель) КБ" />
+        <Member Name="TimeSheetOZM" Caption="Факт(табель) ОЗМ" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Приведение матрицы">
+      <OwnMembers>
+        <Member Name="AllocParameters" Caption="Параметры расчета" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="MatrixPlan" Caption="Плановая матрица" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TimeSheet" Caption="Табель" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" Caption="Подразделение">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="DepartmentFact" Caption="Факт по подразделению" />
+        <Member Name="DepartmentPlan" Caption="План по подразделению" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />
+        <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" Caption="Заказ">
+      <OwnMembers>
+        <Member Name="OrderPlan" Caption="План по заказу" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+        <Member Name="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)">
+      <OwnMembers>
+        <Member Name="TimeSheetDeps" Caption="Табель(факт)" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="Status" Caption="Статус" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
+      <OwnMembers>
+        <Member Name="AdditionWorkTime" Caption="Сверхурочное время" />
+        <Member Name="BaseWorkTime" Caption="Рабочее время" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="MatrixWorkTime" Caption="Полное время " />
+        <Member Name="TimeSheet" Caption="Факт. табель" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
+        <LocalizationItem Name="ACCOUNT_OPERATION_FIRST_IMPORTED" Value="Импортирована первичная проводка" />
+        <LocalizationItem Name="ACCOUNT_OPERATION_LAST_IMPORTED" Value="Импортирована проводка" />
+        <LocalizationItem Name="CLOSED" Value="Закрыт" />
+        <LocalizationItem Name="COERCED_MATRIXES_EXPORTED" Value="Приведенные матрицы выгружены" />
+        <LocalizationItem Name="LIST_OF_CONTROLLED_ORDERS_ACCEPTED" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="OPENED" Value="Открыт" />
+        <LocalizationItem Name="READY_TO_CALCULATE_COERCED_MATRIXS" Value="Готов к созданию приведенных матриц" />
+        <LocalizationItem Name="READY_TO_EXPORT_CORCED_MATRIXS" Value="Готов к выгрузке приведенных матриц" />
+        <LocalizationItem Name="READY_TO_RESERVE_MATRIX_CREATE" Value="Готов к созданию матрицы резерва" />
+        <LocalizationItem Name="READY_TO_RESERVE_MATRIX_UPLOAD" Value="Готов к выгрузке матрицы резерва" />
+        <LocalizationItem Name="RESERVE_MATRIX_UPLOADED" Value="Матрица резерва выгружена" />
+        <LocalizationItem Name="SOURCE_DATA_LOADED" Value="Исходные данные загружены" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixStatus">
+        <LocalizationItem Name="MATRIX_ACCEPTED" Value="Утверждена" />
+        <LocalizationItem Name="MATRIX_ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="MATRIX_CLOSED" Value="Закрыта" />
+        <LocalizationItem Name="MATRIX_EXPORTED" Value="Выгружена" />
+        <LocalizationItem Name="MATRIX_OPENED" Value="Открыта" />
+        <LocalizationItem Name="MATRIX_PRIMARY_ACCEPTED" Value="Утверждена предварительно" />
+        <LocalizationItem Name="MATRIX_SAVED" Value="Сохранена" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixType">
+        <LocalizationItem Name="TYPE_ALLOC_RESULT" Value="Результат распределения" />
+        <LocalizationItem Name="TYPE_MATIX" Value="Матрица" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixTypeMatrix">
+        <LocalizationItem Name="MATRIX_COERCED" Value="Приведенная матрица" />
+        <LocalizationItem Name="MATRIX_PLANNED" Value="Плановая матрица" />
+        <LocalizationItem Name="MATRIX_RESERVE" Value="Матрица резерва" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixVariant">
+        <LocalizationItem Name="MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT" Value="Мин. максимальных отклонений" />
+        <LocalizationItem Name="MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT" Value="Мин. числа отклонений" />
+        <LocalizationItem Name="PROPORTIONS_METHOD_VARIANT" Value="Метод пропорции" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
+        <LocalizationItem Name="ALLOC_PARAMETERS_ACCEPTED" Value="Утверждены параметры расчета" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="CREATED" Value="Параметры расчета созданы" />
+        <LocalizationItem Name="LIST_OF_ORDER_ACCEPTED" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="OPEN_TO_EDIT" Value="Открыты для редактирования" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskState" Value="Состояние задачи">
+        <LocalizationItem Name="HRM_SALARY_TASK_ABORTED" Value="Задача отклонена" />
+        <LocalizationItem Name="HRM_SALARY_TASK_ACTIVED" Value="Задача активна" />
+        <LocalizationItem Name="HRM_SALARY_TASK_COMPLETED" Value="Задача выполнена успешно" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetStatus">
+        <LocalizationItem Name="ACCEPTED" Value="Утвержден" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="DOWNLOADED" Value="Загружен" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationGroup Name="HrmPariodAllocParameterVC">
+        <LocalizationItem Name="MessageBoxCaption" Value="Параметры расчета для данного периода уже существуют." />
+        <LocalizationItem Name="MessageBoxText" Value="Хотите открыть параметры расчета текущего периода?" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="A1 Integration" Caption="Интеграция с А1">
+        <Items>
+          <Item Id="SalaryAllocation" Caption="Списание затрат" />
+          <Item Id="References" Caption="Справочники" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <ListView Id="DepartmentItem_ListView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

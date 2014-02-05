@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="GetSourceDataAction">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
+          <ChoiceActionItem Id="GetDataFromFile" Caption="Данные из файла">
+            <ChoiceActionItems>
+              <ChoiceActionItem Id="StructuredFile" Caption="Структурированный файл" />
+              <ChoiceActionItem Id="XmlFile" Caption="XML-файл" />
+            </ChoiceActionItems>
+          </ChoiceActionItem>
+          <ChoiceActionItem Id="GetDataFromServer" Caption="Загрузить из сервера" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ValidationContexts="" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" ImageName="ModelEditor_Action_Modules" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" ImageName="Action_Inline_Edit">
+      <OwnMembers>
+        <Member Name="Month" DisplayFormat="{0:N0}" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" DefaultListViewMasterDetailMode="ListViewOnly" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" DefaultListViewMasterDetailMode="ListViewOnly">
+      <OwnMembers>
+        <Member Name="OrderPlan" Index="-1" />
+        <Member Name="Order" Index="0" />
+        <Member Name="TypeControl" Index="1" />
+        <Member Name="ProportionsMethodAlloc" Index="2" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Index="3" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Index="4" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet">
+      <OwnMembers>
+        <Member Name="TimeSheetDeps" Index="0" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="DialogButtons">
+      <LocalizationItem Name="Ignore" Value="a" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationGroup Name="HrmPariodAllocParameterVC" IsNewNode="True">
+        <LocalizationItem Name="MessageBoxCaption" IsNewNode="True" />
+        <LocalizationItem Name="MessageBoxText" IsNewNode="True" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="A1 Integration" ChildItemsDisplayStyle="List">
+        <Items>
+          <Item Id="SalaryAllocation" Index="0" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="HrmPeriod_ListView" ViewId="HrmPeriod_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+              <Item Id="HrmMatrix_ListView" ViewId="HrmMatrix_ListView" IsNewNode="True" />
+              <Item Id="HrmPeriodAllocParameter_ListView" ViewId="HrmPeriodAllocParameter_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="References" Index="1" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Department_ListView" ViewId="Department_ListView" IsNewNode="True" />
+              <Item Id="fmCOrder_ListView" ViewId="fmCOrder_ListView" IsNewNode="True" />
+              <Item Id="HrmSalaryPayType_ListView" ViewId="HrmSalaryPayType_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="ERM" Removed="True">
+        <Items>
+          <Item Id="Department_ListView" Removed="True" />
+          <Item Id="fmCOrder_ListView" Removed="True" />
+          <Item Id="HrmSalaryPayType_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="State Machine" Removed="True" />
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="DepartmentItem_ListView" GroupSummary="">
+      <Columns>
+        <ColumnInfo Id="DepartmentFact" Index="-2" />
+        <ColumnInfo Id="DepartmentPlan" Index="-1" />
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_ListView">
+      <Columns>
+        <ColumnInfo Id="Year" SortOrder="Ascending" SortIndex="1" />
+        <ColumnInfo Id="Month" SortIndex="2" SortOrder="None" />
+      </Columns>
+      <Sorting>
+        <SortProperty Id="AscMonth" PropertyName="Month" IsNewNode="True" />
+        <SortProperty Id="AscYear" PropertyName="Year" Direction="Ascending" IsNewNode="True" />
+      </Sorting>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" CaptionVerticalAlignment="Bottom" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentFact" PropertyName="DepartmentFact" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_OrderItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" Direction="Horizontal" IsNewNode="True">
+          <LayoutItem Id="OrderItems" ViewItem="OrderItems" Index="0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_DepartmentItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="Order" PropertyName="Order" IsNewNode="True" />
+        <PropertyEditor Id="OrderPlan" PropertyName="OrderPlan" IsNewNode="True" />
+        <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
+        <PropertyEditor Id="TypeControl" PropertyName="TypeControl" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" Index="0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="OrderItem_ListView">
+      <Columns>
+        <ColumnInfo Id="OrderPlan" Index="-1" />
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
