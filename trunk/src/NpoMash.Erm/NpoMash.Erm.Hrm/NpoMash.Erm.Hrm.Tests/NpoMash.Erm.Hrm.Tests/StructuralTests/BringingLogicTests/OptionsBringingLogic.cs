@@ -48,41 +48,34 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                         controlled_dep_sum += cell.Time;
                     }
                 }
-                if (departments[column.Department.Code] == DepartmentType.MICRO_DEPARTMENT) {
-                    HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
-                    sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(4 * dep_sum);
-                    sheet_dep.AdditionWorkTime = 0;
-                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                        task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
-                    }
-                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                        task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
-                    }
-                }
-                if (departments[column.Department.Code] == DepartmentType.SMALL_DEPARTMENT) {
-                    HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
-                    sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(4 * controlled_dep_sum);
-                    sheet_dep.AdditionWorkTime = 0;
-                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                        task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
-                    }
-                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                        task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
-                    }
-                }
-                if (departments[column.Department.Code] == DepartmentType.BIG_DEPARTMENT) {
-                    HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
-                    sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(Math.Round(Convert.ToDouble(dep_sum) / 4, 0));
-                    sheet_dep.AdditionWorkTime = 0;
-                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                        task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
-                    }
-                    if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                        task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep);
-                    }
+                switch (departments[column.Department.Code]) {
+                    case DepartmentType.MICRO_DEPARTMENT: {
+                            HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                            sheet_dep.Department = column.Department;
+                            sheet_dep.BaseWorkTime = Convert.ToInt32(random.Next(2, 5) * dep_sum);
+                            sheet_dep.AdditionWorkTime = 0;
+                            if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep); }
+                            else { task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep); }
+                            break;
+                        }
+                    case DepartmentType.SMALL_DEPARTMENT: {
+                            HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                            sheet_dep.Department = column.Department;
+                            sheet_dep.BaseWorkTime = Convert.ToInt32(random.Next(2, 4) * controlled_dep_sum);
+                            sheet_dep.AdditionWorkTime = 0;
+                            if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep); }
+                            else { task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep); }
+                            break;
+                        }
+                    case DepartmentType.BIG_DEPARTMENT: {
+                            HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
+                            sheet_dep.Department = column.Department;
+                            sheet_dep.BaseWorkTime = Convert.ToInt32(Math.Round(Convert.ToDouble(dep_sum) / random.Next(2, 4), 0));
+                            sheet_dep.AdditionWorkTime = 0;
+                            if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep); }
+                            else { task.TimeSheetOZM.TimeSheetDeps.Add(sheet_dep); }
+                            break;
+                        }
                 }
             }
         }
