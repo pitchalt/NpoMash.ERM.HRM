@@ -55,12 +55,18 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void CreateMatrixInReduc(HrmSalaryTaskMatrixReduction reduc, IObjectSpace os, DepartmentGroupDep group_dep,
             HrmMatrixVariant bringing_method, HrmPeriod period){
-            if (reduc.MinimizeMaximumDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT)
-                HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
-            if (reduc.MinimizeNumberOfDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT)
-                HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
-            if (reduc.ProportionsMethodMatrix == null && bringing_method == HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT)
-                HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                if (reduc.MinimizeMaximumDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT) {
+                    HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                    reduc.Refresh(bringing_method);
+                }
+                if (reduc.MinimizeNumberOfDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT) {
+                    HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                    reduc.Refresh(bringing_method);
+                }
+                if (reduc.ProportionsMethodMatrix == null && bringing_method == HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT) {
+                    HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                    reduc.Refresh(bringing_method);
+                }
         }
 
         public static HrmMatrixVariant DetermineSelectedBringingMethod(SingleChoiceActionExecuteEventArgs e) {
