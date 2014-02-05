@@ -142,7 +142,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             size = 0;
             try {
                 result = order.cells
-                    .Where<Cell>(x => x != this && x.isNotZero)
+                    .Where<Cell>(x => x != this && x.isNotZero && x.dep.freeSpace > 0)
                     .OrderByDescending<Cell, Int64>(x => x.dep.freeSpace)
                     .First<Cell>();
                 //.ElementAt(0);

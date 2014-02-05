@@ -144,7 +144,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void BringMicroDepartments(Matrix mat) {
             IEnumerable<Dep> micro_departments = mat.deps.Values
                 .Where<Dep>(x => x.planControlled < x.fact && x.nonZeroUncontrolled == 0)
-                .OrderByDescending<Dep, Int64>(x => x.freeSpace);
+                .OrderBy<Dep, Int64>(x => x.nonZeroControlled);
+                //.OrderByDescending<Dep, Int64>(x => x.freeSpace);
             foreach (Dep dep in micro_departments) {
                 bool is_not_stuck = true;
                 while (dep.freeSpace > 0 && is_not_stuck){
@@ -155,7 +156,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     foreach (Cell cell in dep.cells.Where<Cell>(x => x.isNotZero && x.order.isControlled)) {
                         Int64 size;
                         Cell cell_to_take = cell.BestCellToTakeFrom(out size);
-                        if (is_first_iter) {
+                        if (is_first_iter && cell_to_take != null) {
                             best_cell_to_take = cell_to_take;
                             best_size = size;
                             cell_in_this_dep_to_put = cell;
@@ -192,13 +193,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                     foreach (Cell cell in dep.cells.Where<Cell>(x => x.time > 0 && x.order.isControlled)) {
                         Int64 size;
                         Cell cell_to_put = cell.BestCellToPutIn(out size);
-                        if (is_first_iter) {
+                        if (is_first_iter && cell_to_put != null) {
                             best_cell_to_put_in = cell_to_put;
                             cell_in_this_dep_to_take = cell;
                             best_size = size;
                             is_first_iter = false;
                         }
-                        else if (size > best_size && cell_to_put != null) {
+                        else if (!is_first_iter && size > best_size && cell_to_put != null) {
                             best_cell_to_put_in = cell_to_put;
                             cell_in_this_dep_to_take = cell;
                             best_size = size;
