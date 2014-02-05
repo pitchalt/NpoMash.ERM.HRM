@@ -142,8 +142,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void BringMicroDepartments(Matrix mat) {
-            IEnumerable<Dep> micro_departments = mat.deps.Values.
-                Where<Dep>(x => x.planControlled < x.fact && x.nonZeroUncontrolled == 0)
+            IEnumerable<Dep> micro_departments = mat.deps.Values
+                .Where<Dep>(x => x.planControlled < x.fact && x.nonZeroUncontrolled == 0)
                 .OrderByDescending<Dep, Int64>(x => x.freeSpace);
             foreach (Dep dep in micro_departments) {
                 bool is_not_stuck = true;
@@ -161,13 +161,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                             cell_in_this_dep_to_put = cell;
                             is_first_iter = false;
                         }
-                        else if (size > best_size) {
+                        else if (size > best_size && cell_to_take != null) {
                             best_cell_to_take = cell_to_take;
                             best_size = size;
                             cell_in_this_dep_to_put = cell;
                         }
                     }
                     if (best_cell_to_take == null)
+                        //is_not_stuck = false;
                         throw new Exception("Can't bring fully controlled department with code " + dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
                     else {
                         Int64 size_of_transfer = Math.Min(Math.Abs(best_size), dep.freeSpace);

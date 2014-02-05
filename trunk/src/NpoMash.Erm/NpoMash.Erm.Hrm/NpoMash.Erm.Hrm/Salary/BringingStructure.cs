@@ -157,7 +157,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             size = 0;
             try {
                 result = order.cells
-                    .Where<Cell>(x => x != this && x.isNotZero && (x.dep.nonZeroUncontrolled > 0 || x.dep.freeSpace < 0))
+                    .Where<Cell>(x => x != this && x.time > 0 && (x.dep.nonZeroUncontrolled > 0 || x.dep.freeSpace < 0))
                     .OrderBy<Cell, Int64>(x => x.dep.freeSpace).First<Cell>();
                 //.ElementAt(0);
                 Int64 result_free_space = result.dep.freeSpace;
