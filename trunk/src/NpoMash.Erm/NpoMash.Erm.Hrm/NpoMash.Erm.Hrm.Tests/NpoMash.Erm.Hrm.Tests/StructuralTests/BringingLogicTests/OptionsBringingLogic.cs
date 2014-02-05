@@ -130,8 +130,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
         }
 
-        private HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group,
-            Int32 probability) {
+        private HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group, Int32 probability) {
             var random = new Random();
             HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
             IList<Department> departments_in_object_space = object_space.GetObjects<Department>()
@@ -188,7 +187,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                                         existing_rows.Add(current_order.Code, current_row);
                                     }
                                     HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
-                                    new_cell.Time = random.Next(750);
+                                    new_cell.Time = random.Next(25, 751);
                                     new_cell.Sum = 0;
                                     new_cell.Column = current_column;
                                     new_cell.Row = current_row;
@@ -216,7 +215,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                                         existing_rows.Add(current_order.Code, current_row);
                                     }
                                     HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
-                                    new_cell.Time = random.Next(750);
+                                    new_cell.Time = random.Next(25, 751);
                                     new_cell.Sum = 0;
                                     new_cell.Column = current_column;
                                     new_cell.Row = current_row;
