@@ -37,7 +37,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _NormKB;
-        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
         [RuleRequiredField(DefaultContexts.Save)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormKB {
@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _NormOZM;
-        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.NotEquals, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
        // [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormOZM {
