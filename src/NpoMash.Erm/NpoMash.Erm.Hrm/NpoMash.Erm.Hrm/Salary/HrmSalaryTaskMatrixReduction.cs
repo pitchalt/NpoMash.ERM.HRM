@@ -109,8 +109,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         [VisibleInLookupListView(false)]
         public IList<DepartmentItem> Department {
             get {
-                if (_Department == null)
-                    _Department = departmentCreate();
+                if (_Department == null) {
+                    _Department = new List<DepartmentItem>();
+                    departmentCreate();
+                }
                 return _Department;
             }
         }
@@ -120,8 +122,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         [VisibleInLookupListView(false)]
         public IList<OrderItem> Order {
             get {
-                if (_Order == null)
-                    _Order = orderCreate();
+                if (_Order == null) {
+                    _Order = new List<OrderItem>();
+                    orderCreate();
+                }
                 return _Order;
             }
         }
@@ -149,8 +153,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected IList<OrderItem> orderCreate() {
-            //IList<OrderItem> orderList = new List<OrderItem>();
+        protected void orderCreate() {
             //
             LoadMatrixOrder(MatrixPlan, null, Order);
 //            if (ProportionsMethodMatrix != null)
@@ -159,11 +162,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 //                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, orderList);
 //            if (MinimizeMaximumDeviationsMatrix != null)
 //                LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, orderList);
-            return Order;
         }
 
-        protected IList<DepartmentItem> departmentCreate() {
-            //IList<DepartmentItem> departmentList = new List<DepartmentItem>();
+        protected void departmentCreate() {
             //
             LoadMatrixDepartment(MatrixPlan, null, Department);
 //            if (ProportionsMethodMatrix != null)
@@ -181,7 +182,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
             }
-            return Department;
         }
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
