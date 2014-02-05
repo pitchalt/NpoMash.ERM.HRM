@@ -7,11 +7,11 @@ namespace NpoMash.Erm.Hrm.Exchange {
     public class ImportMatrixTimeSheet {
 
         [FieldFixedLength(4)]
-        [FieldConverter(typeof(TrimConverter))]
+        [FieldConverter(typeof(NewDateConverter))]
         public Int16 Year;
         
         [FieldFixedLength(2)]
-        [FieldConverter(typeof(TrimConverter))]
+        [FieldConverter(typeof(NewDateConverter))]
         public Int16 Month;
         
         [FieldFixedLength(5)]
@@ -29,6 +29,12 @@ namespace NpoMash.Erm.Hrm.Exchange {
         [FieldFixedLength(9)]
         [FieldConverter(typeof(WorkTimeConverter))]
         public Int64 TravelWorkTime;
+
+        internal class NewDateConverter : ConverterBase {
+            public override object StringToField(string from) {
+                return Convert.ToInt16(from.Trim());
+            }
+        }
 
         internal class TrimConverter : ConverterBase {
             public override object StringToField(string from) {
