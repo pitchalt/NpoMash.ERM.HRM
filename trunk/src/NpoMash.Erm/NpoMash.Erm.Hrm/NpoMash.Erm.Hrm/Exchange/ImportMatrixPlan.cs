@@ -24,12 +24,19 @@ namespace NpoMash.Erm.Hrm.Exchange {
         public String OrderCode;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(TrimConverter))]
-        public Int16 Time;
+        [FieldConverter(typeof(TimeConverter))]
+        public Int64 Time;
 
         internal class TrimConverter : ConverterBase {
             public override object StringToField(string from) {
                 String src = from.Trim();
+                return src;
+            }
+        }
+
+        internal class TimeConverter : ConverterBase {
+            public override object StringToField(string from) {
+                Int64 src = Convert.ToInt64(from.Trim());
                 return src;
             }
         }
