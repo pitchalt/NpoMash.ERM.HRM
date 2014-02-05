@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 if (departments[column.Department.Code] == DepartmentType.MICRO_DEPARTMENT) {
                     HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
                     sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(2 * dep_sum);
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(4 * dep_sum);
                     sheet_dep.AdditionWorkTime = 0;
                     if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
@@ -63,7 +63,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 if (departments[column.Department.Code] == DepartmentType.SMALL_DEPARTMENT) {
                     HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
                     sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(2 * controlled_dep_sum);
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(4 * controlled_dep_sum);
                     sheet_dep.AdditionWorkTime = 0;
                     if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
@@ -75,7 +75,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                 if (departments[column.Department.Code] == DepartmentType.BIG_DEPARTMENT) {
                     HrmTimeSheetDep sheet_dep = object_space.CreateObject<HrmTimeSheetDep>();
                     sheet_dep.Department = column.Department;
-                    sheet_dep.BaseWorkTime = Convert.ToInt32(Math.Round(Convert.ToDouble(dep_sum) / 1.5, 0));
+                    sheet_dep.BaseWorkTime = Convert.ToInt32(Math.Round(Convert.ToDouble(dep_sum) / 4, 0));
                     sheet_dep.AdditionWorkTime = 0;
                     if (column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
@@ -167,7 +167,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                                         existing_rows.Add(current_order.Code, current_row);
                                     }
                                     HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
-                                    new_cell.Time = random.Next(750);
+                                    new_cell.Time = random.Next(25, 751);
                                     new_cell.Sum = 0;
                                     new_cell.Column = current_column;
                                     new_cell.Row = current_row;
