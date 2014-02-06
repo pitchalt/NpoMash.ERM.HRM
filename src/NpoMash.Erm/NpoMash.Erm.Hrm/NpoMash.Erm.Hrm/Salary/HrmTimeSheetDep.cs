@@ -48,7 +48,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         //[VisibleInListView(false)]
         //[VisibleInLookupListView(false)]
         public Int64 MatrixWorkTime {
-            get { return BaseWorkTime + AdditionWorkTime; }
+            get { return BaseWorkTime + AdditionWorkTime + TravelWorkTime + ConstantWorkTime; }
 
         }
 

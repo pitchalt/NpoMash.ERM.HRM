@@ -28,9 +28,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                     order_controls.Add(oc.Order.Code, true);
                 else order_controls.Add(oc.Order.Code, false);
 
+            Dictionary<String, HrmTimeSheetDep> time_sheet_dictionary = reduc.TimeSheet.TimeSheetDeps
+                .Where<HrmTimeSheetDep>( x => x.MatrixWorkTime > 0)
+                .ToDictionary<HrmTimeSheetDep, String>(x => x.Department.Code);
+
             Matrix mat = new Matrix();
             foreach (HrmMatrixColumn department_plan in mat_plan.Columns) {
+                if (!time_sheet_dictionary.ContainsKey(department_plan.Department.Code))
+                    continue;
                 Dep department = new Dep();
+                department.fact += time_sheet_dictionary[department_plan.Department.Code].MatrixWorkTime;
                 department.realDepartment = department_plan.Department;
                 mat.deps.Add(department_plan.Department.Code, department);
                 department.matrix = mat;
@@ -58,9 +65,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
-            foreach (HrmTimeSheetDep tsd in time_sheet.TimeSheetDeps)
+            /*foreach (HrmTimeSheetDep tsd in time_sheet.TimeSheetDeps)
                 if (mat.deps.ContainsKey(tsd.Department.Code))
-                    mat.deps[tsd.Department.Code].fact += tsd.MatrixWorkTime;
+                    mat.deps[tsd.Department.Code].fact += tsd.MatrixWorkTime;*/
             return mat;
         }
 
@@ -232,10 +239,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             RestoreInitialFact(bringing_structure);
             foreach (HrmMatrixColumn real_dep in real_matrix.Columns)
                 foreach (HrmMatrixCell real_cell in real_dep.Cells) {
-                    Tuple<Dep, Ord> tuple = new Tuple<Dep, Ord>(bringing_structure.deps[real_cell.Column.Department.Code], bringing_structure.orders[real_cell.Row.Order.Code]);
-                    if(bringing_structure.cellsInDictionary.ContainsKey(tuple))
-                        real_cell.Time = bringing_structure.cellsInDictionary[tuple].time;
+                    try {
+                        Tuple<Dep, Ord> tuple = new Tuple<Dep, Ord>(bringing_structure.deps[real_cell.Column.Department.Code], bringing_structure.orders[real_cell.Row.Order.Code]);
+                        if (bringing_structure.cellsInDictionary.ContainsKey(tuple))
+                            real_cell.Time = bringing_structure.cellsInDictionary[tuple].time;
+                    }
+                    catch (KeyNotFoundException) { }
                 }
+
         }
 
 
