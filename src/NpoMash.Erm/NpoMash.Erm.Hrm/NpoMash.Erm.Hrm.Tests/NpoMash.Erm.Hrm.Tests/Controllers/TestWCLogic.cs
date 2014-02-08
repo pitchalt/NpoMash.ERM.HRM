@@ -41,13 +41,19 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         private static int _Salarypaytype_Count = 100;
 
         public static void ImportDepartments(IObjectSpace local_object_space) {
-            var engine = new FixedFileEngine<ImportDepartment>();
-            ImportDepartment[] department_loaded = engine.ReadFile("../../../../../../../var/referential/Dep.dat");        
-            foreach (var current_department in department_loaded) {
-                var department = local_object_space.CreateObject<Department>();
-                department.Code = current_department.Code;
-                if (current_department.Group == "01") { department.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
-                else { department.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
+            FileHelperEngine<ImportDepartment> department_data = new FixedFileEngine<ImportDepartment>();
+            ImportDepartment[] departments_imported = department_data.ReadFile("../../../../../../../var/referential/Dep.dat");
+            IDictionary<String, DepartmentGroupDep> full_departments_package = new Dictionary<String, DepartmentGroupDep>();
+            foreach (var current_department in departments_imported) {
+                if (!full_departments_package.ContainsKey(current_department.Code)) {
+                    if (current_department.Group == "01") { full_departments_package.Add(current_department.Code, DepartmentGroupDep.DEPARTMENT_KB); }
+                    else { full_departments_package.Add(current_department.Code, DepartmentGroupDep.DEPARTMENT_OZM); }
+                }
+            }
+            foreach (var new_department_code in full_departments_package.Keys) {
+                Department department_to_db = local_object_space.CreateObject<Department>();
+                department_to_db.Code = new_department_code;
+                department_to_db.GroupDep = full_departments_package[new_department_code];
             }
         }
 
@@ -148,7 +154,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void addTestData(IObjectSpace a_object_space) {
             for (int i = 0 ; i < _Allocparameter_Count ; i++) {
                 var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters(a_object_space);
-                alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
+                alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED;
                 foreach (var each in a_object_space.GetObjects<HrmPeriod>(null, true)) {
                     each.setStatus(HrmPeriodStatus.CLOSED);
                 }
