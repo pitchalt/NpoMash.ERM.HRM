@@ -273,6 +273,47 @@
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Матрица">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Rows" Caption="Заказы" />
+            <LayoutGroup Id="Columns" Caption="Подразделения" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTask_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskImportSourceData" Caption="HrmSalaryTaskImportSourceData" />
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView">
       <Columns>
         <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
@@ -280,6 +321,39 @@
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskMatrixReduction" Caption="Параметры приведения матрицы">
+              <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col1" Caption="HrmSalaryTaskMatrixReduction_col1">
+                <LayoutGroup Id="Item3" Caption="Общие" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col2" Caption="HrmSalaryTaskMatrixReduction_col2">
+                <LayoutGroup Id="Auto0d5a6361-e9c0-475d-b9d0-1815425033d8" Caption="Auto0d5a6361-e9c0-475d-b9d0-1815425033d8(10)">
+                  <LayoutGroup Id="Item2" Caption="Плановая матрица" />
+                  <LayoutGroup Id="Item4" Caption="Табель" />
+                </LayoutGroup>
+                <LayoutGroup Id="Item1" Caption="Параметры расчета" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Параметры задачи">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Order" Caption="Заказ" />
+            <LayoutGroup Id="Department" Caption="Подразделение" />
+            <LayoutGroup Id="TimeSheet.TimeSheetDeps" Caption="Табель(факт)" />
+            <LayoutGroup Id="AllocParameters.SimpleWorkButNotLegal" Caption="Код оплаты" />
+            <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
+            <LayoutGroup Id="MatrixPlan.Rows" Caption="Заказы" />
+            <LayoutGroup Id="MatrixPlan.Columns" Caption="Подразделения" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView">
       <Columns>
         <ColumnInfo Id="ProportionsMethodAlloc" Caption="Расчет 1" />
@@ -287,5 +361,27 @@
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </Columns>
     </ListView>
+    <ListView Id="HrmTimeSheet_TimeSheetDeps_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelWorkTime" Caption="Командировочное время" />
+        <ColumnInfo Id="ConstantWorkTime" Caption="Постоянное рабочее время" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmTimeSheetDep_DetailView">
+      <Items>
+        <PropertyEditor Id="ConstantWorkTime" Caption="Постоянное рабочее время" />
+        <PropertyEditor Id="TravelWorkTime" Caption="Командировочное время" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmTimeSheetDep" Caption="Табель">
+              <LayoutGroup Id="HrmTimeSheetDep_col1" Caption="HrmTimeSheetDep_col1" />
+              <LayoutGroup Id="HrmTimeSheetDep_col2" Caption="HrmTimeSheetDep_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>
