@@ -191,6 +191,14 @@
     <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReduction.cs" />
+    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmTimeSheet.cs" />
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
