@@ -154,7 +154,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void addTestData(IObjectSpace a_object_space) {
             for (int i = 0 ; i < _Allocparameter_Count ; i++) {
                 var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters(a_object_space);
-                alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED;
+                alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
                 foreach (var each in a_object_space.GetObjects<HrmPeriod>(null, true)) {
                     each.setStatus(HrmPeriodStatus.CLOSED);
                 }
