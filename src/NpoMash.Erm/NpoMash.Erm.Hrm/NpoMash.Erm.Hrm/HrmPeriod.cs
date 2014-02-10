@@ -43,6 +43,8 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+   
     [DefaultProperty("Status")]
   
     public class HrmPeriod : BaseObject {

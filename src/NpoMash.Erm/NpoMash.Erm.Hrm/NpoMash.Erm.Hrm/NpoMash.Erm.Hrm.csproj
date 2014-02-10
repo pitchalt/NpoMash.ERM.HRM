@@ -223,6 +223,9 @@
     <EmbeddedResource Include="Salary\HrmSalaryTaskMatrixReductionVC.resx">
       <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.resx">
+      <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
