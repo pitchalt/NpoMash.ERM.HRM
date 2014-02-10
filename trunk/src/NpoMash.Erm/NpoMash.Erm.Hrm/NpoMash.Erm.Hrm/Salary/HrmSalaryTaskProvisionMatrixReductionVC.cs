@@ -44,5 +44,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected override void OnDeactivated() {
             base.OnDeactivated();
         }
+
+        private void BringingProvisionMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace os = Application.CreateObjectSpace();
+            HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            HrmSalaryTaskProvisionMatrixReduction provisionMatrix = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
+            if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE) {
+               
+            
+            }
+        }
     }
 }

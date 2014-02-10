@@ -85,7 +85,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// Время создания
         /// </summary>
         [PersistentAlias("_CreateTime")]
-        [ModelDefault("Format", "(000)-00")]
+        //[ModelDefault("Format", "(000)-00")]
+        [ModelDefault("DisplayFormat", "{0:F}")]
         public DateTime CreateTime {
             get { return _CreateTime; }
         }
@@ -95,7 +96,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// Время завершения
         /// </summary>
         [PersistentAlias("_FinishTime")]
-        [ModelDefault("Format", "(000)-00")]
+        [ModelDefault("DisplayFormat", "{0:F}")]
         public DateTime FinishTime {
             get { return _FinishTime; }
         }

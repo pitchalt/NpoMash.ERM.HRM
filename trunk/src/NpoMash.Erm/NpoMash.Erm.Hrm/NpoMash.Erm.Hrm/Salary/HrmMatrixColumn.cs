@@ -25,7 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         //private Decimal _Sum;
         [ModelDefault("DisplayFormat", "{0:N}")]
-        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
         [NonPersistent()]
         public Decimal Sum {
             get {
