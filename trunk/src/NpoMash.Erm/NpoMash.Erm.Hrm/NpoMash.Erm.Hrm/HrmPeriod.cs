@@ -101,6 +101,16 @@ namespace NpoMash.Erm.Hrm {
             get { return _CurrentKBmatrixReduction; }
             set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("CurrentKBmatrixReduction", ref _CurrentKBmatrixReduction, value); }
         }
+        
+        private HrmSalaryTaskProvisionMatrixReduction _CurrentProvisionMatrix; //Матрица резерва
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public HrmSalaryTaskProvisionMatrixReduction CurrentProvisionMatrix {
+            get { return _CurrentProvisionMatrix; }
+            set { SetPropertyValue<HrmSalaryTaskProvisionMatrixReduction>("CurrentProvisionMatrix", ref _CurrentProvisionMatrix, value); }
+        }
+      
 
         [Association("Period-TimeSheets")] // Коллекция HrmTimeSheet
         public XPCollection<HrmTimeSheet> TimeSheets {
@@ -114,7 +124,7 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Status")]
         public HrmPeriodStatus Status {
             get { return _Status; }
-            //set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
         [Association("HrmPeriod-HrmSalaryTask"), Aggregated]

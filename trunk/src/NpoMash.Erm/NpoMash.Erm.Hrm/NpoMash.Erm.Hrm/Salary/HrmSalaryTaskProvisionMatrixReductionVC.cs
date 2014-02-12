@@ -50,8 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             HrmSalaryTaskProvisionMatrixReduction provisionMatrix = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
             if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE) {
-               
-            
+
             }
         }
     }
