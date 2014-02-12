@@ -42,7 +42,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void ImportDepartments(IObjectSpace local_object_space) {
             FileHelperEngine<ImportDepartment> department_data = new FixedFileEngine<ImportDepartment>();
-            ImportDepartment[] departments_imported = department_data.ReadFile("../../../../../../../var/referential/Dep.dat");
+            ImportDepartment[] departments_imported = department_data.ReadFile("../../../../../../../var/referential/Departments.dat");
             IDictionary<String, DepartmentGroupDep> full_departments_package = new Dictionary<String, DepartmentGroupDep>();
             foreach (var current_department in departments_imported) {
                 if (!full_departments_package.ContainsKey(current_department.Code)) {
@@ -58,10 +58,10 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         }
 
         public static void ImportOrders(IObjectSpace local_object_space) {
-            var order_data = new FixedFileEngine<ImportOrder>();
-            var plan_data = new FixedFileEngine<ImportMatrixPlan>();
-            ImportOrder[] order_list = order_data.ReadFile("../../../../../../../var/referential/ControlOrder.dat");
-            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/MatrixAllocPlan.dat");
+            FileHelperEngine<ImportOrder> order_data = new FixedFileEngine<ImportOrder>();
+            FileHelperEngine<ImportMatrixPlan> plan_data = new FixedFileEngine<ImportMatrixPlan>();
+            ImportOrder[] order_list = order_data.ReadFile("../../../../../../../var/referential/ControlledOrders.dat");
+            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             IDictionary<String, Decimal> kb_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, Decimal> ozm_norms_of_orders = new Dictionary<String, Decimal>(); 
             IDictionary<String, FmCOrderTypeControl> full_orders_package = new Dictionary<String, FmCOrderTypeControl>();
@@ -94,10 +94,18 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void SalaryPayTypeGenerate(IObjectSpace local_object_space) {
             var random = new Random();
-            for (int i = 0 ; i<_Salarypaytype_Count ; i++) {
-                var hrmSalaryPayType = local_object_space.CreateObject<HrmSalaryPayType>();
-                hrmSalaryPayType.Code = Convert.ToString(random.Next(1000, 100000));
-                hrmSalaryPayType.Name = Convert.ToString(random.Next(1000, 100000));
+            IList<String> list_paytype_code = new List<String>();
+            for (int i = 0 ; i < _Salarypaytype_Count; i++) {
+                String paytype_code = Convert.ToString(random.Next(1, 1000));
+                if (!list_paytype_code.Contains(paytype_code)) {
+                    list_paytype_code.Add(paytype_code);
+                }
+                else { _Salarypaytype_Count += 1; }
+            }
+            foreach (var current_code in list_paytype_code) {
+                HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
+                paytype_to_db.Code = current_code;
+                paytype_to_db.Name = "Здесь будет содержаться наименование кода оплаты";
             }
         }
 

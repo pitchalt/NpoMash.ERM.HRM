@@ -46,19 +46,19 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void ImportTimeSheet(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             HrmTimeSheetLogic.TaskSheetInit(os, task);
-            var engine = new FileHelperEngine<ImportMatrixTimeSheet>();
-            ImportMatrixTimeSheet[] stream = engine.ReadFile("../../../../../../../var/TimeSheet.dat");
+            var timesheet_data = new FileHelperEngine<ImportMatrixTimeSheet>();
+            ImportMatrixTimeSheet[] timesheet_list = timesheet_data.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
             IList<Department> deps = os.GetObjects<Department>();
-            foreach (var each in stream) {
+            foreach (var each in timesheet_list) {
                 String code = each.Department_Code;
                 Department dep = deps.FirstOrDefault(x => x.Code == code);
                 if (dep == null) continue;
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = dep;
-                sheet_dep.BaseWorkTime = each.BaseWorkTime;
-                sheet_dep.ConstantWorkTime = each.ConstantWorkTime;
+                sheet_dep.BaseWorkTime = each.BaseWorkTime / 100;
+                sheet_dep.ConstantWorkTime = each.ConstantWorkTime / 100;
                 sheet_dep.AdditionWorkTime = 0;
-                sheet_dep.TravelWorkTime = each.TravelWorkTime;
+                sheet_dep.TravelWorkTime = each.TravelWorkTime / 100;
                 if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                 }
@@ -71,7 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ImportPlanMatrixes(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
             var plan_data = new FixedFileEngine<ImportMatrixPlan>();
-            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/MatrixAllocPlan.dat");
+            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
             kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
@@ -131,8 +131,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     else throw new Exception("There is no department in database with code " + each.Department_Code.Trim());
                     //иначе - создаем ячейку и начинаем ее заполнять
                     HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
-                    cell.Time = each.Time * 100;
-                    cell.Sum = 1;
+                    cell.Time = each.Time / 100;
+                    cell.Sum = 0;
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
                     if (plan_matrix_columns.ContainsKey(file_dep_code))
