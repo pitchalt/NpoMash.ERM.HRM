@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
         [FieldConverter(typeof(TrimConverter))]
         public String OrderCode;
 
-        [FieldFixedLength(9)]
+        [FieldFixedLength(12)]
         [FieldConverter(typeof(TimeConverter))]
         public Int64 Time;
 
@@ -47,7 +47,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class TimeConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToInt64(from.Trim());
+                return Convert.ToInt64(from.Remove(from.Length - 3, 1).Trim());
             }
         }
     }

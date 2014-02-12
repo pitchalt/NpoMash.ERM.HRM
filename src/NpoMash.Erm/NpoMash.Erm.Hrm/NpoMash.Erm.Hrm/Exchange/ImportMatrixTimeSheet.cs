@@ -18,17 +18,17 @@ namespace NpoMash.Erm.Hrm.Exchange {
         [FieldConverter(typeof(DepConverter))]
         public String Department_Code;
         
-        [FieldFixedLength(8)]
+        [FieldFixedLength(12)]
         [FieldConverter(typeof(WorkTimeConverter))]
         public Int64 BaseWorkTime;
         
-        [FieldFixedLength(5)]
-        [FieldConverter(typeof(WorkTimeConverter))]
-        public Int64 ConstantWorkTime;
-        
-        [FieldFixedLength(9)]
+        [FieldFixedLength(12)]
         [FieldConverter(typeof(WorkTimeConverter))]
         public Int64 TravelWorkTime;
+        
+        [FieldFixedLength(12)]
+        [FieldConverter(typeof(WorkTimeConverter))]
+        public Int64 ConstantWorkTime;
 
         internal class NewDateConverter : ConverterBase {
             public override object StringToField(string from) {
