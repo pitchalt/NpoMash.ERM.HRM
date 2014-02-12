@@ -15,33 +15,21 @@ using DevExpress.Persistent.Validation;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public class HrmSalaryTaskProvisionMatrixReductionLogic : BaseObject { 
+    public class HrmSalaryTaskProvisionMatrixReductionLogic : BaseObject {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public static HrmSalaryTaskProvisionMatrixReduction initProvisonMatrixTask(IObjectSpace os, HrmPeriod period) {
+            HrmSalaryTaskProvisionMatrixReduction task_provision_matrix_reduction = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
+            period.PeriodTasks.Add(task_provision_matrix_reduction);
+            task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
+           
+            foreach (HrmMatrix matrix in period.Matrixs) {
+                if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
+                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED ) {
+                    task_provision_matrix_reduction.MatrixPlan = matrix;
+                }
+            }
+               return task_provision_matrix_reduction;
+        }
 
 
         public HrmSalaryTaskProvisionMatrixReductionLogic(Session session)
