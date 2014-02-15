@@ -24,17 +24,23 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
         [FieldConverter(typeof(TrimConverter))]
         public String TypeControl;
 
-        [FieldFixedLength(8)]
+        [FieldFixedLength(7)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormKB;
 
-        [FieldFixedLength(8)]
+        [FieldFixedLength(7)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormOZM;
 
         internal class NewDateConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToInt16(from.Trim());
+            }
+        }
+
+        internal class TypeControlConverter : ConverterBase {
+            public override object StringToField(string from) {
+                return from.Trim();
             }
         }
 
@@ -46,7 +52,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
+                return Convert.ToDecimal(from.Trim());
             }
         }
     }

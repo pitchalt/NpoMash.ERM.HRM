@@ -114,7 +114,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="ImportReferentialData\ImportDepartment.cs" />
+    <Compile Include="ImportReferentialData\ImportDepartments.cs" />
     <Compile Include="ImportReferentialData\ImportOrder.cs" />
     <Compile Include="StructuralTests\AppearanceTarget.cs" />
     <Compile Include="StructuralTests\BringingLogicTests\MicroBigDepartmentsBringingLogic.cs" />

@@ -28,12 +28,20 @@ namespace IntecoAG.ERM.HRM.Organization
         private String _Code;
         public String Code {
             get { return _Code; }
-            set { SetPropertyValue<String>("Code", ref _Code, value); } }
+            set { SetPropertyValue<String>("Code", ref _Code, value); } 
+        }
+
+        private String _BuhCode;
+        public String BuhCode {
+            get { return _BuhCode; }
+            set { SetPropertyValue<String>("BuhCode", ref _BuhCode, value); }
+        }
 
         private DepartmentGroupDep _GroupDep;
         public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); } }
+            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); } 
+        }
  
         public Department(Session session) : base(session){ }
         public override void AfterConstruction()
