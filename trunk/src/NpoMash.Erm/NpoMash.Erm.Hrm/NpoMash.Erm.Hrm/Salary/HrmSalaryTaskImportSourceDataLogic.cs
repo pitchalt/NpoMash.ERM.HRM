@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in timesheet_list) {
                 String code = each.Department_Code;
-                Department dep = deps.FirstOrDefault(x => x.Code == code);
+                Department dep = deps.FirstOrDefault(x => x.BuhCode == code);
                 if (dep == null) continue;
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.Department = dep;
@@ -100,7 +100,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             Dictionary<String, HrmMatrixColumn> plan_matrix_columns = null;
             Dictionary<String, HrmMatrixRow> plan_matrix_rows = null;
             Dictionary<String, Department> departments_in_database = os.GetObjects<Department>()
-                .ToDictionary<Department, String>(x => x.Code);
+                .ToDictionary<Department, String>(x => x.BuhCode);
             Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>()
                 .ToDictionary<fmCOrder, String>(x => x.Code);
             Int32 how_many_mismatches = 0;
