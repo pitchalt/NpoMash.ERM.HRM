@@ -154,9 +154,18 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+        private void ExportBringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = ObjectSpace;
+            HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (period.Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS) {
+                HrmSalaryTaskMatrixReductionLogic.ExportMatrixes(period);
+                period.setStatus(HrmPeriodStatus.COERCED_MATRIXES_EXPORTED);
+                object_space.CommitChanges();
+            }
+        }
+
         private void refresher(Object sender, EventArgs e) {
             Frame.GetController<RefreshController>().RefreshAction.DoExecute();
         }
-
     }
 }

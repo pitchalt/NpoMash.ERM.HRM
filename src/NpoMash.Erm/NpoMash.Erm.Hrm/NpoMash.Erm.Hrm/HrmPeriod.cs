@@ -38,6 +38,7 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
     [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ExportBringingMatrix", Criteria = "isReadyToExportMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -124,7 +125,7 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Status")]
         public HrmPeriodStatus Status {
             get { return _Status; }
-            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+//            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
         [Association("HrmPeriod-HrmSalaryTask"), Aggregated]
@@ -201,6 +202,9 @@ namespace NpoMash.Erm.Hrm {
             setStatus(HrmPeriodStatus.OPENED);
             //Status = HrmPeriodStatus.Opened;
         }
+
+        [Browsable(false)]
+        private bool isReadyToExportMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS); } }
 
         [Browsable(false)]
         private bool isReadyToBringMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS); } }
