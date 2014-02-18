@@ -30,8 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
                return task_provision_matrix_reduction;
         }
-
-
+        
         public HrmSalaryTaskProvisionMatrixReductionLogic(Session session)
             : base(session) {
         }

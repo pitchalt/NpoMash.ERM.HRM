@@ -2,44 +2,38 @@
 using FileHelpers;
 
 namespace NpoMash.Erm.Hrm.Exchange {
-
+ 
 
     [FixedLengthRecord()]
-    public class ImportMatrixPlan {
+    public class ImportMatrixTravelTime {
 
         [FieldFixedLength(4)]
-        [FieldConverter(typeof(NewDateConverter))]
+        [FieldConverter(typeof(DateConverter))]
         public Int16 Year;
 
         [FieldFixedLength(2)]
-        [FieldConverter(typeof(NewDateConverter))]
+        [FieldConverter(typeof(DateConverter))]
         public Int16 Month;
 
         [FieldFixedLength(5)]
-        [FieldConverter(typeof(DepConverter))]
+        [FieldConverter(typeof(CodeConverter))]
         public String DepartmentCode;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(TrimConverter))]
+        [FieldConverter(typeof(CodeConverter))]
         public String OrderCode;
 
         [FieldFixedLength(12)]
         [FieldConverter(typeof(TimeConverter))]
-        public Int64 Time;
+        public Int64 TravelTime;
 
-        internal class NewDateConverter : ConverterBase {
+        internal class DateConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToInt16(from.Trim());
             }
         }
 
-        internal class DepConverter : ConverterBase {
-            public override object StringToField(string from) {
-                return Convert.ToString(Convert.ToInt32(from.Trim()));
-            }
-        }
-
-        internal class TrimConverter : ConverterBase {
+        internal class CodeConverter : ConverterBase {
             public override object StringToField(string from) {
                 return from.Trim();
             }
@@ -50,5 +44,5 @@ namespace NpoMash.Erm.Hrm.Exchange {
                 return Convert.ToInt64(from.Remove(from.Length - 3, 1).Trim());
             }
         }
-    }
+    } 
 }

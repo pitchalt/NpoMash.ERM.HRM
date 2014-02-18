@@ -322,7 +322,4 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
                 operationsTree[i].currentOperation.print();
         }
     }
-
-    
-
 }

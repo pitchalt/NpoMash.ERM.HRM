@@ -147,9 +147,5 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
             return result_matrix;
         }
-
-
     }
 }
-
-
