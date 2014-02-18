@@ -91,7 +91,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             var random = new Random();
             IList<String> list_paytype_code = new List<String>();
             for (int i = 0 ; i < _Salarypaytype_Count; i++) {
-                String paytype_code = Convert.ToString(random.Next(1, 1000));
+                String paytype_code = Convert.ToString(random.Next(100, 1000));
                 if (!list_paytype_code.Contains(paytype_code)) {
                     list_paytype_code.Add(paytype_code);
                 }

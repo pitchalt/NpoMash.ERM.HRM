@@ -134,6 +134,5 @@ namespace NpoMash.Erm.Hrm.Salary {
                 return true;
             return false;
         }
-
     }
 }

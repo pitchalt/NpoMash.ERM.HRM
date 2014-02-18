@@ -25,6 +25,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int64>("Time", ref _Time, value); }
         }
 
+        private Int64 _TravelTime;
+        public Int64 TravelTime {
+            get { return _TravelTime; }
+            set { SetPropertyValue<Int64>("TravelTime", ref _TravelTime, value); }
+        }
+
         private Decimal _Sum;
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]

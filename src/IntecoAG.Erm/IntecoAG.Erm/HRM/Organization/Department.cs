@@ -45,7 +45,6 @@ namespace IntecoAG.ERM.HRM.Organization
  
         public Department(Session session) : base(session){ }
         public override void AfterConstruction()
-        { base.AfterConstruction(); GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
-        
+        { base.AfterConstruction(); GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }        
     }
 }

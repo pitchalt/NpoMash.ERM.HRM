@@ -68,12 +68,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void ImportPlanMatrixes(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
+        public static void ImportPlanMatrixes(IObjectSpace object_space, HrmSalaryTaskImportSourceData task) {
             //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
-            var plan_data = new FixedFileEngine<ImportMatrixPlan>();
+            FixedFileEngine<ImportMatrixPlan> plan_data = new FixedFileEngine<ImportMatrixPlan>();
+            FixedFileEngine<ImportMatrixTravelTime> travel_data = new FixedFileEngine<ImportMatrixTravelTime>();
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
+            ImportMatrixTravelTime[] travel_list = travel_data.ReadFile("../../../../../../../var/Matrix_TravelTimePlan.dat");
             //Инициализируем плановые матрицы кб и озм
-            HrmMatrixAllocPlan kb_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixAllocPlan kb_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
             kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             //            kb_plan_matrix.Period = period;
             kb_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
@@ -81,7 +83,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             kb_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             kb_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(kb_plan_matrix);
-            HrmMatrixAllocPlan ozm_plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixAllocPlan ozm_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
             ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             //            ozm_plan_matrix.Period = period;
             ozm_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
@@ -89,19 +91,18 @@ namespace NpoMash.Erm.Hrm.Salary {
             ozm_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             ozm_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(ozm_plan_matrix);
-
             Int16 current_year = task.Period.Year;
             Int16 current_month = task.Period.Month;
             //создаем необходимые словари, чтобы не наматывать круги в форычах при поиске
-            Dictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
-            Dictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
-            Dictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
-            Dictionary<String, HrmMatrixRow> kb_rows = new Dictionary<string, HrmMatrixRow>();
-            Dictionary<String, HrmMatrixColumn> plan_matrix_columns = null;
-            Dictionary<String, HrmMatrixRow> plan_matrix_rows = null;
-            Dictionary<String, Department> departments_in_database = os.GetObjects<Department>()
+            IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
+            IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<string, HrmMatrixRow>();
+            IDictionary<String, HrmMatrixColumn> plan_matrix_columns = null;
+            IDictionary<String, HrmMatrixRow> plan_matrix_rows = null;
+            IDictionary<String, Department> departments_in_database = object_space.GetObjects<Department>()
                 .ToDictionary<Department, String>(x => x.BuhCode);
-            Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>()
+            Dictionary<String, fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
                 .ToDictionary<fmCOrder, String>(x => x.Code);
             Int32 how_many_mismatches = 0;
             //начинаем перебирать строки в файле
@@ -111,7 +112,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     HrmMatrix plan_matrix = null;
                     String file_ord_code = each.OrderCode;
                     //if (file_ord_code.Length == 8) continue; //это пока в базе нет заказов с восьмизначным кодом!
-                    String file_dep_code = each.Department_Code;
+                    String file_dep_code = each.DepartmentCode;
                     if (!orders_in_database.ContainsKey(file_ord_code) || !departments_in_database.ContainsKey(file_dep_code)) {
                         how_many_mismatches++;
                         continue;
@@ -128,9 +129,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                             plan_matrix_columns = ozm_columns;
                             plan_matrix_rows = ozm_rows;
                         }
-                    else throw new Exception("There is no department in database with code " + each.Department_Code.Trim());
+                    else throw new Exception("There is no department in database with code " + each.DepartmentCode.Trim());
                     //иначе - создаем ячейку и начинаем ее заполнять
-                    HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
+                    HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
                     cell.Time = each.Time / 100;
                     cell.Sum = 0;
                     //разбираемся с колонкой
@@ -139,7 +140,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         current_column = plan_matrix_columns[file_dep_code];
                     //если колонки еще не было - то создаем и инициализируем новую
                     else {
-                        current_column = os.CreateObject<HrmMatrixColumn>();
+                        current_column = object_space.CreateObject<HrmMatrixColumn>();
                         current_column.Matrix = plan_matrix;
                         plan_matrix.Columns.Add(current_column);
                         current_column.Department = departments_in_database[file_dep_code];
@@ -153,7 +154,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (plan_matrix_rows.ContainsKey(file_ord_code))
                         current_row = plan_matrix_rows[file_ord_code];
                     else {
-                        current_row = os.CreateObject<HrmMatrixRow>();
+                        current_row = object_space.CreateObject<HrmMatrixRow>();
                         current_row.Matrix = plan_matrix;
                         plan_matrix.Rows.Add(current_row);
                         plan_matrix_rows.Add(file_ord_code, current_row);
@@ -164,6 +165,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //теперь связываем строчку с ячейкой, больше со строчкой делать нечего
                     cell.Row = current_row;
                     current_row.Cells.Add(cell);
+                }
+            }
+            foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
+                foreach (var travel in travel_list) {
+                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.TravelTime = travel.TravelTime / 100; }
+                    else { cell.TravelTime = 0; }
                 }
             }
             task.MatrixPlanKB = kb_plan_matrix;

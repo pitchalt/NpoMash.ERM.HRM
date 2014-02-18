@@ -155,7 +155,5 @@ namespace NpoMash.Erm.Hrm.Salary
                 if (win != null) win.Close();
             }
         }
-
-
     }
 }

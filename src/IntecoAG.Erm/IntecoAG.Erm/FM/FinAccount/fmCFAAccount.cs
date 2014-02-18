@@ -85,5 +85,4 @@ namespace IntecoAG.ERM.FM.FinAccount {
             get { return TopAccount; }
         }
     }
-
 }

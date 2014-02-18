@@ -22,13 +22,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmMatrix mat_plan = reduc.MatrixPlan;
             HrmTimeSheet time_sheet = reduc.TimeSheet;
             HrmPeriodAllocParameter alloc_parameters = reduc.AllocParameters;
-            Dictionary<String, bool> order_controls = new Dictionary<String, bool>();
+            IDictionary<String, bool> order_controls = new Dictionary<String, bool>();
             foreach (HrmPeriodOrderControl oc in alloc_parameters.OrderControls)
                 if (oc.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT)
                     order_controls.Add(oc.Order.Code, true);
                 else order_controls.Add(oc.Order.Code, false);
 
-            Dictionary<String, HrmTimeSheetDep> time_sheet_dictionary = reduc.TimeSheet.TimeSheetDeps
+            IDictionary<String, HrmTimeSheetDep> time_sheet_dictionary = reduc.TimeSheet.TimeSheetDeps
                 .Where<HrmTimeSheetDep>( x => x.MatrixWorkTime > 0)
                 .ToDictionary<HrmTimeSheetDep, String>(x => x.Department.BuhCode);
 
@@ -121,7 +121,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void BringUncontrolledOrders(Matrix mat) {
             foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact >= dep.planControlled) {
-                    List<Cell> non_zero_uncontrolled = new List<Cell>();
+                    IList<Cell> non_zero_uncontrolled = new List<Cell>();
                     Int64 total_uncontrolled_sum = 0;
                     foreach (Cell cell in dep.cells) {
                         if (!cell.order.isControlled && cell.isNotZero) {
@@ -246,9 +246,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     catch (KeyNotFoundException) { }
                 }
-
         }
-
-
     }
 }

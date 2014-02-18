@@ -130,11 +130,5 @@ namespace NpoMash.Erm.Hrm.Salary
 //            _Status = status;
             SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, status);
         }
-
-    }
-
-    
-    
+    }    
 }
-
-

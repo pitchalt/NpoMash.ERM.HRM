@@ -297,7 +297,5 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
             }
         }
-
     }
 }
-

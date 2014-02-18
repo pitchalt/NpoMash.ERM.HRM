@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exchange\ImportMatrixTravelTime.cs" />
     <Compile Include="HrmPeriod.cs" />
     <Compile Include="HrmPeriodLogic.cs" />
     <Compile Include="Exchange\ImportAccountOperation.cs" />
