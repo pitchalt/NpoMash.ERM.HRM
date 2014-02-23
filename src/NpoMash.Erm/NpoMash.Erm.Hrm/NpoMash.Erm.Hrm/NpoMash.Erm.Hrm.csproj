@@ -177,6 +177,14 @@
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperation.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmSalaryTaskImportSourceData.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportSourceDataLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportSourceDataVC.cs">
@@ -219,6 +227,9 @@
     <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
       <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationVC.resx">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskImportSourceDataVC.resx">
       <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
     </EmbeddedResource>
@@ -256,10 +267,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
-    <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Images\clock.png" />
   </ItemGroup>
   <ItemGroup>

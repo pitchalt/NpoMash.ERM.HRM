@@ -19,19 +19,19 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm {
 
-    public enum HrmPeriodStatus { 
+    public enum HrmPeriodStatus {
         OPENED = 0,
-        SOURCE_DATA_LOADED=1,
-        LIST_OF_CONTROLLED_ORDERS_ACCEPTED=2,
-        READY_TO_CALCULATE_COERCED_MATRIXS=3,        
+        SOURCE_DATA_LOADED = 1,
+        LIST_OF_CONTROLLED_ORDERS_ACCEPTED = 2,
+        READY_TO_CALCULATE_COERCED_MATRIXS = 3,
         CLOSED = 4,
         READY_TO_EXPORT_CORCED_MATRIXS = 5,
         COERCED_MATRIXES_EXPORTED = 6,
-        ACCOUNT_OPERATION_FIRST_IMPORTED=7,
-        READY_TO_RESERVE_MATRIX_CREATE=8,
-        READY_TO_RESERVE_MATRIX_UPLOAD=9,
+        ACCOUNT_OPERATION_FIRST_IMPORTED = 7,
+        READY_TO_RESERVE_MATRIX_CREATE = 8,
+        READY_TO_RESERVE_MATRIX_UPLOAD = 9,
         RESERVE_MATRIX_UPLOADED = 10,
-        ACCOUNT_OPERATION_LAST_IMPORTED=11
+        ACCOUNT_OPERATION_LAST_IMPORTED = 11
     }
 
     [NavigationItem("A1 Integration")]
@@ -45,19 +45,20 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-   
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "ImportAccountOperation", Criteria = "!showAccountOperationImport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+
     [DefaultProperty("Status")]
-  
+
     public class HrmPeriod : BaseObject {
 
         [Persistent("Year")]
         private Int16 _Year;
-        [Indexed("Month",Unique = true)]
+        [Indexed("Month", Unique = true)]
         [PersistentAlias("_Year")]
         public Int16 Year {
             get { return _Year; }
         }
-        
+
         [Persistent("Month")]
         private Int16 _Month;
         [PersistentAlias("_Month")]
@@ -74,7 +75,7 @@ namespace NpoMash.Erm.Hrm {
             get { return _CurrentTimeSheetKB; }
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetKB", ref _CurrentTimeSheetKB, value); }
         }
-        
+
         private HrmTimeSheet _CurrentTimeSheetOZM; // Ссылка на HrmTimeSheet
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -83,7 +84,7 @@ namespace NpoMash.Erm.Hrm {
             get { return _CurrentTimeSheetOZM; }
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetOZM", ref _CurrentTimeSheetOZM, value); }
         }
-        
+
         private HrmSalaryTaskMatrixReduction _CurrentOZMmatrixReduction;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -93,7 +94,7 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("CurrentOZMmatrixReduction", ref _CurrentOZMmatrixReduction, value); }
         }
 
-        
+
         private HrmSalaryTaskMatrixReduction _CurrentKBmatrixReduction;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -102,7 +103,7 @@ namespace NpoMash.Erm.Hrm {
             get { return _CurrentKBmatrixReduction; }
             set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("CurrentKBmatrixReduction", ref _CurrentKBmatrixReduction, value); }
         }
-        
+
         private HrmSalaryTaskProvisionMatrixReduction _CurrentProvisionMatrix; //Матрица резерва
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -111,7 +112,16 @@ namespace NpoMash.Erm.Hrm {
             get { return _CurrentProvisionMatrix; }
             set { SetPropertyValue<HrmSalaryTaskProvisionMatrixReduction>("CurrentProvisionMatrix", ref _CurrentProvisionMatrix, value); }
         }
-      
+
+        private HrmSalaryTaskImportAccountOperation _CurrentAccountOperation;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public HrmSalaryTaskImportAccountOperation CurrentAccountOperation {
+            get { return _CurrentAccountOperation; }
+            set { SetPropertyValue<HrmSalaryTaskImportAccountOperation>("CurrentAccountOperation", ref _CurrentAccountOperation, value); }
+
+        }
 
         [Association("Period-TimeSheets")] // Коллекция HrmTimeSheet
         public XPCollection<HrmTimeSheet> TimeSheets {
@@ -125,7 +135,7 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Status")]
         public HrmPeriodStatus Status {
             get { return _Status; }
-//            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+            //            set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
         [Association("HrmPeriod-HrmSalaryTask"), Aggregated]
@@ -158,7 +168,7 @@ namespace NpoMash.Erm.Hrm {
 
 
         [Association("Period-Matrixs"), Aggregated] //Коллекция Matrixs
-        [Index(0), VisibleInListView(true), VisibleInDetailView(true)] 
+        [Index(0), VisibleInListView(true), VisibleInDetailView(true)]
         public XPCollection<HrmMatrix> Matrixs {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }
@@ -169,8 +179,8 @@ namespace NpoMash.Erm.Hrm {
         //[VisibleInListView(false)]
         //[VisibleInLookupListView(false)]
         //public HrmSalaryTaskMatrixReduction Card {
-            //get { return _Card; }
-            //set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
+        //get { return _Card; }
+        //set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
         //}
 
         public void setStatus(HrmPeriodStatus stat) {
@@ -222,5 +232,13 @@ namespace NpoMash.Erm.Hrm {
             get { return (CurrentOZMmatrixReduction != null); }
         }
 
+        [Browsable(false)]
+        private bool showAccountOperationImport {
+            get { return CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED; }
+            }
+
+
+
+        
     }
 }
