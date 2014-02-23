@@ -140,6 +140,20 @@ namespace NpoMash.Erm.Hrm
             }
             return kb_plan_mat_accepted && ozm_plan_mat_accepted && kb_time_sheet_accepted && ozm_time_sheet_accepted;
         }
+        /*
+        public static bool PeriodParametersAccepted(HrmPeriod period) {
+            int fals = 0;
+            bool logic=false;
+            foreach (var matrixs in period.Matrixs) {
+                if (matrixs.Status == HrmMatrixStatus.MATRIX_ACCEPTED) { }
+                else fals++;           
+            }
 
+            if (period.CurrentAllocParameter.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) { fals++; }
+
+            if (fals > 0) { logic = true; }
+            return logic;
+        
+        }*/
     }
 }

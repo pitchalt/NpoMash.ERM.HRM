@@ -22,15 +22,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             period.PeriodTasks.Add(task_provision_matrix_reduction);
             task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
            
-            foreach (HrmMatrix matrix in period.Matrixs) {
-                if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED ) {
-                    task_provision_matrix_reduction.MatrixPlan = matrix;
-                }
-            }
+
                return task_provision_matrix_reduction;
         }
-        
+
+        public static HrmMatrix createPlanMatrix() { return null; }
+
+
+        public static HrmMatrix calculateProvisionMatrix() { return null; }
+
+
+
         public HrmSalaryTaskProvisionMatrixReductionLogic(Session session)
             : base(session) {
         }
