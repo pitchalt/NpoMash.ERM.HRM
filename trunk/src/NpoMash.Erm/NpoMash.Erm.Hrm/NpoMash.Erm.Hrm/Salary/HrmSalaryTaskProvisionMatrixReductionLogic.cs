@@ -31,8 +31,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
+            task_provision_matrix_reduction.ProvisionMatrix = os.CreateObject<HrmMatrix>();
+            task_provision_matrix_reduction.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_SAVED;
+            task_provision_matrix_reduction.ProvisionMatrix.Type = HrmMatrixType.TYPE_MATIX;
+            task_provision_matrix_reduction.ProvisionMatrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
+            period.Matrixs.Add(task_provision_matrix_reduction.ProvisionMatrix);
                return task_provision_matrix_reduction;
         }
+
+        
 
         public static HrmMatrix createPlanMatrix() { return null; }
 

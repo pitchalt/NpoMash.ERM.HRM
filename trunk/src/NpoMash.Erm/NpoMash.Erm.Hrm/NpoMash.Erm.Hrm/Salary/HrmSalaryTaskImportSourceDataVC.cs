@@ -37,9 +37,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void AcceptImport_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskImportSourceData task = e.CurrentObject as HrmSalaryTaskImportSourceData;
-            //IObjectSpace os = Application.CreateObjectSpace();
-           // HrmSalaryTaskImportSourceData task = os.GetObject<HrmSalaryTaskImportSourceData>(t);
-
             task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.TimeSheetKB.SetStatus(HrmTimeSheetStatus.ACCEPTED);

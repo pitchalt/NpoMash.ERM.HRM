@@ -18,7 +18,6 @@
           <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
-      <Action Id="ExportCoercedMatrix" Caption="Экспорт" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
       <Action Id="HrmPeriodVC_ExportBringingMatrix" Caption="Экспорт" />
