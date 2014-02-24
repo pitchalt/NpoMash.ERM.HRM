@@ -44,8 +44,8 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "ImportAccountOperation", Criteria = "!showAccountOperationImport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+  //  [Appearance(null, AppearanceItemType = "Action", TargetItems = "ImportAccountOperation", Criteria = "!showAccountOperationImport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
     [DefaultProperty("Status")]
 
@@ -234,7 +234,7 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool showAccountOperationImport {
-            get { return CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED; }
+            get { return CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED && Status==HrmPeriodStatus.COERCED_MATRIXES_EXPORTED ; }
             }
 
 

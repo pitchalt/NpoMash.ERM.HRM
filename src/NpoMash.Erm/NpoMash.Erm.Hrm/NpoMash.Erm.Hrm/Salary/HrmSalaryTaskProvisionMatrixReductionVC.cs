@@ -15,21 +15,10 @@ using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 //
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmSalaryTaskProvisionMatrixReductionVC : ViewController {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -46,11 +35,40 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void BringingProvisionMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace os = Application.CreateObjectSpace();
+           /* IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-            HrmSalaryTaskProvisionMatrixReduction provisionMatrix = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
-            if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE) {
+            DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
+            var card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+            os.CommitChanges();
+            e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
+            e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;*/
+            
+        }
 
+        private void BringProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
+                IObjectSpace os = Application.CreateObjectSpace();
+                HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+                DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
+                var card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                os.CommitChanges();
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+            }
+        }
+
+        private void AcceptProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
+              /*  IObjectSpace object_space = ObjectSpace;
+                HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+                period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+
+                HrmSalaryTaskProvisionMatrixReduction task = object_space.GetObject<HrmSalaryTaskProvisionMatrixReduction>((HrmSalaryTaskProvisionMatrixReduction)e.CurrentObject);
+                task.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                task.Complete();
+                object_space.CommitChanges();*/
+                }
+            
             }
         }
     }
