@@ -58,17 +58,17 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void AcceptProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
-            if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
-              /*  IObjectSpace object_space = ObjectSpace;
-                HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-                period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+            HrmSalaryTaskProvisionMatrixReduction task = (HrmSalaryTaskProvisionMatrixReduction)e.CurrentObject;
+             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
+                 task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
+                 if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
 
-                HrmSalaryTaskProvisionMatrixReduction task = object_space.GetObject<HrmSalaryTaskProvisionMatrixReduction>((HrmSalaryTaskProvisionMatrixReduction)e.CurrentObject);
-                task.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                task.Complete();
-                object_space.CommitChanges();*/
-                }
-            
+                     task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+
+
+                 }
+                 os.CommitChanges();
+             }
             }
         }
     }
