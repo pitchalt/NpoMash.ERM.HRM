@@ -26,11 +26,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected override void OnViewControlsCreated() { base.OnViewControlsCreated(); }
         protected override void OnDeactivated() { base.OnDeactivated(); }
 
-        private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace object_space = ObjectSpace;
-            HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-            period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
-            object_space.CommitChanges();
+        private void AcceptImport_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            HrmSalaryTaskImportAccountOperation task = e.CurrentObject as HrmSalaryTaskImportAccountOperation;
+            task.MatrixAllocResult.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+            task.Complete();
+            ObjectSpace.CommitChanges();
         }
     }
 }

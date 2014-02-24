@@ -26,7 +26,6 @@
             this.components = new System.ComponentModel.Container();
             this.BringingMatrixInReducAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.AcceptCoercedMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
-            this.ExportCoercedMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // BringingMatrixInReducAction
             // 
@@ -64,22 +63,6 @@
             this.AcceptCoercedMatrixAction.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.AcceptCoercedMatrixAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.AcceptCoercedMatrixAction_Execute);
             // 
-            // ExportCoercedMatrix
-            // 
-            this.ExportCoercedMatrix.Caption = "Export MATRIX_COERCED TYPE_MATIX";
-            this.ExportCoercedMatrix.ConfirmationMessage = null;
-            this.ExportCoercedMatrix.Id = "ExportCoercedMatrix";
-            this.ExportCoercedMatrix.ImageName = null;
-            this.ExportCoercedMatrix.Shortcut = null;
-            this.ExportCoercedMatrix.Tag = null;
-            this.ExportCoercedMatrix.TargetObjectsCriteria = null;
-            this.ExportCoercedMatrix.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction);
-            this.ExportCoercedMatrix.TargetViewId = null;
-            this.ExportCoercedMatrix.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
-            this.ExportCoercedMatrix.ToolTip = null;
-            this.ExportCoercedMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.ExportCoercedMatrix.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ExportCoercedMatrixAction_Execute);
-            // 
             // HrmSalaryTaskMatrixReductionVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction);
@@ -91,6 +74,5 @@
 
         private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingMatrixInReducAction;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction AcceptCoercedMatrixAction;
-        private DevExpress.ExpressApp.Actions.SimpleAction ExportCoercedMatrix;
     }
 }

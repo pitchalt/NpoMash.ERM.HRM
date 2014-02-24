@@ -39,6 +39,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingKBMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingOZMMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.ExportBringingMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.ImportAccountOperation = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -169,6 +170,23 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ExportBringingMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.ExportBringingMatrix.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ExportBringingMatrix_Execute);
             // 
+            // ImportAccountOperation
+            // 
+            this.ImportAccountOperation.Caption = "ImportAccountOperation";
+            this.ImportAccountOperation.Category = "Edit";
+            this.ImportAccountOperation.ConfirmationMessage = null;
+            this.ImportAccountOperation.Id = "HrmPeriodVC_ImportAccountOperation";
+            this.ImportAccountOperation.ImageName = null;
+            this.ImportAccountOperation.Shortcut = null;
+            this.ImportAccountOperation.Tag = null;
+            this.ImportAccountOperation.TargetObjectsCriteria = null;
+            this.ImportAccountOperation.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.ImportAccountOperation.TargetViewId = null;
+            this.ImportAccountOperation.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.ImportAccountOperation.ToolTip = null;
+            this.ImportAccountOperation.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.ImportAccountOperation.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ImportAccountOperation_Execute);
+            // 
             // HrmPeriodVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -182,5 +200,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingKBMatrixAction;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingOZMMatrixAction;
         private DevExpress.ExpressApp.Actions.SimpleAction ExportBringingMatrix;
+        private DevExpress.ExpressApp.Actions.SimpleAction ImportAccountOperation;
     }
 }

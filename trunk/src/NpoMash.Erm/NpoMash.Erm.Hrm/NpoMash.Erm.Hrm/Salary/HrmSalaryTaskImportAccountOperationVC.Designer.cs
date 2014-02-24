@@ -24,28 +24,28 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            DevExpress.ExpressApp.Actions.SimpleAction ImportAccountOperation;
-            ImportAccountOperation = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.AcceptImport = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // ImportAccountOperation
+            // AcceptImport
             // 
-            ImportAccountOperation.Caption = "Import Account Operation";
-            ImportAccountOperation.ConfirmationMessage = null;
-            ImportAccountOperation.Id = "ImportAccountOperation";
-            ImportAccountOperation.ImageName = null;
-            ImportAccountOperation.Shortcut = null;
-            ImportAccountOperation.Tag = null;
-            ImportAccountOperation.TargetObjectsCriteria = null;
-            ImportAccountOperation.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
-            ImportAccountOperation.TargetViewId = null;
-            ImportAccountOperation.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
-            ImportAccountOperation.ToolTip = null;
-            ImportAccountOperation.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            ImportAccountOperation.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.simpleAction1_Execute);
+            this.AcceptImport.Caption = "AcceptImport";
+            this.AcceptImport.ConfirmationMessage = null;
+            this.AcceptImport.Id = "HrmSalaryTaskImportSourceDataVC_AcceptImport";
+            this.AcceptImport.ImageName = null;
+            this.AcceptImport.Shortcut = null;
+            this.AcceptImport.Tag = null;
+            this.AcceptImport.TargetObjectsCriteria = null;
+            this.AcceptImport.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation);
+            this.AcceptImport.TargetViewId = null;
+            this.AcceptImport.ToolTip = null;
+            this.AcceptImport.TypeOfView = null;
+            this.AcceptImport.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptImport_Execute);
 
         }
 
         #endregion
+
+        private DevExpress.ExpressApp.Actions.SimpleAction AcceptImport;
 
     }
 }
