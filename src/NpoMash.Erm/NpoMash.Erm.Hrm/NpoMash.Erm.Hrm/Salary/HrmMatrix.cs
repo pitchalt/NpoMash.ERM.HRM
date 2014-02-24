@@ -41,7 +41,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     public enum HrmMatrixVariant { 
         MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT=0,
         MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT=1,
-        PROPORTIONS_METHOD_VARIANT=2
+        PROPORTIONS_METHOD_VARIANT=2,
     }
 
 

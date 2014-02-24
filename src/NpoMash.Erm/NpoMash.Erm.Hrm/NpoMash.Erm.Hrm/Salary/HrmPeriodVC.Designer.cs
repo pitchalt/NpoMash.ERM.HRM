@@ -40,6 +40,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingOZMMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.ExportBringingMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.ImportAccountOperation = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.ExportReserveMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -187,6 +188,22 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ImportAccountOperation.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.ImportAccountOperation.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ImportAccountOperation_Execute);
             // 
+            // ExportReserveMatrix
+            // 
+            this.ExportReserveMatrix.Caption = "Export Reserve Matrix";
+            this.ExportReserveMatrix.ConfirmationMessage = null;
+            this.ExportReserveMatrix.Id = "ExportReserveMatrix";
+            this.ExportReserveMatrix.ImageName = null;
+            this.ExportReserveMatrix.Shortcut = null;
+            this.ExportReserveMatrix.Tag = null;
+            this.ExportReserveMatrix.TargetObjectsCriteria = null;
+            this.ExportReserveMatrix.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.ExportReserveMatrix.TargetViewId = null;
+            this.ExportReserveMatrix.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.ExportReserveMatrix.ToolTip = null;
+            this.ExportReserveMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.ExportReserveMatrix.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ExportReserveMatrix_Execute);
+            // 
             // HrmPeriodVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -201,5 +218,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SingleChoiceAction BringingOZMMatrixAction;
         private DevExpress.ExpressApp.Actions.SimpleAction ExportBringingMatrix;
         private DevExpress.ExpressApp.Actions.SimpleAction ImportAccountOperation;
+        private DevExpress.ExpressApp.Actions.SimpleAction ExportReserveMatrix;
     }
 }

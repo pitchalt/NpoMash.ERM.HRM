@@ -180,5 +180,20 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void refresher(Object sender, EventArgs e) {
             Frame.GetController<RefreshController>().RefreshAction.DoExecute();
         }
+
+        private void ExportReserveMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = ObjectSpace;
+            HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD) {
+                period.setStatus(HrmPeriodStatus.RESERVE_MATRIX_UPLOADED);
+                foreach (var m in period.Matrixs) {
+                    if (m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED && m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
+                        m.Status = HrmMatrixStatus.MATRIX_EXPORTED;
+                    }
+                
+                }
+                object_space.CommitChanges();
+            }
+        }
     }
 }
