@@ -27,7 +27,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected override void OnDeactivated() { base.OnDeactivated(); }
 
         private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
-
+            IObjectSpace object_space = ObjectSpace;
+            HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+            object_space.CommitChanges();
         }
     }
 }

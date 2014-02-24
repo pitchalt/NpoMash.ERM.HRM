@@ -35,6 +35,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, value); }
         }
 
+        private HrmMatrix _MatrixPlan;  // Плановая матрица
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix MatrixPlan {
+            get { return _MatrixPlan; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
+        }
+
         private HrmMatrix _ProvisionMatrix;  // Матрица резерва
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix ProvisionMatrix {
@@ -54,17 +61,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
             public Int64 OrderPlan;
-
+            public Int64 PlannedTravels;
             public Int64 PrefatoryOrderFact;
-
+            public Int64 FactTravels;
             public Int64 PlanKB;
-
+            public Int64 PlannedTrvaelsKB;
             public Int64 PrefatoryFactKB;
-
+            public Int64 FactTravelsKB;
             public Int64 PlanOZM;
-
+            public Int64 PlannedTravelsOZM;
             public Int64 PrefatoryFactOZM;
-
+            public Int64 FactTravelsOZM;
             public IList<DepartmentSet> DepartmentItems = new List<DepartmentSet>();
             public OrderSet(Session session) : base(session) { }
         }
@@ -74,9 +81,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Department Department;
             public DepartmentGroupDep Group;
             public Int64 DepartmentPlan;
-
+            public Int64 PlannedTravels;
             public Int64 PrefactoryDepartmentFact;
-
+            public Int64 FactTravels;
             public Int64 DepartmentProvision;
             public IList<OrderSet> OrderItems = new List<OrderSet>();
             public DepartmentSet(Session session) : base(session) { }
@@ -111,11 +118,15 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected void orderCreate() { LoadMatrixOrder(MatrixAlloc, null, Order); }
-        protected void departmentCreate() { LoadMatrixDepartment(MatrixAlloc, null, Department); }
+        protected void orderCreate() { LoadMatrixOrder(MatrixPlan, null, Order); }
+        protected void departmentCreate() { LoadMatrixDepartment(MatrixPlan, null, Department); }
+
+
+
+
+
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderSet> items  ) {
-
             foreach (HrmMatrixRow row in matrix.Rows) {
                 if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
                     continue;
@@ -124,13 +135,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item = new OrderSet(this.Session) {
                         Order = row.Order
                     };
-
-
                     items.Add(item);
                 }
                 item.TypeControl = row.Order.TypeControl;
-
-
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
@@ -148,16 +155,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Department = col.Department // Подразделение
                     };
                 }
-
                 items.Add(item);
-
                 item.OrderItems = new List<OrderSet>();
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
             }
-        
-       
-        
         }
 
 
