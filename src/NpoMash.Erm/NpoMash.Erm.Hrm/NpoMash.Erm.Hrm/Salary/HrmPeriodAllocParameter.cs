@@ -93,10 +93,11 @@ namespace NpoMash.Erm.Hrm.Salary
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
+        [Persistent("IterationNumber")]
         private Int16 _IterationNumber;
+        [PersistentAlias("_IterationNumber")]
         public Int16 IterationNumber {
             get { return _IterationNumber; }
-            set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
         }
 
         [Association("AllocParameter-OrderControls"), Aggregated]  // סגÿחü ס HrmPeriodOrderControl

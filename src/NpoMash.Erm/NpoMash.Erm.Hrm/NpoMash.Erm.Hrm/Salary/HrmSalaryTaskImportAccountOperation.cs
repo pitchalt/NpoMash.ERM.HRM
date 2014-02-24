@@ -10,39 +10,27 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.ConditionalAppearance;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public class HrmSalaryTaskImportAccountOperation : BaseObject { 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    [Persistent("HrmSalaryTaskImportAccountOperation")]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskImportSourceDataVC_AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+    public class HrmSalaryTaskImportAccountOperation : HrmSalaryTask {
         public HrmSalaryTaskImportAccountOperation(Session session)  : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
+        }
+
+        private HrmMatrixAllocResult _MatrixAllocResult;
+        public HrmMatrixAllocResult MatrixAllocResult {
+            get { return _MatrixAllocResult; }
+            set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResult", ref _MatrixAllocResult, value); }
         }
     }
 }
