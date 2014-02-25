@@ -4,6 +4,12 @@
     <Actions>
       <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
       <Action Id="AcceptImport" Caption="Утвердить" />
+      <Action Id="AcceptProvisionMatrix" Caption="Утвердить">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="EkvilibristicMethod" Caption="Эквилибристика" />
+          <ChoiceActionItem Id="SimplexMethod" Caption="Симплекс метод" />
+        </ChoiceActionItems>
+      </Action>
       <Action Id="BringingMatrixAction" Caption="Создать матрицу учета(КБ)">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
@@ -18,6 +24,13 @@
           <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
+      <Action Id="BringProvisionMatrix" Caption="Приведение матрицы резерва">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="EkvilibristicMethod" Caption="Эквилибристика" />
+          <ChoiceActionItem Id="SimplexMethod" Caption="Симплекс метод" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="ExportReserveMatrix" Caption="Экспорт" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
       <Action Id="HrmPeriodVC_ClosePeriod" Caption="Закрыть период" />
@@ -216,6 +229,35 @@
         <Member Name="ProportionsMethodAlloc" Caption="Расчет 1" />
         <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 2" />
         <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Group" Caption="Группа" />
+        <Member Name="DepartmentPlan" Caption="План" />
+        <Member Name="PlannedTravels" Caption="т.ч.Ком" />
+        <Member Name="PrefactoryDepartmentFact" Caption="Предварительный факт" />
+        <Member Name="FactTravels" Caption="т.ч.Ком" />
+        <Member Name="DepartmentProvision" Caption="Резерв" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
+      <OwnMembers>
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+        <Member Name="OrderPlan" Caption="План" />
+        <Member Name="PlannedTravels" Caption="т.ч.Ком" />
+        <Member Name="PrefatoryOrderFact" Caption="Предварительный факт" />
+        <Member Name="FactTravels" Caption="т.ч.Ком" />
+        <Member Name="PlanKB" Caption="План КБ" />
+        <Member Name="PlannedTrvaelsKB" Caption="т.ч.КомКБ" />
+        <Member Name="PrefatoryFactKB" Caption="Предварительный факт КБ" />
+        <Member Name="FactTravelsKB" Caption="т.ч.КомКБ" />
+        <Member Name="PlanOZM" Caption="План ОЗМ" />
+        <Member Name="FactTravelsOZM" Caption="т.ч.КомОЗМ" />
+        <Member Name="PrefatoryFactOZM" Caption="Предварительный факт ОЗМ" />
+        <Member Name="PlannedTravelsOZM" Caption="т.ч.КомОЗМ" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)">

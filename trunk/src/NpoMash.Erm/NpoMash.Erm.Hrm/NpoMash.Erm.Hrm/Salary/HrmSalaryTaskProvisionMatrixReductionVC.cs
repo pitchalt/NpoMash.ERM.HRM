@@ -54,6 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
             }
         }
 
@@ -74,6 +75,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                  }
                  os.CommitChanges();
              }
+             ObjectSpace.CommitChanges();
             }
+
+        private void refresher(Object sender, EventArgs e) {
+            Frame.GetController<RefreshController>().RefreshAction.DoExecute();
+        }
+
+
         }
     }
