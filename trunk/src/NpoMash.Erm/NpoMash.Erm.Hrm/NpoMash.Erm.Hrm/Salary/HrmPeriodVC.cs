@@ -195,5 +195,66 @@ namespace NpoMash.Erm.Hrm.Salary {
                 object_space.CommitChanges();
             }
         }
+
+        private void CreateReportKB_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = Application.CreateObjectSpace();
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED) {
+                HrmSalaryTaskCompareKBAccountOperation task = object_space.CreateObject<HrmSalaryTaskCompareKBAccountOperation>();
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskCompareKBAccountOperationLogic.CompareKBMatrix(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
+            }
+        }
+
+        private void CreateReportOZM_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = Application.CreateObjectSpace();
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED) {
+                HrmSalaryTaskCompareOZMAccountOperation task = object_space.CreateObject<HrmSalaryTaskCompareOZMAccountOperation>();
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskCompareOZMAccountOperationLogic.CompareOZMMatrix(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
+            }
+        }
+
+        private void ImportAccountOperationLast_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = Application.CreateObjectSpace();
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (current_period.Status == HrmPeriodStatus.RESERVE_MATRIX_UPLOADED) {
+                HrmSalaryTaskImportAccountOperationSummary task = object_space.CreateObject<HrmSalaryTaskImportAccountOperationSummary>();
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskImportAccountOperationSummaryLogic.ImportAccountOperationSummary(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
+            }
+        }
+
+        private void CreateReportSummary_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = Application.CreateObjectSpace();
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED) {
+                HrmSalaryTaskCompareAccountOperationSummary task = object_space.CreateObject<HrmSalaryTaskCompareAccountOperationSummary>();
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskCompareAccountOperationSummaryLogic.CompareSummaryMatrix(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
+            }
+        }
+
+        private void ClosePeriod_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = ObjectSpace;
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && current_period.CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
+                current_period.setStatus(HrmPeriodStatus.CLOSED);
+                object_space.CommitChanges();
+            }
+        }
     }
 }

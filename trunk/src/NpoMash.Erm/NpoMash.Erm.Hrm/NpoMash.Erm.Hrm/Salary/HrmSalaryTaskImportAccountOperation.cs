@@ -22,15 +22,22 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmSalaryTaskImportAccountOperation : HrmSalaryTask {
-        public HrmSalaryTaskImportAccountOperation(Session session)  : base(session) { }
+
+        public HrmSalaryTaskImportAccountOperation(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
 
-        private HrmMatrixAllocResult _MatrixAllocResult;
-        public HrmMatrixAllocResult MatrixAllocResult {
-            get { return _MatrixAllocResult; }
-            set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResult", ref _MatrixAllocResult, value); }
+        private HrmMatrixAllocResult _MatrixAllocResultKB;
+        public HrmMatrixAllocResult MatrixAllocResultKB {
+            get { return _MatrixAllocResultKB; }
+            set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResultKB", ref _MatrixAllocResultKB, value); }
+        }
+
+        private HrmMatrixAllocResult _MatrixAllocResultOZM;
+        public HrmMatrixAllocResult MatrixAllocResultOZM {
+            get { return _MatrixAllocResultOZM; }
+            set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResult", ref _MatrixAllocResultOZM, value); }
         }
     }
 }

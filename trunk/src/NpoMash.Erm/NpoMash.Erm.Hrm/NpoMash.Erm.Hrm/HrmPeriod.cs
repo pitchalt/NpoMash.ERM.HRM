@@ -42,6 +42,11 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Criteria = "isReadyToImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ClosePeriod", Criteria = "isReadyToClosePeriod", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportSummary", Criteria = "isReadyToCreateLastAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperationLast", Criteria = "isReadyToImportAccountOperationLast", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "isReadyToCreateFirstAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "isReadyToCreateFirstAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -144,6 +149,60 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmSalaryTask>("PeriodTasks"); }
         }
 
+        private HrmMatrixAllocPlan _CurrentMatrixAllocPlanSummary;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public HrmMatrixAllocPlan CurrentMatrixAllocPlanSummary {
+            get { return _CurrentMatrixAllocPlanSummary; }
+            set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanSummary", ref _CurrentMatrixAllocPlanSummary, value); }
+        }
+
+        private HrmMatrixAllocResult _CurrentMatrixAllocResultSummary;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public HrmMatrixAllocResult CurrentMatrixAllocResultSummary {
+            get { return _CurrentMatrixAllocResultSummary; }
+            set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultSummary", ref _CurrentMatrixAllocResultSummary, value); }
+        }
+
+        private HrmMatrixAllocPlan _CurrentMatrixAllocPlanKB;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public HrmMatrixAllocPlan CurrentMatrixAllocPlanKB {
+            get { return _CurrentMatrixAllocPlanKB; }
+            set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanKB", ref _CurrentMatrixAllocPlanKB, value); }
+        }
+
+        private HrmMatrixAllocPlan _CurrentMatrixAllocPlanOZM;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public HrmMatrixAllocPlan CurrentMatrixAllocPlanOZM {
+            get { return _CurrentMatrixAllocPlanOZM; }
+            set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanOZM", ref _CurrentMatrixAllocPlanOZM, value); }
+        }
+
+        private HrmMatrixAllocResult _CurrentMatrixAllocResultKB;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public HrmMatrixAllocResult CurrentMatrixAllocResultKB {
+            get { return _CurrentMatrixAllocResultKB; }
+            set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultKB", ref _CurrentMatrixAllocResultKB, value); }
+        }
+
+        private HrmMatrixAllocResult _CurrentMatrixAllocResultOZM;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public HrmMatrixAllocResult CurrentMatrixAllocResultOZM {
+            get { return _CurrentMatrixAllocResultOZM; }
+            set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultOZM", ref _CurrentMatrixAllocResultOZM, value); }
+        }
+        
         private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -215,6 +274,18 @@ namespace NpoMash.Erm.Hrm {
         }
 
         [Browsable(false)]
+        private bool isReadyToClosePeriod { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_ACCEPTED); } }
+
+        [Browsable(false)]
+        private bool isReadyToCreateLastAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_OPENED); } }
+
+        [Browsable(false)]
+        private bool isReadyToImportAccountOperationLast { get { return !(Status == HrmPeriodStatus.RESERVE_MATRIX_UPLOADED); } }
+
+        [Browsable(false)]
+        private bool isReadyToCreateFirstAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED); } }
+
+        [Browsable(false)]
         private bool isReadyToImportAccountOperation { get { return !(Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } }
 
         [Browsable(false)]
@@ -238,7 +309,6 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool showAccountOperationImport {
-            get { return CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED && Status==HrmPeriodStatus.COERCED_MATRIXES_EXPORTED ; }
-            }        
+            get { return CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED && Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED ; } }        
     }
 }

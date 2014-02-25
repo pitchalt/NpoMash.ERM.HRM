@@ -74,6 +74,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             FixedFileEngine<ImportMatrixTravelTime> travel_data = new FixedFileEngine<ImportMatrixTravelTime>();
             ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
             ImportMatrixTravelTime[] travel_list = travel_data.ReadFile("../../../../../../../var/Matrix_TravelTimePlan.dat");
+            //Общая плановая матрица
+            HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
+            matrix_alloc_plan_summary.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_plan_summary.Type = HrmMatrixType.TYPE_MATIX;
+            matrix_alloc_plan_summary.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
+            matrix_alloc_plan_summary.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
+            task.Period.CurrentMatrixAllocPlanSummary = matrix_alloc_plan_summary;
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
             kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
@@ -83,6 +90,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             kb_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             kb_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(kb_plan_matrix);
+            task.Period.CurrentMatrixAllocPlanKB = kb_plan_matrix;
             HrmMatrixAllocPlan ozm_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
             ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
             //            ozm_plan_matrix.Period = period;
@@ -91,6 +99,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             ozm_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             ozm_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(ozm_plan_matrix);
+            task.Period.CurrentMatrixAllocPlanOZM = ozm_plan_matrix;
             Int16 current_year = task.Period.Year;
             Int16 current_month = task.Period.Month;
             //создаем необходимые словари, чтобы не наматывать круги в форычах при поиске

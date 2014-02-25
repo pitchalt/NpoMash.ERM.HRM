@@ -17,7 +17,8 @@ namespace IntecoAG.ERM.HRM.Organization
 {
     public enum DepartmentGroupDep { 
         DEPARTMENT_KB = 0, 
-        DEPARTMENT_OZM = 1 
+        DEPARTMENT_OZM = 1,
+        DEPARTMENT_KB_OZM = 2
     }
 
     [Persistent("Department")]
