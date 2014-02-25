@@ -18,11 +18,21 @@ namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskImportAccountOperationLogic {
 
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
-            HrmMatrixAllocResult matrix_alloc_result = local_object_space.CreateObject<HrmMatrixAllocResult>();
-            matrix_alloc_result.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
-            local_task.MatrixAllocResult = matrix_alloc_result;
-            local_task.Period.Matrixs.Add(matrix_alloc_result);
-            matrix_alloc_result.Status = HrmMatrixStatus.MATRIX_OPENED;
+            HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
+            HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
+            local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
+            matrix_alloc_result_kb.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
+            matrix_alloc_result_ozm.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
+            matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_OPENED;
+            local_task.MatrixAllocResultKB = matrix_alloc_result_kb;
+            local_task.MatrixAllocResultOZM = matrix_alloc_result_ozm;
+            local_task.MatrixAllocResultKB.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
+            local_task.MatrixAllocResultOZM.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_OZM;
+            local_task.Period.CurrentMatrixAllocResultKB = matrix_alloc_result_kb;
+            local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
+            local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
+            local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
         }
     }
 }

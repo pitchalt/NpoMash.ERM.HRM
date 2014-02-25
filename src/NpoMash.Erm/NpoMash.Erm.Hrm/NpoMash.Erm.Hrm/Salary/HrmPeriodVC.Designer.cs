@@ -41,6 +41,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ExportBringingMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.ImportAccountOperation = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.ExportReserveMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.CreateReportKB = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.CreateReportOZM = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.ImportAccountOperationLast = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.CreateReportSummary = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.ClosePeriod = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -204,6 +209,89 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ExportReserveMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.ExportReserveMatrix.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ExportReserveMatrix_Execute);
             // 
+            // CreateReportKB
+            // 
+            this.CreateReportKB.Caption = "HrmPeriodVC_CreateReportKB";
+            this.CreateReportKB.Category = "Edit";
+            this.CreateReportKB.ConfirmationMessage = null;
+            this.CreateReportKB.Id = "HrmPeriodVC_CreateReportKB";
+            this.CreateReportKB.ImageName = null;
+            this.CreateReportKB.Shortcut = null;
+            this.CreateReportKB.Tag = null;
+            this.CreateReportKB.TargetObjectsCriteria = null;
+            this.CreateReportKB.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.CreateReportKB.TargetViewId = null;
+            this.CreateReportKB.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.CreateReportKB.ToolTip = null;
+            this.CreateReportKB.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.CreateReportKB.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.CreateReportKB_Execute);
+            // 
+            // CreateReportOZM
+            // 
+            this.CreateReportOZM.Caption = "HrmPeriodVC_CreateReportOZM";
+            this.CreateReportOZM.Category = "Edit";
+            this.CreateReportOZM.ConfirmationMessage = null;
+            this.CreateReportOZM.Id = "HrmPeriodVC_CreateReportOZM";
+            this.CreateReportOZM.ImageName = null;
+            this.CreateReportOZM.Shortcut = null;
+            this.CreateReportOZM.Tag = null;
+            this.CreateReportOZM.TargetObjectsCriteria = null;
+            this.CreateReportOZM.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.CreateReportOZM.TargetViewId = null;
+            this.CreateReportOZM.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.CreateReportOZM.ToolTip = null;
+            this.CreateReportOZM.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.CreateReportOZM.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.CreateReportOZM_Execute);
+            // 
+            // ImportAccountOperationLast
+            // 
+            this.ImportAccountOperationLast.Caption = "HrmPeriodVC_ImportAccountOperationLast";
+            this.ImportAccountOperationLast.Category = "Edit";
+            this.ImportAccountOperationLast.ConfirmationMessage = null;
+            this.ImportAccountOperationLast.Id = "HrmPeriodVC_ImportAccountOperationLast";
+            this.ImportAccountOperationLast.ImageName = null;
+            this.ImportAccountOperationLast.Shortcut = null;
+            this.ImportAccountOperationLast.Tag = null;
+            this.ImportAccountOperationLast.TargetObjectsCriteria = null;
+            this.ImportAccountOperationLast.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.ImportAccountOperationLast.TargetViewId = null;
+            this.ImportAccountOperationLast.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.ImportAccountOperationLast.ToolTip = null;
+            this.ImportAccountOperationLast.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.ImportAccountOperationLast.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ImportAccountOperationLast_Execute);
+            // 
+            // CreateReportSummary
+            // 
+            this.CreateReportSummary.Caption = "HrmPeriodVC_CreateReportSummary";
+            this.CreateReportSummary.ConfirmationMessage = null;
+            this.CreateReportSummary.Id = "HrmPeriodVC_CreateReportSummary";
+            this.CreateReportSummary.ImageName = null;
+            this.CreateReportSummary.Shortcut = null;
+            this.CreateReportSummary.Tag = null;
+            this.CreateReportSummary.TargetObjectsCriteria = null;
+            this.CreateReportSummary.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.CreateReportSummary.TargetViewId = null;
+            this.CreateReportSummary.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.CreateReportSummary.ToolTip = null;
+            this.CreateReportSummary.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.CreateReportSummary.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.CreateReportSummary_Execute);
+            // 
+            // ClosePeriod
+            // 
+            this.ClosePeriod.Caption = "HrmPeriodVC_ClosePeriod";
+            this.ClosePeriod.ConfirmationMessage = null;
+            this.ClosePeriod.Id = "HrmPeriodVC_ClosePeriod";
+            this.ClosePeriod.ImageName = null;
+            this.ClosePeriod.Shortcut = null;
+            this.ClosePeriod.Tag = null;
+            this.ClosePeriod.TargetObjectsCriteria = null;
+            this.ClosePeriod.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.ClosePeriod.TargetViewId = null;
+            this.ClosePeriod.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.ClosePeriod.ToolTip = null;
+            this.ClosePeriod.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.ClosePeriod.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ClosePeriod_Execute);
+            // 
             // HrmPeriodVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -219,5 +307,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SimpleAction ExportBringingMatrix;
         private DevExpress.ExpressApp.Actions.SimpleAction ImportAccountOperation;
         private DevExpress.ExpressApp.Actions.SimpleAction ExportReserveMatrix;
+        private DevExpress.ExpressApp.Actions.SimpleAction CreateReportKB;
+        private DevExpress.ExpressApp.Actions.SimpleAction CreateReportOZM;
+        private DevExpress.ExpressApp.Actions.SimpleAction ImportAccountOperationLast;
+        private DevExpress.ExpressApp.Actions.SimpleAction CreateReportSummary;
+        private DevExpress.ExpressApp.Actions.SimpleAction ClosePeriod;
     }
 }

@@ -177,8 +177,40 @@
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummary.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperation.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperationLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperationVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperationVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskCompareKBAccountOperationVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperation.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskCompareOZMAccountOperationVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperation.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperationLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummary.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummaryLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperationVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -227,6 +259,18 @@
     <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
       <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.resx">
+      <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskCompareKBAccountOperationVC.resx">
+      <DependentUpon>HrmSalaryTaskCompareKBAccountOperationVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.resx">
+      <DependentUpon>HrmSalaryTaskCompareOZMAccountOperationVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.resx">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationVC.resx">
       <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
     </EmbeddedResource>
@@ -267,18 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
-    <None Include="UnusableNodes1.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes_ru.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Images\clock.png" />
   </ItemGroup>
   <ItemGroup>

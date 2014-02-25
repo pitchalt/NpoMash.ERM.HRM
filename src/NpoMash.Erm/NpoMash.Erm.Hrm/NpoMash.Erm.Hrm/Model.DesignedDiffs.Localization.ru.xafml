@@ -20,7 +20,18 @@
       </Action>
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
       <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
+      <Action Id="HrmPeriodVC_ClosePeriod" Caption="Закрыть период" />
+      <Action Id="HrmPeriodVC_CreateReportKB" Caption="Контроль трудоемкости(КБ)" />
+      <Action Id="HrmPeriodVC_CreateReportOZM" Caption="Контроль трудоемкости(ОЗМ)" />
+      <Action Id="HrmPeriodVC_CreateReportSummary" Caption="Контоль трудоемкости и ФОТ" />
       <Action Id="HrmPeriodVC_ExportBringingMatrix" Caption="Экспорт" />
+      <Action Id="HrmPeriodVC_ImportAccountOperation" Caption="Загрузить первичную проводку" />
+      <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
+      <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskCompareKBAccountOperationVC_AcceptCompare" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskCompareOZMAccountOperationVC_AcceptCompare" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction" Caption="Утвердить" />
       <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
     </Actions>
@@ -141,6 +152,11 @@
         <Member Name="TaskType" Caption="Тип задачи" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary" Caption="Сравнение проводки" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareKBAccountOperation" Caption="Контроль трудоемкости(КБ)" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareOZMAccountOperation" Caption="Контроль трудоемкости(ОЗМ)" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperationSummary" Caption="Импорт проводки" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportSourceData" Caption="Импорт исходных данных">
       <OwnMembers>
         <Member Name="MatrixPlanKB" Caption="Базовая матрица(КБ)" />
@@ -198,6 +214,9 @@
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep">
+        <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="Все" />
+      </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
         <LocalizationItem Name="ACCOUNT_OPERATION_FIRST_IMPORTED" Value="Импортирована первичная проводка" />
         <LocalizationItem Name="ACCOUNT_OPERATION_LAST_IMPORTED" Value="Импортирована проводка" />
