@@ -152,11 +152,35 @@
         <Member Name="TaskType" Caption="Тип задачи" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary" Caption="Сравнение проводки" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareKBAccountOperation" Caption="Контроль трудоемкости(КБ)" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareOZMAccountOperation" Caption="Контроль трудоемкости(ОЗМ)" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperationSummary" Caption="Импорт проводки" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary" Caption="Сравнение проводки">
+      <OwnMembers>
+        <Member Name="MatrixAllocPlanSummary" Caption="Общий план" />
+        <Member Name="MatrixAllocResultSummary" Caption="Общая проводка" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareKBAccountOperation" Caption="Контроль трудоемкости(КБ)">
+      <OwnMembers>
+        <Member Name="MatrixAllocResultKB" Caption="Проводка(КБ)" />
+        <Member Name="MatrixPlanKB" Caption="Табель(КБ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareOZMAccountOperation" Caption="Контроль трудоемкости(ОЗМ)">
+      <OwnMembers>
+        <Member Name="MatrixAllocPlanOZM" Caption="Табель(ОЗМ)" />
+        <Member Name="MatrixAllocResultOZM" Caption="Проводка(ОЗМ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки">
+      <OwnMembers>
+        <Member Name="MatrixAllocResultKB" Caption="Проводка(КБ)" />
+        <Member Name="MatrixAllocResultOZM" Caption="Проводка(ОЗМ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperationSummary" Caption="Импорт проводки">
+      <OwnMembers>
+        <Member Name="MatrixAllocResultSummary" Caption="Общая проводка" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportSourceData" Caption="Импорт исходных данных">
       <OwnMembers>
         <Member Name="MatrixPlanKB" Caption="Базовая матрица(КБ)" />
