@@ -2,6 +2,8 @@
 <Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
   <ActionDesign>
     <Actions>
+      <Action Id="AcceptProvisionMatrix" Caption="AcceptProvisionMatrix" />
+      <Action Id="BringProvisionMatrix" Caption="Bring Provision Matrix" />
       <Action Id="GetSourceDataAction">
         <ChoiceActionItems>
           <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
@@ -35,6 +37,34 @@
         <Member Name="ProportionsMethodAlloc" Index="2" />
         <Member Name="MinimizeNumberOfDeviationsAlloc" Index="3" />
         <Member Name="MinimizeMaximumDeviationsAlloc" Index="4" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet">
+      <OwnMembers>
+        <Member Name="Department" Index="0" />
+        <Member Name="Group" Index="1" />
+        <Member Name="DepartmentPlan" Index="2" />
+        <Member Name="PlannedTravels" Index="3" />
+        <Member Name="PrefactoryDepartmentFact" Index="4" />
+        <Member Name="FactTravels" Index="5" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
+      <OwnMembers>
+        <Member Name="Order" Index="0" />
+        <Member Name="TypeControl" Index="1" />
+        <Member Name="OrderPlan" Index="2" />
+        <Member Name="PlannedTravels" Index="3" />
+        <Member Name="PrefatoryOrderFact" Index="4" />
+        <Member Name="FactTravels" Index="5" />
+        <Member Name="PlanKB" Index="6" />
+        <Member Name="PlannedTrvaelsKB" Index="6" />
+        <Member Name="PrefatoryFactKB" Index="7" />
+        <Member Name="FactTravelsKB" Index="8" />
+        <Member Name="PlanOZM" Index="9" />
+        <Member Name="FactTravelsOZM" Index="10" />
+        <Member Name="PrefatoryFactOZM" Index="11" />
+        <Member Name="PlannedTravelsOZM" Index="12" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet">
