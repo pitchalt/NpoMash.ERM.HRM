@@ -26,6 +26,14 @@ namespace IntecoAG.ERM.HRM.Organization
     [DefaultProperty("Code")]
     public class Department : BaseObject
     {
+        private Boolean _IsClosed;
+        [VisibleInLookupListView(false)]
+        [VisibleInDetailView(false)]
+        public Boolean IsClosed {
+            get { return _IsClosed; }
+            set { SetPropertyValue<Boolean>("IsClosed", ref _IsClosed, value); }
+        }
+
         private String _Code;
         public String Code {
             get { return _Code; }

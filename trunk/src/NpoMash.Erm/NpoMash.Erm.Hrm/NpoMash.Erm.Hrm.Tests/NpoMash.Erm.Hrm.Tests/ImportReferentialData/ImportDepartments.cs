@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using FileHelpers;
 
 using IntecoAG.ERM.HRM.Organization;
@@ -19,7 +20,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         [FieldFixedLength(1)]
         [FieldConverter(typeof(BoolConverter))]
-        public String Closed;
+        public String IsClosed;
 
         [FieldFixedLength(6)]
         [FieldConverter(typeof(PayTypeCodeConverter))]
