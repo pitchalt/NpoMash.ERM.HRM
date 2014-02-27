@@ -47,6 +47,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 Department department_to_db = local_object_space.CreateObject<Department>();
                 department_to_db.Code = current_department.DepartmentCode;
                 department_to_db.BuhCode = current_department.BuhCode;
+                if (String.IsNullOrEmpty(current_department.IsClosed)) { department_to_db.IsClosed = false; }
+                else { department_to_db.IsClosed = true; }
                 if (current_department.DepartmentGroup == null) { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
                 else { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
             }
@@ -84,6 +86,22 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key] / 100; }
                 if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key] / 100; }
                 order_to_db.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
+            }
+        }
+
+        public static void ImportPayTypes(IObjectSpace local_object_space) {
+            FileHelperEngine<ImportPayTypes> paytypes_data = new FixedFileEngine<ImportPayTypes>();
+            ImportPayTypes[] paytypes_code_imported = paytypes_data.ReadFile("../../../../../../../var/referential/pay_types.dat");
+            IList<String> paytypes_list = new List<String>();
+            foreach (var paytype in paytypes_code_imported) {
+                if (!paytypes_list.Contains(paytype.PayTypeCode)) {
+                    paytypes_list.Add(paytype.PayTypeCode);
+                }
+            }
+            foreach (var new_paytype_code in paytypes_list) {
+                HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
+                paytype_to_db.Code = new_paytype_code;
+                paytype_to_db.Name = "Здесь будет содержаться наименование кода оплаты";
             }
         }
 
