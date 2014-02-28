@@ -16,7 +16,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
         public Int16 Month;
 
         [FieldFixedLength(5)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldConverter(typeof(DepConverter))]
         public String DepartmentCode;
 
         [FieldFixedLength(9)]
@@ -30,6 +30,12 @@ namespace NpoMash.Erm.Hrm.Exchange {
         internal class DateConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToInt16(from.Trim());
+            }
+        }
+
+        internal class DepConverter : ConverterBase {
+            public override object StringToField(string from) {
+                return Convert.ToString(Convert.ToInt64(from));
             }
         }
 
