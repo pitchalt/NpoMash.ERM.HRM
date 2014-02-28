@@ -81,6 +81,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             matrix_alloc_plan_summary.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             matrix_alloc_plan_summary.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task.Period.CurrentMatrixAllocPlanSummary = matrix_alloc_plan_summary;
+            matrix_alloc_plan_summary.IterationNumber = 1;
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
             kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
