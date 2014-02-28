@@ -31,6 +31,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int64>("TravelTime", ref _TravelTime, value); }
         }
 
+        private Decimal _Money;
+        public Decimal Money {
+            get { return _Money; }
+            set { SetPropertyValue<Decimal>("Money", ref _Money, value); }
+        }
+
         private Decimal _Sum;
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
@@ -51,6 +57,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrixRow Row {
             get { return _Row; }
             set { SetPropertyValue<HrmMatrixRow>("Row", ref _Row, value); }
+        }
+
+        [Association("Cell-AccountOperations")]
+        public XPCollection<HrmAccountOperation> AccountOperations {
+            get { return GetCollection<HrmAccountOperation>("AccountOperations"); }
         }
 
         public HrmMatrixCell(Session session) : base(session) { }

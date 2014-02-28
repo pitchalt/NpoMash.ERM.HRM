@@ -35,7 +35,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class DepConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToString(Convert.ToInt64(from));
+                return Convert.ToString(Convert.ToInt64(from.Trim()));
             }
         }
 
