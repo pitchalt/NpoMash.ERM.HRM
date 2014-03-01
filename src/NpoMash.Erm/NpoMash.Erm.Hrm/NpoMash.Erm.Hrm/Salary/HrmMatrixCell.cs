@@ -34,7 +34,20 @@ namespace NpoMash.Erm.Hrm.Salary {
         private Decimal _MoneyReserve;
         public Decimal MoneyReserve {
             get { return _MoneyReserve; }
-            set { }
+            set {
+                if (!IsLoading) {
+                    if (AccountOperations != null) {
+                        foreach (var account in AccountOperations) {
+                            if (account != null) { 
+                                //логика обработки коллекции
+                            }
+                        }
+                    }
+                }
+                else {
+                    SetPropertyValue<Decimal>("MoneyReserve", ref _MoneyReserve, value);
+                }
+            }
         }
 
         private Decimal _MoneyNoReserve;
