@@ -59,10 +59,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixRow>("Row", ref _Row, value); }
         }
 
-        [Association("Cell-AccountOperations")]
+      /*  [Association("Cell-AccountOperations")]
         public XPCollection<HrmAccountOperation> AccountOperations {
             get { return GetCollection<HrmAccountOperation>("AccountOperations"); }
-        }
+        }*/
 
         public HrmMatrixCell(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
