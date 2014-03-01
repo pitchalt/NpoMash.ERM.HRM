@@ -34,16 +34,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.OnDeactivated();
         }
 
-        private void BringingProvisionMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-           /* IObjectSpace os = Application.CreateObjectSpace();
-            HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-            DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
-            var card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-            os.CommitChanges();
-            e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
-            e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;*/
-            
-        }
 
         private void BringProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
@@ -51,8 +41,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
                 DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
                 var card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.createPlanMatrix(period,os);
-                card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.createCorcedMatrix(os, card.MatrixAllocKB, card.MatrixAllocOZM);
+                card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card.MatrixplanKB, card.MatrixPlanOZM);
+                card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card.MatrixAllocKB, card.MatrixAllocOZM);
                 card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card.MatrixPlan, card.AllocParameters);
                 os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);

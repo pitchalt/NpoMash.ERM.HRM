@@ -27,6 +27,27 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
+        private HrmMatrix _MatrixPlanKB; //Плановая КБ
+        [Browsable(false)]
+        public HrmMatrix MatrixplanKB {
+            get { return _MatrixPlanKB; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlanKB", ref _MatrixPlanKB, value); }
+        }
+
+        private HrmMatrix _MatrixPlanOZM; //Плановая ОЗМ
+        [Browsable(false)]
+        public HrmMatrix MatrixPlanOZM {
+            get { return _MatrixPlanOZM; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlanOZM", ref _MatrixPlanOZM, value); }
+        }
+
+        private HrmMatrix _MatrixPlan;  //Плановая матрица трудоемкость КБ.ОЗМ
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix MatrixPlan {
+            get { return _MatrixPlan; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
+        }
+
         private HrmMatrix _MatrixAllocKB;  //Приведенная матрица КБ
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix MatrixAllocKB {
@@ -47,13 +68,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _MatrixAlloc; }
             set { SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, value); }
         
-        }
-
-        private HrmMatrix _MatrixPlan;  //Плановая матрица трудоемкость
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix MatrixPlan {
-            get { return _MatrixPlan; }
-            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
         }
 
         private HrmMatrix _MatrixPlanMoney; // Матрица с деньгами
@@ -80,14 +94,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmTimeSheet _CurrentTimeSheetKB; // Ссылка на HrmTimeSheet
-    [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet CurrentTimeSheetKB {
             get { return _CurrentTimeSheetKB; }
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetKB", ref _CurrentTimeSheetKB, value); }
         }
 
         private HrmTimeSheet _CurrentTimeSheetOZM; // Ссылка на HrmTimeSheet
-    [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet CurrentTimeSheetOZM {
             get { return _CurrentTimeSheetOZM; }
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetOZM", ref _CurrentTimeSheetOZM, value); }
@@ -173,11 +187,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected void orderCreate() { LoadMatrixOrder(MatrixPlanMoney, null, Order); }
         protected void departmentCreate() { LoadMatrixDepartment(MatrixPlanMoney, null, Department); }
 
-
-
-
-
-
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderSet> items  ) {
             foreach (HrmMatrixRow row in matrix.Rows) {
                 if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
@@ -192,10 +201,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.TypeControl = row.Order.TypeControl;
                 foreach (var c in row.Cells) {
                     item.OrderPlan += Convert.ToInt64(c.Money);
-                }
-                foreach (var c in row.Cells) {
                     item.PlannedTravels += c.TravelTime;
+                    if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.Money);
+                    }
+                    else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.Money); }
                 }
+
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
@@ -218,10 +229,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.Group = col.Department.GroupDep;
                 foreach (var c in col.Cells) {
                     item.DepartmentPlan += c.Time;
-                }
-                foreach (var c in col.Cells) {
                     item.PlannedTravels += c.TravelTime;
                 }
+
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
             }
