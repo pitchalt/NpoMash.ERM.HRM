@@ -160,7 +160,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                                     }
                                     HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
                                     new_cell.Time = random.Next(25, 751);
-                                    new_cell.Sum = 0;
+                                    new_cell.MoneyAllSumm = 0;
                                     new_cell.Column = current_column;
                                     new_cell.Row = current_row;
                                     current_column.Cells.Add(new_cell);
@@ -188,7 +188,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                                     }
                                     HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
                                     new_cell.Time = random.Next(25, 751);
-                                    new_cell.Sum = 0;
+                                    new_cell.MoneyAllSumm = 0;
                                     new_cell.Column = current_column;
                                     new_cell.Row = current_row;
                                     current_column.Cells.Add(new_cell);
@@ -216,7 +216,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
                                     }
                                     HrmMatrixCell new_cell = object_space.CreateObject<HrmMatrixCell>();
                                     new_cell.Time = random.Next(25, 751);
-                                    new_cell.Sum = 0;
+                                    new_cell.MoneyAllSumm = 0;
                                     new_cell.Column = current_column;
                                     new_cell.Row = current_row;
                                     current_column.Cells.Add(new_cell);

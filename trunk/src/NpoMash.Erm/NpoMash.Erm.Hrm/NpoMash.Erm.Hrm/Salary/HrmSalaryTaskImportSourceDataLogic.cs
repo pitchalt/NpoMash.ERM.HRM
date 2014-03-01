@@ -112,7 +112,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             IDictionary<String, HrmMatrixRow> plan_matrix_rows = null;
             IDictionary<String, Department> departments_in_database = object_space.GetObjects<Department>()
                 .ToDictionary<Department, String>(x => x.BuhCode);
-            Dictionary<String, fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
+            IDictionary<String, fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
                 .ToDictionary<fmCOrder, String>(x => x.Code);
             Int32 how_many_mismatches = 0;
             //начинаем перебирать строки в файле
@@ -143,7 +143,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //иначе - создаем ячейку и начинаем ее заполнять
                     HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
                     cell.Time = each.Time / 100;
-                    cell.Sum = 0;
+                    cell.MoneyAllSumm = 0;
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
                     if (plan_matrix_columns.ContainsKey(file_dep_code))
@@ -179,8 +179,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
             foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
                 foreach (var travel in travel_list) {
-                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.TravelTime = travel.TravelTime / 100; }
-                    else { cell.TravelTime = 0; }
+                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.Time += travel.TravelTime / 100; }
                 }
             }
             task.MatrixPlanKB = kb_plan_matrix;

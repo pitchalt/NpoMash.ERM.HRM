@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Text;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Collections.Generic;
 //
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
@@ -14,9 +14,9 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
 using IntecoAG.ERM.HRM;
-using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.FM.FinAccount;
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -24,22 +24,28 @@ namespace NpoMash.Erm.Hrm.Salary {
     [DefaultProperty("Department")] 
     public class HrmAccountOperation : BaseObject {
 
-        private fmCFAAccount _Debit;
-        public fmCFAAccount Debit {
-            get { return _Debit; }
-            set { SetPropertyValue<fmCFAAccount>("Debit", ref _Debit, value); }
+        private String _Sign;
+        public String Sign {
+            get { return _Sign; }
+            set { SetPropertyValue<String>("Sign", ref _Sign, value); }
         }
 
-        private fmCFAAccount _Credit;
-        public fmCFAAccount Credit {
+        private String _Credit;
+        public String Credit {
             get { return _Credit; }
-            set { SetPropertyValue<fmCFAAccount>("Credit", ref _Credit, value); }
+            set { SetPropertyValue<String>("Credit", ref _Credit, value); }
         }
 
-        private HrmSalaryPayType _PayType; //—сылка на HrmSalaryPayType 
-        public HrmSalaryPayType PayType {
-            get { return _PayType; }
-            set { SetPropertyValue<HrmSalaryPayType>("PayType", ref _PayType, value); }
+        private String _Debit;
+        public String Debit {
+            get { return _Debit; }
+            set { SetPropertyValue<String>("Debit", ref _Debit, value); }
+        }
+
+        private fmCOrder _Order; //—сылка на fmCOrder
+        public fmCOrder Order {
+            get { return _Order; }
+            set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }
         }
 
         private Department _Department; //—сылка на Department 
@@ -48,16 +54,29 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Department>("Department", ref _Department, value); }
         }
 
+        private HrmSalaryPayType _PayType; //—сылка на HrmSalaryPayType 
+        public HrmSalaryPayType PayType {
+            get { return _PayType; }
+            set { SetPropertyValue<HrmSalaryPayType>("PayType", ref _PayType, value); }
+        }
+
+        private Int64 _Time;
+        public Int64 Time {
+            get { return _Time; }
+            set { SetPropertyValue<Int64>("Time", ref _Time, value); }
+        }
+
+        private Decimal _Money;
+        public Decimal Money {
+            get { return _Money; }
+            set { SetPropertyValue<Decimal>("Money", ref _Money, value); }
+        }
+
         private HrmMatrixCell _Cell; //—сылка на HrmMatrixCell
+        [Association("Cell-AccountOperations")]
         public HrmMatrixCell Cell {
             get { return _Cell; }
             set { SetPropertyValue<HrmMatrixCell>("Cell", ref _Cell, value); }
-        }
-
-        private fmCOrder _Order; //—сылка на fmCOrder
-        public fmCOrder Order {
-            get { return _Order; }
-            set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }
         }
 
         private HrmMatrixAllocResult _AllocResult; //—сылка на HrmMatrixAllocResult
