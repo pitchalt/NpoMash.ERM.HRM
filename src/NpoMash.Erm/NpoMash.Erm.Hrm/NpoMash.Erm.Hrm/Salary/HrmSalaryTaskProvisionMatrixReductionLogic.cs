@@ -183,13 +183,26 @@ namespace NpoMash.Erm.Hrm.Salary {
            }
 
            foreach (var plan_row in kb_plan_matrix.Rows) {
-               foreach (var result_row in result_plan_matrix.Rows) {
-                   foreach (var plan_cell in plan_row.Cells) {
-                       if (plan_row.Order.Code == result_row.Order.Code) {
-                           result_row.Cells.Add(plan_cell);
-                       }
+               HrmMatrixRow row = null;
+               foreach (HrmMatrixRow res_row in result_plan_matrix.Rows) {
+                   if (plan_row.Order == res_row.Order) {
+                       row = res_row;
+                       break;
                    }
                }
+               foreach (var plan_cell in plan_row.Cells) {
+                    HrmMatrixCell cell = os.CreateObject<HrmMatrixCell>();
+                    HrmMatrixColumn col = null;
+                    foreach (HrmMatrixColumn res_col in result_plan_matrix.Columns) {
+                        if (plan_cell.Column.Department == res_col.Department) {
+                            col = res_col;
+                            break;
+                        }
+                    }
+                    col.Cells.Add(cell);
+                    row.Cells.Add(cell);
+                   // —копировать значени€ времени в созданную €чейку
+                }
            }
 
            foreach (var plan_col in kb_plan_matrix.Columns) {
