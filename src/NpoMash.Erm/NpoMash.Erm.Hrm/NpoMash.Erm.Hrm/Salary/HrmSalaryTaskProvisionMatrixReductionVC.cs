@@ -49,8 +49,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
                 IObjectSpace os = Application.CreateObjectSpace();
                 HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-                DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
+                DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
                 var card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.createPlanMatrix(period,os);
+                card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.createCorcedMatrix(os, card.MatrixAllocKB, card.MatrixAllocOZM);
+                card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card.MatrixPlan, card.AllocParameters);
                 os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
@@ -60,7 +63,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void AcceptProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             HrmSalaryTaskProvisionMatrixReduction task = (HrmSalaryTaskProvisionMatrixReduction)e.CurrentObject;
-             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
+             
+            using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
                  task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
                  if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
 

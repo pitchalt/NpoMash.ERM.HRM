@@ -20,41 +20,93 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmSalaryTaskProvisionMatrixReduction : HrmSalaryTask {
 
 
-        private HrmPeriodAllocParameter _AllocParameters;  // Параметры расчета
+        private HrmPeriodAllocParameter _AllocParameters;  //Параметры расчета
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
+        private HrmMatrix _MatrixAllocKB;  //Приведенная матрица КБ
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix MatrixAllocKB {
+            get { return _MatrixAllocKB; }
+            set { SetPropertyValue<HrmMatrix>("MatrixAllocKB", ref _MatrixAllocKB, value); }
+        }
 
-        private HrmMatrix _MatrixAlloc;  // Приведенная матрица
+        private HrmMatrix _MatrixAllocOZM;  //Приведенная матрица ОЗМ
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix MatrixAllocOZM {
+            get { return _MatrixAllocOZM; }
+            set { SetPropertyValue<HrmMatrix>("MatrixAllocOZM", ref _MatrixAllocOZM, value); }
+        }
+
+        private HrmMatrix _MatrixAlloc; // Общая приведенная матрица КБ.ОЗМ
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix MatrixAlloc {
             get { return _MatrixAlloc; }
             set { SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, value); }
+        
         }
 
-        private HrmMatrix _MatrixPlan;  // Плановая матрица
+        private HrmMatrix _MatrixPlan;  //Плановая матрица трудоемкость
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix MatrixPlan {
             get { return _MatrixPlan; }
             set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
         }
 
-        private HrmMatrix _ProvisionMatrix;  // Матрица резерва
+        private HrmMatrix _MatrixPlanMoney; // Матрица с деньгами
+        [Browsable(false)]
+        public HrmMatrix MatrixPlanMoney {
+            get { return _MatrixPlanMoney; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlanMoney", ref _MatrixPlanMoney, value); }
+        }
+        
+        private HrmMatrix _ProvisionMatrix;  //Матрица резерва
+        [Browsable(false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix ProvisionMatrix {
             get { return _ProvisionMatrix; }
             set { SetPropertyValue<HrmMatrix>("ProvisionMatrix", ref _ProvisionMatrix, value); }
         }
 
-        private HrmAccountOperation _AcountOperation;  // Проводка
+        private HrmTimeSheet _TimeSheet; //Табель
+        [Browsable(false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmAccountOperation AcountOperation {
-            get { return _AcountOperation; }
-            set { SetPropertyValue<HrmAccountOperation>("AcountOperation", ref _AcountOperation, value); }
+        public HrmTimeSheet TimeSheet {
+            get { return _TimeSheet; }
+            set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
+
+        private HrmTimeSheet _CurrentTimeSheetKB; // Ссылка на HrmTimeSheet
+    [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmTimeSheet CurrentTimeSheetKB {
+            get { return _CurrentTimeSheetKB; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetKB", ref _CurrentTimeSheetKB, value); }
+        }
+
+        private HrmTimeSheet _CurrentTimeSheetOZM; // Ссылка на HrmTimeSheet
+    [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmTimeSheet CurrentTimeSheetOZM {
+            get { return _CurrentTimeSheetOZM; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetOZM", ref _CurrentTimeSheetOZM, value); }
+        }
+
+         private HrmMatrix _AllocResultKB; //Первичная проводка КБ
+         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+         public HrmMatrix AllocResultKB {
+             get { return _AllocResultKB; }
+             set { SetPropertyValue<HrmMatrix>("AllocResultKB", ref _AllocResultKB, value); }
+         }
+
+         private HrmMatrix _AllocResultOZM; //Первичная проводка ОЗМ
+         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+         public HrmMatrix AllocResultOZM {
+             get { return _AllocResultOZM; }
+             set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
+         }
+
 
         [NonPersistent]
         public class OrderSet : XPCustomObject {
@@ -118,8 +170,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected void orderCreate() { LoadMatrixOrder(MatrixPlan, null, Order); }
-        protected void departmentCreate() { LoadMatrixDepartment(MatrixPlan, null, Department); }
+        protected void orderCreate() { LoadMatrixOrder(MatrixPlanMoney, null, Order); }
+        protected void departmentCreate() { LoadMatrixDepartment(MatrixPlanMoney, null, Department); }
 
 
 
@@ -138,6 +190,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                     items.Add(item);
                 }
                 item.TypeControl = row.Order.TypeControl;
+                foreach (var c in row.Cells) {
+                    item.OrderPlan += Convert.ToInt64(c.Money);
+                }
+                foreach (var c in row.Cells) {
+                    item.PlannedTravels += c.TravelTime;
+                }
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
@@ -157,6 +215,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 items.Add(item);
                 item.OrderItems = new List<OrderSet>();
+                item.Group = col.Department.GroupDep;
+                foreach (var c in col.Cells) {
+                    item.DepartmentPlan += c.Time;
+                }
+                foreach (var c in col.Cells) {
+                    item.PlannedTravels += c.TravelTime;
+                }
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
             }
