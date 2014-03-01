@@ -25,24 +25,36 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int64>("Time", ref _Time, value); }
         }
 
-        private Int64 _TravelTime;
-        public Int64 TravelTime {
-            get { return _TravelTime; }
-            set { SetPropertyValue<Int64>("TravelTime", ref _TravelTime, value); }
+        private Decimal _PlanMoney;
+        public Decimal PlanMoney {
+            get { return _PlanMoney; }
+            set { SetPropertyValue<Decimal>("PlanMoney", ref _PlanMoney, value); }
         }
 
-        private Decimal _Money;
-        public Decimal Money {
-            get { return _Money; }
-            set { SetPropertyValue<Decimal>("Money", ref _Money, value); }
+        private Decimal _MoneyReserve;
+        public Decimal MoneyReserve {
+            get { return _MoneyReserve; }
+            set { }
         }
 
-        private Decimal _Sum;
+        private Decimal _MoneyNoReserve;
+        public Decimal MoneyNoReserve {
+            get { return _MoneyNoReserve; }
+            set { }
+        }
+
+        private Decimal _MoneyTravel;
+        public Decimal MoneyTravel {
+            get { return _MoneyTravel; }
+            set { }
+        }
+
+        private Decimal _MoneyAllSumm;
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
-        public Decimal Sum {
-            get { return _Sum; }
-            set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
+        public Decimal MoneyAllSumm {
+            get { return _MoneyAllSumm; }
+            set { SetPropertyValue<Decimal>("MoneyAllSumm", ref _MoneyAllSumm, value); }
         }
 
         private HrmMatrixColumn _Column; // —сылка на HrmMatrixColumn
@@ -59,10 +71,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixRow>("Row", ref _Row, value); }
         }
 
-      /*  [Association("Cell-AccountOperations")]
+        [Association("Cell-AccountOperations")]
         public XPCollection<HrmAccountOperation> AccountOperations {
             get { return GetCollection<HrmAccountOperation>("AccountOperations"); }
-        }*/
+        }
 
         public HrmMatrixCell(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }

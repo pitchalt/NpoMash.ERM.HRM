@@ -13,18 +13,18 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         [FieldFixedLength(5)]
         [FieldConverter(typeof(CodeConverter))]
-        public String CreditCode;
+        public String Credit;
 
         [FieldFixedLength(5)]
         [FieldConverter(typeof(CodeConverter))]
-        public String DebitCode;
+        public String Debit;
 
         [FieldFixedLength(9)]
         [FieldConverter(typeof(CodeConverter))]
         public String OrderCode;
 
         [FieldFixedLength(6)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldConverter(typeof(DepConverter))]
         public String DepartmentCode;
 
         [FieldFixedLength(4)]
@@ -37,11 +37,17 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         [FieldFixedLength(17)]
         [FieldConverter(typeof(MoneyConverter))]
-        public Int64 Money;
+        public Decimal Money;
 
         internal class SignConverter : ConverterBase {
             public override object StringToField(string from) {
                 return from.Trim();
+            }
+        }
+
+        internal class DepConverter : ConverterBase {
+            public override object StringToField(string from) {
+                return Convert.ToString(Convert.ToInt32(from.Trim()));
             }
         }
 
@@ -59,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class MoneyConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToInt64(from.Remove(from.Length - 3, 1).Trim());
+                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
             }
         }
     } 

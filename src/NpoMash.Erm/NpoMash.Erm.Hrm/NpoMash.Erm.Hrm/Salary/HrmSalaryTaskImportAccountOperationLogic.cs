@@ -13,20 +13,29 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
+using FileHelpers;
+using IntecoAG.ERM.HRM;
+using IntecoAG.ERM.FM.Order;
+using NpoMash.Erm.Hrm.Exchange;
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskImportAccountOperationLogic {
 
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
+            FileHelperEngine<ImportAccountOperation> account_operation_data = new FileHelperEngine<ImportAccountOperation>();
+            ImportAccountOperation[] account_list = account_operation_data.ReadFile("../../../../../../../var/AccountOperation_First.ncd");
             HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
-            local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
+            matrix_alloc_result_kb.IterationNumber = 1;
+            matrix_alloc_result_ozm.IterationNumber = 1;
             matrix_alloc_result_kb.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_ozm.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_OPENED;
             matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_OPENED;
             local_task.MatrixAllocResultKB = matrix_alloc_result_kb;
             local_task.MatrixAllocResultOZM = matrix_alloc_result_ozm;
+            local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
             local_task.MatrixAllocResultKB.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
             local_task.MatrixAllocResultOZM.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_OZM;
             local_task.Period.CurrentMatrixAllocResultKB = matrix_alloc_result_kb;
