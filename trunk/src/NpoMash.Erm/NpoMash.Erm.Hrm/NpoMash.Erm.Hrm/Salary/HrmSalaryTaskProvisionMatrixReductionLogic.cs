@@ -169,40 +169,39 @@ namespace NpoMash.Erm.Hrm.Salary {
                         ozm_plan_matrix = matrix;
                 }
             }
+
             foreach (var plan_col in kb_plan_matrix.Columns) {
                 HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
                 result_plan_matrix.Columns.Add(new_col);
                 new_col.Department = plan_col.Department;
             }
-            //+KB
+
            foreach (var plan_row in kb_plan_matrix.Rows) {
                HrmMatrixRow new_row = os.CreateObject<HrmMatrixRow>();
-               HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
-
-               new_row.Order = os.CreateObject<fmCOrder>();
-               new_row.Order.Code = plan_row.Order.Code;
-               new_row.Order.TypeControl = plan_row.Order.TypeControl;
-               new_row.Order.TypeConstancy = plan_row.Order.TypeConstancy;
-               new_row.Order.NormKB = plan_row.Order.NormKB;
-               new_row.Order.NormOZM = plan_row.Order.NormOZM;
-
-               foreach (var plan_cell in plan_row.Cells) {
-                   HrmMatrixCell new_cel = os.CreateObject<HrmMatrixCell>();
-                   new_cel.Sum = plan_cell.Sum;
-                   new_cel.Time = plan_cell.Time;
-                   new_cel.TravelTime = plan_cell.TravelTime;
-                   new_row.Cells.Add(new_cel);
-
-                   new_col.Department = os.CreateObject<Department>();
-                   new_col.Department.Code = plan_cell.Column.Department.Code;
-                   new_col.Department.BuhCode = plan_cell.Column.Department.BuhCode;
-                   new_col.Department.GroupDep = plan_cell.Column.Department.GroupDep;
-                   new_col.Cells.Add(new_cel);
-               }
-
                result_plan_matrix.Rows.Add(new_row);
-               result_plan_matrix.Columns.Add(new_col);
+               new_row.Order = plan_row.Order;
            }
+
+           foreach (var plan_row in kb_plan_matrix.Rows) {
+               foreach (var result_row in result_plan_matrix.Rows) {
+                   foreach (var plan_cell in plan_row.Cells) {
+                       if (plan_row.Order.Code == result_row.Order.Code) {
+                           result_row.Cells.Add(plan_cell);
+                       }
+                   }
+               }
+           }
+
+           foreach (var plan_col in kb_plan_matrix.Columns) {
+               foreach (var result_col in result_plan_matrix.Columns) {
+                   foreach (var plan_cell in plan_col.Cells) {
+                       if (plan_col.Department.Code == result_col.Department.Code) {
+                           result_col.Cells.Add(plan_cell);
+                       }
+                   }
+               }
+           }
+
 
             //+OZM
            foreach (var plan_row in ozm_plan_matrix.Rows) {
