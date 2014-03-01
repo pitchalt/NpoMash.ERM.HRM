@@ -155,11 +155,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmMatrix result_plan_matrix = os.CreateObject<HrmMatrix>();
             HrmMatrix kb_plan_matrix = null;
             HrmMatrix ozm_plan_matrix = null;
-      
-
-
-
-
             // find plan matrixs for KB and OZM
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
@@ -173,6 +168,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     matrix.Type==HrmMatrixType.TYPE_MATIX) {
                         ozm_plan_matrix = matrix;
                 }
+            }
+            foreach (var plan_col in kb_plan_matrix.Columns) {
+                HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
+                result_plan_matrix.Columns.Add(new_col);
+                new_col.Department = plan_col.Department;
             }
             //+KB
            foreach (var plan_row in kb_plan_matrix.Rows) {
