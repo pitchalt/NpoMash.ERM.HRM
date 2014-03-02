@@ -200,11 +200,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 item.TypeControl = row.Order.TypeControl;
                 foreach (var c in row.Cells) {
-                    item.OrderPlan += Convert.ToInt64(c.Money);
-                    item.PlannedTravels += c.TravelTime;
-                    if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.Money);
+                    item.OrderPlan += Convert.ToInt64(c.PlanMoney);
+                    if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
-                    else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.Money); }
+                    else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
                 }
 
                 item.DepartmentItems = new List<DepartmentSet>();
@@ -228,8 +227,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.OrderItems = new List<OrderSet>();
                 item.Group = col.Department.GroupDep;
                 foreach (var c in col.Cells) {
-                    item.DepartmentPlan += c.Time;
-                    item.PlannedTravels += c.TravelTime;
+                    item.DepartmentPlan +=Convert.ToInt64(c.PlanMoney);
                 }
 
                 if (row == null)

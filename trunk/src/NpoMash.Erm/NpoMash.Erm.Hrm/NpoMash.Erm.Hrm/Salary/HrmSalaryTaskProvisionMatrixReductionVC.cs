@@ -40,10 +40,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                 IObjectSpace os = Application.CreateObjectSpace();
                 HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
                 DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
-                var card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card.MatrixplanKB, card.MatrixPlanOZM);
-                card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card.MatrixAllocKB, card.MatrixAllocOZM);
-                card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card.MatrixPlan, card.AllocParameters);
+                HrmSalaryTaskProvisionMatrixReduction card = null;
+                if (period.CurrentProvisionMatrix == null) {
+                   card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                   card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
+                   card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
+                   card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                }
+                else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+               
                 os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
