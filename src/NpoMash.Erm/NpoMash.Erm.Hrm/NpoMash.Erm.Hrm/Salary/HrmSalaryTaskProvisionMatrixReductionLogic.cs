@@ -33,6 +33,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task_provision_matrix_reduction.ProvisionMatrix.GroupDep = group_dep;
             task_provision_matrix_reduction.CurrentTimeSheetKB = period.CurrentTimeSheetKB;
             task_provision_matrix_reduction.CurrentTimeSheetOZM = period.CurrentTimeSheetOZM;
+            period.CurrentProvisionMatrix = task_provision_matrix_reduction;
             period.Matrixs.Add(task_provision_matrix_reduction.ProvisionMatrix);
 
             // Get coerced matrix from period
@@ -84,8 +85,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         // Merge planned matrix
-        public static HrmMatrix mergePlanMatrixes(IObjectSpace os, HrmMatrix kb_plan_matrix, HrmMatrix ozm_plan_matrix) {
+        public static HrmMatrix mergePlanMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrix result_plan_matrix = os.CreateObject<HrmMatrix>();
+            var kb_plan_matrix = card.MatrixplanKB;
+            var ozm_plan_matrix = card.MatrixPlanOZM;
 
             //+KB
             foreach (var plan_col in kb_plan_matrix.Columns) {
@@ -167,9 +170,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         // Merge corced matrix
-        public static HrmMatrix mergeCorcedMatrixs(IObjectSpace os, HrmMatrix kb_corced_matrix, HrmMatrix ozm_coerced_matrix) {
+        public static HrmMatrix mergeCorcedMatrixs(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrix result_coerced_matrix = os.CreateObject<HrmMatrix>();
-
+            var kb_corced_matrix = card.MatrixAllocKB;
+            var ozm_coerced_matrix = card.MatrixAllocOZM;
             //+KB
             foreach (var plan_col in kb_corced_matrix.Columns) {
                 HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
@@ -247,8 +251,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             return result_coerced_matrix;
         }
         // Create money matrix
-        public static HrmMatrix createMoneyMatrix(IObjectSpace os, HrmMatrix plan_matrix, HrmPeriodAllocParameter alloc_parameters) {
+        public static HrmMatrix createMoneyMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrix money_matrix = os.CreateObject<HrmMatrix>();
+            var alloc_parameters = card.AllocParameters;
+            var plan_matrix = card.MatrixPlan;
             //Шагаем по строкам плановой(труд) матрицы
             foreach (var plan_orders in plan_matrix.Rows) {
 
@@ -262,11 +268,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                             foreach (var plan_cell in plan_orders.Cells) {
                                 //Если вдруг КБ
                                 if (plan_cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                                    plan_cell.Money = control_order.NormKB * (plan_cell.Time + plan_cell.TravelTime);
+                                    plan_cell.PlanMoney = control_order.NormKB * (plan_cell.Time);
 
                                 }
                                 else if (plan_cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                                    plan_cell.Money = control_order.NormOZM * (plan_cell.Time + plan_cell.TravelTime);
+                                    plan_cell.PlanMoney = control_order.NormOZM * (plan_cell.Time);
                                 }
 
 
@@ -293,13 +299,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             return money_matrix;
         }
 
-
-
-
-
-
-
-        
         public static HrmMatrix calculateProvisionMatrix() { return null; }
 
 
