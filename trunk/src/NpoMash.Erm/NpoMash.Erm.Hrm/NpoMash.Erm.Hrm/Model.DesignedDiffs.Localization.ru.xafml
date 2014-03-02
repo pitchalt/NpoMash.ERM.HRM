@@ -50,11 +50,6 @@
     </Actions>
   </ActionDesign>
   <BOModel>
-    <Class Name="IntecoAG.ERM.HRM.Organization.Department">
-      <OwnMembers>
-        <Member Name="BuhCode" Caption="Бухгалтерский код" />
-      </OwnMembers>
-    </Class>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
       <OwnMembers>
         <Member Name="Matrixs" Caption="Матрицы" />
@@ -107,7 +102,6 @@
       <OwnMembers>
         <Member Name="Column" Caption="Подразделение" />
         <Member Name="Row" Caption="Заказ" />
-        <Member Name="Sum" Caption="Значение" />
         <Member Name="Time" Caption="Трудочасы" />
       </OwnMembers>
     </Class>
@@ -231,6 +225,7 @@
         <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction" Caption="Создание матрицы резерва" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet">
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
@@ -452,6 +447,60 @@
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Common" Caption="Параметры">
+              <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+                <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Caption="Карточка создания матрицы резерва">
+                  <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col1" Caption="HrmSalaryTaskProvisionMatrixReduction_col1">
+                    <LayoutGroup Id="Item1" Caption="Общие" />
+                    <LayoutGroup Id="Item2" Caption="Параметры расчета" />
+                    <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                      <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                      <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col2" Caption="HrmSalaryTaskProvisionMatrixReduction_col2">
+                    <LayoutGroup Id="Item4" Caption="Первичная проводка" />
+                    <LayoutGroup Id="AllocMatrix" Caption="Матрица учета" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixReserve" Caption="Матрица резерва">
+              <LayoutGroup Id="MatrixReserve">
+                <LayoutGroup Id="Order" Caption="Заказы" />
+                <LayoutGroup Id="Department" Caption="Подразделения" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAlloc" Caption="Приведенная матрица">
+              <LayoutGroup Id="MatrixAlloc">
+                <LayoutGroup Id="MatrixAlloc.Rows" Caption="Заказы" />
+                <LayoutGroup Id="MatrixAlloc.Columns" Caption="Подразделения" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета">
+              <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
+              <LayoutGroup Id="AllocParameters.SimpleWorkButNotLegal" Caption="Код оплаты" />
+            </LayoutGroup>
+            <LayoutGroup Id="DataSources" Caption="Исходные данные">
+              <TabbedGroup Id="DataSourcePlan">
+                <LayoutGroup Id="MatrixPlan" Caption="Плановая матрица">
+                  <LayoutGroup Id="MatrixPlan.Columns" Caption="Подразделения" />
+                  <LayoutGroup Id="MatrixPlan.Rows" Caption="Заказы" />
+                </LayoutGroup>
+                <LayoutGroup Id="TimeSheet" Caption="Табель">
+                  <LayoutGroup Id="CurrentTimeSheetKB.TimeSheetDeps" Caption="Табель КБ" />
+                  <LayoutGroup Id="CurrentTimeSheetOZM.TimeSheetDeps" Caption="Табель ОЗМ" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="HrmTimeSheet_TimeSheetDeps_ListView">
       <Columns>
         <ColumnInfo Id="TravelWorkTime" Caption="Командировочное время" />
