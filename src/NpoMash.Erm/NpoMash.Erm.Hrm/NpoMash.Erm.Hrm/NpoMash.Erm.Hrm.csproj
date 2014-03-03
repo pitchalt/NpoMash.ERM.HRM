@@ -245,6 +245,8 @@
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
     <Compile Include="Salary\Log.cs" />
+    <Compile Include="Simplex\SimplexStructure.cs" />
+    <Compile Include="Simplex\SimplexStructureLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
