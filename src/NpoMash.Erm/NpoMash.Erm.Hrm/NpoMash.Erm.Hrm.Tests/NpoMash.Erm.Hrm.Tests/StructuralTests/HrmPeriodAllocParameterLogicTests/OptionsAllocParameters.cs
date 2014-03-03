@@ -36,7 +36,9 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
             IObjectSpace object_space = application.CreateObjectSpace();
             target = new AppearanceTarget();
             controller = new AppearanceController();
-            TestWCLogic.referenceClassesGenerate(object_space);
+            TestWCLogic.SalaryPayTypeGenerate(object_space);
+            TestWCLogic.DepartmentsGenerate(object_space);
+            TestWCLogic.OrdersGenerate(object_space);
             TestWCLogic.addTestData(object_space);
             object_space.CommitChanges();
         }

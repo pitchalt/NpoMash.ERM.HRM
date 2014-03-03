@@ -49,7 +49,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             plan_matrix.Columns.Add(current_column);
                         }
                         HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
-                        new_cell.Time = Convert.ToInt16(random.Next(100, 750));
+                        new_cell.Time = Convert.ToInt16(random.Next(50, 100));
                         new_cell.MoneyAllSumm = 0;
                         new_cell.Column = current_column;
                         new_cell.Row = current_row;

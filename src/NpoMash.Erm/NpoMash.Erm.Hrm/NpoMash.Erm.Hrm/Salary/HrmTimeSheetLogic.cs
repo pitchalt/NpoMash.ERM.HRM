@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 sheet_dep.Department = current_department;
                 //sheet_dep.TimeSheet = time_sheet;
                 //time_sheet.TimeSheetDeps.Add(sheet_dep);
-                sheet_dep.BaseWorkTime = rand.Next(10000,15000);
+                sheet_dep.BaseWorkTime = rand.Next(2500, 15000);
                 sheet_dep.AdditionWorkTime = 0;
                 if (current_department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     //sheet_dep.TimeSheetGroup = kb_time_sheet;

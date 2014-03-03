@@ -29,7 +29,9 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         private void PopulateDB_Execute( object sender, SimpleActionExecuteEventArgs e ) {
             IObjectSpace object_space = Application.CreateObjectSpace();
-            TestWCLogic.referenceClassesGenerate(object_space);
+            TestWCLogic.SalaryPayTypeGenerate(object_space);
+            TestWCLogic.DepartmentsGenerate(object_space);
+            TestWCLogic.OrdersGenerate(object_space);
             TestWCLogic.addTestData( object_space );
             object_space.CommitChanges();
         }
