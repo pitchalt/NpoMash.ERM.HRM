@@ -19,8 +19,32 @@ using IntecoAG.ERM.FM.Order;
 using NpoMash.Erm.Hrm.Exchange;
 using IntecoAG.ERM.HRM.Organization;
 
+
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskImportAccountOperationLogic {
+
+        public static void CreateTestAllocResultMatrix(IObjectSpace local_object_space, HrmMatrixAllocResult matrix_alloc_result, DepartmentGroupDep group_dep) {
+            var random = new Random();
+            //int account_operation_count = local_object_space.GetObjects<fmCOrder>().Count<fmCOrder>() * local_object_space.GetObjects<Department>().Count<Department>();
+            //ImportAccountOperation[] account_list = new ImportAccountOperation[account_operation_count];
+            IDictionary<String, fmCOrder> orders_in_db = local_object_space.GetObjects<fmCOrder>()
+                .ToDictionary<fmCOrder, String>(x => x.Code);
+            IDictionary<String, Department> departments_in_db = local_object_space.GetObjects<Department>()
+                .ToDictionary<Department, String>(x => x.BuhCode);
+            foreach (var order in orders_in_db.Keys) {
+                HrmAccountOperation account_to_db = local_object_space.CreateObject<HrmAccountOperation>();
+                account_to_db.AllocResult = matrix_alloc_result;
+                account_to_db.Order = orders_in_db[order];
+                account_to_db.Order.Code = order;
+                account_to_db.Time = random.Next(1, 1000);
+                account_to_db.Money = random.Next(1,1000);
+                matrix_alloc_result.AccountOperations.Add(account_to_db);
+            }
+            foreach (var department in departments_in_db.Keys) {
+                if (departments_in_db[department].GroupDep == group_dep) {
+                }
+            }
+        }
 
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
             FileHelperEngine<ImportAccountOperation> account_operation_data = new FileHelperEngine<ImportAccountOperation>();
