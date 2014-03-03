@@ -121,6 +121,15 @@ namespace NpoMash.Erm.Hrm.Salary {
              set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
          }
 
+         private HrmMatrix _AllocResultKBOZM; //Первичная проводка ОЗМ/KB
+         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+         public HrmMatrix AllocResultKBOZM {
+             get { return _AllocResultKBOZM; }
+             set { SetPropertyValue<HrmMatrix>("AllocResultKBOZM", ref _AllocResultKBOZM, value); }
+         }
+
+
+
 
         [NonPersistent]
         public class OrderSet : XPCustomObject {
