@@ -17,7 +17,7 @@ using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public class HrmSalaryTaskProvisionMatrixReductionLogic : BaseObject {
+    public static class HrmSalaryTaskProvisionMatrixReductionLogic{
 
         public static HrmSalaryTaskProvisionMatrixReduction initProvisonMatrixTask(IObjectSpace os, HrmPeriod period, DepartmentGroupDep group_dep) {
             HrmSalaryTaskProvisionMatrixReduction task_provision_matrix_reduction = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
@@ -376,6 +376,56 @@ namespace NpoMash.Erm.Hrm.Salary {
             return alloc_result_kb_ozm;
         }
 
+        public static HrmMatrix combineMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
+            HrmMatrix provision = os.CreateObject<HrmMatrix>();
+            HrmMatrix plan_mat = card.MatrixPlanMoney;
+            HrmMatrix alloc_result = card.AllocResultKBOZM;
+            provision.Type = HrmMatrixType.TYPE_MATIX;
+            provision.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
+            provision.Status = HrmMatrixStatus.MATRIX_OPENED;
+            Dictionary<String, HrmMatrixRow> created_rows = new Dictionary<string, HrmMatrixRow>();
+            //словарь с €чейками по ключу "код колонки,код строки"
+            Dictionary<String, Dictionary<String, HrmMatrixCell>> dictionary_of_plan = new Dictionary<String, Dictionary<String, HrmMatrixCell>>();
+            foreach (HrmMatrixColumn col in plan_mat.Columns) {
+                Dictionary<String, HrmMatrixCell> d = col.Cells.ToDictionary<HrmMatrixCell, String>(x => x.Row.Order.Code);
+                dictionary_of_plan.Add(col.Department.Code, d);
+            }
+
+            foreach (HrmMatrixColumn col in alloc_result.Columns) {
+                String col_code = col.Department.Code;
+                if (!dictionary_of_plan.ContainsKey(col_code))
+                    throw new Exception("There is now department in alloc_result with code " + col_code);
+                HrmMatrixColumn current_column = os.CreateObject<HrmMatrixColumn>();
+                current_column.Department = col.Department;
+                current_column.Matrix = provision;
+                provision.Columns.Add(current_column);
+                foreach (HrmMatrixCell cell in col.Cells) {
+                    String row_code = cell.Row.Order.Code;
+                    if (!dictionary_of_plan[col_code].ContainsKey(row_code))
+                        throw new Exception("There is now cell in alloc_result with dep_code " + col_code + "and row_code "+row_code);
+                    HrmMatrixRow current_row = null;
+                    if (created_rows.ContainsKey(row_code))
+                        current_row = created_rows[row_code];
+                    else {
+                        current_row = os.CreateObject<HrmMatrixRow>();
+                        current_row.Order = cell.Row.Order;
+                        current_row.Matrix = provision;
+                        provision.Rows.Add(current_row);
+                        created_rows.Add(row_code, current_row);
+                    }
+                    HrmMatrixCell current_cell = os.CreateObject<HrmMatrixCell>();
+                    current_cell.Column = current_column;
+                    current_column.Cells.Add(current_cell);
+                    current_cell.Row = current_row;
+                    current_row.Cells.Add(current_cell);
+                    current_cell.MoneyReserve = cell.MoneyReserve;
+                    current_cell.MoneyNoReserve = cell.MoneyNoReserve;
+                    current_cell.PlanMoney = dictionary_of_plan[col_code][row_code].PlanMoney;
+                }
+            }
+            return provision;
+        }
+
 
 
         public static HrmMatrix calculateProvisionMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
@@ -605,13 +655,5 @@ namespace NpoMash.Erm.Hrm.Salary {
             return null;
         }
 
-
-
-        public HrmSalaryTaskProvisionMatrixReductionLogic(Session session)
-            : base(session) {
-        }
-        public override void AfterConstruction() {
-            base.AfterConstruction();
-        }
     }
 }
