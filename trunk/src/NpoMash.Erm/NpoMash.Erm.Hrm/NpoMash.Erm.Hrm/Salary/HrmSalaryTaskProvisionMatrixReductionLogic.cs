@@ -41,13 +41,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
                     matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED &&
                     matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                    task_provision_matrix_reduction.MatrixAllocKB = os.CreateObject<HrmMatrix>();
                     task_provision_matrix_reduction.MatrixAllocKB = matrix;
                 }
                 else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
                     matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED &&
                     matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                    task_provision_matrix_reduction.MatrixAllocOZM = os.CreateObject<HrmMatrix>();
                     task_provision_matrix_reduction.MatrixAllocOZM = matrix;
                 }
             }
@@ -56,12 +54,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
-                    task_provision_matrix_reduction.AllocResultKB = os.CreateObject<HrmMatrix>();
                     task_provision_matrix_reduction.AllocResultKB = matrix;
                 }
                 else if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
-                    task_provision_matrix_reduction.AllocResultOZM = os.CreateObject<HrmMatrix>();
                     task_provision_matrix_reduction.AllocResultOZM = matrix;
                 }
             }
@@ -70,12 +66,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_MATIX &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.TypeMatrix==HrmMatrixTypeMatrix.MATRIX_PLANNED) {
-                    task_provision_matrix_reduction.MatrixplanKB = os.CreateObject<HrmMatrix>();
                     task_provision_matrix_reduction.MatrixplanKB = matrix;
                 }
                 else if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_MATIX &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED) {
-                    task_provision_matrix_reduction.MatrixPlanOZM = os.CreateObject<HrmMatrix>();
                     task_provision_matrix_reduction.MatrixPlanOZM = matrix;
                 }
             }
@@ -392,312 +386,137 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         public static HrmMatrix calculateProvisionMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
-            var plan_matrix = card.MatrixPlan;
-            var alloc_result = card.AllocResultKBOZM;
+            var matrix=os.CreateObject<HrmMatrix>();
 
-            foreach (var column in alloc_result.Columns) {
-                int a_key = column.Cells.Count;
-                int b_key = 0;
+            //Цикл по подразделениям
+            foreach (var column in matrix.Columns) {
+                
+                int cells_count = column.Cells.Count;
+                int controlled_cells_count = 0;
+
                 Decimal department_provision = 0;
                 Decimal department_needs = 0;
-                // Проверяем полностью контрол или нет
+
+                // Проверим сколько в подразделении контролируемых заказов
                 foreach (var cell in column.Cells) {
                     if (cell.Row.Order.TypeControl == FmCOrderTypeControl.FOT || cell.Row.Order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT) {
-                        b_key++;
+                        controlled_cells_count++;
                     }
                 }
 
-                //Посчитали резерв
+                //Посчитаем резерв
                 foreach (var cell in column.Cells) {
                     department_provision += cell.MoneyReserve;
+                    cell.MoneyReserve = 0;
                 }
 
-                //Если полностью контролируемое
-                if (b_key == a_key) {
+                if (cells_count == controlled_cells_count) {
+                    List<Decimal> diffs_list = new List<decimal>();
+                    int zero_difference_orders = 0;
 
-                    foreach (var plan_column in plan_matrix.Columns) {
-                        //Если колонки в плане и в проводке совпали
-                        if (plan_column == column) {
-
-                            //Посчитаем сколько единиц надо для добора ячеек до плана
-                            foreach (var plan_cell in plan_column.Cells) {
-                                foreach (var alloc_cell in column.Cells) {
-                                    if (plan_cell == alloc_cell) {
-                                        Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                        if (difference > 0) { department_needs += difference; }
-                                    }
-                                }
-                            }
-                            //Если резерв больше необходимого 
-                            if (department_provision >= department_needs) {
-                                List<Decimal> diffs_list = new List<Decimal>();
-                                int unzero_orders_count = 0;
-                                //То обрабатываем в первую очередь те ячейки где П-Ф(база)>0
-                                foreach (var plan_cell in plan_column.Cells) {
-                                    foreach (var alloc_cell in column.Cells) {
-                                        if (plan_cell == alloc_cell) {
-                                            Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                            //Если разность больше 0
-                                            if (difference > 0) {
-                                                alloc_cell.MoneyNoReserve += department_provision * (difference / department_provision);
-                                                department_provision -= department_provision * (difference / department_provision);
-                                                unzero_orders_count++;
-                                            }
-                                            //Если разность меньше 0
-                                            else if (difference < 0) {
-                                                diffs_list.Add(Math.Abs(difference));
-                                            }
-                                        }
-                                    }
-                                }
-                                // Поскольку мы поняли что резерва больше чем достаточно, то значит после первой итерации он остался, а значит его надо распределить
-                                // Поэтому давайте найдем минимальное превышение среди тех ячеек где П-Ф<0, и добавим это превышение к каждому заказу где П-Ф=0 
-
-                                Decimal min_waste = diffs_list.Min(); // Найдем минимаьное превышение
-
-                                //Далее надо проверить, если остатка резерва хватит чтобы ко всем добавим этот минимум
-
-                                //Если хватит/ пока резерв не кончится
-                                while (department_provision != 0) {
-                                    if (department_provision - (min_waste * unzero_orders_count) >= 0) {
-                                        foreach (var plan_cell in plan_column.Cells) {
-                                            foreach (var alloc_cell in column.Cells) {
-                                                if (plan_cell == alloc_cell) {
-                                                    Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                                    if (difference == 0) {
-                                                        alloc_cell.MoneyNoReserve += min_waste;
-                                                        department_provision -= min_waste;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    //Если не хватит, то распределим пропорционально кол-ву заказов
-                                    else if (department_provision - (min_waste * unzero_orders_count) < 0 || min_waste == null) {
-                                        foreach (var plan_cell in plan_column.Cells) {
-                                            foreach (var alloc_cell in column.Cells) {
-                                                if (plan_cell == alloc_cell) {
-                                                    Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                                    if (difference == 0) {
-                                                        alloc_cell.MoneyNoReserve += department_provision / unzero_orders_count;
-                                                        department_provision -= department_provision / unzero_orders_count;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    diffs_list.Remove(min_waste);
-                                    min_waste = diffs_list.Min();
-                                }
-
-                            }
-                            //Если резерва не хватает, то предлагаю распределить туда куда хватит
-                            else if (department_provision <= department_needs) {
-                                //То обрабатываем те ячейки где П-Ф(база)>0
-                                foreach (var plan_cell in plan_column.Cells) {
-                                    if (department_provision != 0) {
-                                        foreach (var alloc_cell in column.Cells) {
-                                            if (plan_cell == alloc_cell) {
-                                                Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                                //Если разность больше 0
-                                                // if (department_provision != 0) {
-                                                if (difference > 0) {
-                                                    alloc_cell.MoneyNoReserve += department_provision * (difference / department_provision);
-                                                    department_provision -= department_provision * (difference / department_provision);
-                                                }
-                                                // }
-                                                // else { break; }
-                                            }
-                                        }
-                                    }
-                                    else { break; }
-                                }
-                            }
-
+                    //Посчитаем сколько резерва надо на подразделение
+                    foreach (var cell in column.Cells) {
+                        Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                        if (difference >= 0) {
+                            department_needs += difference;
                         }
-
-
+                        else { diffs_list.Add(Math.Abs(difference)); }
                     }
-                }
-                //Смешанное подразделение 
-                else if (b_key != 0 && b_key != a_key) {
 
-                    int un_controled_orders_count = 0;
+                    // Определимся хватит ли резерва
+                    if (department_provision > department_needs) {
 
-                    foreach (var plan_column in plan_matrix.Columns) {
-                        //Если колонки в плане и в проводке совпали
-                        if (plan_column == column) {
-                            //Посчитаем сколько единиц надо для добора ячеек до плана
-                            foreach (var plan_cell in plan_column.Cells) {
-                                foreach (var alloc_cell in column.Cells) {
-                                    if (plan_cell == alloc_cell) {
-                                        if (alloc_cell.Row.Order.TypeControl == FmCOrderTypeControl.FOT || alloc_cell.Row.Order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT) {
-                                            Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                            if (difference > 0) { department_needs += difference; }
-                                        }
-                                        else un_controled_orders_count++;
-                                    }
-                                }
-                            }
-                            //Если резерв больше необходимого 
-                            if (department_provision >= department_needs) {
-
-                                //То обрабатываем в первую очередь те ячейки где П-Ф(база)>0
-                                foreach (var plan_cell in plan_column.Cells) {
-                                    foreach (var alloc_cell in column.Cells) {
-                                        if (plan_cell == alloc_cell) {
-                                            Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                            //Если разность больше 0
-                                            if (difference > 0) {
-                                                alloc_cell.MoneyNoReserve += department_provision * (difference / department_provision);
-                                                department_provision -= department_provision * (difference / department_provision);
-                                                un_controled_orders_count++;
-                                            }
-                                            //Если разность меньше 0, то ничего не делаем
-                                            else if (difference < 0) { }
-                                        }
-                                    }
-                                }
-                            }
-
-                            //Поскольку общего резерва было более чем достаточно для закрытия только контролируемых заказов, предлагаю остаток просто вылить на
-                            //неконтролируемые пропорционально их количеству
-
-                                foreach (var plan_cell in plan_column.Cells) {
-                                    foreach (var alloc_cell in column.Cells) {
-                                        if (plan_cell == alloc_cell) {
-                                            Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-
-                                            if (alloc_cell.Row.Order.TypeControl == FmCOrderTypeControl.NO_ORDERED && difference > 0) {
-
-                                                alloc_cell.MoneyNoReserve += department_provision / un_controled_orders_count;
-
-                                            }
-                                        }
-                                    }
-                                }
-
-
-
-                        }
+                        foreach (var cell in column.Cells) {
+                            Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                            if (difference > 0) { cell.MoneyReserve += difference; department_provision -= difference; zero_difference_orders++; }
                         
-                    }
-                }
-                    //Полностью неконтролируемое
-                else if (b_key == 0) {
-                    foreach (var plan_column in plan_matrix.Columns) {
-                        //Если колонки в плане и в проводке совпали
-                        if (plan_column == column) {
-
-                            //Посчитаем сколько единиц надо для добора ячеек до плана
-                            foreach (var plan_cell in plan_column.Cells) {
-                                foreach (var alloc_cell in column.Cells) {
-                                    if (plan_cell == alloc_cell) {
-                                        Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                        if (difference > 0) { department_needs += difference; }
-                                    }
-                                }
-                            }
-                            //Если резерв больше необходимого 
-                            if (department_provision >= department_needs) {
-                                List<Decimal> diffs_list = new List<Decimal>();
-                                int unzero_orders_count = 0;
-                                //То обрабатываем в первую очередь те ячейки где П-Ф(база)>0
-                                foreach (var plan_cell in plan_column.Cells) {
-                                    foreach (var alloc_cell in column.Cells) {
-                                        if (plan_cell == alloc_cell) {
-                                            Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                            //Если разность больше 0
-                                            if (difference > 0) {
-                                                alloc_cell.MoneyNoReserve += department_provision * (difference / department_provision);
-                                                department_provision -= department_provision * (difference / department_provision);
-                                                unzero_orders_count++;
-                                            }
-                                            //Если разность меньше 0
-                                            else if (difference < 0) {
-                                                diffs_list.Add(Math.Abs(difference));
-                                            }
-                                        }
-                                    }
-                                }
-                                // Поскольку мы поняли что резерва больше чем достаточно, то значит после первой итерации он остался, а значит его надо распределить
-                                // Поэтому давайте найдем минимальное превышение среди тех ячеек где П-Ф<0, и добавим это превышение к каждому заказу где П-Ф=0 
-
-                                Decimal min_waste = diffs_list.Min(); // Найдем минимаьное превышение
-
-                                //Далее надо проверить, если остатка резерва хватит чтобы ко всем добавим этот минимум
-
-                                //Если хватит/ пока резерв не кончится
-                                while (department_provision != 0) {
-                                    if (department_provision - (min_waste * unzero_orders_count) >= 0) {
-                                        foreach (var plan_cell in plan_column.Cells) {
-                                            foreach (var alloc_cell in column.Cells) {
-                                                if (plan_cell == alloc_cell) {
-                                                    Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                                    if (difference == 0) {
-                                                        alloc_cell.MoneyNoReserve += min_waste;
-                                                        department_provision -= min_waste;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    //Если не хватит, то распределим пропорционально кол-ву заказов
-                                    else if (department_provision - (min_waste * unzero_orders_count) < 0 || min_waste == null) {
-                                        foreach (var plan_cell in plan_column.Cells) {
-                                            foreach (var alloc_cell in column.Cells) {
-                                                if (plan_cell == alloc_cell) {
-                                                    Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                                    if (difference == 0) {
-                                                        alloc_cell.MoneyNoReserve += department_provision / unzero_orders_count;
-                                                        department_provision -= department_provision / unzero_orders_count;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    diffs_list.Remove(min_waste);
-                                    min_waste = diffs_list.Min();
-                                }
-
-                            }
-                            //Если резерва не хватает, то предлагаю распределить туда куда хватит
-                            else if (department_provision <= department_needs) {
-                                //То обрабатываем те ячейки где П-Ф(база)>0
-                                foreach (var plan_cell in plan_column.Cells) {
-                                    if (department_provision != 0) {
-                                        foreach (var alloc_cell in column.Cells) {
-                                            if (plan_cell == alloc_cell) {
-                                                Decimal difference = plan_cell.PlanMoney - alloc_cell.MoneyNoReserve;
-                                                //Если разность больше 0
-                                                // if (department_provision != 0) {
-                                                if (difference > 0) {
-                                                    alloc_cell.MoneyNoReserve += department_provision * (difference / department_provision);
-                                                    department_provision -= department_provision * (difference / department_provision);
-                                                }
-                                                // }
-                                                // else { break; }
-                                            }
-                                        }
-                                    }
-                                    else { break; }
-                                }
-                            }
-
                         }
 
+                        while (department_provision != 0) {
+                            Decimal min_waste = diffs_list.Min();
 
+                            if (department_provision - (min_waste * controlled_cells_count) >= 0) {
+                                foreach (var cell in column.Cells) {
+                                    if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
+                                        cell.MoneyReserve += min_waste;
+                                        department_provision -= min_waste;
+                                    }
+                                }
+                                diffs_list.Remove(min_waste);
+                            }
+                            else {
+                                foreach (var cell in column.Cells) {
+                                    if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
+                                        cell.MoneyReserve += department_provision / zero_difference_orders;
+                                        department_provision -= department_provision / zero_difference_orders;
+                                    }
+                                }
+                            
+                            }
+                        }                    
+                    
+                                           
+                    } else {
+                        foreach (var cell in column.Cells) {
+                            Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                            if (difference > 0) { zero_difference_orders++; }
+
+                        }
+                        foreach (var cell in column.Cells) {
+                            Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                            if (difference > 0) {
+                                cell.MoneyReserve += department_provision / zero_difference_orders;
+                                department_provision -= department_provision / zero_difference_orders;
+                            }
+                        }
                     }
 
+                } else if (cells_count > controlled_cells_count) {
+
+                    if (department_provision >= department_needs) {
+
+
+                        foreach (var cell in column.Cells) {
+                            foreach (var order in card.AllocParameters.OrderControls) {
+                                if (cell.Row.Order.Code == order.Order.Code) { 
+                                
+                                
+                                
+                                }
+                            
+                            }
+                        
+                        
+                        }                 
+                    
+                    
+                    
+                    
+                    
+                                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    } else { }
+
+
+                
+                
+                } else if (controlled_cells_count == 0) { 
+                
+                
+                
                 }
-
-
 
             }
-            return alloc_result;
+
+            return null;
         }
-            
-        
 
 
 
