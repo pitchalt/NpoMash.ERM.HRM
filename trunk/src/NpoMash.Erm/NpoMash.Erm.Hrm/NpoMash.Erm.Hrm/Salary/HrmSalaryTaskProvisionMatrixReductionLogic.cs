@@ -378,13 +378,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-
-
-
-
-
-
-
         public static HrmMatrix calculateProvisionMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             var matrix=os.CreateObject<HrmMatrix>();
 
@@ -472,43 +465,137 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
 
                 } else if (cells_count > controlled_cells_count) {
+                    int uncontrolled_orders_count = cells_count-controlled_cells_count;
+                    bool flag = false;
+
+
+                    //ѕосчитаем сколько резерва надо на подразделение
+                    foreach (var cell in column.Cells) {
+                        foreach (var order in card.AllocParameters.OrderControls) {
+                            if (cell.Row.Order.Code == order.Order.Code) {
+                                var difference = cell.PlanMoney - cell.MoneyNoReserve;
+                                if (difference > 0) {
+                                    department_needs += difference;
+                                }
+                            }
+                        }
+                    }
 
                     if (department_provision >= department_needs) {
 
 
                         foreach (var cell in column.Cells) {
                             foreach (var order in card.AllocParameters.OrderControls) {
-                                if (cell.Row.Order.Code == order.Order.Code) { 
-                                
-                                
-                                
+                                if (cell.Row.Order.Code == order.Order.Code) {
+                                    var difference=cell.PlanMoney - cell.MoneyNoReserve;
+                                    if ( difference > 0) {
+                                        cell.MoneyReserve += difference;
+                                        department_provision -= difference;
+                                    }
                                 }
-                            
                             }
-                        
-                        
-                        }                 
-                    
-                    
-                    
-                    
-                    
-                                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    } else { }
+                        }
 
 
-                
-                
-                } else if (controlled_cells_count == 0) { 
-                
+                        foreach (var cell in column.Cells) {
+                            foreach (var order in card.AllocParameters.OrderControls) {
+                                if (cell.Row.Order.Code == order.Order.Code) {
+                                    flag = true;
+                                }
+                            }
+
+                            if (flag == false) {
+                                cell.MoneyReserve += department_provision / uncontrolled_orders_count;
+                            }  
+                        }  
+                    
+                    } else {
+                        int controlled_provide_orders = 0;
+
+                        foreach (var cell in column.Cells) {
+                            foreach (var order in card.AllocParameters.OrderControls) {
+                                if (cell.Row.Order.Code == order.Order.Code) {
+                                    var difference = cell.PlanMoney - cell.MoneyNoReserve;
+                                    if (difference > 0) {
+                                        controlled_provide_orders++;
+                                    }
+                                }
+                            }
+                        }
+
+                        foreach (var cell in column.Cells) {
+                            foreach (var order in card.AllocParameters.OrderControls) {
+                                if (cell.Row.Order.Code == order.Order.Code) {
+                                    var difference = cell.PlanMoney - cell.MoneyNoReserve;
+                                    if (difference > 0) {
+                                        cell.MoneyReserve += department_provision / controlled_provide_orders;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                } else if (controlled_cells_count == 0) {
+                    List<Decimal> diffs_list = new List<decimal>();
+                    int zero_difference_orders = 0;
+
+                    //ѕосчитаем сколько резерва надо на подразделение
+                    foreach (var cell in column.Cells) {
+                        Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                        if (difference >= 0) {
+                            department_needs += difference;
+                        }
+                        else { diffs_list.Add(Math.Abs(difference)); }
+                    }
+
+                    // ќпределимс€ хватит ли резерва
+                    if (department_provision > department_needs) {
+
+                        foreach (var cell in column.Cells) {
+                            Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                            if (difference > 0) { cell.MoneyReserve += difference; department_provision -= difference; zero_difference_orders++; }
+
+                        }
+
+                        while (department_provision != 0) {
+                            Decimal min_waste = diffs_list.Min();
+
+                            if (department_provision - (min_waste * controlled_cells_count) >= 0) {
+                                foreach (var cell in column.Cells) {
+                                    if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
+                                        cell.MoneyReserve += min_waste;
+                                        department_provision -= min_waste;
+                                    }
+                                }
+                                diffs_list.Remove(min_waste);
+                            }
+                            else {
+                                foreach (var cell in column.Cells) {
+                                    if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
+                                        cell.MoneyReserve += department_provision / zero_difference_orders;
+                                        department_provision -= department_provision / zero_difference_orders;
+                                    }
+                                }
+
+                            }
+                        }
+
+
+                    }
+                    else {
+                        foreach (var cell in column.Cells) {
+                            Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                            if (difference > 0) { zero_difference_orders++; }
+
+                        }
+                        foreach (var cell in column.Cells) {
+                            Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
+                            if (difference > 0) {
+                                cell.MoneyReserve += department_provision / zero_difference_orders;
+                                department_provision -= department_provision / zero_difference_orders;
+                            }
+                        }
+                    }
                 
                 
                 }
