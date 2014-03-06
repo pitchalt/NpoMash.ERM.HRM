@@ -26,40 +26,31 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _PlanMoney;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal PlanMoney {
             get { return _PlanMoney; }
             set { SetPropertyValue<Decimal>("PlanMoney", ref _PlanMoney, value); }
         }
 
         private Decimal _MoneyReserve;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyReserve {
             get { return _MoneyReserve; }
-            set {
-                if (!IsLoading) {
-                    if (AccountOperations != null) {
-                        foreach (var account in AccountOperations) {
-                            if (account != null) { 
-                                //логика обработки коллекции
-                            }
-                        }
-                    }
-                }
-                else {
-                    SetPropertyValue<Decimal>("MoneyReserve", ref _MoneyReserve, value);
-                }
-            }
+            set { SetPropertyValue<Decimal>("MoneyReserve", ref _MoneyReserve, value); }
         }
 
         private Decimal _MoneyNoReserve;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyNoReserve {
             get { return _MoneyNoReserve; }
-            set { }
+            set { SetPropertyValue<Decimal>("MoneyNoReserve", ref _MoneyNoReserve, value); }
         }
 
         private Decimal _MoneyTravel;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyTravel {
             get { return _MoneyTravel; }
-            set { }
+            set { SetPropertyValue<Decimal>("MoneyTravel", ref _MoneyTravel, value); }
         }
 
         private Decimal _MoneyAllSumm;

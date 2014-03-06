@@ -23,25 +23,129 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskImportAccountOperationLogic {
 
-        public static void CreateTestAllocResultMatrix(IObjectSpace local_object_space, HrmMatrixAllocResult matrix_alloc_result, DepartmentGroupDep group_dep) {
-            var random = new Random();
-            //int account_operation_count = local_object_space.GetObjects<fmCOrder>().Count<fmCOrder>() * local_object_space.GetObjects<Department>().Count<Department>();
-            //ImportAccountOperation[] account_list = new ImportAccountOperation[account_operation_count];
-            IDictionary<String, fmCOrder> orders_in_db = local_object_space.GetObjects<fmCOrder>()
-                .ToDictionary<fmCOrder, String>(x => x.Code);
-            IDictionary<String, Department> departments_in_db = local_object_space.GetObjects<Department>()
-                .ToDictionary<Department, String>(x => x.BuhCode);
-            foreach (var order in orders_in_db.Keys) {
-                HrmAccountOperation account_to_db = local_object_space.CreateObject<HrmAccountOperation>();
-                account_to_db.AllocResult = matrix_alloc_result;
-                account_to_db.Order = orders_in_db[order];
-                account_to_db.Order.Code = order;
-                account_to_db.Time = random.Next(1, 1000);
-                account_to_db.Money = random.Next(1,1000);
-                matrix_alloc_result.AccountOperations.Add(account_to_db);
+        public static void CreateAllocResultFromPlan(IObjectSpace local_object_space, HrmMatrixAllocResult kb_result, HrmMatrixAllocResult ozm_result, HrmSalaryTaskImportAccountOperation local_task) {
+            IDictionary<DepartmentGroupDep, HrmMatrixAllocPlan> plan_matrixes = local_object_space.GetObjects<HrmMatrixAllocPlan>()
+                .ToDictionary<HrmMatrixAllocPlan, DepartmentGroupDep>(x => x.GroupDep);
+            foreach (var department_group in plan_matrixes.Keys) {
+                if (department_group == DepartmentGroupDep.DEPARTMENT_KB) {
+                    foreach (var column in plan_matrixes[department_group].Columns) {
+                        HrmMatrixColumn new_column = local_object_space.CreateObject<HrmMatrixColumn>();
+                        new_column.Department = column.Department;
+                        new_column.Matrix = column.Matrix;
+                        kb_result.Columns.Add(new_column);
+                        foreach (var cell in column.Cells) {
+                            HrmMatrixCell new_cell = local_object_space.CreateObject<HrmMatrixCell>();
+                            HrmMatrixRow new_row = local_object_space.CreateObject<HrmMatrixRow>();
+                            new_cell.Column = new_column;
+                            new_cell.Row = new_row;
+                            new_cell.Row.Order = cell.Row.Order;
+                            new_row.Matrix = cell.Row.Matrix;
+                            new_row.Cells.Add(new_cell);
+                            new_column.Cells.Add(new_cell);
+                            kb_result.Rows.Add(new_row);
+                        }
+                    }
+                }
+                else {
+                    foreach (var column in plan_matrixes[department_group].Columns) {
+                        HrmMatrixColumn new_column = local_object_space.CreateObject<HrmMatrixColumn>();
+                        new_column.Department = column.Department;
+                        new_column.Matrix = column.Matrix;
+                        kb_result.Columns.Add(new_column);
+                        foreach (var cell in column.Cells) {
+                            HrmMatrixCell new_cell = local_object_space.CreateObject<HrmMatrixCell>();
+                            HrmMatrixRow new_row = local_object_space.CreateObject<HrmMatrixRow>();
+                            new_cell.Column = new_column;
+                            new_cell.Row = new_row;
+                            new_cell.Row.Order = cell.Row.Order;
+                            new_row.Matrix = cell.Row.Matrix;
+                            new_row.Cells.Add(new_cell);
+                            new_column.Cells.Add(new_cell);
+                            kb_result.Rows.Add(new_row);
+                        }
+                    }
+                }
             }
-            foreach (var department in departments_in_db.Keys) {
-                if (departments_in_db[department].GroupDep == group_dep) {
+            local_object_space.CommitChanges();
+            CreateTestAllocResultMatrix(local_object_space, kb_result, DepartmentGroupDep.DEPARTMENT_KB, 
+                CreateReservePayType(local_object_space), CreateNoReservePayType(local_object_space), null);
+            CreateTestAllocResultMatrix(local_object_space, ozm_result, DepartmentGroupDep.DEPARTMENT_OZM,
+                CreateReservePayType(local_object_space), CreateNoReservePayType(local_object_space), null);
+        }
+
+        public static HrmSalaryPayType CreateReservePayType(IObjectSpace local_object_space) {
+            HrmSalaryPayType paytype_in_db = null;
+            foreach (var paytype in local_object_space.GetObjects<HrmSalaryPayType>()) {
+                paytype_in_db = paytype;
+            }
+            return paytype_in_db;
+        }
+
+        public static HrmSalaryPayType CreateNoReservePayType(IObjectSpace local_object_space) {
+            HrmSalaryPayType paytype_to_db =  local_object_space.CreateObject<HrmSalaryPayType>();
+            paytype_to_db.Code = "100";
+            paytype_to_db.Name = "Код оплаты, не входящий в резерв";
+            local_object_space.CommitChanges();
+            return paytype_to_db;
+        }
+
+        public static void CreateTestAllocResultMatrix(IObjectSpace local_object_space, HrmMatrixAllocResult matrix_alloc_result, DepartmentGroupDep group_dep,
+            HrmSalaryPayType reserve_paytype, HrmSalaryPayType no_reserve_paytype, HrmSalaryPayType travel_paytype) {
+            var random = new Random();
+            foreach (var column in matrix_alloc_result.Columns) {
+                if (column.Department.GroupDep == group_dep) {
+                    foreach (var cell in column.Cells) {
+                        int how_many_accounts = random.Next(1, 4);
+                        switch (how_many_accounts) {
+                            case 1:
+                                HrmAccountOperation reserve_account_first = local_object_space.CreateObject<HrmAccountOperation>();
+                                reserve_account_first.Department = cell.Column.Department;
+                                reserve_account_first.PayType = reserve_paytype;
+                                reserve_account_first.Order = cell.Row.Order;
+                                reserve_account_first.Money = random.Next(100, 1000);
+                                cell.AccountOperations.Add(reserve_account_first);
+                                matrix_alloc_result.AccountOperations.Add(reserve_account_first);
+                                break;
+                            case 2:
+                                HrmAccountOperation reserve_account_second = local_object_space.CreateObject<HrmAccountOperation>();
+                                HrmAccountOperation no_reserve_account_second = local_object_space.CreateObject<HrmAccountOperation>();
+                                reserve_account_second.Department = cell.Column.Department;
+                                reserve_account_second.PayType = reserve_paytype;
+                                reserve_account_second.Order = cell.Row.Order;
+                                reserve_account_second.Money = random.Next(1, 1000);
+                                no_reserve_account_second.Department = cell.Column.Department;
+                                no_reserve_account_second.PayType = no_reserve_paytype;
+                                no_reserve_account_second.Order = cell.Row.Order;
+                                no_reserve_account_second.Money = random.Next(1, 1000);
+                                cell.AccountOperations.Add(reserve_account_second);
+                                cell.AccountOperations.Add(no_reserve_account_second);
+                                matrix_alloc_result.AccountOperations.Add(reserve_account_second);
+                                matrix_alloc_result.AccountOperations.Add(no_reserve_account_second);
+                                break;
+                            case 3:
+                                HrmAccountOperation reserve_account_third = local_object_space.CreateObject<HrmAccountOperation>();
+                                HrmAccountOperation no_reserve_account_third = local_object_space.CreateObject<HrmAccountOperation>();
+                                //HrmAccountOperation travel_account_third = local_object_space.CreateObject<HrmAccountOperation>();
+                                reserve_account_third.Department = cell.Column.Department;
+                                reserve_account_third.PayType = reserve_paytype;
+                                reserve_account_third.Order = cell.Row.Order;
+                                reserve_account_third.Money = random.Next(1, 1000);
+                                no_reserve_account_third.Department = cell.Column.Department;
+                                no_reserve_account_third.PayType = no_reserve_paytype;
+                                no_reserve_account_third.Order = cell.Row.Order;
+                                no_reserve_account_third.Money = random.Next(1, 1000);
+                                //travel_account_third.Department = cell.Column.Department;
+                                //travel_account_third.PayType = travel_paytype;
+                                //travel_account_third.Order = cell.Row.Order;
+                                //travel_account_third.Money = random.Next(1, 1000);
+                                cell.AccountOperations.Add(reserve_account_third);
+                                cell.AccountOperations.Add(no_reserve_account_third);
+                                matrix_alloc_result.AccountOperations.Add(reserve_account_third);
+                                matrix_alloc_result.AccountOperations.Add(no_reserve_account_third);
+                                //matrix_alloc_result.AccountOperations.Add(travel_account_third);
+                                break;
+                        }
+                    }
                 }
             }
         }
@@ -53,6 +157,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
             matrix_alloc_result_kb.IterationNumber = 1;
             matrix_alloc_result_ozm.IterationNumber = 1;
+            matrix_alloc_result_kb.Period = local_task.Period;
+            matrix_alloc_result_ozm.Period = local_task.Period;
+            matrix_alloc_result_kb.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
+            matrix_alloc_result_ozm.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             matrix_alloc_result_kb.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_ozm.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_OPENED;
@@ -66,6 +174,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
+            CreateAllocResultFromPlan(local_object_space, matrix_alloc_result_kb, matrix_alloc_result_ozm, local_task);
+
+            /*
+            IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
+            IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<string, HrmMatrixRow>();
+            IDictionary<String, HrmMatrixColumn> alloc_result_columns = null;
+            IDictionary<String, HrmMatrixRow> alloc_result_rows = null;
+            IDictionary<String, fmCOrder> orders_in_database = local_object_space.GetObjects<fmCOrder>()
+                .ToDictionary<fmCOrder, String>(x => x.Code);
+            IDictionary<String, Department> departments_inPdatabase = local_object_space.GetObjects<Department>()
+                .ToDictionary<Department, String>(x => x.BuhCode);
+            HrmMatrix alloc_result_matrix = null;
+            */
         }
     }
 }
