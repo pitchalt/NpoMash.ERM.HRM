@@ -108,8 +108,9 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void SalaryPayTypeGenerate(IObjectSpace local_object_space) {
             var random = new Random();
             IList<String> list_paytype_code = new List<String>();
+            list_paytype_code.Add("101");    
             for (int i = 0 ; i < _Salarypaytype_Count; i++) {
-                String paytype_code = Convert.ToString(random.Next(100, 1000));
+                String paytype_code = Convert.ToString(random.Next(102, 1000));
                 if (!list_paytype_code.Contains(paytype_code)) {
                     list_paytype_code.Add(paytype_code);
                 }
