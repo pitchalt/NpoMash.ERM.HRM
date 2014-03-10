@@ -96,7 +96,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         private Int64 _id;
         public Int64 id { get { return _id; } set { _id = value; } }
         private bool _IsAuxiliary;
-        public bool IsAuxiliary { get { return _IsAuxiliary; } set { IsAuxiliary = value; } }
+        public bool IsAuxiliary { get { return _IsAuxiliary; } set { _IsAuxiliary = value; } }
         private Object _RefToRealObject;
         public Object RefToRealObject { get { return _RefToRealObject; } set { _RefToRealObject = value; } }
         public XVar(Int64 i) {
@@ -114,12 +114,13 @@ namespace NpoMash.Erm.Hrm.Simplex {
         private ResultVector _PreviousResult;
         public ResultVector PreviousResult { get { return _PreviousResult; } set { _PreviousResult = value; } }
         private ResultVector _BearingPlan;
-        public ResultVector BearingPlan;
+        public ResultVector BearingPlan { get { return _BearingPlan; } set { _BearingPlan = value; } }
 
         public CountProcess() {
             Eps = 1;
             CurrentResult = null;
             PreviousResult = null;
+            BearingPlan = null;
         }
     }
 
