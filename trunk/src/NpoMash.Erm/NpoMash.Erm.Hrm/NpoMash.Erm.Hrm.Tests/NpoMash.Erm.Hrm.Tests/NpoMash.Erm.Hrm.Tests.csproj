@@ -133,6 +133,7 @@
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\NewCreationAllocParameters.cs" />
     <Compile Include="StructuralTests\HrmPeriodAllocParameterLogicTests\OptionsAllocParameters.cs" />
     <Compile Include="StructuralTests\ImportTestDataFromExcelLogic.cs" />
+    <Compile Include="StructuralTests\ImportTestDataFromExcelStructure.cs" />
     <Compile Include="StructuralTests\TestApplication.cs">
       <SubType>Component</SubType>
     </Compile>
