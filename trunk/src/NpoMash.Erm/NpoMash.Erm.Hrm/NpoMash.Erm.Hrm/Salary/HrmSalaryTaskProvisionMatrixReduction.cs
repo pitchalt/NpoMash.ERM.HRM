@@ -193,8 +193,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected void orderCreate() { LoadMatrixOrder(MatrixPlanMoney, null, Order); }
-        protected void departmentCreate() { LoadMatrixDepartment(MatrixPlanMoney, null, Department); }
+        protected void orderCreate() { LoadMatrixOrder(ProvisionMatrix, null, Order); }
+        protected void departmentCreate() { LoadMatrixDepartment(ProvisionMatrix, null, Department); }
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderSet> items  ) {
             foreach (HrmMatrixRow row in matrix.Rows) {

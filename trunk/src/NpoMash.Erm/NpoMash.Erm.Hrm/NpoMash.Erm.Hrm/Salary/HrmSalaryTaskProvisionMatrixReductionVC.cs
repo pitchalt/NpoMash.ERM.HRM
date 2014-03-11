@@ -47,7 +47,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                    card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
                    card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
                    card.AllocResultKBOZM = HrmSalaryTaskProvisionMatrixReductionLogic.mergeAllocResults(os, card);
+                   card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
                    card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
+
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
                

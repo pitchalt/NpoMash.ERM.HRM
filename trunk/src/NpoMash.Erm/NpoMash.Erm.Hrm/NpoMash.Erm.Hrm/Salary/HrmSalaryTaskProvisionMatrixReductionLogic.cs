@@ -429,7 +429,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         public static HrmMatrix calculateProvisionMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
-            var matrix=os.CreateObject<HrmMatrix>();
+            var matrix = card.ProvisionMatrix;
 
             //Цикл по подразделениям
             foreach (var column in matrix.Columns) {
