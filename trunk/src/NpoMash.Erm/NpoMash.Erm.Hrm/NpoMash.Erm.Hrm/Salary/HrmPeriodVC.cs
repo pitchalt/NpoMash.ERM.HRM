@@ -24,21 +24,21 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmPeriodVC : ViewController {
 
-        
-        public HrmPeriodVC() { 
-            InitializeComponent(); 
-            RegisterActions(components); 
+
+        public HrmPeriodVC() {
+            InitializeComponent();
+            RegisterActions(components);
 
         }
 
-        protected override void OnActivated() { 
+        protected override void OnActivated() {
             base.OnActivated();
             DetailView detail_view = View as DetailView;
             // Если мы в карточке
             if (detail_view != null) {
                 // Получим доступ к редактору списка задач периода
                 ListPropertyEditor list_editor = detail_view.FindItem("PeriodTasks") as ListPropertyEditor;
-                if (list_editor != null) 
+                if (list_editor != null)
                     // Подпишемся на событие создание реального контрола редактора (XAF использует ленивую загрузку контролов)
                     list_editor.ControlCreated += new EventHandler<EventArgs>(TaskListEditor_ControlCreated);
             }
@@ -46,10 +46,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         void TaskListEditor_ControlCreated(object sender, EventArgs e) {
             // ПОдпишемся на события контроллера управляющего реакцией на действие открыть в списке
-            ListPropertyEditor list_editor = (ListPropertyEditor) sender;
+            ListPropertyEditor list_editor = (ListPropertyEditor)sender;
             // Найдем в фрейме редактора нужный нам контроллер 
             ListViewProcessCurrentObjectController list_view_controller = list_editor.Frame.GetController<ListViewProcessCurrentObjectController>();
-            if (list_view_controller != null) 
+            if (list_view_controller != null)
                 // Подпишемся на событие открыть объект в списке
                 list_view_controller.CustomProcessSelectedItem += new EventHandler<CustomProcessListViewSelectedItemEventArgs>(TaskListView_CustomProcessSelectedItem);
         }
@@ -67,12 +67,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        protected override void OnViewControlsCreated() { 
-            base.OnViewControlsCreated(); 
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
         }
 
-        protected override void OnDeactivated() { 
-            base.OnDeactivated(); 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
         }
 
         private void ImportSourceData_Execute(object sender, ParametrizedActionExecuteEventArgs e) {
@@ -83,37 +83,37 @@ namespace NpoMash.Erm.Hrm.Salary {
             IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = (HrmPeriod)e.CurrentObject;
             HrmPeriod current_period = os.GetObject<HrmPeriod>(period);
-            if (current_period.Status == HrmPeriodStatus.OPENED || 
+            if (current_period.Status == HrmPeriodStatus.OPENED ||
                 current_period.Status == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED) {
-                    HrmSalaryTaskImportSourceData task = os.CreateObject<HrmSalaryTaskImportSourceData>();
-                    current_period.PeriodTasks.Add(task);
-                    if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                        task.MatrixPlanKB = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_KB);
-                        task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_OPENED;
-                        task.MatrixPlanOZM = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_OZM);
-                        task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_OPENED;
-                        HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, task);
-                        //current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
-                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
-                        e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                        os.Committed += new EventHandler(refresher);
-                    }
-                    if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
+                HrmSalaryTaskImportSourceData task = os.CreateObject<HrmSalaryTaskImportSourceData>();
+                current_period.PeriodTasks.Add(task);
+                if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
+                    task.MatrixPlanKB = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_KB);
+                    task.MatrixPlanKB.Status = HrmMatrixStatus.MATRIX_OPENED;
+                    task.MatrixPlanOZM = HrmMatrixLogic.setTestData(os, current_period, DepartmentGroupDep.DEPARTMENT_OZM);
+                    task.MatrixPlanOZM.Status = HrmMatrixStatus.MATRIX_OPENED;
+                    HrmTimeSheetLogic.loadTimeSheetIntoPeriod(os, task);
+                    //current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
+                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                    os.Committed += new EventHandler(refresher);
+                }
+                if (e.SelectedChoiceActionItem.Id == "GetDataFromServer") {
 
-                    }
-                    if (e.SelectedChoiceActionItem.Id == "XmlFile") {
+                }
+                if (e.SelectedChoiceActionItem.Id == "XmlFile") {
 
-                    }
-                    if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
-//                        HrmMatrixAllocPlan matrixKB = null;
-//                        HrmMatrixAllocPlan matrixOZM = null;
-                        HrmSalaryTaskImportSourceDataLogic.ImportPlanMatrixes(os, task); //current_period, out matrixKB, out matrixOZM);
-                        HrmSalaryTaskImportSourceDataLogic.ImportTimeSheet(os, task);
-                        //current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
-                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
-                        e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                        os.Committed += new EventHandler(refresher);
-                    }
+                }
+                if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
+                    //                        HrmMatrixAllocPlan matrixKB = null;
+                    //                        HrmMatrixAllocPlan matrixOZM = null;
+                    HrmSalaryTaskImportSourceDataLogic.ImportPlanMatrixes(os, task); //current_period, out matrixKB, out matrixOZM);
+                    HrmSalaryTaskImportSourceDataLogic.ImportTimeSheet(os, task);
+                    //current_period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
+                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                    os.Committed += new EventHandler(refresher);
+                }
 
             }
         }
@@ -126,7 +126,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                 HrmSalaryTaskMatrixReduction reduc = null;
                 if (period.CurrentKBmatrixReduction == null)
-                    reduc = HrmSalaryTaskMatrixReductionLogic.initTaskMatrixReduction(os, period, 
+                    reduc = HrmSalaryTaskMatrixReductionLogic.initTaskMatrixReduction(os, period,
                         group_dep, bringing_method);
                 else reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentKBmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
@@ -190,7 +190,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED && m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
                         m.Status = HrmMatrixStatus.MATRIX_EXPORTED;
                     }
-                
+
                 }
                 object_space.CommitChanges();
             }
@@ -269,5 +269,23 @@ namespace NpoMash.Erm.Hrm.Salary {
                 object_space.Committed += new EventHandler(refresher);
             }
         }
+
+        private void AccountOperationImport_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
+                IObjectSpace object_space = Application.CreateObjectSpace();
+                HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+                if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
+                    current_period.PeriodTasks.Add(task);
+                    HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperationTestData(object_space, task);
+                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                    object_space.Committed += new EventHandler(refresher);
+                }
+            }
+        }
+
+
+
     }
 }
