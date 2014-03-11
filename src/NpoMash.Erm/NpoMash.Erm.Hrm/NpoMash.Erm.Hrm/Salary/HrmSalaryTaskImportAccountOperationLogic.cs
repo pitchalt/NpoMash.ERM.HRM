@@ -149,7 +149,31 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
         }
-
+        public static void ImportAccountOperationTestData(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
+            FileHelperEngine<ImportAccountOperation> account_operation_data = new FileHelperEngine<ImportAccountOperation>();
+            HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
+            HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
+            matrix_alloc_result_kb.IterationNumber = 1;
+            matrix_alloc_result_ozm.IterationNumber = 1;
+            matrix_alloc_result_kb.Period = local_task.Period;
+            matrix_alloc_result_ozm.Period = local_task.Period;
+            matrix_alloc_result_kb.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
+            matrix_alloc_result_ozm.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
+            matrix_alloc_result_kb.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
+            matrix_alloc_result_ozm.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
+            matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_OPENED;
+            local_task.MatrixAllocResultKB = matrix_alloc_result_kb;
+            local_task.MatrixAllocResultOZM = matrix_alloc_result_ozm;
+            local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
+            local_task.MatrixAllocResultKB.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
+            local_task.MatrixAllocResultOZM.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_OZM;
+            local_task.Period.CurrentMatrixAllocResultKB = matrix_alloc_result_kb;
+            local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
+            local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
+            local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
+            CreateAllocResultFromPlan(local_object_space, matrix_alloc_result_kb, matrix_alloc_result_ozm, local_task);
+        }
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
             FileHelperEngine<ImportAccountOperation> account_operation_data = new FileHelperEngine<ImportAccountOperation>();
             ImportAccountOperation[] account_list = account_operation_data.ReadFile("../../../../../../../var/AccountOperation_First.ncd");
@@ -174,7 +198,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
-            //CreateAllocResultFromPlan(local_object_space, matrix_alloc_result_kb, matrix_alloc_result_ozm, local_task);
             IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
             IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
             IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();

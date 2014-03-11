@@ -256,5 +256,18 @@ namespace NpoMash.Erm.Hrm.Salary {
                 object_space.CommitChanges();
             }
         }
+
+        private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = Application.CreateObjectSpace();
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperationTestData(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
+            }
+        }
     }
 }

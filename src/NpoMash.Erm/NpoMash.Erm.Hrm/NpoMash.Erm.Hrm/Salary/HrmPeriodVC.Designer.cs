@@ -24,17 +24,17 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem1 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem2 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem3 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem4 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem5 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem6 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem7 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem8 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem9 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem10 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem11 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem12 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem13 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem14 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem15 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem16 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem17 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem18 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem19 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem20 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem21 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem22 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             this.GetSourceDataAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingKBMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingOZMMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
@@ -46,6 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ImportAccountOperationLast = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.CreateReportSummary = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.ClosePeriod = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.simpleAction1 = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -54,31 +55,31 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.GetSourceDataAction.ConfirmationMessage = null;
             this.GetSourceDataAction.Id = "GetSourceDataAction";
             this.GetSourceDataAction.ImageName = null;
-            choiceActionItem1.Caption = "GenerateTestData";
-            choiceActionItem1.ImageName = null;
-            choiceActionItem1.Shortcut = null;
-            choiceActionItem1.ToolTip = null;
-            choiceActionItem2.Caption = "GetDataFromServer";
-            choiceActionItem2.ImageName = null;
-            choiceActionItem2.Shortcut = null;
-            choiceActionItem2.ToolTip = null;
-            choiceActionItem3.Caption = "GetDataFromFile";
-            choiceActionItem3.ImageName = null;
-            choiceActionItem4.Caption = "XmlFile";
-            choiceActionItem4.ImageName = null;
-            choiceActionItem4.Shortcut = null;
-            choiceActionItem4.ToolTip = null;
-            choiceActionItem5.Caption = "StructuredFile";
-            choiceActionItem5.ImageName = null;
-            choiceActionItem5.Shortcut = null;
-            choiceActionItem5.ToolTip = null;
-            choiceActionItem3.Items.Add(choiceActionItem4);
-            choiceActionItem3.Items.Add(choiceActionItem5);
-            choiceActionItem3.Shortcut = null;
-            choiceActionItem3.ToolTip = null;
-            this.GetSourceDataAction.Items.Add(choiceActionItem1);
-            this.GetSourceDataAction.Items.Add(choiceActionItem2);
-            this.GetSourceDataAction.Items.Add(choiceActionItem3);
+            choiceActionItem12.Caption = "GenerateTestData";
+            choiceActionItem12.ImageName = null;
+            choiceActionItem12.Shortcut = null;
+            choiceActionItem12.ToolTip = null;
+            choiceActionItem13.Caption = "GetDataFromServer";
+            choiceActionItem13.ImageName = null;
+            choiceActionItem13.Shortcut = null;
+            choiceActionItem13.ToolTip = null;
+            choiceActionItem14.Caption = "GetDataFromFile";
+            choiceActionItem14.ImageName = null;
+            choiceActionItem15.Caption = "XmlFile";
+            choiceActionItem15.ImageName = null;
+            choiceActionItem15.Shortcut = null;
+            choiceActionItem15.ToolTip = null;
+            choiceActionItem16.Caption = "StructuredFile";
+            choiceActionItem16.ImageName = null;
+            choiceActionItem16.Shortcut = null;
+            choiceActionItem16.ToolTip = null;
+            choiceActionItem14.Items.Add(choiceActionItem15);
+            choiceActionItem14.Items.Add(choiceActionItem16);
+            choiceActionItem14.Shortcut = null;
+            choiceActionItem14.ToolTip = null;
+            this.GetSourceDataAction.Items.Add(choiceActionItem12);
+            this.GetSourceDataAction.Items.Add(choiceActionItem13);
+            this.GetSourceDataAction.Items.Add(choiceActionItem14);
             this.GetSourceDataAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.GetSourceDataAction.Shortcut = null;
             this.GetSourceDataAction.ShowItemsOnClick = true;
@@ -98,21 +99,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingKBMatrixAction.ConfirmationMessage = null;
             this.BringingKBMatrixAction.Id = "BringingMatrixAction";
             this.BringingKBMatrixAction.ImageName = null;
-            choiceActionItem6.Caption = "MinimizeDifferenceNumber";
-            choiceActionItem6.ImageName = null;
-            choiceActionItem6.Shortcut = null;
-            choiceActionItem6.ToolTip = null;
-            choiceActionItem7.Caption = "MinimizeMaxDifference";
-            choiceActionItem7.ImageName = null;
-            choiceActionItem7.Shortcut = null;
-            choiceActionItem7.ToolTip = null;
-            choiceActionItem8.Caption = "ProportionsMethodVariant";
-            choiceActionItem8.ImageName = null;
-            choiceActionItem8.Shortcut = null;
-            choiceActionItem8.ToolTip = null;
-            this.BringingKBMatrixAction.Items.Add(choiceActionItem6);
-            this.BringingKBMatrixAction.Items.Add(choiceActionItem7);
-            this.BringingKBMatrixAction.Items.Add(choiceActionItem8);
+            choiceActionItem17.Caption = "MinimizeDifferenceNumber";
+            choiceActionItem17.ImageName = null;
+            choiceActionItem17.Shortcut = null;
+            choiceActionItem17.ToolTip = null;
+            choiceActionItem18.Caption = "MinimizeMaxDifference";
+            choiceActionItem18.ImageName = null;
+            choiceActionItem18.Shortcut = null;
+            choiceActionItem18.ToolTip = null;
+            choiceActionItem19.Caption = "ProportionsMethodVariant";
+            choiceActionItem19.ImageName = null;
+            choiceActionItem19.Shortcut = null;
+            choiceActionItem19.ToolTip = null;
+            this.BringingKBMatrixAction.Items.Add(choiceActionItem17);
+            this.BringingKBMatrixAction.Items.Add(choiceActionItem18);
+            this.BringingKBMatrixAction.Items.Add(choiceActionItem19);
             this.BringingKBMatrixAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.BringingKBMatrixAction.Shortcut = null;
             this.BringingKBMatrixAction.ShowItemsOnClick = true;
@@ -132,21 +133,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringingOZMMatrixAction.ConfirmationMessage = null;
             this.BringingOZMMatrixAction.Id = "BringingOZMMatrixAction";
             this.BringingOZMMatrixAction.ImageName = null;
-            choiceActionItem9.Caption = "MinimizeDifferenceNumber";
-            choiceActionItem9.ImageName = null;
-            choiceActionItem9.Shortcut = null;
-            choiceActionItem9.ToolTip = null;
-            choiceActionItem10.Caption = "MinimizeMaxDifference";
-            choiceActionItem10.ImageName = null;
-            choiceActionItem10.Shortcut = null;
-            choiceActionItem10.ToolTip = null;
-            choiceActionItem11.Caption = "ProportionsMethodVariant";
-            choiceActionItem11.ImageName = null;
-            choiceActionItem11.Shortcut = null;
-            choiceActionItem11.ToolTip = null;
-            this.BringingOZMMatrixAction.Items.Add(choiceActionItem9);
-            this.BringingOZMMatrixAction.Items.Add(choiceActionItem10);
-            this.BringingOZMMatrixAction.Items.Add(choiceActionItem11);
+            choiceActionItem20.Caption = "MinimizeDifferenceNumber";
+            choiceActionItem20.ImageName = null;
+            choiceActionItem20.Shortcut = null;
+            choiceActionItem20.ToolTip = null;
+            choiceActionItem21.Caption = "MinimizeMaxDifference";
+            choiceActionItem21.ImageName = null;
+            choiceActionItem21.Shortcut = null;
+            choiceActionItem21.ToolTip = null;
+            choiceActionItem22.Caption = "ProportionsMethodVariant";
+            choiceActionItem22.ImageName = null;
+            choiceActionItem22.Shortcut = null;
+            choiceActionItem22.ToolTip = null;
+            this.BringingOZMMatrixAction.Items.Add(choiceActionItem20);
+            this.BringingOZMMatrixAction.Items.Add(choiceActionItem21);
+            this.BringingOZMMatrixAction.Items.Add(choiceActionItem22);
             this.BringingOZMMatrixAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.BringingOZMMatrixAction.Shortcut = null;
             this.BringingOZMMatrixAction.ShowItemsOnClick = true;
@@ -292,6 +293,20 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ClosePeriod.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.ClosePeriod.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.ClosePeriod_Execute);
             // 
+            // simpleAction1
+            // 
+            this.simpleAction1.Caption = "Загрузить тестовую проводку";
+            this.simpleAction1.ConfirmationMessage = null;
+            this.simpleAction1.Id = "5dc904e2-0cbc-47bf-919c-aec072f21755";
+            this.simpleAction1.ImageName = null;
+            this.simpleAction1.Shortcut = null;
+            this.simpleAction1.Tag = null;
+            this.simpleAction1.TargetObjectsCriteria = null;
+            this.simpleAction1.TargetViewId = null;
+            this.simpleAction1.ToolTip = null;
+            this.simpleAction1.TypeOfView = null;
+            this.simpleAction1.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.simpleAction1_Execute);
+            // 
             // HrmPeriodVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -312,5 +327,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SimpleAction ImportAccountOperationLast;
         private DevExpress.ExpressApp.Actions.SimpleAction CreateReportSummary;
         private DevExpress.ExpressApp.Actions.SimpleAction ClosePeriod;
+        private DevExpress.ExpressApp.Actions.SimpleAction simpleAction1;
     }
 }
