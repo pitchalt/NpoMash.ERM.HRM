@@ -10,6 +10,11 @@
           <ChoiceActionItem Id="SimplexMethod" Caption="Симплекс метод" />
         </ChoiceActionItems>
       </Action>
+      <Action Id="AccountOperationImport" Caption="Импорт первичной проводки">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
+        </ChoiceActionItems>
+      </Action>
       <Action Id="BringingMatrixAction" Caption="Создать матрицу учета(КБ)">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
@@ -470,13 +475,13 @@
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="MatrixReserve" Caption="Матрица резерва">
-              <LayoutGroup Id="MatrixReserve">
+              <LayoutGroup Id="MatrixReserve" Caption="MatrixReserve">
                 <LayoutGroup Id="Order" Caption="Заказы" />
                 <LayoutGroup Id="Department" Caption="Подразделения" />
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="MatrixAlloc" Caption="Приведенная матрица">
-              <LayoutGroup Id="MatrixAlloc">
+              <LayoutGroup Id="MatrixAlloc" Caption="MatrixAlloc">
                 <LayoutGroup Id="MatrixAlloc.Rows" Caption="Заказы" />
                 <LayoutGroup Id="MatrixAlloc.Columns" Caption="Подразделения" />
               </LayoutGroup>
@@ -497,6 +502,7 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
+            <LayoutGroup Id="AllocResultKBOZM.Columns" Caption="Подразделения" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
