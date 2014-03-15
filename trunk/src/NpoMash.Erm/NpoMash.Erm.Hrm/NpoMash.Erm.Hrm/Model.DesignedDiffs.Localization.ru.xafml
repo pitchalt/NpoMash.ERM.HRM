@@ -4,6 +4,7 @@
     <Actions>
       <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
       <Action Id="AcceptImport" Caption="Утвердить" />
+      <Action Id="AcceptOrderList" Caption="Утвердить" />
       <Action Id="AcceptProvisionMatrix" Caption="Утвердить">
         <ChoiceActionItems>
           <ChoiceActionItem Id="EkvilibristicMethod" Caption="Эквилибристика" />
@@ -375,6 +376,22 @@
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="Rows" Caption="Заказы" />
             <LayoutGroup Id="Columns" Caption="Подразделения" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmPeriodAllocParameter" Caption="Параметры расчета">
+              <LayoutGroup Id="HrmPeriodAllocParameter_col1" Caption="HrmPeriodAllocParameter_col1" />
+              <LayoutGroup Id="HrmPeriodAllocParameter_col2" Caption="HrmPeriodAllocParameter_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="OrderControls" Caption="Контроль заказа" />
+            <LayoutGroup Id="SimpleWorkButNotLegal" Caption="Код оплаты" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
