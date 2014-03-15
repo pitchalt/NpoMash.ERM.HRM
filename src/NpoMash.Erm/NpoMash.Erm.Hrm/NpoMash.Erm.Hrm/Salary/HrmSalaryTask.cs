@@ -123,7 +123,5 @@ namespace NpoMash.Erm.Hrm.Salary {
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_ABORTED);
         }
 
-        [Browsable(false)]
-        protected bool isSourceDataImported { get { return !(State == HrmSalaryTaskState.HRM_SALARY_TASK_ACTIVED); } }
     }
 }

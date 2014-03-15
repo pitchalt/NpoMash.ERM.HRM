@@ -382,7 +382,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmMatrix alloc_result = card.AllocResultKBOZM;
             provision.Type = HrmMatrixType.TYPE_MATIX;
             provision.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
-            provision.Status = HrmMatrixStatus.MATRIX_OPENED;
+            provision.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             Dictionary<String, HrmMatrixRow> created_rows = new Dictionary<string, HrmMatrixRow>();
             //словарь с €чейками по ключу "код колонки,код строки"
             Dictionary<String, Dictionary<String, HrmMatrixCell>> dictionary_of_plan = new Dictionary<String, Dictionary<String, HrmMatrixCell>>();

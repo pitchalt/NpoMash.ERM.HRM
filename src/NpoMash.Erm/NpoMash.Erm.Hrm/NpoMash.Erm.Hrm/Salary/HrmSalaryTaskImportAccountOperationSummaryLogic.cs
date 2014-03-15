@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmMatrixAllocResult matrix_alloc_result_summary = local_object_space.CreateObject<HrmMatrixAllocResult>();
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM;
             matrix_alloc_result_summary.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
-            matrix_alloc_result_summary.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_result_summary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             local_task.MatrixAllocResultSummary = matrix_alloc_result_summary;
             local_task.MatrixAllocResultSummary.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM;
             local_task.Period.CurrentMatrixAllocResultSummary = matrix_alloc_result_summary;

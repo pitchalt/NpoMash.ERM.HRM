@@ -59,36 +59,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         public void SetStatus(HrmTimeSheetStatus stat) {
             SetPropertyValue<HrmTimeSheetStatus>("Status", ref _Status, stat);
         }
-        //private HrmTimeSheetGroup _KB;
-        //[VisibleInDetailView(true)]
-        ////[VisibleInListView(false)]
-        ////[VisibleInLookupListView(false)]
-        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        //public HrmTimeSheetGroup KB {
-        //    get { return _KB; }
-        //    set { SetPropertyValue<HrmTimeSheetGroup>("KB", ref _KB, value); }
-        //}
 
-        //private HrmTimeSheetGroup _OZM;
-        //[VisibleInDetailView(true)]
-        ////[VisibleInListView(false)]
-        ////[VisibleInLookupListView(false)]
-        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        //public HrmTimeSheetGroup OZM {
-        //    get { return _OZM; }
-        //    set { SetPropertyValue<HrmTimeSheetGroup>("OZM", ref _OZM, value); }
-        //}
-
-        //private 
 
         public HrmTimeSheet(Session session): base(session) { }
         public override void AfterConstruction() { 
             base.AfterConstruction();
             SetStatus(HrmTimeSheetStatus.DOWNLOADED);
-            //OZM = new HrmTimeSheetGroup(this.Session);
-            //KB = new HrmTimeSheetGroup(this.Session);
-            //OZM.TimeSheet = this;
-            //KB.TimeSheet = this;
         }
     }
 }

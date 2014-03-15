@@ -34,18 +34,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _TimeSheet; }
             set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
-        //private HrmTimeSheetGroup _TimeSheetGroup;
-        //[Association("TimeSheetDeps-TimeSheetGroup")]
-        //public HrmTimeSheetGroup TimeSheetGroup {
-        //    get { return _TimeSheetGroup; }
-        //    set { SetPropertyValue<HrmTimeSheetGroup>("TimeSheetGroup", ref _TimeSheetGroup, value); }
-        //}
 
-
-        //private Int32 _MatrixWorkTime;
-        //[VisibleInDetailView(false)]
-        //[VisibleInListView(false)]
-        //[VisibleInLookupListView(false)]
         public Int64 MatrixWorkTime {
             get { return BaseWorkTime + AdditionWorkTime; }
 
@@ -70,6 +59,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Int64 _AdditionWorkTime;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         public Int64 AdditionWorkTime {
             get { return _AdditionWorkTime; }
             set { SetPropertyValue<Int64>("AdditionWorkTime", ref _AdditionWorkTime, value); }

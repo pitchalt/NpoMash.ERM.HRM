@@ -32,7 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void AcceptImport_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskImportAccountOperationSummary task = e.CurrentObject as HrmSalaryTaskImportAccountOperationSummary;
-            task.MatrixAllocResultSummary.Status = HrmMatrixStatus.MATRIX_OPENED; ;
+            task.MatrixAllocResultSummary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED; ;
             task.Period.setStatus(HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED);
             task.Complete();
             ObjectSpace.CommitChanges();

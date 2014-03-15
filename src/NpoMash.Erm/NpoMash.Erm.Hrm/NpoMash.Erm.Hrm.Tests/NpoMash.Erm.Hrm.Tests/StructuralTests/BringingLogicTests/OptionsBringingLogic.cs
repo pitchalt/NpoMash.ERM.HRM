@@ -230,7 +230,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
             plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             plan_matrix.GroupDep = group;
-            plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
+            plan_matrix.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             plan_matrix.IterationNumber = 1;
             plan_matrix.Variant = HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT;
             plan_matrix.Period = current_period;
