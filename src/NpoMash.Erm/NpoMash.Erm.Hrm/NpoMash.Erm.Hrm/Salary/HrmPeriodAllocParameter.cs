@@ -32,10 +32,9 @@ namespace NpoMash.Erm.Hrm.Salary
 
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
-    [Appearance(null, TargetItems = "*", Criteria = "Status = 'AllocParametersAccepted'", Context = "Any",  Enabled = false)]
+    [Appearance(null, TargetItems = "*", Criteria = "Status = 'ALLOC_PARAMETERS_ACCEPTED'", Context = "Any", Enabled = false)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled=false)]
-    [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptAllocParameters", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status=='ALLOC_PARAMETERS_ACCEPTED'")]
-    [Appearance("", AppearanceItemType = "Action", TargetItems = "HrmPeriodAllocParameterVC_AcceptAllocParameters", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='ALLOC_PARAMETERS_ACCEPTED' or Status=='LIST_OF_ORDER_ACCEPTED'")]
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderList", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='ALLOC_PARAMETERS_ACCEPTED'")]
     [DefaultProperty("Status")]       
     public class HrmPeriodAllocParameter : BaseObject
     {
@@ -59,7 +58,7 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private Decimal _NormNoControlKB;
-        [VisibleInDetailView(false)]
+       // [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
@@ -71,7 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private Decimal _NormNoControlOZM;
-        [VisibleInDetailView(false)]
+        //[VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]

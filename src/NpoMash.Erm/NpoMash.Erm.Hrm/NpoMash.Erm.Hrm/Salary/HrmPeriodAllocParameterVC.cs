@@ -44,9 +44,9 @@ namespace NpoMash.Erm.Hrm.Salary
 
         protected void UpdateActionState(HrmPeriodAllocParameter param) {
             if (param.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)
-                AcceptControlledOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
+                AcceptOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
             else
-                AcceptControlledOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
+                AcceptOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
         }
 
         void new_controller_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
@@ -142,6 +142,21 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
         private void AcceptAllocParameters1_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
+            if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                ObjectSpace.CommitChanges();
+                using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
+                    HrmPeriodAllocParameterLogic.acceptParameters(os, os.GetObject<HrmPeriodAllocParameter>(alloc_parameters));
+                    os.CommitChanges();
+                }
+                ObjectSpace.CommitChanges();
+                UpdateActionState(alloc_parameters);
+                Window win = Frame as Window;
+                if (win != null) win.Close();
+            }
+        }
+
+        private void AcceptOrderList_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
             if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 ObjectSpace.CommitChanges();

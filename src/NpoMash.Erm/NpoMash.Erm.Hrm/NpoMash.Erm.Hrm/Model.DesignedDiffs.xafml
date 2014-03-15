@@ -222,6 +222,34 @@
         <ColumnInfo Id="FinishTime" DisplayFormat="{0:F}" EditMask="F" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="">
+            <LayoutGroup Id="HrmPeriodAllocParameter" Caption="Hrm Period Alloc Parameter" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmPeriodAllocParameter_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Year" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="Month" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriodAllocParameter_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="NormNoControlKB" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="NormNoControlOZM" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83">
+            <LayoutGroup Id="OrderControls" RelativeSize="100" ImageName="">
+              <LayoutItem Id="OrderControls" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="SimpleWorkButNotLegal" RelativeSize="100" ImageName="BO_List">
+              <LayoutItem Id="SimpleWorkButNotLegal" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmSalaryTask_DetailView">
       <Items>
         <PropertyEditor Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
@@ -338,7 +366,6 @@
                 <LayoutItem Id="AllocParameters.Month" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
                 <LayoutItem Id="AllocParameters.Status" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
                 <LayoutItem Id="AllocParameters.Year" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
-                <LayoutItem Id="TimeSheet.GroupDep" SizeConstraintsType="Default" RelativeSize="17" Removed="True" />
                 <LayoutItem Id="TimeSheet.Status" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
