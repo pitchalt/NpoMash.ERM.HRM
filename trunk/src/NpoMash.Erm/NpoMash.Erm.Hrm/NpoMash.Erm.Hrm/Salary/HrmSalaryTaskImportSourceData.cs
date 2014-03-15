@@ -45,7 +45,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _MatrixPlanOZM; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanOZM", ref _MatrixPlanOZM, value); }
         }
-        
+
+        [Browsable(false)]
+        public bool isSourceDataImported {
+            get { return State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED; }
+        }
+
         public HrmSalaryTaskImportSourceData(Session session)
             : base(session) {
         }

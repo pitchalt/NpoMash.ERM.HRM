@@ -161,8 +161,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             matrix_alloc_result_ozm.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             matrix_alloc_result_kb.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_ozm.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
-            matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_OPENED;
-            matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
+            matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             local_task.MatrixAllocResultKB = matrix_alloc_result_kb;
             local_task.MatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
@@ -187,8 +187,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             matrix_alloc_result_ozm.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             matrix_alloc_result_kb.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_ozm.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
-            matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_OPENED;
-            matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_result_kb.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
+            matrix_alloc_result_ozm.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             local_task.MatrixAllocResultKB = matrix_alloc_result_kb;
             local_task.MatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;

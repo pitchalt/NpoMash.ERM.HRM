@@ -37,6 +37,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [Browsable(false)]
-        private bool isCompareAccepted { get { return !(MatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_OPENED); } }
+        private bool isCompareAccepted { get { return !(MatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_DOWNLOADED); } }
     }
 }

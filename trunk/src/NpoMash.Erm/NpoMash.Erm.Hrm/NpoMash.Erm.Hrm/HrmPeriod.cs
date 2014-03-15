@@ -234,20 +234,7 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }
 
-
-        //private HrmSalaryTaskMatrixReduction _Card;
-        //[VisibleInDetailView(false)]
-        //[VisibleInListView(false)]
-        //[VisibleInLookupListView(false)]
-        //public HrmSalaryTaskMatrixReduction Card {
-        //get { return _Card; }
-        //set { SetPropertyValue<HrmSalaryTaskMatrixReduction>("Card", ref _Card, value); }
-        //}
-
         public void setStatus(HrmPeriodStatus stat) {
-            /*if (Status == HrmPeriodStatus.SOURCE_DATA_LOADED && stat == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED ||
-                Status == HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED && stat == HrmPeriodStatus.SOURCE_DATA_LOADED)
-                stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;*/
             if (stat == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
                 try {
                     stat = HrmPeriodLogic.SetReadyToCalculateCoercedMatrixesStatus(this);
@@ -271,14 +258,13 @@ namespace NpoMash.Erm.Hrm {
         public override void AfterConstruction() {
             base.AfterConstruction();
             setStatus(HrmPeriodStatus.OPENED);
-            //Status = HrmPeriodStatus.Opened;
         }
 
         [Browsable(false)]
         private bool isReadyToClosePeriod { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_ACCEPTED); } }
 
         [Browsable(false)]
-        private bool isReadyToCreateLastAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_OPENED); } }
+        private bool isReadyToCreateLastAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_DOWNLOADED); } }
 
         [Browsable(false)]
         private bool isReadyToImportAccountOperationLast { get { return !(Status == HrmPeriodStatus.RESERVE_MATRIX_UPLOADED); } }

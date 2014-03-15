@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
+//
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
-using System.Collections.Generic;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Layout;
@@ -13,7 +14,8 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-
+//
+using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
     public partial class HrmSalaryTaskImportSourceDataVC : ViewController {
@@ -42,6 +44,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.TimeSheetKB.SetStatus(HrmTimeSheetStatus.ACCEPTED);
             task.TimeSheetOZM.SetStatus(HrmTimeSheetStatus.ACCEPTED);
             task.Period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+            task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task.Complete();
             ObjectSpace.CommitChanges();
         }

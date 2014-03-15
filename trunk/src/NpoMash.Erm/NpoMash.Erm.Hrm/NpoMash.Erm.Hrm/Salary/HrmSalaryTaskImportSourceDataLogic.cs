@@ -76,7 +76,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             ImportMatrixTravelTime[] travel_list = travel_data.ReadFile("../../../../../../../var/Matrix_TravelTimePlan.dat");
             //Общая плановая матрица
             HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
-            matrix_alloc_plan_summary.Status = HrmMatrixStatus.MATRIX_OPENED;
+            matrix_alloc_plan_summary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             matrix_alloc_plan_summary.Type = HrmMatrixType.TYPE_MATIX;
             matrix_alloc_plan_summary.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             matrix_alloc_plan_summary.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
@@ -84,7 +84,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             matrix_alloc_plan_summary.IterationNumber = 1;
             //Инициализируем плановые матрицы кб и озм
             HrmMatrixAllocPlan kb_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
-            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
+            kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             //            kb_plan_matrix.Period = period;
             kb_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             kb_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;
@@ -93,7 +93,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.Period.Matrixs.Add(kb_plan_matrix);
             task.Period.CurrentMatrixAllocPlanKB = kb_plan_matrix;
             HrmMatrixAllocPlan ozm_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
-            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_OPENED;
+            ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             //            ozm_plan_matrix.Period = period;
             ozm_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             ozm_plan_matrix.Type = HrmMatrixType.TYPE_MATIX;

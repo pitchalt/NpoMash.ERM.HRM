@@ -2,7 +2,6 @@
 <Application>
   <ActionDesign>
     <Actions>
-      <Action Id="AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." Caption="Утвердить" />
       <Action Id="AcceptImport" Caption="Утвердить" />
       <Action Id="AcceptOrderList" Caption="Утвердить" />
       <Action Id="AcceptProvisionMatrix" Caption="Утвердить">
@@ -38,7 +37,6 @@
       </Action>
       <Action Id="ExportReserveMatrix" Caption="Экспорт" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
-      <Action Id="HrmPeriodAllocParameterVC_AcceptAllocParameters" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
       <Action Id="HrmPeriodVC_ClosePeriod" Caption="Закрыть период" />
       <Action Id="HrmPeriodVC_CreateReportKB" Caption="Контроль трудоемкости(КБ)" />
       <Action Id="HrmPeriodVC_CreateReportOZM" Caption="Контроль трудоемкости(ОЗМ)" />
@@ -215,7 +213,7 @@
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="DepartmentFact" Caption="Факт по подразделению" />
-        <Member Name="DepartmentPlan" Caption="План по подразделению" />
+        <Member Name="DepartmentPlan" Caption="План" />
         <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
         <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />
         <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
@@ -261,9 +259,9 @@
         <Member Name="PlannedTravelsOZM" Caption="т.ч.КомОЗМ" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Факт(табель)">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель">
       <OwnMembers>
-        <Member Name="TimeSheetDeps" Caption="Табель(факт)" />
+        <Member Name="TimeSheetDeps" Caption="Табель" />
         <Member Name="GroupDep" Caption="Группа" />
         <Member Name="Period" Caption="Период" />
         <Member Name="Status" Caption="Статус" />
@@ -282,7 +280,7 @@
   <Localization>
     <LocalizationGroup Name="Enums">
       <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep">
-        <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="Все" />
+        <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="КБ/ОЗМ" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
         <LocalizationItem Name="ACCOUNT_OPERATION_FIRST_IMPORTED" Value="Импортирована первичная проводка" />
@@ -302,8 +300,8 @@
         <LocalizationItem Name="MATRIX_ACCEPTED" Value="Утверждена" />
         <LocalizationItem Name="MATRIX_ARCHIVE" Value="Архив" />
         <LocalizationItem Name="MATRIX_CLOSED" Value="Закрыта" />
+        <LocalizationItem Name="MATRIX_DOWNLOADED" Value="Загружена" />
         <LocalizationItem Name="MATRIX_EXPORTED" Value="Экспортирована" />
-        <LocalizationItem Name="MATRIX_OPENED" Value="Открыта" />
         <LocalizationItem Name="MATRIX_PRIMARY_ACCEPTED" Value="Утверждена предварительно" />
         <LocalizationItem Name="MATRIX_SAVED" Value="Сохранена" />
       </LocalizationGroup>
@@ -432,13 +430,13 @@
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
-            <LayoutGroup Id="HrmSalaryTaskMatrixReduction" Caption="Параметры приведения матрицы">
+            <LayoutGroup Id="HrmSalaryTaskMatrixReduction" Caption="Параметры учетной матрицы">
               <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col1" Caption="HrmSalaryTaskMatrixReduction_col1">
                 <LayoutGroup Id="Item3" Caption="Общие" />
               </LayoutGroup>
               <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col2" Caption="HrmSalaryTaskMatrixReduction_col2">
                 <LayoutGroup Id="Auto0d5a6361-e9c0-475d-b9d0-1815425033d8" Caption="Auto0d5a6361-e9c0-475d-b9d0-1815425033d8(10)">
-                  <LayoutGroup Id="Item2" Caption="Плановая матрица" />
+                  <LayoutGroup Id="Item2" Caption="Базовая матрица" />
                   <LayoutGroup Id="Item4" Caption="Табель" />
                 </LayoutGroup>
                 <LayoutGroup Id="Item1" Caption="Параметры расчета" />
@@ -449,15 +447,6 @@
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="Order" Caption="Заказ" />
-            <LayoutGroup Id="Department" Caption="Подразделение" />
-            <LayoutGroup Id="TimeSheet.TimeSheetDeps" Caption="Табель(факт)" />
-            <LayoutGroup Id="AllocParameters.SimpleWorkButNotLegal" Caption="Код оплаты" />
-            <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
-            <LayoutGroup Id="MatrixPlan.Rows" Caption="Заказы" />
-            <LayoutGroup Id="MatrixPlan.Columns" Caption="Подразделения" />
-          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>

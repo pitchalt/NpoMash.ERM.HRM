@@ -18,13 +18,13 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmMatrixStatus {
-        MATRIX_OPENED = 0,
-        MATRIX_SAVED = 1,
-        MATRIX_ACCEPTED=2,
-        MATRIX_CLOSED=3,
-        MATRIX_EXPORTED=4,
-        MATRIX_PRIMARY_ACCEPTED=5,
-        MATRIX_ARCHIVE=6
+        MATRIX_SAVED = 0,
+        MATRIX_ACCEPTED=1,
+        MATRIX_CLOSED=2,
+        MATRIX_EXPORTED=3,
+        MATRIX_PRIMARY_ACCEPTED=4,
+        MATRIX_ARCHIVE=5,
+        MATRIX_DOWNLOADED =6
     }
 
     public enum HrmMatrixType {

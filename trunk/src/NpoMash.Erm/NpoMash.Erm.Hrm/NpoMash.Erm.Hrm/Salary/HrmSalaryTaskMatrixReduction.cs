@@ -64,7 +64,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmTimeSheet _TimeSheet;
-        //        [Appearance("", Enabled = false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet TimeSheet {
             get { return _TimeSheet; }
@@ -72,7 +71,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmPeriodAllocParameter _AllocParameters;
-        //        [Appearance("", Enabled = false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
@@ -83,7 +81,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class DepartmentItem : XPCustomObject {
             public Department Department;
             public Int64 DepartmentPlan;
-            public Int64 DepartmentFact;
             public Int64 MinimizeNumberOfDeviationsAlloc;
             public Int64 MinimizeMaximumDeviationsAlloc;
             public Int64 ProportionsMethodAlloc;
@@ -154,34 +151,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected void orderCreate() {
-            //
             LoadMatrixOrder(MatrixPlan, null, Order);
-//            if (ProportionsMethodMatrix != null)
-//                LoadMatrixOrder(ProportionsMethodMatrix, null, orderList);
-//            if (MinimizeNumberOfDeviationsMatrix != null)
-//                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, orderList);
-//            if (MinimizeMaximumDeviationsMatrix != null)
-//                LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, orderList);
         }
 
         protected void departmentCreate() {
-            //
             LoadMatrixDepartment(MatrixPlan, null, Department);
-//            if (ProportionsMethodMatrix != null)
-//                LoadMatrixDepartment(ProportionsMethodMatrix, null, departmentList);
-//            if (MinimizeNumberOfDeviationsMatrix != null)
-//                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, departmentList);
-//            if (MinimizeMaximumDeviationsMatrix != null)
-//                LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, departmentList);
-
-            //заполняем факт по подразделению
-            foreach (var t in TimeSheet.TimeSheetDeps) {
-                for (int i = 0; i < Department.Count; i++) {
-                    if (t.Department.Code == Department[i].Department.Code) {
-                        Department[i].DepartmentFact = t.MatrixWorkTime;
-                    }
-                }
-            }
         }
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
