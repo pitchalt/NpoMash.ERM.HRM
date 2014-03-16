@@ -50,7 +50,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "isReadyToCreateReserveMatrix", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportReserveMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_UPLOAD'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]    
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "!showAccountOperationImport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -263,12 +263,16 @@ namespace NpoMash.Erm.Hrm {
         [Browsable(false)]
         private bool isReadyToCreateReserveMatrix { get { 
             return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && 
-                ((CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
-                (CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
-                (CurrentKBmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)) && 
-                ((CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
-                (CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
-                (CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)) && 
+                (
+                //(CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                (CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                //||(CurrentKBmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                ) && 
+                (
+                //(CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                (CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                //|| (CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                ) && 
                 CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } }
 
         [Browsable(false)]
