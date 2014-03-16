@@ -28,11 +28,13 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void AcceptImport_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskImportAccountOperation task = e.CurrentObject as HrmSalaryTaskImportAccountOperation;
-            task.MatrixAllocResultKB.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-            task.MatrixAllocResultOZM.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+            task.MatrixAllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            task.MatrixAllocResultOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.Period.setStatus(HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED);
             task.Complete();
             ObjectSpace.CommitChanges();
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
     }
 }

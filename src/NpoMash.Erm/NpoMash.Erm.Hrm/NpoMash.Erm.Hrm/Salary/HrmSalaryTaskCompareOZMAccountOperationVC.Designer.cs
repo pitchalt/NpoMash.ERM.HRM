@@ -24,27 +24,28 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.AcceptCompare = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.AcceptCompareOZM = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // AcceptCompare
+            // AcceptCompareOZM
             // 
-            this.AcceptCompare.Caption = "HrmSalaryTaskCompareOZMAccountOperationVC_AcceptCompare";
-            this.AcceptCompare.ConfirmationMessage = null;
-            this.AcceptCompare.Id = "HrmSalaryTaskCompareOZMAccountOperationVC_AcceptCompare";
-            this.AcceptCompare.ImageName = null;
-            this.AcceptCompare.Shortcut = null;
-            this.AcceptCompare.Tag = null;
-            this.AcceptCompare.TargetObjectsCriteria = null;
-            this.AcceptCompare.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareOZMAccountOperation);
-            this.AcceptCompare.TargetViewId = null;
-            this.AcceptCompare.ToolTip = null;
-            this.AcceptCompare.TypeOfView = null;
-            this.AcceptCompare.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptCompare_Execute);
+            this.AcceptCompareOZM.Caption = "Accept Compare OZM";
+            this.AcceptCompareOZM.ConfirmationMessage = null;
+            this.AcceptCompareOZM.Id = "AcceptCompareOZM";
+            this.AcceptCompareOZM.ImageName = null;
+            this.AcceptCompareOZM.Shortcut = null;
+            this.AcceptCompareOZM.Tag = null;
+            this.AcceptCompareOZM.TargetObjectsCriteria = null;
+            this.AcceptCompareOZM.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareOZMAccountOperation);
+            this.AcceptCompareOZM.TargetViewId = null;
+            this.AcceptCompareOZM.ToolTip = null;
+            this.AcceptCompareOZM.TypeOfView = null;
+            this.AcceptCompareOZM.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptCompareOZM_Execute);
 
         }
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SimpleAction AcceptCompare;
+        private DevExpress.ExpressApp.Actions.SimpleAction AcceptCompareOZM;
+
     }
 }

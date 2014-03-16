@@ -44,9 +44,9 @@ namespace NpoMash.Erm.Hrm.Salary
 
         protected void UpdateActionState(HrmPeriodAllocParameter param) {
             if (param.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)
-                AcceptOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
+                AcceptOrderListFirst.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
             else
-                AcceptOrderList.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
+                AcceptOrderListFirst.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
         }
 
         void new_controller_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
@@ -103,45 +103,9 @@ namespace NpoMash.Erm.Hrm.Salary
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, existing_alloc_parameters);
         }
 
-        private void AcceptAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
-//            IObjectSpace os = ObjectSpace;
-            HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
-            if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)
-            {
-             
-                //string message = "";
-                //string caption = "";
-                //if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.OpenToEdit) {
-                //    caption = "”тверждение списка контролируемых заказов";
-                //    message = "¬ы уверены что хотите утвердить список контролируемых заказов?";
-                //}
-                //if (alloc_parameters.Status == HrmPeriodAllocParameterStatus.ListOfOrderAccepted) {
-                //    caption = "”тверждение параметров расчета";
-                //    message = "¬ы уверены что хотите утвердить параметры расчета? ¬ случае подтверждени€ дальнейшее редактирование данных параметров расчета будет невозможно";
-                //}
-                //var result = MessageBox.Show(message, caption,
-                //                             MessageBoxButtons.YesNo,
-                //                             MessageBoxIcon.Question);
-                //if (result == DialogResult.Yes) {
 
-                ObjectSpace.CommitChanges();
-                using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-                    HrmPeriodAllocParameterLogic.acceptParameters(os, os.GetObject<HrmPeriodAllocParameter>(alloc_parameters));
-                    os.CommitChanges();
-                }
-                ObjectSpace.CommitChanges();
-                UpdateActionState(alloc_parameters);
-                Window win = Frame as Window;
-                if (win != null) win.Close();
-                //}
-            }
-        }
 
-        private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
-
-        }
-
-        private void AcceptAllocParameters1_Execute(object sender, SimpleActionExecuteEventArgs e) {
+        private void AcceptOrderList_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
             if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 ObjectSpace.CommitChanges();
@@ -156,7 +120,7 @@ namespace NpoMash.Erm.Hrm.Salary
             }
         }
 
-        private void AcceptOrderList_Execute(object sender, SimpleActionExecuteEventArgs e) {
+        private void AcceptOrderListLast_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
             if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 ObjectSpace.CommitChanges();

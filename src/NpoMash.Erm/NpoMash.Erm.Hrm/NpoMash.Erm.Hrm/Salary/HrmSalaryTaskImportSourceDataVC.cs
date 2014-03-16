@@ -47,6 +47,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task.Complete();
             ObjectSpace.CommitChanges();
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
     }
 }

@@ -24,27 +24,28 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.AcceptCompare = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.AcceptCompareKB = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // AcceptCompare
+            // AcceptCompareKB
             // 
-            this.AcceptCompare.Caption = "HrmSalaryTaskCompareKBAccountOperationVC_AcceptCompare";
-            this.AcceptCompare.ConfirmationMessage = null;
-            this.AcceptCompare.Id = "HrmSalaryTaskCompareKBAccountOperationVC_AcceptCompare";
-            this.AcceptCompare.ImageName = null;
-            this.AcceptCompare.Shortcut = null;
-            this.AcceptCompare.Tag = null;
-            this.AcceptCompare.TargetObjectsCriteria = null;
-            this.AcceptCompare.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareKBAccountOperation);
-            this.AcceptCompare.TargetViewId = null;
-            this.AcceptCompare.ToolTip = null;
-            this.AcceptCompare.TypeOfView = null;
-            this.AcceptCompare.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptCompare_Execute);
+            this.AcceptCompareKB.Caption = "Accept Compare KB";
+            this.AcceptCompareKB.ConfirmationMessage = null;
+            this.AcceptCompareKB.Id = "AcceptCompareKB";
+            this.AcceptCompareKB.ImageName = null;
+            this.AcceptCompareKB.Shortcut = null;
+            this.AcceptCompareKB.Tag = null;
+            this.AcceptCompareKB.TargetObjectsCriteria = null;
+            this.AcceptCompareKB.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareKBAccountOperation);
+            this.AcceptCompareKB.TargetViewId = null;
+            this.AcceptCompareKB.ToolTip = null;
+            this.AcceptCompareKB.TypeOfView = null;
+            this.AcceptCompareKB.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptCompareKB_Execute);
 
         }
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SimpleAction AcceptCompare;
+        private DevExpress.ExpressApp.Actions.SimpleAction AcceptCompareKB;
+
     }
 }
