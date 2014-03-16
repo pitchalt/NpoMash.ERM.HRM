@@ -26,6 +26,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _PlanMoney;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal PlanMoney {
             get { return _PlanMoney; }
@@ -33,6 +36,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _MoneyReserve;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyReserve {
             get { return _MoneyReserve; }
@@ -40,6 +46,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _MoneyNoReserve;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyNoReserve {
             get { return _MoneyNoReserve; }
@@ -47,6 +56,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _MoneyTravel;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyTravel {
             get { return _MoneyTravel; }
@@ -54,6 +66,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _MoneyAllSumm;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
         public Decimal MoneyAllSumm {

@@ -36,6 +36,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem10 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem11 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem12 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem13 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
+            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem14 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             this.GetSourceDataAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingKBMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingOZMMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
@@ -48,6 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.CreateReportSummary = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.ClosePeriod = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.AccountOperationImport = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
+            this.BringProvisionMatrix = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -317,6 +320,34 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.AccountOperationImport.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.AccountOperationImport.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.AccountOperationImport_Execute);
             // 
+            // BringProvisionMatrix
+            // 
+            this.BringProvisionMatrix.Caption = "BringProvisionMatrix";
+            this.BringProvisionMatrix.ConfirmationMessage = null;
+            this.BringProvisionMatrix.Id = "BringProvisionMatrix";
+            this.BringProvisionMatrix.ImageName = null;
+            choiceActionItem13.Caption = "Evristik";
+            choiceActionItem13.ImageName = null;
+            choiceActionItem13.Shortcut = null;
+            choiceActionItem13.ToolTip = null;
+            choiceActionItem14.Caption = "Simplex";
+            choiceActionItem14.ImageName = null;
+            choiceActionItem14.Shortcut = null;
+            choiceActionItem14.ToolTip = null;
+            this.BringProvisionMatrix.Items.Add(choiceActionItem13);
+            this.BringProvisionMatrix.Items.Add(choiceActionItem14);
+            this.BringProvisionMatrix.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
+            this.BringProvisionMatrix.Shortcut = null;
+            this.BringProvisionMatrix.ShowItemsOnClick = true;
+            this.BringProvisionMatrix.Tag = null;
+            this.BringProvisionMatrix.TargetObjectsCriteria = null;
+            this.BringProvisionMatrix.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.BringProvisionMatrix.TargetViewId = null;
+            this.BringProvisionMatrix.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.BringProvisionMatrix.ToolTip = null;
+            this.BringProvisionMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.BringProvisionMatrix.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringProvisionMatrix_Execute);
+            // 
             // HrmPeriodVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -338,5 +369,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SimpleAction CreateReportSummary;
         private DevExpress.ExpressApp.Actions.SimpleAction ClosePeriod;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction AccountOperationImport;
+        private DevExpress.ExpressApp.Actions.SingleChoiceAction BringProvisionMatrix;
     }
 }

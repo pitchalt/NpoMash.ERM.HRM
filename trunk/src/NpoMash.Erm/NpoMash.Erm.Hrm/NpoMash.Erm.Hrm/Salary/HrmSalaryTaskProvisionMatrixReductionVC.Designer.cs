@@ -26,17 +26,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.components = new System.ComponentModel.Container();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem1 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem2 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem3 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem4 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            this.BringProvisionMatrix = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.AcceptProvisionMatrix = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             // 
-            // BringProvisionMatrix
+            // AcceptProvisionMatrix
             // 
-            this.BringProvisionMatrix.Caption = "BringProvisionMatrix";
-            this.BringProvisionMatrix.ConfirmationMessage = null;
-            this.BringProvisionMatrix.Id = "BringProvisionMatrix";
-            this.BringProvisionMatrix.ImageName = null;
+            this.AcceptProvisionMatrix.Caption = "Accept Provision Matrix";
+            this.AcceptProvisionMatrix.ConfirmationMessage = null;
+            this.AcceptProvisionMatrix.Id = "AcceptProvisionMatrix";
+            this.AcceptProvisionMatrix.ImageName = null;
             choiceActionItem1.Caption = "EkvilibristicMethod";
             choiceActionItem1.ImageName = null;
             choiceActionItem1.Shortcut = null;
@@ -45,36 +42,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             choiceActionItem2.ImageName = null;
             choiceActionItem2.Shortcut = null;
             choiceActionItem2.ToolTip = null;
-            this.BringProvisionMatrix.Items.Add(choiceActionItem1);
-            this.BringProvisionMatrix.Items.Add(choiceActionItem2);
-            this.BringProvisionMatrix.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
-            this.BringProvisionMatrix.Shortcut = null;
-            this.BringProvisionMatrix.ShowItemsOnClick = true;
-            this.BringProvisionMatrix.Tag = null;
-            this.BringProvisionMatrix.TargetObjectsCriteria = null;
-            this.BringProvisionMatrix.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
-            this.BringProvisionMatrix.TargetViewId = null;
-            this.BringProvisionMatrix.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
-            this.BringProvisionMatrix.ToolTip = null;
-            this.BringProvisionMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.BringProvisionMatrix.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringProvisionMatrix_Execute);
-            // 
-            // AcceptProvisionMatrix
-            // 
-            this.AcceptProvisionMatrix.Caption = "Accept Provision Matrix";
-            this.AcceptProvisionMatrix.ConfirmationMessage = null;
-            this.AcceptProvisionMatrix.Id = "AcceptProvisionMatrix";
-            this.AcceptProvisionMatrix.ImageName = null;
-            choiceActionItem3.Caption = "EkvilibristicMethod";
-            choiceActionItem3.ImageName = null;
-            choiceActionItem3.Shortcut = null;
-            choiceActionItem3.ToolTip = null;
-            choiceActionItem4.Caption = "SimplexMethod";
-            choiceActionItem4.ImageName = null;
-            choiceActionItem4.Shortcut = null;
-            choiceActionItem4.ToolTip = null;
-            this.AcceptProvisionMatrix.Items.Add(choiceActionItem3);
-            this.AcceptProvisionMatrix.Items.Add(choiceActionItem4);
+            this.AcceptProvisionMatrix.Items.Add(choiceActionItem1);
+            this.AcceptProvisionMatrix.Items.Add(choiceActionItem2);
             this.AcceptProvisionMatrix.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.AcceptProvisionMatrix.Shortcut = null;
             this.AcceptProvisionMatrix.ShowItemsOnClick = true;
@@ -91,7 +60,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SingleChoiceAction BringProvisionMatrix;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction AcceptProvisionMatrix;
     }
 }
