@@ -13,6 +13,8 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using NpoMash.Erm.Hrm;
+
 
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmSalaryTaskCompareKBAccountOperationVC : ViewController {
@@ -34,12 +36,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void AcceptCompareKB_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskCompareKBAccountOperation task = e.CurrentObject as HrmSalaryTaskCompareKBAccountOperation;
             task.MatrixAllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-            if (task.Period.CurrentMatrixAllocResultOZM.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
+            if (task.Period.CurrentMatrixAllocResultKB.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
                 task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-                
+                task.Complete();
             }
 
-            task.Complete();
+            if (task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED && HrmPeriodLogic.AccountOperationCompared(task.Period)) {
+                task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+            }
+            
             ObjectSpace.CommitChanges();
             Window win = Frame as Window;
             if (win != null) win.Close();

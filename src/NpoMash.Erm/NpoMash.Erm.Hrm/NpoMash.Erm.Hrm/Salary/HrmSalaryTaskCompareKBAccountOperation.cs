@@ -16,7 +16,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSlaryTaskCompareKBAccountOperation")]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "isCompareAcceptedKB", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "State=='HRM_SALARY_TASK_COMPLETED'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmSalaryTaskCompareKBAccountOperation : HrmSalaryTask {
