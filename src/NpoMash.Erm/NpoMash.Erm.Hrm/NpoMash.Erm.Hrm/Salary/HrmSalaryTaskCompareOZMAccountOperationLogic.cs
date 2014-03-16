@@ -21,6 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void CompareOZMMatrix(IObjectSpace local_object_space, HrmSalaryTaskCompareOZMAccountOperation local_task) {
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_OZM;
             local_task.MatrixAllocPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
+            local_task.ReducMatrixOZM = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             local_task.MatrixAllocResultOZM = local_task.Period.CurrentMatrixAllocResultOZM;
         }
     }

@@ -35,7 +35,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmSalaryTaskCompareOZMAccountOperation task = e.CurrentObject as HrmSalaryTaskCompareOZMAccountOperation;
             task.MatrixAllocResultOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             if (task.Period.CurrentMatrixAllocResultKB.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
-                task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
                 task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             }
             task.Complete();
