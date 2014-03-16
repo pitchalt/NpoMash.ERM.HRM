@@ -27,12 +27,15 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
     static class ImportTestDataFromExcelLogic {
 
-        public static MatrixFromExcel GetData(String path_to_file, int itogs_in_row = 1, int itogs_in_col = 1) {
-            const String end_string = "Итого";
-            //List<CellImportedFormExcel> result = new List<CellImportedFormExcel>();
+        public static Workbook getWorkbook(String path_to_file) {
             Workbook wb = new Workbook();
             wb.LoadDocument(path_to_file, DocumentFormat.Xls);
-            Worksheet ws = wb.Worksheets.First();
+            return wb;
+        }
+
+        public static MatrixFromExcel GetData(Workbook wb, String worksheet_name, int itogs_in_row = 1, int itogs_in_col = 1) {
+            const String end_string = "Итого";
+            Worksheet ws = wb.Worksheets.First(x => x.Name == worksheet_name);
             int data_angle_row = 0;
             int data_angle_col = 0;
             int end_row = 0;
@@ -149,7 +152,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             }
         }
 
-        public static void CreateAllocParametersFromExcelTab(IObjectSpace os) {
+        public static HrmPeriodAllocParameter CreateAllocParametersFromExcelTab(IObjectSpace os) {
             HrmPeriodAllocParameter ap = os.CreateObject<HrmPeriodAllocParameter>();
             ap.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
             ap.NormNoControlKB = 100;
@@ -163,6 +166,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                 oc.AllocParameter = ap;
                 ap.OrderControls.Add(oc);
             }
+            return ap;
         }
 
         public static HrmMatrix CreateMatrixFromExcel(IObjectSpace os, MatrixFromExcel mat) {
