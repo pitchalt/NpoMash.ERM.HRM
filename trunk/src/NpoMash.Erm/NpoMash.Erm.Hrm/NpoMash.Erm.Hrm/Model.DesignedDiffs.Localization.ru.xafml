@@ -2,6 +2,8 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="AcceptCompareKB" Caption="Утвердить" />
+      <Action Id="AcceptCompareOZM" Caption="Утвердить" />
       <Action Id="AcceptImport" Caption="Утвердить" />
       <Action Id="AcceptOrderListFirst" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
       <Action Id="AcceptOrderListLast" Caption="Утвердить" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." />

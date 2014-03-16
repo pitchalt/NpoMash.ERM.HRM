@@ -108,6 +108,10 @@ namespace NpoMash.Erm.Hrm.Salary
                 }
                 if (alloc_parameter.Period.Status == HrmPeriodStatus.OPENED)
                     alloc_parameter.Period.setStatus(HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                else if (alloc_parameter.Period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && HrmPeriodLogic.AccountOperationCompared(alloc_parameter.Period)) {
+                    alloc_parameter.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+
                 //обновление заказов в справочнике
                 updateFmCOrders(os, alloc_parameter);
             }

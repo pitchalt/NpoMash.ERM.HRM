@@ -50,10 +50,10 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "isReadyToCreateReserveMatrix", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportReserveMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_UPLOAD'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]    
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "!showAccountOperationImport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "!isReadyToImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [DefaultProperty("Status")]
 
     public class HrmPeriod : BaseObject {
@@ -262,7 +262,7 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool isReadyToCreateReserveMatrix { get { 
-            return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && 
+            return (Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && 
                 (
                 //(CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
                 (CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
@@ -273,7 +273,7 @@ namespace NpoMash.Erm.Hrm {
                 (CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
                 //|| (CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
                 ) && 
-                CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } }
+                CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED); } }
 
         [Browsable(false)]
         private bool isReadyToClosePeriod { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_ACCEPTED); } }
@@ -288,7 +288,7 @@ namespace NpoMash.Erm.Hrm {
         private bool isReadyToCreateFirstAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED); } }
 
         [Browsable(false)]
-        private bool isReadyToImportAccountOperation { get { return !(Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED); } }
+        private bool isReadyToImportAccountOperation { get { return (Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED); } }
 
         [Browsable(false)]
         private bool isReadyToExportMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS); } }
@@ -300,6 +300,11 @@ namespace NpoMash.Erm.Hrm {
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
 
         [Browsable(false)]
+        private bool isAccountOperationCompared{ get { return HrmPeriodLogic.AccountOperationCompared(this) && CurrentAllocParameter.Status==HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED; }
+        }
+
+
+        [Browsable(false)]
         private bool kbReductionExists {
             get { return (CurrentKBmatrixReduction != null); }
         }
@@ -309,8 +314,5 @@ namespace NpoMash.Erm.Hrm {
             get { return (CurrentOZMmatrixReduction != null); }
         }
 
-        [Browsable(false)]
-        private bool showAccountOperationImport {
-            get { return CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED && Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED ; } }        
     }
 }
