@@ -30,6 +30,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanKB", ref _MatrixPlanKB, value); }
         }
 
+        private HrmMatrix _ReducMatrixKB;
+        public HrmMatrix ReducMatrixKB {
+            get { return _ReducMatrixKB; }
+            set { SetPropertyValue<HrmMatrix>("ReducMatrixKB", ref _ReducMatrixKB, value); }
+        }
+
         private HrmMatrixAllocResult _MatrixAllocResultKB;
         public HrmMatrixAllocResult MatrixAllocResultKB {
             get { return _MatrixAllocResultKB; }

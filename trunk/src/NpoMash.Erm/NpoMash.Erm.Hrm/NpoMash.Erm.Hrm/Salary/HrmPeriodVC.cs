@@ -163,7 +163,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void ImportAccountOperation_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-            if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+            if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
                 HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
                 current_period.PeriodTasks.Add(task);
                 HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperation(object_space, task);

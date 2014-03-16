@@ -261,6 +261,17 @@ namespace NpoMash.Erm.Hrm {
         }
 
         [Browsable(false)]
+        private bool isReadyToCreateReserveMatrix { get { 
+            return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && 
+                ((CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                (CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                (CurrentKBmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)) && 
+                ((CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                (CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                (CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)) && 
+                CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } }
+
+        [Browsable(false)]
         private bool isReadyToClosePeriod { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_ACCEPTED); } }
 
         [Browsable(false)]
@@ -273,7 +284,7 @@ namespace NpoMash.Erm.Hrm {
         private bool isReadyToCreateFirstAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED); } }
 
         [Browsable(false)]
-        private bool isReadyToImportAccountOperation { get { return !(Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } }
+        private bool isReadyToImportAccountOperation { get { return !(Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED); } }
 
         [Browsable(false)]
         private bool isReadyToExportMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS); } }
