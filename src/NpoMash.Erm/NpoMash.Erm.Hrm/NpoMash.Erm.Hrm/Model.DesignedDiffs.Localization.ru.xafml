@@ -32,8 +32,8 @@
       </Action>
       <Action Id="BringProvisionMatrix" Caption="Приведение матрицы резерва">
         <ChoiceActionItems>
-          <ChoiceActionItem Id="EkvilibristicMethod" Caption="Эквилибристика" />
-          <ChoiceActionItem Id="SimplexMethod" Caption="Симплекс метод" />
+          <ChoiceActionItem Id="Evristik" Caption="Эвристический метод" />
+          <ChoiceActionItem Id="Simplex" Caption="Симплекс метод" />
         </ChoiceActionItems>
       </Action>
       <Action Id="ExportReserveMatrix" Caption="Экспорт" />

@@ -38,6 +38,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
                 
             }
+
             task.Complete();
             ObjectSpace.CommitChanges();
             Window win = Frame as Window;

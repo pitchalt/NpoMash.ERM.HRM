@@ -281,6 +281,31 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+        private void BringProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if (e.SelectedChoiceActionItem.Id == "Evristik") {
+                IObjectSpace os = Application.CreateObjectSpace();
+                HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+                DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
+                HrmSalaryTaskProvisionMatrixReduction card = null;
+                if (period.CurrentProvisionMatrix == null) {
+                    card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                    card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
+                   // card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
+                   // card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                    //card.AllocResultKBOZM = HrmSalaryTaskProvisionMatrixReductionLogic.mergeAllocResults(os, card);
+                   // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
+                    //card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
+
+                }
+                else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+
+                os.CommitChanges();
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
+            }
+        }
+
 
 
     }
