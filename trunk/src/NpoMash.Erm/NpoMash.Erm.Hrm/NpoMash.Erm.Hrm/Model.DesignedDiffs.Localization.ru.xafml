@@ -3,7 +3,8 @@
   <ActionDesign>
     <Actions>
       <Action Id="AcceptImport" Caption="Утвердить" />
-      <Action Id="AcceptOrderList" Caption="Утвердить" />
+      <Action Id="AcceptOrderListFirst" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
+      <Action Id="AcceptOrderListLast" Caption="Утвердить" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." />
       <Action Id="AcceptProvisionMatrix" Caption="Утвердить">
         <ChoiceActionItems>
           <ChoiceActionItem Id="EkvilibristicMethod" Caption="Эквилибристика" />
@@ -45,8 +46,6 @@
       <Action Id="HrmPeriodVC_ImportAccountOperation" Caption="Загрузить первичную проводку" />
       <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
       <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
-      <Action Id="HrmSalaryTaskCompareKBAccountOperationVC_AcceptCompare" Caption="Утвердить" />
-      <Action Id="HrmSalaryTaskCompareOZMAccountOperationVC_AcceptCompare" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction" Caption="Утвердить" />
@@ -212,7 +211,6 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" Caption="Подразделение">
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
-        <Member Name="DepartmentFact" Caption="Факт по подразделению" />
         <Member Name="DepartmentPlan" Caption="План" />
         <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
         <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />

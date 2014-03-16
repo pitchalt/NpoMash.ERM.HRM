@@ -16,7 +16,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSlaryTaskCompareKBAccountOperation")]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskCompareKBAccountOperationVC_AcceptCompare", Criteria = "isCompareAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "isCompareAcceptedKB", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmSalaryTaskCompareKBAccountOperation : HrmSalaryTask {
@@ -37,6 +37,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [Browsable(false)]
-        private bool isCompareAccepted { get { return !(MatrixAllocResultKB.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED); } }
+        private bool isCompareAcceptedKB { get { return State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED; } }
     }
 }

@@ -131,6 +131,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
             ObjectSpace.CommitChanges();
             UpdateActionsItemsState();
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
 
         private void ExportCoercedMatrixAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
@@ -143,6 +145,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 current_period.setStatus(HrmPeriodStatus.COERCED_MATRIXES_EXPORTED);
                 os.CommitChanges();
             }
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
 
         private void refresher(Object sender, EventArgs e) {

@@ -30,12 +30,18 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.OnDeactivated();
         }
 
-        private void AcceptCompare_Execute(object sender, SimpleActionExecuteEventArgs e) {
+
+        private void AcceptCompareOZM_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskCompareOZMAccountOperation task = e.CurrentObject as HrmSalaryTaskCompareOZMAccountOperation;
             task.MatrixAllocResultOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-            if (task.Period.CurrentMatrixAllocResultKB.Status == HrmMatrixStatus.MATRIX_ACCEPTED) { task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE); }
+            if (task.Period.CurrentMatrixAllocResultKB.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
+                task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            }
             task.Complete();
             ObjectSpace.CommitChanges();
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
     }
 }

@@ -121,7 +121,6 @@
     <ListView Id="DepartmentItem_ListView" GroupSummary="">
       <Columns>
         <ColumnInfo Id="DepartmentPlan" Index="1" />
-        <ColumnInfo Id="DepartmentFact" Index="2" />
         <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
         <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
@@ -364,8 +363,8 @@
                   <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" SizeConstraintsType="Default" Index="2" RelativeSize="14" IsNewNode="True" />
                   <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" SizeConstraintsType="Default" Index="3" RelativeSize="28" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutItem Id="AllocParameters.NormNoControlKB" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" Index="2" RelativeSize="1" />
-                <LayoutItem Id="AllocParameters.NormNoControlOZM" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" Index="3" RelativeSize="3" />
+                <LayoutItem Id="AllocParameters.NormNoControlKB" ShowCaption="False" SizeConstraintsType="Default" Index="2" RelativeSize="1" ViewItem="" />
+                <LayoutItem Id="AllocParameters.NormNoControlOZM" ShowCaption="False" SizeConstraintsType="Default" Index="3" RelativeSize="3" ViewItem="" />
                 <LayoutItem Id="AllocParameters.IterationNumber" Removed="True" />
                 <LayoutItem Id="AllocParameters.Month" Removed="True" />
                 <LayoutItem Id="AllocParameters.Status" Removed="True" />
@@ -719,7 +718,6 @@
     <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" CaptionVerticalAlignment="Bottom" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
-        <PropertyEditor Id="DepartmentFact" PropertyName="DepartmentFact" IsNewNode="True" />
         <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
         <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
         <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
