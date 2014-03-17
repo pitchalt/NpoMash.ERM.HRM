@@ -16,7 +16,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTaskImportAccountOperationSummary")]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+   // [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmSalaryTaskImportAccountOperationSummary : HrmSalaryTask {
