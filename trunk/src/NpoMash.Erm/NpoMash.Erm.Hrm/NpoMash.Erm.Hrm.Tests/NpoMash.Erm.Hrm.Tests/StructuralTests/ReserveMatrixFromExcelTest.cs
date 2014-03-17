@@ -18,14 +18,8 @@ using NpoMash.Erm.Hrm.Salary;
 using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM.Organization;
 
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
-
-using IntecoAG.ERM.FM.Order;
-using NpoMash.Erm.Hrm.Salary;
-using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Tests.Controllers;
-
 using DevExpress.Spreadsheet;
 using DevExpress.Office;
 
@@ -37,7 +31,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         private TestApplication application;
 
         [SetUp]
-        private void SetUp() {
+        protected void SetUp() {
             IObjectSpaceProvider object_space_provider = new XPObjectSpaceProvider(new MemoryDataStoreProvider());
             application = new TestApplication();
             ModuleBase test_module = new ModuleBase();
@@ -46,7 +40,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             application.Setup("BringingApp", object_space_provider);
         }
 
-        [TestCase("C:\\ExcelTests\\Excel\\Provisions_matrix_for_tests.xls","Test1")]
+        [TestCase("C:\\ExcelTests\\Provisions_matrix_for_tests.xls","Test1")]
         public void BringFromExcelTest(String path_to_file, String worksheet_name) {
             IObjectSpace os = application.CreateObjectSpace();
             HrmSalaryTaskProvisionMatrixReduction task = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
