@@ -95,12 +95,17 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Dep dep { get { return _dep; } set { _dep = value; } }
         private bool _isNotZero;
         public bool isNotZero { get { return _isNotZero; } }
+        private bool _isNeedsToRestore;
+        public bool isNeedsToRestore { get { return _isNeedsToRestore; } }
         private Int64 _startTime;
         public Int64 startTime { get { return _startTime; } set {
             _startTime = value;
             if (value > 0) {
-                dep.fact -= 1;
-                value -= 1;
+                if (dep.fact > 0) {
+                    dep.fact -= 1;
+                    value -= 1;
+                    _isNeedsToRestore = true;
+                }
                 _isNotZero = true;
                 if (order.isControlled)
                     dep.nonZeroControlled += 1;
@@ -130,6 +135,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             _startTime = 0;
             _time = 0;
             _isNotZero = false;
+            _isNeedsToRestore = false;
             //nonZeroUncontrolled = 0;
             minusOperations = new List<Operation>();
             plusOperations = new List<Operation>();
