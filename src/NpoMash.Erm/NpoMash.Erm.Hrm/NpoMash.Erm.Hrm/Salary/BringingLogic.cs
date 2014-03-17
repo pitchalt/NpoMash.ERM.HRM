@@ -31,13 +31,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             IDictionary<String, HrmTimeSheetDep> time_sheet_dictionary = reduc.TimeSheet.TimeSheetDeps
                 .Where<HrmTimeSheetDep>( x => x.MatrixWorkTime > 0)
                 .ToDictionary<HrmTimeSheetDep, String>(x => x.Department.BuhCode);
-
+            int errors_in_ts = 0;
             Matrix mat = new Matrix();
             foreach (HrmMatrixColumn department_plan in mat_plan.Columns) {
-                if (!time_sheet_dictionary.ContainsKey(department_plan.Department.BuhCode))
-                    continue;
+                
+                    //continue;
+                
                 Dep department = new Dep();
-                department.fact += time_sheet_dictionary[department_plan.Department.BuhCode].MatrixWorkTime;
+                if (time_sheet_dictionary.ContainsKey(department_plan.Department.BuhCode)) {
+                    
+                    department.fact += time_sheet_dictionary[department_plan.Department.BuhCode].MatrixWorkTime;
+                }
+                else {
+                    errors_in_ts++; // это неплохо бы показать в логах
+                    department.fact += 0;
+                }
                 department.realDepartment = department_plan.Department;
                 mat.deps.Add(department_plan.Department.BuhCode, department);
                 department.matrix = mat;
@@ -228,7 +236,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void RestoreInitialFact(Matrix mat) {
             foreach (Cell cell in mat.cellsInDictionary.Values) {
-                if (cell.isNotZero) {
+                if (cell.isNeedsToRestore) {
                     cell.time += 1;
                     cell.dep.fact += 1;
                 }
