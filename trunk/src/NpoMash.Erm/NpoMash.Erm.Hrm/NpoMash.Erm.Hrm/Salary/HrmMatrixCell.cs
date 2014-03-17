@@ -25,6 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int64>("Time", ref _Time, value); }
         }
 
+        [Browsable(false)]
         private Decimal _PlanMoney;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -35,6 +36,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("PlanMoney", ref _PlanMoney, value); }
         }
 
+        [Browsable(false)]
         private Decimal _MoneyReserve;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -45,6 +47,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("MoneyReserve", ref _MoneyReserve, value); }
         }
 
+        [Browsable(false)]
         private Decimal _MoneyNoReserve;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -55,6 +58,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("MoneyNoReserve", ref _MoneyNoReserve, value); }
         }
 
+        [Browsable(false)]
         private Decimal _MoneyTravel;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -65,6 +69,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("MoneyTravel", ref _MoneyTravel, value); }
         }
 
+        [Browsable(false)]
         private Decimal _MoneyAllSumm;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]

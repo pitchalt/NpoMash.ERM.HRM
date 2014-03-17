@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [MapInheritance(MapInheritanceType.OwnTable)]
     [Persistent("HrmSalaryTaskMatrixReduction")]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskMatrixReduction : HrmSalaryTask {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }

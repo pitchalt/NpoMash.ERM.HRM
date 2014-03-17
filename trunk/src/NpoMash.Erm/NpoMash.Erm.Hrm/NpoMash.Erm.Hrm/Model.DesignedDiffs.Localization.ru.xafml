@@ -2,6 +2,7 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="AcceptCoercedMatrixAction" Caption="Утвердить" />
       <Action Id="AcceptCompareKB" Caption="Утвердить" />
       <Action Id="AcceptCompareOZM" Caption="Утвердить" />
       <Action Id="AcceptImport" Caption="Утвердить" />
@@ -50,7 +51,6 @@
       <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
-      <Action Id="HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction" Caption="Утвердить" />
       <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
     </Actions>
   </ActionDesign>
