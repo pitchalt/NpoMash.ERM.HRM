@@ -36,6 +36,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.Period.setStatus(HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED);
             task.Complete();
             ObjectSpace.CommitChanges();
+
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
     }
 }
