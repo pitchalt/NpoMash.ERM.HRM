@@ -50,8 +50,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 //   [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Enabled=false)]
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Status")]       
-    public class HrmMatrix : BaseObject {
+    [DefaultProperty("Status")]
+    public class HrmMatrix : HrmSalaryPeriodObject {
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]

@@ -234,6 +234,16 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }
 
+        [Association("Period-SalaryObject"), Aggregated] //Коллекция SalaryPeriodObject
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public XPCollection<HrmSalaryObject> SalaryObject {
+            get { return GetCollection<HrmSalaryObject>("SalaryObject"); }
+        }
+
+
+
         public void setStatus(HrmPeriodStatus stat) {
             if (stat == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
                 try {
