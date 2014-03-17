@@ -56,6 +56,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("TYPE_MATIX", ref _Matrix, value); }
         }
 
+//
+        private HrmSalaryObject _SalaryObject; // —сылка на HrmSalaryObject
+        [Association("SalaryObject-Column")]
+        public HrmSalaryObject SalaryObject {
+            get { return _SalaryObject; }
+            set { SetPropertyValue<HrmSalaryObject>("SalaryObject", ref _SalaryObject, value); }
+        }
+
+
+
+
 
         public HrmMatrixColumn(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }

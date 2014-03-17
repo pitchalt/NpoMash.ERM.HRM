@@ -176,6 +176,16 @@
     </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
+    <Compile Include="Salary\HrmSalaryBaseMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryColumnSlice.cs" />
+    <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
+    <Compile Include="Salary\HrmSalaryLastAccount.cs" />
+    <Compile Include="Salary\HrmSalaryObject.cs" />
+    <Compile Include="Salary\HrmSalaryObjectSlice.cs" />
+    <Compile Include="Salary\HrmSalaryPeriodObject.cs" />
+    <Compile Include="Salary\HrmSalaryProvisionMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryRowSlice.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummary.cs" />
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
