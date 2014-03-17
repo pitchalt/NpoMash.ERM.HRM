@@ -19,6 +19,56 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskProvisionMatrixReductionLogic{
 
+        public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
+            HrmMatrix result = os.CreateObject<HrmMatrix>();
+            HrmMatrix m_plan_kb = card.MatrixplanKB;
+            HrmMatrix m_plan_ozm = card.MatrixPlanOZM;
+            HrmMatrix m_res_kb = card.AllocResultKB;
+            HrmMatrix m_res_ozm = card.AllocResultOZM;
+            
+            Dictionary<String, Dictionary<String,HrmMatrixCell>> res_mat = new Dictionary<string, Dictionary<String,HrmMatrixCell>>();
+            foreach(HrmMatrixColumn col in m_res_kb.Columns.Concat(m_res_ozm.Columns)){
+                String dep_code = col.Department.Code;
+                Dictionary<String, HrmMatrixCell> dict = col.Cells.ToDictionary(x => x.Row.Order.Code);
+                res_mat.Add(dep_code, dict);
+            }
+
+            Dictionary<String, HrmMatrixRow> created_rows = new Dictionary<string, HrmMatrixRow>();
+
+            foreach (HrmMatrixColumn current_column in m_plan_kb.Columns.Concat(m_plan_ozm.Columns)) {
+                HrmMatrixColumn result_column = os.CreateObject<HrmMatrixColumn>();
+                String dep_code = current_column.Department.Code;
+                result_column.Matrix = result;
+                result.Columns.Add(result_column);
+                result_column.Department = current_column.Department;
+                foreach (HrmMatrixCell current_cell in current_column.Cells) {
+                    HrmMatrixRow current_row = current_cell.Row;
+                    String ord_code = current_row.Order.Code;
+                    HrmMatrixRow result_row = null;
+                    if (created_rows.ContainsKey(ord_code)) {
+                        result_row = created_rows[ord_code];
+                    }
+                    else {
+                        result_row = os.CreateObject<HrmMatrixRow>();
+                        result.Rows.Add(result_row);
+                        result_row.Matrix = result;
+                        result_row.Order = current_row.Order;
+                        created_rows.Add(ord_code, result_row);
+                    }
+                    HrmMatrixCell result_cell = os.CreateObject<HrmMatrixCell>();
+                    result_cell.Row = result_row;
+                    result_row.Cells.Add(result_cell);
+                    result_cell.Column = result_column;
+                    result_column.Cells.Add(result_cell);
+                    result_cell.Time = current_cell.Time;
+                    // а это две самые страшные операции, как бы тут все в тартарары не улетело
+                    result_cell.MoneyReserve = res_mat[dep_code][ord_code].MoneyReserve;
+                    result_cell.MoneyNoReserve = res_mat[dep_code][ord_code].MoneyNoReserve;
+                }
+            }
+            return result;
+        }
+
         public static HrmSalaryTaskProvisionMatrixReduction initProvisonMatrixTask(IObjectSpace os, HrmPeriod period, DepartmentGroupDep group_dep) {
             HrmSalaryTaskProvisionMatrixReduction task_provision_matrix_reduction = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
             period.PeriodTasks.Add(task_provision_matrix_reduction);
