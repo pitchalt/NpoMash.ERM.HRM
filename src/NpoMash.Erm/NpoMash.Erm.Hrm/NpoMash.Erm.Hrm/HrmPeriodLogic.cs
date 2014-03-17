@@ -167,20 +167,35 @@ namespace NpoMash.Erm.Hrm
             }
             return kb_coerced_matrix_accepted && ozm_coerced_matrix_accepted && kb_alloc_result_accepted && ozm_alloc_result_accepted;
         }
-        /*
-        public static bool PeriodParametersAccepted(HrmPeriod period) {
-            int fals = 0;
-            bool logic=false;
-            foreach (var matrixs in period.Matrixs) {
-                if (matrixs.Status == HrmMatrixStatus.MATRIX_ACCEPTED) { }
-                else fals++;           
+
+        public static bool KBAccountOperationCompared(HrmPeriod period) {
+            bool kb_alloc_result_accepted = false;
+
+            foreach (HrmMatrix mat in period.Matrixs) {
+                if (
+                           mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
+                           mat.Status == HrmMatrixStatus.MATRIX_EXPORTED && mat.TypeMatrix==HrmMatrixTypeMatrix.MATRIX_COERCED)
+                    kb_alloc_result_accepted = true;
             }
 
-            if (period.CurrentAllocParameter.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) { fals++; }
+            return kb_alloc_result_accepted;
+        }
 
-            if (fals > 0) { logic = true; }
-            return logic;
-        
-        }*/
+        public static bool OZMAccountOperationCompared(HrmPeriod period) {
+            bool ozm_alloc_result_accepted = false;
+
+            foreach (HrmMatrix mat in period.Matrixs) {
+
+                if (mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
+                           mat.Status == HrmMatrixStatus.MATRIX_EXPORTED && mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED)
+                    ozm_alloc_result_accepted = true;
+            }
+
+
+            return ozm_alloc_result_accepted;
+        }
+       
+
+
     }
 }

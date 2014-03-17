@@ -79,6 +79,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                  os.CommitChanges();
              }
              ObjectSpace.CommitChanges();
+
+             Window win = Frame as Window;
+             if (win != null) win.Close();
+
             }
 
         private void refresher(Object sender, EventArgs e) {
