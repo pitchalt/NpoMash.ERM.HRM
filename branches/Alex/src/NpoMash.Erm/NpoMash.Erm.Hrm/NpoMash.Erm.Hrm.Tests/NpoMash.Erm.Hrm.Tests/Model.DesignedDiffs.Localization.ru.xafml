@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="TesterWC_AddReferenceData" Caption="Добавление реальных справок" />
+      <Action Id="TesterWC_PopulateAction" Caption="Добавить тестовые данные" />
+    </Actions>
+  </ActionDesign>
+</Application>
