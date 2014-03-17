@@ -47,9 +47,9 @@
             // 
             // AcceptCoercedMatrixAction
             // 
-            this.AcceptCoercedMatrixAction.Caption = "Accept MATRIX_COERCED TYPE_MATIX";
+            this.AcceptCoercedMatrixAction.Caption = "AcceptCoercedMatrixAction";
             this.AcceptCoercedMatrixAction.ConfirmationMessage = null;
-            this.AcceptCoercedMatrixAction.Id = "HrmSalaryTaskMatrixReductionVC_AcceptCoercedMatrixAction";
+            this.AcceptCoercedMatrixAction.Id = "AcceptCoercedMatrixAction";
             this.AcceptCoercedMatrixAction.ImageName = null;
             this.AcceptCoercedMatrixAction.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.AcceptCoercedMatrixAction.Shortcut = null;
