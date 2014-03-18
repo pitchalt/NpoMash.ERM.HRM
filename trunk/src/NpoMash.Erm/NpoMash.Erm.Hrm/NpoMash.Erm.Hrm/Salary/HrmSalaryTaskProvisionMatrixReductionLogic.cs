@@ -28,7 +28,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             
             Dictionary<String, Dictionary<String,HrmMatrixCell>> res_mat = new Dictionary<string, Dictionary<String,HrmMatrixCell>>();
             foreach(HrmMatrixColumn col in m_res_kb.Columns.Concat(m_res_ozm.Columns)){
-                String dep_code = col.Department.Code;
+                String dep_code = col.Department.BuhCode;
                 Dictionary<String, HrmMatrixCell> dict = col.Cells.ToDictionary(x => x.Row.Order.Code);
                 res_mat.Add(dep_code, dict);
             }
@@ -37,7 +37,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             foreach (HrmMatrixColumn current_column in m_plan_kb.Columns.Concat(m_plan_ozm.Columns)) {
                 HrmMatrixColumn result_column = os.CreateObject<HrmMatrixColumn>();
-                String dep_code = current_column.Department.Code;
+                String dep_code = current_column.Department.BuhCode;
                 result_column.Matrix = result;
                 result.Columns.Add(result_column);
                 result_column.Department = current_column.Department;
@@ -131,48 +131,37 @@ namespace NpoMash.Erm.Hrm.Salary {
         
         // Create money matrix
         public static HrmMatrix createMoneyMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
-            //HrmMatrix money_matrix = os.CreateObject<HrmMatrix>();
+
             var alloc_parameters = card.AllocParameters;
             var matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os,card);
-            //Шагаем по строкам плановой(труд) матрицы
-            foreach (var plan_orders in matrix.Rows) {
+            Decimal norm_kb=0;
+            Decimal norm_ozm = 0;
+            bool key=false;
 
-                // Заходим с заказом из этой строчки в параметры расчета
+            foreach (var matrix_order in matrix.Rows) {
+                key = false;
                 foreach (var control_order in alloc_parameters.OrderControls) {
-                    //Если Код_заказа и Тип_контроля заказа из плановой матрицы совпали с кодом и типом из параметров расчета
-                    if (plan_orders.Order.Code == control_order.Order.Code && plan_orders.Order.TypeControl == control_order.Order.TypeControl) {
-                        // Проверяем ФОТ или Труд+ФОТ
-                        if (plan_orders.Order.TypeControl == FmCOrderTypeControl.FOT || plan_orders.Order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT) {
-                            // Если да, то проверяем идем по ячейкам и проверяемпринадлежность к подразделению;
-                            foreach (var plan_cell in plan_orders.Cells) {
-                                //Если вдруг КБ
-                                if (plan_cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                                    plan_cell.PlanMoney = control_order.NormKB * (plan_cell.Time);
-
-                                }
-                                else if (plan_cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                                    plan_cell.PlanMoney = control_order.NormOZM * (plan_cell.Time);
-                                }
-
-
-                            }
-                        } // Если случилось такое что заказ неконтролируемый
-                        else if (plan_orders.Order.TypeControl == FmCOrderTypeControl.NO_ORDERED) {
-                            foreach (var plan_cell in plan_orders.Cells) {
-                                // HrmMatrixRow new_row = os.CreateObject<HrmMatrixRow>();
-                                // HrmMatrixColumn new_column = os.CreateObject<HrmMatrixColumn>();
-                                //Если вдруг КБ
-                                if (plan_cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                                 
-
-                                }
-                                else if (plan_cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
-                                   
-                                }
-                            }
-                        }
+                    if (matrix_order.Order.Code == control_order.Order.Code) {
+                        key = true;
+                        norm_kb = control_order.Order.NormKB;
+                        norm_ozm = control_order.Order.NormOZM;
                     }
                 }
+
+                if (key == true) {
+                    foreach (var cell in matrix_order.Cells) {
+                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = norm_kb * (cell.Time); }
+                        else { cell.PlanMoney = norm_ozm * (cell.Time); }
+                    }
+                }
+                else if (key == false) {
+                    foreach (var cell in matrix_order.Cells) {
+                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = alloc_parameters.NormNoControlKB * (cell.Time); }
+                        else { cell.PlanMoney = alloc_parameters.NormNoControlOZM *(cell.Time); }
+                    }
+                
+                }
+
             }
 
             return matrix;
