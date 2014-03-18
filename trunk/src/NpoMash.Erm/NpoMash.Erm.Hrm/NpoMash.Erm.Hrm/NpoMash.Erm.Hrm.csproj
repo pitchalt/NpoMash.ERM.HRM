@@ -209,6 +209,14 @@
       <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
     </Compile>
     <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrixLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrixVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrixVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskExportProvisionMatrixVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperation.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperationLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummary.cs" />
@@ -282,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.resx">
       <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskExportProvisionMatrixVC.resx">
+      <DependentUpon>HrmSalaryTaskExportProvisionMatrixVC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.resx">
       <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
