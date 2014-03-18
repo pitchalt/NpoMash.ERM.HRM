@@ -25,55 +25,38 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int64>("Time", ref _Time, value); }
         }
 
-        [Browsable(false)]
+       
+
         private Decimal _PlanMoney;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal PlanMoney {
             get { return _PlanMoney; }
             set { SetPropertyValue<Decimal>("PlanMoney", ref _PlanMoney, value); }
         }
 
-        [Browsable(false)]
         private Decimal _MoneyReserve;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyReserve {
             get { return _MoneyReserve; }
             set { SetPropertyValue<Decimal>("MoneyReserve", ref _MoneyReserve, value); }
         }
 
-        [Browsable(false)]
+
         private Decimal _MoneyNoReserve;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyNoReserve {
             get { return _MoneyNoReserve; }
             set { SetPropertyValue<Decimal>("MoneyNoReserve", ref _MoneyNoReserve, value); }
         }
 
-        [Browsable(false)]
         private Decimal _MoneyTravel;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal MoneyTravel {
             get { return _MoneyTravel; }
             set { SetPropertyValue<Decimal>("MoneyTravel", ref _MoneyTravel, value); }
         }
 
-        [Browsable(false)]
         private Decimal _MoneyAllSumm;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
         public Decimal MoneyAllSumm {

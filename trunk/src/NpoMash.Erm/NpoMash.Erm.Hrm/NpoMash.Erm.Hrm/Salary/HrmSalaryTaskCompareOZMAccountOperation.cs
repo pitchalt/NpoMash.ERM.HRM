@@ -24,11 +24,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryTaskCompareOZMAccountOperation(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        private HrmMatrixAllocPlan _MatrixAllocPlanOZM;
-        public HrmMatrixAllocPlan MatrixAllocPlanOZM {
-            get { return _MatrixAllocPlanOZM; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixAllocPlanOZM", ref _MatrixAllocPlanOZM, value); }
-        }
+     //   private HrmMatrixAllocPlan _MatrixAllocPlanOZM;
+      //  public HrmMatrixAllocPlan MatrixAllocPlanOZM {
+        //    get { return _MatrixAllocPlanOZM; }
+           // set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixAllocPlanOZM", ref _MatrixAllocPlanOZM, value); }
+       // }
 
         private HrmMatrix _ReducMatrixOZM;
         public HrmMatrix ReducMatrixOZM {

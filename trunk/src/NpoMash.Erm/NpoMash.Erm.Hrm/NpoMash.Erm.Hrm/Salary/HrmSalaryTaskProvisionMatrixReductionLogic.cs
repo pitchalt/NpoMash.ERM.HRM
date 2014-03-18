@@ -89,12 +89,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             // Get coerced matrix from period
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED &&
+                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
                     matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     task_provision_matrix_reduction.MatrixAllocKB = matrix;
                 }
                 else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED &&
+                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
                     matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
                     task_provision_matrix_reduction.MatrixAllocOZM = matrix;
                 }

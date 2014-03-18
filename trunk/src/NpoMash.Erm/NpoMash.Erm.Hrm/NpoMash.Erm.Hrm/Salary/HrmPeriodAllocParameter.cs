@@ -106,17 +106,17 @@ namespace NpoMash.Erm.Hrm.Salary
         }
 
 //      
-        [Browsable(false)]
+       // [Browsable(false)]
         [Association("HrmPeriodAllocParameter-HrmPeriodPayType"), Aggregated]  // סגÿחü ס HrmPeriodPayTypes
         public XPCollection<HrmPeriodPayType> PeriodPayTypes
         {
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
 
-        [ManyToManyAlias("PeriodPayTypes", "PayType")]
+   /*     [ManyToManyAlias("PeriodPayTypes", "PayType")]
         public IList<HrmSalaryPayType> SimpleWorkButNotLegal {
             get { return GetList<HrmSalaryPayType>("SimpleWorkButNotLegal"); }
-        }
+        }*/
 //
 
 

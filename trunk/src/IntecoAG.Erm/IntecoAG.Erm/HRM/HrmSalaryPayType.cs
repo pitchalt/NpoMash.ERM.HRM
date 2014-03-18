@@ -15,7 +15,7 @@ using DevExpress.Persistent.Validation;
 
 namespace IntecoAG.ERM.HRM
 {
-    
+
 
     [Persistent("HrmSalaryPayType")]
     [DefaultProperty("Code")]
@@ -32,6 +32,8 @@ namespace IntecoAG.ERM.HRM
         public String Name {
                get { return _Name; }
                set { SetPropertyValue<String>("Name", ref _Name, value); } }
+
+
 
         public HrmSalaryPayType(Session session) : base(session) { }
         public override void AfterConstruction()

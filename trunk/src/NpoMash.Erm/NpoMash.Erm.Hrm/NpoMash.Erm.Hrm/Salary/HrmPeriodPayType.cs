@@ -15,8 +15,14 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM;
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]
-   // [Persistent("RelationsManyToManyCCLinkCD")]
+  
+
+    public enum HrmPayTypes {
+        PROVISION_CODE = 0,
+        TRAVEL_CODE = 1
+    }
+
+     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]
    
     [Persistent("HrmPeriodPayType")]
     public class HrmPeriodPayType : BaseObject {
@@ -37,10 +43,18 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmSalaryPayType>("PayType", ref _PayType, value); }
         }
 
+        private HrmPayTypes _Type;
+        public HrmPayTypes Type {
+            get { return _Type; }
+            set { SetPropertyValue<HrmPayTypes>("Type", ref _Type, value); }
+        }
+
 
         public HrmPeriodPayType(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
+            SetPropertyValue<HrmPayTypes>("Type", ref _Type, HrmPayTypes.PROVISION_CODE);        
+
         }
 
     }
