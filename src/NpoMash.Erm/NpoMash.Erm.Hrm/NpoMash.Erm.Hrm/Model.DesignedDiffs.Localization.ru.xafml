@@ -33,7 +33,7 @@
           <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
-      <Action Id="BringProvisionMatrix" Caption="Приведение матрицы резерва">
+      <Action Id="BringProvisionMatrix" Caption="Создание матрицы резерва">
         <ChoiceActionItems>
           <ChoiceActionItem Id="Evristik" Caption="Эвристический метод" />
           <ChoiceActionItem Id="Simplex" Caption="Симплекс метод" />
@@ -135,6 +135,7 @@
         <Member Name="NormNoControlOZM" Caption="Норма по неконтр. заказам ОЗМ" />
         <Member Name="OrderControls" Caption="Контроль заказа" />
         <Member Name="Period" Caption="Период" />
+        <Member Name="PeriodPayTypes" Caption="Код оплаты" />
         <Member Name="Status" Caption="Статус контроля" />
         <Member Name="Year" Caption="Год" />
       </OwnMembers>
@@ -152,6 +153,7 @@
       <OwnMembers>
         <Member Name="AllocParameter" Caption="Параметры расчета" />
         <Member Name="PayType" Caption="Код оплаты" />
+        <Member Name="Type" Caption="Тип" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTask" Caption="Задачи в данном периоде">
@@ -323,6 +325,10 @@
         <LocalizationItem Name="MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT" Value="Мин. числа отклонений" />
         <LocalizationItem Name="PROPORTIONS_METHOD_VARIANT" Value="Метод пропорции" />
       </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPayTypes">
+        <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
+        <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
+      </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
         <LocalizationItem Name="ALLOC_PARAMETERS_ACCEPTED" Value="Утверждены параметры расчета" />
         <LocalizationItem Name="ARCHIVE" Value="Архив" />
@@ -409,11 +415,56 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="HrmSalaryTaskCompareKBAccountOperation_DetailView">
+      <Items>
+        <PropertyEditor Id="ReducMatrixKB" Caption="Матрица учета (КБ):" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskCompareKBAccountOperation" Caption="HrmSalaryTaskCompareKBAccountOperation" />
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskCompareOZMAccountOperation_DetailView">
+      <Items>
+        <PropertyEditor Id="ReducMatrixOZM" Caption="Матрицы учета (ОЗМ):" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskCompareOZMAccountOperation" Caption="HrmSalaryTaskCompareOZMAccountOperation" />
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView" Caption="Экспорт матриц учета">
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="HrmSalaryTask" Caption="Задача" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskImportAccountOperation" Caption="HrmSalaryTaskImportAccountOperation" />
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
