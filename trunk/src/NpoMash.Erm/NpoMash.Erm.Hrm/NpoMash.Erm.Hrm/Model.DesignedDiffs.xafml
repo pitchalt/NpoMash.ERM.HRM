@@ -157,7 +157,6 @@
                 <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="28" />
                 <LayoutItem Id="Group" SizeConstraintsType="Default" RelativeSize="21" />
                 <LayoutItem Id="DepartmentPlan" SizeConstraintsType="Default" RelativeSize="21" />
-                <LayoutItem Id="PlannedTravels" SizeConstraintsType="Default" RelativeSize="28" />
               </LayoutGroup>
               <LayoutGroup Id="DepartmentSet_col2" RelativeSize="48" ImageName="">
                 <LayoutItem Id="PrefactoryDepartmentFact" SizeConstraintsType="Default" RelativeSize="28" />

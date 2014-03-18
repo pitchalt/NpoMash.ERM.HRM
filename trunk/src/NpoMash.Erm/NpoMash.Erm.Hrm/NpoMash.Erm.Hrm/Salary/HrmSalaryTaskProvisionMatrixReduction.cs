@@ -113,6 +113,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class OrderSet : XPCustomObject {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
+            public Int64 Base;
+            public Int64 Provision;
             public Int64 OrderPlan;
             public Int64 PlannedTravels;
             public Int64 PrefatoryOrderFact;
@@ -133,6 +135,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class DepartmentSet : XPCustomObject {
             public Department Department;
             public DepartmentGroupDep Group;
+            public Int64 Base;
             public Int64 DepartmentPlan;
             public Int64 PlannedTravels;
             public Int64 PrefactoryDepartmentFact;
