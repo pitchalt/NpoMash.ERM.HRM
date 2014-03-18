@@ -41,13 +41,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MatrixPlanOZM", ref _MatrixPlanOZM, value); }
         }
 
-        private HrmMatrix _MatrixPlan;  //Плановая матрица трудоемкость КБ.ОЗМ
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix MatrixPlan {
-            get { return _MatrixPlan; }
-            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
-        }
-
         private HrmMatrix _MatrixAllocKB;  //Приведенная матрица КБ
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix MatrixAllocKB {
@@ -60,14 +53,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrix MatrixAllocOZM {
             get { return _MatrixAllocOZM; }
             set { SetPropertyValue<HrmMatrix>("MatrixAllocOZM", ref _MatrixAllocOZM, value); }
-        }
-
-        private HrmMatrix _MatrixAlloc; // Общая приведенная матрица КБ.ОЗМ
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix MatrixAlloc {
-            get { return _MatrixAlloc; }
-            set { SetPropertyValue<HrmMatrix>("MatrixAlloc", ref _MatrixAlloc, value); }
-        
         }
 
         private HrmMatrix _MatrixPlanMoney; // Матрица с деньгами
@@ -119,13 +104,6 @@ namespace NpoMash.Erm.Hrm.Salary {
          public HrmMatrix AllocResultOZM {
              get { return _AllocResultOZM; }
              set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
-         }
-
-         private HrmMatrix _AllocResultKBOZM; //Первичная проводка ОЗМ/KB
-         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-         public HrmMatrix AllocResultKBOZM {
-             get { return _AllocResultKBOZM; }
-             set { SetPropertyValue<HrmMatrix>("AllocResultKBOZM", ref _AllocResultKBOZM, value); }
          }
 
 
