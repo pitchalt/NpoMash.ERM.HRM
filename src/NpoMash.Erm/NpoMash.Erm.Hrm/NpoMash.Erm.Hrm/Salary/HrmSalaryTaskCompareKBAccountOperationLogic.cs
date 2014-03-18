@@ -20,9 +20,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void CompareKBMatrix(IObjectSpace local_object_space, HrmSalaryTaskCompareKBAccountOperation local_task) {
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
-            local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
             local_task.ReducMatrixKB = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             local_task.MatrixAllocResultKB = local_task.Period.CurrentMatrixAllocResultKB;
+
+            local_task.MatrixAllocResultKB.Status = local_task.Period.CurrentMatrixAllocResultKB.Status;
+            local_task.ReducMatrixKB.Status = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status;
+
         }
     }
 }

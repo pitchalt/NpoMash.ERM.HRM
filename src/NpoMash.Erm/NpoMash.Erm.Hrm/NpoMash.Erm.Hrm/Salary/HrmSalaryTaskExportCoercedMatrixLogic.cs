@@ -32,6 +32,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ExportCoercedMatrix(HrmSalaryTaskExportCoercedMatrix local_task) {
             local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
+            local_task.KBCoercedMatrix.Status = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status;
+            local_task.OZMCoercedMatrix.Status = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status;
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
             IList<ExchangeMatrixPlan> records = new List<ExchangeMatrixPlan>();
             foreach (var column in local_task.KBCoercedMatrix.Columns) {

@@ -28,14 +28,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmMatrix _MatrixPlanKB; //Плановая КБ
-        [Browsable(false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix MatrixplanKB {
             get { return _MatrixPlanKB; }
             set { SetPropertyValue<HrmMatrix>("MatrixPlanKB", ref _MatrixPlanKB, value); }
         }
 
         private HrmMatrix _MatrixPlanOZM; //Плановая ОЗМ
-        [Browsable(false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix MatrixPlanOZM {
             get { return _MatrixPlanOZM; }
             set { SetPropertyValue<HrmMatrix>("MatrixPlanOZM", ref _MatrixPlanOZM, value); }
