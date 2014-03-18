@@ -32,6 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public Decimal reserve { get { return _resereve; } set { _resereve = value; } }
         private HrmMatrixCell _refToRealCell;
         public HrmMatrixCell refToRealCell { get { return _refToRealCell; } set { _refToRealCell = value; } }
+        public Decimal planFactDifference { get { return plan - constFact - reserve; } }
         public ProvCell() {
             dep = null;
             ord = null;
@@ -51,10 +52,16 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public Decimal undistributedReserve { get { return _undistributedReserve; } set { _undistributedReserve = value; } }
         private int _numberOfUncontrolledOrders;
         public int numberOfUncontrolledOrders { get { return _numberOfUncontrolledOrders; } set { _numberOfUncontrolledOrders = value; } }
+        private int _numberOfControlledOrders;
+        public int numberOfControlledOrders { get { return _numberOfControlledOrders; } set { _numberOfControlledOrders = value; } }
+        private bool _isAlreadyBringed;
+        public bool isAlreadyBringed { get { return _isAlreadyBringed; } set { _isAlreadyBringed = value; } }
         public ProvDep() {
             cells = new List<ProvCell>();
             undistributedReserve = 0;
             numberOfUncontrolledOrders = 0;
+            numberOfControlledOrders = 0;
+            isAlreadyBringed = false;
         }
     }
 
@@ -64,9 +71,12 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public List<ProvCell> cells;
         private bool _isControlled;
         public bool isControlled { get { return _isControlled; } set { _isControlled = value; } }
+        private Decimal _ordPlan;
+        public Decimal ordPlan { get { return _ordPlan; } set { _ordPlan = value; } }
         public ProvOrd() {
             cells = new List<ProvCell>();
             isControlled = false;
+            ordPlan = 0;
         }
 
     }
