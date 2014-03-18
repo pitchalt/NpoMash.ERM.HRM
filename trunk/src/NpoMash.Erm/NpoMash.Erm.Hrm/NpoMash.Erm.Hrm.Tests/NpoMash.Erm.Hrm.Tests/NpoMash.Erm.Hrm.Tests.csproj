@@ -151,7 +151,7 @@
     <EmbeddedResource Include="Controllers\TestWC.resx">
       <DependentUpon>TestWC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="ImportReferentialData\Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Module.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
@@ -183,11 +183,11 @@
     <None Include="FunctionalTests\UCS_UCF6\Alternative_Step6_Saving.ets" />
     <None Include="FunctionalTests\UCS_UCF6\Alternative_Step6_notSaving.ets" />
     <None Include="Images\ReadMe.txt" />
-    <EmbeddedResource Include="Model.DesignedDiffs.Localization.en.xafml">
+    <EmbeddedResource Include="ImportReferentialData\Model.DesignedDiffs.Localization.en.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Model.DesignedDiffs.Localization.ru.xafml">
+    <EmbeddedResource Include="ImportReferentialData\Model.DesignedDiffs.Localization.ru.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -49,6 +49,7 @@
       <Action Id="HrmPeriodVC_ImportAccountOperation" Caption="Загрузить первичную проводку" />
       <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
       <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix" Caption="Экспорт" />
       <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
@@ -180,6 +181,12 @@
       <OwnMembers>
         <Member Name="MatrixAllocPlanOZM" Caption="Табель(ОЗМ)" />
         <Member Name="MatrixAllocResultOZM" Caption="Проводка(ОЗМ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskExportCoercedMatrix" Caption="Экспорт матриц учета">
+      <OwnMembers>
+        <Member Name="KBCoercedMatrix" Caption="Матрица Учета КБ" />
+        <Member Name="OZMCoercedMatrix" Caption="Матрица Учета ОЗМ" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки">
@@ -402,6 +409,15 @@
               <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView" Caption="Экспорт матриц учета">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>

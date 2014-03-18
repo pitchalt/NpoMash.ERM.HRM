@@ -3,29 +3,32 @@ using FileHelpers;
 
 namespace NpoMash.Erm.Hrm.Exchange {
 
-
     [FixedLengthRecord()]
-    public class ImportMatrixPlan {
+    public class ExchangeMatrixTimeSheet {
 
         [FieldFixedLength(4)]
         [FieldConverter(typeof(NewDateConverter))]
         public Int16 Year;
-
+        
         [FieldFixedLength(2)]
         [FieldConverter(typeof(NewDateConverter))]
         public Int16 Month;
-
+        
         [FieldFixedLength(5)]
         [FieldConverter(typeof(DepConverter))]
-        public String DepartmentCode;
-
-        [FieldFixedLength(9)]
-        [FieldConverter(typeof(TrimConverter))]
-        public String OrderCode;
-
+        public String Department_Code;
+        
         [FieldFixedLength(12)]
-        [FieldConverter(typeof(TimeConverter))]
-        public Int64 Time;
+        [FieldConverter(typeof(WorkTimeConverter))]
+        public Int64 BaseWorkTime;
+        
+        [FieldFixedLength(12)]
+        [FieldConverter(typeof(WorkTimeConverter))]
+        public Int64 TravelWorkTime;
+        
+        [FieldFixedLength(12)]
+        [FieldConverter(typeof(WorkTimeConverter))]
+        public Int64 ConstantWorkTime;
 
         internal class NewDateConverter : ConverterBase {
             public override object StringToField(string from) {
@@ -45,7 +48,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
             }
         }
 
-        internal class TimeConverter : ConverterBase {
+        internal class WorkTimeConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToInt64(from.Remove(from.Length - 3, 1).Trim());
             }

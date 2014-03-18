@@ -5,7 +5,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
  
 
     [FixedLengthRecord()]
-    public class ImportAccountOperation {
+    public class ExchangeAccountOperation {
 
         [FieldFixedLength(2)]
         [FieldConverter(typeof(SignConverter))]
