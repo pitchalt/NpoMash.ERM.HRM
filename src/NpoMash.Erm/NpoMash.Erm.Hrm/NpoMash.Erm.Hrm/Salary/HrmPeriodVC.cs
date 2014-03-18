@@ -257,7 +257,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
+    /*    private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
@@ -268,7 +268,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 object_space.Committed += new EventHandler(refresher);
             }
-        }
+        }*/
 
         private void AccountOperationImport_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
