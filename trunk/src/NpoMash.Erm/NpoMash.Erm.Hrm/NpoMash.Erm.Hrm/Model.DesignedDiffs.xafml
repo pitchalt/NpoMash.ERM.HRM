@@ -394,6 +394,28 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix" RelativeSize="5" ImageName="">
+              <LayoutItem Id="ProvisionMatrix" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="94" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
@@ -540,6 +562,60 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="MatrixPlan.Rows" Index="0" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="TimeSheet.TimeSheetDeps" Index="2" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="AllocParameters.OrderControls" Index="3" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="AllocParameters.PeriodPayTypes" Index="4" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="Department" Index="5" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="AllocParameters" Caption="AllocParameters" IsNewNode="True">
+              <LayoutGroup Id="@66ebaa62-45d0-42cb-92d6-7af8f24c9c54" IsNewNode="True">
+                <TabbedGroup Id="@75009ff9-3241-4217-8cef-2d4f9b24beb0" IsNewNode="True">
+                  <LayoutGroup Id="@bf1c6e62-73df-4a76-baeb-ba3802003996" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.OrderControls" ViewItem="AllocParameters.OrderControls" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="@cb54509b-5a04-4dbb-b43a-98f821a83327" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.PeriodPayTypes" ViewItem="AllocParameters.PeriodPayTypes" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="CoercedMatrix" Caption="CoercedMatrix" IsNewNode="True">
+              <LayoutGroup Id="@56198f74-2849-4248-9a55-25f390f1c5e5" IsNewNode="True">
+                <TabbedGroup Id="@e2c63bc4-49c4-4893-aade-efebe5443853" IsNewNode="True">
+                  <LayoutGroup Id="@5c9ac9de-8029-471e-a7e8-cadaf90b5e34" IsNewNode="True">
+                    <LayoutItem Id="Department" ViewItem="Department" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="@a48397d9-a71f-4f0c-a6db-048ee5bb33cd" IsNewNode="True">
+                    <LayoutItem Id="Order" ViewItem="Order" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlan.Columns" Removed="True" />
+            <LayoutGroup Id="Order" Removed="True" />
+            <LayoutGroup Id="SourceData" Caption="SourceData" IsNewNode="True">
+              <LayoutGroup Id="SourceData_LayOut" Caption="SourceData_LayOut" IsNewNode="True">
+                <TabbedGroup Id="SourceData_tabs" Caption="SourceData_tabs" IsNewNode="True">
+                  <LayoutGroup Id="PlannedMatrix" Caption="PlannedMatrix" IsNewNode="True">
+                    <LayoutGroup Id="PlannedMatrix_LayOut" Caption="PlannedMatrix_LayOut" IsNewNode="True">
+                      <TabbedGroup Id="PlannedMatrix_tabs" Caption="PlannedMatrix_tabs" IsNewNode="True">
+                        <LayoutGroup Id="Department" Caption="Department" IsNewNode="True">
+                          <LayoutItem Id="MatrixPlan.Columns" ViewItem="MatrixPlan.Columns" ShowCaption="False" Index="0" IsNewNode="True" />
+                        </LayoutGroup>
+                        <LayoutGroup Id="Order" Caption="Order" IsNewNode="True">
+                          <LayoutItem Id="MatrixPlan.Rows" ViewItem="MatrixPlan.Rows" ShowCaption="False" Index="0" IsNewNode="True" />
+                        </LayoutGroup>
+                      </TabbedGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="TimeSheet" Caption="TimeSheet" IsNewNode="True">
+                    <LayoutItem Id="TimeSheet.TimeSheetDeps" ViewItem="TimeSheet.TimeSheetDeps" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
