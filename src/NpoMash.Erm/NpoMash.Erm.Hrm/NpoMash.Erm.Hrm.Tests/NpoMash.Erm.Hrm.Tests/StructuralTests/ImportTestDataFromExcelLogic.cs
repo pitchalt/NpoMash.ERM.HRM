@@ -68,6 +68,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                 //if(row_merge_size != 1)
                     //throw new Exception("Row_merge_size = " + row_merge_size.ToString());
                 int index_col = 0;
+                current_col = data_angle_col;
                 while (ws.Cells[0, current_col].Value != end_string) {
                     int col_merge_size = 2;// ws.Cells[0, current_col].ColumnCount;//.GetMergedRanges().Count();
                     List<Decimal> cell_info = new List<Decimal>();
@@ -154,7 +155,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                     i++;
                     created_deps += "<" + str_info[0] + ">";
                     Department dep = os.CreateObject<Department>();
-                    dep.Code = str;
+                    dep.BuhCode = str;
                     str = str_info[1];
                     switch (str) {
                     case "КБ": {
@@ -220,7 +221,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ap.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
             ap.NormNoControlKB = 100;
             ap.NormNoControlOZM = 200;
-            foreach(fmCOrder ord in os.GetObjects<fmCOrder>()){
+            foreach(fmCOrder ord in os.GetObjects<fmCOrder>(null,true)){
                 HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
                 oc.Order = ord;
                 oc.NormKB = 100;
@@ -239,7 +240,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             result.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
             Dictionary<String, HrmMatrixColumn> created_columns = new Dictionary<string,HrmMatrixColumn>();
             Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>(null, true).ToDictionary(x => x.Code);
-            Dictionary<String, Department> departments_in_database = os.GetObjects<Department>(null, true).ToDictionary(x => x.Code);
+            Dictionary<String, Department> departments_in_database = os.GetObjects<Department>(null, true).ToDictionary(x => x.BuhCode);
             for (int i = 0; i < mat.NumberOfRows; i++) {
                 String row_code = mat.rows_info[i][0];
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();

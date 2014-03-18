@@ -19,7 +19,7 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
-    static class ProvBringLogic {
+    public static class ProvBringLogic {
 
         public static ProvMat CreateProvBringStructure(HrmSalaryTaskProvisionMatrixReduction card){
             ProvMat result = new ProvMat();
@@ -43,9 +43,11 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                         result.ords.Add(ord_code, current_ord);
                         current_ord.code = ord_code;
                         current_ord.isControlled = controlled_orders.ContainsKey(ord_code);
-                        if (!current_ord.isControlled) current_dep.numberOfUncontrolledOrders++;
-                        else current_dep.numberOfControlledOrders++;
                     }
+                    if (current_ord.isControlled)
+                        current_dep.numberOfControlledOrders += 1;
+                    else
+                        current_dep.numberOfUncontrolledOrders += 1;
                     ProvCell current_cell = new ProvCell();
                     current_ord.cells.Add(current_cell);
                     current_cell.ord = current_ord;
@@ -71,13 +73,22 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
         public static void BringUncontrolledReserveInDep(ProvDep dep) {
             int uncontrolled = dep.numberOfUncontrolledOrders;
-            foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled)) {
-                Decimal diff = dep.undistributedReserve / uncontrolled;
-                Math.Truncate(diff);
-                cell.reserve += diff;
-                dep.undistributedReserve -= diff;
-                uncontrolled--;
-            }
+            //try {
+                foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled)) {
+                    Decimal diff = dep.undistributedReserve / uncontrolled;
+                    Math.Truncate(diff);
+                    cell.reserve += diff;
+                    dep.undistributedReserve -= diff;
+                    uncontrolled--;
+                }
+            /*}
+            catch (Exception) {
+                String str_res = "";
+                foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled))
+                    str_res += "<"+cell.ord.code+">";
+                throw new Exception("Divide_by_zero in dep " + "<"+dep.code+">" + dep.numberOfUncontrolledOrders.ToString()
+                    + str_res);
+            }*/
         }
 
         public static void BringEasyDeps(ProvMat mat) {
@@ -118,13 +129,14 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             // объединяем эти два списка
             IEnumerable<ProvDep> work_deps = less_deps.Concat(overloaded_deps);
             // приводим каждое подразделение из этого списка
-            foreach (ProvDep dep in overloaded_deps) {
+            foreach (ProvDep dep in work_deps) {
                 // берем коллекцию контролируемых ячеек этого подразделения
                 IEnumerable<ProvCell> all_cells = dep.cells.Where(x => x.ord.isControlled);
                 // мучаем подразделение пока не распределили весь резерв
                 while (dep.undistributedReserve > 0) {
                     // это наибольшее отклонение между планом и фактом (может быть и отрицательным)
                     Decimal max_diff = all_cells.Max(x => x.planFactDifference);
+                    
                     // а это отклонение перед наибольшим по величине
                     Decimal prev_max_diff = 0;
                     // если не найдем такого - во всех ячейках уже одинаковое отклонение
@@ -153,7 +165,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                     // между скольки ячейками будем распределять резерв на этой итерации
                     int number_of_workcells = work_cells.Count;
                     // если нет второго по величине отклонения или в текущие "рабочие" ячейки уместится весь оставшийся резерв
-                    if (!prev_max_diff_founded || number_of_workcells * current_diff < dep.undistributedReserve) {
+                    if (!prev_max_diff_founded || number_of_workcells * current_diff > dep.undistributedReserve) {
                         // то распихиваем остаток резерва поровну
                         foreach (ProvCell working_cell in work_cells) {
                             Decimal diff = dep.undistributedReserve / number_of_workcells;
@@ -171,6 +183,8 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                         }
                     }
                 }
+
+
                 // приведение подразделения завершено
                 dep.isAlreadyBringed = true;
             }

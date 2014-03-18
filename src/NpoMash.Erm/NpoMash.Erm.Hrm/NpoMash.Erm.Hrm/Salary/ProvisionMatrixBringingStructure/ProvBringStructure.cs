@@ -7,7 +7,7 @@ using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
-    class ProvMat {
+    public class ProvMat {
         public Dictionary<String,ProvDep> deps;
         public Dictionary<String,ProvOrd> ords;
         public List<ProvCell> cells;
@@ -19,7 +19,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         }
     }
 
-    class ProvCell {
+    public class ProvCell {
         private ProvDep _dep;
         public ProvDep dep { get { return _dep; } set { _dep = value; } }
         private ProvOrd _ord;
@@ -44,7 +44,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
     }
 
-    class ProvDep {
+    public class ProvDep {
         private String _code;
         public String code { get { return _code; } set { _code = value; } }
         public List<ProvCell> cells;
@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         }
     }
 
-    class ProvOrd {
+    public class ProvOrd {
         private String _code;
         public String code { get { return _code; } set { _code = value; } }
         public List<ProvCell> cells;
