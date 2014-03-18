@@ -33,8 +33,13 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void AcceptCompare_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskCompareAccountOperationSummary task = e.CurrentObject as HrmSalaryTaskCompareAccountOperationSummary;
             task.MatrixAllocResultSummary.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-            task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+
+            foreach (var m in task.Period.Matrixs) {
+                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) { m.Status = HrmMatrixStatus.MATRIX_ACCEPTED; }
+            }
+
             task.Complete();
+
             ObjectSpace.CommitChanges();
 
             Window win = Frame as Window;

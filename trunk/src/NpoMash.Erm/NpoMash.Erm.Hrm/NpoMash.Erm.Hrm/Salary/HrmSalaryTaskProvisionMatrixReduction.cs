@@ -201,12 +201,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
                 }
 
-
-
-
-
-
-
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);

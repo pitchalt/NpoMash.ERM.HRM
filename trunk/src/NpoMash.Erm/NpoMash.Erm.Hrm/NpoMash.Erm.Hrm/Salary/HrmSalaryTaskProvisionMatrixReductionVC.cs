@@ -71,6 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                      foreach (var m in task.AllocParameters.Period.Matrixs) {
                          if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
                              m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                             task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status=HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
                          }
                      
                      }
