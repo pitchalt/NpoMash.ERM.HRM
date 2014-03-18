@@ -80,6 +80,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         [NonPersistent]
         public class DepartmentItem : XPCustomObject {
             public Department Department;
+            public DepartmentGroupDep Group;
             public Int64 DepartmentPlan;
             public Int64 MinimizeNumberOfDeviationsAlloc;
             public Int64 MinimizeMaximumDeviationsAlloc;
@@ -197,6 +198,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             break;
                     }
                 }
+
                 item.DepartmentItems = new List<DepartmentItem>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
@@ -214,6 +216,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Department = col.Department // Подразделение
                     };
                 }
+
+                item.Group = col.Department.GroupDep;
 
                 foreach (HrmMatrixCell cell in col.Cells) {
                     if (row != null && cell.Row != row)

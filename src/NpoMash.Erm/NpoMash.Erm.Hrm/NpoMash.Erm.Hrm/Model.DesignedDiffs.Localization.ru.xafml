@@ -16,6 +16,7 @@
       </Action>
       <Action Id="AccountOperationImport" Caption="Импорт первичной проводки">
         <ChoiceActionItems>
+          <ChoiceActionItem Id="FromFile" Caption="Реальные данные" />
           <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
         </ChoiceActionItems>
       </Action>
@@ -50,6 +51,7 @@
       <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
       <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix" Caption="Экспорт" />
+      <Action Id="HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix" Caption="Экспорт" />
       <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
@@ -188,6 +190,7 @@
         <Member Name="OZMCoercedMatrix" Caption="Матрица Учета ОЗМ" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskExportProvisionMatrix" Caption="Экспорт матрицы резерва" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки">
       <OwnMembers>
         <Member Name="MatrixAllocResultKB" Caption="Проводка(КБ)" />
@@ -220,6 +223,7 @@
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="DepartmentPlan" Caption="План" />
+        <Member Name="Group" Caption="Группа" />
         <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Метод минимизации максимальных отклонений" />
         <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Метод минимизации числа отклонений" />
         <Member Name="ProportionsMethodAlloc" Caption="Метод пропорции" />
@@ -418,6 +422,19 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" Caption="HrmSalaryTaskCompareAccountOperationSummary" />
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmSalaryTaskCompareKBAccountOperation_DetailView">
       <Items>
         <PropertyEditor Id="ReducMatrixKB" Caption="Матрица учета (КБ):" />
@@ -572,17 +589,40 @@
                 <LayoutGroup Id="Department" Caption="Подразделения" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="MatrixAlloc" Caption="Приведенная матрица">
-              <LayoutGroup Id="MatrixAlloc" Caption="MatrixAlloc">
-                <LayoutGroup Id="MatrixAlloc.Columns" Caption="Подразделения" />
-                <LayoutGroup Id="MatrixAlloc.Rows" Caption="Заказы" />
+            <LayoutGroup Id="DataSources" Caption="Исходные данные">
+              <LayoutGroup Id="two_tabs" Caption="two_tabs">
+                <TabbedGroup Id="tabs_layout">
+                  <LayoutGroup Id="KB" Caption="КБ">
+                    <LayoutGroup Id="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" Caption="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e">
+                      <LayoutGroup Id="@32ee745a-15a9-4420-876e-2984145a4245" Caption="@32ee745a-15a9-4420-876e-2984145a4245">
+                        <TabbedGroup Id="tabedgroup">
+                          <LayoutGroup Id="Department" Caption="Подразделения">
+                            <LayoutGroup Id="MatrixplanKB.Columns" Caption="Подразделения" />
+                          </LayoutGroup>
+                          <LayoutGroup Id="Order" Caption="Заказы">
+                            <LayoutGroup Id="MatrixplanKB.Rows" Caption="Заказы" />
+                          </LayoutGroup>
+                        </TabbedGroup>
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="OZM" Caption="ОЗМ">
+                    <LayoutGroup Id="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" Caption="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e">
+                      <LayoutGroup Id="@32ee745a-15a9-4420-876e-2984145a4245" Caption="@32ee745a-15a9-4420-876e-2984145a4245">
+                        <TabbedGroup Id="tabedgroup">
+                          <LayoutGroup Id="Department" Caption="Подразделения">
+                            <LayoutGroup Id="MatrixPlanOZM.Columns" Caption="Подразделения" />
+                          </LayoutGroup>
+                          <LayoutGroup Id="Order" Caption="Заказы">
+                            <LayoutGroup Id="MatrixPlanOZM.Rows" Caption="Заказы" />
+                          </LayoutGroup>
+                        </TabbedGroup>
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </TabbedGroup>
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета">
-              <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
-              <LayoutGroup Id="AllocParameters.SimpleWorkButNotLegal" Caption="Код оплаты" />
-            </LayoutGroup>
-            <LayoutGroup Id="DataSources" Caption="Исходные данные" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
