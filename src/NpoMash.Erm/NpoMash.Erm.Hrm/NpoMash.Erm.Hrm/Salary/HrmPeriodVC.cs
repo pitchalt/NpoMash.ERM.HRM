@@ -151,12 +151,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void ExportBringingMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace object_space = ObjectSpace;
+            IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS) {
-                HrmSalaryTaskMatrixReductionLogic.ExportMatrixes(period);
-                period.setStatus(HrmPeriodStatus.COERCED_MATRIXES_EXPORTED);
-                object_space.CommitChanges();
+                HrmSalaryTaskExportCoercedMatrix task = object_space.CreateObject<HrmSalaryTaskExportCoercedMatrix>();
+                period.PeriodTasks.Add(task);  
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
             }
         }
 

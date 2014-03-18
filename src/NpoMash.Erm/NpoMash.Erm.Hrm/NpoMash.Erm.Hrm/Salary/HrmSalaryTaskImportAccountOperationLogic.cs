@@ -149,8 +149,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
         }
+
         public static void ImportAccountOperationTestData(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
-            FileHelperEngine<ImportAccountOperation> account_operation_data = new FileHelperEngine<ImportAccountOperation>();
+            FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
             HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
             matrix_alloc_result_kb.IterationNumber = 1;
@@ -174,9 +175,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
             CreateAllocResultFromPlan(local_object_space, matrix_alloc_result_kb, matrix_alloc_result_ozm, local_task);
         }
+
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
-            FileHelperEngine<ImportAccountOperation> account_operation_data = new FileHelperEngine<ImportAccountOperation>();
-            ImportAccountOperation[] account_list = account_operation_data.ReadFile("../../../../../../../var/AccountOperation_First.ncd");
+            FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
+            ExchangeAccountOperation[] account_list = account_operation_data.ReadFile("../../../../../../../var/AccountOperation_First.ncd");
             HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
             matrix_alloc_result_kb.IterationNumber = 1;
@@ -259,53 +261,53 @@ namespace NpoMash.Erm.Hrm.Salary {
                 current_row.Cells.Add(cell);
             }
             foreach (var account in account_list) {
-                    HrmAccountOperation account_operation = local_object_space.CreateObject<HrmAccountOperation>();
-                    account_operation.Sign = account.Sign;
-                    account_operation.Debit = account.Debit;
-                    account_operation.Money = account.Money;
-                    account_operation.Credit = account.Credit;
-                    account_operation.Order = orders_in_database[account.OrderCode];
-                    account_operation.PayType = paytypes_in_database[account.PayTypeCode];
-                    account_operation.Department = departments_in_database[account.DepartmentCode];
-                    if (account_operation.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                        IDictionary<Department, HrmMatrixColumn> column_in_matrix = matrix_alloc_result_kb.Columns.ToDictionary<HrmMatrixColumn, Department>(x => x.Department);
-                        foreach (var cell in column_in_matrix[account_operation.Department].Cells) {
-                            if (cell.Row.Order == account_operation.Order) {
-                                cell.AccountOperations.Add(account_operation);
-                                if (reserve_orders.ContainsKey(account_operation.Order)) {
-                                    cell.MoneyReserve += account_operation.Money;
-                                    cell.Time += account.Time;
-                                }
-                                else {
-                                    cell.MoneyNoReserve += account_operation.Money;
-                                    cell.Time += account.Time;
-                                }
-                                break;
+                HrmAccountOperation account_operation = local_object_space.CreateObject<HrmAccountOperation>();
+                account_operation.Sign = account.Sign;
+                account_operation.Debit = account.Debit;
+                account_operation.Money = account.Money;
+                account_operation.Credit = account.Credit;
+                account_operation.Order = orders_in_database[account.OrderCode];
+                account_operation.PayType = paytypes_in_database[account.PayTypeCode];
+                account_operation.Department = departments_in_database[account.DepartmentCode];
+                if (account_operation.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                    IDictionary<Department, HrmMatrixColumn> column_in_matrix = matrix_alloc_result_kb.Columns.ToDictionary<HrmMatrixColumn, Department>(x => x.Department);
+                    foreach (var cell in column_in_matrix[account_operation.Department].Cells) {
+                        if (cell.Row.Order == account_operation.Order) {
+                            cell.AccountOperations.Add(account_operation);
+                            if (reserve_orders.ContainsKey(account_operation.Order)) {
+                                cell.MoneyReserve += account_operation.Money;
+                                cell.Time += account.Time;
                             }
-                        }
-                        account_operation.AllocResult = matrix_alloc_result_kb;
-                        matrix_alloc_result_kb.AccountOperations.Add(account_operation);
-                    }
-                    else {
-                        IDictionary<Department, HrmMatrixColumn> column_in_matrix = matrix_alloc_result_ozm.Columns.ToDictionary<HrmMatrixColumn, Department>(x => x.Department);
-                        foreach (var cell in column_in_matrix[account_operation.Department].Cells) {
-                            if (cell.Row.Order == account_operation.Order) {
-                                cell.AccountOperations.Add(account_operation);
-                                if (reserve_orders.ContainsKey(account_operation.Order)) {
-                                    cell.MoneyReserve += account_operation.Money;
-                                    cell.Time += account.Time;
-                                }
-                                else {
-                                    cell.MoneyNoReserve += account_operation.Money;
-                                    cell.Time += account.Time;
-                                }
-                                break;
+                            else {
+                                cell.MoneyNoReserve += account_operation.Money;
+                                cell.Time += account.Time;
                             }
+                            break;
                         }
-                        account_operation.AllocResult = matrix_alloc_result_ozm;
-                        matrix_alloc_result_ozm.AccountOperations.Add(account_operation);
                     }
+                    account_operation.AllocResult = matrix_alloc_result_kb;
+                    matrix_alloc_result_kb.AccountOperations.Add(account_operation);
+                }
+                else {
+                    IDictionary<Department, HrmMatrixColumn> column_in_matrix = matrix_alloc_result_ozm.Columns.ToDictionary<HrmMatrixColumn, Department>(x => x.Department);
+                    foreach (var cell in column_in_matrix[account_operation.Department].Cells) {
+                        if (cell.Row.Order == account_operation.Order) {
+                            cell.AccountOperations.Add(account_operation);
+                            if (reserve_orders.ContainsKey(account_operation.Order)) {
+                                cell.MoneyReserve += account_operation.Money;
+                                cell.Time += account.Time;
+                            }
+                            else {
+                                cell.MoneyNoReserve += account_operation.Money;
+                                cell.Time += account.Time;
+                            }
+                            break;
+                        }
+                    }
+                    account_operation.AllocResult = matrix_alloc_result_ozm;
+                    matrix_alloc_result_ozm.AccountOperations.Add(account_operation);
                 }
             }
         }
     }
+}

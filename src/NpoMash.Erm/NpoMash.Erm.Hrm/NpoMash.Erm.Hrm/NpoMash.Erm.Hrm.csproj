@@ -135,12 +135,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exchange\ImportMatrixTravelTime.cs" />
+    <Compile Include="Exchange\ExchangeMatrixTravelTime.cs" />
     <Compile Include="HrmPeriod.cs" />
     <Compile Include="HrmPeriodLogic.cs" />
-    <Compile Include="Exchange\ImportAccountOperation.cs" />
-    <Compile Include="Exchange\ImportMatrixPlan.cs" />
-    <Compile Include="Exchange\ImportMatrixTimeSheet.cs" />
+    <Compile Include="Exchange\ExchangeAccountOperation.cs" />
+    <Compile Include="Exchange\ExchangeMatrixPlan.cs" />
+    <Compile Include="Exchange\ExchangeMatrixTimeSheet.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
+    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrix.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummary.cs" />
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
@@ -201,6 +202,13 @@
     <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskCompareOZMAccountOperationVC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperation.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperationLogic.cs" />
     <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummary.cs" />
@@ -270,6 +278,9 @@
     <EmbeddedResource Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.resx">
       <DependentUpon>HrmSalaryTaskCompareOZMAccountOperationVC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.resx">
+      <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.resx">
       <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,14 +324,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
-    <None Include="UnusableNodes_ru.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Images\clock.png" />
   </ItemGroup>
   <ItemGroup>

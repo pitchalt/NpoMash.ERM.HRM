@@ -5,7 +5,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
  
 
     [FixedLengthRecord()]
-    public class ImportMatrixTravelTime {
+    public class ExchangeMatrixTravelTime {
 
         [FieldFixedLength(4)]
         [FieldConverter(typeof(DateConverter))]

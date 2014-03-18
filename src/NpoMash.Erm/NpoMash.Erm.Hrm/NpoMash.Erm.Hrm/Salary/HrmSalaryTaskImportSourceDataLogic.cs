@@ -46,8 +46,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void ImportTimeSheet(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             HrmTimeSheetLogic.TaskSheetInit(os, task);
-            var timesheet_data = new FileHelperEngine<ImportMatrixTimeSheet>();
-            ImportMatrixTimeSheet[] timesheet_list = timesheet_data.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
+            var timesheet_data = new FileHelperEngine<ExchangeMatrixTimeSheet>();
+            ExchangeMatrixTimeSheet[] timesheet_list = timesheet_data.ReadFile("../../../../../../../var/Matrix_TimeSheet.dat");
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in timesheet_list) {
                 String code = each.Department_Code;
@@ -70,10 +70,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void ImportPlanMatrixes(IObjectSpace object_space, HrmSalaryTaskImportSourceData task) {
             //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
-            FixedFileEngine<ImportMatrixPlan> plan_data = new FixedFileEngine<ImportMatrixPlan>();
-            FixedFileEngine<ImportMatrixTravelTime> travel_data = new FixedFileEngine<ImportMatrixTravelTime>();
-            ImportMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
-            ImportMatrixTravelTime[] travel_list = travel_data.ReadFile("../../../../../../../var/Matrix_TravelTimePlan.dat");
+            FixedFileEngine<ExchangeMatrixPlan> plan_data = new FixedFileEngine<ExchangeMatrixPlan>();
+            FixedFileEngine<ExchangeMatrixTravelTime> travel_data = new FixedFileEngine<ExchangeMatrixTravelTime>();
+            ExchangeMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.dat");
+            ExchangeMatrixTravelTime[] travel_list = travel_data.ReadFile("../../../../../../../var/Matrix_TravelTimePlan.dat");
             //Общая плановая матрица
             HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
             matrix_alloc_plan_summary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
