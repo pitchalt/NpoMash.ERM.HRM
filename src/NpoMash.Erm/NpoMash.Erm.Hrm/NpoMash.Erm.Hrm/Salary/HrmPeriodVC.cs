@@ -296,6 +296,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskProvisionMatrixReduction card = null;
                 if (period.CurrentProvisionMatrix == null) {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                    card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
                   //  card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
                     //card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
                     //card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
