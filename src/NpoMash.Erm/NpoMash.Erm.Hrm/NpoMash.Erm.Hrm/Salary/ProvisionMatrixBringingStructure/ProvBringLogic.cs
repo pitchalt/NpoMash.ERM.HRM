@@ -74,7 +74,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled)) {
                 Decimal diff = dep.undistributedReserve / uncontrolled;
                 Math.Truncate(diff);
-                cell.reserve = diff;
+                cell.reserve += diff;
                 dep.undistributedReserve -= diff;
                 uncontrolled--;
             }
@@ -88,7 +88,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             foreach (ProvDep dep in easyDeps) {
                 foreach (ProvCell cell in dep.cells.Where(x => x.ord.isControlled && x.planFactDifference > 0)) {
                     decimal diff = cell.planFactDifference;
-                    cell.reserve = diff;
+                    cell.reserve += diff;
                     dep.undistributedReserve -= diff;
                 }
                 BringUncontrolledReserveInDep(dep);
@@ -104,45 +104,74 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             }
         }
 
-        public static void BringDepsWithLessOfReserve(ProvMat mat) {
+        public static void BringDifficultDeps(ProvMat mat) {
+            // подразделения, в которых не хватает резерва для контролируемых заказов
             IEnumerable<ProvDep> less_deps = mat.deps.Values.Where(x => !x.isAlreadyBringed && x.numberOfControlledOrders > 0)
                 .Where(x => x.cells
-                    .Where(y => y.ord.isControlled && y.planFactDifference > 0)
+                    .Where(y => y.ord.isControlled && y.planFactDifference >= 0)
                     .Sum(y => y.planFactDifference) > x.undistributedReserve);
-            
-            foreach (ProvDep dep in less_deps) {
-                IEnumerable<ProvCell> less_cells = dep.cells.Where(x => x.planFactDifference > 0);
+            // полностью контролируемые подразделения, в которых имеется избыток резерва
+            IEnumerable<ProvDep> overloaded_deps = mat.deps.Values.Where(x => !x.isAlreadyBringed && x.numberOfUncontrolledOrders == 0)
+                .Where(x => x.cells
+                    .Where(y => y.ord.isControlled && y.planFactDifference >= 0)
+                    .Sum(y => y.planFactDifference) <= x.undistributedReserve);
+            // объединяем эти два списка
+            IEnumerable<ProvDep> work_deps = less_deps.Concat(overloaded_deps);
+            // приводим каждое подразделение из этого списка
+            foreach (ProvDep dep in overloaded_deps) {
+                // берем коллекцию контролируемых ячеек этого подразделения
+                IEnumerable<ProvCell> all_cells = dep.cells.Where(x => x.ord.isControlled);
+                // мучаем подразделение пока не распределили весь резерв
                 while (dep.undistributedReserve > 0) {
-                    //IEnumerable<ProvCell> ordered_cells = less_cells.OrderByDescending(x => x.planFactDifference);
-                    Decimal max_diff = less_cells.Max(x => x.planFactDifference);
+                    // это наибольшее отклонение между планом и фактом (может быть и отрицательным)
+                    Decimal max_diff = all_cells.Max(x => x.planFactDifference);
+                    // а это отклонение перед наибольшим по величине
                     Decimal prev_max_diff = 0;
+                    // если не найдем такого - во всех ячейках уже одинаковое отклонение
                     bool prev_max_diff_founded = false;
+                    // формируем список ячеек, с которыми работаем на данной итерации (с наибольшим отклонением)
                     List<ProvCell> work_cells = new List<ProvCell>();
-                    foreach (ProvCell cell in less_cells) {
+                    foreach (ProvCell cell in all_cells) {
                         if (cell.planFactDifference == max_diff) {
                             work_cells.Add(cell);
                         }
                         else {
                             if (cell.planFactDifference > prev_max_diff || prev_max_diff_founded == false) {
                                 prev_max_diff = cell.planFactDifference;
+                                // отмечаем, что второе по величине отклонение нашлось
                                 prev_max_diff_founded = true;
                             }
                         }
-                        if (!prev_max_diff_founded) {
-                            int number_of_workcells = work_cells.Count;
-                            foreach (ProvCell working_cell in work_cells) {
-                                Decimal diff = dep.undistributedReserve / number_of_workcells;
-                                Math.Truncate(diff);
-                                cell.reserve = diff;
-                                dep.undistributedReserve -= diff;
-                                number_of_workcells--;
-                            }
-                            
-                        }
-
                     }
+                    // если переходим через 0, то пока что используем 0 как второе по величине отклонение
+                    if (max_diff > 0 && prev_max_diff < 0)
+                        prev_max_diff = 0;
 
+                    Decimal current_diff = max_diff - prev_max_diff;
+
+
+                    // между скольки ячейками будем распределять резерв на этой итерации
+                    int number_of_workcells = work_cells.Count;
+                    // если нет второго по величине отклонения или в текущие "рабочие" ячейки уместится весь оставшийся резерв
+                    if (!prev_max_diff_founded || number_of_workcells * current_diff < dep.undistributedReserve) {
+                        // то распихиваем остаток резерва поровну
+                        foreach (ProvCell working_cell in work_cells) {
+                            Decimal diff = dep.undistributedReserve / number_of_workcells;
+                            Math.Truncate(diff);
+                            working_cell.reserve += diff;
+                            dep.undistributedReserve -= diff;
+                            number_of_workcells--;
+                        }
+                    }
+                    // иначе набиваем резервом "рабочие" ячейки, используя разницу между двумя наибольшими отклонениями
+                    else {
+                        foreach (ProvCell working_cell in work_cells) {
+                            working_cell.reserve += current_diff;
+                            dep.undistributedReserve -= current_diff;
+                        }
+                    }
                 }
+                // приведение подразделения завершено
                 dep.isAlreadyBringed = true;
             }
         }
