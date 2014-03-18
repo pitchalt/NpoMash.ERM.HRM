@@ -50,6 +50,7 @@
       <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
       <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix" Caption="Экспорт" />
+      <Action Id="HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix" Caption="Экспорт матрицы резерва" />
       <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
@@ -187,6 +188,11 @@
       <OwnMembers>
         <Member Name="KBCoercedMatrix" Caption="Матрица Учета КБ" />
         <Member Name="OZMCoercedMatrix" Caption="Матрица Учета ОЗМ" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskExportProvisionMatrix" Caption="Экспорт матрицы резерва">
+      <OwnMembers>
+        <Member Name="ProvisionMatrix" Caption="Матрица резерва" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки">
@@ -422,6 +428,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView" Caption="Экспорт матрица резерва">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmSalaryTaskImportSourceData_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -524,7 +539,6 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
-            <LayoutGroup Id="AllocResultKBOZM.Columns" Caption="Подразделения" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>

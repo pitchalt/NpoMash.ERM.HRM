@@ -155,7 +155,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS) {
                 HrmSalaryTaskExportCoercedMatrix task = object_space.CreateObject<HrmSalaryTaskExportCoercedMatrix>();
-                period.PeriodTasks.Add(task);  
+                period.PeriodTasks.Add(task);
+                HrmSalaryTaskExportCoercedMatrixLogic.InitObjects(task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 object_space.Committed += new EventHandler(refresher);
@@ -180,17 +181,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void ExportReserveMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace object_space = ObjectSpace;
+            IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD) {
-                period.setStatus(HrmPeriodStatus.RESERVE_MATRIX_UPLOADED);
-                foreach (var m in period.Matrixs) {
-                    if (m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED && m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
-                        m.Status = HrmMatrixStatus.MATRIX_EXPORTED;
-                    }
-
-                }
-                object_space.CommitChanges();
+                HrmSalaryTaskExportProvisionMatrix task = object_space.CreateObject<HrmSalaryTaskExportProvisionMatrix>();
+                period.PeriodTasks.Add(task);
+                HrmSalaryTaskExportProvisionMatrixLogic.InitObjects(task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
             }
         }
 

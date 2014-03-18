@@ -17,24 +17,18 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 //
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmSalaryExportCoercedMatrix")]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix", Criteria = "isMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Persistent("HrmSalaryTaskExportProvisionMatrix")]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix", Criteria = "isMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public class HrmSalaryTaskExportCoercedMatrix : HrmSalaryTask {
-        public HrmSalaryTaskExportCoercedMatrix(Session session) : base(session) { }
+    public class HrmSalaryTaskExportProvisionMatrix : HrmSalaryTask { 
+        public HrmSalaryTaskExportProvisionMatrix(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        private HrmMatrix _KBCoercedMatrix;
-        public HrmMatrix KBCoercedMatrix {
-            get { return _KBCoercedMatrix; }
-            set { SetPropertyValue<HrmMatrix>("KBCoercedMatrix", ref _KBCoercedMatrix, value); }
-        }
-
-        private HrmMatrix _OZMCoercedMatrix;
-        public HrmMatrix OZMCoercedMatrix {
-            get { return _OZMCoercedMatrix; }
-            set { SetPropertyValue<HrmMatrix>("OZMCoercedMatrix", ref _OZMCoercedMatrix, value); }
+        private HrmMatrix _ProvisionMatrix;
+        public HrmMatrix ProvisionMatrix {
+            get { return _ProvisionMatrix; }
+            set { SetPropertyValue<HrmMatrix>("ProvisionMatrix", ref _ProvisionMatrix, value); }
         }
 
         [Browsable(false)]

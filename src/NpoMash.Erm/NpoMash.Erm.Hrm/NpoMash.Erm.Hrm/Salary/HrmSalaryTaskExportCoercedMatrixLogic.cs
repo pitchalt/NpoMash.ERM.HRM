@@ -24,11 +24,16 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmSalaryTaskExportCoercedMatrixLogic {
 
+        public static void InitObjects(HrmSalaryTaskExportCoercedMatrix local_task) {
+            local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix;
+            local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
+        }
+
         public static void ExportCoercedMatrix(HrmSalaryTaskExportCoercedMatrix local_task) {
             local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
-            var records = new List<ExchangeMatrixPlan>();
+            IList<ExchangeMatrixPlan> records = new List<ExchangeMatrixPlan>();
             foreach (var column in local_task.KBCoercedMatrix.Columns) {
                 foreach (var cell in column.Cells){
                     var record = new ExchangeMatrixPlan() {

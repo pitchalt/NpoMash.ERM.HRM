@@ -419,10 +419,6 @@
     </DetailView>
     <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="HrmSalaryTaskProvisionMatrixReduction_Department_DetailView" />
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
-      <Items>
-        <PropertyEditor Id="MatrixAlloc.Columns" View="HrmMatrix_Columns_MasterDetail_ListView" />
-        <PropertyEditor Id="MatrixAlloc.Rows" View="HrmMatrix_Rows_MasterDetail_ListView" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
           <TabbedGroup Id="Tabs" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="0">
@@ -547,31 +543,15 @@
             <LayoutGroup Id="MatrixAllocOZM.Rows" Caption="Rows" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="4" Removed="True">
               <LayoutItem Id="MatrixAllocOZM.Rows" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
-            <LayoutGroup Id="AllocResultKBOZM.Columns" Index="5" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="AllocResultKBOZM.Columns" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixPlan.Rows" Index="7" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixPlan.Rows" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixPlan.Columns" Index="9" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixPlan.Columns" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
             <LayoutGroup Id="CurrentTimeSheetKB.TimeSheetDeps" Index="11" RelativeSize="100" ImageName="" Caption="Табель КБ" Removed="True">
               <LayoutItem Id="CurrentTimeSheetKB.TimeSheetDeps" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
             <LayoutGroup Id="CurrentTimeSheetOZM.TimeSheetDeps" Index="11" RelativeSize="100" ImageName="" Caption="Табель ОЗМ" Removed="True">
               <LayoutItem Id="CurrentTimeSheetOZM.TimeSheetDeps" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
-            <LayoutGroup Id="MatrixAlloc.Columns" Index="12" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixAlloc.Columns" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixAlloc.Rows" Index="12" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixAlloc.Rows" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
             <LayoutGroup Id="AllocParameters.OrderControls" Caption="Order Controls" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Removed="True">
               <LayoutItem Id="AllocParameters.OrderControls" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
-            <LayoutGroup Id="AllocResultKBOZM.Rows" Removed="True" />
           </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="59" Removed="True">
             <LayoutGroup Id="HrmSalaryTask" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="22" Removed="True">
