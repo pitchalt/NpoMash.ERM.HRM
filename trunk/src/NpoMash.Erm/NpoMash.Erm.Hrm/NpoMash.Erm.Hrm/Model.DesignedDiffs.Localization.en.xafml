@@ -6,4 +6,21 @@
       <Action Id="Link" ConfirmationMessage="Are you sure you want to accept parameters?" />
     </Actions>
   </ActionDesign>
+  <Views>
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Alloc" Caption="Alloc">
+              <LayoutGroup Id="alloc_lay" Caption="alloc_lay">
+                <TabbedGroup Id="alloc_tabs" Caption="alloc_tabs">
+                  <LayoutGroup Id="KB" Caption="KB" />
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

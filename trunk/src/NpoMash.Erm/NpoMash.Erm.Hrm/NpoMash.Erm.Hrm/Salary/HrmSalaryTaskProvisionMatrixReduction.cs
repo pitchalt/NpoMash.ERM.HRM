@@ -189,16 +189,28 @@ namespace NpoMash.Erm.Hrm.Salary {
                     items.Add(item);
                 }
                 item.TypeControl = row.Order.TypeControl;
+
+
                 foreach (var c in row.Cells) {
                     item.OrderPlan += Convert.ToInt64(c.PlanMoney);
+                    item.Base += Convert.ToInt64(c.MoneyNoReserve);
+                    item.Provision += Convert.ToInt64(c.MoneyReserve);
+                    item.PlannedTravels += Convert.ToInt64(c.MoneyTravel);
                     if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
                 }
 
+
+
+
+
+
+
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
+           
             }
         
         
