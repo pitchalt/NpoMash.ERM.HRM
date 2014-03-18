@@ -20,6 +20,8 @@ using FileHelpers;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
+using NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure;
+
 
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmPeriodVC : ViewController {
@@ -303,6 +305,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (period.CurrentProvisionMatrix == null) {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
                     card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+
+                    ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
+                    ProvBringLogic.BringVeryEasyDeps(mat);
+                    ProvBringLogic.BringEasyDeps(mat);
+                    ProvBringLogic.BringDifficultDeps(mat);
+                    ProvBringLogic.LoadProvBringResultInTask(mat);
+
                   //  card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
                     //card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
                     //card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
