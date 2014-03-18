@@ -23,6 +23,8 @@ using NpoMash.Erm.Hrm.Tests.Controllers;
 using DevExpress.Spreadsheet;
 using DevExpress.Office;
 
+using NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure;
+
 
 namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
     [TestFixture]
@@ -50,8 +52,19 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ImportTestDataFromExcelLogic.CreateOrdersFromExcelTab(os, mat);
             task.AllocParameters = ImportTestDataFromExcelLogic.CreateAllocParametersFromExcelTab(os);
             task.ProvisionMatrix = ImportTestDataFromExcelLogic.CreateMatrixFromExcel(os, mat);
-            HrmMatrix result_matrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, task);
-            Dictionary<String,HrmMatrixColumn> dictionary_of_columns = result_matrix.Columns.ToDictionary(x => x.Department.Code);
+            /*String test_str = "";
+            foreach (HrmMatrixColumn col in task.ProvisionMatrix.Columns) {
+                test_str +="<" +col.Department.BuhCode + ">" +"NumberOfCells: " + col.Cells.Count.ToString() + ";";
+            }
+            throw new Exception(test_str);*/
+            ProvMat m = ProvBringLogic.CreateProvBringStructure(task);
+            ProvBringLogic.BringVeryEasyDeps(m);
+            ProvBringLogic.BringEasyDeps(m);
+            ProvBringLogic.BringDifficultDeps(m);
+            ProvBringLogic.LoadProvBringResultInTask(m);
+            //HrmMatrix result_matrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, task);
+            HrmMatrix result_matrix = task.ProvisionMatrix;
+            Dictionary<String,HrmMatrixColumn> dictionary_of_columns = result_matrix.Columns.ToDictionary(x => x.Department.BuhCode);
             for (int i = 0; i < mat.NumberOfColumns; i++) {
                 Decimal expected_value = mat.itog_columns_info[i][0];
                 String dep_code = mat.columns_info[i][0];
