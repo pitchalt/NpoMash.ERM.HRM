@@ -152,6 +152,7 @@
     <Compile Include="Salary\BringingLogic.cs" />
     <Compile Include="Salary\BringingStructure.cs" />
     <Compile Include="Salary\HrmMatrixLogic.cs" />
+    <Compile Include="Salary\HrmPeriodDepartmentControl.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -337,6 +338,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <None Include="UnusableNodes10.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="Images\clock.png" />
   </ItemGroup>
   <ItemGroup>

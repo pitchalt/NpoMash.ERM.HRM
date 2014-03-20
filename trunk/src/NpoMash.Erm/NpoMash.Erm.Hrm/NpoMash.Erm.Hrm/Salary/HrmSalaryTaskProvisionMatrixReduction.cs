@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private HrmMatrix _MatrixPlanKB; //Плановая КБ
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix MatrixplanKB {
+        public HrmMatrix MatrixPlanKB {
             get { return _MatrixPlanKB; }
             set { SetPropertyValue<HrmMatrix>("MatrixPlanKB", ref _MatrixPlanKB, value); }
         }
