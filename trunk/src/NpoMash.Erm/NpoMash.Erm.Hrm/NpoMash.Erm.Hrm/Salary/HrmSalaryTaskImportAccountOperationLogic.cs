@@ -200,10 +200,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
-            IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
-            IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
-            IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
-            IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<string, HrmMatrixRow>();
+            IDictionary<String, HrmMatrixCell> cells_in_matrix = new Dictionary<String, HrmMatrixCell>();
+            IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<String, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<String, HrmMatrixRow>();
+            IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<String, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<String, HrmMatrixRow>();
             IDictionary<String, HrmMatrixColumn> alloc_result_columns = null;
             IDictionary<String, HrmMatrixRow> alloc_result_rows = null;
             IDictionary<fmCOrder, HrmPeriodOrderControl> reserve_orders = local_task.Period.CurrentAllocParameter.OrderControls
@@ -231,7 +232,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
                 else throw new Exception("There is no department in database with code " + account.DepartmentCode);
-                HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
                 HrmMatrixColumn current_column = null;
                 if (alloc_result_columns.ContainsKey(file_department_code)) { current_column = alloc_result_columns[file_department_code]; }
                 else {
@@ -241,8 +241,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     current_column.Department = departments_in_database[file_department_code];
                     alloc_result_columns.Add(file_department_code, current_column);
                 }
-                cell.Column = current_column;
-                current_column.Cells.Add(cell);
                 HrmMatrixRow current_row = null;
                 if (alloc_result_rows.ContainsKey(file_order_code)) {
                     current_row = alloc_result_rows[file_order_code];
@@ -257,8 +255,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     else throw new Exception("There is no order with code " + file_order_code);
                 }
-                cell.Row = current_row;
-                current_row.Cells.Add(cell);
+                String cell_key = current_column.Department.Code + "|" + current_row.Order.Code;
+                if (!cells_in_matrix.ContainsKey(cell_key)) {
+                    HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
+                    cells_in_matrix.Add(cell_key, cell);
+                    cell.Column = current_column;
+                    current_column.Cells.Add(cell);
+                    cell.Row = current_row;
+                    current_row.Cells.Add(cell);
+                }
+                else { HrmMatrixCell cell = cells_in_matrix[cell_key]; }
             }
             foreach (var account in account_list) {
                 HrmAccountOperation account_operation = local_object_space.CreateObject<HrmAccountOperation>();
