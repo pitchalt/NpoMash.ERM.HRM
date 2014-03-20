@@ -25,7 +25,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmMatrix m_plan_ozm = card.MatrixPlanOZM;
             HrmMatrix m_res_kb = card.AllocResultKB;
             HrmMatrix m_res_ozm = card.AllocResultOZM;
-            
+
+            // это чтобы посмотреть, нет ли повторений среди колонок матриц
+            //Dictionary<String, HrmMatrixColumn> cols_in_kb_plan = m_plan_kb.Columns.ToDictionary(x => x.Department.BuhCode);
+            //Dictionary<String, HrmMatrixColumn> cols_in_ozm_plan = m_plan_ozm.Columns.ToDictionary(x => x.Department.BuhCode);
+            //Dictionary<String, HrmMatrixColumn> cols_in_kb_res = m_res_kb.Columns.ToDictionary(x => x.Department.BuhCode);
+            //Dictionary<String, HrmMatrixColumn> cols_in_ozm_res = m_res_ozm.Columns.ToDictionary(x => x.Department.BuhCode);
+
             Dictionary<String, Dictionary<String,HrmMatrixCell>> res_mat = new Dictionary<string, Dictionary<String,HrmMatrixCell>>();
             foreach(HrmMatrixColumn col in m_res_kb.Columns.Concat(m_res_ozm.Columns)){
                 String dep_code = col.Department.BuhCode;
@@ -35,6 +41,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             Dictionary<String, HrmMatrixRow> created_rows = new Dictionary<string, HrmMatrixRow>();
 
+            int bad_cells = 0;
             foreach (HrmMatrixColumn current_column in m_plan_kb.Columns.Concat(m_plan_ozm.Columns)) {
                 HrmMatrixColumn result_column = os.CreateObject<HrmMatrixColumn>();
                 String dep_code = current_column.Department.BuhCode;
@@ -55,6 +62,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         result_row.Order = current_row.Order;
                         created_rows.Add(ord_code, result_row);
                     }
+                    
                     HrmMatrixCell result_cell = os.CreateObject<HrmMatrixCell>();
                     result_cell.Row = result_row;
                     result_row.Cells.Add(result_cell);
@@ -62,8 +70,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                     result_column.Cells.Add(result_cell);
                     result_cell.Time = current_cell.Time;
                     // а это две самые страшные операции, как бы тут все в тартарары не улетело
-                    result_cell.MoneyReserve = res_mat[dep_code][ord_code].MoneyReserve;
-                    result_cell.MoneyNoReserve = res_mat[dep_code][ord_code].MoneyNoReserve;
+                    if (res_mat.ContainsKey(dep_code) && res_mat[dep_code].ContainsKey(ord_code)) {
+                        result_cell.MoneyReserve = res_mat[dep_code][ord_code].MoneyReserve;
+                        result_cell.MoneyNoReserve = res_mat[dep_code][ord_code].MoneyNoReserve;
+                    }
+                    else { 
+                        result_cell.MoneyReserve = 0; 
+                        result_cell.MoneyNoReserve = 0;
+                        bad_cells++;
+                    }
                 }
             }
             return result;
