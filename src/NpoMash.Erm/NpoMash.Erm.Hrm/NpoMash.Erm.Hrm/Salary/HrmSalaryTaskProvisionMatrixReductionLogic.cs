@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrix result = os.CreateObject<HrmMatrix>();
-            HrmMatrix m_plan_kb = card.MatrixplanKB;
+            HrmMatrix m_plan_kb = card.MatrixPlanKB;
             HrmMatrix m_plan_ozm = card.MatrixPlanOZM;
             HrmMatrix m_res_kb = card.AllocResultKB;
             HrmMatrix m_res_ozm = card.AllocResultOZM;
@@ -69,6 +69,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             return result;
         }
 
+      /*  public static HrmMatrix createtest(IObjectSpace os, HrmMatrix m) {
+            HrmMatrix result_plan_matrix=m;
+            var rand=new Random();
+
+            foreach (var r in result_plan_matrix.Rows) {
+                foreach (var c in r.Cells) {
+                    c.MoneyReserve = rand.Next(1000, 100000);
+                    c.MoneyNoReserve = rand.Next(100, 1000);
+                }
+            }
+            return result_plan_matrix;
+        }*/
+
+
+
         public static HrmSalaryTaskProvisionMatrixReduction initProvisonMatrixTask(IObjectSpace os, HrmPeriod period, DepartmentGroupDep group_dep) {
             HrmSalaryTaskProvisionMatrixReduction task_provision_matrix_reduction = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
             period.PeriodTasks.Add(task_provision_matrix_reduction);
@@ -100,14 +115,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
+
             // Get alloc result from period
             foreach (HrmMatrix matrix in period.Matrixs) {
-                if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
+                if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     task_provision_matrix_reduction.AllocResultKB = matrix;
                 }
-                else if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED) {
+                else if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     task_provision_matrix_reduction.AllocResultOZM = matrix;
                 }
             }
@@ -116,13 +130,16 @@ namespace NpoMash.Erm.Hrm.Salary {
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_MATIX &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.TypeMatrix==HrmMatrixTypeMatrix.MATRIX_PLANNED) {
-                    task_provision_matrix_reduction.MatrixplanKB = matrix;
+                    task_provision_matrix_reduction.MatrixPlanKB = matrix;
                 }
                 else if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_MATIX &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED) {
                     task_provision_matrix_reduction.MatrixPlanOZM = matrix;
                 }
             }
+
+           
+
 
             return task_provision_matrix_reduction;
         }

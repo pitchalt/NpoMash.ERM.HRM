@@ -58,6 +58,11 @@
     </Actions>
   </ActionDesign>
   <BOModel>
+    <Class Name="IntecoAG.ERM.HRM.Organization.Department">
+      <OwnMembers>
+        <Member Name="BuhCode" Caption="БухКод" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
       <OwnMembers>
         <Member Name="Matrixs" Caption="Матрицы" />
@@ -131,6 +136,7 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" Caption="Параметры расчета">
       <OwnMembers>
+        <Member Name="DepartmentControl" Caption="Подразделения" />
         <Member Name="IterationNumber" Caption="Номер итерации" />
         <Member Name="Month" Caption="Месяц" />
         <Member Name="NormNoControlKB" Caption="Норма по неконтр. заказам КБ" />
@@ -140,6 +146,12 @@
         <Member Name="PeriodPayTypes" Caption="Код оплаты" />
         <Member Name="Status" Caption="Статус контроля" />
         <Member Name="Year" Caption="Год" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodDepartmentControl" Caption="Подразделения">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Group" Caption="Группа" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodOrderControl" Caption="Контроль заказа">

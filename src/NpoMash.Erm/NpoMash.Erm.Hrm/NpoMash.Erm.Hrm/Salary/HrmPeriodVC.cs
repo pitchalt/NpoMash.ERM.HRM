@@ -304,7 +304,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskProvisionMatrixReduction card = null;
                 if (period.CurrentProvisionMatrix == null) {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                   // card.AllocResultKB = HrmSalaryTaskProvisionMatrixReductionLogic.createtest(os, card.AllocResultKB);
+                   // card.AllocResultOZM = HrmSalaryTaskProvisionMatrixReductionLogic.createtest(os, card.AllocResultOZM);
                     card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+
 
                     ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
                     ProvBringLogic.BringVeryEasyDeps(mat);

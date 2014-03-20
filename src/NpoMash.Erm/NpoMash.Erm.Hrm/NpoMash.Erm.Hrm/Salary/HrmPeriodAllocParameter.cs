@@ -105,8 +105,14 @@ namespace NpoMash.Erm.Hrm.Salary
                get{ return GetCollection<HrmPeriodOrderControl>("OrderControls");} 
         }
 
-//      
-       // [Browsable(false)]
+        [Association("AllocParameter-DepartmentControl"), Aggregated]
+        public XPCollection<HrmPeriodDepartmentControl> DepartmentControl {
+            get { return GetCollection<HrmPeriodDepartmentControl>("DepartmentControl"); }
+        }
+
+
+
+   
         [Association("HrmPeriodAllocParameter-HrmPeriodPayType"), Aggregated]  // סגÿחü ס HrmPeriodPayTypes
         public XPCollection<HrmPeriodPayType> PeriodPayTypes
         {
@@ -117,7 +123,7 @@ namespace NpoMash.Erm.Hrm.Salary
         public IList<HrmSalaryPayType> SimpleWorkButNotLegal {
             get { return GetList<HrmSalaryPayType>("SimpleWorkButNotLegal"); }
         }*/
-//
+
 
 
         public HrmPeriodAllocParameter(Session session) : base(session) { }
