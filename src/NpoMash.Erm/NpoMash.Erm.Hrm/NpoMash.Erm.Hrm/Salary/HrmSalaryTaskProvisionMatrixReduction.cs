@@ -195,16 +195,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 item.TypeControl = row.Order.TypeControl;
 
-
-                foreach (var c in row.Cells) {
+                //В заказе не так надо считать резерв
+              /*  foreach (var c in row.Cells) {
                     item.OrderPlan += Convert.ToInt64(c.PlanMoney);
-                    item.Base += Convert.ToInt64(c.MoneyNoReserve);
-                    item.NewProvision += Convert.ToInt64(c.SourceProvision);
+                    item.Base = Convert.ToInt64(c.MoneyNoReserve);
+                    item.NewProvision = Convert.ToInt64(c.SourceProvision);
                     item.PlannedTravels += Convert.ToInt64(c.MoneyTravel);
                     if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
-                }
+                }*/
 
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
