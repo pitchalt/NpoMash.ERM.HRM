@@ -281,7 +281,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (cell.Row.Order == account_operation.Order) {
                             cell.AccountOperations.Add(account_operation);
                             if (reserve_orders.ContainsKey(account_operation.Order)) {
-                                cell.MoneyReserve += account_operation.Money;
+                                cell.SourceProvision += account_operation.Money;
                                 cell.Time += account.Time;
                             }
                             else {
@@ -300,7 +300,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (cell.Row.Order == account_operation.Order) {
                             cell.AccountOperations.Add(account_operation);
                             if (reserve_orders.ContainsKey(account_operation.Order)) {
-                                cell.MoneyReserve += account_operation.Money;
+                                cell.SourceProvision += account_operation.Money;
                                 cell.Time += account.Time;
                             }
                             else {

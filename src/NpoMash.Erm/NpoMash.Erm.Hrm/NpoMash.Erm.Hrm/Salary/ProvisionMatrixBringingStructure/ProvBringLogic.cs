@@ -57,7 +57,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                     current_ord.ordPlan += current_cell.plan;
                     current_cell.constFact = source_cell.MoneyNoReserve;
                     //current_cell.reserve = source_cell.MoneyReserve;
-                    current_dep.undistributedReserve += source_cell.MoneyReserve;
+                    current_dep.undistributedReserve += source_cell.SourceProvision;
                     current_cell.refToRealCell = source_cell;
                     result.cells.Add(current_cell);
                 }
@@ -68,7 +68,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
         public static void LoadProvBringResultInTask(ProvMat mat){
             foreach (ProvCell cell in mat.cells)
-                cell.refToRealCell.MoneyReserve = cell.reserve;
+                cell.refToRealCell.SourceProvision = cell.reserve;
         }
 
         public static void BringUncontrolledReserveInDep(ProvDep dep) {

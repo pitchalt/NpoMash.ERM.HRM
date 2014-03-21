@@ -68,7 +68,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             for (int i = 0; i < mat.NumberOfColumns; i++) {
                 Decimal expected_value = mat.itog_columns_info[i][0];
                 String dep_code = mat.columns_info[i][0];
-                Decimal result_value = dictionary_of_columns[dep_code].Cells.Sum(x => x.MoneyReserve);
+                Decimal result_value = dictionary_of_columns[dep_code].Cells.Sum(x => x.SourceProvision);
                 Assert.AreEqual(expected_value, result_value);
             }
         }
