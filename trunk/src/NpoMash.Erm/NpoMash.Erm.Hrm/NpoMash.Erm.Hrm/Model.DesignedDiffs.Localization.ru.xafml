@@ -391,6 +391,11 @@
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 3" />
       </Columns>
     </ListView>
+    <ListView Id="HrmMatrix_Columns_ListView">
+      <Columns>
+        <ColumnInfo Id="BuhCode" Caption="БухКод" />
+      </Columns>
+    </ListView>
     <DetailView Id="HrmMatrix_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -608,10 +613,17 @@
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
+            <LayoutGroup Id="Department" Caption="Подразделения" />
             <LayoutGroup Id="MatrixReserve" Caption="Матрица резерва">
               <LayoutGroup Id="MatrixReserve" Caption="MatrixReserve">
-                <LayoutGroup Id="Order" Caption="Заказы" />
-                <LayoutGroup Id="Department" Caption="Подразделения" />
+                <TabbedGroup Id="Tabs">
+                  <LayoutGroup Id="Deps">
+                    <LayoutGroup Id="Department" Caption="Подразделения" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Orders">
+                    <LayoutGroup Id="Order" Caption="Заказы" />
+                  </LayoutGroup>
+                </TabbedGroup>
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="DataSources" Caption="Исходные данные">
@@ -621,12 +633,8 @@
                     <LayoutGroup Id="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" Caption="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e">
                       <LayoutGroup Id="@32ee745a-15a9-4420-876e-2984145a4245" Caption="@32ee745a-15a9-4420-876e-2984145a4245">
                         <TabbedGroup Id="tabedgroup">
-                          <LayoutGroup Id="Department" Caption="Подразделения">
-                            <LayoutGroup Id="MatrixplanKB.Columns" Caption="Подразделения" />
-                          </LayoutGroup>
-                          <LayoutGroup Id="Order" Caption="Заказы">
-                            <LayoutGroup Id="MatrixplanKB.Rows" Caption="Заказы" />
-                          </LayoutGroup>
+                          <LayoutGroup Id="Department" Caption="Подразделения" />
+                          <LayoutGroup Id="Order" Caption="Заказы" />
                         </TabbedGroup>
                       </LayoutGroup>
                     </LayoutGroup>

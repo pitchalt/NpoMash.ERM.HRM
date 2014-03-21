@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Month = local_task.Period.Month,
                         DepartmentCode = cell.Column.Department.BuhCode,
                         OrderCode = cell.Row.Order.Code,
-                        Time = Convert.ToInt64(cell.MoneyReserve)
+                        Time = Convert.ToInt64(cell.SourceProvision)
                     };
                     records.Add(record);
                 }

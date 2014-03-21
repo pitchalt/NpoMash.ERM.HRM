@@ -34,11 +34,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("PlanMoney", ref _PlanMoney, value); }
         }
 
-        private Decimal _MoneyReserve;
+        private Decimal _SourceProvision;
         [ModelDefault("DisplayFormat", "{0:N}")]
-        public Decimal MoneyReserve {
-            get { return _MoneyReserve; }
-            set { SetPropertyValue<Decimal>("MoneyReserve", ref _MoneyReserve, value); }
+        public Decimal SourceProvision {
+            get { return _SourceProvision; }
+            set { SetPropertyValue<Decimal>("SourceProvision", ref _SourceProvision, value); }
         }
 
 
@@ -47,6 +47,20 @@ namespace NpoMash.Erm.Hrm.Salary {
         public Decimal MoneyNoReserve {
             get { return _MoneyNoReserve; }
             set { SetPropertyValue<Decimal>("MoneyNoReserve", ref _MoneyNoReserve, value); }
+        }
+
+        private Decimal _NewProvision;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        public Decimal NewProvision {
+            get { return _NewProvision; }
+            set { SetPropertyValue<Decimal>("NewProvision", ref _NewProvision, value); }
+        }
+
+        private Decimal _ProvisionDelta;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        public Decimal ProvisionDelta {
+            get { return _ProvisionDelta; }
+            set { SetPropertyValue<Decimal>("ProvisionDelta", ref _ProvisionDelta, value); }
         }
 
         private Decimal _MoneyTravel;

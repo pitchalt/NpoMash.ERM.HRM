@@ -114,7 +114,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
             public Int64 Base;
-            public Int64 Provision;
+            public Int64 SourceProvision;
+            public Int64 NewProvision;
+            public Int64 DeltaProvision;
             public Int64 OrderPlan;
             public Int64 PlannedTravels;
             public Int64 PrefatoryOrderFact;
@@ -136,6 +138,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Department Department;
             public DepartmentGroupDep Group;
             public Int64 Base;
+            public Int64 SourceProvision;
+            public Int64 NewProvision;
+            public Int64 DeltaProvision;
             public Int64 DepartmentPlan;
             public Int64 PlannedTravels;
             public Int64 PrefactoryDepartmentFact;
@@ -194,7 +199,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 foreach (var c in row.Cells) {
                     item.OrderPlan += Convert.ToInt64(c.PlanMoney);
                     item.Base += Convert.ToInt64(c.MoneyNoReserve);
-                    item.Provision += Convert.ToInt64(c.MoneyReserve);
+                    item.NewProvision += Convert.ToInt64(c.SourceProvision);
                     item.PlannedTravels += Convert.ToInt64(c.MoneyTravel);
                     if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
@@ -224,6 +229,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.Group = col.Department.GroupDep;
                 foreach (var c in col.Cells) {
                     item.DepartmentPlan +=Convert.ToInt64(c.PlanMoney);
+                    item.NewProvision += Convert.ToInt64(c.SourceProvision);
+                    item.Base += Convert.ToInt64(c.MoneyNoReserve);
                 }
 
                 if (row == null)

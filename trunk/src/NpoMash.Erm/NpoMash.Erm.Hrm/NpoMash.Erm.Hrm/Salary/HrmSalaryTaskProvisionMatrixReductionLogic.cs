@@ -71,11 +71,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     result_cell.Time = current_cell.Time;
                     // а это две самые страшные операции, как бы тут все в тартарары не улетело
                     if (res_mat.ContainsKey(dep_code) && res_mat[dep_code].ContainsKey(ord_code)) {
-                        result_cell.MoneyReserve = res_mat[dep_code][ord_code].MoneyReserve;
+                        result_cell.SourceProvision = res_mat[dep_code][ord_code].SourceProvision;
                         result_cell.MoneyNoReserve = res_mat[dep_code][ord_code].MoneyNoReserve;
                     }
                     else { 
-                        result_cell.MoneyReserve = 0; 
+                        result_cell.SourceProvision = 0; 
                         result_cell.MoneyNoReserve = 0;
                         bad_cells++;
                     }
@@ -223,8 +223,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 //Посчитаем резерв
                 foreach (var cell in column.Cells) {
-                    department_provision += cell.MoneyReserve;
-                    cell.MoneyReserve = 0;
+                    department_provision += cell.SourceProvision;
+                    cell.SourceProvision = 0;
                 }
 
                 if (cells_count == controlled_cells_count) {
@@ -245,7 +245,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                         foreach (var cell in column.Cells) {
                             Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
-                            if (difference > 0) { cell.MoneyReserve += difference; department_provision -= difference; zero_difference_orders++; }
+                            if (difference > 0) { cell.SourceProvision += difference; department_provision -= difference; zero_difference_orders++; }
                         
                         }
 
@@ -255,7 +255,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             if (department_provision - (min_waste * controlled_cells_count) >= 0) {
                                 foreach (var cell in column.Cells) {
                                     if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
-                                        cell.MoneyReserve += min_waste;
+                                        cell.SourceProvision += min_waste;
                                         department_provision -= min_waste;
                                     }
                                 }
@@ -264,7 +264,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             else {
                                 foreach (var cell in column.Cells) {
                                     if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
-                                        cell.MoneyReserve += department_provision / zero_difference_orders;
+                                        cell.SourceProvision += department_provision / zero_difference_orders;
                                         department_provision -= department_provision / zero_difference_orders;
                                     }
                                 }
@@ -282,7 +282,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         foreach (var cell in column.Cells) {
                             Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
                             if (difference > 0) {
-                                cell.MoneyReserve += department_provision / zero_difference_orders;
+                                cell.SourceProvision += department_provision / zero_difference_orders;
                                 department_provision -= department_provision / zero_difference_orders;
                             }
                         }
@@ -313,7 +313,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                                 if (cell.Row.Order.Code == order.Order.Code) {
                                     var difference=cell.PlanMoney - cell.MoneyNoReserve;
                                     if ( difference > 0) {
-                                        cell.MoneyReserve += difference;
+                                        cell.SourceProvision += difference;
                                         department_provision -= difference;
                                     }
                                 }
@@ -329,7 +329,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             }
 
                             if (flag == false) {
-                                cell.MoneyReserve += department_provision / uncontrolled_orders_count;
+                                cell.SourceProvision += department_provision / uncontrolled_orders_count;
                             }  
                         }  
                     
@@ -352,7 +352,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                                 if (cell.Row.Order.Code == order.Order.Code) {
                                     var difference = cell.PlanMoney - cell.MoneyNoReserve;
                                     if (difference > 0) {
-                                        cell.MoneyReserve += department_provision / controlled_provide_orders;
+                                        cell.SourceProvision += department_provision / controlled_provide_orders;
                                     }
                                 }
                             }
@@ -377,7 +377,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                         foreach (var cell in column.Cells) {
                             Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
-                            if (difference > 0) { cell.MoneyReserve += difference; department_provision -= difference; zero_difference_orders++; }
+                            if (difference > 0) { cell.SourceProvision += difference; department_provision -= difference; zero_difference_orders++; }
 
                         }
 
@@ -387,7 +387,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             if (department_provision - (min_waste * controlled_cells_count) >= 0) {
                                 foreach (var cell in column.Cells) {
                                     if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
-                                        cell.MoneyReserve += min_waste;
+                                        cell.SourceProvision += min_waste;
                                         department_provision -= min_waste;
                                     }
                                 }
@@ -396,7 +396,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             else {
                                 foreach (var cell in column.Cells) {
                                     if (cell.PlanMoney - cell.MoneyNoReserve == 0) {
-                                        cell.MoneyReserve += department_provision / zero_difference_orders;
+                                        cell.SourceProvision += department_provision / zero_difference_orders;
                                         department_provision -= department_provision / zero_difference_orders;
                                     }
                                 }
@@ -415,7 +415,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         foreach (var cell in column.Cells) {
                             Decimal difference = cell.PlanMoney - cell.MoneyNoReserve;
                             if (difference > 0) {
-                                cell.MoneyReserve += department_provision / zero_difference_orders;
+                                cell.SourceProvision += department_provision / zero_difference_orders;
                                 department_provision -= department_provision / zero_difference_orders;
                             }
                         }

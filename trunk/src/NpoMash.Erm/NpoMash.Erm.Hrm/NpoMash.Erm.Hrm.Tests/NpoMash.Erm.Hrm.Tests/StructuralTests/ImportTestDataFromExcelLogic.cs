@@ -275,7 +275,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                         try {
                             current_cell.PlanMoney = mat.mat[i, j][0];
                             current_cell.MoneyNoReserve = mat.mat[i, j][1];
-                            current_cell.MoneyReserve = mat.mat[i, j][2];
+                            current_cell.SourceProvision = mat.mat[i, j][2];
                         }
                         catch (Exception) {
                             String values = "";
