@@ -157,6 +157,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS) {
                 HrmSalaryTaskExportCoercedMatrix task = object_space.CreateObject<HrmSalaryTaskExportCoercedMatrix>();
+                task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
                 period.PeriodTasks.Add(task);
                 HrmSalaryTaskExportCoercedMatrixLogic.InitObjects(task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
@@ -274,25 +275,27 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void AccountOperationImport_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+            HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
+            task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
-                if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
-                        HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
+                //if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
+                       
                         current_period.PeriodTasks.Add(task);
                         HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperationTestData(object_space, task);
                         e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                         e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                         object_space.Committed += new EventHandler(refresher);
-                }
+                //}
             }
             else if (e.SelectedChoiceActionItem.Id == "FromFile") {
-                if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
-                    HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
+               // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
+
                     current_period.PeriodTasks.Add(task);
                     HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperation(object_space, task);
                     e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                     e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                     object_space.Committed += new EventHandler(refresher);
-                }
+                //}
             }
         }
 

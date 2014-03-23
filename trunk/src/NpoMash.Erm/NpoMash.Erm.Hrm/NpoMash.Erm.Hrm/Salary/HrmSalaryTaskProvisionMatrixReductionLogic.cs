@@ -105,6 +105,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             //Initiate provision matrix task
             HrmMatrix provision_matrix = os.CreateObject<HrmMatrix>();
+            task_provision_matrix_reduction.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
             task_provision_matrix_reduction.ProvisionMatrix = provision_matrix;
             task_provision_matrix_reduction.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_SAVED;

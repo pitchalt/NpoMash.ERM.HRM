@@ -26,6 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void InitObjects(HrmSalaryTaskExportProvisionMatrix local_task) {
             local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ProvisionMatrix;
+            local_task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
         }
 
         public static void ExportProvisonMatrix(HrmSalaryTaskExportProvisionMatrix local_task) {
