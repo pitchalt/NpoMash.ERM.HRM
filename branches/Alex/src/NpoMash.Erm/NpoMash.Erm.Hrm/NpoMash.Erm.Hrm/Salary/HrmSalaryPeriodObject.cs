@@ -20,24 +20,18 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmSalaryPeriodObjectStatus { }
 
-    public enum HrmSalaryPeriodObjectType { }
-
 
     abstract public class HrmSalaryPeriodObject : BaseObject {
 
        
-        private virtual HrmSalaryPeriodObjectStatus _Status;
+        private HrmSalaryPeriodObjectStatus _Status;
         public virtual HrmSalaryPeriodObjectStatus Status {
             get { return _Status; }
             set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
         }
 
-        [Persistent("Type")]
-        private HrmSalaryPeriodObjectType _Type;
-       [PersistentAlias("_Type")]
-        private HrmSalaryPeriodObjectType Type {
-            get { return _Type; }
-            
+        public virtual Type Type {
+            get { return typeof(HrmSalaryPeriodObject); }
         }
 
         private DepartmentGroupDep _GroupDep;
