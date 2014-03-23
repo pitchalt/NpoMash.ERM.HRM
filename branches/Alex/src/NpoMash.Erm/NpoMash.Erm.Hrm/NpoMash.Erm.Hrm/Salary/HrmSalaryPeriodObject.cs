@@ -58,4 +58,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryPeriodObject(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
+
+    public class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject { }
+
+    public class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject { }
+
 }
