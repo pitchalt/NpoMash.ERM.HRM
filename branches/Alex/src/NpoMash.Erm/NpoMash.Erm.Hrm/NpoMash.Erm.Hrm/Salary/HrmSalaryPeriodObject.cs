@@ -25,14 +25,16 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     abstract public class HrmSalaryPeriodObject : BaseObject {
 
-        [Persistent("Status")]
+       
         private virtual HrmSalaryPeriodObjectStatus _Status;
-        [PersistentAlias("_Status")]
         public virtual HrmSalaryPeriodObjectStatus Status {
             get { return _Status; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
         }
 
+         [Persistent("Status")]
         private HrmSalaryPeriodObjectType _Type;
+                [PersistentAlias("_Status")]
         private HrmSalaryPeriodObjectType Type {
             get { return _Type; }
             set { SetPropertyValue<HrmSalaryPeriodObjectType>("Type", ref _Type, value); }
