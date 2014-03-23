@@ -17,7 +17,7 @@ using DevExpress.ExpressApp.Editors;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public class HrmSalaryObject : HrmSalaryPeriodObject {
+    public class HrmSalaryObject : BaseObject {
 
         [Association("SalaryObject-ObjectSlice"), Aggregated] //Коллекция HrmSalaryObjectSlice
         public XPCollection<HrmSalaryObjectSlice> ObjectSlice {

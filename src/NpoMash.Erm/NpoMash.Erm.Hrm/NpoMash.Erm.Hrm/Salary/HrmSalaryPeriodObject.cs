@@ -9,6 +9,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.General;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -20,17 +21,17 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmSalaryPeriodObjectStatus { }
 
-
-    abstract public class HrmSalaryPeriodObject : BaseObject {
+  
+    abstract public class HrmSalaryPeriodObject : BaseObject, ITreeNode {
 
        
-        private HrmSalaryPeriodObjectStatus _Status;
-        public virtual HrmSalaryPeriodObjectStatus Status {
-            get { return _Status; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
+        private HrmSalaryPeriodObjectStatus _ObjectStatus;
+        public virtual HrmSalaryPeriodObjectStatus ObjectStatus {
+            get { return _ObjectStatus; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("ObjectStatus", ref _ObjectStatus, value); }
         }
 
-        public virtual Type Type {
+        public virtual Type ObjectType {
             get { return typeof(HrmSalaryPeriodObject); }
         }
 
@@ -51,35 +52,61 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         
-        
-        
-        
-        
         public HrmSalaryPeriodObject(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        public virtual IBindingList Children {
+            get { return new BindingList<HrmSalaryPeriodObject>(); }
+        }
+
+        public virtual string Name {
+            get { return ObjectType.FullName; }
+        }
+
+        public virtual ITreeNode Parent {
+            get { return null; }
+        }
     }
 
-    public abstract class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject {
+    // abstract//
+    public  class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject {
 
-        [Association("ObjectBase-ObjectSlice")] //Коллекция ObjectSlice
-        public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlice {
-            get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlice"); }
+        [Association("ObjectBase-ObjectSlices")] //Коллекция ObjectSlice
+        public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlices {
+            get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlices"); }
+        }
+
+
+        public override IBindingList Children {
+            get {
+                return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
+            }
         }
 
         public HrmSalaryPeriodObjectBase(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 
-    public abstract class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
 
+    //abstract
+    public  class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
 
         private HrmSalaryPeriodObjectBase _ObjectBase;
-        [Association("ObjectBase-ObjectSlice")]
+        [Association("ObjectBase-ObjectSlices")]
         public HrmSalaryPeriodObjectBase ObjectBase {
             get { return _ObjectBase; }
             set { SetPropertyValue<HrmSalaryPeriodObjectBase>("ObjectBase", ref _ObjectBase, value); }
         
         }
+
+
+        public override ITreeNode Parent {
+            get {
+                return ObjectBase;
+            }
+        }
+
+
 
         public HrmSalaryPeriodObjectSlice(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
