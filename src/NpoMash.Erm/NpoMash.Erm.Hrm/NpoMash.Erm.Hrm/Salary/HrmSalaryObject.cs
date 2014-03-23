@@ -35,12 +35,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        private HrmPeriod _Period; // —сылка на HrmPeriod
-        [Association("Period-SalaryObject")]
-        public HrmPeriod Period {
-            get { return _Period; }
-            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
-        }
 
 
 

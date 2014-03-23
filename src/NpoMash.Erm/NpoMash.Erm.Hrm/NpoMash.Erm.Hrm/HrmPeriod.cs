@@ -238,8 +238,8 @@ namespace NpoMash.Erm.Hrm {
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public XPCollection<HrmSalaryObject> SalaryObject {
-            get { return GetCollection<HrmSalaryObject>("SalaryObject"); }
+        public XPCollection<HrmSalaryPeriodObject> SalaryObject {
+            get { return GetCollection<HrmSalaryPeriodObject>("SalaryObject"); }
         }
 
 
