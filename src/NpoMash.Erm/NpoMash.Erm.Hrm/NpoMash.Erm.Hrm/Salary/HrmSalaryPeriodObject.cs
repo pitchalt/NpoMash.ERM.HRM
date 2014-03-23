@@ -32,12 +32,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
         }
 
-         [Persistent("Status")]
+        [Persistent("Type")]
         private HrmSalaryPeriodObjectType _Type;
-                [PersistentAlias("_Status")]
+       [PersistentAlias("_Type")]
         private HrmSalaryPeriodObjectType Type {
             get { return _Type; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectType>("Type", ref _Type, value); }
+            
         }
 
         private DepartmentGroupDep _GroupDep;
