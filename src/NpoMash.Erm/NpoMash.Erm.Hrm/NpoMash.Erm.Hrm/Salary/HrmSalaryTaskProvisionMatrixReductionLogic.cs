@@ -42,6 +42,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             Dictionary<String, HrmMatrixRow> created_rows = new Dictionary<string, HrmMatrixRow>();
 
             int bad_cells = 0;
+            int good_cells = 0;
             foreach (HrmMatrixColumn current_column in m_plan_kb.Columns.Concat(m_plan_ozm.Columns)) {
                 HrmMatrixColumn result_column = os.CreateObject<HrmMatrixColumn>();
                 String dep_code = current_column.Department.BuhCode;
@@ -73,6 +74,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (res_mat.ContainsKey(dep_code) && res_mat[dep_code].ContainsKey(ord_code)) {
                         result_cell.SourceProvision = res_mat[dep_code][ord_code].SourceProvision;
                         result_cell.MoneyNoReserve = res_mat[dep_code][ord_code].MoneyNoReserve;
+                        good_cells++;
                     }
                     else { 
                         result_cell.SourceProvision = 0; 

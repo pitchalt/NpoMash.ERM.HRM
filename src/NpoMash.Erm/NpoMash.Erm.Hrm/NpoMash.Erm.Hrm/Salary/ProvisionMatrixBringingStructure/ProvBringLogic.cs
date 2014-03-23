@@ -68,7 +68,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
         public static void LoadProvBringResultInTask(ProvMat mat){
             foreach (ProvCell cell in mat.cells)
-                cell.refToRealCell.SourceProvision = cell.reserve;
+                cell.refToRealCell.NewProvision = cell.reserve;
         }
 
         public static void BringUncontrolledReserveInDep(ProvDep dep) {
