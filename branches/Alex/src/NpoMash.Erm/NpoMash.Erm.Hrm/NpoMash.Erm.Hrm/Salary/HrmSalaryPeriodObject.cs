@@ -13,13 +13,47 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    
+
+
+    public enum HrmSalaryPeriodObjectStatus { }
+
+    public enum HrmSalaryPeriodObjectType { }
+
+
     abstract public class HrmSalaryPeriodObject : BaseObject {
 
+        [Persistent("Status")]
+        private virtual HrmSalaryPeriodObjectStatus _Status;
+        [PersistentAlias("_Status")]
+        public virtual HrmSalaryPeriodObjectStatus Status {
+            get { return _Status; }
+        }
 
-        
+        private HrmSalaryPeriodObjectType _Type;
+        private HrmSalaryPeriodObjectType Type {
+            get { return _Type; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectType>("Type", ref _Type, value); }
+        }
+
+        private DepartmentGroupDep _GroupDep;
+        public DepartmentGroupDep GroupDep {
+            get { return _GroupDep; }
+            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
+        }
+
+
+
+
+        private HrmPeriod _Period; // —сылка на HrmPeriod
+        [Association("Period-SalaryObject")]
+        public HrmPeriod Period {
+            get { return _Period; }
+            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
+        }
+
         
         
         
