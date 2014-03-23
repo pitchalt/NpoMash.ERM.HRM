@@ -59,8 +59,35 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 
-    public class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject { }
+    public abstract class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject {
 
-    public class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject { }
+        [Association("ObjectBase-ObjectSlice")] //Коллекция ObjectSlice
+        public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlice {
+            get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlice"); }
+        }
+
+        public HrmSalaryPeriodObjectBase(Session session) : base(session) { }
+        public override void AfterConstruction() { base.AfterConstruction(); }
+    }
+
+    public abstract class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
+
+
+        private HrmSalaryPeriodObjectBase _ObjectBase;
+        [Association("ObjectBase-ObjectSlice")]
+        public HrmSalaryPeriodObjectBase ObjectBase {
+            get { return _ObjectBase; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectBase>("ObjectBase", ref _ObjectBase, value); }
+        
+        }
+
+        public HrmSalaryPeriodObjectSlice(Session session) : base(session) { }
+        public override void AfterConstruction() { base.AfterConstruction(); }
+    }
+
+
+
+
+
 
 }
