@@ -281,7 +281,6 @@
         <Member Name="PrefatoryFactOZM" Caption="Предварительный факт ОЗМ" />
         <Member Name="PlannedTravelsOZM" Caption="т.ч.КомОЗМ" />
         <Member Name="Base" Caption="База" />
-        <Member Name="Provision" Caption="Резерв" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель">

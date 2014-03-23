@@ -15,6 +15,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 //
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
     public partial class HrmSalaryTaskImportAccountOperationVC : ViewController {
@@ -31,6 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.MatrixAllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.MatrixAllocResultOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.Period.setStatus(HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED);
+            task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task.Complete();
             ObjectSpace.CommitChanges();
             Window win = Frame as Window;
