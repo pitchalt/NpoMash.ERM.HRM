@@ -181,8 +181,6 @@
     <Compile Include="Salary\HrmSalaryColumnSlice.cs" />
     <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
     <Compile Include="Salary\HrmSalaryLastAccount.cs" />
-    <Compile Include="Salary\HrmSalaryObject.cs" />
-    <Compile Include="Salary\HrmSalaryObjectSlice.cs" />
     <Compile Include="Salary\HrmSalaryPeriodObject.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -15,10 +15,10 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
     public class HrmSalaryRowSlice : BaseObject {
 
-        private HrmSalaryObjectSlice _SalaryObjectSlice; // —сылка на HrmSalaryObjectSlice
-        public HrmSalaryObjectSlice SalaryObjectSlice {
-            get { return _SalaryObjectSlice; }
-            set { SetPropertyValue<HrmSalaryObjectSlice>("SalaryObjectSlice", ref _SalaryObjectSlice, value); }
+        private HrmSalaryPeriodObjectSlice _ObjectSlice; // —сылка на HrmSalaryObjectSlice
+        public HrmSalaryPeriodObjectSlice ObjectSlice {
+            get { return _ObjectSlice; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectSlice>("ObjectSlice", ref _ObjectSlice, value); }
         }
 
 

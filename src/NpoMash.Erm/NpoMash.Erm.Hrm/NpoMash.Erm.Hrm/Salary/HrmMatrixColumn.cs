@@ -57,11 +57,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 //
-        private HrmSalaryObject _SalaryObject; // —сылка на HrmSalaryObject
+        private HrmSalaryPeriodObjectBase _SalaryObject; // —сылка на HrmSalaryObject
         [Association("SalaryObject-Column")]
-        public HrmSalaryObject SalaryObject {
+        public HrmSalaryPeriodObjectBase SalaryObject {
             get { return _SalaryObject; }
-            set { SetPropertyValue<HrmSalaryObject>("SalaryObject", ref _SalaryObject, value); }
+            set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
         }
 
 

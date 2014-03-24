@@ -6,13 +6,14 @@ using System.Collections.Generic;
 //
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
+//using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+
 //
 using IntecoAG.ERM.HRM.Organization;
 
@@ -44,11 +45,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        private HrmPeriod _Period; // Ссылка на HrmPeriod
+        private HrmPeriod _PeriodBase; // Ссылка на HrmPeriod
         [Association("HrmPeriod-HrmPeriodSalaryObject")]
-        public HrmPeriod Period {
-            get { return _Period; }
-            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
+        public HrmPeriod PeriodBase {
+            get { return _PeriodBase; }
+            set { SetPropertyValue<HrmPeriod>("PeriodBase", ref _PeriodBase, value); }
         }
 
         
@@ -60,7 +61,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public virtual string Name {
-            get { return ""; }// ObjectType.FullName; }
+            get { return PeriodObjectType.FullName; }
         }
 
         public virtual ITreeNode Parent {
@@ -78,11 +79,27 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        //public override IBindingList Children {
-        //    get {
-        //        return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
-        //    }
-        //}
+        public override IBindingList Children {
+            get {
+               return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
+            }
+        }
+
+
+        /*[Association("SalaryObject-ObjectSlice"), Aggregated] //Коллекция HrmSalaryObjectSlice
+        public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlice {
+            get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlice"); }
+        }*/
+
+        [Association("SalaryObject-Column"), Aggregated] //Коллекция HrmMatrixColumn
+        public XPCollection<HrmMatrixColumn> Column {
+            get { return GetCollection<HrmMatrixColumn>("Column"); }
+        }
+
+        [Association("SalaryObject-Row"), Aggregated] //Коллекция HrmMatrixRow
+        public XPCollection<HrmMatrixRow> Row {
+            get { return GetCollection<HrmMatrixRow>("Row"); }
+        }
 
         public HrmSalaryPeriodObjectBase(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
@@ -102,11 +119,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        //public override ITreeNode Parent {
-        //    get {
-        //        return ObjectBase;
-        //    }
-        //}
+        public override ITreeNode Parent {
+            get {
+                return ObjectBase;
+            }
+        }
 
 
 
