@@ -16,7 +16,8 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public class HrmSalaryObjectSlice : HrmSalaryPeriodObject {
+    [Persistent]
+    public class HrmSalaryObjectSlice : BaseObject {
 
         private HrmSalaryObject _SalaryObject; //—сылка на HrmSalaryObject
         [Association("SalaryObject-ObjectSlice")]

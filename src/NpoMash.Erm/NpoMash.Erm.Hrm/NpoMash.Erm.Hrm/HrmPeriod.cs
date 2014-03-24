@@ -234,15 +234,13 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }
 
-        [Association("Period-SalaryObject"), Aggregated] //Коллекция SalaryPeriodObject
+        [Association("HrmPeriod-HrmPeriodSalaryObject"), Aggregated] //Коллекция SalaryPeriodObject
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public XPCollection<HrmSalaryPeriodObject> SalaryObject {
-            get { return GetCollection<HrmSalaryPeriodObject>("SalaryObject"); }
+        public XPCollection<HrmSalaryPeriodObject> SalaryPeriodObjects {
+            get { return GetCollection<HrmSalaryPeriodObject>("SalaryPeriodObjects"); }
         }
-
-
 
         public void setStatus(HrmPeriodStatus stat) {
             if (stat == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
@@ -273,7 +271,7 @@ namespace NpoMash.Erm.Hrm {
             var new_slice_object = new HrmSalaryPeriodObjectSlice(this.Session);
 
             new_base_object.ObjectSlices.Add(new_slice_object);
-            this.SalaryObject.Add(new_base_object);
+            this.SalaryPeriodObjects.Add(new_base_object);
         }
 
         [Browsable(false)]
