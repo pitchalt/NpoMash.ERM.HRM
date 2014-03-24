@@ -20,8 +20,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     public enum HrmSalaryPeriodObjectStatus { }
-
-  
+    
+    [Persistent("HrmSalaryPeriodObject")]
     abstract public class HrmSalaryPeriodObject : BaseObject, ITreeNode {
 
        
@@ -31,7 +31,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("ObjectStatus", ref _ObjectStatus, value); }
         }
 
-        public virtual Type ObjectType {
+        public virtual Type PeriodObjectType {
             get { return typeof(HrmSalaryPeriodObject); }
         }
 
@@ -45,7 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private HrmPeriod _Period; // Ссылка на HrmPeriod
-        [Association("Period-SalaryObject")]
+        [Association("HrmPeriod-HrmPeriodSalaryObject")]
         public HrmPeriod Period {
             get { return _Period; }
             set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
@@ -60,7 +60,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public virtual string Name {
-            get { return ObjectType.FullName; }
+            get { return ""; }// ObjectType.FullName; }
         }
 
         public virtual ITreeNode Parent {
@@ -69,19 +69,20 @@ namespace NpoMash.Erm.Hrm.Salary {
     }
 
     // abstract//
+    [MapInheritance(MapInheritanceType.ParentTable)]
     public  class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject {
 
-        [Association("ObjectBase-ObjectSlices")] //Коллекция ObjectSlice
+        [Association("HrmSalaryPeriodObjectBase-HrmSalaryPeriodObjectSlice")] //Коллекция ObjectSlice
         public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlices {
             get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlices"); }
         }
 
 
-        public override IBindingList Children {
-            get {
-                return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
-            }
-        }
+        //public override IBindingList Children {
+        //    get {
+        //        return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
+        //    }
+        //}
 
         public HrmSalaryPeriodObjectBase(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
@@ -89,10 +90,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     //abstract
-    public  class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
+    [MapInheritance(MapInheritanceType.ParentTable)]
+    public class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
 
         private HrmSalaryPeriodObjectBase _ObjectBase;
-        [Association("ObjectBase-ObjectSlices")]
+        [Association("HrmSalaryPeriodObjectBase-HrmSalaryPeriodObjectSlice")]
         public HrmSalaryPeriodObjectBase ObjectBase {
             get { return _ObjectBase; }
             set { SetPropertyValue<HrmSalaryPeriodObjectBase>("ObjectBase", ref _ObjectBase, value); }
@@ -100,21 +102,17 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public override ITreeNode Parent {
-            get {
-                return ObjectBase;
-            }
-        }
+        //public override ITreeNode Parent {
+        //    get {
+        //        return ObjectBase;
+        //    }
+        //}
 
 
 
         public HrmSalaryPeriodObjectSlice(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
-
-
-
-
 
 
 }
