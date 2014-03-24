@@ -261,6 +261,9 @@
         <Member Name="PrefactoryDepartmentFact" Caption="Предварительный факт" />
         <Member Name="FactTravels" Caption="т.ч.Ком" />
         <Member Name="Base" Caption="База" />
+        <Member Name="SourceProvision" Caption="Исходный резерв" />
+        <Member Name="NewProvision" Caption="Расчет" />
+        <Member Name="DeltaProvision" Caption="Дельта" />
         <Member Name="DepartmentProvision" Caption="Резерв" />
       </OwnMembers>
     </Class>
@@ -281,6 +284,9 @@
         <Member Name="PrefatoryFactOZM" Caption="Предварительный факт ОЗМ" />
         <Member Name="PlannedTravelsOZM" Caption="т.ч.КомОЗМ" />
         <Member Name="Base" Caption="База" />
+        <Member Name="SourceProvision" Caption="Исходный резерв" />
+        <Member Name="NewProvision" Caption="Расчет" />
+        <Member Name="DeltaProvision" Caption="Дельта" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель">
