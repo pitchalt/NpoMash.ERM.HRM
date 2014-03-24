@@ -267,11 +267,7 @@ namespace NpoMash.Erm.Hrm {
             base.AfterConstruction();
             setStatus(HrmPeriodStatus.OPENED);
 
-            var new_base_object = new HrmSalaryPeriodObjectBase(this.Session);
-            var new_slice_object = new HrmSalaryPeriodObjectSlice(this.Session);
-
-            new_base_object.ObjectSlices.Add(new_slice_object);
-            this.SalaryPeriodObjects.Add(new_base_object);
+            
         }
 
         [Browsable(false)]

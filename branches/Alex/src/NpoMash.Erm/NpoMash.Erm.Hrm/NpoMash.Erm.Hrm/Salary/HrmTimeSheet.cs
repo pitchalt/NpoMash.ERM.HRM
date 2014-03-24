@@ -28,7 +28,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     [DefaultProperty("Status")]
-    public class HrmTimeSheet : HrmSalaryObject {
+    public class HrmTimeSheet : HrmSalaryPeriodObjectBase {
 
         [Association("TimeSheet-TimeSheetDeps"), Aggregated] // Коллекция TimeSheetDeps
         public XPCollection<HrmTimeSheetDep> TimeSheetDeps {
@@ -39,7 +39,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Association("Period-TimeSheets")]
         public HrmPeriod Period {
             get { return _Period; }
-            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
+            set { 
+                SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
+                if (!IsLoading) {
+                    PeriodBase = value;
+                }
+            }
         }
 
         private DepartmentGroupDep _GroupDep;
