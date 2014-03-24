@@ -198,13 +198,26 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                   foreach (var c in row.Cells) {
                     item.OrderPlan += Convert.ToInt64(c.PlanMoney);
-                    item.Base = Convert.ToInt64(c.MoneyNoReserve);
-                    item.NewProvision = Convert.ToInt64(c.SourceProvision);
+                    item.Base += Convert.ToInt64(c.MoneyNoReserve);
+                    item.NewProvision += Convert.ToInt64(c.NewProvision);
+                    item.SourceProvision += Convert.ToInt64(c.SourceProvision);
                     item.PlannedTravels += Convert.ToInt64(c.MoneyTravel);
                     if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
                 }
+                  item.DeltaProvision = Math.Abs(item.NewProvision - item.SourceProvision);
+                  item.PrefatoryOrderFact = item.NewProvision + item.Base;
+
+                  foreach (var c in row.Cells) {
+                      if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                          item.PrefatoryFactKB += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
+                      } else {
+                          item.PrefatoryFactOZM += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
+                      }                  
+                  }
+
+
 
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
@@ -229,10 +242,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.Group = col.Department.GroupDep;
                 foreach (var c in col.Cells) {
                     item.DepartmentPlan +=Convert.ToInt64(c.PlanMoney);
-                    item.NewProvision += Convert.ToInt64(c.SourceProvision);
+                    item.SourceProvision += Convert.ToInt64(c.SourceProvision);
+                    item.NewProvision += Convert.ToInt64(c.NewProvision);
                     item.Base += Convert.ToInt64(c.MoneyNoReserve);
                 }
-
+                item.DeltaProvision=Math.Abs(item.NewProvision-item.SourceProvision);
+                item.PrefactoryDepartmentFact = item.NewProvision + item.Base;
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
             }
