@@ -46,6 +46,11 @@
         <Member Name="PlannedTravels" Index="3" />
         <Member Name="PrefactoryDepartmentFact" Index="4" />
         <Member Name="FactTravels" Index="5" />
+        <Member Name="Base" Index="6" />
+        <Member Name="SourceProvision" Index="7" />
+        <Member Name="NewProvision" Index="8" />
+        <Member Name="DeltaProvision" Index="9" />
+        <Member Name="DepartmentProvision" Index="10" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
@@ -57,13 +62,18 @@
         <Member Name="PrefatoryOrderFact" Index="4" />
         <Member Name="FactTravels" Index="5" />
         <Member Name="PlanKB" Index="6" />
-        <Member Name="PlannedTrvaelsKB" Index="6" />
-        <Member Name="PrefatoryFactKB" Index="7" />
-        <Member Name="FactTravelsKB" Index="8" />
-        <Member Name="PlanOZM" Index="9" />
-        <Member Name="FactTravelsOZM" Index="10" />
-        <Member Name="PrefatoryFactOZM" Index="11" />
-        <Member Name="PlannedTravelsOZM" Index="12" />
+        <Member Name="PlannedTrvaelsKB" Index="7" />
+        <Member Name="PrefatoryFactKB" Index="8" />
+        <Member Name="FactTravelsKB" Index="9" />
+        <Member Name="PlanOZM" Index="10" />
+        <Member Name="FactTravelsOZM" Index="11" />
+        <Member Name="PrefatoryFactOZM" Index="12" />
+        <Member Name="PlannedTravelsOZM" Index="13" />
+        <Member Name="Base" Index="14" />
+        <Member Name="SourceProvision" Index="15" />
+        <Member Name="NewProvision" Index="16" />
+        <Member Name="DeltaProvision" Index="17" />
+        <Member Name="DepartmentItems" Index="18" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet">

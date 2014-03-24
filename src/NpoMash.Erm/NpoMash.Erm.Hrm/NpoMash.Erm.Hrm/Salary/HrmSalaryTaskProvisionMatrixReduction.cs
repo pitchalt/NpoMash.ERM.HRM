@@ -145,7 +145,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Int64 PlannedTravels;
             public Int64 PrefactoryDepartmentFact;
             public Int64 FactTravels;
-            public Int64 DepartmentProvision;
             public IList<OrderSet> OrderItems = new List<OrderSet>();
             public DepartmentSet(Session session) : base(session) { }
         }
@@ -206,7 +205,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
                 }
-                  item.DeltaProvision = Math.Abs(item.NewProvision - item.SourceProvision);
+                  item.DeltaProvision = (item.NewProvision - item.SourceProvision);
                   item.PrefatoryOrderFact = item.NewProvision + item.Base;
 
                   foreach (var c in row.Cells) {
@@ -246,7 +245,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item.NewProvision += Convert.ToInt64(c.NewProvision);
                     item.Base += Convert.ToInt64(c.MoneyNoReserve);
                 }
-                item.DeltaProvision=Math.Abs(item.NewProvision-item.SourceProvision);
+                item.DeltaProvision=(item.NewProvision-item.SourceProvision);
                 item.PrefactoryDepartmentFact = item.NewProvision + item.Base;
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
