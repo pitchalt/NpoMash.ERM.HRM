@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Status")]
-    public class HrmMatrix : HrmSalaryPeriodObjectBase {
+    public class HrmMatrix : HrmSalaryPeriodObjectBase, IHrmSalaryMatrix {
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
@@ -126,5 +126,13 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {base.AfterConstruction(); }
+
+        IList<IHrmSalaryMatrixRow> IHrmSalaryMatrix.Rows {
+            get { return new ListConverter<IHrmSalaryMatrixRow, HrmMatrixRow>(Rows); }
+        }
+
+        IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns {
+            get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
+        }
     }
 }

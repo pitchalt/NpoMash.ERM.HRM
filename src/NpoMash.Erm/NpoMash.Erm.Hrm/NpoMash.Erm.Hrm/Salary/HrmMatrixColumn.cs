@@ -21,7 +21,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixColumn")]    
-    public class HrmMatrixColumn : BaseObject {
+    public class HrmMatrixColumn : BaseObject, IHrmSalaryMatrixColumn {
 
         //private Decimal _Sum;
         [ModelDefault("DisplayFormat", "{0:N}")]

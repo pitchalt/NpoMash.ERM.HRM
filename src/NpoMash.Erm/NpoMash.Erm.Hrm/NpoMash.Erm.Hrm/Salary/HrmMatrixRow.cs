@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixRow")]
     [DefaultProperty("Order")]
-    public class HrmMatrixRow : BaseObject {
+    public class HrmMatrixRow : BaseObject, IHrmSalaryMatrixRow {
 
          [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
