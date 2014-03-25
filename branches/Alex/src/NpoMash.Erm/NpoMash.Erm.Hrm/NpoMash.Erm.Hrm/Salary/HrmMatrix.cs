@@ -98,14 +98,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
         }
 
-        [Association("TYPE_MATIX-Rows"), Aggregated] //Коллекция HrmMatrixRow
+        [Association("HrmMatrix-Rows"), Aggregated] //Коллекция HrmMatrixRow
         public XPCollection<HrmMatrixRow> Rows {
             get { return GetCollection<HrmMatrixRow>("Rows"); }
         }
 
-        [Association("TYPE_MATIX-Columns"), Aggregated] //Коллекция HrmMatrixColumn
+        [Association("HrmMatrix-Columns"), Aggregated] //Коллекция HrmMatrixColumn
         public XPCollection<HrmMatrixColumn> Columns {
             get { return GetCollection<HrmMatrixColumn>("Columns"); }
+        }
+
+        [Association("HrmMatrix-HrmSalaryMatrixSlices")] //Коллекция HrmMatrixSlice
+        public XPCollection<HrmSalaryMatrixSlice> HrmSalaryMatrixSlices {
+            get { return GetCollection<HrmSalaryMatrixSlice>("HrmSalaryMatrixSlices"); }
         }
 
         private HrmPeriod _Period; // Ссылка на HrmPeriod

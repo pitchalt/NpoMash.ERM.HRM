@@ -13,19 +13,28 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public class HrmSalaryRowSlice : BaseObject {
+    
+    [Persistent]
+    public class HrmSalaryRowSlice : BaseObject, IHrmSalaryMatrixRow {
 
-        private HrmSalaryPeriodObjectSlice _ObjectSlice; // —сылка на HrmSalaryObjectSlice
-        public HrmSalaryPeriodObjectSlice ObjectSlice {
-            get { return _ObjectSlice; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectSlice>("ObjectSlice", ref _ObjectSlice, value); }
-        }
+      //  private HrmSalaryPeriodObjectSlice _ObjectSlice; // —сылка на HrmSalaryObjectSlice
+        //public HrmSalaryPeriodObjectSlice ObjectSlice {
+           // get { return _ObjectSlice; }
+           // set { SetPropertyValue<HrmSalaryPeriodObjectSlice>("ObjectSlice", ref _ObjectSlice, value); }
+      //  }
 
 
         private HrmMatrixRow _Row; //—сылка на HrmMatrixRow
         public HrmMatrixRow Row {
             get { return _Row; }
             set { SetPropertyValue<HrmMatrixRow>("Row", ref _Row, value); }
+        }
+
+        private HrmSalaryMatrixSlice _HrmSalaryMatrixSlice;
+        [Association("HrmSalaryMatrixSlice-HrmSalaryRowSlice")] //—сылка HrmMatrixSlice
+        public HrmSalaryMatrixSlice HrmSalaryMatrixSlice {
+            get { return _HrmSalaryMatrixSlice; }
+            set { SetPropertyValue<HrmSalaryMatrixSlice>("HrmSalaryMatrixSlice", ref _HrmSalaryMatrixSlice, value); }
         }
 
 
