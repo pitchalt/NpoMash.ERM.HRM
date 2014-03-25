@@ -152,6 +152,7 @@
     <Compile Include="Salary\BringingLogic.cs" />
     <Compile Include="Salary\BringingStructure.cs" />
     <Compile Include="Salary\HrmMatrixLogic.cs" />
+    <Compile Include="Salary\HrmSalaryMatrixSlice.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -177,6 +178,7 @@
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmSalaryBaseMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryCellSlice.cs" />
     <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
     <Compile Include="Salary\HrmSalaryColumnSlice.cs" />
     <Compile Include="Salary\HrmSalaryFirstAccount.cs" />

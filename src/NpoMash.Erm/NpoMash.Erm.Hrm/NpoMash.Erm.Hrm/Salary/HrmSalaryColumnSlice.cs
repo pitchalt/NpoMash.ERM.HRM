@@ -13,7 +13,9 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public class HrmSalaryColumnSlice : BaseObject {
+
+    [Persistent]
+    public class HrmSalaryColumnSlice : BaseObject, IHrmSalaryMatrixColumn {
 
         private HrmMatrixColumn _Column; // —сылка на HrmMatrixColumn
         public HrmMatrixColumn Column {
@@ -21,12 +23,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixColumn>("Column", ref _Column, value); }
         }
 
-        private HrmSalaryPeriodObjectSlice _ObjectSlice;// —сылка на HrmSalaryObjectSlice
-        public HrmSalaryPeriodObjectSlice ObjectSlice {
-            get { return _ObjectSlice; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectSlice>("ObjectSlice", ref _ObjectSlice, value); }
-
+        private HrmSalaryMatrixSlice _HrmSalaryMatrixSlice;
+        [Association("HrmSalaryMatrixSlice-HrmSalaryColumnSlices")] //—сылка HrmMatrixSlice
+        public HrmSalaryMatrixSlice HrmSalaryMatrixSlice {
+            get { return _HrmSalaryMatrixSlice; }
+            set { SetPropertyValue<HrmSalaryMatrixSlice>("HrmSalaryMatrixSlice", ref _HrmSalaryMatrixSlice, value); }
         }
+
 
 
         public HrmSalaryColumnSlice(Session session) : base(session) { }
