@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         }
 
         [TestCase("C:\\ExcelTests\\Provisions_matrix_for_tests.xls","Test1")]
-        public void BringFromExcelTest(String path_to_file, String worksheet_name) {
+        public void BringFromExcelSourceAndNewReserveAreEqualTest(String path_to_file, String worksheet_name) {
             IObjectSpace os = application.CreateObjectSpace();
             HrmSalaryTaskProvisionMatrixReduction task = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
             Workbook wb = ImportTestDataFromExcelLogic.getWorkbook(path_to_file);
@@ -68,8 +68,45 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             for (int i = 0; i < mat.NumberOfColumns; i++) {
                 Decimal expected_value = mat.itog_columns_info[i][0];
                 String dep_code = mat.columns_info[i][0];
-                Decimal result_value = dictionary_of_columns[dep_code].Cells.Sum(x => x.SourceProvision);
-                Assert.AreEqual(expected_value, result_value);
+                Decimal result_value = dictionary_of_columns[dep_code].Cells.Sum(x => x.NewProvision);
+                Assert.AreEqual(expected_value, result_value, "Reserve was lost!");
+            }
+        }
+
+        [TestCase("C:\\ExcelTests\\Provisions_matrix_for_tests.xls", "Test2")]
+        public void BringFromExcelExpectedResultOfDistributionTest(String path_to_file, String worksheet_name) {
+            IObjectSpace os = application.CreateObjectSpace();
+            HrmSalaryTaskProvisionMatrixReduction task = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
+            Workbook wb = ImportTestDataFromExcelLogic.getWorkbook(path_to_file);
+            MatrixFromExcel mat = ImportTestDataFromExcelLogic.GetData(wb, worksheet_name);
+            ImportTestDataFromExcelLogic.CreateDepartmentsFromExcelTab(os, mat);
+            ImportTestDataFromExcelLogic.CreateOrdersFromExcelTab(os, mat);
+            task.AllocParameters = ImportTestDataFromExcelLogic.CreateAllocParametersFromExcelTab(os);
+            task.ProvisionMatrix = ImportTestDataFromExcelLogic.CreateMatrixFromExcel(os, mat);
+            ProvMat m = ProvBringLogic.CreateProvBringStructure(task);
+            ProvBringLogic.BringVeryEasyDeps(m);
+            ProvBringLogic.BringEasyDeps(m);
+            ProvBringLogic.BringDifficultDeps(m);
+            ProvBringLogic.LoadProvBringResultInTask(m);
+            //HrmMatrix result_matrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, task);
+            HrmMatrix result_matrix = task.ProvisionMatrix;
+            Dictionary<String, HrmMatrixColumn> dictionary_of_columns = result_matrix.Columns.ToDictionary(x => x.Department.BuhCode);
+            for (int i = 0; i < mat.NumberOfColumns; i++) {
+                Decimal expected_value = mat.itog_columns_info[i][0];
+                String dep_code = mat.columns_info[i][0];
+                Decimal result_value = dictionary_of_columns[dep_code].Cells.Sum(x => x.NewProvision);
+                Assert.AreEqual(expected_value, result_value, "Reserve was lost!");
+            }
+            for (int i = 0; i < mat.NumberOfColumns; i++) {
+                for (int j = 0; j < mat.NumberOfRows; j++) {
+                    if (mat.mat[j, i] != null) {
+                        Decimal expected_value = mat.mat[j, i][3];
+                        String dep_code = mat.columns_info[i][0];
+                        String ord_code = mat.rows_info[j][0];
+                        Decimal result_value = dictionary_of_columns[dep_code].Cells.First(x => x.Row.Order.Code == ord_code).NewProvision;
+                        Assert.AreEqual(expected_value, result_value, " error in dep " + dep_code + " ord " + ord_code);
+                    }
+                }
             }
         }
 
