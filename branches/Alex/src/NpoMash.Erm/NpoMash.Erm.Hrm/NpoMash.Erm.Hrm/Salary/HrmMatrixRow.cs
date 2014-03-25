@@ -68,5 +68,17 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+
+        IHrmSalaryMatrix IHrmSalaryMatrixRow.Matrix {
+            get { throw new NotImplementedException(); }
+        }
+
+        IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixRow.Cells {
+            get { throw new NotImplementedException(); }
+        }
+
+        fmCOrder IHrmSalaryMatrixRow.Order {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

@@ -97,5 +97,13 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixCell(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        IHrmSalaryMatrixColumn IHrmSalaryMatrixCell.Column {
+            get { throw new NotImplementedException(); }
+        }
+
+        IHrmSalaryMatrixRow IHrmSalaryMatrixCell.Row {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

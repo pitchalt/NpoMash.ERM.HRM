@@ -34,5 +34,17 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmSalaryColumnSlice(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        IHrmSalaryMatrix IHrmSalaryMatrixColumn.Matrix {
+            get { throw new NotImplementedException(); }
+        }
+
+        IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixColumn.Cells {
+            get { throw new NotImplementedException(); }
+        }
+
+        IntecoAG.ERM.HRM.Organization.Department IHrmSalaryMatrixColumn.Department {
+            get { throw new NotImplementedException(); }
+        }
     }
 }
