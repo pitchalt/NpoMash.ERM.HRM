@@ -14,6 +14,7 @@ using DevExpress.Persistent.Validation;
 using NpoMash.Erm.Hrm;
 using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM;
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary
 {
@@ -34,6 +35,7 @@ namespace NpoMash.Erm.Hrm.Salary
             current_period.AllocParameters.Add(par);
             par.StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
             initParametersFromPreviousPeriod(os, par);
+            initDepartmentControlls(os, par);
             initOrderControls(os, par);
             return par;
         }
@@ -71,6 +73,16 @@ namespace NpoMash.Erm.Hrm.Salary
                 pay_type.AllocParameter = par;
                 par.PeriodPayTypes.Add(pay_type);
             }
+        }
+
+        public static void initDepartmentControlls(IObjectSpace local_object_space, HrmPeriodAllocParameter alloc_parameter) {
+            foreach (Department dep in local_object_space.GetObjects<Department>()) {
+                HrmPeriodDepartmentControl dep_control = local_object_space.CreateObject<HrmPeriodDepartmentControl>();
+                dep_control.AllocParameter = alloc_parameter;
+                dep_control.Department = dep;
+                dep_control.Group = dep.GroupDep;
+                alloc_parameter.DepartmentControl.Add(dep_control);
+            }        
         }
 
         public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
