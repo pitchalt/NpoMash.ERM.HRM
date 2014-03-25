@@ -70,5 +70,17 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixColumn(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        IHrmSalaryMatrix IHrmSalaryMatrixColumn.Matrix {
+            get { throw new NotImplementedException(); }
+        }
+
+        IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixColumn.Cells {
+            get { throw new NotImplementedException(); }
+        }
+
+        Department IHrmSalaryMatrixColumn.Department {
+            get { throw new NotImplementedException(); }
+        }
     }
 }
