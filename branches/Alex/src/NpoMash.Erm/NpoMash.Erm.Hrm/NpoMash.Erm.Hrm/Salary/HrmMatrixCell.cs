@@ -17,7 +17,7 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixCell")]   
-    public class HrmMatrixCell : BaseObject {
+    public class HrmMatrixCell : BaseObject, IHrmSalaryMatrixCell {
 
         private Int64 _Time;
         public Int64 Time {
