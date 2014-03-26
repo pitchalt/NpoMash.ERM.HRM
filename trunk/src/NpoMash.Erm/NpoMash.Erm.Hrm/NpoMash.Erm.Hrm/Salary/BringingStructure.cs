@@ -56,18 +56,18 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public List<Cell> cells;
         private Matrix _matrix;
         public Matrix matrix { get { return _matrix; } set { _matrix = value; } }
-        private Int64 _fact;
-        public Int64 fact { get { return _fact; } set {
+        private Decimal _fact;
+        public Decimal fact { get { return _fact; } set {
             freeSpace += value - fact;
             _fact = value;
             }
         }
-        private Int64 _plan;
-        public Int64 plan { get { return _plan; } set { _plan = value; } }
-        private Int64 _planControlled;
-        public Int64 planControlled { get { return _planControlled; } set { _planControlled = value; } }
-        private Int64 _freeSpace;
-        public Int64 freeSpace { get { return _freeSpace; } set { _freeSpace = value; } }
+        private Decimal _plan;
+        public Decimal plan { get { return _plan; } set { _plan = value; } }
+        private Decimal _planControlled;
+        public Decimal planControlled { get { return _planControlled; } set { _planControlled = value; } }
+        private Decimal _freeSpace;
+        public Decimal freeSpace { get { return _freeSpace; } set { _freeSpace = value; } }
         private Department _realDepartment;
         public Department realDepartment { get { return _realDepartment; } set { _realDepartment = value; } }
         private Int32 _nonZeroControlled;
@@ -97,8 +97,10 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public bool isNotZero { get { return _isNotZero; } }
         private bool _isNeedsToRestore;
         public bool isNeedsToRestore { get { return _isNeedsToRestore; } }
-        private Int64 _startTime;
-        public Int64 startTime { get { return _startTime; } set {
+        private Decimal _startTime;
+        public Decimal startTime {
+            get { return _startTime; }
+            set {
             _startTime = value;
             if (value > 0) {
                 if (dep.fact > 0) {
@@ -114,11 +116,12 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             time = value;
 
         } }
-        private Int64 _time;
-        public Int64 time { get { return _time; }
+        private Decimal _time;
+        public Decimal time {
+            get { return _time; }
             set {
                 if (value != time) {
-                    Int64 x = value - time;
+                    Decimal x = value - time;
                     dep.plan += x;
                     if (order.isControlled) {
                         dep.planControlled += x;
@@ -143,13 +146,13 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             dep = null;
         }
 
-        public Cell BestCellToPutIn(out Int64 size) {
+        public Cell BestCellToPutIn(out Decimal size) {
             Cell result = null;
             size = 0;
             try {
                 result = order.cells
                     .Where<Cell>(x => x != this && x.isNotZero && x.dep.freeSpace > 0)
-                    .OrderByDescending<Cell, Int64>(x => x.dep.freeSpace)
+                    .OrderByDescending<Cell, Decimal>(x => x.dep.freeSpace)
                     .First<Cell>();
                 //.ElementAt(0);
                 size = result.dep.freeSpace;
@@ -158,15 +161,15 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             return result;
         }
 
-        public Cell BestCellToTakeFrom(out Int64 size) {
+        public Cell BestCellToTakeFrom(out Decimal size) {
             Cell result = null;
             size = 0;
             try {
                 result = order.cells
                     .Where<Cell>(x => x != this && x.time > 0 && (x.dep.nonZeroUncontrolled > 0 || x.dep.freeSpace < 0))
-                    .OrderBy<Cell, Int64>(x => x.dep.freeSpace).First<Cell>();
+                    .OrderBy<Cell, Decimal>(x => x.dep.freeSpace).First<Cell>();
                 //.ElementAt(0);
-                Int64 result_free_space = result.dep.freeSpace;
+                Decimal result_free_space = result.dep.freeSpace;
                 if (result_free_space > 0)
                     size = Math.Min(result_free_space, result.time);
                 else
@@ -177,23 +180,23 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             return result;
         }
 
-        public Int64 DistributionPotential() {
-            Int64 result = 0;
+        public Decimal DistributionPotential() {
+            Decimal result = 0;
             foreach (Cell cell in order.cells) {
-                Int64 x = cell.dep.freeSpace;
+                Decimal x = cell.dep.freeSpace;
                 if (x > 0 && cell != this)
                     result += x;
             }
             return result;
         }
 
-        public Int64 DistributionSize() {
+        public Decimal DistributionSize() {
             return Math.Min(DistributionPotential(), Math.Min(-dep.freeSpace, time - 1));
         }
 
-        public Int64 DistributionDifficulty() {
-            Int32 result = 0;
-            Int64 ds = DistributionSize();
+        public Decimal DistributionDifficulty() {
+            Decimal result = 0;
+            Decimal ds = DistributionSize();
             List<Cell> list = new List<Cell>(order.cells.Where(x => x.dep.freeSpace > 0));
             list.OrderByDescending(x => x.dep.freeSpace);
             List<Cell>.Enumerator en = list.GetEnumerator();
@@ -204,9 +207,9 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             return result;
         }
 
-        public Double DistributionQuality() {
-            Double result = 0;
-            Int64 dd = DistributionDifficulty();
+        public Decimal DistributionQuality() {
+            Decimal result = 0;
+            Decimal dd = DistributionDifficulty();
             if (dd != 0)
                 result = DistributionSize() / dd;
             return result;
@@ -215,8 +218,8 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     }
 
     public class Operation {
-        private Int64 _sum;
-        public Int64 sum { get { return _sum; } set { _sum = value; } }
+        private Decimal _sum;
+        public Decimal sum { get { return _sum; } set { _sum = value; } }
         private Int32 _operationNumber;
         public Int32 operationNumber { get { return _operationNumber; } set { _operationNumber = value; } }
         private Cell _takeFrom;
@@ -234,7 +237,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             operationNode = null;
         }
 
-        public Operation(Int64 time, Cell take_from, Cell put_into) {
+        public Operation(Decimal time, Cell take_from, Cell put_into) {
             sum = Math.Abs(time);
             operationNumber = 0;
             takeFrom = null;
@@ -300,7 +303,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
             stepNumber = 0;
         }
 
-        public void MakeOperation( Int64 sum, Cell take_from, Cell put_into) {
+        public void MakeOperation(Decimal sum, Cell take_from, Cell put_into) {
             if (sum == 0) return;
             stepNumber += 1;
             OperationNode on = new OperationNode();

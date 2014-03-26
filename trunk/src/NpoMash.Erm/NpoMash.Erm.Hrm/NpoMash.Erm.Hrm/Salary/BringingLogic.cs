@@ -130,7 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact >= dep.planControlled) {
                     IList<Cell> non_zero_uncontrolled = new List<Cell>();
-                    Int64 total_uncontrolled_sum = 0;
+                    Decimal total_uncontrolled_sum = 0;
                     foreach (Cell cell in dep.cells) {
                         if (!cell.order.isControlled && cell.isNotZero) {
                             if (cell.time == 0) // думаю без этого никак, иначе начнем делить на ноль в некоторых случаях
@@ -139,12 +139,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                             non_zero_uncontrolled.Add(cell);
                         }
                     }
-                    Int64 summ_rsp = dep.fact - dep.planControlled;
+                    Decimal summ_rsp = dep.fact - dep.planControlled;
                     foreach (Cell cell in non_zero_uncontrolled) {
-                        Int64 delta_dep = cell.time * summ_rsp / total_uncontrolled_sum;
+                        Decimal delta_dep = cell.time * summ_rsp / total_uncontrolled_sum;
                         summ_rsp -= delta_dep;
                         total_uncontrolled_sum -= cell.time;
-                        Int64 difference = delta_dep - cell.time;
+                        Decimal difference = delta_dep - cell.time;
                         if (difference > 0)
                             mat.journal.MakeOperation(difference, null, cell);
                         else if (difference < 0)
@@ -165,11 +165,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                 bool is_not_stuck = true;
                 while (dep.freeSpace > 0 && is_not_stuck){
                     Cell best_cell_to_take = null;
-                    Int64 best_size = 0;
+                    Decimal best_size = 0;
                     Cell cell_in_this_dep_to_put = null;
                     bool is_first_iter = true;
                     foreach (Cell cell in dep.cells.Where<Cell>(x => x.isNotZero && x.order.isControlled)) {
-                        Int64 size;
+                        Decimal size;
                         Cell cell_to_take = cell.BestCellToTakeFrom(out size);
                         if (is_first_iter && cell_to_take != null) {
                             best_cell_to_take = cell_to_take;
@@ -187,7 +187,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         //is_not_stuck = false;
                         throw new Exception("Can't bring fully controlled department with code " + dep.realDepartment.Code);//is_not_stuck = false; это нам для отладки
                     else {
-                        Int64 size_of_transfer = Math.Min(Math.Abs(best_size), dep.freeSpace);
+                        Decimal size_of_transfer = Math.Min(Math.Abs(best_size), dep.freeSpace);
                         mat.journal.MakeOperation(size_of_transfer, best_cell_to_take, cell_in_this_dep_to_put);
                     }
                 }
@@ -196,17 +196,17 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void BringBigDepartments(Matrix mat) {
             IEnumerable<Dep> big_deps = mat.deps.Values.Where<Dep>(x => x.freeSpace < 0)
-                .OrderBy<Dep, Int64>(x => x.freeSpace);
+                .OrderBy<Dep, Decimal>(x => x.freeSpace);
             
             foreach (Dep dep in big_deps) {
                 bool is_not_stucked = true;
                 while (dep.freeSpace < 0 && is_not_stucked) {
                     Cell best_cell_to_put_in = null;
                     Cell cell_in_this_dep_to_take = null;
-                    Int64 best_size = 0;
+                    Decimal best_size = 0;
                     bool is_first_iter = true;
                     foreach (Cell cell in dep.cells.Where<Cell>(x => x.time > 0 && x.order.isControlled)) {
-                        Int64 size;
+                        Decimal size;
                         Cell cell_to_put = cell.BestCellToPutIn(out size);
                         if (is_first_iter && cell_to_put != null) {
                             best_cell_to_put_in = cell_to_put;
@@ -225,7 +225,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         throw new Exception("Can't bring overloaded department with code " + dep.realDepartment.Code);
                     }
                     else {
-                        Int64 size_of_transfer = Math.Min(Math.Abs(dep.freeSpace), Math.Min(best_size, cell_in_this_dep_to_take.time));
+                        Decimal size_of_transfer = Math.Min(Math.Abs(dep.freeSpace), Math.Min(best_size, cell_in_this_dep_to_take.time));
                         mat.journal.MakeOperation(size_of_transfer, cell_in_this_dep_to_take, best_cell_to_put_in);
                     }
                 }
@@ -250,7 +250,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     try {
                         Tuple<Dep, Ord> tuple = new Tuple<Dep, Ord>(bringing_structure.deps[real_cell.Column.Department.BuhCode], bringing_structure.orders[real_cell.Row.Order.Code]);
                         if (bringing_structure.cellsInDictionary.ContainsKey(tuple))
-                            real_cell.Time = bringing_structure.cellsInDictionary[tuple].time;
+                            real_cell.Time = (Int64)bringing_structure.cellsInDictionary[tuple].time;
                     }
                     catch (KeyNotFoundException) { }
                 }
