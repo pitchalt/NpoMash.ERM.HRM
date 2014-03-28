@@ -104,6 +104,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             Int16 current_year = task.Period.Year;
             Int16 current_month = task.Period.Month;
             //создаем необходимые словари, чтобы не наматывать круги в форычах при поиске
+            IDictionary<String, HrmMatrixCell> cells_in_matrix = new Dictionary<String, HrmMatrixCell>();
             IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
             IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
             IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
@@ -141,9 +142,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     else throw new Exception("There is no department in database with code " + each.DepartmentCode.Trim());
                     //иначе - создаем ячейку и начинаем ее заполнять
-                    HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
-                    cell.Time = each.Time / 100;
-                    cell.MoneyAllSumm = 0;
+                   
                     //разбираемся с колонкой
                     HrmMatrixColumn current_column = null;
                     if (plan_matrix_columns.ContainsKey(file_dep_code))
@@ -157,8 +156,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         plan_matrix_columns.Add(file_dep_code, current_column);
                     }
                     //теперь связываем колонку с ячейкой, больше с колонкой делать нечего
-                    cell.Column = current_column;
-                    current_column.Cells.Add(cell);
+                    
                     //теперь разбираемся со строчкой
                     HrmMatrixRow current_row = null;
                     if (plan_matrix_rows.ContainsKey(file_ord_code))
@@ -172,9 +170,21 @@ namespace NpoMash.Erm.Hrm.Salary {
                             current_row.Order = orders_in_database[file_ord_code];
                         else throw new Exception("There is now order in database with code " + file_ord_code);
                     }
-                    //теперь связываем строчку с ячейкой, больше со строчкой делать нечего
-                    cell.Row = current_row;
-                    current_row.Cells.Add(cell);
+                    String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;   
+                    if (!cells_in_matrix.ContainsKey(cell_key)) {
+                        HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
+                        cell.Time = each.Time / 100;
+                        cell.MoneyAllSumm = 0;
+                        cell.Row = current_row;
+                        cell.Column = current_column;
+                        current_row.Cells.Add(cell);
+                        current_column.Cells.Add(cell);
+                        cells_in_matrix.Add(cell_key, cell);
+                    }
+                    else { 
+                        HrmMatrixCell cell = cells_in_matrix[cell_key];
+                        cell.Time += each.Time / 100;
+                    }
                 }
             }
             foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
