@@ -131,14 +131,14 @@ namespace NpoMash.Erm.Hrm.Simplex {
     //    }
     //}
 
-    struct SimplexLimitation {
+    public struct SimplexLimitation {
         // свободный член (чему равно уравнение)
         public double freeMember;
         // коэффициенты уравнение, ключ - индекс переменной (минимально возможный - 0)
         public Dictionary<int, double> coefficients;
     }
 
-    class SimplexTab {
+    public class SimplexTab {
         // список коэффициентов целевой функции
         public double[] target;
         // сама таблица
