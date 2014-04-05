@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace NpoMash.Erm.Hrm.Simplex {
-    class SimplexStructureLogic {
+    public class SimplexStructureLogic {
         public static double[] Maximize(SimplexTab tab) {
             int guiding_column = tab.ColumnWithMinDelta();
             while (tab.delta[guiding_column] < 0) {
