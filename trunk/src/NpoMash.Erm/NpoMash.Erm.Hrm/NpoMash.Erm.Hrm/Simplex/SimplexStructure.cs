@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using NpoMash.Erm.Hrm;
+using NpoMash.Erm.Hrm.Salary;
+
 namespace NpoMash.Erm.Hrm.Simplex {
     //class SimpTab {
     //    public List<SimpRow> Rows;
@@ -290,6 +293,64 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 if (i == guiding_column) delta[i] = 0;
                 else delta[i] -= tab[guiding_row, i] * row_mul;
             }
+
+        }
+
+        class ReserveOptimizeCriteria {
+            // коэффициент критерия при отклонении по ячейкам
+            public int cellsCoefficient;
+            // коэффициент критерия при отклонении по заказам
+            public int ordersCoefficient;
+            // связь переменных с контролируемыми ячейками
+            public Dictionary<int, HrmMatrixCell> realControlledCells; 
+            // связь переменных, содержащих резерв в неконтролируемых заказах соответствующего подразделения
+            public Dictionary<int, HrmMatrixColumn> realDepsWithUncontrolledOrders; 
+            // текущее значение распределения
+            public Dictionary<int, double> cellsValues;
+            // плановое значение распределения минус постоянная часть в ячейке
+            public Dictionary<int, double> cellsPlans;
+            // список переменных в заказе, доступ по коду
+            public Dictionary<String, Dictionary<int, double>> variablesInOrder;
+            // доступ к списку переменных в заказе по индексу переменной для поиска частных производных
+            public Dictionary<int,Dictionary<int,double>> orderWithVariable;
+            // план по заказу минус постоянная часть в ячейках по заказу
+            public Dictionary<String,double> ordersPlan;
+
+            public ReserveOptimizeCriteria(HrmMatrix real_matrix ,int cell_coef = 1, int order_coef = 1){
+                cellsCoefficient = cell_coef;
+                ordersCoefficient = order_coef;
+                realControlledCells = new Dictionary<int, HrmMatrixCell>();
+                realDepsWithUncontrolledOrders = new Dictionary<int, HrmMatrixColumn>();
+                cellsValues = new Dictionary<int, double>();
+                cellsPlans = new Dictionary<int, double>();
+                variablesInOrder = new Dictionary<string, Dictionary<int, double>>();
+                orderWithVariable = new Dictionary<int, Dictionary<int, double>>();
+                ordersPlan = new Dictionary<string, double>();
+            }
+
+            // возвращает значение целевой функции при заданном векторе переменных
+            double funcValue(double[] vars) {
+                double result = 0;
+                double cells_result = 0;
+                double orders_result = 0;
+                foreach (int index in cellsValues.Keys) {
+                    double x = vars[index] - cellsPlans[index];
+                    x *= x;
+                    cells_result+=x;
+                }
+                foreach (String code in variablesInOrder.Keys) {
+                    double x = 0;
+                    foreach (int index in variablesInOrder[code].Keys)
+                        x += vars[index];
+                    x -= ordersPlan[code];
+                    x *= x;
+                    orders_result += x;
+                }
+                result = cells_result * cellsCoefficient + orders_result * ordersCoefficient;
+                return result;
+            }
+
+
 
         }
 
