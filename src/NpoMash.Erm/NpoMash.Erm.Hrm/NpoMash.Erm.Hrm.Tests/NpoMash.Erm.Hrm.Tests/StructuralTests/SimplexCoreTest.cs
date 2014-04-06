@@ -44,7 +44,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         }
 
         [Test]
-        public void MaximizationTest(String path_to_file, String worksheet_name) {
+        public void MaximizationTest() {
             Dictionary<int, double> func = new Dictionary<int, double>();
             func.Add(0, 9); func.Add(1, 10); func.Add(2, 16);
 
@@ -82,7 +82,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         }
 
         [Test]
-        public void MinimizationTest(String path_to_file, String worksheet_name) {
+        public void MinimizationTest() {
             Dictionary<int, double> func = new Dictionary<int, double>();
             func.Add(0, 9); func.Add(1, 10); func.Add(2, 16);
 
