@@ -8,6 +8,7 @@ using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm.Simplex {
     public class SimplexStructureLogic {
+
         public static double[] Maximize(SimplexTab tab) {
             int guiding_column = tab.ColumnWithMinDelta();
             while (tab.delta[guiding_column] < 0) {
@@ -68,6 +69,41 @@ namespace NpoMash.Erm.Hrm.Simplex {
             }
             // сразу возвращаем точку при найденной лямбде
             return DeterimnePointWithLambda(vect1,vect2,(right_border - left_border)/2);
+        }
+
+        public static double Norma(double[] vect1, double[] vect2) {
+            double result = 0;
+            for (int i = 0; i < vect1.Count(); i++)
+                result += Math.Pow(vect1[i] - vect2[i], 2);
+            return result;
+        }
+
+        // процедура, которая выполняет округление и распределяет отклонения резерва в подразделениях
+        public void RoundResults(ReserveSimplexBringingStructure structure) {
+
+
+        }
+
+        // процедура, которая осуществляет перенос результатов назад в реальную матрицу
+        // при этом заодно распределяя резерв между неконтролируемыми заказами
+        public void ReturnResultsInRealMatrix(ReserveSimplexBringingStructure structure) {
+
+        }
+
+        // главная процедура, которая выполнит все приведение с заданной точностью
+        public void MainAlgorithm(HrmSalaryTaskProvisionMatrixReduction card, int cell_c, int ord_c, double lambda_eps,double main_eps){
+            ReserveSimplexBringingStructure structure = new ReserveSimplexBringingStructure(card, cell_c, ord_c);
+            double[] previous_distribution = structure.GetArrayOfCurrentValues();
+            double[] current_bearing_plan = Minimize(structure.table);
+            double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
+            do {
+                previous_distribution = current_distribution;
+                structure.table.ReplaceTargetFuction(structure.getArrayOfPartialDerivates(previous_distribution));
+                current_bearing_plan = Minimize(structure.table);
+                current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
+            } while (Norma(previous_distribution, current_distribution) > main_eps);
+            RoundResults(structure);
+            ReturnResultsInRealMatrix(structure);
         }
 
 

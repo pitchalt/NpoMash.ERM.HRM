@@ -181,11 +181,12 @@ namespace NpoMash.Erm.Hrm.Simplex {
             CountDelta();
         }
 
+
     }
 
         public class ReserveSimplexBringingStructure {
             // сама симплекс-таблица, в которой будет происходить оптимизация линеаризированной целевой функции
-            SimplexTab table;
+            public SimplexTab table;
             // коэффициент критерия при отклонении по ячейкам
             public int cellsCoefficient;
             // коэффициент критерия при отклонении по заказам
@@ -340,6 +341,14 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     foreach (int key in variablesInOrder[code].Keys)
                         result[key] += x;
                 }
+                return result;
+            }
+
+            public double[] GetArrayOfCurrentValues() {
+                double[] result = new double[numberOfVariables];
+                for (int i = 0; i < numberOfVariables; i++)
+                    if (current_values.ContainsKey(i))
+                        result[i] = current_values[i];
                 return result;
             }
 
