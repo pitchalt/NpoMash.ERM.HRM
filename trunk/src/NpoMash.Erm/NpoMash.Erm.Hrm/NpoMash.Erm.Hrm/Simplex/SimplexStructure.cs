@@ -7,132 +7,6 @@ using NpoMash.Erm.Hrm;
 using NpoMash.Erm.Hrm.Salary;
 
 namespace NpoMash.Erm.Hrm.Simplex {
-    //class SimpTab {
-    //    public List<SimpRow> Rows;
-    //    public List<SimpColumn> Columns;
-    //    public List<CoefVector> Basis;
-    //    SimpTab() {
-    //        Rows = new List<SimpRow>();
-    //        Columns = new List<SimpColumn>();
-    //        Basis = new List<CoefVector>();
-    //    }
-    //}
-
-    //class SimpRow {
-    //    private Int64 _id;
-    //    public Int64 id { get { return _id; } set { _id = value; } }
-    //    private Double _P;
-    //    public Double P { get { return _P; } set { _P = value; } }
-    //    private SimpTab _Tab;
-    //    public SimpTab Tab { get { return _Tab; } set { _Tab = value; } }
-    //    public List<Coef> Coefs;
-    //    public SimpRow(Int64 i) {
-    //        id = i;
-    //        P = 0;
-    //        Tab = null;
-    //        Coefs = new List<Coef>();
-    //    }
-    //}
-
-    //class SimpColumn {
-    //    private Int64 _id;
-    //    public Int64 id { get { return _id; } set { _id = value; } }
-    //    private SimpTab _Tab;
-    //    public SimpTab Tab { get { return _Tab; } set { _Tab = value; } }
-    //    private XVar _X;
-    //    public XVar X { get { return _X; } set { _X = value; } }
-    //    SimpColumn(Int64 i) {
-    //        id = i;
-    //        Tab = null;
-    //        X = null;
-    //    }
-    //}
-
-    //class CoefVector {
-    //    private SimpColumn _Column;
-    //    public SimpColumn Column { get { return _Column; } set { _Column = value; } }
-    //    public List<Coef> Coefs;
-    //    public CoefVector() {
-    //        Column = null;
-    //        Coefs = new List<Coef>();
-    //    }
-    //}
-
-    //class Coef {
-    //    private SimpRow _Row;
-    //    public SimpRow Row { get { return _Row; } set { _Row = value; } }
-    //    private CoefVector _Vect;
-    //    public CoefVector Vect { get { return _Vect; } set { _Vect = value; } }
-    //    Coef() {
-    //        Row = null;
-    //        Vect = null;
-    //    }
-    //}
-
-    //class Func {
-    //    public Dictionary<Int64, FuncElement> FuncElements;
-    //    Func() {
-    //        FuncElements = new Dictionary<Int64, FuncElement>();
-    //    }
-    //}
-
-    //class FuncElement {
-    //    private double _Coef;
-    //    public double Coef { get { return _Coef; } set { _Coef = value; } }
-    //    private double _Constant;
-    //    public double Constant { get { return _Constant; } set { _Constant = value; } }
-    //    private Int64 _Pow;
-    //    public Int64 Pow { get { return _Pow; } set { _Pow = value; } }
-    //    private XVar _x;
-    //    public XVar x { get { return _x; } set { _x = value; } }
-    //    private Func _Func;
-    //    public Func Func { get { return _Func; } set { _Func = value; } }
-    //    public FuncElement() {
-    //        Coef = 1;
-    //        Pow = 1;
-    //        Constant = 0;
-    //        x = null;
-    //    }
-    //}
-
-    //class XVar {
-    //    private Int64 _id;
-    //    public Int64 id { get { return _id; } set { _id = value; } }
-    //    private bool _IsAuxiliary;
-    //    public bool IsAuxiliary { get { return _IsAuxiliary; } set { _IsAuxiliary = value; } }
-    //    private Object _RefToRealObject;
-    //    public Object RefToRealObject { get { return _RefToRealObject; } set { _RefToRealObject = value; } }
-    //    public XVar(Int64 i) {
-    //        IsAuxiliary = false;
-    //        RefToRealObject = null;
-    //        id = i;
-    //    }
-    //}
-
-    //class CountProcess {
-    //    private double _Eps;
-    //    public double Eps { get { return _Eps; } set { _Eps = value; } }
-    //    private ResultVector _CurrentResult;
-    //    public ResultVector CurrentResult { get { return _CurrentResult; } set { _CurrentResult = value; } }
-    //    private ResultVector _PreviousResult;
-    //    public ResultVector PreviousResult { get { return _PreviousResult; } set { _PreviousResult = value; } }
-    //    private ResultVector _BearingPlan;
-    //    public ResultVector BearingPlan { get { return _BearingPlan; } set { _BearingPlan = value; } }
-
-    //    public CountProcess() {
-    //        Eps = 1;
-    //        CurrentResult = null;
-    //        PreviousResult = null;
-    //        BearingPlan = null;
-    //    }
-    //}
-
-    //class ResultVector {
-    //    public Dictionary<Int64, Double> _VarValues;
-    //    ResultVector() {
-    //        _VarValues = new Dictionary<Int64, Double>();
-    //    }
-    //}
 
     public struct SimplexLimitation {
         // свободный член (чему равно уравнение)
@@ -297,6 +171,8 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         class ReserveOptimizeCriteria {
+            // сама симплекс-таблица, в которой будет происходить оптимизация линеаризированной целевой функции
+
             // коэффициент критерия при отклонении по ячейкам
             public int cellsCoefficient;
             // коэффициент критерия при отклонении по заказам
@@ -305,35 +181,34 @@ namespace NpoMash.Erm.Hrm.Simplex {
             public Dictionary<int, HrmMatrixCell> realControlledCells; 
             // связь переменных, содержащих резерв в неконтролируемых заказах соответствующего подразделения
             public Dictionary<int, HrmMatrixColumn> realDepsWithUncontrolledOrders; 
-            // текущее значение распределения
-            public Dictionary<int, double> cellsValues;
             // плановое значение распределения минус постоянная часть в ячейке
             public Dictionary<int, double> cellsPlans;
             // список переменных в заказе, доступ по коду
             public Dictionary<String, Dictionary<int, double>> variablesInOrder;
-            // доступ к списку переменных в заказе по индексу переменной для поиска частных производных
-            public Dictionary<int,Dictionary<int,double>> orderWithVariable;
             // план по заказу минус постоянная часть в ячейках по заказу
             public Dictionary<String,double> ordersPlan;
+            // весь резерв по подразделению (величина, которая не должна измениться)
+            public Dictionary<String, double> departmentReserve;
 
-            public ReserveOptimizeCriteria(HrmMatrix real_matrix ,int cell_coef = 1, int order_coef = 1){
+            public ReserveOptimizeCriteria(HrmSalaryTaskMatrixReduction card,int cell_coef, int order_coef){
                 cellsCoefficient = cell_coef;
                 ordersCoefficient = order_coef;
                 realControlledCells = new Dictionary<int, HrmMatrixCell>();
                 realDepsWithUncontrolledOrders = new Dictionary<int, HrmMatrixColumn>();
-                cellsValues = new Dictionary<int, double>();
                 cellsPlans = new Dictionary<int, double>();
                 variablesInOrder = new Dictionary<string, Dictionary<int, double>>();
-                orderWithVariable = new Dictionary<int, Dictionary<int, double>>();
+                departmentReserve = new Dictionary<string, double>();
                 ordersPlan = new Dictionary<string, double>();
+
+
             }
 
             // возвращает значение целевой функции при заданном векторе переменных
-            double funcValue(double[] vars) {
+            public double funcValue(double[] vars) {
                 double result = 0;
                 double cells_result = 0;
                 double orders_result = 0;
-                foreach (int index in cellsValues.Keys) {
+                foreach (int index in cellsPlans.Keys) {
                     double x = vars[index] - cellsPlans[index];
                     x *= x;
                     cells_result+=x;
@@ -346,11 +221,48 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     x *= x;
                     orders_result += x;
                 }
-                result = cells_result * cellsCoefficient + orders_result * ordersCoefficient;
+                result = cells_result * 2 * cellsCoefficient + orders_result * 2 * ordersCoefficient;
                 return result;
             }
 
+            // считает частную производную от целевой функции по заданной переменной
+            public double PartialDerivate(int index, double[] variables) {
+                double result = 0;
+                // если это не неконтролируемая ячейка
+                if (realControlledCells.ContainsKey(index)) {
+                    result += cellsCoefficient * 2 * (variables[index] - cellsPlans[index]);
+                    double x = 0;
+                    string code = realControlledCells[index].Row.Order.Code;
+                    foreach (int key in variablesInOrder[code].Keys)
+                        x += variables[key];
+                    x -= ordersPlan[code];
+                    x *= 2 * ordersCoefficient;
+                }
+                return result;
+            }
 
+            // подсчет всех частных производных по целевой функции, работает быстрее так как учитывает специфику
+            // данной функции
+            public double[] getArrayOfPartialDerivates(double[] variables) {
+                double[] result = new double[variables.Count()];
+                // это поячеечная составляющая
+                for (int i = 0; i < variables.Count(); i++)
+                    if (realControlledCells.ContainsKey(i))
+                        result[i] += (variables[i] - cellsPlans[i]) * 2 * cellsCoefficient;
+                // а это составляющая по заказу
+                foreach (string code in variablesInOrder.Keys) {
+                    double x = 0;
+                    foreach (int key in variablesInOrder[code].Keys)
+                        x += variables[key];
+                    x -= ordersPlan[code];
+                    x *= 2 * ordersCoefficient;
+                    foreach (int key in variablesInOrder[code].Keys)
+                        result[key] += x;
+                }
+                return result;
+            }
+
+            
 
         }
 
