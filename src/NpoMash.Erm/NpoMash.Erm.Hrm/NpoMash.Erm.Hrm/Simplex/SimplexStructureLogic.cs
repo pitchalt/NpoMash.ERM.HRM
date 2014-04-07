@@ -49,7 +49,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
         // дихотомический поиск лямбды, при которой значение целевой функции минимально лямбда между 0 и 1
         // вернет точку при заданной лямбде
-        public static double[] DichotomicalSearchOfLamda(ReserveSimplexBringingStructure structure,double[] vect1, double[] vect2,double eps){
+        public static double[] DichotomicalSearchOfLambda(ReserveSimplexBringingStructure structure,double[] vect1, double[] vect2,double eps){
             double left_border = 0;
             double right_border = 1;
             double delta = eps/2;

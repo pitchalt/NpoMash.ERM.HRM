@@ -183,7 +183,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
     }
 
-        class ReserveSimplexBringingStructure {
+        public class ReserveSimplexBringingStructure {
             // сама симплекс-таблица, в которой будет происходить оптимизация линеаризированной целевой функции
             SimplexTab table;
             // коэффициент критерия при отклонении по ячейкам
