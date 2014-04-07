@@ -79,7 +79,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         // процедура, которая выполняет округление и распределяет отклонения резерва в подразделениях
-        public double[] RoundResults(ReserveSimplexBringingStructure structure, double[] distribution) {
+        public static double[] RoundResults(ReserveSimplexBringingStructure structure, double[] distribution) {
             for (int i = 0; i < distribution.Count(); i++)
                 distribution[i] = Math.Round(distribution[i]);
             foreach (SimplexLimitation limit in structure.simpLimits.Values) {
@@ -116,12 +116,31 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
         // процедура, которая осуществляет перенос результатов назад в реальную матрицу
         // при этом заодно распределяя резерв между неконтролируемыми заказами
-        public void ReturnResultsInRealMatrix(ReserveSimplexBringingStructure structure, double[] distribution) {
-
+        public static void ReturnResultsInRealMatrix(HrmSalaryTaskProvisionMatrixReduction card, ReserveSimplexBringingStructure structure, double[] distribution) {
+            foreach (int key in structure.realControlledCells.Keys) {
+                structure.realControlledCells[key].NewProvision = (decimal)distribution[key];
+            }
+            // те заказы что не содержатся в этом словаре - неконтролируемые
+            Dictionary<String,HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
+                .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
+                .ToDictionary(x => x.Order.Code);
+            // распределяем резев между неконтролируемыми заказами в пределах подразделения
+            foreach (int key in structure.realDepsWithUncontrolledOrders.Keys) {
+                decimal res = (decimal)distribution[key];
+                List<HrmMatrixCell> work_cells = structure.realDepsWithUncontrolledOrders[key]
+                    .Cells.Where(x => !controlled_orders.ContainsKey(x.Row.Order.Code)).ToList();
+                int count_of_cells = work_cells.Count();
+                foreach (HrmMatrixCell cell in work_cells) {
+                    decimal take = Math.Round(res / count_of_cells);
+                    cell.NewProvision = take;
+                    count_of_cells--;
+                    res -= take;
+                }
+            }
         }
 
         // главная процедура, которая выполнит все приведение с заданной точностью
-        public void MainAlgorithm(HrmSalaryTaskProvisionMatrixReduction card, int cell_c, int ord_c, double lambda_eps,double main_eps){
+        public static void MainAlgorithm(HrmSalaryTaskProvisionMatrixReduction card, int cell_c, int ord_c, double lambda_eps,double main_eps){
             ReserveSimplexBringingStructure structure = new ReserveSimplexBringingStructure(card, cell_c, ord_c);
             // осуществляем многократный расчет симплекс-методом,
             // по сути, метод Франка-Вульфа
@@ -138,7 +157,8 @@ namespace NpoMash.Erm.Hrm.Simplex {
             // приводим полученные результаты к целым
             current_distribution = RoundResults(structure,current_distribution);
             // грузим их в матрицу резерва
-            ReturnResultsInRealMatrix(structure,current_distribution);
+            ReturnResultsInRealMatrix(card,structure,current_distribution);
+            return;
         }
 
 

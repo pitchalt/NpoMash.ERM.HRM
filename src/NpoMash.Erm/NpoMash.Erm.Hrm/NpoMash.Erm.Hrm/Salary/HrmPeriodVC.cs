@@ -20,6 +20,8 @@ using FileHelpers;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
+using NpoMash.Erm.Hrm.Simplex;
+
 using NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure;
 
 
@@ -325,6 +327,24 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
                     //card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
 
+                }
+                else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+
+                os.CommitChanges();
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
+            }
+
+            if (e.SelectedChoiceActionItem.Id == "Simplex") {
+                IObjectSpace os = Application.CreateObjectSpace();
+                HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
+                DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
+                HrmSalaryTaskProvisionMatrixReduction card = null;
+                if (period.CurrentProvisionMatrix == null) {
+                    card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                    card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                    SimplexStructureLogic.MainAlgorithm(card, 1, 10, 0.0001, 10);
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
 
