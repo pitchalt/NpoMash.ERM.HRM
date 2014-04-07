@@ -168,7 +168,20 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 else delta[i] -= tab[guiding_row, i] * row_mul;
             }
 
+
         }
+
+        // замена коэффициентов целевой функции на коэффициенты из массива и пересчет дельт
+        public void ReplaceTargetFuction(double[] coefficents) {
+            // заменяем коэффициенты при целевой функции
+            for (int i = 0; i < coefficents.Count(); i++) {
+                target[i] = coefficents[i];
+            }
+            // вручную пересчитали дельту
+            CountDelta();
+        }
+
+    }
 
         class ReserveOptimizeCriteria {
             // сама симплекс-таблица, в которой будет происходить оптимизация линеаризированной целевой функции
@@ -245,17 +258,30 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     try {
                         double reserve = (double)col.Cells
                             .Where(x => !controlled_orders.ContainsKey(x.Row.Order.Code)).Sum(x => x.SourceProvision);
+                        // связываем резерв из неконтролируемых ячеек с соответствующей колонкой реальной матрицы
                         realDepsWithUncontrolledOrders.Add(numberOfVariables, col);
-
+                        // добавляем в словарь текущих значений значение резерва по всем неконтролируемым ячейкам в данном подразделении
+                        current_values.Add(numberOfVariables, reserve);
+                        // добавляем соответствующий коэффициент = 1 в ограничение
+                        limit.coefficients.Add(numberOfVariables, 1);
+                        // число переменных увеличилось
+                        numberOfVariables++;
                     }
                         // если ничего не нашли - ну и не надо
                     catch (ArgumentNullException) { }
-
-
-
+                    limits.Add(limit);
                 }
 
-
+                // находим частные производные от текущего значения распределения и создаем симплекс-таблицу
+                double[] current_values_array = new double[numberOfVariables];
+                for(int i = 0; i<numberOfVariables;i++)
+                    if (current_values.ContainsKey(i))
+                        current_values_array[i]=current_values[i];
+                double[] array_of_derivates = getArrayOfPartialDerivates(current_values_array);
+                Dictionary<int,double> current_coefficietns = new Dictionary<int,double>();
+                for(int i = 0; i<numberOfVariables;i++)
+                    current_coefficietns.Add(i,array_of_derivates[i]);
+                table = new SimplexTab(limits,current_coefficietns);
             }
 
             // возвращает значение целевой функции при заданном векторе переменных
@@ -321,5 +347,5 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
         }
 
-    }
+    
 }
