@@ -35,7 +35,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         // функция для определения точки, лежащей между двумя заданными, через параметр лямбда
-        public double[] DeterimnePointWithLambda(double[] vect1, double[] vect2, double lambda) {
+        public static double[] DeterimnePointWithLambda(double[] vect1, double[] vect2, double lambda) {
             if (vect1.Count() != vect2.Count())
                 throw new Exception("Vectors has different count of variables");
             if (lambda < 0 || lambda > 1)
@@ -46,6 +46,31 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 result[i] = vect1[i] + lambda * (vect2[i] - vect1[i]);
             return result;
         }
+
+        // дихотомический поиск лямбды, при которой значение целевой функции минимально лямбда между 0 и 1
+        // вернет точку при заданной лямбде
+        public static double[] DichotomicalSearchOfLamda(ReserveSimplexBringingStructure structure,double[] vect1, double[] vect2,double eps){
+            double left_border = 0;
+            double right_border = 1;
+            double delta = eps/2;
+            // до тех пор пока размер отрезка не будет меньше заданной погрешности
+            while (right_border - left_border > eps) {
+                double middle = (right_border - left_border)/2;
+                double left_x = middle - delta;
+                double right_x = middle + delta;
+                // если f(x) слева от центра отрезка > f(x) справа от центра
+                if (structure.funcValue(DeterimnePointWithLambda(vect1, vect2, left_x)) >
+                    structure.funcValue(DeterimnePointWithLambda(vect1, vect2, right_x)))
+                    // то сдвигаем левый край
+                    left_border = left_x;
+                    // иначе правый
+                else right_border = right_x;
+            }
+            // сразу возвращаем точку при найденной лямбде
+            return DeterimnePointWithLambda(vect1,vect2,(right_border - left_border)/2);
+        }
+
+
 
     }
 }

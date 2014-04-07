@@ -183,7 +183,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
     }
 
-        class ReserveOptimizeCriteria {
+        class ReserveSimplexBringingStructure {
             // сама симплекс-таблица, в которой будет происходить оптимизация линеаризированной целевой функции
             SimplexTab table;
             // коэффициент критерия при отклонении по ячейкам
@@ -207,7 +207,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             // весь резерв по подразделению (величина, которая не должна измениться)
             public Dictionary<String, double> departmentReserve;
 
-            public ReserveOptimizeCriteria(HrmSalaryTaskProvisionMatrixReduction card,int cell_coef, int order_coef){
+            public ReserveSimplexBringingStructure(HrmSalaryTaskProvisionMatrixReduction card,int cell_coef, int order_coef){
                 cellsCoefficient = cell_coef;
                 ordersCoefficient = order_coef;
                 realControlledCells = new Dictionary<int, HrmMatrixCell>();
