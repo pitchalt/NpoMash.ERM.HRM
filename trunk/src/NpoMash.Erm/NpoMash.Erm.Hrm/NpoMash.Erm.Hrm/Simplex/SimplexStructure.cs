@@ -11,7 +11,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
     public struct SimplexLimitation {
         // свободный член (чему равно уравнение)
         public double freeMember;
-        // коэффициенты уравнение, ключ - индекс переменной (минимально возможный - 0)
+        // коэффициенты уравнения, ключ - индекс переменной (минимально возможный - 0)
         public Dictionary<int, double> coefficients;
     }
 
@@ -207,6 +207,8 @@ namespace NpoMash.Erm.Hrm.Simplex {
             public Dictionary<String,double> ordersPlan;
             // весь резерв по подразделению (величина, которая не должна измениться)
             public Dictionary<String, double> departmentReserve;
+            // ограничения для таблицы, будут удобны и потом
+            public Dictionary<String, SimplexLimitation> simpLimits;
 
             public ReserveSimplexBringingStructure(HrmSalaryTaskProvisionMatrixReduction card,int cell_coef, int order_coef){
                 cellsCoefficient = cell_coef;
@@ -218,6 +220,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 departmentReserve = new Dictionary<string, double>();
                 ordersPlan = new Dictionary<string, double>();
                 current_values = new Dictionary<int, double>();
+                simpLimits = new Dictionary<string, SimplexLimitation>();
                 // теперь знаем, какие заказы контролируемые
                 Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
                     .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
@@ -271,6 +274,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                         // если ничего не нашли - ну и не надо
                     catch (ArgumentNullException) { }
                     limits.Add(limit);
+                    simpLimits.Add(dep_code, limit);
                 }
 
                 // находим частные производные от текущего значения распределения и создаем симплекс-таблицу

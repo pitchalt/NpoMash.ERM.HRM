@@ -79,32 +79,69 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         // процедура, которая выполняет округление и распределяет отклонения резерва в подразделениях
-        public void RoundResults(ReserveSimplexBringingStructure structure) {
-
-
+        public double[] RoundResults(ReserveSimplexBringingStructure structure, double[] distribution) {
+            for (int i = 0; i < distribution.Count(); i++)
+                distribution[i] = Math.Round(distribution[i]);
+            foreach (SimplexLimitation limit in structure.simpLimits.Values) {
+                double current_value = 0;
+                double[] current_derivates = structure.getArrayOfPartialDerivates(distribution);
+                Dictionary<int, double> current_dervs = new Dictionary<int, double>();
+                foreach (int key in limit.coefficients.Keys){
+                    current_value += distribution[key];
+                    current_dervs.Add(key, current_derivates[key]);
+                }
+                double difference = current_value - limit.freeMember;
+                // если появился недостаток
+                if (difference < 0) {
+                    // то свалили его в ячейку с наименьшим значением частной производной
+                    distribution[current_dervs.Keys
+                        .First(x => current_dervs[x]==current_dervs.Values.Min())] -= difference;
+                }
+                // если появился излишек
+                if (difference > 0)
+                    // то пока не снимем его весь ( а в одной ячейке может быть меньше чем весь излишек)
+                    while (difference > 0) {
+                        // снимаем его с ячейки, где наибольшая частная производная и еще что-то осталось
+                        int index = current_dervs.Keys
+                            .Where(x => distribution[x] > 0)
+                            .First(x => current_dervs[x] == current_dervs.Values.Max());
+                        double take = Math.Min(difference, distribution[index]);
+                        distribution[index] -= take;
+                        difference -= take;
+                    }
+            }
+            // вернули полученное округленное распределение
+            return distribution;
         }
 
         // процедура, которая осуществляет перенос результатов назад в реальную матрицу
         // при этом заодно распределяя резерв между неконтролируемыми заказами
-        public void ReturnResultsInRealMatrix(ReserveSimplexBringingStructure structure) {
+        public void ReturnResultsInRealMatrix(ReserveSimplexBringingStructure structure, double[] distribution) {
 
         }
 
         // главная процедура, которая выполнит все приведение с заданной точностью
         public void MainAlgorithm(HrmSalaryTaskProvisionMatrixReduction card, int cell_c, int ord_c, double lambda_eps,double main_eps){
             ReserveSimplexBringingStructure structure = new ReserveSimplexBringingStructure(card, cell_c, ord_c);
+            // осуществляем многократный расчет симплекс-методом,
+            // по сути, метод Франка-Вульфа
             double[] previous_distribution = structure.GetArrayOfCurrentValues();
             double[] current_bearing_plan = Minimize(structure.table);
             double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
+            // до тех пор, пока разница между предыдущим и новым вектором не станет меньше заданной погрешности
             do {
                 previous_distribution = current_distribution;
                 structure.table.ReplaceTargetFuction(structure.getArrayOfPartialDerivates(previous_distribution));
                 current_bearing_plan = Minimize(structure.table);
                 current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
             } while (Norma(previous_distribution, current_distribution) > main_eps);
-            RoundResults(structure);
-            ReturnResultsInRealMatrix(structure);
+            // приводим полученные результаты к целым
+            current_distribution = RoundResults(structure,current_distribution);
+            // грузим их в матрицу резерва
+            ReturnResultsInRealMatrix(structure,current_distribution);
         }
+
+
 
 
 
