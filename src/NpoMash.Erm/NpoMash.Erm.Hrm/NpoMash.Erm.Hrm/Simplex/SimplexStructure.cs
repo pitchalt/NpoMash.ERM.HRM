@@ -172,17 +172,21 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
         class ReserveOptimizeCriteria {
             // сама симплекс-таблица, в которой будет происходить оптимизация линеаризированной целевой функции
-
+            SimplexTab table;
             // коэффициент критерия при отклонении по ячейкам
             public int cellsCoefficient;
             // коэффициент критерия при отклонении по заказам
             public int ordersCoefficient;
             // связь переменных с контролируемыми ячейками
-            public Dictionary<int, HrmMatrixCell> realControlledCells; 
-            // связь переменных, содержащих резерв в неконтролируемых заказах соответствующего подразделения
+            public Dictionary<int, HrmMatrixCell> realControlledCells;
+            // число переменных
+            public int numberOfVariables;
+            // связь переменных, содержащих резерв неконтролируемых заказов соответствующего подразделения
             public Dictionary<int, HrmMatrixColumn> realDepsWithUncontrolledOrders; 
             // плановое значение распределения минус постоянная часть в ячейке
             public Dictionary<int, double> cellsPlans;
+            // текущая точка
+            public Dictionary<int, double> current_values;
             // список переменных в заказе, доступ по коду
             public Dictionary<String, Dictionary<int, double>> variablesInOrder;
             // план по заказу минус постоянная часть в ячейках по заказу
@@ -190,7 +194,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             // весь резерв по подразделению (величина, которая не должна измениться)
             public Dictionary<String, double> departmentReserve;
 
-            public ReserveOptimizeCriteria(HrmSalaryTaskMatrixReduction card,int cell_coef, int order_coef){
+            public ReserveOptimizeCriteria(HrmSalaryTaskProvisionMatrixReduction card,int cell_coef, int order_coef){
                 cellsCoefficient = cell_coef;
                 ordersCoefficient = order_coef;
                 realControlledCells = new Dictionary<int, HrmMatrixCell>();
@@ -199,6 +203,57 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 variablesInOrder = new Dictionary<string, Dictionary<int, double>>();
                 departmentReserve = new Dictionary<string, double>();
                 ordersPlan = new Dictionary<string, double>();
+                current_values = new Dictionary<int, double>();
+                // теперь знаем, какие заказы контролируемые
+                Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
+                    .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
+                    .ToDictionary(x => x.Order.Code);
+
+                List<SimplexLimitation> limits = new List<SimplexLimitation>();
+                // начинаем идти по подразделениям чтобы сразу формировать ограничения
+                foreach(HrmMatrixColumn col in card.ProvisionMatrix.Columns) {
+                    String dep_code = col.Department.BuhCode;
+                    SimplexLimitation limit = new SimplexLimitation();
+                    limit.coefficients = new Dictionary<int, double>();
+                    // в этом подразделении перебираем все контролируемые ячейки
+                    foreach (HrmMatrixCell cell in col.Cells
+                        .Where(x => controlled_orders.ContainsKey(x.Row.Order.Code))) {
+                        String ord_code = cell.Row.Order.Code;
+                        // вытаскиваем значения из ячейки, чтобы не морочиться потом с приведением типов
+                        double cell_plan = (double)cell.PlanMoney;
+                        double cell_const = (double)cell.MoneyNoReserve;
+                        double cell_reserve = (double)cell.SourceProvision;
+                        // добавляем значение в словарь планов по заказу
+                        if (ordersPlan.ContainsKey(ord_code))
+                            ordersPlan[ord_code] += cell_plan-cell_const;
+                        else ordersPlan.Add(ord_code,cell_plan-cell_const);
+                        // связываем индекс переменной с реальной ячейкой
+                        realControlledCells.Add(numberOfVariables, cell);
+                        // добавляем резерв ячейки в словарь текущих значений ( понадобится для начального приближения)
+                        current_values.Add(numberOfVariables, cell_reserve);
+                        // коэффициент в ограничении при контролируемой переменной = 1
+                        limit.coefficients.Add(numberOfVariables, 1);
+                        // добавляем переменную в список переменных в конкретном заказе
+                        if (!variablesInOrder.ContainsKey(ord_code))
+                            variablesInOrder.Add(ord_code,new Dictionary<int,double>());
+                        variablesInOrder[ord_code].Add(numberOfVariables, 0);
+                        numberOfVariables++;
+                    }
+                    // сумма резерва в подразделении должна остаться неизменной
+                    limit.freeMember = (double)col.Cells.Sum(x => x.SourceProvision);
+                    // проверяем, есть ли неконтролируемые заказы в подразделении, строим список неконтролируемых ячеек
+                    try {
+                        double reserve = (double)col.Cells
+                            .Where(x => !controlled_orders.ContainsKey(x.Row.Order.Code)).Sum(x => x.SourceProvision);
+                        realDepsWithUncontrolledOrders.Add(numberOfVariables, col);
+
+                    }
+                        // если ничего не нашли - ну и не надо
+                    catch (ArgumentNullException) { }
+
+
+
+                }
 
 
             }
