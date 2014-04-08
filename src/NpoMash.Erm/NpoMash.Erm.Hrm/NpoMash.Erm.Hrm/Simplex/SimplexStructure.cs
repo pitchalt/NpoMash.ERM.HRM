@@ -246,6 +246,8 @@ namespace NpoMash.Erm.Hrm.Simplex {
                         else ordersPlan.Add(ord_code,cell_plan-cell_const);
                         // связываем индекс переменной с реальной ячейкой
                         realControlledCells.Add(numberOfVariables, cell);
+                        // связываем индекс переменной и план минус постоянная составляющая
+                        cellsPlans.Add(numberOfVariables, cell_plan - cell_const);
                         // добавляем резерв ячейки в словарь текущих значений ( понадобится для начального приближения)
                         current_values.Add(numberOfVariables, cell_reserve);
                         // коэффициент в ограничении при контролируемой переменной = 1

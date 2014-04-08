@@ -53,10 +53,10 @@ namespace NpoMash.Erm.Hrm.Simplex {
         public static double[] DichotomicalSearchOfLambda(ReserveSimplexBringingStructure structure,double[] vect1, double[] vect2,double eps){
             double left_border = 0;
             double right_border = 1;
-            double delta = eps/2;
+            double delta = eps/3;
             // до тех пор пока размер отрезка не будет меньше заданной погрешности
             while (right_border - left_border > eps) {
-                double middle = (right_border - left_border)/2;
+                double middle = (right_border + left_border)/2;
                 double left_x = middle - delta;
                 double right_x = middle + delta;
                 // если f(x) слева от центра отрезка > f(x) справа от центра
@@ -68,14 +68,14 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 else right_border = right_x;
             }
             // сразу возвращаем точку при найденной лямбде
-            return DeterimnePointWithLambda(vect1,vect2,(right_border - left_border)/2);
+            return DeterimnePointWithLambda(vect1,vect2,(right_border + left_border)/2);
         }
 
         public static double Norma(double[] vect1, double[] vect2) {
             double result = 0;
             for (int i = 0; i < vect1.Count(); i++)
                 result += Math.Pow(vect1[i] - vect2[i], 2);
-            return result;
+            return Math.Sqrt(result);
         }
 
         // процедура, которая выполняет округление и распределяет отклонения резерва в подразделениях
@@ -148,12 +148,14 @@ namespace NpoMash.Erm.Hrm.Simplex {
             double[] current_bearing_plan = Minimize(structure.table);
             double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
             // до тех пор, пока разница между предыдущим и новым вектором не станет меньше заданной погрешности
+            double result_norm = 0;
             do {
                 previous_distribution = current_distribution;
                 structure.table.ReplaceTargetFuction(structure.getArrayOfPartialDerivates(previous_distribution));
                 current_bearing_plan = Minimize(structure.table);
                 current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
-            } while (Norma(previous_distribution, current_distribution) > main_eps);
+                result_norm = Norma(previous_distribution, current_distribution);
+            } while (result_norm > main_eps);
             // приводим полученные результаты к целым
             current_distribution = RoundResults(structure,current_distribution);
             // грузим их в матрицу резерва
