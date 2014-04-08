@@ -50,7 +50,6 @@
         <Member Name="SourceProvision" Index="7" />
         <Member Name="NewProvision" Index="8" />
         <Member Name="DeltaProvision" Index="9" />
-        <Member Name="DepartmentProvision" Index="10" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
@@ -169,7 +168,6 @@
               <LayoutGroup Id="DepartmentSet_col2" RelativeSize="48" ImageName="">
                 <LayoutItem Id="PrefactoryDepartmentFact" SizeConstraintsType="Default" RelativeSize="28" />
                 <LayoutItem Id="FactTravels" SizeConstraintsType="Default" RelativeSize="21" />
-                <LayoutItem Id="DepartmentProvision" SizeConstraintsType="Default" RelativeSize="50" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
@@ -675,7 +673,6 @@
       <Items IsNewNode="True">
         <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
         <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
-        <PropertyEditor Id="DepartmentProvision" PropertyName="DepartmentProvision" IsNewNode="True" />
         <PropertyEditor Id="FactTravels" PropertyName="FactTravels" IsNewNode="True" />
         <PropertyEditor Id="Group" PropertyName="Group" IsNewNode="True" />
         <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="DepartmentSet_OrderItems_ListView" IsNewNode="True" />

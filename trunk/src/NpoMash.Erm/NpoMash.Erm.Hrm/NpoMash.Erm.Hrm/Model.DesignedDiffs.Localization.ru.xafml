@@ -264,7 +264,6 @@
         <Member Name="SourceProvision" Caption="Исходный резерв" />
         <Member Name="NewProvision" Caption="Расчет" />
         <Member Name="DeltaProvision" Caption="Дельта" />
-        <Member Name="DepartmentProvision" Caption="Резерв" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
