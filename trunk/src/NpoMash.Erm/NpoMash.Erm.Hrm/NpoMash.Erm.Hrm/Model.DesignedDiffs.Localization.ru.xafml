@@ -49,11 +49,13 @@
       <Action Id="HrmPeriodVC_ExportBringingMatrix" Caption="Экспорт" />
       <Action Id="HrmPeriodVC_ImportAccountOperation" Caption="Загрузить первичную проводку" />
       <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
+      <Action Id="HrmPeriodVC_RevertState" Caption="Перерасчет" />
       <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix" Caption="Экспорт" />
       <Action Id="HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix" Caption="Экспорт" />
       <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
       <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskRevertVC_Revert" Caption="Перерасчет" />
       <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
     </Actions>
   </ActionDesign>
@@ -286,6 +288,20 @@
         <Member Name="SourceProvision" Caption="Исходный резерв" />
         <Member Name="NewProvision" Caption="Расчет" />
         <Member Name="DeltaProvision" Caption="Дельта" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskRevert" Caption="Перерасчет">
+      <OwnMembers>
+        <Member Name="AllocParameter" Caption="Параметры расчета" />
+        <Member Name="MatrixAllocResultKB" Caption="Результат распределения КБ" />
+        <Member Name="MatrixAllocResultOZM" Caption="Результат распределения ОЗМ" />
+        <Member Name="MatrixPlanKB" Caption="Базовая матрица(КБ)" />
+        <Member Name="MatrixPlanOZM" Caption="Базовая матрица (ОЗМ)" />
+        <Member Name="MatrixProvision" Caption="Матрица резерва" />
+        <Member Name="MatrixReductionKB" Caption="Матрица учета(КБ)" />
+        <Member Name="MatrixReductionOZM" Caption="Матрица учета(ОЗМ)" />
+        <Member Name="TimeSheetKB" Caption="Табель(КБ)" />
+        <Member Name="TimeSheetOZM" Caption="Табель(ОЗМ)" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель">

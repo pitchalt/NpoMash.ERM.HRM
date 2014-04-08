@@ -42,6 +42,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction, BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperationLast", Criteria = "Status!='RESERVE_MATRIX_UPLOADED'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_RevertState", Criteria = "isReadyToRevertChanges", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ClosePeriod", Criteria = "isReadyToClosePeriod", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportSummary", Criteria = "isReadyToCreateLastAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "isReadyToCreateFirstAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -281,6 +282,9 @@ namespace NpoMash.Erm.Hrm {
                 CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED); } }
 
         [Browsable(false)]
+        private bool isReadyToRevertChanges { get { return (Status == HrmPeriodStatus.OPENED); } }
+
+        [Browsable(false)]
         private bool isReadyToClosePeriod { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED && CurrentMatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_ACCEPTED); } }
 
         [Browsable(false)]
@@ -314,18 +318,10 @@ namespace NpoMash.Erm.Hrm {
         [Browsable(false)]
         private bool isOZMCoercedMatrixExported { get { return HrmPeriodLogic.OZMAccountOperationCompared(this); } }
 
-
-
+        [Browsable(false)]
+        private bool kbReductionExists { get { return (CurrentKBmatrixReduction != null); } }
 
         [Browsable(false)]
-        private bool kbReductionExists {
-            get { return (CurrentKBmatrixReduction != null); }
-        }
-
-        [Browsable(false)]
-        private bool ozmReductionExists {
-            get { return (CurrentOZMmatrixReduction != null); }
-        }
-
+        private bool ozmReductionExists { get { return (CurrentOZMmatrixReduction != null); } }
     }
 }

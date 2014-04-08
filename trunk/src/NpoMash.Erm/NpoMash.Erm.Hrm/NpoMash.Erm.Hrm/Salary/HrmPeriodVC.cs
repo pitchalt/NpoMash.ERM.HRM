@@ -252,6 +252,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+        private void RevertState_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            IObjectSpace object_space = Application.CreateObjectSpace();
+            HrmPeriod current_period = object_space.GetObject<HrmPeriod>(e.CurrentObject as HrmPeriod);
+            if (current_period.Status != HrmPeriodStatus.OPENED) {
+                HrmSalaryTaskRevert task = object_space.CreateObject<HrmSalaryTaskRevert>();
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskRevertLogic.InitObjects(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
+            }
+        }
+
         private void ClosePeriod_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace object_space = ObjectSpace;
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
@@ -354,8 +367,5 @@ namespace NpoMash.Erm.Hrm.Salary {
                 os.Committed += new EventHandler(refresher);
             }
         }
-
-
-
     }
 }
