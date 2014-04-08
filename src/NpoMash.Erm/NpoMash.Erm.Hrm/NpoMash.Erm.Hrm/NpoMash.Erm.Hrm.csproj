@@ -257,6 +257,14 @@
     <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Salary\HrmSalaryTaskRevert.cs" />
+    <Compile Include="Salary\HrmSalaryTaskRevertLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskRevertVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskRevertVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Salary\HrmTimeSheet.cs" />
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
@@ -310,6 +318,9 @@
     <EmbeddedResource Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.resx">
       <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmSalaryTaskRevertVC.resx">
+      <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -338,14 +349,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
-    <None Include="UnusableNodes5_ru.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes14.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Images\clock.png" />
   </ItemGroup>
   <ItemGroup>

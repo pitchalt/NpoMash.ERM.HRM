@@ -52,6 +52,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.ClosePeriod = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.AccountOperationImport = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringProvisionMatrix = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
+            this.RevertState = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // GetSourceDataAction
             // 
@@ -354,6 +355,23 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringProvisionMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.BringProvisionMatrix.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringProvisionMatrix_Execute);
             // 
+            // RevertState
+            // 
+            this.RevertState.Caption = "HrmPeriodVC_RevertState";
+            this.RevertState.Category = "Edit";
+            this.RevertState.ConfirmationMessage = null;
+            this.RevertState.Id = "HrmPeriodVC_RevertState";
+            this.RevertState.ImageName = null;
+            this.RevertState.Shortcut = null;
+            this.RevertState.Tag = null;
+            this.RevertState.TargetObjectsCriteria = null;
+            this.RevertState.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
+            this.RevertState.TargetViewId = null;
+            this.RevertState.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
+            this.RevertState.ToolTip = null;
+            this.RevertState.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
+            this.RevertState.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.RevertState_Execute);
+            // 
             // HrmPeriodVC
             // 
             this.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
@@ -376,5 +394,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SimpleAction ClosePeriod;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction AccountOperationImport;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction BringProvisionMatrix;
+        private DevExpress.ExpressApp.Actions.SimpleAction RevertState;
     }
 }
