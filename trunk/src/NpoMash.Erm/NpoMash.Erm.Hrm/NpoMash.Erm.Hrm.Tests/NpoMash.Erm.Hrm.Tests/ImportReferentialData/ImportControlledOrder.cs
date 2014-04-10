@@ -2,11 +2,11 @@
 using FileHelpers;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
-    
-    
+namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData { 
+
+
     [FixedLengthRecord()]
-    public class ImportOrder {
+    public class ImportControlledOrder {
 
         [FieldFixedLength(4)]
         [FieldConverter(typeof(NewDateConverter))]
@@ -18,17 +18,17 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         [FieldFixedLength(9)]
         [FieldConverter(typeof(TrimConverter))]
-        public String Order_Code;
+        public String Code;
 
         [FieldFixedLength(2)]
         [FieldConverter(typeof(TrimConverter))]
         public String TypeControl;
 
-        [FieldFixedLength(7)]
+        [FieldFixedLength(8)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormKB;
 
-        [FieldFixedLength(7)]
+        [FieldFixedLength(8)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormOZM;
 
@@ -46,8 +46,8 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToDecimal(from.Trim());
+                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
             }
         }
-    }
+    } 
 }

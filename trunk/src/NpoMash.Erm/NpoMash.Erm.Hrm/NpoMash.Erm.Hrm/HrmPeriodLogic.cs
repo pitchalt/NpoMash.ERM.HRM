@@ -27,7 +27,7 @@ namespace NpoMash.Erm.Hrm
     public static class HrmPeriodLogic {
 
       public const Int16 INIT_YEAR = 2014;
-      public const Int16 INIT_MONTH = 01;
+      public const Int16 INIT_MONTH = 02;
 
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
             var period_list = os.GetObjects<HrmPeriod>(null,true);

@@ -118,6 +118,7 @@
     <Compile Include="Controllers\TestWC.Designer.cs">
       <DependentUpon>TestWC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportReferentialData\ImportControlledOrder.cs" />
     <Compile Include="ImportReferentialData\ImportPayTypes.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
