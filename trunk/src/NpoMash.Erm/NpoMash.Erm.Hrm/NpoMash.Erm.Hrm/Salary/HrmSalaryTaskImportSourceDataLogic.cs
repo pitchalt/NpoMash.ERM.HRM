@@ -187,11 +187,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
             }
+            /*
             foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
                 foreach (var travel in travel_list) {
                     if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.Time += travel.TravelTime / 100; }
                 }
             }
+            */
             task.MatrixPlanKB = kb_plan_matrix;
             task.MatrixPlanOZM = ozm_plan_matrix;
         }
