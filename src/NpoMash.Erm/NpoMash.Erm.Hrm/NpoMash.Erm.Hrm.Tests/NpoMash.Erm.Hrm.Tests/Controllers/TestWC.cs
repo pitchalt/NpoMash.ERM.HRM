@@ -41,7 +41,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             TestWCLogic.ImportDepartments(object_space);
             TestWCLogic.ImportOrders(object_space);
             TestWCLogic.ImportPayTypes(object_space);
-            TestWCLogic.addTestData(object_space);
+            //TestWCLogic.addTestData(object_space);
+            var alloc_parameter = TestWCLogic.createParameters(object_space);
             object_space.CommitChanges();
         }
     }

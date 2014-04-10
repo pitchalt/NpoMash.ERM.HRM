@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
 
     public static class TestWCLogic {
+
+        public const Int16 INIT_NORM_NO_CONTROL_KB = 1000;
+        public const Int16 INIT_NORM_NO_CONTROL_OZM = 2000;
 
         private static int _Reference_Count = 50;
         public static int ReferenceCount {
@@ -51,6 +55,42 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 else { department_to_db.IsClosed = true; }
                 if (current_department.DepartmentGroup == null) { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
                 else { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
+            }
+        }
+
+        public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
+            FixedFileEngine<ImportControlledOrder> order_data = new FixedFileEngine<ImportControlledOrder>();
+            ImportControlledOrder[] orders_imported = order_data.ReadFile("../../../../../../../var/referential/ControlledOrders.dat");
+            IDictionary<String, fmCOrder> order_in_db = os.GetObjects<fmCOrder>(null, true).ToDictionary<fmCOrder, String>(x => x.Code);
+            foreach (var order in orders_imported) {
+                HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
+                if (!order_in_db.ContainsKey(order.Code)) {
+                    fmCOrder order_to_db = os.CreateObject<fmCOrder>();
+                    oc.Order = order_to_db;
+                    order_to_db.Code = order.Code;
+                    oc.NormKB = order.NormKB / 100;
+                    oc.NormOZM = order.NormOZM / 100;
+                    order_to_db.NormKB = oc.NormKB;
+                    order_to_db.NormOZM = oc.NormOZM;
+                    if (order.TypeControl == "Ф") { 
+                        oc.TypeControl = FmCOrderTypeControl.FOT;
+                        order_to_db.TypeControl = FmCOrderTypeControl.FOT;
+                    }
+                    else { 
+                        oc.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
+                        order_to_db.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
+                    }
+                    order_in_db.Add(order.Code, order_to_db); 
+                    par.OrderControls.Add(oc);
+                }
+                else {
+                    oc.Order = order_in_db[order.Code];
+                    oc.NormKB = order.NormKB / 100;
+                    oc.NormOZM = order.NormOZM / 100;
+                    if (order.TypeControl == "Ф") { oc.TypeControl = FmCOrderTypeControl.FOT; }
+                    else { oc.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT; }
+                    par.OrderControls.Add(oc);
+                }
             }
         }
 
@@ -186,9 +226,71 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
+        public static HrmPeriodAllocParameter createParameters(IObjectSpace os) {
+            HrmPeriod new_period = HrmPeriodLogic.createPeriod(os);
+            HrmPeriodAllocParameter alloc_parameter = initParameters(os, new_period);
+            return alloc_parameter;
+        }
+
+        public static HrmPeriodAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
+            HrmPeriodAllocParameter par = os.CreateObject<HrmPeriodAllocParameter>();
+            par.Period = current_period;
+            current_period.CurrentAllocParameter = par;
+            current_period.AllocParameters.Add(par);
+            par.StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
+            initParametersFromPreviousPeriod(os, par);
+            initDepartmentControlls(os, par);
+            initOrderControls(os, par);
+            return par;
+        }
+
+        public static void initParametersFromPreviousPeriod(IObjectSpace os, HrmPeriodAllocParameter par) {
+            if (par.Period.PeriodPrevious == par.Period) {
+                par.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
+                par.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
+                addAllPayTypes(os, par);
+            }
+            else {
+                par.NormNoControlKB = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB;
+                par.NormNoControlOZM = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM;
+                foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
+                    /*bool alreadyThere = false;
+                    foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
+                        //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
+                        if (pay.PayType == existingPay.PayType) alreadyThere = true;
+                    if (!alreadyThere)//если такой еще не добавляли...
+                    {*/
+                    HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
+                    pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
+                    pt.AllocParameter = par;
+                    par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
+                    //}
+                }
+            }
+        }
+
+        public static void initDepartmentControlls(IObjectSpace local_object_space, HrmPeriodAllocParameter alloc_parameter) {
+            foreach (Department dep in local_object_space.GetObjects<Department>(null, true)) {
+                HrmPeriodDepartmentControl dep_control = local_object_space.CreateObject<HrmPeriodDepartmentControl>();
+                dep_control.AllocParameter = alloc_parameter;
+                dep_control.Department = dep;
+                dep_control.Group = dep.GroupDep;
+                alloc_parameter.DepartmentControl.Add(dep_control);
+            }
+        }
+
+        public static void addAllPayTypes(IObjectSpace os, HrmPeriodAllocParameter par) {
+            foreach (HrmSalaryPayType salary in os.GetObjects<HrmSalaryPayType>(null, true)) {
+                HrmPeriodPayType pay_type = os.CreateObject<HrmPeriodPayType>();
+                pay_type.PayType = salary;
+                pay_type.AllocParameter = par;
+                par.PeriodPayTypes.Add(pay_type);
+            }
+        }
+
         public static void addTestData(IObjectSpace a_object_space) {
             for (int i = 0 ; i < _Allocparameter_Count ; i++) {
-                var alloc_parameter = HrmPeriodAllocParameterLogic.createParameters(a_object_space);
+                var alloc_parameter = createParameters(a_object_space);
                 alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
                 foreach (var each in a_object_space.GetObjects<HrmPeriod>(null, true)) {
                     each.setStatus(HrmPeriodStatus.CLOSED);
