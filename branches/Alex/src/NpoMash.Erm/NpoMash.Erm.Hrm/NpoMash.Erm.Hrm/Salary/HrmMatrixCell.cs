@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
+using NpoMash.Erm.Hrm.Salary.MatrixStructure;
 
 namespace NpoMash.Erm.Hrm.Salary {
 

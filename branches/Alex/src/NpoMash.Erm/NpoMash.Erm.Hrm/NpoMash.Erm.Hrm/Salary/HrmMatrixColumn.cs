@@ -17,6 +17,7 @@ using DevExpress.ExpressApp.Editors;
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
+using NpoMash.Erm.Hrm.Salary.MatrixStructure;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -84,13 +85,19 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-// ///////////////////////////////////////////////////////////////////
+
+
+
+        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, fmCOrder> IColumn.Orders {
+            get { throw new NotImplementedException(); }
+        }
+
         IntecoAG.XafExt.IndexedList.IIndex<ICellValue, Department> IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Index {
             get { throw new NotImplementedException(); }
         }
 
         Department IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Key {
-            get { return Department; }
+            get { throw new NotImplementedException(); }
         }
 
         ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Value {
@@ -108,6 +115,5 @@ namespace NpoMash.Erm.Hrm.Salary {
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
         }
-
     }
 }
