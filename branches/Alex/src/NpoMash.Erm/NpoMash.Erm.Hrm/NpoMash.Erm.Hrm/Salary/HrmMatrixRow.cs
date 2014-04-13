@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixRow")]
     [DefaultProperty("Order")]
-    public class HrmMatrixRow : BaseObject, IHrmSalaryMatrixRow {
+    public class HrmMatrixRow : BaseObject, IHrmSalaryMatrixRow,IRow {
 
          [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
@@ -79,6 +79,23 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         fmCOrder IHrmSalaryMatrixRow.Order {
             get { throw new NotImplementedException(); }
+        }
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        IntecoAG.XafExt.IndexedList.IIndexable<int> IntecoAG.XafExt.IndexedList.IIndex<int, int>.Source {
+            get { throw new NotImplementedException(); }
+        }
+
+        IntecoAG.XafExt.IndexedList.IIndexValue<int, int> IntecoAG.XafExt.IndexedList.IIndex<int, int>.this[int index] {
+            get { throw new NotImplementedException(); }
+        }
+
+        IEnumerator<int> IEnumerable<int>.GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+            throw new NotImplementedException();
         }
     }
 }

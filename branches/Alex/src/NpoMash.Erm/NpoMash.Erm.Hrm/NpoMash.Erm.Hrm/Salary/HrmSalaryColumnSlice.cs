@@ -36,15 +36,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() { base.AfterConstruction(); }
 
         IHrmSalaryMatrix IHrmSalaryMatrixColumn.Matrix {
-            get { throw new NotImplementedException(); }
+            get { return Column.Matrix; }
         }
 
         IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixColumn.Cells {
-            get { throw new NotImplementedException(); }
+            get { return new ListConverter<IHrmSalaryMatrixCell, HrmMatrixCell>(Column.Cells); }
         }
 
         IntecoAG.ERM.HRM.Organization.Department IHrmSalaryMatrixColumn.Department {
-            get { throw new NotImplementedException(); }
+            get { return Column.Department; }
         }
     }
 }

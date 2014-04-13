@@ -17,7 +17,7 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixCell")]   
-    public class HrmMatrixCell : BaseObject, IHrmSalaryMatrixCell {
+    public class HrmMatrixCell : BaseObject, IHrmSalaryMatrixCell,ICellValue {
 
         private Int64 _Time;
         public Int64 Time {
@@ -104,6 +104,23 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         IHrmSalaryMatrixRow IHrmSalaryMatrixCell.Row {
             get { throw new NotImplementedException(); }
+        }
+
+// ///////////////////////////////////////////////////////
+        IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
+            get { return Row.Order; }
+        }
+
+        IntecoAG.ERM.HRM.Organization.Department ICellValue.Department {
+            get { return Column.Department; }
+        }
+
+        IntecoAG.ERM.HRM.Organization.DepartmentGroupDep ICellValue.GroupDep {
+            get { return Column.Department.GroupDep; }
+        }
+
+        IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
+            get { return Row.Order.TypeControl; }
         }
     }
 }
