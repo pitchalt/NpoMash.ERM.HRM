@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using IntecoAG.XafExt.IndexedList;
 
-namespace NpoMash.Erm.Hrm.Salary {
+namespace NpoMash.Erm.Hrm.Salary.Matrix {
     interface IMatrix: IIndexable<ICellValue> {
-        HrmMatrixRow Row { get; }
-        HrmMatrixColumn Column { get; }
+        HrmMatrixRow Rows { get; }
+        HrmMatrixColumn Columns { get; }
+
     }
 }
