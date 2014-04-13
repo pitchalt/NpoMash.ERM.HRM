@@ -83,21 +83,31 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { throw new NotImplementedException(); }
         }
 
-        // ///////////////////////////////////////////////////////////////
-        IntecoAG.XafExt.IndexedList.IIndexable<int> IntecoAG.XafExt.IndexedList.IIndex<int, int>.Source {
+
+// ///////////////////////////////////////////////////////////////////
+        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, Department> IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Index {
             get { throw new NotImplementedException(); }
         }
 
-        IntecoAG.XafExt.IndexedList.IIndexValue<int, int> IntecoAG.XafExt.IndexedList.IIndex<int, int>.this[int index] {
+        Department IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Key {
+            get { return Department; }
+        }
+
+        ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Value {
             get { throw new NotImplementedException(); }
         }
 
-        IEnumerator<int> IEnumerable<int>.GetEnumerator() {
+        ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.this[int index] {
+            get { throw new NotImplementedException(); }
+        }
+
+        IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
             throw new NotImplementedException();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
         }
+
     }
 }
