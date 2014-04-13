@@ -171,31 +171,18 @@ namespace NpoMash.Erm.Hrm.Salary {
             throw new NotImplementedException();
         }
 // ///////////////////////////////////
-        IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
+
+
+
+        IIndexable<ICellValue> IIndex<ICellValue, DepartmentGroupDep>.Source {
             get { throw new NotImplementedException(); }
         }
 
-        Department ICellValue.Department {
+        IIndexValue<ICellValue, DepartmentGroupDep> IIndex<ICellValue, DepartmentGroupDep>.this[DepartmentGroupDep index] {
             get { throw new NotImplementedException(); }
         }
 
-        DepartmentGroupDep ICellValue.GroupDep {
-            get { throw new NotImplementedException(); }
-        }
-
-        IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
-            get { throw new NotImplementedException(); }
-        }
-
-        IIndexable<ICellValue> IIndex<ICellValue, HrmMatrix>.Source {
-            get { throw new NotImplementedException(); }
-        }
-
-        IIndexValue<ICellValue, HrmMatrix> IIndex<ICellValue, HrmMatrix>.this[HrmMatrix index] {
-            get { throw new NotImplementedException(); }
-        }
-
-        IEnumerator<HrmMatrix> IEnumerable<HrmMatrix>.GetEnumerator() {
+        IEnumerator<DepartmentGroupDep> IEnumerable<DepartmentGroupDep>.GetEnumerator() {
             throw new NotImplementedException();
         }
     }
