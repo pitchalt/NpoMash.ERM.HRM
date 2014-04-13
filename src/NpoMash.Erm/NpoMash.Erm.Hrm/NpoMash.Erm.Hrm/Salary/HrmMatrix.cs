@@ -140,7 +140,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns {
             get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
         }
-// /////////////////////////////////////////////////////////////////////////////////////////////////
+
+// ////////////////////////////////////////////////////////////////////////////////////////////
         HrmMatrixRow IMatrix.Row {
             get { throw new NotImplementedException(); }
         }
@@ -149,11 +150,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { throw new NotImplementedException(); }
         }
 
-        int IntecoAG.XafExt.IndexedList.IIndexable<int>.this[int index] {
+        ICellValue IntecoAG.XafExt.IndexedList.IIndexable<ICellValue>.this[int index] {
             get { throw new NotImplementedException(); }
         }
 
-        IEnumerator<int> IEnumerable<int>.GetEnumerator() {
+        IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
             throw new NotImplementedException();
         }
 
