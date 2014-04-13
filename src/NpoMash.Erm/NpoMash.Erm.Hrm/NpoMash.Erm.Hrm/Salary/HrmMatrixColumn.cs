@@ -21,7 +21,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixColumn")]    
-    public class HrmMatrixColumn : BaseObject, IHrmSalaryMatrixColumn {
+    public class HrmMatrixColumn : BaseObject, IHrmSalaryMatrixColumn,IColumn {
 
         //private Decimal _Sum;
         [ModelDefault("DisplayFormat", "{0:N}")]
@@ -81,6 +81,23 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         Department IHrmSalaryMatrixColumn.Department {
             get { throw new NotImplementedException(); }
+        }
+
+        // ///////////////////////////////////////////////////////////////
+        IntecoAG.XafExt.IndexedList.IIndexable<int> IntecoAG.XafExt.IndexedList.IIndex<int, int>.Source {
+            get { throw new NotImplementedException(); }
+        }
+
+        IntecoAG.XafExt.IndexedList.IIndexValue<int, int> IntecoAG.XafExt.IndexedList.IIndex<int, int>.this[int index] {
+            get { throw new NotImplementedException(); }
+        }
+
+        IEnumerator<int> IEnumerable<int>.GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+            throw new NotImplementedException();
         }
     }
 }

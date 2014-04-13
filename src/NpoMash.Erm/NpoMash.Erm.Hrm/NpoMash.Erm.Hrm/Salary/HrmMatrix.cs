@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
+
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmMatrixStatus {
@@ -51,7 +52,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Status")]
-    public class HrmMatrix : HrmSalaryPeriodObjectBase, IHrmSalaryMatrix {
+    public class HrmMatrix : HrmSalaryPeriodObjectBase, IHrmSalaryMatrix,IMatrix {
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
@@ -138,6 +139,26 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns {
             get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
+        }
+// /////////////////////////////////////////////////////////////////////////////////////////////////
+        HrmMatrixRow IMatrix.Row {
+            get { throw new NotImplementedException(); }
+        }
+
+        HrmMatrixColumn IMatrix.Column {
+            get { throw new NotImplementedException(); }
+        }
+
+        int IntecoAG.XafExt.IndexedList.IIndexable<int>.this[int index] {
+            get { throw new NotImplementedException(); }
+        }
+
+        IEnumerator<int> IEnumerable<int>.GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+            throw new NotImplementedException();
         }
     }
 }

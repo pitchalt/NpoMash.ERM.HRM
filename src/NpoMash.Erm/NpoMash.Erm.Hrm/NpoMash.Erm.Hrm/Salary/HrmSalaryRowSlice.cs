@@ -42,15 +42,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() {  base.AfterConstruction(); }
 
         IHrmSalaryMatrix IHrmSalaryMatrixRow.Matrix {
-            get { throw new NotImplementedException(); }
+            get { return HrmSalaryMatrixSlice; }
         }
 
         IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixRow.Cells {
-            get { throw new NotImplementedException(); }
+            get { return new ListConverter<IHrmSalaryMatrixCell, HrmMatrixCell>(Row.Cells); }
         }
 
         IntecoAG.ERM.FM.Order.fmCOrder IHrmSalaryMatrixRow.Order {
-            get { throw new NotImplementedException(); }
+            get { return Row.Order; }
         }
     }
 }
