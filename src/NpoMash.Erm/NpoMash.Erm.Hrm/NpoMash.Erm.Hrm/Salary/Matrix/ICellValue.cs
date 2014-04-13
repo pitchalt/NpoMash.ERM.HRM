@@ -6,8 +6,8 @@ using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
 
-namespace NpoMash.Erm.Hrm.Salary.Matrix {
-    interface ICellValue {
+namespace NpoMash.Erm.Hrm.Salary.MatrixStructure {
+    public interface ICellValue {
         fmCOrder Order { get; }
         Department Department { get; }
         DepartmentGroupDep GroupDep { get; }

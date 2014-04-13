@@ -5,7 +5,7 @@ using System.Text;
 using IntecoAG.ERM.FM.Order;
 using IntecoAG.XafExt.IndexedList;
 
-namespace NpoMash.Erm.Hrm.Salary.Matrix {
-    interface IRowCollection : IIndex<ICellValue, fmCOrder> {
+namespace NpoMash.Erm.Hrm.Salary.MatrixStructure {
+    public interface IRowCollection : IIndex<ICellValue, fmCOrder> {
     }
 }

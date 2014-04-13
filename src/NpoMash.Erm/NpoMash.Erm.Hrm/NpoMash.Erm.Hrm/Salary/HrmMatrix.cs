@@ -15,7 +15,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
-
+using NpoMash.Erm.Hrm.Salary.MatrixStructure;
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmMatrixStatus {
@@ -141,12 +141,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
         }
 
-// ////////////////////////////////////////////////////////////////////////////////////////////
-        HrmMatrixRow IMatrix.Row {
+// ///
+
+
+
+        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, DepartmentGroupDep> IMatrix.Slices {
             get { throw new NotImplementedException(); }
         }
 
-        HrmMatrixColumn IMatrix.Column {
+        IRowCollection IMatrixBase.Rows {
+            get { throw new NotImplementedException(); }
+        }
+
+        IColumnCollection IMatrixBase.Columns {
             get { throw new NotImplementedException(); }
         }
 
@@ -160,6 +167,22 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
+        }
+
+        IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
+            get { throw new NotImplementedException(); }
+        }
+
+        Department ICellValue.Department {
+            get { throw new NotImplementedException(); }
+        }
+
+        DepartmentGroupDep ICellValue.GroupDep {
+            get { throw new NotImplementedException(); }
+        }
+
+        IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
+            get { throw new NotImplementedException(); }
         }
     }
 }

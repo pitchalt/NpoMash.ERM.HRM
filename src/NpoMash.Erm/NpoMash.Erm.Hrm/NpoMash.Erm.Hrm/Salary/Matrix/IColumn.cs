@@ -6,8 +6,8 @@ using IntecoAG.XafExt.IndexedList;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Salary.Matrix {
-    interface IColumn: IIndexValue<ICellValue,Department> {
+namespace NpoMash.Erm.Hrm.Salary.MatrixStructure {
+    public interface IColumn: IIndexValue<ICellValue,Department> {
         IIndex<ICellValue, fmCOrder> Orders { get; }
     }
 }

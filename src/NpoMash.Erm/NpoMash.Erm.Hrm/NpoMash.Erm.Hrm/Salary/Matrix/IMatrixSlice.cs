@@ -6,8 +6,8 @@ using IntecoAG.XafExt.IndexedList;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Salary.Matrix {
-    interface IMatrixSlice : IMatrixBase, IIndexValue<ICellValue, DepartmentGroupDep> {
+namespace NpoMash.Erm.Hrm.Salary.MatrixStructure {
+    public interface IMatrixSlice : IMatrixBase, IIndexValue<ICellValue, DepartmentGroupDep> {
 
     }
 }

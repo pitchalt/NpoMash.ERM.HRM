@@ -5,7 +5,7 @@ using System.Text;
 using IntecoAG.XafExt.IndexedList;
 using IntecoAG.ERM.HRM.Organization;
 
-namespace NpoMash.Erm.Hrm.Salary.Matrix {
-    interface IColumnCollection : IIndex<ICellValue, Department> {
+namespace NpoMash.Erm.Hrm.Salary.MatrixStructure {
+    public interface IColumnCollection : IIndex<ICellValue, Department> {
     }
 }
