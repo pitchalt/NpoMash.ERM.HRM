@@ -162,7 +162,9 @@
     <Compile Include="Salary\HrmPeriodAllocParameterLogic.cs" />
     <Compile Include="Salary\HrmAccount.cs" />
     <Compile Include="Salary\HrmAccountOperation.cs" />
-    <Compile Include="Salary\HrmMatrix.cs" />
+    <Compile Include="Salary\HrmMatrix.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Salary\HrmMatrixAllocPlan.cs" />
     <Compile Include="Salary\HrmMatrixAllocResult.cs" />
     <Compile Include="Salary\HrmMatrixCell.cs" />
@@ -256,12 +258,12 @@
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
+    <Compile Include="Salary\Matrix\IMatrixBase.cs" />
     <Compile Include="Salary\Matrix\ICellValue.cs" />
     <Compile Include="Salary\Matrix\IColumn.cs" />
     <Compile Include="Salary\IHrmSalaryMatrix.cs" />
     <Compile Include="Salary\Matrix\IColumnCollection.cs" />
     <Compile Include="Salary\Matrix\IMatrix.cs" />
-    <Compile Include="Salary\Matrix\IMatrixBase.cs" />
     <Compile Include="Salary\Matrix\IMatrixSlice.cs" />
     <Compile Include="Salary\Matrix\IMatrixSliceCollection.cs" />
     <Compile Include="Salary\Matrix\IRow.cs" />

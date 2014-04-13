@@ -18,7 +18,7 @@ using NpoMash.Erm.Hrm.Salary.MatrixStructure;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent]
-    public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice, IHrmSalaryMatrix,IMatrix {
+    public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice, IHrmSalaryMatrix, IMatrixSlice {
 
         private HrmMatrix _Matrix;
         [Association("HrmMatrix-HrmSalaryMatrixSlices")] //—сылка на HrmMatrix

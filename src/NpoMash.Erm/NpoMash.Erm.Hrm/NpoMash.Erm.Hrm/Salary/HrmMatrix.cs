@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 //
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
@@ -46,6 +47,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         PROPORTIONS_METHOD_VARIANT=2,
     }
 
+    public class HrmSalaryMatrixSliceCollection: XPCollection<HrmSalaryMatrixSlice>, IMatrixSliceCollection {
+        public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property): base(session, matrix, property) { }
+    }
 
     [Persistent("HrmMatrix")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -142,12 +146,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
         }
 
-// ///
-
-
-
-        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, DepartmentGroupDep> IMatrix.Slices {
-            get { return new ListConverter<IMatrixSliceCollection, >(Columns); }
+        IMatrixSliceCollection IMatrix.Slices {
+            get { return new HrmSalaryMatrixSliceCollection(this.Session, this, null); }
         }
 
         IRowCollection IMatrixBase.Rows {
