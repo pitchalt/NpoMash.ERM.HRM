@@ -263,6 +263,7 @@
     <Compile Include="Salary\Matrix\IMatrix.cs" />
     <Compile Include="Salary\Matrix\IMatrixBase.cs" />
     <Compile Include="Salary\Matrix\IMatrixSlice.cs" />
+    <Compile Include="Salary\Matrix\IMatrixSliceCollection.cs" />
     <Compile Include="Salary\Matrix\IRow.cs" />
     <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\Matrix\IRowCollection.cs" />

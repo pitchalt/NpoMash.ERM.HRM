@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Salary.MatrixStructure;
+using IntecoAG.XafExt.IndexedList;
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmMatrixStatus {
@@ -146,7 +147,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         IntecoAG.XafExt.IndexedList.IIndex<ICellValue, DepartmentGroupDep> IMatrix.Slices {
-            get { throw new NotImplementedException(); }
+            get { return new ListConverter<IMatrixSliceCollection, >(Columns); }
         }
 
         IRowCollection IMatrixBase.Rows {
