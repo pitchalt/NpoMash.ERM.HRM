@@ -6,8 +6,9 @@ using IntecoAG.XafExt.IndexedList;
 
 namespace NpoMash.Erm.Hrm.Salary.Matrix {
     interface IMatrix: IIndexable<ICellValue> {
-        HrmMatrixRow Rows { get; }
-        HrmMatrixColumn Columns { get; }
+        IRowCollection Rows { get; }
+        IColumnCollection Columns { get; }
+        IIndex<ICellValue, IMatrixSlice> Slices { get; }
 
     }
 }
