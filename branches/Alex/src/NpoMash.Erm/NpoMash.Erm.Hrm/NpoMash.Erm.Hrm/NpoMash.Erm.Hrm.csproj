@@ -259,7 +259,6 @@
     <Compile Include="Salary\ICellValue.cs" />
     <Compile Include="Salary\IColumn.cs" />
     <Compile Include="Salary\IHrmSalaryMatrix.cs" />
-    <Compile Include="Salary\IIndexable.cs" />
     <Compile Include="Salary\IMatrix.cs" />
     <Compile Include="Salary\IRow.cs" />
     <Compile Include="Salary\Log.cs" />
