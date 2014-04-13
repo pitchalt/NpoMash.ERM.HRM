@@ -13,11 +13,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
+using NpoMash.Erm.Hrm.Salary.MatrixStructure;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent]
-    public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice, IHrmSalaryMatrix {
+    public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice, IHrmSalaryMatrix,IMatrix {
 
         private HrmMatrix _Matrix;
         [Association("HrmMatrix-HrmSalaryMatrixSlices")] //—сылка на HrmMatrix
@@ -55,5 +56,45 @@ IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns
     get { return new ListConverter<IHrmSalaryMatrixColumn, HrmSalaryColumnSlice>(HrmSalaryColumnSlices); }
 }
 
+// ////////////////////////////////////////
+IntecoAG.XafExt.IndexedList.IIndex<ICellValue, IntecoAG.ERM.HRM.Organization.DepartmentGroupDep> IMatrix.Slices {
+    get { throw new NotImplementedException(); }
 }
+
+IRowCollection IMatrixBase.Rows {
+    get { throw new NotImplementedException(); }
+}
+
+IColumnCollection IMatrixBase.Columns {
+    get { throw new NotImplementedException(); }
+}
+
+ICellValue IntecoAG.XafExt.IndexedList.IIndexable<ICellValue>.this[int index] {
+    get { throw new NotImplementedException(); }
+}
+
+IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
+    throw new NotImplementedException();
+}
+
+System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+    throw new NotImplementedException();
+}
+
+IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
+    get { throw new NotImplementedException(); }
+}
+
+IntecoAG.ERM.HRM.Organization.Department ICellValue.Department {
+    get { throw new NotImplementedException(); }
+}
+
+IntecoAG.ERM.HRM.Organization.DepartmentGroupDep ICellValue.GroupDep {
+    get { throw new NotImplementedException(); }
+}
+
+IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
+    get { throw new NotImplementedException(); }
+}
+    }
 }
