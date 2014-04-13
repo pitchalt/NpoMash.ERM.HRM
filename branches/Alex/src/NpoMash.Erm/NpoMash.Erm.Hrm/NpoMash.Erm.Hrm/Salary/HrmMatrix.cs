@@ -114,9 +114,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return GetCollection<HrmMatrixColumn>("Columns"); }
         }
 
-        [Association("HrmMatrix-HrmSalaryMatrixSlices")] //Коллекция HrmMatrixSlice
-        public XPCollection<HrmSalaryMatrixSlice> HrmSalaryMatrixSlices {
-            get { return GetCollection<HrmSalaryMatrixSlice>("HrmSalaryMatrixSlices"); }
+        [Association("HrmMatrix-Slices")] //Коллекция HrmMatrixSlice
+        public HrmSalaryMatrixSliceCollection Slices {
+            get { return new HrmSalaryMatrixSliceCollection(this.Session, this, this.ClassInfo.GetMember("Slices")); }
         }
 
         private HrmPeriod _Period; // Ссылка на HrmPeriod
@@ -146,8 +146,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
         }
 
-        IMatrixSliceCollection IMatrix.Slices {
-            get { return new HrmSalaryMatrixSliceCollection(this.Session, this, null); }
+// /////////////////////////////////////////////////////////////////////////
+
+        IMatrixSliceCollection IMatrix.SlicedMatrixesCollection {
+            get { return Slices; }
         }
 
         IRowCollection IMatrixBase.Rows {
@@ -158,7 +160,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { throw new NotImplementedException(); }
         }
 
-        ICellValue IntecoAG.XafExt.IndexedList.IIndexable<ICellValue>.this[int index] {
+        ICellValue IIndexable<ICellValue>.this[int index] {
             get { throw new NotImplementedException(); }
         }
 
