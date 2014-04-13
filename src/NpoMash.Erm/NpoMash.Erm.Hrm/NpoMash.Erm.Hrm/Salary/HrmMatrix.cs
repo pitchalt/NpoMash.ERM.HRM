@@ -53,11 +53,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrix")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-//   [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Enabled=false)]
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Status")]
-    public class HrmMatrix : HrmSalaryPeriodObjectBase, IHrmSalaryMatrix,IMatrix {
+    public class HrmMatrix : HrmSalaryPeriodObjectBase, IHrmSalaryMatrix, IMatrix, IMatrixSliceCollection {
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
@@ -171,7 +170,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
         }
-
+// ///////////////////////////////////
         IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
             get { throw new NotImplementedException(); }
         }
@@ -186,6 +185,18 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
             get { throw new NotImplementedException(); }
+        }
+
+        IIndexable<ICellValue> IIndex<ICellValue, HrmMatrix>.Source {
+            get { throw new NotImplementedException(); }
+        }
+
+        IIndexValue<ICellValue, HrmMatrix> IIndex<ICellValue, HrmMatrix>.this[HrmMatrix index] {
+            get { throw new NotImplementedException(); }
+        }
+
+        IEnumerator<HrmMatrix> IEnumerable<HrmMatrix>.GetEnumerator() {
+            throw new NotImplementedException();
         }
     }
 }
