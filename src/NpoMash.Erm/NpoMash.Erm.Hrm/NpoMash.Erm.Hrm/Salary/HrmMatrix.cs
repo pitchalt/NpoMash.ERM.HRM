@@ -49,6 +49,22 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public class HrmSalaryMatrixSliceCollection: XPCollection<HrmSalaryMatrixSlice>, IMatrixSliceCollection {
         public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property): base(session, matrix, property) { }
+
+        IIndexable<ICellValue> IIndex<ICellValue, DepartmentGroupDep>.Source {
+            get { throw new NotImplementedException(); }
+        }
+
+        IIndexValue<ICellValue, DepartmentGroupDep> IIndex<ICellValue, DepartmentGroupDep>.this[DepartmentGroupDep index] {
+            get { throw new NotImplementedException(); }
+        }
+
+        IEnumerator<DepartmentGroupDep> IEnumerable<DepartmentGroupDep>.GetEnumerator() {
+            throw new NotImplementedException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+            throw new NotImplementedException();
+        }
     }
 
     [Persistent("HrmMatrix")]
@@ -144,8 +160,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns {
             get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
         }
-
-// /////////////////////////////////////////////////////////////////////////
+//
 
         IMatrixSliceCollection IMatrix.SlicedMatrixesCollection {
             get { return Slices; }
@@ -170,8 +185,23 @@ namespace NpoMash.Erm.Hrm.Salary {
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
         }
-// ///////////////////////////////////
 
+        IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
+            get { throw new NotImplementedException(); }
+        }
+
+        Department ICellValue.Department {
+            get { throw new NotImplementedException(); }
+        }
+
+        DepartmentGroupDep ICellValue.GroupDep {
+            get { throw new NotImplementedException(); }
+        }
+
+        IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
+            get { throw new NotImplementedException(); }
+        }
+        //
 
 
         IIndexable<ICellValue> IIndex<ICellValue, DepartmentGroupDep>.Source {
@@ -185,5 +215,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         IEnumerator<DepartmentGroupDep> IEnumerable<DepartmentGroupDep>.GetEnumerator() {
             throw new NotImplementedException();
         }
+        //
     }
 }
