@@ -209,6 +209,8 @@ namespace NpoMash.Erm.Hrm.Simplex {
             public Dictionary<String, double> departmentReserve;
             // ограничения для таблицы, будут удобны и потом
             public Dictionary<String, SimplexLimitation> simpLimits;
+            // относительный коэффициент плана заказа
+            public Dictionary<String, double> orderPlanCoef;
 
             public ReserveSimplexBringingStructure(HrmSalaryTaskProvisionMatrixReduction card,int cell_coef, int order_coef){
                 cellsCoefficient = cell_coef;
@@ -221,6 +223,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 ordersPlan = new Dictionary<string, double>();
                 current_values = new Dictionary<int, double>();
                 simpLimits = new Dictionary<string, SimplexLimitation>();
+                orderPlanCoef = new Dictionary<string, double>();
                 // теперь знаем, какие заказы контролируемые
                 Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
                     .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
@@ -241,9 +244,12 @@ namespace NpoMash.Erm.Hrm.Simplex {
                         double cell_const = (double)cell.MoneyNoReserve;
                         double cell_reserve = (double)cell.SourceProvision;
                         // добавляем значение в словарь планов по заказу
-                        if (ordersPlan.ContainsKey(ord_code))
-                            ordersPlan[ord_code] += cell_plan-cell_const;
-                        else ordersPlan.Add(ord_code,cell_plan-cell_const);
+                        if (!ordersPlan.ContainsKey(ord_code)) {
+                            ordersPlan.Add(ord_code, 0);
+                            orderPlanCoef.Add(ord_code, 0);
+                        }
+                        ordersPlan[ord_code] += cell_plan - cell_const;
+                        orderPlanCoef[ord_code] += cell_plan;
                         // связываем индекс переменной с реальной ячейкой
                         realControlledCells.Add(numberOfVariables, cell);
                         // связываем индекс переменной и план минус постоянная составляющая
@@ -261,9 +267,15 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     // сумма резерва в подразделении должна остаться неизменной
                     limit.freeMember = (double)col.Cells.Sum(x => x.SourceProvision);
                     // проверяем, есть ли неконтролируемые заказы в подразделении, строим список неконтролируемых ячеек
-                    try {
-                        double reserve = (double)col.Cells
-                            .Where(x => !controlled_orders.ContainsKey(x.Row.Order.Code)).Sum(x => x.SourceProvision);
+                    //try {
+                    double reserve = 0;
+                    bool contains_uncontrolled_cells = false;
+                    foreach (HrmMatrixCell cell in col.Cells)
+                        if (!controlled_orders.ContainsKey(cell.Row.Order.Code)) {
+                            reserve += (double)cell.SourceProvision;
+                            contains_uncontrolled_cells = true;
+                        }
+                    if (contains_uncontrolled_cells) {
                         // связываем резерв из неконтролируемых ячеек с соответствующей колонкой реальной матрицы
                         realDepsWithUncontrolledOrders.Add(numberOfVariables, col);
                         // добавляем в словарь текущих значений значение резерва по всем неконтролируемым ячейкам в данном подразделении
@@ -273,8 +285,11 @@ namespace NpoMash.Erm.Hrm.Simplex {
                         // число переменных увеличилось
                         numberOfVariables++;
                     }
-                        // если ничего не нашли - ну и не надо
-                    catch (ArgumentNullException) { }
+
+                    double source_reserve_in_dep = (double)col.Cells.Sum(x => x.SourceProvision);
+                    if (limit.freeMember != source_reserve_in_dep)
+                        throw new Exception("The reserve in dep " + col.Department.BuhCode +
+                            " is " + source_reserve_in_dep + " but in limit was " + limit.freeMember);
                     limits.Add(limit);
                     simpLimits.Add(dep_code, limit);
                 }
@@ -307,6 +322,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                         x += vars[index];
                     x -= ordersPlan[code];
                     x *= x;
+                    x /= orderPlanCoef[code];
                     orders_result += x;
                 }
                 result = cells_result * 2 * cellsCoefficient + orders_result * 2 * ordersCoefficient;
@@ -324,7 +340,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     foreach (int key in variablesInOrder[code].Keys)
                         x += variables[key];
                     x -= ordersPlan[code];
-                    x *= 2 * ordersCoefficient;
+                    x *= 2 * ordersCoefficient / orderPlanCoef[code];
                 }
                 return result;
             }
@@ -343,7 +359,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     foreach (int key in variablesInOrder[code].Keys)
                         x += variables[key];
                     x -= ordersPlan[code];
-                    x *= 2 * ordersCoefficient;
+                    x *= 2 * ordersCoefficient / orderPlanCoef[code];
                     foreach (int key in variablesInOrder[code].Keys)
                         result[key] += x;
                 }
