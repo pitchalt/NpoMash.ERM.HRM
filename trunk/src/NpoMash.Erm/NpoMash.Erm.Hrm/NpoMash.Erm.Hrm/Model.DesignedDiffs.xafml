@@ -1014,7 +1014,6 @@
               <LayoutGroup Id="HrmTimeSheetDep_col1" RelativeSize="48" ImageName="">
                 <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="4" />
                 <LayoutItem Id="MatrixWorkTime" SizeConstraintsType="Default" RelativeSize="3" />
-                <LayoutItem Id="TravelWorkTime" SizeConstraintsType="Default" RelativeSize="92" />
               </LayoutGroup>
               <LayoutGroup Id="HrmTimeSheetDep_col2" RelativeSize="48" ImageName="">
                 <LayoutItem Id="ConstantWorkTime" SizeConstraintsType="Default" RelativeSize="4" />

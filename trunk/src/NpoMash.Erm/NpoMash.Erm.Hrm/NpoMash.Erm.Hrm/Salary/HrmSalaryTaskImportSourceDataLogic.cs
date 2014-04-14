@@ -54,6 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Department dep = deps.FirstOrDefault(x => x.BuhCode == code);
                 if (dep == null) continue;
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
+                sheet_dep.BuhCode = dep.BuhCode;
                 sheet_dep.Department = dep;
                 sheet_dep.BaseWorkTime = each.BaseWorkTime / 100;
                 sheet_dep.ConstantWorkTime = each.ConstantWorkTime / 100;
