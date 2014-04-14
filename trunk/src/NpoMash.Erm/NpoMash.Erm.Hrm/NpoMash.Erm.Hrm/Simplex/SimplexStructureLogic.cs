@@ -68,7 +68,8 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 else right_border = right_x;
             }
             // сразу возвращаем точку при найденной лямбде
-            return DeterimnePointWithLambda(vect1,vect2,(right_border + left_border)/2);
+            double lambda = (right_border + left_border) / 2;
+            return DeterimnePointWithLambda(vect1,vect2,lambda);
         }
 
         public static double Norma(double[] vect1, double[] vect2) {
@@ -104,7 +105,9 @@ namespace NpoMash.Erm.Hrm.Simplex {
                         // снимаем его с ячейки, где наибольшая частная производная и еще что-то осталось
                         int index = current_dervs.Keys
                             .Where(x => distribution[x] > 0)
-                            .First(x => current_dervs[x] == current_dervs.Values.Max());
+                            .First(x => current_dervs[x] == current_dervs
+                                .Where(y => distribution[y.Key]>0)
+                                .Max(y => y.Value));
                         double take = Math.Min(difference, distribution[index]);
                         distribution[index] -= take;
                         difference -= take;
@@ -145,19 +148,28 @@ namespace NpoMash.Erm.Hrm.Simplex {
             // осуществляем многократный расчет симплекс-методом,
             // по сути, метод Франка-Вульфа
             double[] previous_distribution = structure.GetArrayOfCurrentValues();
+            double target_function_value = structure.funcValue(previous_distribution);
+            double previous_function_value = target_function_value;
             double[] current_bearing_plan = Minimize(structure.table);
-            double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
+            double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, 10/Norma(previous_distribution,current_bearing_plan));
             // до тех пор, пока разница между предыдущим и новым вектором не станет меньше заданной погрешности
             double result_norm = 0;
+            double difference = 0;
             do {
+                previous_function_value = target_function_value;
                 previous_distribution = current_distribution;
                 structure.table.ReplaceTargetFuction(structure.getArrayOfPartialDerivates(previous_distribution));
                 current_bearing_plan = Minimize(structure.table);
-                current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, lambda_eps);
+                current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, 10 / Norma(previous_distribution, current_bearing_plan));
                 result_norm = Norma(previous_distribution, current_distribution);
-            } while (result_norm > main_eps);
+                target_function_value = structure.funcValue(current_distribution);
+                difference = previous_function_value - target_function_value;
+                if (difference < 0)
+                    throw new Exception("Error in minimization algorithm! New value was greater than previous");
+            } while (result_norm > main_eps && difference > 100);
             // приводим полученные результаты к целым
             current_distribution = RoundResults(structure,current_distribution);
+            target_function_value = structure.funcValue(current_distribution);
             // грузим их в матрицу резерва
             ReturnResultsInRealMatrix(card,structure,current_distribution);
             return;

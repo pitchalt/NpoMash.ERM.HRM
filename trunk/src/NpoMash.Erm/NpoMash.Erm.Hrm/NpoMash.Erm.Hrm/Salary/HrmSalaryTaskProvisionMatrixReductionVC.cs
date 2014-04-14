@@ -76,8 +76,23 @@ namespace NpoMash.Erm.Hrm.Salary {
                      
                      }
                      task.Complete();
+                     os.CommitChanges();
                  }
-                 os.CommitChanges();
+                 if (e.SelectedChoiceActionItem.Id == "Simplex") {
+
+                     task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+                     foreach (var m in task.AllocParameters.Period.Matrixs) {
+                         if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
+                             m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                             task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                         }
+
+                     }
+                     task.Complete();
+                     os.CommitChanges();
+                 }
+
+                 
              }
              ObjectSpace.CommitChanges();
 

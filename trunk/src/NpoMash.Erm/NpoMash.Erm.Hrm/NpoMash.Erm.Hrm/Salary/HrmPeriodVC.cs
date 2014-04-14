@@ -357,15 +357,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (period.CurrentProvisionMatrix == null) {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
                     card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-                    SimplexStructureLogic.MainAlgorithm(card, 1, 10, 0.0001, 10000);
+                    SimplexStructureLogic.MainAlgorithm(card, 1, 10, 0.0001, 2000);
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
 
-                os.CommitChanges();
+                //os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);
             }
+
         }
     }
 }
