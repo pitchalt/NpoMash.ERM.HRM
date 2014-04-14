@@ -152,6 +152,7 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodDepartmentControl" Caption="Подразделения">
       <OwnMembers>
+        <Member Name="BuhCode" Caption="БухКод" />
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="Group" Caption="Группа" />
       </OwnMembers>
@@ -316,6 +317,7 @@
       <OwnMembers>
         <Member Name="AdditionWorkTime" Caption="Сверхурочное время" />
         <Member Name="BaseWorkTime" Caption="Рабочее время" />
+        <Member Name="BuhCode" Caption="БухКод" />
         <Member Name="Department" Caption="Подразделение" />
         <Member Name="MatrixWorkTime" Caption="Полное время " />
         <Member Name="TimeSheet" Caption="Факт. табель" />

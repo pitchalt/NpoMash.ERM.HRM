@@ -48,6 +48,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             //ozm_time_sheet.TimeSheet = time_sheet;
             foreach (Department current_department in os.GetObjects<Department>()) {
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
+                sheet_dep.BuhCode = current_department.BuhCode;
                 sheet_dep.Department = current_department;
                 //sheet_dep.TimeSheet = time_sheet;
                 //time_sheet.TimeSheetDeps.Add(sheet_dep);

@@ -80,6 +80,7 @@ namespace NpoMash.Erm.Hrm.Salary
                 HrmPeriodDepartmentControl dep_control = local_object_space.CreateObject<HrmPeriodDepartmentControl>();
                 dep_control.AllocParameter = alloc_parameter;
                 dep_control.Department = dep;
+                dep_control.BuhCode = dep.BuhCode;
                 dep_control.Group = dep.GroupDep;
                 alloc_parameter.DepartmentControl.Add(dep_control);
             }        

@@ -22,6 +22,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmTimeSheetDep : BaseObject {
 
+        private String _BuhCode;
+        public String BuhCode {
+            get { return _BuhCode; }
+            set { SetPropertyValue<String>("BuhCode", ref _BuhCode, value); }
+        }
+
         private Department _Department; //—сылка на Department
         public Department Department {
             get { return _Department; }
@@ -36,7 +42,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public Int64 MatrixWorkTime {
-            get { return BaseWorkTime + AdditionWorkTime; }
+            get { return BaseWorkTime + AdditionWorkTime + TravelWorkTime + ConstantWorkTime; }
 
         }
 
