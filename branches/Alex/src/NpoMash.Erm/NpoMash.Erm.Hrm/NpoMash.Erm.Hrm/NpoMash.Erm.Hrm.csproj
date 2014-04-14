@@ -258,17 +258,17 @@
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
-    <Compile Include="Salary\Matrix\IMatrixBase.cs" />
-    <Compile Include="Salary\Matrix\ICellValue.cs" />
-    <Compile Include="Salary\Matrix\IColumn.cs" />
+    <Compile Include="Salary\MatrixStructure\IMatrixBase.cs" />
+    <Compile Include="Salary\MatrixStructure\ICellValue.cs" />
+    <Compile Include="Salary\MatrixStructure\IColumn.cs" />
     <Compile Include="Salary\IHrmSalaryMatrix.cs" />
-    <Compile Include="Salary\Matrix\IColumnCollection.cs" />
-    <Compile Include="Salary\Matrix\IMatrix.cs" />
-    <Compile Include="Salary\Matrix\IMatrixSlice.cs" />
-    <Compile Include="Salary\Matrix\IMatrixSliceCollection.cs" />
-    <Compile Include="Salary\Matrix\IRow.cs" />
+    <Compile Include="Salary\MatrixStructure\IColumnCollection.cs" />
+    <Compile Include="Salary\MatrixStructure\IMatrix.cs" />
+    <Compile Include="Salary\MatrixStructure\IMatrixSlice.cs" />
+    <Compile Include="Salary\MatrixStructure\IMatrixSliceCollection.cs" />
+    <Compile Include="Salary\MatrixStructure\IRow.cs" />
     <Compile Include="Salary\Log.cs" />
-    <Compile Include="Salary\Matrix\IRowCollection.cs" />
+    <Compile Include="Salary\MatrixStructure\IRowCollection.cs" />
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
   </ItemGroup>
