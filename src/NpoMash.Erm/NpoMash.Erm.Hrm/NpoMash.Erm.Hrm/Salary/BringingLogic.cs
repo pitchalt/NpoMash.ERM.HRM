@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 else order_controls.Add(oc.Order.Code, false);
 
             IDictionary<String, HrmTimeSheetDep> time_sheet_dictionary = reduc.TimeSheet.TimeSheetDeps
-                .Where<HrmTimeSheetDep>( x => x.MatrixWorkTime > 0)
+                .Where<HrmTimeSheetDep>( x => x.BaseWorkTime > 0)
                 .ToDictionary<HrmTimeSheetDep, String>(x => x.Department.BuhCode);
             int errors_in_ts = 0;
             Matrix mat = new Matrix();
@@ -40,7 +40,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Dep department = new Dep();
                 if (time_sheet_dictionary.ContainsKey(department_plan.Department.BuhCode)) {
                     
-                    department.fact += time_sheet_dictionary[department_plan.Department.BuhCode].MatrixWorkTime;
+                    department.fact += time_sheet_dictionary[department_plan.Department.BuhCode].BaseWorkTime;
                 }
                 else {
                     errors_in_ts++; // это неплохо бы показать в логах
@@ -73,54 +73,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
-            /*foreach (HrmTimeSheetDep tsd in time_sheet.TimeSheetDeps)
-                if (mat.deps.ContainsKey(tsd.Department.Code))
-                    mat.deps[tsd.Department.Code].fact += tsd.MatrixWorkTime;*/
             return mat;
         }
 
 
-        /*
-        public static void BringUncontrolledOrders2(Matrix mat) {
-            foreach (Dep dep in mat.deps.Values) {
-                if (dep.fact >= dep.planControlled) {
-                    List<Cell> non_zero_uncontrolled = new List<Cell>();
-                    Int64 total_uncontrolled_sum = 0;
-                    foreach (Cell cell in dep.cells) {
-                        if (!cell.order.isControlled && cell.isNotZero) {
-                            if (cell.time == 0)
-                                cell.time += 1;
-                            total_uncontrolled_sum += cell.time;
-                            non_zero_uncontrolled.Add(cell);
-                        }
-                    }
-                    //Double coefficient = ((Double)dep.fact - dep.planControlled) / total_uncontrolled_sum;
-                    Int64 chislitel = dep.fact - dep.planControlled;
-                    foreach (Cell cell in non_zero_uncontrolled) {
-                        Int64 difference = cell.time * chislitel / total_uncontrolled_sum - cell.time;
-                        if (difference > 0) mat.journal.MakeOperation(difference, null, cell);
-                        if (difference < 0) {
-                            //if (difference == cell.time) mat.journal.MakeOperation(1,null, cell);
-                            //if (difference < 0)
-                            mat.journal.MakeOperation(difference, cell, null);
-                        }
-                    }
-                    Int64 plan_fact_difference = dep.fact - dep.plan;
-                    List<Cell>.Enumerator en = non_zero_uncontrolled.GetEnumerator();
-                    if (en.Current == null) en.MoveNext();
-                    if (plan_fact_difference > 0)
-                        mat.journal.MakeOperation(plan_fact_difference, null, en.Current);
-                    
-
-                    while (plan_fact_difference < 0 && en.Current != null) {
-                        Int64 x = Math.Min(en.Current.time, -plan_fact_difference);
-                        mat.journal.MakeOperation(x, en.Current, null);
-                        plan_fact_difference += x;
-                        en.MoveNext();
-                    }
-                }
-            }
-        }*/
         /// <summary>
         /// Приведение трудозатрат подразделений до уровня плана
         /// за счет неконтролируемых заказов 
@@ -141,7 +97,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     Decimal summ_rsp = dep.fact - dep.planControlled;
                     foreach (Cell cell in non_zero_uncontrolled) {
-                        Decimal delta_dep = cell.time * summ_rsp / total_uncontrolled_sum;
+                        Decimal delta_dep = Math.Round(cell.time * summ_rsp / total_uncontrolled_sum);
                         summ_rsp -= delta_dep;
                         total_uncontrolled_sum -= cell.time;
                         Decimal difference = delta_dep - cell.time;
@@ -160,7 +116,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             IEnumerable<Dep> micro_departments = mat.deps.Values
                 .Where<Dep>(x => x.planControlled < x.fact && x.nonZeroUncontrolled == 0)
                 .OrderBy<Dep, Int64>(x => x.nonZeroControlled);
-                //.OrderByDescending<Dep, Int64>(x => x.freeSpace);
             foreach (Dep dep in micro_departments) {
                 bool is_not_stuck = true;
                 while (dep.freeSpace > 0 && is_not_stuck){
