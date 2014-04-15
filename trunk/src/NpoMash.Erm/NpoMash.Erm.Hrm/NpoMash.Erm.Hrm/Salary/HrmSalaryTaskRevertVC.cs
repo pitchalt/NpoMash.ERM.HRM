@@ -26,9 +26,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void Revert_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskRevert task = e.CurrentObject as HrmSalaryTaskRevert;
+            IObjectSpace local_object_space = Application.CreateObjectSpace();
             if (task.AllocParameter != null) {
                 task.AllocParameter.StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
                 //task.Period.CurrentAllocParameter = null;
+                //task.Period.CurrentAllocParameter = HrmPeriodAllocParameterLogic.createParameters(local_object_space);
                 
             }
             if (task.TimeSheetKB != null) {
