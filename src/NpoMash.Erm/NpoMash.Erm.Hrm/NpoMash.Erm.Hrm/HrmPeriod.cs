@@ -307,6 +307,7 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
+        //private bool isSourceDataImported { get { return !(HrmPeriodLogic.SourceDataIsLoaded(this) && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED); } }
 
         [Browsable(false)]
         private bool isAccountOperationCompared{ get { return HrmPeriodLogic.AccountOperationCompared(this) && CurrentAllocParameter.Status==HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED; }
