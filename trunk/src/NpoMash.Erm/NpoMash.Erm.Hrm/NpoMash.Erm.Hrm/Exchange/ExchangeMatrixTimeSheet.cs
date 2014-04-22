@@ -20,15 +20,15 @@ namespace NpoMash.Erm.Hrm.Exchange {
         
         [FieldFixedLength(12)]
         [FieldConverter(typeof(TimeConverter))]
-        public Int64 BaseWorkTime;
+        public Decimal BaseWorkTime;
         
         [FieldFixedLength(12)]
         [FieldConverter(typeof(TimeConverter))]
-        public Int64 TravelWorkTime;
+        public Decimal TravelWorkTime;
         
         [FieldFixedLength(12)]
         [FieldConverter(typeof(TimeConverter))]
-        public Int64 ConstantWorkTime;
+        public Decimal ConstantWorkTime;
 
         internal class NewDateConverter : ConverterBase {
             public override object StringToField(string from) {
@@ -50,7 +50,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class TimeConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToInt64(from.Remove(from.Length - 3, 1).Trim());
+                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
             }
         }
     }

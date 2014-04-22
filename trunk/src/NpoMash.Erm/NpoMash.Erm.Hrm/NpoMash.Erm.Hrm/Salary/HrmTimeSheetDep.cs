@@ -41,36 +41,42 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
 
-        public Int64 MatrixWorkTime {
+
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        public Decimal MatrixWorkTime {
             get { return BaseWorkTime + AdditionWorkTime + TravelWorkTime + ConstantWorkTime; }
 
         }
 
-        private Int64 _TravelWorkTime;
-        public Int64 TravelWorkTime {
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        private Decimal _TravelWorkTime;
+        public Decimal TravelWorkTime {
             get { return _TravelWorkTime; }
-            set { SetPropertyValue<Int64>("TravelWorkTime", ref _TravelWorkTime, value); }
+            set { SetPropertyValue<Decimal>("TravelWorkTime", ref _TravelWorkTime, value); }
         }
 
-        private Int64 _ConstantWorkTime;
-        public Int64 ConstantWorkTime {
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        private Decimal _ConstantWorkTime;
+        public Decimal ConstantWorkTime {
             get { return _ConstantWorkTime; }
-            set { SetPropertyValue<Int64>("TravelWorkTime", ref _ConstantWorkTime, value); }
+            set { SetPropertyValue<Decimal>("TravelWorkTime", ref _ConstantWorkTime, value); }
         }
 
-        private Int64 _BaseWorkTime;
-        public Int64 BaseWorkTime {
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        private Decimal _BaseWorkTime;
+        public Decimal BaseWorkTime {
             get { return _BaseWorkTime; }
-            set { SetPropertyValue<Int64>("BaseWorkTime", ref _BaseWorkTime, value); }
+            set { SetPropertyValue<Decimal>("BaseWorkTime", ref _BaseWorkTime, value); }
         }
 
-        private Int64 _AdditionWorkTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        private Decimal _AdditionWorkTime;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public Int64 AdditionWorkTime {
+        public Decimal AdditionWorkTime {
             get { return _AdditionWorkTime; }
-            set { SetPropertyValue<Int64>("AdditionWorkTime", ref _AdditionWorkTime, value); }
+            set { SetPropertyValue<Decimal>("AdditionWorkTime", ref _AdditionWorkTime, value); }
         }
         public HrmTimeSheetDep(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction();}
