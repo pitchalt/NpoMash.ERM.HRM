@@ -48,29 +48,29 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        [ModelDefault("DisplayFormat", "{0:N}")]
         private Decimal _TravelWorkTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal TravelWorkTime {
             get { return _TravelWorkTime; }
             set { SetPropertyValue<Decimal>("TravelWorkTime", ref _TravelWorkTime, value); }
         }
 
-        [ModelDefault("DisplayFormat", "{0:N}")]
         private Decimal _ConstantWorkTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal ConstantWorkTime {
             get { return _ConstantWorkTime; }
             set { SetPropertyValue<Decimal>("TravelWorkTime", ref _ConstantWorkTime, value); }
         }
 
-        [ModelDefault("DisplayFormat", "{0:N}")]
         private Decimal _BaseWorkTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal BaseWorkTime {
             get { return _BaseWorkTime; }
             set { SetPropertyValue<Decimal>("BaseWorkTime", ref _BaseWorkTime, value); }
         }
 
-        [ModelDefault("DisplayFormat", "{0:N}")]
         private Decimal _AdditionWorkTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
