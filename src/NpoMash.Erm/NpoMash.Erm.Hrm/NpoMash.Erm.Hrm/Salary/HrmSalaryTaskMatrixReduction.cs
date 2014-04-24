@@ -116,8 +116,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private IList<OrderItem> _Order;
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
+        [NonPersistent]
         public IList<OrderItem> Order {
             get {
                 if (_Order == null) {
@@ -152,11 +151,28 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected void orderCreate() {
-            LoadMatrixOrder(MatrixPlan, null, Order);
+            if (MatrixPlan != null)
+                LoadMatrixOrder(MatrixPlan, null, Order);
+            if (MinimizeNumberOfDeviationsMatrix != null)
+                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, Order);
+            if (MinimizeMaximumDeviationsMatrix != null)
+                LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, Order);
+            if (ProportionsMethodMatrix != null)
+                LoadMatrixOrder(ProportionsMethodMatrix, null, Order);
         }
 
         protected void departmentCreate() {
-            LoadMatrixDepartment(MatrixPlan, null, Department);
+            if (MatrixPlan != null)
+                LoadMatrixDepartment(MatrixPlan, null, Department);
+            if (MinimizeNumberOfDeviationsMatrix != null)
+                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, Department);
+            if (MinimizeMaximumDeviationsMatrix != null)
+                LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, Department);
+            if (ProportionsMethodMatrix != null)
+                LoadMatrixDepartment(ProportionsMethodMatrix, null, Department);
+        }
+
+        protected void CleanMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
         }
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
@@ -168,8 +184,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item = new OrderItem(this.Session) {
                         Order = row.Order
                     };
-
-
                     items.Add(item);
                 }
                 item.TypeControl = row.Order.TypeControl;
@@ -266,13 +280,18 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         [Browsable(false)]
-        private bool isNotReadyToExport { get { return (Period.Status != HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS || GroupDep != DepartmentGroupDep.DEPARTMENT_KB); } }
+        private bool isNotReadyToExport { 
+            get { 
+                return (Period.Status != HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS || 
+                        GroupDep != DepartmentGroupDep.DEPARTMENT_KB); 
+            } 
+        }
 
         [Browsable(false)]
         private bool isNotReadyToAccept {
             get {
                 return (HrmSalaryTaskMatrixReductionLogic.matrixIsAccepted(this) ||
-                Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
+                        Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
             }
         }
     }
