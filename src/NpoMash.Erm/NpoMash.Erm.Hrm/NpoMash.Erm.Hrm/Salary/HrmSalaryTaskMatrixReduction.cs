@@ -182,11 +182,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 OrderItem item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
                     item = new OrderItem(this.Session) {
-                        Order = row.Order
+                        Order = row.Order,
+                        DepartmentItems = new List<DepartmentItem>(),
+                        TypeControl = row.Order.TypeControl
                     };
                     items.Add(item);
                 }
-                item.TypeControl = row.Order.TypeControl;
 
                 foreach (HrmMatrixCell cell in row.Cells) {
                     if (col != null && cell.Column != col)
@@ -213,7 +214,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
 
-                item.DepartmentItems = new List<DepartmentItem>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
             }
@@ -227,11 +227,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                 DepartmentItem item = items.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
                     item = new DepartmentItem(this.Session) {
-                        Department = col.Department // Подразделение
+                        Department = col.Department, // Подразделение
+                        OrderItems = new List<OrderItem>(),
+                        Group = col.Department.GroupDep
                     };
+                    items.Add(item);
                 }
 
-                item.Group = col.Department.GroupDep;
 
                 foreach (HrmMatrixCell cell in col.Cells) {
                     if (row != null && cell.Row != row)
@@ -257,9 +259,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             break;
                     }
                 }
-                items.Add(item);
 
-                item.OrderItems = new List<OrderItem>();
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
             }
