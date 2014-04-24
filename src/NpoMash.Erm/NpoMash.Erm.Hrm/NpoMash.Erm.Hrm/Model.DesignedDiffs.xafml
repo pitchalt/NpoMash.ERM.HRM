@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo">
+<Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo" Company="NPO Mas">
   <ActionDesign>
     <Actions>
       <Action Id="AcceptProvisionMatrix" Caption="AcceptProvisionMatrix" />
@@ -1041,18 +1041,18 @@
         <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
         <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
         <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
-        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_OrderItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" IsNewNode="True" />
         <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" Direction="Horizontal" IsNewNode="True">
-          <LayoutItem Id="OrderItems" ViewItem="OrderItems" Index="0" IsNewNode="True" />
+          <LayoutItem Id="OrderItems" Index="0" ViewItem="OrderItems" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
     <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" IsNewNode="True">
       <Items IsNewNode="True">
-        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_DepartmentItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" IsNewNode="True" />
         <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
         <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
         <PropertyEditor Id="Order" PropertyName="Order" IsNewNode="True" />
@@ -1062,7 +1062,7 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
-          <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" Index="0" IsNewNode="True" />
+          <LayoutItem Id="DepartmentItems" Index="0" ViewItem="DepartmentItems" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
