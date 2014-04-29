@@ -44,17 +44,20 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         private static int _Salarypaytype_Count = 100;
 
-        public static void ImportDepartments(IObjectSpace local_object_space) {
-            FileHelperEngine<ImportDepartments> ref_data = new FixedFileEngine<ImportDepartments>();
-            ImportDepartments[] departments_imported = ref_data.ReadFile("../../../../../../../var/referential/ulddp.ncd");
+        public static void UpdateDepartments(IObjectSpace local_object_space) {
+            FileHelperEngine<ImportDepartments> ref_dep_data = new FixedFileEngine<ImportDepartments>();
+            ImportDepartments[] departments_imported = ref_dep_data.ReadFile("../../../../../../../var/referential/ulddp.ncd");
+            IDictionary<String, Department> departments_in_db = new Dictionary<String, Department>();
             foreach (var current_department in departments_imported) {
-                Department department_to_db = local_object_space.CreateObject<Department>();
-                department_to_db.Code = current_department.DepartmentCode;
-                department_to_db.BuhCode = current_department.BuhCode;
-                if (String.IsNullOrEmpty(current_department.IsClosed)) { department_to_db.IsClosed = false; }
-                else { department_to_db.IsClosed = true; }
-                if (current_department.DepartmentGroup == null) { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
-                else { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
+                if (!departments_in_db.ContainsKey(current_department.BuhCode)) {
+                    Department department_to_db = local_object_space.CreateObject<Department>();
+                    department_to_db.Code = current_department.DepartmentCode;
+                    department_to_db.BuhCode = current_department.BuhCode;
+                    if (String.IsNullOrEmpty(current_department.IsClosed)) { department_to_db.IsClosed = false; }
+                    else { department_to_db.IsClosed = true; }
+                    if (String.IsNullOrEmpty(current_department.DepartmentGroup)) { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM; }
+                    else { department_to_db.GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
+                }
             }
         }
 
@@ -94,42 +97,46 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static void ImportOrders(IObjectSpace local_object_space) {
+        public static void UpdateOrders(IObjectSpace local_object_space) {
             FileHelperEngine<ImportOrder> order_data = new FixedFileEngine<ImportOrder>();
-            ImportOrder[] orders_imported = order_data.ReadFile("../../../../../../../var/referential/result.dat");
+            ImportOrder[] orders_imported = order_data.ReadFile("../../../../../../../var/referential/Orders.ncd");
             IDictionary<String, Decimal> kb_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, Decimal> ozm_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, FmCOrderTypeControl> full_orders_package = new Dictionary<String, FmCOrderTypeControl>();
-            foreach (var order in orders_imported) {
-                if (!full_orders_package.ContainsKey(order.Order_Code)) {
-                    if (order.TypeControl == "Ф") {
-                        full_orders_package.Add(order.Order_Code, FmCOrderTypeControl.FOT);
-                        kb_norms_of_orders.Add(order.Order_Code, order.NormKB);
-                        ozm_norms_of_orders.Add(order.Order_Code, order.NormOZM);
+            IDictionary<String, fmCOrder> orders_in_db = new Dictionary<String, fmCOrder>();
+            foreach (var current_order in orders_imported) {
+                if (!full_orders_package.ContainsKey(current_order.Order_Code)) {
+                    if (current_order.TypeControl == "Ф") {
+                        full_orders_package.Add(current_order.Order_Code, FmCOrderTypeControl.FOT);
+                        kb_norms_of_orders.Add(current_order.Order_Code, current_order.NormKB);
+                        ozm_norms_of_orders.Add(current_order.Order_Code, current_order.NormOZM);
                     }
-                    if (order.TypeControl == "ТФ") {
-                        full_orders_package.Add(order.Order_Code, FmCOrderTypeControl.TRUDEMK_FOT);
-                        kb_norms_of_orders.Add(order.Order_Code, order.NormKB);
-                        ozm_norms_of_orders.Add(order.Order_Code, order.NormOZM);
+                    if (current_order.TypeControl == "ТФ") {
+                        full_orders_package.Add(current_order.Order_Code, FmCOrderTypeControl.TRUDEMK_FOT);
+                        kb_norms_of_orders.Add(current_order.Order_Code, current_order.NormKB);
+                        ozm_norms_of_orders.Add(current_order.Order_Code, current_order.NormOZM);
                     }
-                    if (order.TypeControl == null) {
-                        full_orders_package.Add(order.Order_Code, FmCOrderTypeControl.NO_ORDERED);
-                        kb_norms_of_orders.Add(order.Order_Code, order.NormKB);
-                        ozm_norms_of_orders.Add(order.Order_Code, order.NormOZM);
+                    if (String.IsNullOrEmpty(current_order.TypeControl)) {
+                        full_orders_package.Add(current_order.Order_Code, FmCOrderTypeControl.NO_ORDERED);
+                        kb_norms_of_orders.Add(current_order.Order_Code, current_order.NormKB);
+                        ozm_norms_of_orders.Add(current_order.Order_Code, current_order.NormOZM);
                     }
                 }
             }
             foreach (var new_order in full_orders_package) {
-                fmCOrder order_to_db = local_object_space.CreateObject<fmCOrder>();
-                order_to_db.Code = new_order.Key;
-                order_to_db.TypeControl = new_order.Value;
-                if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key] / 100; }
-                if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key] / 100; }
-                order_to_db.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
+                if (!orders_in_db.ContainsKey(new_order.Key)) {
+                    fmCOrder order_to_db = local_object_space.CreateObject<fmCOrder>();
+                    order_to_db.Code = new_order.Key;
+                    order_to_db.TypeControl = new_order.Value;
+                    if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key] / 100; }
+                    if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key] / 100; }
+                    order_to_db.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
+                    orders_in_db.Add(new_order.Key, order_to_db);
+                }
             }
         }
 
-        public static void ImportPayTypes(IObjectSpace local_object_space) {
+        public static void UpdatePayTypes(IObjectSpace local_object_space) {
             FileHelperEngine<ImportPayTypes> paytypes_data = new FixedFileEngine<ImportPayTypes>();
             ImportPayTypes[] paytypes_code_imported = paytypes_data.ReadFile("../../../../../../../var/referential/pay_types.dat");
             IList<String> paytypes_list = new List<String>();

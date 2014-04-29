@@ -8,7 +8,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
     [FixedLengthRecord()]
     public class ImportControlledOrder {
 
-        [FieldFixedLength(4)]
+        [FieldFixedLength(5)]
         [FieldConverter(typeof(NewDateConverter))]
         public Int16 Year;
 
@@ -24,11 +24,11 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
         [FieldConverter(typeof(TrimConverter))]
         public String TypeControl;
 
-        [FieldFixedLength(8)]
+        [FieldFixedLength(9)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormKB;
 
-        [FieldFixedLength(8)]
+        [FieldFixedLength(9)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormOZM;
 
