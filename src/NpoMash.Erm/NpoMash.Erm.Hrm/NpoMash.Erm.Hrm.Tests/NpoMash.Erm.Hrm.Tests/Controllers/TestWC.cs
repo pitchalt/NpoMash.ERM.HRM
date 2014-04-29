@@ -36,13 +36,11 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             object_space.CommitChanges();
         }
 
-        private void AddReferenceData_Execute(object sender, SimpleActionExecuteEventArgs e) {
+        private void UpdateReferenceData_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
-            TestWCLogic.ImportDepartments(object_space);
-            TestWCLogic.ImportOrders(object_space);
-            TestWCLogic.ImportPayTypes(object_space);
-            //TestWCLogic.addTestData(object_space);
-            var alloc_parameter = TestWCLogic.createParameters(object_space);
+            TestWCLogic.UpdateDepartments(object_space);
+            TestWCLogic.UpdateOrders(object_space);
+            TestWCLogic.UpdatePayTypes(object_space);
             object_space.CommitChanges();
         }
     }

@@ -2,8 +2,8 @@
 <Application>
   <ActionDesign>
     <Actions>
-      <Action Id="TesterWC_AddReferenceData" Caption="Добавление реальных справок" />
       <Action Id="TesterWC_PopulateAction" Caption="Добавить тестовые данные" />
+      <Action Id="TesterWC_UpdateReferenceData" Caption="Обновление справочников" />
     </Actions>
   </ActionDesign>
 </Application>

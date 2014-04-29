@@ -8,7 +8,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
     [FixedLengthRecord()]
     public class ImportOrder {
 
-        [FieldFixedLength(4)]
+        [FieldFixedLength(5)]
         [FieldConverter(typeof(NewDateConverter))]
         public Int16 Year;
 
@@ -24,11 +24,11 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
         [FieldConverter(typeof(TrimConverter))]
         public String TypeControl;
 
-        [FieldFixedLength(7)]
+        [FieldFixedLength(9)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormKB;
 
-        [FieldFixedLength(7)]
+        [FieldFixedLength(9)]
         [FieldConverter(typeof(NormConverter))]
         public Decimal NormOZM;
 
@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToDecimal(from.Trim());
+                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
             }
         }
     }

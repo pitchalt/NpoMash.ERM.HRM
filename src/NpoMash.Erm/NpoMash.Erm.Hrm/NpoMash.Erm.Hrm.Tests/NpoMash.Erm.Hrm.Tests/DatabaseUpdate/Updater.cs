@@ -11,30 +11,30 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
 //
 using NpoMash.Erm.Hrm;
+using NpoMash.Erm.Hrm.Salary;
 
 
-namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate
-{
+namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate {
 
-    public class Updater : ModuleUpdater
-    {
+    public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
 
 
-        public override void UpdateDatabaseAfterUpdateSchema()
-        {
+        public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-          /*HrmPeriod hp=ObjectSpace.FindObject<HrmPeriod>(CriteriaOperator.Parse( "Year == '2013' && Month == '10'"));
-            if (hp == null)
-            {
-              hp = ObjectSpace.CreateObject<HrmPeriod>();
-               hp.Year = Convert.ToInt16(DateTime.Now.Year);
-               hp.Month = Convert.ToInt16(DateTime.Now.Month);
-               hp.Save();
-           }*/ 
+            HrmPeriod first_period = ObjectSpace.FindObject<HrmPeriod>(CriteriaOperator.Parse("Year == '2014' && Month == '01'"));
+            if (first_period == null) {
+                first_period = HrmPeriodLogic.createPeriod(ObjectSpace);
+                HrmPeriodAllocParameter first_alloc_parameters = ObjectSpace.CreateObject<HrmPeriodAllocParameter>();
+                first_period.CurrentAllocParameter = first_alloc_parameters;
+                first_period.AllocParameters.Add(first_period.CurrentAllocParameter);
+                first_period.setStatus(HrmPeriodStatus.CLOSED);
+                first_alloc_parameters.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
+                first_period.Save();
+                first_alloc_parameters.Save();
+            }
         }
 
-        public override void UpdateDatabaseBeforeUpdateSchema()
-        { base.UpdateDatabaseBeforeUpdateSchema(); }
+        public override void UpdateDatabaseBeforeUpdateSchema() { base.UpdateDatabaseBeforeUpdateSchema(); }
     }
 }
