@@ -40,7 +40,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             IObjectSpace object_space = Application.CreateObjectSpace();
             TestWCLogic.UpdateDepartments(object_space);
             TestWCLogic.UpdateOrders(object_space);
-            TestWCLogic.UpdatePayTypes(object_space);
+            //TestWCLogic.UpdatePayTypes(object_space);
             object_space.CommitChanges();
         }
     }
