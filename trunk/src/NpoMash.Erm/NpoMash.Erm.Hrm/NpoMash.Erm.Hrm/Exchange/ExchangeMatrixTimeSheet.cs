@@ -6,7 +6,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
     [FixedLengthRecord()]
     public class ExchangeMatrixTimeSheet {
 
-        [FieldFixedLength(4)]
+        [FieldFixedLength(5)]
         [FieldConverter(typeof(NewDateConverter))]
         public Int16 Year;
         
@@ -14,19 +14,19 @@ namespace NpoMash.Erm.Hrm.Exchange {
         [FieldConverter(typeof(NewDateConverter))]
         public Int16 Month;
         
-        [FieldFixedLength(5)]
+        [FieldFixedLength(6)]
         [FieldConverter(typeof(DepConverter))]
         public String Department_Code;
         
-        [FieldFixedLength(12)]
+        [FieldFixedLength(13)]
         [FieldConverter(typeof(TimeConverter))]
         public Decimal BaseWorkTime;
         
-        [FieldFixedLength(12)]
+        [FieldFixedLength(13)]
         [FieldConverter(typeof(TimeConverter))]
         public Decimal TravelWorkTime;
         
-        [FieldFixedLength(12)]
+        [FieldFixedLength(13)]
         [FieldConverter(typeof(TimeConverter))]
         public Decimal ConstantWorkTime;
 
