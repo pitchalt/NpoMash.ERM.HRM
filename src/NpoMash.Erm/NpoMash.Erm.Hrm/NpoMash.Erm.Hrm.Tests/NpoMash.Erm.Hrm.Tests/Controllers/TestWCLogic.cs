@@ -138,17 +138,15 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void UpdatePayTypes(IObjectSpace local_object_space) {
             FileHelperEngine<ImportPayTypes> paytypes_data = new FixedFileEngine<ImportPayTypes>();
-            ImportPayTypes[] paytypes_code_imported = paytypes_data.ReadFile("../../../../../../../var/referential/pay_types.dat");
-            IList<String> paytypes_list = new List<String>();
-            foreach (var paytype in paytypes_code_imported) {
-                if (!paytypes_list.Contains(paytype.PayTypeCode)) {
-                    paytypes_list.Add(paytype.PayTypeCode);
+            ImportPayTypes[] paytypes_imported = paytypes_data.ReadFile("../../../../../../../var/referential/PAY_TYPE.NCD");
+            IDictionary<String, HrmSalaryPayType> paytypes_in_db = new Dictionary<String, HrmSalaryPayType>();
+            foreach (var current_paytype in paytypes_imported) {
+                if (!paytypes_in_db.ContainsKey(current_paytype.Code)) {
+                    HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
+                    paytype_to_db.Code = current_paytype.Code;
+                    paytype_to_db.Name = current_paytype.Name;
+                    paytypes_in_db.Add(paytype_to_db.Code, paytype_to_db);
                 }
-            }
-            foreach (var new_paytype_code in paytypes_list) {
-                HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
-                paytype_to_db.Code = new_paytype_code;
-                paytype_to_db.Name = "Здесь будет содержаться наименование кода оплаты";
             }
         }
 
