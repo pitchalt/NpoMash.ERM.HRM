@@ -25,7 +25,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int64>("Time", ref _Time, value); }
         }
 
-       
+        private Decimal _TravelTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        public Decimal TravelTime {
+            get { return _TravelTime; }
+            set { SetPropertyValue<Decimal>("TravelTime", ref _TravelTime, value); }
+        }
 
         private Decimal _PlanMoney;
         [ModelDefault("DisplayFormat", "{0:N}")]

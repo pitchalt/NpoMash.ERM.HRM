@@ -28,6 +28,8 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate {
                 HrmPeriodAllocParameter first_alloc_parameters = ObjectSpace.CreateObject<HrmPeriodAllocParameter>();
                 first_period.CurrentAllocParameter = first_alloc_parameters;
                 first_period.AllocParameters.Add(first_period.CurrentAllocParameter);
+                first_period.CurrentAllocParameter.NormNoControlKB = NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_KB;
+                first_period.CurrentAllocParameter.NormNoControlOZM = NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_OZM;
                 first_period.setStatus(HrmPeriodStatus.CLOSED);
                 first_alloc_parameters.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
                 first_period.Save();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using System.ComponentModel;
 using System.Collections.Generic;
 
@@ -47,7 +48,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ImportTimeSheet(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             HrmTimeSheetLogic.TaskSheetInit(os, task);
             var timesheet_data = new FileHelperEngine<ExchangeMatrixTimeSheet>();
-            ExchangeMatrixTimeSheet[] timesheet_list = timesheet_data.ReadFile("../../../../../../../var/Matrix_TimeSheet.ncd");
+            //ExchangeMatrixTimeSheet[] timesheet_list = timesheet_data.ReadFile("../../../../../../../var/Matrix_TimeSheet.ncd");
+            ExchangeMatrixTimeSheet[] timesheet_list = timesheet_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "Matrix_TimeSheet.ncd");
             IList<Department> deps = os.GetObjects<Department>();
             foreach (var each in timesheet_list) {
                 String code = each.Department_Code;
@@ -73,8 +75,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
             FixedFileEngine<ExchangeMatrixPlan> plan_data = new FixedFileEngine<ExchangeMatrixPlan>();
             FixedFileEngine<ExchangeMatrixTravelTime> travel_data = new FixedFileEngine<ExchangeMatrixTravelTime>();
-            ExchangeMatrixPlan[] plan_list = plan_data.ReadFile("../../../../../../../var/Matrix_Plan.ncd");
-            ExchangeMatrixTravelTime[] travel_list = travel_data.ReadFile("../../../../../../../var/Matrix_TravelTimePlan.ncd");
+            ExchangeMatrixPlan[] plan_list = plan_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "Matrix_Plan.ncd");
+            ExchangeMatrixTravelTime[] travel_list = travel_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "Matrix_TravelTimePlan.ncd");
             //Общая плановая матрица
             HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
             matrix_alloc_plan_summary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
@@ -188,13 +190,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
             }
-            /*
             foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
                 foreach (var travel in travel_list) {
-                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.Time += travel.TravelTime / 100; }
+                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.TravelTime += travel.TravelTime / 100; }
                 }
-            }
-            */
+            } 
             task.MatrixPlanKB = kb_plan_matrix;
             task.MatrixPlanOZM = ozm_plan_matrix;
         }
