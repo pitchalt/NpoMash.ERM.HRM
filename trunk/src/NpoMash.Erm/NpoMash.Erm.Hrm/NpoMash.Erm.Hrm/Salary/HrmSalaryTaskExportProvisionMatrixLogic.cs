@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using System.ComponentModel;
 using System.Collections.Generic;
 //
@@ -45,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     records.Add(record);
                 }
             }
-            engine.WriteFile("../../../../../../../var/Matrix_Reserve.txt", records);
+            engine.WriteFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "Matrix_Reserve.ncd", records);
         }
     }
 }

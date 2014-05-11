@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Collections;
+using System.Configuration;
 using System.Collections.Generic;
 
 using FileHelpers;
@@ -17,7 +18,6 @@ using DevExpress.ExpressApp;
 
 
 namespace NpoMash.Erm.Hrm.Tests.Controllers {
-
 
     public static class TestWCLogic {
 
@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void UpdateDepartments(IObjectSpace local_object_space) {
             FileHelperEngine<ImportDepartments> ref_dep_data = new FixedFileEngine<ImportDepartments>();
-            ImportDepartments[] departments_imported = ref_dep_data.ReadFile("../../../../../../../var/referential/ulddp.ncd");
+            ImportDepartments[] departments_imported = ref_dep_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/ulddp.ncd");
             IDictionary<String, Department> departments_in_db = new Dictionary<String, Department>();
             foreach (var current_department in departments_imported) {
                 if (!departments_in_db.ContainsKey(current_department.BuhCode)) {
@@ -63,7 +63,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
             FixedFileEngine<ImportControlledOrder> order_data = new FixedFileEngine<ImportControlledOrder>();
-            ImportControlledOrder[] orders_imported = order_data.ReadFile("../../../../../../../var/referential/ControlledOrders.dat");
+            ImportControlledOrder[] orders_imported = order_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/ControlledOrders.dat");
             IDictionary<String, fmCOrder> order_in_db = os.GetObjects<fmCOrder>(null, true).ToDictionary<fmCOrder, String>(x => x.Code);
             foreach (var order in orders_imported) {
                 HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
@@ -99,7 +99,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void UpdateOrders(IObjectSpace local_object_space) {
             FileHelperEngine<ImportOrder> order_data = new FixedFileEngine<ImportOrder>();
-            ImportOrder[] orders_imported = order_data.ReadFile("../../../../../../../var/referential/Orders.ncd");
+            ImportOrder[] orders_imported = order_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/Orders.ncd");
             IDictionary<String, Decimal> kb_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, Decimal> ozm_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, FmCOrderTypeControl> full_orders_package = new Dictionary<String, FmCOrderTypeControl>();
@@ -138,7 +138,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void UpdatePayTypes(IObjectSpace local_object_space) {
             FileHelperEngine<ImportPayTypes> paytypes_data = new FixedFileEngine<ImportPayTypes>();
-            ImportPayTypes[] paytypes_imported = paytypes_data.ReadFile("../../../../../../../var/referential/PAY_TYPE.NCD");
+            ImportPayTypes[] paytypes_imported = paytypes_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/PAY_TYPE.NCD");
             IDictionary<String, HrmSalaryPayType> paytypes_in_db = new Dictionary<String, HrmSalaryPayType>();
             foreach (var current_paytype in paytypes_imported) {
                 if (!paytypes_in_db.ContainsKey(current_paytype.Code)) {
