@@ -26,14 +26,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     break;
                 case HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS:
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
@@ -59,7 +59,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
@@ -74,7 +74,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
@@ -89,7 +89,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
@@ -105,7 +105,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
@@ -120,7 +120,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 case HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED: local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
-                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB; ;
+                    local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
                     local_task.MatrixPlanOZM = local_task.Period.CurrentMatrixAllocPlanOZM;
                     if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
                     if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionKB = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }

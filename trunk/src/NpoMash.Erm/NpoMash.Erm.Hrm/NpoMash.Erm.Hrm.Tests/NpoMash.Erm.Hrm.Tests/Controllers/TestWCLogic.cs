@@ -128,8 +128,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                     fmCOrder order_to_db = local_object_space.CreateObject<fmCOrder>();
                     order_to_db.Code = new_order.Key;
                     order_to_db.TypeControl = new_order.Value;
-                    if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key] / 100; }
-                    if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key] / 100; }
+                    if (kb_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormKB = kb_norms_of_orders[new_order.Key]; }
+                    if (ozm_norms_of_orders.ContainsKey(new_order.Key)) { order_to_db.NormOZM = ozm_norms_of_orders[new_order.Key]; }
                     order_to_db.TypeConstancy = FmCOrderTypeConstancy.CONST_ORDER_TYPE;
                     orders_in_db.Add(new_order.Key, order_to_db);
                 }
@@ -144,6 +144,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                 if (!paytypes_in_db.ContainsKey(current_paytype.Code)) {
                     HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
                     paytype_to_db.Code = current_paytype.Code;
+                    if (paytype_to_db.Code == "104" || paytype_to_db.Code == "147") { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE; }
+                    else { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE; }
                     paytype_to_db.Name = current_paytype.Name;
                     paytypes_in_db.Add(paytype_to_db.Code, paytype_to_db);
                 }

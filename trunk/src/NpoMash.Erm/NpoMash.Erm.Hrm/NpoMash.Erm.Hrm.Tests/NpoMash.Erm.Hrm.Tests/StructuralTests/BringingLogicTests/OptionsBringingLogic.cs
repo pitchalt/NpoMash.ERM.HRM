@@ -40,8 +40,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             var random = new Random();
             HrmTimeSheetLogic.TaskSheetInit(object_space, task);
             foreach (var column in object_space.GetObjects<HrmMatrixColumn>()) {
-                Int64 dep_sum = 0;
-                Int64 controlled_dep_sum = 0;
+                Decimal dep_sum = 0;
+                Decimal controlled_dep_sum = 0;
                 foreach (var cell in column.Cells) {
                     dep_sum += cell.Time;
                     if (cell.Row.Order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT) {

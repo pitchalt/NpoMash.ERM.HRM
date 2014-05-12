@@ -58,10 +58,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmTimeSheetDep sheet_dep = os.CreateObject<HrmTimeSheetDep>();
                 sheet_dep.BuhCode = dep.BuhCode;
                 sheet_dep.Department = dep;
-                sheet_dep.BaseWorkTime = each.BaseWorkTime / 100;
-                sheet_dep.ConstantWorkTime = each.ConstantWorkTime / 100;
+                sheet_dep.BaseWorkTime = each.BaseWorkTime;
+                sheet_dep.ConstantWorkTime = each.ConstantWorkTime;
                 sheet_dep.AdditionWorkTime = 0;
-                sheet_dep.TravelWorkTime = each.TravelWorkTime / 100;
+                sheet_dep.TravelWorkTime = each.TravelWorkTime;
                 if (dep.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                     task.TimeSheetKB.TimeSheetDeps.Add(sheet_dep);
                 }
@@ -176,7 +176,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;   
                     if (!cells_in_matrix.ContainsKey(cell_key)) {
                         HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
-                        cell.Time = each.Time / 100;
+                        cell.Time = each.Time;
                         cell.MoneyAllSumm = 0;
                         cell.Row = current_row;
                         cell.Column = current_column;
@@ -186,13 +186,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     else { 
                         HrmMatrixCell cell = cells_in_matrix[cell_key];
-                        cell.Time += each.Time / 100;
+                        cell.Time += each.Time;
                     }
                 }
             }
             foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
                 foreach (var travel in travel_list) {
-                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.TravelTime += travel.TravelTime / 100; }
+                    if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.TravelTime += travel.TravelTime; }
                 }
             } 
             task.MatrixPlanKB = kb_plan_matrix;
