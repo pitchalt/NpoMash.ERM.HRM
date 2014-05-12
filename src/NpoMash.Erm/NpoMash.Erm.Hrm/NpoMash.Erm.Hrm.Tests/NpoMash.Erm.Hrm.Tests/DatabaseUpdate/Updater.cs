@@ -19,7 +19,6 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
 
-
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             HrmPeriod first_period = ObjectSpace.FindObject<HrmPeriod>(CriteriaOperator.Parse("Year == '2014' && Month == '01'"));
@@ -36,7 +35,6 @@ namespace NpoMash.Erm.Hrm.Tests.DatabaseUpdate {
                 first_alloc_parameters.Save();
             }
         }
-
         public override void UpdateDatabaseBeforeUpdateSchema() { base.UpdateDatabaseBeforeUpdateSchema(); }
     }
 }

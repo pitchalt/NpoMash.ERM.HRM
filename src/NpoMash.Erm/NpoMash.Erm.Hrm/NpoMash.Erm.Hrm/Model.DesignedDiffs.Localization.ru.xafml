@@ -60,6 +60,11 @@
     </Actions>
   </ActionDesign>
   <BOModel>
+    <Class Name="IntecoAG.ERM.HRM.HrmSalaryPayType">
+      <OwnMembers>
+        <Member Name="Type" Caption="Тип" />
+      </OwnMembers>
+    </Class>
     <Class Name="IntecoAG.ERM.HRM.Organization.Department">
       <OwnMembers>
         <Member Name="BuhCode" Caption="БухКод" />
@@ -327,6 +332,10 @@
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.HrmPayTypes">
+        <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
+        <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
+      </LocalizationGroup>
       <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep">
         <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="КБ/ОЗМ" />
       </LocalizationGroup>

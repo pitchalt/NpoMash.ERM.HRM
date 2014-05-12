@@ -13,16 +13,18 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace IntecoAG.ERM.HRM
-{
+namespace IntecoAG.ERM.HRM {
 
+    public enum HrmPayTypes {
+        PROVISION_CODE = 0,
+        TRAVEL_CODE = 1
+    }
 
     [Persistent("HrmSalaryPayType")]
     [DefaultProperty("Code")]
     [NavigationItem("ERM")]
     public class HrmSalaryPayType : BaseObject
-    {
-       
+    {      
         private String _Code;
         public String Code {
                get { return _Code; }
@@ -33,13 +35,13 @@ namespace IntecoAG.ERM.HRM
                get { return _Name; }
                set { SetPropertyValue<String>("Name", ref _Name, value); } }
 
-
+        private HrmPayTypes _Type;
+        public HrmPayTypes Type {
+            get { return _Type; }
+            set { SetPropertyValue<HrmPayTypes>("Type", ref _Type, value); }
+        }
 
         public HrmSalaryPayType(Session session) : base(session) { }
-        public override void AfterConstruction()
-        { base.AfterConstruction(); }
-
-
-
+        public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

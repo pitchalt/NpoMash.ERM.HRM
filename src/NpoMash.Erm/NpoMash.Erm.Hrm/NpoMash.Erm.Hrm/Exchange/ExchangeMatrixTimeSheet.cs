@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+
 using FileHelpers;
 
 namespace NpoMash.Erm.Hrm.Exchange {
@@ -50,7 +52,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class TimeConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
+                return Convert.ToDecimal(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+
 using FileHelpers;
 using IntecoAG.ERM.FM.Order;
 
@@ -46,7 +48,7 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
         internal class NormConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToDecimal(from.Remove(from.Length - 3, 1).Trim());
+                return Convert.ToDecimal(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);
             }
         }
     }
