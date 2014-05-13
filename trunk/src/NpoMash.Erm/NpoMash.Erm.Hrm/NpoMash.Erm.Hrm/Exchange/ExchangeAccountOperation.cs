@@ -35,7 +35,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         [FieldFixedLength(14)]
         [FieldConverter(typeof(TimeConverter))]
-        public Int64 Time;
+        public Decimal Time;
 
         [FieldFixedLength(17)]
         [FieldConverter(typeof(MoneyConverter))]
@@ -61,7 +61,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         internal class TimeConverter : ConverterBase {
             public override object StringToField(string from) {
-                return Convert.ToInt64(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);
+                return Convert.ToDecimal(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);
             }
         }
 
