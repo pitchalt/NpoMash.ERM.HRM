@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IntecoAG.XafExt.IndexedList {
+namespace IntecoAG.XafExt.DataStruct.IndexedList {
 
     public interface IIndexValue<Tv, Ti>: IEnumerable<Tv> {
         IIndex<Tv, Ti> Index { get; }

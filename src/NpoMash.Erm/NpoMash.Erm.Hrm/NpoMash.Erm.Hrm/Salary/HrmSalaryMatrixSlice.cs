@@ -13,12 +13,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
-using NpoMash.Erm.Hrm.Salary.MatrixStructure;
+using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent]
-    public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice, IHrmSalaryMatrix, IMatrixSlice {
+    public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice {
 
         private HrmMatrix _Matrix;
         [Association("HrmMatrix-HrmSalaryMatrixSlices")] //—сылка на HrmMatrix
@@ -46,69 +46,5 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.AfterConstruction();
         }
     
-IList<IHrmSalaryMatrixRow> IHrmSalaryMatrix.Rows
-{
-	get { return new ListConverter<IHrmSalaryMatrixRow, HrmSalaryRowSlice>(HrmSalaryRowSlices); }
-}
-
-IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns
-{
-    get { return new ListConverter<IHrmSalaryMatrixColumn, HrmSalaryColumnSlice>(HrmSalaryColumnSlices); }
-}
-
-
-
-
-IRowCollection IMatrixBase.Rows {
-    get { throw new NotImplementedException(); }
-}
-
-IColumnCollection IMatrixBase.Columns {
-    get { throw new NotImplementedException(); }
-}
-
-ICellValue IntecoAG.XafExt.IndexedList.IIndexable<ICellValue>.this[int index] {
-    get { throw new NotImplementedException(); }
-}
-
-IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
-    throw new NotImplementedException();
-}
-
-System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-    throw new NotImplementedException();
-}
-
-IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
-    get { throw new NotImplementedException(); }
-}
-
-IntecoAG.ERM.HRM.Organization.Department ICellValue.Department {
-    get { throw new NotImplementedException(); }
-}
-
-IntecoAG.ERM.HRM.Organization.DepartmentGroupDep ICellValue.GroupDep {
-    get { throw new NotImplementedException(); }
-}
-
-IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
-    get { throw new NotImplementedException(); }
-}
-
-IntecoAG.XafExt.IndexedList.IIndex<ICellValue, IntecoAG.ERM.HRM.Organization.DepartmentGroupDep> IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, IntecoAG.ERM.HRM.Organization.DepartmentGroupDep>.Index {
-    get { throw new NotImplementedException(); }
-}
-
-IntecoAG.ERM.HRM.Organization.DepartmentGroupDep IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, IntecoAG.ERM.HRM.Organization.DepartmentGroupDep>.Key {
-    get { throw new NotImplementedException(); }
-}
-
-ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, IntecoAG.ERM.HRM.Organization.DepartmentGroupDep>.Value {
-    get { throw new NotImplementedException(); }
-}
-
-ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, IntecoAG.ERM.HRM.Organization.DepartmentGroupDep>.this[int index] {
-    get { throw new NotImplementedException(); }
-}
     }
 }

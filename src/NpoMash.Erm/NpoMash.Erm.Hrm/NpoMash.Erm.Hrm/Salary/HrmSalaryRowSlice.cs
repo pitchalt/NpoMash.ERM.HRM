@@ -15,7 +15,7 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
     
     [Persistent]
-    public class HrmSalaryRowSlice : BaseObject, IHrmSalaryMatrixRow {
+    public class HrmSalaryRowSlice : BaseObject {
 
       //  private HrmSalaryPeriodObjectSlice _ObjectSlice; // —сылка на HrmSalaryObjectSlice
         //public HrmSalaryPeriodObjectSlice ObjectSlice {
@@ -41,16 +41,5 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryRowSlice(Session session) : base(session) { }
         public override void AfterConstruction() {  base.AfterConstruction(); }
 
-        IHrmSalaryMatrix IHrmSalaryMatrixRow.Matrix {
-            get { return HrmSalaryMatrixSlice; }
-        }
-
-        IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixRow.Cells {
-            get { return new ListConverter<IHrmSalaryMatrixCell, HrmMatrixCell>(Row.Cells); }
-        }
-
-        IntecoAG.ERM.FM.Order.fmCOrder IHrmSalaryMatrixRow.Order {
-            get { return Row.Order; }
-        }
     }
 }

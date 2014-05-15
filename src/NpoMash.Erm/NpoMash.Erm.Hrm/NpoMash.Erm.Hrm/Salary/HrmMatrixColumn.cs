@@ -17,12 +17,12 @@ using DevExpress.ExpressApp.Editors;
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
-using NpoMash.Erm.Hrm.Salary.MatrixStructure;
+using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixColumn")]    
-    public class HrmMatrixColumn : BaseObject, IHrmSalaryMatrixColumn,IColumn {
+    public class HrmMatrixColumn : BaseObject {
 
         //private Decimal _Sum;
         [ModelDefault("DisplayFormat", "{0:N}")]
@@ -65,55 +65,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
         }
 
-
-
-
-
         public HrmMatrixColumn(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        IHrmSalaryMatrix IHrmSalaryMatrixColumn.Matrix {
-            get { throw new NotImplementedException(); }
-        }
-
-        IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixColumn.Cells {
-            get { throw new NotImplementedException(); }
-        }
-
-        Department IHrmSalaryMatrixColumn.Department {
-            get { throw new NotImplementedException(); }
-        }
-
-
-
-
-
-        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, fmCOrder> IColumn.Orders {
-            get { throw new NotImplementedException(); }
-        }
-
-        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, Department> IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Index {
-            get { throw new NotImplementedException(); }
-        }
-
-        Department IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Key {
-            get { throw new NotImplementedException(); }
-        }
-
-        ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.Value {
-            get { throw new NotImplementedException(); }
-        }
-
-        ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, Department>.this[int index] {
-            get { throw new NotImplementedException(); }
-        }
-
-        IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-            throw new NotImplementedException();
-        }
     }
 }

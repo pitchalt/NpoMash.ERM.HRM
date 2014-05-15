@@ -16,8 +16,8 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
-using NpoMash.Erm.Hrm.Salary.MatrixStructure;
-using IntecoAG.XafExt.IndexedList;
+using NpoMash.Erm.Hrm.Salary.Matrix;
+
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmMatrixStatus {
@@ -47,24 +47,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         PROPORTIONS_METHOD_VARIANT=2,
     }
 
-    public class HrmSalaryMatrixSliceCollection: XPCollection<HrmSalaryMatrixSlice>, IMatrixSliceCollection {
+    public class HrmSalaryMatrixSliceCollection: XPCollection<HrmSalaryMatrixSlice> {
         public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property): base(session, matrix, property) { }
-
-        IIndexable<ICellValue> IIndex<ICellValue, DepartmentGroupDep>.Source {
-            get { throw new NotImplementedException(); }
-        }
-
-        IIndexValue<ICellValue, DepartmentGroupDep> IIndex<ICellValue, DepartmentGroupDep>.this[DepartmentGroupDep index] {
-            get { throw new NotImplementedException(); }
-        }
-
-        IEnumerator<DepartmentGroupDep> IEnumerable<DepartmentGroupDep>.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-            throw new NotImplementedException();
-        }
     }
 
     [Persistent("HrmMatrix")]
@@ -72,7 +56,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Status")]
-    public class HrmMatrix : HrmSalaryPeriodObjectBase, IHrmSalaryMatrix, IMatrix, IMatrixSliceCollection {
+    public class HrmMatrix : HrmSalaryPeriodObjectBase {
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
@@ -153,68 +137,5 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {base.AfterConstruction(); }
 
-        IList<IHrmSalaryMatrixRow> IHrmSalaryMatrix.Rows {
-            get { return new ListConverter<IHrmSalaryMatrixRow, HrmMatrixRow>(Rows); }
-        }
-
-        IList<IHrmSalaryMatrixColumn> IHrmSalaryMatrix.Columns {
-            get { return new ListConverter<IHrmSalaryMatrixColumn, HrmMatrixColumn>(Columns); }
-        }
-//
-
-        IMatrixSliceCollection IMatrix.SlicedMatrixesCollection {
-            get { return Slices; }
-        }
-
-        IRowCollection IMatrixBase.Rows {
-            get { throw new NotImplementedException(); }
-        }
-
-        IColumnCollection IMatrixBase.Columns {
-            get { throw new NotImplementedException(); }
-        }
-
-        ICellValue IIndexable<ICellValue>.this[int index] {
-            get { throw new NotImplementedException(); }
-        }
-
-        IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
-        IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
-            get { throw new NotImplementedException(); }
-        }
-
-        Department ICellValue.Department {
-            get { throw new NotImplementedException(); }
-        }
-
-        DepartmentGroupDep ICellValue.GroupDep {
-            get { throw new NotImplementedException(); }
-        }
-
-        IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
-            get { throw new NotImplementedException(); }
-        }
-        //
-
-
-        IIndexable<ICellValue> IIndex<ICellValue, DepartmentGroupDep>.Source {
-            get { throw new NotImplementedException(); }
-        }
-
-        IIndexValue<ICellValue, DepartmentGroupDep> IIndex<ICellValue, DepartmentGroupDep>.this[DepartmentGroupDep index] {
-            get { throw new NotImplementedException(); }
-        }
-
-        IEnumerator<DepartmentGroupDep> IEnumerable<DepartmentGroupDep>.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-        //
     }
 }
