@@ -258,17 +258,35 @@
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
-    <Compile Include="Salary\MatrixStructure\IMatrixBase.cs" />
-    <Compile Include="Salary\MatrixStructure\ICellValue.cs" />
-    <Compile Include="Salary\MatrixStructure\IColumn.cs" />
     <Compile Include="Salary\IHrmSalaryMatrix.cs" />
-    <Compile Include="Salary\MatrixStructure\IColumnCollection.cs" />
-    <Compile Include="Salary\MatrixStructure\IMatrix.cs" />
-    <Compile Include="Salary\MatrixStructure\IMatrixSlice.cs" />
-    <Compile Include="Salary\MatrixStructure\IMatrixSliceCollection.cs" />
-    <Compile Include="Salary\MatrixStructure\IRow.cs" />
     <Compile Include="Salary\Log.cs" />
-    <Compile Include="Salary\MatrixStructure\IRowCollection.cs" />
+    <Compile Include="Salary\Matrix\ICell.cs" />
+    <Compile Include="Salary\Matrix\IColumn.cs" />
+    <Compile Include="Salary\Matrix\IMatrix.cs" />
+    <Compile Include="Salary\Matrix\ISlice.cs" />
+    <Compile Include="Salary\Matrix\ISliced.cs" />
+    <Compile Include="Salary\Matrix\IRow.cs" />
+    <Compile Include="Salary\Matrix\IValue.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ISliced.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ISlice.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ICell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IMatrix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\MatrixPlan.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
   </ItemGroup>
@@ -350,7 +368,9 @@
       <Name>IntecoAG.XafExt</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Salary\Matrix\MatrixFirstAlloc\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

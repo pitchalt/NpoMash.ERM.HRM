@@ -13,12 +13,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
-using NpoMash.Erm.Hrm.Salary.MatrixStructure;
+using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixCell")]   
-    public class HrmMatrixCell : BaseObject, IHrmSalaryMatrixCell,ICellValue {
+    public class HrmMatrixCell : BaseObject {
 
         private Int64 _Time;
         public Int64 Time {
@@ -99,29 +99,5 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrixCell(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        IHrmSalaryMatrixColumn IHrmSalaryMatrixCell.Column {
-            get { throw new NotImplementedException(); }
-        }
-
-        IHrmSalaryMatrixRow IHrmSalaryMatrixCell.Row {
-            get { throw new NotImplementedException(); }
-        }
-
-// ///////////////////////////////////////////////////////
-        IntecoAG.ERM.FM.Order.fmCOrder ICellValue.Order {
-            get { return Row.Order; }
-        }
-
-        IntecoAG.ERM.HRM.Organization.Department ICellValue.Department {
-            get { return Column.Department; }
-        }
-
-        IntecoAG.ERM.HRM.Organization.DepartmentGroupDep ICellValue.GroupDep {
-            get { return Column.Department.GroupDep; }
-        }
-
-        IntecoAG.ERM.FM.Order.FmCOrderTypeControl ICellValue.TypeControl {
-            get { return Row.Order.TypeControl; }
-        }
     }
 }

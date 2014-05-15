@@ -16,13 +16,13 @@ using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
-using NpoMash.Erm.Hrm.Salary.MatrixStructure;
+using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmMatrixRow")]
     [DefaultProperty("Order")]
-    public class HrmMatrixRow : BaseObject, IHrmSalaryMatrixRow,IRow {
+    public class HrmMatrixRow : BaseObject {
 
          [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
@@ -70,47 +70,5 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.AfterConstruction();
         }
 
-        IHrmSalaryMatrix IHrmSalaryMatrixRow.Matrix {
-            get { throw new NotImplementedException(); }
-        }
-
-        IList<IHrmSalaryMatrixCell> IHrmSalaryMatrixRow.Cells {
-            get { throw new NotImplementedException(); }
-        }
-
-        fmCOrder IHrmSalaryMatrixRow.Order {
-            get { throw new NotImplementedException(); }
-        }
-
-
-
-
-        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, IntecoAG.ERM.HRM.Organization.Department> IRow.Columns {
-            get { throw new NotImplementedException(); }
-        }
-
-        IntecoAG.XafExt.IndexedList.IIndex<ICellValue, fmCOrder> IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, fmCOrder>.Index {
-            get { throw new NotImplementedException(); }
-        }
-
-        fmCOrder IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, fmCOrder>.Key {
-            get { throw new NotImplementedException(); }
-        }
-
-        ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, fmCOrder>.Value {
-            get { throw new NotImplementedException(); }
-        }
-
-        ICellValue IntecoAG.XafExt.IndexedList.IIndexValue<ICellValue, fmCOrder>.this[int index] {
-            get { throw new NotImplementedException(); }
-        }
-
-        IEnumerator<ICellValue> IEnumerable<ICellValue>.GetEnumerator() {
-            throw new NotImplementedException();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
-            throw new NotImplementedException();
-        }
     }
 }
