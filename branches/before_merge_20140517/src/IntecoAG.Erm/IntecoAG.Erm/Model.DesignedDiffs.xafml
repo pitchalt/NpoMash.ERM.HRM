@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="IntecoAG.Erm" Logo="ExpressAppLogo" Company="">
+  <BOModel>
+    <Class Name="IntecoAG.ERM.FM.Order.fmCOrder" Caption="fmCOrder" ImageName="BO_Product">
+      <OwnMembers>
+        <Member Name="Code" Caption="Code" RowCount="1" />
+        <Member Name="NormKB" Caption="Норма КБ" />
+        <Member Name="NormOZM" Caption="Норма ОЗМ" />
+        <Member Name="TypeConstancy" Caption="Признак заказа" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+      </OwnMembers>
+    </Class>
+    <Class Name="IntecoAG.ERM.HRM.HrmSalaryPayType" Caption="Код оплаты" ImageName="BO_List">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" />
+        <Member Name="Name" Caption="Наименование" />
+      </OwnMembers>
+    </Class>
+    <Class Name="IntecoAG.ERM.HRM.Organization.Department" Caption="Подразделение" ImageName="BO_Organization">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" />
+        <Member Name="GroupDep" Caption="Группа" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+  </SchemaModules>
+</Application>

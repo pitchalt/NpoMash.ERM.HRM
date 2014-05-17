@@ -1,0 +1,1078 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="NpoMash.Erm.Hrm" Logo="ExpressAppLogo" Company="NPO Mas">
+  <ActionDesign>
+    <Actions>
+      <Action Id="AcceptProvisionMatrix" Caption="AcceptProvisionMatrix" />
+      <Action Id="BringProvisionMatrix" Caption="Bring Provision Matrix" />
+      <Action Id="GetSourceDataAction">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
+          <ChoiceActionItem Id="GetDataFromFile" Caption="Данные из файла">
+            <ChoiceActionItems>
+              <ChoiceActionItem Id="StructuredFile" Caption="Структурированный файл" />
+              <ChoiceActionItem Id="XmlFile" Caption="XML-файл" />
+            </ChoiceActionItems>
+          </ChoiceActionItem>
+          <ChoiceActionItem Id="GetDataFromServer" Caption="Загрузить из сервера" />
+        </ChoiceActionItems>
+      </Action>
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" ImageName="ModelEditor_Action_Modules" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter" ImageName="Action_Inline_Edit">
+      <OwnMembers>
+        <Member Name="Month" DisplayFormat="{0:N0}" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmPeriodPayType" ImageName="BO_List" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" DefaultListViewMasterDetailMode="ListViewOnly" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" DefaultListViewMasterDetailMode="ListViewOnly">
+      <OwnMembers>
+        <Member Name="OrderPlan" Index="-1" />
+        <Member Name="Order" Index="0" />
+        <Member Name="TypeControl" Index="1" />
+        <Member Name="ProportionsMethodAlloc" Index="2" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Index="3" />
+        <Member Name="MinimizeMaximumDeviationsAlloc" Index="4" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet">
+      <OwnMembers>
+        <Member Name="Department" Index="0" />
+        <Member Name="Group" Index="1" />
+        <Member Name="DepartmentPlan" Index="2" />
+        <Member Name="PlannedTravels" Index="3" />
+        <Member Name="PrefactoryDepartmentFact" Index="4" />
+        <Member Name="FactTravels" Index="5" />
+        <Member Name="Base" Index="6" />
+        <Member Name="SourceProvision" Index="7" />
+        <Member Name="NewProvision" Index="8" />
+        <Member Name="DeltaProvision" Index="9" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
+      <OwnMembers>
+        <Member Name="Order" Index="0" />
+        <Member Name="TypeControl" Index="1" />
+        <Member Name="OrderPlan" Index="2" />
+        <Member Name="PlannedTravels" Index="3" />
+        <Member Name="PrefatoryOrderFact" Index="4" />
+        <Member Name="FactTravels" Index="5" />
+        <Member Name="PlanKB" Index="6" />
+        <Member Name="PlannedTrvaelsKB" Index="7" />
+        <Member Name="PrefatoryFactKB" Index="8" />
+        <Member Name="FactTravelsKB" Index="9" />
+        <Member Name="PlanOZM" Index="10" />
+        <Member Name="FactTravelsOZM" Index="11" />
+        <Member Name="PrefatoryFactOZM" Index="12" />
+        <Member Name="PlannedTravelsOZM" Index="13" />
+        <Member Name="Base" Index="14" />
+        <Member Name="SourceProvision" Index="15" />
+        <Member Name="NewProvision" Index="16" />
+        <Member Name="DeltaProvision" Index="17" />
+        <Member Name="DepartmentItems" Index="18" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet">
+      <OwnMembers>
+        <Member Name="TimeSheetDeps" Index="0" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="DialogButtons">
+      <LocalizationItem Name="Ignore" Value="a" />
+    </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationGroup Name="HrmPariodAllocParameterVC" IsNewNode="True">
+        <LocalizationItem Name="MessageBoxCaption" IsNewNode="True" />
+        <LocalizationItem Name="MessageBoxText" IsNewNode="True" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="A1 Integration" ChildItemsDisplayStyle="List">
+        <Items>
+          <Item Id="SalaryAllocation" Index="0" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="HrmPeriod_ListView" ViewId="HrmPeriod_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+              <Item Id="HrmMatrix_ListView" ViewId="HrmMatrix_ListView" IsNewNode="True" />
+              <Item Id="HrmPeriodAllocParameter_ListView" ViewId="HrmPeriodAllocParameter_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="References" Index="1" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Department_ListView" ViewId="Department_ListView" IsNewNode="True" />
+              <Item Id="fmCOrder_ListView" ViewId="fmCOrder_ListView" IsNewNode="True" />
+              <Item Id="HrmSalaryPayType_ListView" ViewId="HrmSalaryPayType_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="ERM" Removed="True">
+        <Items>
+          <Item Id="Department_ListView" Removed="True" />
+          <Item Id="fmCOrder_ListView" Removed="True" />
+          <Item Id="HrmSalaryPayType_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="State Machine" Removed="True" />
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="DepartmentItem_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="">
+            <LayoutGroup Id="DepartmentItem" Caption="Department Item" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="DepartmentItem_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="DepartmentPlan" SizeConstraintsType="Default" RelativeSize="27" />
+              </LayoutGroup>
+              <LayoutGroup Id="DepartmentItem_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="MinimizeMaximumDeviationsAlloc" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="ProportionsMethodAlloc" SizeConstraintsType="Default" RelativeSize="63" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="OrderItems_Group" Direction="Vertical" RelativeSize="83" ImageName="">
+            <LayoutItem Id="OrderItems" SizeConstraintsType="Default" RelativeSize="94" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DepartmentItem_ListView" GroupSummary="">
+      <Columns>
+        <ColumnInfo Id="DepartmentPlan" Index="1" />
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="DepartmentSet_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20" ImageName="">
+            <LayoutGroup Id="DepartmentSet" Caption="Department Set" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="DepartmentSet_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="28" />
+                <LayoutItem Id="Group" SizeConstraintsType="Default" RelativeSize="21" />
+              </LayoutGroup>
+              <LayoutGroup Id="DepartmentSet_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="PrefactoryDepartmentFact" SizeConstraintsType="Default" RelativeSize="28" />
+                <LayoutItem Id="FactTravels" SizeConstraintsType="Default" RelativeSize="21" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="OrderItems_Group" Direction="Vertical" RelativeSize="79" ImageName="">
+            <LayoutItem Id="OrderItems" SizeConstraintsType="Default" RelativeSize="94" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrix_Columns_ListView">
+      <Columns>
+        <ColumnInfo Id="BuhCode" PropertyName="Department" Index="1" LookupProperty="BuhCode" IsNewNode="True" />
+        <ColumnInfo Id="Sum" Index="2" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrix_Columns_MasterDetail_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" MasterDetailMode="ListViewAndDetailView" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Matrix" PropertyName="Matrix" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Department" PropertyName="Department" Width="70" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Sum" PropertyName="Sum" Width="50" Index="1" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="">
+            <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmMatrix_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="Variant" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83">
+            <LayoutGroup Id="Rows" RelativeSize="100" ImageName="">
+              <LayoutItem Id="Rows" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Columns" RelativeSize="100" ImageName="">
+              <LayoutItem Id="Columns" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrix_Rows_MasterDetail_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" MasterDetailMode="ListViewAndDetailView" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Matrix" PropertyName="Matrix" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Order" PropertyName="Order" Width="400" SortIndex="0" SortOrder="Ascending" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Sum" PropertyName="Sum" Width="50" Index="1" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixColumn_DetailView">
+      <Items>
+        <PropertyEditor Id="Cells" View="HrmMatrixRow_DepartmentCells_ListView" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixRow_DepartmentCells_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Column" PropertyName="Column" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Row" PropertyName="Row" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Order" PropertyName="Row.Order" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Time" PropertyName="Time" Width="70" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="PlanMoney" PropertyName="PlanMoney" Width="50" Index="3" IsNewNode="True" />
+        <ColumnInfo Id="MoneyNoReserve" PropertyName="MoneyNoReserve" Width="50" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="MoneyTravel" PropertyName="MoneyTravel" Width="50" Index="6" IsNewNode="True" />
+        <ColumnInfo Id="MoneyAllSumm" PropertyName="MoneyAllSumm" Width="50" Index="7" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixRow_DetailView">
+      <Items>
+        <PropertyEditor Id="Cells" View="HrmMatrixRow_OrderCells_ListView" />
+      </Items>
+    </DetailView>
+    <ListView Id="HrmMatrixRow_OrderCells_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Column" PropertyName="Column" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Row" PropertyName="Row" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Department" PropertyName="Column.Department" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Time" PropertyName="Time" Width="70" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="PlanMoney" PropertyName="PlanMoney" Width="50" Index="2" IsNewNode="True" />
+        <ColumnInfo Id="MoneyNoReserve" PropertyName="MoneyNoReserve" Width="50" Index="4" IsNewNode="True" />
+        <ColumnInfo Id="MoneyTravel" PropertyName="MoneyTravel" Width="50" Index="5" IsNewNode="True" />
+        <ColumnInfo Id="MoneyAllSumm" PropertyName="MoneyAllSumm" Width="50" Index="6" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_ListView">
+      <Columns>
+        <ColumnInfo Id="Year" SortOrder="Ascending" SortIndex="1" />
+        <ColumnInfo Id="Month" SortIndex="2" SortOrder="None" />
+      </Columns>
+      <Sorting>
+        <SortProperty Id="AscMonth" PropertyName="Month" IsNewNode="True" />
+        <SortProperty Id="AscYear" PropertyName="Year" Direction="Ascending" IsNewNode="True" />
+      </Sorting>
+    </ListView>
+    <ListView Id="HrmPeriod_PeriodTasks_ListView">
+      <Columns>
+        <ColumnInfo Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
+        <ColumnInfo Id="FinishTime" DisplayFormat="{0:F}" EditMask="F" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="">
+            <LayoutGroup Id="HrmPeriodAllocParameter" Caption="Hrm Period Alloc Parameter" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmPeriodAllocParameter_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Year" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="Month" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriodAllocParameter_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="NormNoControlKB" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="NormNoControlOZM" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83">
+            <LayoutGroup Id="OrderControls" RelativeSize="100" ImageName="">
+              <LayoutItem Id="OrderControls" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTask_DetailView">
+      <Items>
+        <PropertyEditor Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
+        <PropertyEditor Id="FinishTime" DisplayFormat="{0:F}" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="95" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="92" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTask_ListView">
+      <Columns>
+        <ColumnInfo Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
+        <ColumnInfo Id="FinishTime" DisplayFormat="{0:F}" EditMask="F" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTask_LookupListView">
+      <Columns>
+        <ColumnInfo Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
+        <ColumnInfo Id="FinishTime" DisplayFormat="{0:F}" EditMask="F" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" RelativeSize="8" ImageName="">
+              <LayoutItem Id="MatrixAllocPlanSummary" SizeConstraintsType="Default" RelativeSize="51" />
+              <LayoutItem Id="MatrixAllocResultSummary" SizeConstraintsType="Default" RelativeSize="48" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="91" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskCompareKBAccountOperation_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmSalaryTaskCompareKBAccountOperation" RelativeSize="8" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="ReducMatrixKB" SizeConstraintsType="Default" RelativeSize="51" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              <LayoutItem Id="MatrixAllocResultKB" SizeConstraintsType="Default" RelativeSize="48" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="91" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="46" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="50" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskCompareOZMAccountOperation_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmSalaryTaskCompareOZMAccountOperation" RelativeSize="8" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="ReducMatrixOZM" SizeConstraintsType="Default" RelativeSize="51" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              <LayoutItem Id="MatrixAllocResultOZM" SizeConstraintsType="Default" RelativeSize="48" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="91" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="46" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="50" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" ImageName="" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" ImageName="" RelativeSize="100">
+            <LayoutGroup Id="HrmSalaryTaskExportCoercedMatrix" RelativeSize="8" ImageName="">
+              <LayoutItem Id="KBCoercedMatrix" SizeConstraintsType="Default" RelativeSize="51" />
+              <LayoutItem Id="OZMCoercedMatrix" SizeConstraintsType="Default" RelativeSize="48" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="91" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix" RelativeSize="5" ImageName="">
+              <LayoutItem Id="ProvisionMatrix" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="94" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmSalaryTaskImportAccountOperation" RelativeSize="8" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="MatrixAllocResultKB" SizeConstraintsType="Default" RelativeSize="51" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              <LayoutItem Id="MatrixAllocResultOZM" SizeConstraintsType="Default" RelativeSize="48" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="91" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="44" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="95" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="52" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportAccountOperationSummary_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmSalaryTaskImportAccountOperationSummary" RelativeSize="5" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="MatrixAllocResultSummary" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="94" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="46" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="3" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="91" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="50" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="95" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView">
+      <Items>
+        <PropertyEditor Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
+        <PropertyEditor Id="FinishTime" DisplayFormat="{0:F}" EditMask="F" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="HrmSalaryTaskImportSourceData" RelativeSize="14" ImageName="">
+              <LayoutItem Id="TimeSheetKB" SizeConstraintsType="Default" RelativeSize="29" />
+              <LayoutItem Id="TimeSheetOZM" SizeConstraintsType="Default" RelativeSize="21" />
+              <LayoutItem Id="MatrixPlanKB" SizeConstraintsType="Default" RelativeSize="21" />
+              <LayoutItem Id="MatrixPlanOZM" SizeConstraintsType="Default" RelativeSize="27" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="85" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="5" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="94" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="90" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="5" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="94" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView">
+      <Items>
+        <PropertyEditor Id="Order" Index="0" />
+        <PropertyEditor Id="Department" Index="1" />
+        <PropertyEditor Id="AllocParameters.NormNoControlKB" Removed="True" />
+        <PropertyEditor Id="AllocParameters.NormNoControlOZM" Removed="True" />
+        <PropertyEditor Id="CreateTime" DisplayFormat="{0:F}" EditMask="F" />
+        <PropertyEditor Id="FinishTime" DisplayFormat="{0:F}" EditMask="F" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" ImageName="" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" RelativeSize="39" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmSalaryTaskMatrixReduction" Caption="Hrm Salary Task Matrix Reduction" ImageName="" RelativeSize="68" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col1" Caption="HrmSalaryTaskMatrixReduction_col1" ImageName="" RelativeSize="29" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutGroup Id="Item3" ShowCaption="True" Caption="Item3" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="MatrixPlan.Variant" ViewItem="MatrixPlan.Variant" SizeConstraintsType="Default" Index="0" RelativeSize="18" IsNewNode="True" />
+                  <LayoutItem Id="TimeSheet.Period" ViewItem="TimeSheet.Period" SizeConstraintsType="Default" Index="1" RelativeSize="14" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.IterationNumber" ViewItem="AllocParameters.IterationNumber" SizeConstraintsType="Default" Index="2" RelativeSize="42" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="MatrixPlan.GroupDep" Removed="True" />
+                <LayoutItem Id="MatrixPlan.IterationNumber" Removed="True" />
+                <LayoutItem Id="MatrixPlan.Status" Removed="True" />
+                <LayoutItem Id="MatrixPlan.Type" Removed="True" />
+                <LayoutItem Id="MatrixPlan.TypeMatrix" Removed="True" />
+                <LayoutItem Id="MatrixPlan.Variant" Removed="True" />
+                <LayoutItem Id="TimeSheet.GroupDep" Removed="True" />
+                <LayoutItem Id="TimeSheet.Period" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col2" Caption="HrmSalaryTaskMatrixReduction_col2" ImageName="" Direction="Horizontal" RelativeSize="68" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutGroup Id="Auto0d5a6361-e9c0-475d-b9d0-1815425033d8" ShowCaption="False" Caption="Auto0d5a6361-e9c0-475d-b9d0-1815425033d8" Index="0" RelativeSize="45" IsNewNode="True">
+                  <LayoutGroup Id="Item2" ShowCaption="True" Caption="Item2" CaptionLocation="Top" Index="0" RelativeSize="57" IsNewNode="True">
+                    <LayoutItem Id="MatrixPlan.GroupDep" ViewItem="MatrixPlan.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="32" IsNewNode="True" />
+                    <LayoutItem Id="MatrixPlan.Status" ViewItem="MatrixPlan.Status" SizeConstraintsType="Default" Index="1" RelativeSize="32" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Item4" ShowCaption="True" Caption="Status" CaptionLocation="Top" Index="1" RelativeSize="42" IsNewNode="True">
+                    <LayoutItem Id="TimeSheet.Status" ViewItem="TimeSheet.Status" SizeConstraintsType="Default" Index="0" RelativeSize="54" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="Item1" ShowCaption="True" Caption="Item1" CaptionLocation="Top" Index="1" RelativeSize="47" IsNewNode="True">
+                  <LayoutItem Id="TimeSheet.GroupDep" ViewItem="TimeSheet.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="18" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" SizeConstraintsType="Default" Index="1" RelativeSize="14" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" SizeConstraintsType="Default" Index="2" RelativeSize="14" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" SizeConstraintsType="Default" Index="3" RelativeSize="28" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllocParameters.NormNoControlKB" ShowCaption="False" SizeConstraintsType="Default" Index="2" RelativeSize="1" ViewItem="" />
+                <LayoutItem Id="AllocParameters.NormNoControlOZM" ShowCaption="False" SizeConstraintsType="Default" Index="3" RelativeSize="5" ViewItem="" />
+                <LayoutItem Id="AllocParameters.IterationNumber" Removed="True" />
+                <LayoutItem Id="AllocParameters.Month" Removed="True" />
+                <LayoutItem Id="AllocParameters.Status" Removed="True" />
+                <LayoutItem Id="AllocParameters.Year" Removed="True" />
+                <LayoutItem Id="TimeSheet.Status" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="31" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" RelativeSize="52" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="GroupDep" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" RelativeSize="44" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="60">
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="@66ebaa62-45d0-42cb-92d6-7af8f24c9c54" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                <TabbedGroup Id="@75009ff9-3241-4217-8cef-2d4f9b24beb0" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="@bf1c6e62-73df-4a76-baeb-ba3802003996" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.OrderControls" ViewItem="AllocParameters.OrderControls" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="@cb54509b-5a04-4dbb-b43a-98f821a83327" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.PeriodPayTypes" ViewItem="AllocParameters.PeriodPayTypes" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="AllocParameters.DepartmentControl" Index="4" ShowCaption="True" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.DepartmentControl" ViewItem="AllocParameters.DepartmentControl" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlan.Rows" Index="0" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="CoercedMatrix" Caption="Матрица учета" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="@56198f74-2849-4248-9a55-25f390f1c5e5" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                <TabbedGroup Id="@e2c63bc4-49c4-4893-aade-efebe5443853" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="@5c9ac9de-8029-471e-a7e8-cadaf90b5e34" ShowCaption="True" Caption="Подразделения" Index="0" RelativeSize="100" IsNewNode="True">
+                    <LayoutItem Id="Department" ViewItem="Department" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="@a48397d9-a71f-4f0c-a6db-048ee5bb33cd" ShowCaption="True" Index="1" RelativeSize="100" Caption="Заказы" IsNewNode="True">
+                    <LayoutItem Id="Order" ViewItem="Order" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="SourceData" Caption="Исходные данные" ShowCaption="True" Index="2" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="SourceData_LayOut" Caption="SourceData_LayOut" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                <TabbedGroup Id="SourceData_tabs" Caption="SourceData_tabs" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="PlannedMatrix" Caption="Плановая матрица" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                    <LayoutGroup Id="PlannedMatrix_LayOut" Caption="PlannedMatrix_LayOut" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                      <TabbedGroup Id="PlannedMatrix_tabs" Caption="PlannedMatrix_tabs" Index="0" RelativeSize="100" IsNewNode="True">
+                        <LayoutGroup Id="Department" Caption="Подразделения" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                          <LayoutItem Id="MatrixPlan.Columns" ViewItem="MatrixPlan.Columns" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                        </LayoutGroup>
+                        <LayoutGroup Id="Order" Caption="Заказы" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                          <LayoutItem Id="MatrixPlan.Rows" ViewItem="MatrixPlan.Rows" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                        </LayoutGroup>
+                      </TabbedGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="TimeSheet" Caption="Табель" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                    <LayoutItem Id="TimeSheet.TimeSheetDeps" ViewItem="TimeSheet.TimeSheetDeps" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="TimeSheet.TimeSheetDeps" Index="2" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="AllocParameters.OrderControls" Index="3" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="AllocParameters.PeriodPayTypes" Index="4" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="Department" Index="5" ShowCaption="True" Removed="True" />
+            <LayoutGroup Id="AllocParameters.DepartmentControl" Removed="True" />
+            <LayoutGroup Id="MatrixPlan.Columns" Removed="True" />
+            <LayoutGroup Id="Order" Removed="True" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_ListView" IsGroupPanelVisible="False">
+      <Columns>
+        <ColumnInfo Id="MatrixPlan" GroupIndex="-1" />
+        <ColumnInfo Id="TimeSheet" GroupIndex="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_Department_DetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
+        <PropertyEditor Id="FactTravels" PropertyName="FactTravels" IsNewNode="True" />
+        <PropertyEditor Id="Group" PropertyName="Group" IsNewNode="True" />
+        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="DepartmentSet_OrderItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="PlannedTravels" PropertyName="PlannedTravels" IsNewNode="True" />
+        <PropertyEditor Id="PrefactoryDepartmentFact" PropertyName="PrefactoryDepartmentFact" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutItem Id="OrderItems" ViewItem="OrderItems" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="HrmSalaryTaskProvisionMatrixReduction_Department_DetailView" />
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
+          <TabbedGroup Id="Tabs" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="0">
+            <LayoutGroup Id="Common" ShowCaption="True" Index="0" RelativeSize="100" Caption="Common" IsNewNode="True">
+              <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" Caption="SimpleEditors" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Direction="Horizontal" ShowCaption="True" Caption="Карточка создания матрицы резерва" RelativeSize="100" Index="0" IsNewNode="True">
+                  <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col1" Index="0" ShowCaption="False" RelativeSize="49" Caption="HrmSalaryTaskProvisionMatrixReduction_col1" IsNewNode="True">
+                    <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="18" Caption="Общие" IsNewNode="True">
+                      <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" SizeConstraintsType="Default" Index="0" RelativeSize="26" IsNewNode="True" />
+                      <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" SizeConstraintsType="Default" Index="1" RelativeSize="19" IsNewNode="True" />
+                      <LayoutItem Id="AllocParameters.IterationNumber" ViewItem="AllocParameters.IterationNumber" SizeConstraintsType="Default" Index="2" RelativeSize="26" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="9" Caption="Параметры расчета" IsNewNode="True">
+                      <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" SizeConstraintsType="Default" Index="0" RelativeSize="61" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="HrmSalaryTask" ShowCaption="True" Caption="Задача" Direction="Horizontal" Index="2" RelativeSize="71" IsNewNode="True">
+                      <LayoutGroup Id="HrmSalaryTask_col1" ShowCaption="False" Index="0" RelativeSize="44" Caption="HrmSalaryTask_col1" IsNewNode="True">
+                        <LayoutItem Id="TaskType" ViewItem="TaskType" SizeConstraintsType="Default" Index="0" RelativeSize="7" IsNewNode="True" />
+                        <LayoutItem Id="State" ViewItem="State" SizeConstraintsType="Default" Index="1" RelativeSize="92" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="HrmSalaryTask_col2" ShowCaption="False" Index="1" RelativeSize="50" Caption="HrmSalaryTask_col2" IsNewNode="True">
+                        <LayoutItem Id="CreateTime" ViewItem="CreateTime" SizeConstraintsType="Default" Index="0" RelativeSize="7" IsNewNode="True" />
+                        <LayoutItem Id="FinishTime" ViewItem="FinishTime" SizeConstraintsType="Default" Index="1" RelativeSize="92" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col2" Index="1" ShowCaption="False" RelativeSize="47" Caption="HrmSalaryTaskProvisionMatrixReduction_col2" IsNewNode="True">
+                    <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="21" Caption="Первичная проводка" IsNewNode="True">
+                      <LayoutItem Id="AllocResultKB.GroupDep" ViewItem="AllocResultKB.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="22" IsNewNode="True" />
+                      <LayoutItem Id="AllocResultKB.Status" ViewItem="AllocResultKB.Status" SizeConstraintsType="Default" Index="1" RelativeSize="16" IsNewNode="True" />
+                      <LayoutItem Id="AllocResultOZM.GroupDep" ViewItem="AllocResultOZM.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="16" IsNewNode="True" />
+                      <LayoutItem Id="AllocResultOZM.Status" ViewItem="AllocResultOZM.Status" SizeConstraintsType="Default" Index="3" RelativeSize="22" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="AllocMatrix" ShowCaption="True" Caption="AllocMatrix" Index="1" RelativeSize="78" IsNewNode="True">
+                      <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="6" IsNewNode="True" />
+                      <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" SizeConstraintsType="Default" Index="1" RelativeSize="4" IsNewNode="True" />
+                      <LayoutItem Id="MatrixAllocKB.GroupDep" ViewItem="MatrixAllocKB.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="4" IsNewNode="True" />
+                      <LayoutItem Id="MatrixAllocOZM.Status" ViewItem="MatrixAllocOZM.Status" SizeConstraintsType="Default" Index="3" RelativeSize="78" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Department" Index="1" RelativeSize="55" ShowCaption="True" Caption="Department" Removed="True">
+              <LayoutItem Id="Department" ViewItem="Department" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="91" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixReserve" ShowCaption="True" Index="1" RelativeSize="100" Caption="MatrixReserve" IsNewNode="True">
+              <LayoutGroup Id="MatrixReserve" ShowCaption="False" Index="0" RelativeSize="100" Caption="MatrixReserve" IsNewNode="True">
+                <TabbedGroup Id="Tabs" Caption="Tabs" IsNewNode="True">
+                  <LayoutGroup Id="Deps" Caption="Deps" IsNewNode="True">
+                    <LayoutGroup Id="Department" Index="1" RelativeSize="55" ShowCaption="True" Caption="Department" IsNewNode="True">
+                      <LayoutItem Id="Department" ViewItem="Department" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="91" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="Orders" Caption="Orders" IsNewNode="True">
+                    <LayoutGroup Id="Order" Index="0" RelativeSize="44" ShowCaption="True" Caption="Order" IsNewNode="True">
+                      <LayoutItem Id="Order" ViewItem="Order" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="89" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="DataSources" ShowCaption="True" Index="2" RelativeSize="100" Caption="Исходные данные" IsNewNode="True">
+              <LayoutGroup Id="two_tabs" ShowCaption="False" Index="0" RelativeSize="100" Caption="two_tabs" IsNewNode="True">
+                <TabbedGroup Id="tabs_layout" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="KB" ShowCaption="True" Index="0" RelativeSize="100" Caption="КБ" IsNewNode="True">
+                    <LayoutGroup Id="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" ShowCaption="False" Index="0" RelativeSize="100" Caption="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" IsNewNode="True">
+                      <LayoutGroup Id="@32ee745a-15a9-4420-876e-2984145a4245" ShowCaption="False" Index="0" RelativeSize="100" Caption="@32ee745a-15a9-4420-876e-2984145a4245" IsNewNode="True">
+                        <TabbedGroup Id="tabedgroup" Index="0" RelativeSize="42" IsNewNode="True">
+                          <LayoutGroup Id="Department" ShowCaption="True" Direction="Vertical" Index="0" RelativeSize="100" Caption="Подразделения" IsNewNode="True">
+                            <LayoutItem Id="MatrixPlanKB.Columns" ViewItem="MatrixPlanKB.Columns" ShowCaption="False" Index="0" IsNewNode="True" />
+                          </LayoutGroup>
+                          <LayoutGroup Id="Order" ShowCaption="True" Direction="Vertical" Index="1" RelativeSize="100" Caption="Заказы" IsNewNode="True">
+                            <LayoutItem Id="MatrixPlanKB.Rows" ViewItem="MatrixPlanKB.Rows" ShowCaption="False" Index="0" IsNewNode="True" />
+                          </LayoutGroup>
+                        </TabbedGroup>
+                        <LayoutItem Id="CurrentTimeSheetKB.TimeSheetDeps" ViewItem="CurrentTimeSheetKB.TimeSheetDeps" SizeConstraintsType="Default" Index="1" RelativeSize="57" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="OZM" ShowCaption="True" Direction="Vertical" Index="1" RelativeSize="100" Caption="ОЗМ" IsNewNode="True">
+                    <LayoutGroup Id="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" ShowCaption="False" Index="0" RelativeSize="100" Caption="@2ad7ff8b-2a96-4aca-b863-1ebf8b6f695e" IsNewNode="True">
+                      <LayoutGroup Id="@32ee745a-15a9-4420-876e-2984145a4245" ShowCaption="False" Index="0" RelativeSize="100" Caption="@32ee745a-15a9-4420-876e-2984145a4245" IsNewNode="True">
+                        <TabbedGroup Id="tabedgroup" Index="0" RelativeSize="42" IsNewNode="True">
+                          <LayoutGroup Id="Department" ShowCaption="True" Direction="Vertical" Index="0" RelativeSize="100" Caption="Подразделения" IsNewNode="True">
+                            <LayoutGroup Id="MatrixPlanOZM.Columns" Index="0" ShowCaption="True" RelativeSize="100" Caption="Columns" IsNewNode="True">
+                              <LayoutItem Id="MatrixPlanOZM.Columns" ViewItem="MatrixPlanOZM.Columns" ShowCaption="False" RelativeSize="89" SizeConstraintsType="Default" Index="0" IsNewNode="True" />
+                            </LayoutGroup>
+                          </LayoutGroup>
+                          <LayoutGroup Id="Order" ShowCaption="True" Direction="Vertical" Index="1" RelativeSize="100" Caption="Заказы" IsNewNode="True">
+                            <LayoutGroup Id="MatrixPlanOZM.Rows" Index="0" RelativeSize="100" ShowCaption="True" Caption="Rows" IsNewNode="True">
+                              <LayoutItem Id="MatrixPlanOZM.Rows" ViewItem="MatrixPlanOZM.Rows" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="89" IsNewNode="True" />
+                            </LayoutGroup>
+                          </LayoutGroup>
+                        </TabbedGroup>
+                        <LayoutItem Id="CurrentTimeSheetOZM.TimeSheetDeps" ViewItem="CurrentTimeSheetOZM.TimeSheetDeps" SizeConstraintsType="Default" Index="1" RelativeSize="57" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" ShowCaption="True" Index="3" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Lay" Caption="Lay" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                <TabbedGroup Id="tabs" Caption="tabs" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="OrdedControls" Caption="Контроль заказа" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.OrderControls" ViewItem="AllocParameters.OrderControls" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Paytypes" Caption="Код оплаты" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.PeriodPayTypes" ViewItem="AllocParameters.PeriodPayTypes" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="DepartmentControl" IsNewNode="True">
+                    <LayoutItem Id="AllocParameters.DepartmentControl" ViewItem="AllocParameters.DepartmentControl" ShowCaption="False" Index="0" IsNewNode="True" />
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocResultKB.Columns" Caption="Columns" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="3" Removed="True">
+              <LayoutItem Id="AllocResultKB.Columns" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocResultOZM.Columns" Caption="Columns" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="3" Removed="True">
+              <LayoutItem Id="AllocResultOZM.Columns" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocResultOZM.Rows" Caption="Rows" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="3" Removed="True">
+              <LayoutItem Id="AllocResultOZM.Rows" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Order" Caption="Order" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="3" Removed="True">
+              <LayoutItem Id="Order" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Alloc" Caption="Матрица учета" ShowCaption="True" Index="4" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="alloc_lay" Caption="alloc_lay" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                <TabbedGroup Id="alloc_tabs" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="KB" Caption="КБ" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                    <TabbedGroup Id="@45846e6b-6c80-4896-83af-1332b42bf60c" Index="0" RelativeSize="100" IsNewNode="True">
+                      <LayoutGroup Id="Deps" Caption="Подразделения" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                        <LayoutItem Id="MatrixAllocKB.Columns" ViewItem="MatrixAllocKB.Columns" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Orders" Caption="Заказы" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                        <LayoutItem Id="MatrixAllocKB.Rows" ViewItem="MatrixAllocKB.Rows" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                      </LayoutGroup>
+                    </TabbedGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="OZM" Caption="ОЗМ" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                    <TabbedGroup Id="@19c157d9-3f17-400f-acdf-165d9431cd65" Index="0" RelativeSize="100" IsNewNode="True">
+                      <LayoutGroup Id="Deps" Caption="Подразделения" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                        <LayoutItem Id="MatrixAllocOZM.Columns" ViewItem="MatrixAllocOZM.Columns" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Orders" Caption="Заказы" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                        <LayoutItem Id="MatrixAllocOZM.Rows" ViewItem="MatrixAllocOZM.Rows" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                      </LayoutGroup>
+                    </TabbedGroup>
+                  </LayoutGroup>
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocResultKB.Rows" Caption="Rows" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="AllocResultKB.Rows" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAllocKB.Columns" Caption="Columns" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="MatrixAllocKB.Columns" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAllocKB.Rows" Caption="Rows" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="MatrixAllocKB.Rows" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAllocOZM.Columns" Caption="Columns" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="MatrixAllocOZM.Columns" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAllocOZM.Rows" Caption="Rows" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="MatrixAllocOZM.Rows" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlanOZM.Rows" Index="6" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True">
+              <LayoutItem Id="MatrixPlanOZM.Rows" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlanOZM.Columns" Index="7" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True">
+              <LayoutItem Id="MatrixPlanOZM.Columns" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="CurrentTimeSheetKB.TimeSheetDeps" Index="11" RelativeSize="100" ImageName="" Caption="Табель КБ" Removed="True">
+              <LayoutItem Id="CurrentTimeSheetKB.TimeSheetDeps" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="CurrentTimeSheetOZM.TimeSheetDeps" Index="11" RelativeSize="100" ImageName="" Caption="Табель ОЗМ" Removed="True">
+              <LayoutItem Id="CurrentTimeSheetOZM.TimeSheetDeps" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters.DepartmentControl" Removed="True">
+              <LayoutItem Id="AllocParameters.DepartmentControl" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters.OrderControls" Caption="Order Controls" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Removed="True">
+              <LayoutItem Id="AllocParameters.OrderControls" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters.PeriodPayTypes" Removed="True" />
+            <LayoutGroup Id="MatrixPlanKB.Columns" Removed="True">
+              <LayoutItem Id="MatrixPlanKB.Columns" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlanKB.Rows" Removed="True">
+              <LayoutItem Id="MatrixPlanKB.Rows" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="59" Removed="True">
+            <LayoutGroup Id="HrmSalaryTask" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="22" Removed="True">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="48">
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" Removed="True" />
+                <LayoutItem Id="State" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="50" />
+                <LayoutItem Id="TaskType" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="50" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="48">
+                <LayoutItem Id="CreateTime" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="50" />
+                <LayoutItem Id="FinishTime" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="50" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Caption="Карточка создания матрицы резерва">
+              <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col1" Caption="HrmSalaryTaskProvisionMatrixReduction_col1" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="46">
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="29" Caption="Общие" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" SizeConstraintsType="Default" Index="0" RelativeSize="26" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" SizeConstraintsType="Default" Index="1" RelativeSize="19" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.IterationNumber" ViewItem="AllocParameters.IterationNumber" SizeConstraintsType="Default" Index="2" RelativeSize="26" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllocParameters.Status" SizeConstraintsType="Default" Index="1" RelativeSize="6" Removed="True" />
+                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="15" Caption="Параметры расчета" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" SizeConstraintsType="Default" Index="0" RelativeSize="61" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllocParameters.IterationNumber" SizeConstraintsType="Default" Index="2" RelativeSize="6" Removed="True" />
+                <LayoutGroup Id="HrmSalaryTask" ShowCaption="True" Caption="Задача" Direction="Horizontal" Index="2" RelativeSize="21" IsNewNode="True">
+                  <LayoutGroup Id="HrmSalaryTask_col1" ShowCaption="False" Index="0" RelativeSize="44" IsNewNode="True">
+                    <LayoutItem Id="TaskType" ViewItem="TaskType" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                    <LayoutItem Id="State" ViewItem="State" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="HrmSalaryTask_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                    <LayoutItem Id="CreateTime" ViewItem="CreateTime" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                    <LayoutItem Id="FinishTime" ViewItem="FinishTime" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="MatrixAllocKB.GroupDep" SizeConstraintsType="Default" RelativeSize="6" Index="2" Removed="True" />
+                <LayoutItem Id="MatrixAllocKB.Type" SizeConstraintsType="Default" RelativeSize="5" Index="2" Removed="True" />
+                <LayoutItem Id="MatrixAllocKB.TypeMatrix" SizeConstraintsType="Default" RelativeSize="5" Index="2" Removed="True" />
+                <LayoutItem Id="MatrixAllocKB.Status" SizeConstraintsType="Default" RelativeSize="6" Index="3" Removed="True" />
+                <LayoutItem Id="MatrixAllocOZM.IterationNumber" SizeConstraintsType="Default" Index="3" RelativeSize="5" Removed="True" />
+                <LayoutItem Id="MatrixPlan.GroupDep" SizeConstraintsType="Default" Index="3" RelativeSize="5" />
+                <LayoutItem Id="MatrixPlan.Type" SizeConstraintsType="Default" Index="3" RelativeSize="10" Removed="True" />
+                <LayoutItem Id="MatrixPlan.TypeMatrix" SizeConstraintsType="Default" Index="3" RelativeSize="5" Removed="True" />
+                <LayoutItem Id="MatrixAllocKB.IterationNumber" SizeConstraintsType="Default" RelativeSize="6" Index="4" Removed="True" />
+                <LayoutItem Id="MatrixAllocKB.Variant" SizeConstraintsType="Default" RelativeSize="6" Index="4" Removed="True" />
+                <LayoutItem Id="MatrixAllocOZM.GroupDep" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="6" Index="4" Removed="True" />
+                <LayoutItem Id="MatrixAllocOZM.Type" SizeConstraintsType="Default" RelativeSize="6" Index="4" Removed="True" />
+                <LayoutItem Id="MatrixAllocOZM.TypeMatrix" SizeConstraintsType="Default" RelativeSize="6" Index="4" Removed="True" />
+                <LayoutItem Id="MatrixPlan.Status" SizeConstraintsType="Default" Index="4" RelativeSize="5" />
+                <LayoutItem Id="MatrixAllocOZM.Status" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" SizeConstraintsType="Default" RelativeSize="26" Index="5" Removed="True" />
+                <LayoutItem Id="MatrixPlan.Variant" SizeConstraintsType="Default" Index="5" RelativeSize="5" />
+                <LayoutItem Id="MatrixPlan.IterationNumber" SizeConstraintsType="Default" Index="6" RelativeSize="15" />
+                <LayoutItem Id="AllocParameters.Month" SizeConstraintsType="Default" RelativeSize="6" Removed="True" />
+                <LayoutItem Id="AllocParameters.Year" SizeConstraintsType="Default" RelativeSize="9" Removed="True" />
+                <LayoutItem Id="MatrixAlloc.Type" Removed="True" />
+                <LayoutItem Id="MatrixAllocOZM.Variant" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col2" Caption="HrmSalaryTaskProvisionMatrixReduction_col2" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="50">
+                <LayoutItem Id="AllocResultKB.GroupDep" SizeConstraintsType="Default" RelativeSize="9" Index="0" Removed="True" />
+                <LayoutItem Id="AllocResultKB.Type" SizeConstraintsType="Default" RelativeSize="9" Index="0" Removed="True" />
+                <LayoutItem Id="AllocResultKB.TypeMatrix" SizeConstraintsType="Default" RelativeSize="9" Index="0" Removed="True" />
+                <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="35" Caption="Первичная проводка" IsNewNode="True">
+                  <LayoutItem Id="AllocResultKB.GroupDep" ViewItem="AllocResultKB.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="22" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Status" ViewItem="AllocResultKB.Status" SizeConstraintsType="Default" Index="1" RelativeSize="16" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.GroupDep" ViewItem="AllocResultOZM.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="16" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Status" ViewItem="AllocResultOZM.Status" SizeConstraintsType="Default" Index="3" RelativeSize="22" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllocResultKB.Status" SizeConstraintsType="Default" RelativeSize="7" Index="1" Removed="True" />
+                <LayoutItem Id="MatrixAlloc.TypeMatrix" SizeConstraintsType="Default" Index="1" RelativeSize="5" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="AllocResultKB.IterationNumber" SizeConstraintsType="Default" RelativeSize="7" Index="2" Removed="True" />
+                <LayoutItem Id="AllocResultKB.Variant" SizeConstraintsType="Default" RelativeSize="7" Index="2" Removed="True" />
+                <LayoutItem Id="AllocResultOZM.GroupDep" SizeConstraintsType="Default" RelativeSize="7" Index="2" Removed="True" />
+                <LayoutItem Id="AllocResultOZM.Type" SizeConstraintsType="Default" RelativeSize="7" Index="2" Removed="True" />
+                <LayoutItem Id="AllocResultOZM.TypeMatrix" SizeConstraintsType="Default" RelativeSize="7" Index="2" Removed="True" />
+                <LayoutItem Id="CurrentTimeSheetKB.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="5" Removed="True" />
+                <LayoutItem Id="CurrentTimeSheetKB.Status" SizeConstraintsType="Default" Index="2" RelativeSize="6" Removed="True" />
+                <LayoutItem Id="CurrentTimeSheetOZM.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="6" Removed="True" />
+                <LayoutItem Id="CurrentTimeSheetOZM.Status" SizeConstraintsType="Default" Index="2" RelativeSize="20" Removed="True" />
+                <LayoutGroup Id="Item3" ShowCaption="True" Caption="Матрица учета" CaptionLocation="Top" Index="2" RelativeSize="33" IsNewNode="True">
+                  <LayoutItem Id="MatrixAllocKB.GroupDep" ViewItem="MatrixAllocKB.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="23" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" SizeConstraintsType="Default" Index="1" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Status" ViewItem="MatrixAllocOZM.Status" SizeConstraintsType="Default" Index="3" RelativeSize="23" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllocResultOZM.Status" SizeConstraintsType="Default" RelativeSize="75" Index="3" Removed="True" />
+                <LayoutItem Id="CurrentTimeSheetOZM.Period" SizeConstraintsType="Default" Index="3" RelativeSize="6" Removed="True" />
+                <LayoutItem Id="MatrixAlloc.GroupDep" SizeConstraintsType="Default" Index="3" RelativeSize="5" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="AllocResultOZM.IterationNumber" SizeConstraintsType="Default" RelativeSize="68" Index="4" Removed="True" />
+                <LayoutItem Id="AllocResultOZM.Variant" SizeConstraintsType="Default" RelativeSize="7" Index="4" Removed="True" />
+                <LayoutItem Id="MatrixAlloc.Status" SizeConstraintsType="Default" Index="4" RelativeSize="5" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="MatrixAlloc.Variant" SizeConstraintsType="Default" Index="5" RelativeSize="5" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="MatrixAlloc.IterationNumber" SizeConstraintsType="Default" Index="6" RelativeSize="7" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="CurrentTimeSheetKB.Period" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_Order_DetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="OrderSet_DepartmentItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="FactTravels" PropertyName="FactTravels" IsNewNode="True" />
+        <PropertyEditor Id="FactTravelsKB" PropertyName="FactTravelsKB" IsNewNode="True" />
+        <PropertyEditor Id="FactTravelsOZM" PropertyName="FactTravelsOZM" IsNewNode="True" />
+        <PropertyEditor Id="Order" PropertyName="Order" IsNewNode="True" />
+        <PropertyEditor Id="OrderPlan" PropertyName="OrderPlan" IsNewNode="True" />
+        <PropertyEditor Id="PlanKB" PropertyName="PlanKB" IsNewNode="True" />
+        <PropertyEditor Id="PlannedTravels" PropertyName="PlannedTravels" IsNewNode="True" />
+        <PropertyEditor Id="PlannedTravelsOZM" PropertyName="PlannedTravelsOZM" IsNewNode="True" />
+        <PropertyEditor Id="PlannedTrvaelsKB" PropertyName="PlannedTrvaelsKB" IsNewNode="True" />
+        <PropertyEditor Id="PlanOZM" PropertyName="PlanOZM" IsNewNode="True" />
+        <PropertyEditor Id="PrefatoryFactKB" PropertyName="PrefatoryFactKB" IsNewNode="True" />
+        <PropertyEditor Id="PrefatoryFactOZM" PropertyName="PrefatoryFactOZM" IsNewNode="True" />
+        <PropertyEditor Id="PrefatoryOrderFact" PropertyName="PrefatoryOrderFact" IsNewNode="True" />
+        <PropertyEditor Id="TypeControl" PropertyName="TypeControl" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutItem Id="Order" ViewItem="DepartmentItems" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="HrmSalaryTaskProvisionMatrixReduction_Order_DetailView" />
+    <DetailView Id="HrmTimeSheetDep_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="HrmTimeSheetDep" Caption="Hrm Time Sheet Dep" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmTimeSheetDep_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="MatrixWorkTime" SizeConstraintsType="Default" RelativeSize="3" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmTimeSheetDep_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="ConstantWorkTime" SizeConstraintsType="Default" RelativeSize="4" />
+                <LayoutItem Id="BaseWorkTime" SizeConstraintsType="Default" RelativeSize="3" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmTimeSheetDep_ListView">
+      <Columns>
+        <ColumnInfo Id="BuhCode" PropertyName="Department.BuhCode" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Department" Index="1" />
+        <ColumnInfo Id="TimeSheet" Index="2" />
+        <ColumnInfo Id="MatrixWorkTime" Index="3" />
+        <ColumnInfo Id="TravelWorkTime" Index="4" />
+        <ColumnInfo Id="ConstantWorkTime" Index="5" />
+        <ColumnInfo Id="BaseWorkTime" Index="6" />
+      </Columns>
+    </ListView>
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem" CaptionVerticalAlignment="Bottom" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentPlan" PropertyName="DepartmentPlan" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" IsNewNode="True" />
+        <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" Direction="Horizontal" IsNewNode="True">
+          <LayoutItem Id="OrderItems" Index="0" ViewItem="OrderItems" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" PropertyName="MinimizeMaximumDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" PropertyName="MinimizeNumberOfDeviationsAlloc" IsNewNode="True" />
+        <PropertyEditor Id="Order" PropertyName="Order" IsNewNode="True" />
+        <PropertyEditor Id="OrderPlan" PropertyName="OrderPlan" IsNewNode="True" />
+        <PropertyEditor Id="ProportionsMethodAlloc" PropertyName="ProportionsMethodAlloc" IsNewNode="True" />
+        <PropertyEditor Id="TypeControl" PropertyName="TypeControl" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <LayoutItem Id="DepartmentItems" Index="0" ViewItem="DepartmentItems" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="OrderItem_ListView">
+      <Columns>
+        <ColumnInfo Id="OrderPlan" Index="2" />
+        <ColumnInfo Id="ProportionsMethodAlloc" Index="3" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

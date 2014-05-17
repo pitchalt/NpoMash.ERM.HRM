@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<configuration>
+  <appSettings>
+    <!--В следующей строке, вместо "D:\Branches\SVN\ASFPK\var\", укажите свой локальный путь к этой папке-->
+    <!--Сохраните файл, и замените им App.Debug.Config и App.Config-->
+    <add key="FileExchangePath.ROOT" value="D:\Branches\SVN\ASFPK\var\"/>
+    <add key="Modules" value="" />
+    <add key="NewVersionServer" value="" />
+    <add key="EnableDiagnosticActions" value="False" />
+    <add key="Languages" value="en;ru" />
+  </appSettings>
+  <connectionStrings>
+    <add name="EasyTestConnectionString" connectionString="Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=NpoMash.Erm.Hrm.TestsEasyTest"/>
+  </connectionStrings>
+  <system.diagnostics>
+    <switches>
+      <add name="eXpressAppFramework" value="3"/>
+    </switches>
+  </system.diagnostics>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
+  </startup>
+</configuration>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="IntecoAG.ERM.FM.Order.fmCOrder" Caption="Заказ">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="IntecoAG.ERM.FM.Order.FmCOrderTypeConstancy" Value="Признак заказа">
+        <LocalizationItem Name="CONST_ORDER_TYPE" Value="Постоянный шифр заказа" />
+        <LocalizationItem Name="UN_CONST_ORDER_TYPE" Value="Непостоянный шифр заказа" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="IntecoAG.ERM.FM.Order.FmCOrderTypeControl" Value="Тип контроля">
+        <LocalizationItem Name="FOT" Value="ФОТ" />
+        <LocalizationItem Name="NO_ORDERED" Value="Неконтролируемый" />
+        <LocalizationItem Name="TRUDEMK_FOT" Value="Трудоемкость+ФОТ" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep" Value="Группа">
+        <LocalizationItem Name="DEPARTMENT_KB" Value="КБ" />
+        <LocalizationItem Name="DEPARTMENT_OZM" Value="ОЗМ" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+</Application>
