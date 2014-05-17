@@ -36,8 +36,9 @@ namespace NpoMash.Erm.Hrm.Salary
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled=false)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListFirst", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='ALLOC_PARAMETERS_ACCEPTED' or Status='LIST_OF_ORDER_ACCEPTED'")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListLast", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status='ALLOC_PARAMETERS_ACCEPTED'")]    
-    [DefaultProperty("Status")]       
-    public class HrmPeriodAllocParameter : BaseObject
+    [DefaultProperty("Status")]
+
+    public class HrmPeriodAllocParameter : HrmSalaryPeriodObjectBase
     {
         
         [PersistentAlias("Period.Year")]
@@ -90,7 +91,12 @@ namespace NpoMash.Erm.Hrm.Salary
         [VisibleInLookupListView(false)]
         public HrmPeriod Period {
             get { return _Period; }
-            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
+            set {
+                SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
+                if (!IsLoading) {
+                    PeriodBase = value;
+        }
+             }
         }
 
         [Persistent("IterationNumber")]

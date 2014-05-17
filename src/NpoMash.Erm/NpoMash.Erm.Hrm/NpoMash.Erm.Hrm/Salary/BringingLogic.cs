@@ -18,7 +18,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
     public static class BringingLogic {
 
-        public static Matrix PrepareBringingStructure(HrmSalaryTaskMatrixReduction reduc) {
+        public static BringingStructure.Matrix PrepareBringingStructure(HrmSalaryTaskMatrixReduction reduc) {
             HrmMatrix mat_plan = reduc.MatrixPlan;
             HrmTimeSheet time_sheet = reduc.TimeSheet;
             HrmPeriodAllocParameter alloc_parameters = reduc.AllocParameters;
@@ -32,7 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 .Where<HrmTimeSheetDep>( x => x.BaseWorkTime > 0)
                 .ToDictionary<HrmTimeSheetDep, String>(x => x.Department.BuhCode);
             int errors_in_ts = 0;
-            Matrix mat = new Matrix();
+            BringingStructure.Matrix mat = new BringingStructure.Matrix();
             foreach (HrmMatrixColumn department_plan in mat_plan.Columns) {
                 
                     //continue;
@@ -82,7 +82,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         /// за счет неконтролируемых заказов 
         /// </summary>
         /// <param name="mat"></param>
-        public static void BringUncontrolledOrders(Matrix mat) {
+        public static void BringUncontrolledOrders(BringingStructure.Matrix mat) {
             foreach (Dep dep in mat.deps.Values) {
                 if (dep.fact >= dep.planControlled) {
                     IList<Cell> non_zero_uncontrolled = new List<Cell>();
@@ -112,7 +112,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void BringMicroDepartments(Matrix mat) {
+        public static void BringMicroDepartments(BringingStructure.Matrix mat) {
             IEnumerable<Dep> micro_departments = mat.deps.Values
                 .Where<Dep>(x => x.planControlled < x.fact && x.nonZeroUncontrolled == 0)
                 .OrderBy<Dep, Int64>(x => x.nonZeroControlled);
@@ -149,7 +149,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void BringBigDepartments(Matrix mat) {
+        public static void BringBigDepartments(BringingStructure.Matrix mat) {
             IEnumerable<Dep> big_deps = mat.deps.Values.Where<Dep>(x => x.freeSpace < 0)
                 .OrderBy<Dep, Decimal>(x => x.freeSpace);
             
@@ -189,7 +189,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        public static void RestoreInitialFact(Matrix mat) {
+        public static void RestoreInitialFact(BringingStructure.Matrix mat) {
             foreach (Cell cell in mat.cellsInDictionary.Values) {
                 if (cell.isNeedsToRestore) {
                     cell.time += 1;
@@ -198,7 +198,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void PutDataInRealMatrix(HrmMatrix real_matrix, Matrix bringing_structure) {
+        public static void PutDataInRealMatrix(HrmMatrix real_matrix, BringingStructure.Matrix bringing_structure) {
             RestoreInitialFact(bringing_structure);
             foreach (HrmMatrixColumn real_dep in real_matrix.Columns)
                 foreach (HrmMatrixCell real_cell in real_dep.Cells) {

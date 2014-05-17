@@ -153,6 +153,7 @@
     <Compile Include="Salary\BringingStructure.cs" />
     <Compile Include="Salary\HrmMatrixLogic.cs" />
     <Compile Include="Salary\HrmPeriodDepartmentControl.cs" />
+    <Compile Include="Salary\HrmSalaryMatrixSlice.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -162,7 +163,9 @@
     <Compile Include="Salary\HrmPeriodAllocParameterLogic.cs" />
     <Compile Include="Salary\HrmAccount.cs" />
     <Compile Include="Salary\HrmAccountOperation.cs" />
-    <Compile Include="Salary\HrmMatrix.cs" />
+    <Compile Include="Salary\HrmMatrix.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Salary\HrmMatrixAllocPlan.cs" />
     <Compile Include="Salary\HrmMatrixAllocResult.cs" />
     <Compile Include="Salary\HrmMatrixCell.cs" />
@@ -178,6 +181,17 @@
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryBaseMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryCellSlice.cs" />
+    <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryColumnSlice.cs" />
+    <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
+    <Compile Include="Salary\HrmSalaryLastAccount.cs" />
+    <Compile Include="Salary\HrmSalaryPeriodObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryProvisionMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryRowSlice.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummary.cs" />
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
@@ -269,9 +283,37 @@
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
+    <Compile Include="Salary\IHrmSalaryMatrix.cs" />
     <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringLogic.cs" />
     <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringStructure.cs" />
+    <Compile Include="Salary\Matrix\ICell.cs" />
+    <Compile Include="Salary\Matrix\IColumn.cs" />
+    <Compile Include="Salary\Matrix\IMatrix.cs" />
+    <Compile Include="Salary\Matrix\ISlice.cs" />
+    <Compile Include="Salary\Matrix\ISliced.cs" />
+    <Compile Include="Salary\Matrix\IRow.cs" />
+    <Compile Include="Salary\Matrix\IValue.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ISliced.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ISlice.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ICell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IMatrix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\MatrixPlan.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
   </ItemGroup>
@@ -362,7 +404,9 @@
       <Name>IntecoAG.XafExt</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Salary\Matrix\MatrixFirstAlloc\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
