@@ -16,9 +16,9 @@ using DevExpress.Persistent.Validation;
 namespace IntecoAG.ERM.HRM.Organization
 {
     public enum DepartmentGroupDep { 
-        DEPARTMENT_KB = 0, 
-        DEPARTMENT_OZM = 1,
-        DEPARTMENT_KB_OZM = 2
+        DEPARTMENT_KB = 1, 
+        DEPARTMENT_OZM = 2,
+        DEPARTMENT_KB_OZM = 0
     }
 
     [Persistent("Department")]

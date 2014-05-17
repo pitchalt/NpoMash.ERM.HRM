@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 //
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
@@ -15,6 +16,8 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM.Organization;
+using NpoMash.Erm.Hrm.Salary.Matrix;
+
 namespace NpoMash.Erm.Hrm.Salary {
 
     public enum HrmMatrixStatus {
@@ -44,14 +47,16 @@ namespace NpoMash.Erm.Hrm.Salary {
         PROPORTIONS_METHOD_VARIANT=2,
     }
 
+    public class HrmSalaryMatrixSliceCollection: XPCollection<HrmSalaryMatrixSlice> {
+        public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property): base(session, matrix, property) { }
+    }
 
     [Persistent("HrmMatrix")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-//   [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Enabled=false)]
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Status")]       
-    public class HrmMatrix : BaseObject {
+    [DefaultProperty("Status")]
+    public class HrmMatrix : HrmSalaryPeriodObjectBase {
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
@@ -98,14 +103,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
         }
 
-        [Association("TYPE_MATIX-Rows"), Aggregated] //Коллекция HrmMatrixRow
+        [Association("HrmMatrix-Rows"), Aggregated] //Коллекция HrmMatrixRow
         public XPCollection<HrmMatrixRow> Rows {
             get { return GetCollection<HrmMatrixRow>("Rows"); }
         }
 
-        [Association("TYPE_MATIX-Columns"), Aggregated] //Коллекция HrmMatrixColumn
+        [Association("HrmMatrix-Columns"), Aggregated] //Коллекция HrmMatrixColumn
         public XPCollection<HrmMatrixColumn> Columns {
             get { return GetCollection<HrmMatrixColumn>("Columns"); }
+        }
+
+        [Association("HrmMatrix-Slices")] //Коллекция HrmMatrixSlice
+        public HrmSalaryMatrixSliceCollection Slices {
+            get { return new HrmSalaryMatrixSliceCollection(this.Session, this, this.ClassInfo.GetMember("Slices")); }
         }
 
         private HrmPeriod _Period; // Ссылка на HrmPeriod
@@ -113,7 +123,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Association("Period-Matrixs")]
         public HrmPeriod Period {
             get { return _Period; }
-            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
+            set { 
+                SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
+                if (!IsLoading) {
+                    PeriodBase = value;
+                }
+            }
         }
 
         [Browsable(false)]
@@ -121,5 +136,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {base.AfterConstruction(); }
+
     }
 }

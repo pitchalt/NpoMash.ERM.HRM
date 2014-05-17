@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
+using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -105,5 +106,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixCell(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
     }
 }

@@ -80,6 +80,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStruct\IIndexedList.cs" />
+    <Compile Include="DataStruct\Matrix\ISliced.cs" />
+    <Compile Include="DataStruct\Matrix\ICell.cs" />
+    <Compile Include="DataStruct\Matrix\IColumn.cs" />
+    <Compile Include="DataStruct\Matrix\IMatrix.cs" />
+    <Compile Include="DataStruct\Matrix\IRow.cs" />
+    <Compile Include="DataStruct\Matrix\ISlice.cs" />
+    <Compile Include="DataStruct\Matrix\IValue.cs" />
+    <Compile Include="DataStruct\IndexedList\IndexedList.cs" />
     <Compile Include="UI\MessageBox.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -122,6 +131,7 @@
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

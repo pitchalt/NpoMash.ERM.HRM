@@ -211,6 +211,10 @@
       <Project>{71dc7a2b-825e-401c-bb71-2ebe5c3ddce0}</Project>
       <Name>IntecoAG.Erm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\IntecoAG.XafExt\IntecoAG.XafExt\IntecoAG.XafExt.csproj">
+      <Project>{62ea4432-7bd3-4a77-8478-ca2e358d0f3b}</Project>
+      <Name>IntecoAG.XafExt</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Win\NpoMash.Erm.Hrm.Win.csproj">
       <Project>{7964f87d-bc5d-4c4e-8b2f-71e89739aa97}</Project>
       <Name>NpoMash.Erm.Hrm.Win</Name>

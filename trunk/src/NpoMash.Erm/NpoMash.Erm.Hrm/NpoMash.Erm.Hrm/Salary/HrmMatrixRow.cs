@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Editors;
 //
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
+using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -49,15 +50,25 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmMatrix _Matrix; //—сылка на HrmMatrix
-        [Association("TYPE_MATIX-Rows")]
+        [Association("HrmMatrix-Rows")]
         public HrmMatrix Matrix {
             get { return _Matrix; }
             set { SetPropertyValue<HrmMatrix>("TYPE_MATIX", ref _Matrix, value); }
         }
 
+        private HrmSalaryPeriodObjectBase _SalaryObject;
+        [Association("SalaryObject-Row")]
+        public HrmSalaryPeriodObjectBase SalaryObject {
+            get { return _SalaryObject; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
+        }
+
+
+
         public HrmMatrixRow(Session session): base(session) {}
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+
     }
 }

@@ -5,20 +5,20 @@ using System.Text;
 
 using NUnit.Framework;
 
-using DevExpress.Xpo;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
-using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
-using NpoMash.Erm.Hrm.Salary;
+using DevExpress.Xpo;
+//
 using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM.Organization;
-
-using DevExpress.ExpressApp.Xpo;
+using NpoMash.Erm.Hrm.Salary;
 using NpoMash.Erm.Hrm.Tests.Controllers;
 using DevExpress.Spreadsheet;
 using DevExpress.Office;
