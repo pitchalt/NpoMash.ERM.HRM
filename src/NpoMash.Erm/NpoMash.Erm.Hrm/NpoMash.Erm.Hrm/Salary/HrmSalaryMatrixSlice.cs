@@ -20,12 +20,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent]
     public class HrmSalaryMatrixSlice : HrmSalaryPeriodObjectSlice {
 
-        private HrmMatrix _Matrix;
+     /*   private HrmMatrix _Matrix;
         [Association("HrmMatrix-HrmSalaryMatrixSlices")] //Ссылка на HrmMatrix
         public HrmMatrix Matrix {
             get { return _Matrix; }
             set { SetPropertyValue<HrmMatrix>("Matrix", ref _Matrix, value); }
-        }
+        }*/
 
 
         [Association("HrmSalaryMatrixSlice-HrmSalaryRowSlice"), Aggregated] //Коллекция HrmMatrixRow

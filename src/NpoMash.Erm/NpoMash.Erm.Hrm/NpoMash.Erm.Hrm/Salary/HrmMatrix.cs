@@ -113,10 +113,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return GetCollection<HrmMatrixColumn>("Columns"); }
         }
 
-        [Association("HrmMatrix-Slices")] //Коллекция HrmMatrixSlice
-        public HrmSalaryMatrixSliceCollection Slices {
-            get { return new HrmSalaryMatrixSliceCollection(this.Session, this, this.ClassInfo.GetMember("Slices")); }
-        }
+      //  [Association("HrmMatrix-Slices")] //Коллекция HrmMatrixSlice
+      //  public HrmSalaryMatrixSliceCollection Slices {
+        //    get { return new HrmSalaryMatrixSliceCollection(this.Session, this, this.ClassInfo.GetMember("Slices")); }
+     //   }
 
         private HrmPeriod _Period; // Ссылка на HrmPeriod
         [Appearance("",Enabled=false)]
