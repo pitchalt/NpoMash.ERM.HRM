@@ -45,8 +45,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED &&
-                    matrix.GroupDep == group_dep) {
+                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED){
+                    //&& matrix.GroupDep == group_dep) {
                     task_matrix_reduction.MatrixPlan = matrix;
                 }
             }

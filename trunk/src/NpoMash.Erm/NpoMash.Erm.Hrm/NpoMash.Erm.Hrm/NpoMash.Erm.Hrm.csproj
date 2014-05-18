@@ -201,22 +201,6 @@
     <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperation.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperationLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperationVC.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Salary\HrmSalaryTaskCompareKBAccountOperationVC.Designer.cs">
-      <DependentUpon>HrmSalaryTaskCompareKBAccountOperationVC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperation.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.Designer.cs">
-      <DependentUpon>HrmSalaryTaskCompareOZMAccountOperationVC.cs</DependentUpon>
-    </Compile>
     <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -314,6 +298,14 @@
     <Compile Include="Salary\Matrix\MatrixPlan\MatrixPlan.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Salary\TaskKompareWorkTime.cs" />
+    <Compile Include="Salary\TaskKompareWorkTimeLogic.cs" />
+    <Compile Include="Salary\TaskKompareWorkTimeVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\TaskKompareWorkTimeVC.Designer.cs">
+      <DependentUpon>TaskKompareWorkTimeVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
   </ItemGroup>
@@ -332,12 +324,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.resx">
       <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskCompareKBAccountOperationVC.resx">
-      <DependentUpon>HrmSalaryTaskCompareKBAccountOperationVC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskCompareOZMAccountOperationVC.resx">
-      <DependentUpon>HrmSalaryTaskCompareOZMAccountOperationVC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.resx">
       <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
