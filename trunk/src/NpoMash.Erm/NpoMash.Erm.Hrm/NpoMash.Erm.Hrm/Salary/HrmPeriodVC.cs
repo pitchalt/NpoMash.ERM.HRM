@@ -130,6 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         group_dep, bringing_method);
                 else reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentKBmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
+               
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);
@@ -148,6 +149,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         group_dep, bringing_method);
                 else reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentOZMmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
+               
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);
