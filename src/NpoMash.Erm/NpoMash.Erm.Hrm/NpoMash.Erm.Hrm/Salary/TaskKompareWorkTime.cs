@@ -20,35 +20,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     [Persistent("TaskKompareWorkTime")]
-    public class TaskKompareWorkTime : HrmSalaryTaskMatrixReduction {
+    public class TaskKompareWorkTime : HrmSalaryBaseReductionElements {
 
-        [NonPersistent]
-        public class DepartmentItem : XPCustomObject {
-            public Department Department;
-            public DepartmentGroupDep Group;
-            public Decimal DepartmentPlan;
-            public Decimal DepartmentTravelPlan;
-            public Decimal ConstantOrderType;
-            public Decimal DepartmentFact;
-            public Decimal DepartmentTravelFact;
-            public Decimal Plan_Fact;
-            public IList<OrderItem> OrderItems = new List<OrderItem>();
-            public DepartmentItem(Session session) : base(session) { }
-        }
-
-        [NonPersistent]
-        public class OrderItem : XPCustomObject {
-            public fmCOrder Order;
-            public FmCOrderTypeControl TypeControl;
-            public Decimal OrderPlan;
-            public Decimal TravelPlan;
-            public Decimal ConstantOrderType;
-            public Decimal OrderFact_ConstantOrderType;
-            public Decimal TravelFact;
-            public Decimal Plan_Fact;
-            public IList<DepartmentItem> DepartmentItems = new List<DepartmentItem>();
-            public OrderItem(Session session) : base(session) { }
-        }
 
         private IList<DepartmentItem> _Department;
         [VisibleInListView(false)]
@@ -57,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get {
                 if (_Department == null) {
                     _Department = new List<DepartmentItem>();
-                    departmentCreate();
+                    departmentAssembly();
                 }
                 return _Department;
             }
@@ -69,17 +42,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             get {
                 if (_Order == null) {
                     _Order = new List<OrderItem>();
-                    orderCreate();
+                    orderAssembly();
                 }
                 return _Order;
             }
         }
 
-        protected void orderCreate() {
+        protected void orderAssembly() {
             LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, Order);
         }
 
-        protected void departmentCreate() {
+        protected void departmentAssembly() {
             LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, Department);
         }
 

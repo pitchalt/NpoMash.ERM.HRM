@@ -153,6 +153,7 @@
     <Compile Include="Salary\BringingStructure.cs" />
     <Compile Include="Salary\HrmMatrixLogic.cs" />
     <Compile Include="Salary\HrmPeriodDepartmentControl.cs" />
+    <Compile Include="Salary\HrmSalaryBaseReductionElements.cs" />
     <Compile Include="Salary\HrmSalaryMatrixSlice.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">
       <SubType>Component</SubType>
