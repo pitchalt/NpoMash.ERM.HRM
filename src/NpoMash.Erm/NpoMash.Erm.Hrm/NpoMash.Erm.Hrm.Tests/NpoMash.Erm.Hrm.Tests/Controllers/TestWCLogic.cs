@@ -63,7 +63,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
 
         public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
             FixedFileEngine<ImportControlledOrder> order_data = new FixedFileEngine<ImportControlledOrder>();
-            ImportControlledOrder[] orders_imported = order_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/ControlledOrders.dat");
+            ImportControlledOrder[] orders_imported = order_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/ControlledOrders.ncd");
             IDictionary<String, fmCOrder> order_in_db = os.GetObjects<fmCOrder>(null, true).ToDictionary<fmCOrder, String>(x => x.Code);
             foreach (var order in orders_imported) {
                 HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
