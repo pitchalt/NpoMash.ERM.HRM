@@ -25,17 +25,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class HrmSalaryTaskMatrixReduction : HrmSalaryTask {
+
+    public class HrmSalaryTaskMatrixReduction : HrmSalaryBaseReductionElements {
+
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
-        private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public HrmMatrix MinimizeNumberOfDeviationsMatrix {
-            get { return _MinimizeNumberOfDeviationsMatrix; }
-            set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
-        }
+
 
         private HrmMatrix _MinimizeMaximumDeviationsMatrix;
         [VisibleInDetailView(false)]
@@ -55,13 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("ProportionsMethodMatrix", ref _ProportionsMethodMatrix, value); }
         }
 
-        private HrmMatrix _MatrixPlan;
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix MatrixPlan {
-            get { return _MatrixPlan; }
-            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
 
-        }
 
         private HrmTimeSheet _TimeSheet;
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
@@ -75,30 +64,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmPeriodAllocParameter AllocParameters {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
-        }
-
-        [NonPersistent]
-        public class DepartmentItem : XPCustomObject {
-            public Department Department;
-            public DepartmentGroupDep Group;
-            public Decimal DepartmentPlan;
-            public Decimal MinimizeNumberOfDeviationsAlloc;
-            public Decimal MinimizeMaximumDeviationsAlloc;
-            public Decimal ProportionsMethodAlloc;
-            public IList<OrderItem> OrderItems = new List<OrderItem>();
-            public DepartmentItem(Session session) : base(session) { }
-        }
-
-        [NonPersistent]
-        public class OrderItem : XPCustomObject {
-            public fmCOrder Order;
-            public FmCOrderTypeControl TypeControl;
-            public Decimal OrderPlan;
-            public Decimal MinimizeNumberOfDeviationsAlloc;
-            public Decimal MinimizeMaximumDeviationsAlloc;
-            public Decimal ProportionsMethodAlloc;
-            public IList<DepartmentItem> DepartmentItems = new List<DepartmentItem>();
-            public OrderItem(Session session) : base(session) { }
         }
 
 
@@ -127,6 +92,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+    
         public void Refresh(HrmMatrixVariant variant) {
             switch (variant) {
                 case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
