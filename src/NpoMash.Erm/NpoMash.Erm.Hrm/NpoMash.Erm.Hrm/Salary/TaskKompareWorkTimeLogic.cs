@@ -16,7 +16,19 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public class TaskKompareWorkTimeLogic : BaseObject { 
+
+    [Persistent("TaskKompareWorkTimeLogic")]
+    public class TaskKompareWorkTimeLogic : BaseObject {
+
+
+
+        public static HrmSalaryTaskMatrixReduction CompareKBMatrix(IObjectSpace object_space, HrmSalaryTask task) { return null; }
+
+        public static HrmSalaryTaskMatrixReduction CompareOZMMatrix(IObjectSpace object_space, HrmSalaryTask task) { return null; }
+
+
+
+
         public TaskKompareWorkTimeLogic(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }

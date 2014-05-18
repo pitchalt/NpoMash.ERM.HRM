@@ -349,6 +349,9 @@
     <EmbeddedResource Include="Salary\HrmSalaryTaskRevertVC.resx">
       <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Salary\TaskKompareWorkTimeVC.resx">
+      <DependentUpon>TaskKompareWorkTimeVC.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
