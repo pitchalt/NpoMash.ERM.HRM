@@ -55,7 +55,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                     current_cell.dep = current_dep;
                     current_cell.plan = source_cell.PlanMoney;
                     current_ord.ordPlan += current_cell.plan;
-                    current_cell.constFact = source_cell.MoneyNoReserve;
+                    current_cell.realBase = source_cell.MoneyNoReserve;
                     //current_cell.reserve = source_cell.MoneyReserve;
                     current_dep.undistributedReserve += source_cell.SourceProvision;
                     current_cell.refToRealCell = source_cell;
