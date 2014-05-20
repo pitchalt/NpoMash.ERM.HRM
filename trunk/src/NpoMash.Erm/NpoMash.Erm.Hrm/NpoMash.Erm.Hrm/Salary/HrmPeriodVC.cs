@@ -123,6 +123,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
             if (period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
+
                 HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
                 HrmSalaryTaskMatrixReduction reduc = null;
                 if (period.CurrentKBmatrixReduction == null)

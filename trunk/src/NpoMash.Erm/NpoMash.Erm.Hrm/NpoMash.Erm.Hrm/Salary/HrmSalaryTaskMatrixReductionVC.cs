@@ -116,6 +116,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         break;
                     case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
                         matrix_to_accept = task.MinimizeNumberOfDeviationsMatrix;
+                        matrix_to_accept.GroupDep = task.GroupDep;
                         break;
                     case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
                         matrix_to_accept = task.ProportionsMethodMatrix;

@@ -60,7 +60,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     reduc.Refresh(bringing_method);
                 }
                 if (reduc.MinimizeNumberOfDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT) {
-                    HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                   /// ///////////////////////////////////////////////////
+                    var matrix = HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                    matrix.GroupDep = reduc.GroupDep;
+                    period.Matrixs.Add(matrix);
                     reduc.Refresh(bringing_method);
                 }
                 if (reduc.ProportionsMethodMatrix == null && bringing_method == HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT) {
