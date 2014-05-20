@@ -166,7 +166,10 @@
     <Compile Include="Salary\BringingLogic.cs" />
     <Compile Include="Salary\BringingStructure.cs" />
     <Compile Include="Salary\HrmMatrixLogic.cs" />
+    <Compile Include="Salary\HrmPeriodAllocParametersBaseObject.cs" />
     <Compile Include="Salary\HrmPeriodDepartmentControl.cs" />
+    <Compile Include="Salary\HrmPeriodMatrixBaseObject.cs" />
+    <Compile Include="Salary\HrmPeriodTimeSheetBaseObject.cs" />
     <Compile Include="Salary\HrmSalaryBaseReductionElements.cs" />
     <Compile Include="Salary\HrmSalaryMatrixSlice.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">

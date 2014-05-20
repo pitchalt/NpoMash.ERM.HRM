@@ -40,7 +40,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTask")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public abstract class HrmSalaryTask : BaseObject { // You can use a different base persistent class based on your requirements (http://documentation.devexpress.com/#Xaf/CustomDocument3146).
+    public abstract class HrmSalaryTask : BaseObject { 
         private HrmPeriod _Period; 
         /// <summary>
         /// Период к которому относиться задача
