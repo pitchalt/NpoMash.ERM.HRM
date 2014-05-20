@@ -92,42 +92,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     HrmMatrixCell new_cell = os.CreateObject<HrmMatrixCell>();
                     new_row.Cells.Add(new_cell);
                     new_col.Cells.Add(new_cell);
-                    /*Int16 coefficient = 0;
-                    switch (bringing_method) {
-                        case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
-                                coefficient = 2;
-                                AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
-                                break;
-                            }
-                        case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
-                                coefficient = 3;
-                                AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
-                                break;
-                            }
-                        case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT: {
-                                coefficient = 4;
-                                AllocMatrix.ProportionsMethodMatrix = result_matrix;
-                                break;
-                            }
-                    }
-                    new_cell.Time = (Int16)(cell.Time * coefficient);
-                    new_cell.Sum = cell.Sum * coefficient;
-                    */
-                    result_matrix.Type = HrmMatrixType.TYPE_MATIX;
-                    result_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_COERCED;
-                    result_matrix.GroupDep = group_dep;
-                    result_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
-                    result_matrix.IterationNumber = 1;
-                    result_matrix.Variant = bringing_method;
-                    result_matrix.Period = period;
-
                 }
             }
 
             switch (bringing_method) {
             case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
-                    //coefficient = 2;
-                    //AllocMatrix.MinimizeMaximumDeviationsMatrix = result_matrix;
                     break;
                 }
             case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
@@ -137,14 +106,20 @@ namespace NpoMash.Erm.Hrm.Salary {
                 BringingLogic.BringBigDepartments(mat);
                 BringingLogic.BringUncontrolledOrders(mat);
                 BringingLogic.PutDataInRealMatrix(result_matrix, mat);
+                result_matrix.GroupDep = group_dep;
                 break;
                 }
             case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT: {
-                    //coefficient = 4;
-                    //AllocMatrix.ProportionsMethodMatrix = result_matrix;
                     break;
                 }
             }
+            result_matrix.Type = HrmMatrixType.TYPE_MATIX;
+            result_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_COERCED;
+            result_matrix.Status = HrmMatrixStatus.MATRIX_SAVED;
+            result_matrix.IterationNumber = 1;
+            result_matrix.Variant = bringing_method;
+            result_matrix.Period = period;
+
             return result_matrix;
         }
     }
