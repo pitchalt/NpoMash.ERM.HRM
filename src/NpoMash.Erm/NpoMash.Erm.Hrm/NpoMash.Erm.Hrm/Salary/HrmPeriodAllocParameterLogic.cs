@@ -1,16 +1,20 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Configuration;
+using System.ComponentModel;
+using System.Collections.Generic;
+
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
-using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
-using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
+
 using NpoMash.Erm.Hrm;
 using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM;
@@ -127,6 +131,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OPEN_TO_EDIT) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED);
+                    Directory.CreateDirectory(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(alloc_parameter.Period.CurrentAllocParameter.Year * 100 + alloc_parameter.Period.CurrentAllocParameter.Month));
                     //alloc_parameter.Period.setStatus(HrmPeriodStatus.LIST_OF_CONTROLLED_ORDERS_ACCEPTED);
                 }
                 else if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED) {
