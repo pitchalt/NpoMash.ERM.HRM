@@ -179,7 +179,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
             FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
-            ExchangeAccountOperation[] account_list = account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "AccountOperation_First.ncd");
+            ExchangeAccountOperation[] account_list = account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) +"/AccountOperation_First.ncd");
             HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
             matrix_alloc_result_kb.IterationNumber = 1;

@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     records.Add(record);
                 }
             }
-            engine.WriteFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "Matrix_Reserve.ncd", records);
+            engine.WriteFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) +"/Matrix_Reserve.ncd", records);
         }
     }
 }
