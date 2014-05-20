@@ -53,7 +53,19 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Status")]
-    public class HrmMatrix : HrmSalaryPeriodObjectBase {
+    public class HrmMatrix : BaseObject {
+
+        //—сылка на HrmPeriodMatrixBaseObject
+        private HrmPeriodMatrixBaseObject _MatrixBaseObject;
+        public HrmPeriodMatrixBaseObject MatrixBaseObject {
+            get { return _MatrixBaseObject; }
+            set { SetPropertyValue<HrmPeriodMatrixBaseObject>("MatrixBaseObject", ref _MatrixBaseObject, value); }
+        }
+        //
+
+
+
+
 
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
@@ -123,7 +135,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { 
                 SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
                 if (!IsLoading) {
-                    PeriodBase = value;
+                    //PeriodBase = value;
                 }
             }
         }
