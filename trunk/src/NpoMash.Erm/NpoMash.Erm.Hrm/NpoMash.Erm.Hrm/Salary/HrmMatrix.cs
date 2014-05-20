@@ -47,9 +47,6 @@ namespace NpoMash.Erm.Hrm.Salary {
         PROPORTIONS_METHOD_VARIANT=2,
     }
 
-    public class HrmSalaryMatrixSliceCollection: XPCollection<HrmSalaryMatrixSlice> {
-        public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property): base(session, matrix, property) { }
-    }
 
     [Persistent("HrmMatrix")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -138,4 +135,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() {base.AfterConstruction(); }
 
     }
+
+    public class HrmSalaryMatrixSliceCollection : XPCollection<HrmSalaryMatrixSlice> {
+        public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property) : base(session, matrix, property) { }
+    }
+
 }

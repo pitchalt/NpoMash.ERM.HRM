@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     public enum HrmSalaryPeriodObjectStatus { }
     
     [Persistent("HrmSalaryPeriodObject")]
-    abstract public class HrmSalaryPeriodObject : BaseObject, ITreeNode {
+    abstract public class HrmSalaryPeriodObject : BaseObject { //, ITreeNode  {
 
        
         private HrmSalaryPeriodObjectStatus _ObjectStatus;
@@ -56,6 +56,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryPeriodObject(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
+/*
         public virtual IBindingList Children {
             get { return new BindingList<HrmSalaryPeriodObject>(); }
         }
@@ -67,6 +68,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public virtual ITreeNode Parent {
             get { return null; }
         }
+*/
+
     }
 
     // abstract//
@@ -79,11 +82,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public override IBindingList Children {
-            get {
-               return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
-            }
-        }
+        //public override IBindingList Children {
+        //    get {
+        //       return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
+        //    }
+        //}
 
 
         /*[Association("SalaryObject-ObjectSlice"), Aggregated] //Коллекция HrmSalaryObjectSlice
@@ -119,11 +122,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public override ITreeNode Parent {
-            get {
-                return ObjectBase;
-            }
-        }
+        //public override ITreeNode Parent {
+        //    get {
+        //        return ObjectBase;
+        //    }
+        //}
 
 
 
