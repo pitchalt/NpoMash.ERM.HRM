@@ -72,67 +72,67 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     }
 
-    // abstract//
-    [MapInheritance(MapInheritanceType.ParentTable)]
-    public  class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject {
+    //// abstract//
+    //[MapInheritance(MapInheritanceType.ParentTable)]
+    //public  class HrmSalaryPeriodObjectBase : HrmSalaryPeriodObject {
 
-        [Association("HrmSalaryPeriodObjectBase-HrmSalaryPeriodObjectSlice")] //Коллекция ObjectSlice
-        public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlices {
-            get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlices"); }
-        }
-
-
-        //public override IBindingList Children {
-        //    get {
-        //       return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
-        //    }
-        //}
+    //    [Association("HrmSalaryPeriodObjectBase-HrmSalaryPeriodObjectSlice")] //Коллекция ObjectSlice
+    //    public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlices {
+    //        get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlices"); }
+    //    }
 
 
-        /*[Association("SalaryObject-ObjectSlice"), Aggregated] //Коллекция HrmSalaryObjectSlice
-        public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlice {
-            get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlice"); }
-        }*/
-
-        [Association("SalaryObject-Column"), Aggregated] //Коллекция HrmMatrixColumn
-        public XPCollection<HrmMatrixColumn> Column {
-            get { return GetCollection<HrmMatrixColumn>("Column"); }
-        }
-
-        [Association("SalaryObject-Row"), Aggregated] //Коллекция HrmMatrixRow
-        public XPCollection<HrmMatrixRow> Row {
-            get { return GetCollection<HrmMatrixRow>("Row"); }
-        }
-
-        public HrmSalaryPeriodObjectBase(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
-    }
+    //    //public override IBindingList Children {
+    //    //    get {
+    //    //       return new BindingList<HrmSalaryPeriodObjectSlice>(ObjectSlices);
+    //    //    }
+    //    //}
 
 
-    //abstract
-    [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
+    //    /*[Association("SalaryObject-ObjectSlice"), Aggregated] //Коллекция HrmSalaryObjectSlice
+    //    public XPCollection<HrmSalaryPeriodObjectSlice> ObjectSlice {
+    //        get { return GetCollection<HrmSalaryPeriodObjectSlice>("ObjectSlice"); }
+    //    }*/
 
-        private HrmSalaryPeriodObjectBase _ObjectBase;
-        [Association("HrmSalaryPeriodObjectBase-HrmSalaryPeriodObjectSlice")]
-        public HrmSalaryPeriodObjectBase ObjectBase {
-            get { return _ObjectBase; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectBase>("ObjectBase", ref _ObjectBase, value); }
+    //    [Association("SalaryObject-Column"), Aggregated] //Коллекция HrmMatrixColumn
+    //    public XPCollection<HrmMatrixColumn> Column {
+    //        get { return GetCollection<HrmMatrixColumn>("Column"); }
+    //    }
+
+    //    [Association("SalaryObject-Row"), Aggregated] //Коллекция HrmMatrixRow
+    //    public XPCollection<HrmMatrixRow> Row {
+    //        get { return GetCollection<HrmMatrixRow>("Row"); }
+    //    }
+
+    //    public HrmSalaryPeriodObjectBase(Session session) : base(session) { }
+    //    public override void AfterConstruction() { base.AfterConstruction(); }
+    //}
+
+
+    ////abstract
+    //[MapInheritance(MapInheritanceType.ParentTable)]
+    //public class HrmSalaryPeriodObjectSlice : HrmSalaryPeriodObject {
+
+    //    private HrmSalaryPeriodObjectBase _ObjectBase;
+    //    [Association("HrmSalaryPeriodObjectBase-HrmSalaryPeriodObjectSlice")]
+    //    public HrmSalaryPeriodObjectBase ObjectBase {
+    //        get { return _ObjectBase; }
+    //        set { SetPropertyValue<HrmSalaryPeriodObjectBase>("ObjectBase", ref _ObjectBase, value); }
         
-        }
+    //    }
 
 
-        //public override ITreeNode Parent {
-        //    get {
-        //        return ObjectBase;
-        //    }
-        //}
+    //    //public override ITreeNode Parent {
+    //    //    get {
+    //    //        return ObjectBase;
+    //    //    }
+    //    //}
 
 
 
-        public HrmSalaryPeriodObjectSlice(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
-    }
+    //    public HrmSalaryPeriodObjectSlice(Session session) : base(session) { }
+    //    public override void AfterConstruction() { base.AfterConstruction(); }
+    //}
 
 
 }

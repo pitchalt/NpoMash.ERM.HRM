@@ -17,7 +17,7 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
 
-    public class HrmPeriodAllocParametersBaseObject : HrmSalaryPeriodObjectBase {
+    public class HrmPeriodAllocParametersBaseObject : HrmSalaryPeriodObject {
 
 
         private HrmPeriodAllocParameter _AllocParameters;
@@ -25,9 +25,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _AllocParameters; }
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
-
-
-
 
         public HrmPeriodAllocParametersBaseObject(Session session)
             : base(session) {

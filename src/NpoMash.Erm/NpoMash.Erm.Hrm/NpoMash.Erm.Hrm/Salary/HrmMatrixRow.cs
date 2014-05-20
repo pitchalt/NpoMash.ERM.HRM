@@ -56,12 +56,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("TYPE_MATIX", ref _Matrix, value); }
         }
 
-        private HrmSalaryPeriodObjectBase _SalaryObject;
-        [Association("SalaryObject-Row")]
-        public HrmSalaryPeriodObjectBase SalaryObject {
-            get { return _SalaryObject; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
-        }
+        //private HrmSalaryPeriodObjectBase _SalaryObject;
+        //[Association("SalaryObject-Row")]
+        //public HrmSalaryPeriodObjectBase SalaryObject {
+        //    get { return _SalaryObject; }
+        //    set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
+        //}
 
 
 

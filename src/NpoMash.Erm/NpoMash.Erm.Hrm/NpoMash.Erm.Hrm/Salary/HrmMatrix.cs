@@ -62,11 +62,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodMatrixBaseObject>("MatrixBaseObject", ref _MatrixBaseObject, value); }
         }
         //
-
-
-
-
-
         private HrmMatrixType _Type;
         [Appearance("",Enabled=false)]
         public HrmMatrixType Type {
@@ -122,10 +117,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return GetCollection<HrmMatrixColumn>("Columns"); }
         }
 
-        [Association("HrmMatrix-Slices"),Aggregated] //Коллекция HrmMatrixSlice
-        public HrmSalaryMatrixSliceCollection Slices {
-            get { return new HrmSalaryMatrixSliceCollection(this.Session, this, this.ClassInfo.GetMember("Slices")); }
-        }
+        //[Association("HrmMatrix-Slices"),Aggregated] //Коллекция HrmMatrixSlice
+        //public HrmSalaryMatrixSliceCollection Slices {
+        //    get { return new HrmSalaryMatrixSliceCollection(this.Session, this, this.ClassInfo.GetMember("Slices")); }
+        //}
 
         private HrmPeriod _Period; // Ссылка на HrmPeriod
         [Appearance("",Enabled=false)]
@@ -148,8 +143,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     }
 
-    public class HrmSalaryMatrixSliceCollection : XPCollection<HrmSalaryMatrixSlice> {
-        public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property) : base(session, matrix, property) { }
-    }
+    //public class HrmSalaryMatrixSliceCollection : XPCollection<HrmSalaryMatrixSlice> {
+    //    public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property) : base(session, matrix, property) { }
+    //}
 
 }
