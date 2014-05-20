@@ -16,22 +16,13 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public class HrmPeriodMatrixBaseObject : HrmSalaryPeriodObjectBase {
+    public class HrmPeriodMatrixBaseObject : HrmSalaryPeriodObject {
 
         private HrmMatrix _Matrix;
         public HrmMatrix Matrix {
             get { return _Matrix; }
             set { SetPropertyValue<HrmMatrix>("Matrix", ref _Matrix, value); }
         }
-
-
-
-
-
-
-
-
-
 
         public HrmPeriodMatrixBaseObject(Session session)
             : base(session) {

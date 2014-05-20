@@ -30,12 +30,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixRow>("Row", ref _Row, value); }
         }
 
-        private HrmSalaryMatrixSlice _HrmSalaryMatrixSlice;
-        [Association("HrmSalaryMatrixSlice-HrmSalaryRowSlice")] //—сылка HrmMatrixSlice
-        public HrmSalaryMatrixSlice HrmSalaryMatrixSlice {
-            get { return _HrmSalaryMatrixSlice; }
-            set { SetPropertyValue<HrmSalaryMatrixSlice>("HrmSalaryMatrixSlice", ref _HrmSalaryMatrixSlice, value); }
-        }
+        //private HrmSalaryMatrixSlice _HrmSalaryMatrixSlice;
+        //[Association("HrmSalaryMatrixSlice-HrmSalaryRowSlice")] //—сылка HrmMatrixSlice
+        //public HrmSalaryMatrixSlice HrmSalaryMatrixSlice {
+        //    get { return _HrmSalaryMatrixSlice; }
+        //    set { SetPropertyValue<HrmSalaryMatrixSlice>("HrmSalaryMatrixSlice", ref _HrmSalaryMatrixSlice, value); }
+        //}
 
 
         public HrmSalaryRowSlice(Session session) : base(session) { }

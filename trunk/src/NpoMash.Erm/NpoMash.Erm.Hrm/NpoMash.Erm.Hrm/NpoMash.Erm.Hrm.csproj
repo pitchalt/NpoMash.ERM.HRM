@@ -165,13 +165,21 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Salary\BringingLogic.cs" />
     <Compile Include="Salary\BringingStructure.cs" />
+    <Compile Include="Salary\HrmMatrixCell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmMatrixColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Salary\HrmMatrixLogic.cs" />
+    <Compile Include="Salary\HrmMatrixRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Salary\HrmPeriodAllocParametersBaseObject.cs" />
     <Compile Include="Salary\HrmPeriodDepartmentControl.cs" />
     <Compile Include="Salary\HrmPeriodMatrixBaseObject.cs" />
     <Compile Include="Salary\HrmPeriodTimeSheetBaseObject.cs" />
     <Compile Include="Salary\HrmSalaryBaseReductionElements.cs" />
-    <Compile Include="Salary\HrmSalaryMatrixSlice.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -181,14 +189,9 @@
     <Compile Include="Salary\HrmPeriodAllocParameterLogic.cs" />
     <Compile Include="Salary\HrmAccount.cs" />
     <Compile Include="Salary\HrmAccountOperation.cs" />
-    <Compile Include="Salary\HrmMatrix.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Salary\HrmMatrix.cs" />
     <Compile Include="Salary\HrmMatrixAllocPlan.cs" />
     <Compile Include="Salary\HrmMatrixAllocResult.cs" />
-    <Compile Include="Salary\HrmMatrixCell.cs" />
-    <Compile Include="Salary\HrmMatrixColumn.cs" />
-    <Compile Include="Salary\HrmMatrixRow.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameter.cs" />
     <Compile Include="Salary\HrmPeriodAllocParameterVC.cs">
       <SubType>Component</SubType>
@@ -200,9 +203,7 @@
     <Compile Include="Salary\HrmPeriodPayType.cs" />
     <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrix.cs" />
     <Compile Include="Salary\HrmSalaryBaseMatrix.cs" />
-    <Compile Include="Salary\HrmSalaryCellSlice.cs" />
     <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
-    <Compile Include="Salary\HrmSalaryColumnSlice.cs" />
     <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
     <Compile Include="Salary\HrmSalaryLastAccount.cs" />
     <Compile Include="Salary\HrmSalaryPeriodObject.cs">

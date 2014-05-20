@@ -16,21 +16,13 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public class HrmPeriodTimeSheetBaseObject : HrmSalaryPeriodObjectBase {
+    public class HrmPeriodTimeSheetBaseObject : HrmSalaryPeriodObject {
 
         private HrmTimeSheet _TimeSheet;
         public HrmTimeSheet TimeSheet {
             get { return _TimeSheet; }
             set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
-
-
-
-
-
-
-
-
 
         public HrmPeriodTimeSheetBaseObject(Session session)
             : base(session) {

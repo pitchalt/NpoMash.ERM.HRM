@@ -58,12 +58,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 //
-        private HrmSalaryPeriodObjectBase _SalaryObject; // —сылка на HrmSalaryObject
-        [Association("SalaryObject-Column")]
-        public HrmSalaryPeriodObjectBase SalaryObject {
-            get { return _SalaryObject; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
-        }
+        //private HrmSalaryPeriodObjectBase _SalaryObject; // —сылка на HrmSalaryObject
+        //[Association("SalaryObject-Column")]
+        //public HrmSalaryPeriodObjectBase SalaryObject {
+        //    get { return _SalaryObject; }
+        //    set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
+        //}
 
         public HrmMatrixColumn(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
