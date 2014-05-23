@@ -14,13 +14,18 @@ using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
+using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
     /// <summary>
     /// Состояние задачи
     /// </summary>
-    public enum HrmSalaryTaskState { 
+    public enum HrmSalaryTaskState {
+        /// <summary>
+        /// Задача создана
+        /// </summary>
+        HRM_SALARY_TASK_CREATED = 0,
         /// <summary>
         /// Задача активна
         /// </summary>
@@ -40,7 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTask")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public abstract class HrmSalaryTask : BaseObject { 
+    public abstract class HrmSalaryTask : BaseObject, ILogSupport { 
         private HrmPeriod _Period; 
         /// <summary>
         /// Период к которому относиться задача
@@ -101,6 +106,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _FinishTime; }
         }
 
+        [Association("HrmSalaryTask-HrmSalaryLogRecord")]
+        [Browsable(false)]
+        public XPCollection<HrmSalaryLogRecord> LogRecordCol {
+            get {
+                return GetCollection<HrmSalaryLogRecord>("LogRecordCol");
+            }
+        }
+
         public HrmSalaryTask(Session session)
             : base(session) {
             // This constructor is used when an object is loaded from a persistent storage.
@@ -109,9 +122,13 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public override void AfterConstruction() {
             base.AfterConstruction();
+            StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_CREATED);
+        }
+
+        public virtual void Activate() {
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_ACTIVED);
             _CreateTime = DateTime.Now;
-       }
+        }
 
         public virtual void Complete() { 
             SetPropertyValue<DateTime>("FinishTime", ref _FinishTime, DateTime.Now);
@@ -121,6 +138,18 @@ namespace NpoMash.Erm.Hrm.Salary {
         public virtual void Abort() {
             SetPropertyValue<DateTime>("FinishTime", ref _FinishTime, DateTime.Now);
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_ABORTED);
+        }
+
+        [Aggregated]
+        public IList<ILogRecord> LogRecords {
+            get {
+                return new ListConverter<ILogRecord, HrmSalaryLogRecord>(LogRecordCol);
+            }
+        }
+
+        public void LogRecord(LogRecordType type, Department department, fmCOrder order, String text) {
+            HrmSalaryLogRecord record = new HrmSalaryLogRecord(this.Session);
+            record.Init(type, text, this.Period, this, department, order);
         }
 
     }

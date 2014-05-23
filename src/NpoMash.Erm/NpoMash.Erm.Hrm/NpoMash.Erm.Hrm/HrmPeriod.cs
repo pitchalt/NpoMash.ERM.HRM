@@ -15,8 +15,9 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 //
 using NpoMash.Erm.Hrm.Salary;
+using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM.Organization;
-
+//
 namespace NpoMash.Erm.Hrm {
 
     public enum HrmPeriodStatus {
@@ -56,13 +57,9 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "!isReadyToImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "!isKBCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "!isOZMCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    
-
-
 
     [DefaultProperty("Status")]
-
-    public class HrmPeriod : BaseObject {
+    public class HrmPeriod : BaseObject, ILogSupport {
 
         [Persistent("Year")]
         private Int16 _Year;
@@ -260,6 +257,13 @@ namespace NpoMash.Erm.Hrm {
             SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, stat);
         }
 
+        [Association("HrmPeriod-HrmSalaryLogRecord")]
+        [Browsable(false)]
+        public XPCollection<HrmSalaryLogRecord> LogRecordCol {
+            get {
+                return GetCollection<HrmSalaryLogRecord>("LogRecordCol");
+            }
+        }
 
 
 
@@ -275,6 +279,19 @@ namespace NpoMash.Erm.Hrm {
 
             
         }
+
+        [Aggregated]
+        public IList<ILogRecord> LogRecords {
+            get {
+                return new ListConverter<ILogRecord, HrmSalaryLogRecord>(LogRecordCol);
+            }
+        }
+
+        public void LogRecord(LogRecordType type, Department department, fmCOrder order, String text) {
+            HrmSalaryLogRecord record = new HrmSalaryLogRecord(this.Session);
+            record.Init(type, text, this, null, department, order);
+        }
+
 
         [Browsable(false)]
         private bool isReadyToCreateReserveMatrix { get { 

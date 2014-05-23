@@ -287,6 +287,7 @@
     <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
     <Compile Include="Salary\IHrmSalaryMatrix.cs" />
+    <Compile Include="Salary\ILog.cs" />
     <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringLogic.cs" />
     <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringStructure.cs" />
