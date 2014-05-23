@@ -45,6 +45,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod|AnyCPU'">
     <OutputPath>bin\Prod\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
