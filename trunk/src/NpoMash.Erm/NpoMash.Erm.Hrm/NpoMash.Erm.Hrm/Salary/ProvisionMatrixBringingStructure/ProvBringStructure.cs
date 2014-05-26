@@ -36,8 +36,16 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         }
 
         public decimal CountTargetFunctionValue() {
-            decimal result = 0;
+            // коэффициенты значимости критериев
+            int cells_coefficient = 1;
+            int ords_coefficient = 10;
             // здесь расчет значения целевой функции
+            decimal result = ords_coefficient * ords.Values.Where(x => x.isControlled).Sum(x =>
+                    (x.ordPlan - x.cells.Sum(y => y.reserve + y.realBase)) *
+                    (x.ordPlan - x.cells.Sum(y => y.reserve + y.realBase)) / (x.ordPlan + 1)) 
+                +
+                cells_coefficient * cells.Where(x => x.ord.isControlled).Sum(x =>
+                    (x.plan - x.realBase - x.reserve) * (x.plan - x.realBase - x.reserve) / (x.plan + 1));
             return result;
         }
 
@@ -118,9 +126,13 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         // число контролируемых заказов
         private int _numberOfControlledOrders;
         public int numberOfControlledOrders { get { return _numberOfControlledOrders; } set { _numberOfControlledOrders = value; } }
-        // отметка что подразделение уже приведено
+        // отметка что подразделение уже приведено (предварительно)
         private bool _isAlreadyBringed;
         public bool isAlreadyBringed { get { return _isAlreadyBringed; } set { _isAlreadyBringed = value; } }
+        // сколько всего резерва в подразделении, пригодится для ускорения работы и контроля что ничего не потеряно
+        private decimal _reserveOfDep;
+        public decimal reserveOfDep { get { return _reserveOfDep; } set { _reserveOfDep = value; } }
+
         public ProvDep() {
             cells = new List<ProvCell>();
             undistributedReserve = 0;
@@ -128,6 +140,15 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             numberOfControlledOrders = 0;
             isAlreadyBringed = false;
         }
+
+        // метод для подготовки подразделения к повторному перераспределению
+        public void unbring() {
+            foreach (ProvCell cell in cells)
+                cell.reserve = 0;
+            undistributedReserve = reserveOfDep;
+            isAlreadyBringed = false;
+        }
+
     }
 
     public class ProvOrd {
@@ -142,10 +163,17 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         // план по заказу
         private Decimal _ordPlan;
         public Decimal ordPlan { get { return _ordPlan; } set { _ordPlan = value; } }
+        // заказ приведен окончательно, больше не будем трогать виртуальную базу
+        // (однако отклонение в данном заказе еще может поменяться при приведении других связанных с ним полностью контролируемых заказов)
+        private bool _isFinallyBringed;
+        public bool isFinallyBringed { get { return _isFinallyBringed; } set { _isFinallyBringed = value; } }
+        // величина перегруза в заказе (ввел свойство, уже достало писать это каждый раз)
+        public Decimal ordDeviation { get { return cells.Sum(x => x.reserve + x.realBase) - ordPlan; } }
         public ProvOrd() {
             cells = new List<ProvCell>();
             isControlled = false;
             ordPlan = 0;
+            isFinallyBringed = false;
         }
 
     }
