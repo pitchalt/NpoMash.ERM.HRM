@@ -24,6 +24,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public static ProvMat CreateProvBringStructure(HrmSalaryTaskProvisionMatrixReduction card){
             ProvMat result = new ProvMat();
             HrmMatrix source_mat = card.ProvisionMatrix;
+            // словарь контролируемых зказов
             Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl == FmCOrderTypeControl.FOT || x.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT).
                 ToDictionary(x => x.Order.Code);
@@ -48,16 +49,25 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                         current_dep.numberOfControlledOrders += 1;
                     else
                         current_dep.numberOfUncontrolledOrders += 1;
+                    // создаем ячейку
                     ProvCell current_cell = new ProvCell();
+                    // добавляем ее в текущий заказ
                     current_ord.cells.Add(current_cell);
                     current_cell.ord = current_ord;
+                    // ... и подразделение
                     current_dep.cells.Add(current_cell);
                     current_cell.dep = current_dep;
+                    // план по ячейке
                     current_cell.plan = source_cell.PlanMoney;
-                    current_ord.ordPlan += current_cell.plan;
+                    // увеличиваем план по текущему заказу в целом
+                    current_ord.ordPlan += source_cell.PlanMoney;
+                    // реальная база
                     current_cell.realBase = source_cell.MoneyNoReserve;
-                    //current_cell.reserve = source_cell.MoneyReserve;
+                    // изначально все запихиваем в нераспределенный резерв
                     current_dep.undistributedReserve += source_cell.SourceProvision;
+                    // а это количество резерва в подразделении, с которым будем сверяться
+                    current_dep.reserveOfDep += source_cell.SourceProvision;
+                    // ссылка на реальную ячейку для быстрой записи результатов после выполнения алгоритма
                     current_cell.refToRealCell = source_cell;
                     result.cells.Add(current_cell);
                 }
@@ -65,15 +75,16 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             return result;
         }
 
-
+        // а эта процедура возвращает резерв в реальную матрицу
         public static void LoadProvBringResultInTask(ProvMat mat){
             foreach (ProvCell cell in mat.cells)
                 cell.refToRealCell.NewProvision = cell.reserve;
         }
 
+        // процедура распределения остатка резерва между неконтролируемыми заказами
         public static void BringUncontrolledReserveInDep(ProvDep dep) {
+            // делим остаток резерва тупо поровну между неконтролируемыми заказами в подразделении
             int uncontrolled = dep.numberOfUncontrolledOrders;
-            //try {
                 foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled)) {
                     Decimal diff = dep.undistributedReserve / uncontrolled;
                     Math.Truncate(diff);
@@ -81,19 +92,13 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                     dep.undistributedReserve -= diff;
                     uncontrolled--;
                 }
-            /*}
-            catch (Exception) {
-                String str_res = "";
-                foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled))
-                    str_res += "<"+cell.ord.code+">";
-                throw new Exception("Divide_by_zero in dep " + "<"+dep.code+">" + dep.numberOfUncontrolledOrders.ToString()
-                    + str_res);
-            }*/
         }
 
         public static void BringEasyDeps(ProvMat mat) {
+            // приводим подразделения, в которых есть контролируемые и неконтролируемые заказы
             IEnumerable<ProvDep> easyDeps = mat.deps.Values.Where(x => !x.isAlreadyBringed && x.numberOfUncontrolledOrders > 0 && x.numberOfControlledOrders > 0)
                 .Where(x => x.cells
+                    // где оставшегося неконтролируемого резерва хватает для  распределения в недогруженные контролируемые ячейки
                     .Where(y => y.ord.isControlled && y.planFactDifference > 0)
                     .Sum(y => y.planFactDifference) < x.undistributedReserve);
             foreach (ProvDep dep in easyDeps) {
@@ -108,7 +113,8 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         }
 
         public static void BringVeryEasyDeps(ProvMat mat) {
-            IEnumerable<ProvDep> veryEasyDeps = mat.deps.Values.Where(x => x.numberOfControlledOrders == 0 && x.numberOfUncontrolledOrders > 0 && !x.isAlreadyBringed);
+            // приводим подразделения, в которых только неконтролируемые заказы (кто знает, а вдруг они есть?)
+            IEnumerable<ProvDep> veryEasyDeps = mat.deps.Values.Where(x => !x.isAlreadyBringed && x.numberOfControlledOrders == 0 && x.numberOfUncontrolledOrders > 0);
             foreach (ProvDep dep in veryEasyDeps) {
                 BringUncontrolledReserveInDep(dep);
                 dep.isAlreadyBringed = true;
@@ -156,11 +162,11 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                         }
                     }
                     // если переходим через 0, то пока что используем 0 как второе по величине отклонение
+                    // (а надо ли это вообще делать??)
                     if (max_diff > 0 && prev_max_diff < 0)
                         prev_max_diff = 0;
 
                     Decimal current_diff = max_diff - prev_max_diff;
-
 
                     // между скольки ячейками будем распределять резерв на этой итерации
                     int number_of_workcells = work_cells.Count;
@@ -183,15 +189,41 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                         }
                     }
                 }
-
-
                 // приведение подразделения завершено
                 dep.isAlreadyBringed = true;
             }
         }
 
+        // это базовый алгоритм, чтобы не вызывать по одной эти три процедуры
+        public static void baseAlgorithm(ProvMat mat){
+            BringVeryEasyDeps(mat);
+            BringEasyDeps(mat);
+            BringDifficultDeps(mat);
+        }
+
+        // здесь выполяется основной алгоритм
+        public static void mainAlgorithm(ProvMat mat) {
+            // выполнили первоначальное распределение
+            baseAlgorithm(mat);
 
 
+            
+        }
+
+        // проверка, является ли данный заказ полностью контролируемым
+        public static bool isFullyControlled(ProvOrd ord) {
+            bool result = false;
+
+
+            return result;
+        }
+
+        // поиск наиболее отклоняющегося неприведенного заказа
+        public static ProvOrd theMostDeviatedOrd(ProvMat mat) {
+            ProvOrd result = null;
+            
+            return result;
+        }
 
     }
 
