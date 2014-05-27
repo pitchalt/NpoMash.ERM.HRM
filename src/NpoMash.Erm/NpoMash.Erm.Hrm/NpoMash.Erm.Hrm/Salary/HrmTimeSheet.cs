@@ -28,20 +28,17 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     [DefaultProperty("Status")]
-    public class HrmTimeSheet : BaseObject {
+    public class HrmTimeSheet : BaseObject, ITimeSheet {
 
         // Cсылка на HrmPeriodTimeSheetBaseObject
-        private HrmPeriodTimeSheetBaseObject _TimeSheetBaseObject;
-        public HrmPeriodTimeSheetBaseObject TimeSheetBaseObject {
-            get { return _TimeSheetBaseObject; }
-            set { SetPropertyValue<HrmPeriodTimeSheetBaseObject>("TimeSheetBaseObject", ref _TimeSheetBaseObject, value); }
-        }
+        [Aggregated]
+        [Persistent]
+        private HrmTimeSheetPeriodObject _TimeSheetPeriodObject;
+        //public HrmTimeSheetPeriodObject _PeriodObject {
+        //    get { return _TimeSheetPeriodObject; }
+        //    set { SetPropertyValue<HrmTimeSheetPeriodObject>("TimeSheetPeriodObject", ref _TimeSheetPeriodObject, value); }
+        //}
         //
-
-
-
-
-
         [Association("TimeSheet-TimeSheetDeps"), Aggregated] // Коллекция TimeSheetDeps
         public XPCollection<HrmTimeSheetDep> TimeSheetDeps {
             get { return GetCollection<HrmTimeSheetDep>("TimeSheetDeps"); }
@@ -81,7 +78,16 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmTimeSheet(Session session): base(session) { }
         public override void AfterConstruction() { 
             base.AfterConstruction();
+            _TimeSheetPeriodObject = new HrmTimeSheetPeriodObject(this);
             SetStatus(HrmTimeSheetStatus.DOWNLOADED);
+        }
+
+        HrmSalaryPeriodObjectStatus IPeriodObject.PeriodObjectStatus {
+            get { return _TimeSheetPeriodObject.Status; }
+        }
+
+        public Type PeriodObjectType {
+            get { return typeof(HrmTimeSheet); }
         }
     }
 }

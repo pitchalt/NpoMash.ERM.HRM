@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Collections.Generic;
 //
 using DevExpress.Xpo;
+using DevExpress.Xpo.Helpers;
+//
 using DevExpress.ExpressApp;
-//using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
@@ -18,23 +20,17 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
-
-
-    public enum HrmSalaryPeriodObjectStatus { }
     
-    [Persistent("HrmSalaryPeriodObject")]
-    abstract public class HrmSalaryPeriodObject : BaseObject { //, ITreeNode  {
-
+    [Persistent("HrmPeriodObject")]
+    abstract public class HrmPeriodObject : BaseObject,  IPersistentInterfaceData<IPeriodObject> { //, ITreeNode  {
        
-        private HrmSalaryPeriodObjectStatus _ObjectStatus;
-        public virtual HrmSalaryPeriodObjectStatus ObjectStatus {
-            get { return _ObjectStatus; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("ObjectStatus", ref _ObjectStatus, value); }
+        private HrmSalaryPeriodObjectStatus _Status;
+        public HrmSalaryPeriodObjectStatus Status {
+            get { return _Status; }
+            set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
         }
 
-        public virtual Type PeriodObjectType {
-            get { return typeof(HrmSalaryPeriodObject); }
-        }
+        public abstract Type PeriodObjectType { get; }
 
         private DepartmentGroupDep _GroupDep;
         public DepartmentGroupDep GroupDep {
@@ -42,18 +38,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
         }
 
-
-
-
-        private HrmPeriod _PeriodBase; // —сылка на HrmPeriod
-        [Association("HrmPeriod-HrmPeriodSalaryObject")]
-        public HrmPeriod PeriodBase {
-            get { return _PeriodBase; }
-            set { SetPropertyValue<HrmPeriod>("PeriodBase", ref _PeriodBase, value); }
+        private HrmPeriod _Period; // —сылка на HrmPeriod
+        /// <summary>
+        /// —сылка на период
+        /// </summary>
+        [Association("HrmPeriod-HrmPeriodObject")]
+        public HrmPeriod Period {
+            get { return _Period; }
+            set { SetPropertyValue<HrmPeriod>("Period", ref _Period, value); }
         }
 
-        
-        public HrmSalaryPeriodObject(Session session) : base(session) { }
+        public HrmPeriodObject(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
 /*
@@ -69,6 +64,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return null; }
         }
 */
+
+
+        public abstract IPeriodObject Instance { get; }
 
     }
 

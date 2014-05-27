@@ -16,19 +16,31 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    public class HrmPeriodMatrixBaseObject : HrmSalaryPeriodObject {
-
+    [MapInheritance(MapInheritanceType.ParentTable)]
+    public class HrmMatrixPeriodObject : HrmPeriodObject {
+        [ExplicitLoading(0)]
+        [DevExpress.Xpo.Aggregated]
+        [Persistent("Matrix")]
         private HrmMatrix _Matrix;
-        public HrmMatrix Matrix {
-            get { return _Matrix; }
-            set { SetPropertyValue<HrmMatrix>("Matrix", ref _Matrix, value); }
+
+        public override Type ObjectType {
+            get { return _Matrix.GetType(); }
         }
 
-        public HrmPeriodMatrixBaseObject(Session session)
+        public override IPeriodObject Instance {
+            get { return _Matrix; }
+        }
+
+        public HrmMatrixPeriodObject(Session session)
             : base(session) {
+        }
+        public HrmMatrixPeriodObject(HrmMatrix instance)
+            : base(instance.Session) {
+                _Matrix = instance;
         }
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+
     }
 }

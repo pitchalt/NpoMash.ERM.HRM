@@ -175,11 +175,9 @@
     <Compile Include="Salary\HrmMatrixRow.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Salary\HrmPeriodAllocParametersBaseObject.cs" />
+    <Compile Include="Salary\HrmPeriodAllocParameterPeriodObject.cs" />
     <Compile Include="Salary\HrmPeriodDepartmentControl.cs" />
-    <Compile Include="Salary\HrmPeriodMatrixBaseObject.cs" />
-    <Compile Include="Salary\HrmPeriodTimeSheetBaseObject.cs" />
-    <Compile Include="Salary\HrmSalaryBaseReductionElements.cs" />
+    <Compile Include="Salary\HrmPeriodObject.cs" />
     <Compile Include="Salary\HrmPeriodVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -201,14 +199,18 @@
     </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
+    <Compile Include="Salary\HrmSalaryBaseReductionElements.cs" />
+    <Compile Include="Salary\HrmTimeSheetPeriodObject.cs" />
+    <Compile Include="Salary\ILog.cs" />
+    <Compile Include="Salary\IMatrix.cs" />
+    <Compile Include="Salary\IPeriod.cs" />
+    <Compile Include="Salary\IPeriodAllocParameter.cs" />
+    <Compile Include="Salary\ITimeSheet.cs" />
+    <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrix.cs" />
-    <Compile Include="Salary\HrmSalaryBaseMatrix.cs" />
     <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
     <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
     <Compile Include="Salary\HrmSalaryLastAccount.cs" />
-    <Compile Include="Salary\HrmSalaryPeriodObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Salary\HrmSalaryProvisionMatrix.cs" />
     <Compile Include="Salary\HrmSalaryRowSlice.cs" />
     <Compile Include="Salary\HrmSalaryTask.cs" />
@@ -259,7 +261,12 @@
     <Compile Include="Salary\HrmSalaryTaskImportSourceDataVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskMatrixReductionLogic.cs" />
+    <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmSalaryTaskMatrixReductionLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -284,11 +291,7 @@
     </Compile>
     <Compile Include="Salary\HrmTimeSheet.cs" />
     <Compile Include="Salary\HrmTimeSheetDep.cs" />
-    <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs" />
     <Compile Include="Salary\HrmTimeSheetLogic.cs" />
-    <Compile Include="Salary\IHrmSalaryMatrix.cs" />
-    <Compile Include="Salary\ILog.cs" />
-    <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringLogic.cs" />
     <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringStructure.cs" />
     <Compile Include="Salary\Matrix\ICell.cs" />
@@ -320,9 +323,7 @@
     </Compile>
     <Compile Include="Salary\TaskKompareWorkTime.cs" />
     <Compile Include="Salary\TaskKompareWorkTimeLogic.cs" />
-    <Compile Include="Salary\TaskKompareWorkTimeVC.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Salary\TaskKompareWorkTimeVC.cs" />
     <Compile Include="Salary\TaskKompareWorkTimeVC.Designer.cs">
       <DependentUpon>TaskKompareWorkTimeVC.cs</DependentUpon>
     </Compile>
@@ -431,6 +432,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Salary\Matrix\MatrixFirstAlloc\" />
+    <Folder Include="Salary\Tasks\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

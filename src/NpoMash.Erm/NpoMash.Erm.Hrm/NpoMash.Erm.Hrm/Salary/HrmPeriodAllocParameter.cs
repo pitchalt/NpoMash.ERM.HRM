@@ -17,40 +17,36 @@ using DevExpress.ExpressApp.Editors;
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Salary
-{
+namespace NpoMash.Erm.Hrm.Salary {
 
-    public enum HrmPeriodAllocParameterStatus
-    {
-        OPEN_TO_EDIT  = 1,
-        LIST_OF_ORDER_ACCEPTED  = 2,
-        ALLOC_PARAMETERS_ACCEPTED  = 3,
-        CREATED=4,
-        ARCHIVE=5
+    public enum HrmPeriodAllocParameterStatus {
+        OPEN_TO_EDIT = 1,
+        LIST_OF_ORDER_ACCEPTED = 2,
+        ALLOC_PARAMETERS_ACCEPTED = 3,
+        CREATED = 4,
+        ARCHIVE = 5
     }
-    
+
 
     [Persistent("HrmPeriodAllocParameter")]
     [NavigationItem("A1 Integration")]
     [Appearance(null, TargetItems = "*", Criteria = "Status = 'ALLOC_PARAMETERS_ACCEPTED'", Context = "Any", Enabled = false)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled=false)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled = false)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListFirst", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='ALLOC_PARAMETERS_ACCEPTED' or Status='LIST_OF_ORDER_ACCEPTED'")]
-    [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListLast", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status='ALLOC_PARAMETERS_ACCEPTED'")]    
+    [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListLast", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status='ALLOC_PARAMETERS_ACCEPTED'")]
     [DefaultProperty("Status")]
 
-    public class HrmPeriodAllocParameter : BaseObject
-    {
+    public class HrmPeriodAllocParameter : BaseObject, IPeriodAllocParameter {
 
         //Ссылка на HrmPeriodAllocParametrsBaseObject
-        private HrmPeriodAllocParametersBaseObject _AllocParametersBaseObject;
-        public HrmPeriodAllocParametersBaseObject AllocParametersBaseObject {
-            get { return _AllocParametersBaseObject; }
-            set { SetPropertyValue<HrmPeriodAllocParametersBaseObject>("AllocParametersBaseObject", ref _AllocParametersBaseObject, value); }
-        }
+        [Aggregated]
+        [Persistent]
+        private HrmPeriodAllocParameterPeriodObject _AllocParameterPeriodObject;
+        //public HrmPeriodAllocParameterPeriodObject AllocParameterPeriodObject {
+        //    get { return _AllocParameterPeriodObject; }
+        //    set { SetPropertyValue<HrmPeriodAllocParameterPeriodObject>("AllocParameterPeriodObject", ref _AllocParameterPeriodObject, value); }
+        //}
         //
-
-
-
 
         [PersistentAlias("Period.Year")]
         public Int16 Year {
@@ -67,11 +63,11 @@ namespace NpoMash.Erm.Hrm.Salary
         [RuleRequiredField(DefaultContexts.Save)]
         [PersistentAlias("_Status")]
         public HrmPeriodAllocParameterStatus Status {
-               get { return _Status; }
+            get { return _Status; }
         }
 
         private Decimal _NormNoControlKB;
-       // [VisibleInDetailView(false)]
+        // [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
@@ -105,9 +101,9 @@ namespace NpoMash.Erm.Hrm.Salary
             set {
                 SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
                 if (!IsLoading) {
-                   // PeriodBase = value;
-        }
-             }
+                    _AllocParameterPeriodObject.Period = value;
+                }
+            }
         }
 
         [Persistent("IterationNumber")]
@@ -119,7 +115,7 @@ namespace NpoMash.Erm.Hrm.Salary
 
         [Association("AllocParameter-OrderControls"), Aggregated]  // связь с HrmPeriodOrderControl
         public XPCollection<HrmPeriodOrderControl> OrderControls {
-               get{ return GetCollection<HrmPeriodOrderControl>("OrderControls");} 
+            get { return GetCollection<HrmPeriodOrderControl>("OrderControls"); }
         }
 
         [Association("AllocParameter-DepartmentControl"), Aggregated]
@@ -129,30 +125,42 @@ namespace NpoMash.Erm.Hrm.Salary
 
 
 
-   
+
         [Association("HrmPeriodAllocParameter-HrmPeriodPayType"), Aggregated]  // связь с HrmPeriodPayTypes
-        public XPCollection<HrmPeriodPayType> PeriodPayTypes
-        {
+        public XPCollection<HrmPeriodPayType> PeriodPayTypes {
             get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
         }
 
-   /*     [ManyToManyAlias("PeriodPayTypes", "PayType")]
-        public IList<HrmSalaryPayType> SimpleWorkButNotLegal {
-            get { return GetList<HrmSalaryPayType>("SimpleWorkButNotLegal"); }
-        }*/
+        /*     [ManyToManyAlias("PeriodPayTypes", "PayType")]
+             public IList<HrmSalaryPayType> SimpleWorkButNotLegal {
+                 get { return GetList<HrmSalaryPayType>("SimpleWorkButNotLegal"); }
+             }*/
 
 
 
         public HrmPeriodAllocParameter(Session session) : base(session) { }
 
-        public override void AfterConstruction(){
+        public override void AfterConstruction() {
             base.AfterConstruction();
+            _AllocParameterPeriodObject = new HrmPeriodAllocParameterPeriodObject(this);
             StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
         }
 
-        public void StatusSet(HrmPeriodAllocParameterStatus status){
-//            _Status = status;
+        public void StatusSet(HrmPeriodAllocParameterStatus status) {
+            //            _Status = status;
             SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, status);
         }
-    }    
+
+        public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
+            get { return _AllocParameterPeriodObject.Status; }
+        }
+
+        public Type PeriodObjectType {
+            get { return typeof(HrmPeriodAllocParameter); }
+        }
+
+        public IntecoAG.ERM.HRM.Organization.DepartmentGroupDep GroupDep {
+            get { return IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM; }
+        }
+    }
 }
