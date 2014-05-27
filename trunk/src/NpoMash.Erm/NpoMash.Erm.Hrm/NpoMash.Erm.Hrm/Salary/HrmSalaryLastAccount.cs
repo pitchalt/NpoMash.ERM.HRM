@@ -15,10 +15,9 @@ using DevExpress.Persistent.Validation;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
+
+    [MapInheritance(MapInheritanceType.ParentTable)]
     public class HrmSalaryLastAccount : HrmMatrix {
-
-
-
 
         public HrmSalaryLastAccount(Session session)  : base(session) { }
         public override void AfterConstruction() {  base.AfterConstruction(); }

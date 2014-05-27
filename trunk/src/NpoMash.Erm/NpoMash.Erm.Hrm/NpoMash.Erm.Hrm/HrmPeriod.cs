@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 //
 using DevExpress.Xpo;
+using DevExpress.Xpo.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
@@ -59,7 +60,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "!isOZMCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
     [DefaultProperty("Status")]
-    public class HrmPeriod : BaseObject, ILogSupport {
+    public class HrmPeriod : BaseObject, IPeriod, IPersistentInterface<IPeriod>, IPersistentInterfaceData<IPeriod> {
 
         [Persistent("Year")]
         private Int16 _Year;
@@ -237,13 +238,6 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmMatrix>("Matrixs"); }
         }
 
-        [Association("HrmPeriod-HrmPeriodSalaryObject"), Aggregated] //Коллекция SalaryPeriodObject
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public XPCollection<HrmSalaryPeriodObject> SalaryPeriodObjects {
-            get { return GetCollection<HrmSalaryPeriodObject>("SalaryPeriodObjects"); }
-        }
 
         public void setStatus(HrmPeriodStatus stat) {
             if (stat == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
@@ -292,6 +286,30 @@ namespace NpoMash.Erm.Hrm {
             record.Init(type, text, this, null, department, order);
         }
 
+        [Association("HrmPeriod-HrmPeriodObject")]
+        [Aggregated]
+        protected XPCollection<HrmPeriodObject> PeriodObjectCol {
+            get { return GetCollection<HrmPeriodObject>("PeriodObjectCol"); }
+        }
+
+        PersistentInterfaceMorpher<IPeriodObject> _PeriodObjects;
+        [PersistentAlias("[PeriodObjectCol]")]
+        [Aggregated]
+        public IList<IPeriodObject> PeriodObjects {
+            get {
+                if (this._PeriodObjects == null)
+                    this._PeriodObjects = new PersistentInterfaceMorpher<IPeriodObject>(new ListConverter<IPersistentInterfaceData<IPeriodObject>,HrmPeriodObject>(this.PeriodObjectCol));
+                return (IList<IPeriodObject>)this._PeriodObjects;
+            }
+        }
+
+        public IPersistentInterfaceData<IPeriod> PersistentInterfaceData {
+            get { return this; }
+        }
+
+        public IPeriod Instance {
+            get { return this; }
+        }
 
         [Browsable(false)]
         private bool isReadyToCreateReserveMatrix { get { 
@@ -351,5 +369,6 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool ozmReductionExists { get { return (CurrentOZMmatrixReduction != null); } }
+
     }
 }

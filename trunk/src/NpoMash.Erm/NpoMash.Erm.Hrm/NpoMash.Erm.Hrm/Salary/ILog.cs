@@ -36,6 +36,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         String RecordText { get; }
     }
 
+//    [DomainComponent]
     public interface ILogSupport {
         IList<ILogRecord> LogRecords { get; }
         void LogRecord(LogRecordType type, Department department, fmCOrder order, String text);
