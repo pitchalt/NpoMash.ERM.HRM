@@ -323,7 +323,9 @@
     </Compile>
     <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTime.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeLogic.cs" />
-    <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskTaskCompareWorkTimeVC.cs</DependentUpon>
     </Compile>
@@ -401,6 +403,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <None Include="UnusableNodes1_ru.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes2.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="UnusableNodes1.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
