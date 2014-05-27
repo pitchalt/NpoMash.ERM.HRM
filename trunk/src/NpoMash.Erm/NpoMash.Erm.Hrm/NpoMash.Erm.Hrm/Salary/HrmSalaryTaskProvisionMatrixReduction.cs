@@ -200,7 +200,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item.Base += Convert.ToInt64(c.MoneyNoReserve);
                     item.NewProvision += Convert.ToInt64(c.NewProvision);
                     item.SourceProvision += Convert.ToInt64(c.SourceProvision);
-                    item.PlannedTravels += Convert.ToInt64(c.MoneyTravel);
+                    item.PlannedTravels += Convert.ToInt64(c.TravelMoney);
                     if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }

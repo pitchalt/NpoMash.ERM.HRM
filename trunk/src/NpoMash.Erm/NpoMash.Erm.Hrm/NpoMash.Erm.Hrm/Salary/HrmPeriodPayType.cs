@@ -17,7 +17,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     
     public enum HrmPayTypes {
         PROVISION_CODE = 0,
-        TRAVEL_CODE = 1
+        TRAVEL_CODE = 1,
+        BASE_CODE = 2
     }
 
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]

@@ -22,7 +22,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmAccountOperation")]
     [DefaultProperty("Department")] 
-    public class HrmAccountOperation : BaseObject {
+    public class HrmAccountOperation : XPObject {
 
         private String _Sign;
         public String Sign {
