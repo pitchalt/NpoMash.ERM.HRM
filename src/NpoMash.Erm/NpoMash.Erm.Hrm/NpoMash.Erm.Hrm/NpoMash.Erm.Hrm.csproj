@@ -199,7 +199,7 @@
     </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
-    <Compile Include="Salary\HrmSalaryBaseReductionElements.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskReductionBase.cs" />
     <Compile Include="Salary\HrmTimeSheetPeriodObject.cs" />
     <Compile Include="Salary\ILog.cs" />
     <Compile Include="Salary\IMatrix.cs" />
@@ -207,86 +207,86 @@
     <Compile Include="Salary\IPeriodAllocParameter.cs" />
     <Compile Include="Salary\ITimeSheet.cs" />
     <Compile Include="Salary\Log.cs" />
-    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrix.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrix.cs" />
     <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
     <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
     <Compile Include="Salary\HrmSalaryLastAccount.cs" />
     <Compile Include="Salary\HrmSalaryProvisionMatrix.cs" />
     <Compile Include="Salary\HrmSalaryRowSlice.cs" />
-    <Compile Include="Salary\HrmSalaryTask.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummary.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTask.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummary.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskExportCoercedMatrixLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrix.cs" />
-    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrixLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrixVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrix.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskExportProvisionMatrixVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskExportProvisionMatrixVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperation.cs" />
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummary.cs" />
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummaryLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperation.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummary.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskImportAccountOperationVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskImportSourceData.cs" />
-    <Compile Include="Salary\HrmSalaryTaskImportSourceDataLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskImportSourceDataVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceData.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceDataLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceDataVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskImportSourceDataVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceDataVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskMatrixReduction.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReduction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskMatrixReductionLogic.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReductionLogic.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReductionVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskMatrixReductionVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReductionVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReduction.cs" />
-    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReduction.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskRevert.cs" />
-    <Compile Include="Salary\HrmSalaryTaskRevertLogic.cs" />
-    <Compile Include="Salary\HrmSalaryTaskRevertVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevert.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevertLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevertVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\HrmSalaryTaskRevertVC.Designer.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevertVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
     </Compile>
     <Compile Include="Salary\HrmTimeSheet.cs" />
@@ -321,11 +321,11 @@
     <Compile Include="Salary\Matrix\MatrixPlan\MatrixPlan.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Salary\TaskKompareWorkTime.cs" />
-    <Compile Include="Salary\TaskKompareWorkTimeLogic.cs" />
-    <Compile Include="Salary\TaskKompareWorkTimeVC.cs" />
-    <Compile Include="Salary\TaskKompareWorkTimeVC.Designer.cs">
-      <DependentUpon>TaskKompareWorkTimeVC.cs</DependentUpon>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTime.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskTaskCompareWorkTimeVC.cs</DependentUpon>
     </Compile>
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
@@ -343,35 +343,35 @@
     <EmbeddedResource Include="Salary\HrmPeriodAllocParameterVC.resx">
       <DependentUpon>HrmPeriodAllocParameterVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskCompareAccountOperationSummaryVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryVC.resx">
       <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskExportCoercedMatrixVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixVC.resx">
       <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskExportProvisionMatrixVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixVC.resx">
       <DependentUpon>HrmSalaryTaskExportProvisionMatrixVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationSummaryVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryVC.resx">
       <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskImportAccountOperationVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationVC.resx">
       <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskImportSourceDataVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskImportSourceDataVC.resx">
       <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskMatrixReductionVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskMatrixReductionVC.resx">
       <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskProvisionMatrixReductionVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionVC.resx">
       <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\HrmSalaryTaskRevertVC.resx">
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskRevertVC.resx">
       <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\TaskKompareWorkTimeVC.resx">
-      <DependentUpon>TaskKompareWorkTimeVC.cs</DependentUpon>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.resx">
+      <DependentUpon>HrmSalaryTaskTaskCompareWorkTimeVC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -432,7 +432,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Salary\Matrix\MatrixFirstAlloc\" />
-    <Folder Include="Salary\Tasks\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
