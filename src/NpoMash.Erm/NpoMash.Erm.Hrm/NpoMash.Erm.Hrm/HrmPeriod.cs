@@ -145,7 +145,7 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Status")]
         public HrmPeriodStatus Status {
             get { return _Status; }
-                        set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+                       // set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
         [Association("HrmPeriod-HrmSalaryTask"), Aggregated]
