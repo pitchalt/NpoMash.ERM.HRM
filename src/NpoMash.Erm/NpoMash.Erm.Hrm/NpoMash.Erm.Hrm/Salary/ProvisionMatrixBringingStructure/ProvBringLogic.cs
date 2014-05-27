@@ -205,24 +205,100 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public static void mainAlgorithm(ProvMat mat) {
             // выполнили первоначальное распределение
             baseAlgorithm(mat);
-
-
+            // ищем наиболее отклонившийся заказ
             
+            ProvOrd work_order = theMostDeviatedOrd(mat);
+            ProvOrd check_point_order = null;
+            bool check_point_is_made = false;
+            decimal d = 0;
+            while (work_order != null) {
+                // проверяем, является ли он полностью контролируемым, если да то...
+                if (isFullyControlled(work_order)) {
+                    // если была сделана контрольная точка и значение целевой функции ухудшилось...
+                    if (check_point_is_made && mat.CountTargetFunctionValue() > mat.checkPointTargetFunctionValue ||
+                         check_point_order == work_order) {
+                        // увеличиваем допустимое отклонение на 3 процента
+                        d += 3;
+                        // если допускаем отклонение еще меньше 100%
+                        if (d < 100) {
+                            // то откатываемся к контрольной точке
+                            mat.RevertToCheckPoint();
+                            work_order = check_point_order;
+                        }
+                            // иначе считаем заказ контрольной точки успешно приведенным
+                        else {
+                            check_point_order.isFinallyBringed = true;
+                            d = 0;
+                            // делаем новую контрольную точку
+                            mat.MakeCheckPoint();
+                            check_point_order = work_order;
+                            check_point_is_made = true;
+                        }
+                    }
+                        // если не было контрольной точки, или произошло улучшение
+                    else {
+                        if(check_point_is_made)
+                            check_point_order.isFinallyBringed = true;
+                        d = 0;
+                        // делаем новую контрольную точку
+                        mat.MakeCheckPoint();
+                        check_point_order = work_order;
+                        check_point_is_made = true;
+                    }
+                    // выполняем процедуру распределения виртуальной базы в полностью контролируемом заказе
+                    distributeVBInFullyControlledOrder(work_order,d);
+                }
+                // если же заказ полностью контролируемым не является, то...
+                else {
+                    // выполняем процедуру распределения виртуальной базы в неполностью контролируемом заказе
+                }
+                // выплняем базовый алгоритм
+                baseAlgorithm(mat);
+                // ищем следующий наиболее отклоняющийся заказ
+                work_order = theMostDeviatedOrd(mat);
+            }
         }
 
         // проверка, является ли данный заказ полностью контролируемым
         public static bool isFullyControlled(ProvOrd ord) {
             bool result = false;
-
-
+            // факт превышает план, следует смотреть можно ли что-то выпихнуть в неконтролируемые заказы
+            if (ord.ordDeviation > 0) {
+                result = ord.cells.Where(x => x.dep.numberOfUncontrolledOrders > 0 && x.reserve > 0).Count() > 0;
+            }
+            // факт меньше плана, смотрим можно ли что-то добавить из неконтролируемых заказов
+            if (ord.ordDeviation < 0) {
+                result = ord.cells.Where(x => x.dep.numberOfUncontrolledOrders > 0
+                    && Math.Min(x.constFact, x.dep.cells.Where(y => !y.ord.isControlled).Sum(y => y.reserve)) > 0)
+                    .Count() > 0;
+            }
             return result;
         }
 
         // поиск наиболее отклоняющегося неприведенного заказа
         public static ProvOrd theMostDeviatedOrd(ProvMat mat) {
             ProvOrd result = null;
-            
+            try {
+                // ищем среди контролируемых заказов, не отмеченных как приведенные, заказ с наибольшим по модулю отклонением
+                Decimal deviation = mat.ords.Values.Where(x => !x.isFinallyBringed && !x.isControlled).Max(x => Math.Abs(x.ordDeviation));
+                result = mat.ords.Values.FirstOrDefault(x => x.ordDeviation == deviation);
+            }
+                // если вдруг при операции максимума список был пуст то поймали исключениел и вернем ничто
+            catch (InvalidOperationException) { }
             return result;
+        }
+
+        // распределение виртуальной базы для полностью контролируемого заказа
+        public static void distributeVBInFullyControlledOrder(ProvOrd order, Decimal d) {
+            if (d > 100 || d < 0) throw new InvalidOperationException("D must be between 0 and 100, but was " + d.ToString());
+
+
+        }
+
+        // распределение виртуальной базы для неполностью контролируемого заказа
+        public static void distributeVBInNotFullyControlledOrder(ProvOrd order) {
+
+
         }
 
     }
