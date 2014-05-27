@@ -5,6 +5,7 @@ using System.Configuration;
 using System.ComponentModel;
 using System.Collections.Generic;
 //
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -177,9 +178,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             CreateAllocResultFromPlan(local_object_space, matrix_alloc_result_kb, matrix_alloc_result_ozm, local_task);
         }
 
-        public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
-            FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
-            ExchangeAccountOperation[] account_list = account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) +"/AccountOperation_First.ncd");
+        public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {        
+            //local_object_space = local_object_space.CreateNestedObjectSpace();
+            //local_task = local_object_space.GetObject<HrmSalaryTaskImportAccountOperation>(local_task);
+            Session session = ((XPObjectSpace)local_object_space).Session;
             HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
             matrix_alloc_result_kb.IterationNumber = 1;
@@ -201,38 +203,53 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
+            FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
+            ExchangeAccountOperation[] account_list = account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) + "/AccountOperation_First.ncd");
+            IDictionary<HrmSalaryPayType, HrmPeriodPayType> paytypes_in_alloc_parameter = local_task.Period.CurrentAllocParameter.PeriodPayTypes
+                    .ToDictionary<HrmPeriodPayType, HrmSalaryPayType>(x => x.PayType);
+            IDictionary<String, HrmSalaryPayType> paytypes_in_database = local_object_space.GetObjects<HrmSalaryPayType>()
+                    .ToDictionary<HrmSalaryPayType, String>(x => x.Code);
+            IDictionary<String, Department> departments_in_database = local_object_space.GetObjects<Department>()
+                    .ToDictionary<Department, String>(x => x.BuhCode);
+            IDictionary<String, fmCOrder> orders_in_database = local_object_space.GetObjects<fmCOrder>()
+                    .ToDictionary<fmCOrder, String>(x => x.Code);
             IDictionary<String, HrmMatrixCell> cells_in_matrix = new Dictionary<String, HrmMatrixCell>();
             IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<String, HrmMatrixColumn>();
-            IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<String, HrmMatrixRow>();
             IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<String, HrmMatrixColumn>();
+            IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<String, HrmMatrixRow>();
             IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<String, HrmMatrixRow>();
             IDictionary<String, HrmMatrixColumn> alloc_result_columns = null;
             IDictionary<String, HrmMatrixRow> alloc_result_rows = null;
-            IDictionary<fmCOrder, HrmPeriodOrderControl> reserve_orders = local_task.Period.CurrentAllocParameter.OrderControls
-                .ToDictionary<HrmPeriodOrderControl, fmCOrder>(x => x.Order);
-            IDictionary<String, HrmSalaryPayType> paytypes_in_database = local_object_space.GetObjects<HrmSalaryPayType>()
-                .ToDictionary<HrmSalaryPayType, String>(x => x.Code);
-            IDictionary<String, Department> departments_in_database = local_object_space.GetObjects<Department>()
-                .ToDictionary<Department, String>(x => x.BuhCode);
-            IDictionary<String, fmCOrder> orders_in_database = local_object_space.GetObjects<fmCOrder>()
-                .ToDictionary<fmCOrder, String>(x => x.Code);
-            foreach (var account in account_list) {
+            int count = 0;
+            foreach (var account_operation in account_list) {
+                count++;
                 HrmMatrix alloc_result_matrix = null;
-                String file_order_code = account.OrderCode;
-                String file_department_code = account.DepartmentCode;
+                String file_order_code = account_operation.OrderCode;
+                String file_department_code = account_operation.DepartmentCode;
+                //HrmAccountOperation account_to_db = local_object_space.CreateObject<HrmAccountOperation>();
+                HrmAccountOperation account_to_db = new HrmAccountOperation(session);
+                account_to_db.Sign = account_operation.Sign;
+                account_to_db.Debit = account_operation.Debit;
+                account_to_db.Money = account_operation.Money;
+                account_to_db.Credit = account_operation.Credit;
+                account_to_db.Order = orders_in_database[account_operation.OrderCode];
+                account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
+                account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
                 if (departments_in_database.ContainsKey(file_department_code)) {
                     if (departments_in_database[file_department_code].GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         alloc_result_matrix = matrix_alloc_result_kb;
                         alloc_result_columns = kb_columns;
                         alloc_result_rows = kb_rows;
+                        account_to_db.AllocResult = matrix_alloc_result_kb;
                     }
                     else {
                         alloc_result_matrix = matrix_alloc_result_ozm;
                         alloc_result_columns = ozm_columns;
                         alloc_result_rows = ozm_rows;
+                        account_to_db.AllocResult = matrix_alloc_result_ozm;
                     }
                 }
-                else throw new Exception("There is no department in database with code " + account.DepartmentCode);
+                else throw new Exception("There is no department in database with code " + account_operation.DepartmentCode);
                 HrmMatrixColumn current_column = null;
                 if (alloc_result_columns.ContainsKey(file_department_code)) { current_column = alloc_result_columns[file_department_code]; }
                 else {
@@ -243,9 +260,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     alloc_result_columns.Add(file_department_code, current_column);
                 }
                 HrmMatrixRow current_row = null;
-                if (alloc_result_rows.ContainsKey(file_order_code)) {
-                    current_row = alloc_result_rows[file_order_code];
-                }
+                if (alloc_result_rows.ContainsKey(file_order_code)) {current_row = alloc_result_rows[file_order_code]; }
                 else {
                     current_row = local_object_space.CreateObject<HrmMatrixRow>();
                     current_row.Matrix = alloc_result_matrix;
@@ -256,65 +271,43 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     else throw new Exception("There is no order with code " + file_order_code);
                 }
-                String cell_key = current_column.Department.Code + "|" + current_row.Order.Code;
+                HrmMatrixCell current_cell = null;
+                String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
                 if (!cells_in_matrix.ContainsKey(cell_key)) {
                     HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
                     cells_in_matrix.Add(cell_key, cell);
+                    cell.AccountOperations.Add(account_to_db);
                     cell.Column = current_column;
                     current_column.Cells.Add(cell);
                     cell.Row = current_row;
                     current_row.Cells.Add(cell);
+                    current_cell = cell;
                 }
-                else { HrmMatrixCell cell = cells_in_matrix[cell_key]; }
-            }
-            foreach (var account in account_list) {
-                HrmAccountOperation account_operation = local_object_space.CreateObject<HrmAccountOperation>();
-                account_operation.Sign = account.Sign;
-                account_operation.Debit = account.Debit;
-                account_operation.Money = account.Money;
-                account_operation.Credit = account.Credit;
-                account_operation.Order = orders_in_database[account.OrderCode];
-                account_operation.PayType = paytypes_in_database[account.PayTypeCode];
-                account_operation.Department = departments_in_database[account.DepartmentCode];
-                if (account_operation.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                    IDictionary<Department, HrmMatrixColumn> column_in_matrix = matrix_alloc_result_kb.Columns.ToDictionary<HrmMatrixColumn, Department>(x => x.Department);
-                    foreach (var cell in column_in_matrix[account_operation.Department].Cells) {
-                        if (cell.Row.Order == account_operation.Order) {
-                            cell.AccountOperations.Add(account_operation);
-                            if (reserve_orders.ContainsKey(account_operation.Order)) {
-                                cell.SourceProvision += account_operation.Money;
-                                cell.Time += account.Time;
-                            }
-                            else {
-                                cell.MoneyNoReserve += account_operation.Money;
-                                cell.Time += account.Time;
-                            }
-                            break;
-                        }
+                else { 
+                    HrmMatrixCell cell = cells_in_matrix[cell_key];
+                    cell.AccountOperations.Add(account_to_db);
+                    current_cell = cell;
+                }
+                if (paytypes_in_alloc_parameter[account_to_db.PayType] != null) {
+                    if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.PROVISION_CODE) {
+                        current_cell.SourceProvision += account_operation.Money;
+                        current_cell.Time += account_operation.Time;
                     }
-                    account_operation.AllocResult = matrix_alloc_result_kb;
-                    matrix_alloc_result_kb.AccountOperations.Add(account_operation);
+                    if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.TRAVEL_CODE) {
+                        current_cell.TravelMoney += account_operation.Money;
+                        current_cell.Time += account_operation.Time;
+                    }
+                    if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.BASE_CODE) {
+                        current_cell.MoneyNoReserve += account_operation.Money;
+                        current_cell.Time += account_operation.Time;
+                    }
                 }
                 else {
-                    IDictionary<Department, HrmMatrixColumn> column_in_matrix = matrix_alloc_result_ozm.Columns.ToDictionary<HrmMatrixColumn, Department>(x => x.Department);
-                    foreach (var cell in column_in_matrix[account_operation.Department].Cells) {
-                        if (cell.Row.Order == account_operation.Order) {
-                            cell.AccountOperations.Add(account_operation);
-                            if (reserve_orders.ContainsKey(account_operation.Order)) {
-                                cell.SourceProvision += account_operation.Money;
-                                cell.Time += account.Time;
-                            }
-                            else {
-                                cell.MoneyNoReserve += account_operation.Money;
-                                cell.Time += account.Time;
-                            }
-                            break;
-                        }
-                    }
-                    account_operation.AllocResult = matrix_alloc_result_ozm;
-                    matrix_alloc_result_ozm.AccountOperations.Add(account_operation);
-                }
+                    current_cell.MoneyNoReserve += account_operation.Money;
+                    current_cell.Time += account_operation.Time;
+                }                
             }
+            //local_object_space.CommitChanges();
         }
     }
 }

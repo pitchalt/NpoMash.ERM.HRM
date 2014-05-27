@@ -72,7 +72,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private Decimal _MoneyTravel;
         [ModelDefault("DisplayFormat", "{0:N}")]
-        public Decimal MoneyTravel {
+        public Decimal TravelMoney {
             get { return _MoneyTravel; }
             set { SetPropertyValue<Decimal>("MoneyTravel", ref _MoneyTravel, value); }
         }

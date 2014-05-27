@@ -145,7 +145,18 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                     HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
                     paytype_to_db.Code = current_paytype.Code;
                     if (paytype_to_db.Code == "104" || paytype_to_db.Code == "147") { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE; }
-                    else { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE; }
+                    if (paytype_to_db.Code == "220" || paytype_to_db.Code == "300" || paytype_to_db.Code == "301" ||
+                        paytype_to_db.Code == "302" || paytype_to_db.Code == "303" || paytype_to_db.Code == "304" ||
+                        paytype_to_db.Code == "305" || paytype_to_db.Code == "306" || paytype_to_db.Code == "307" ||
+                        paytype_to_db.Code == "308" || paytype_to_db.Code == "406" || paytype_to_db.Code == "310" ||
+                        paytype_to_db.Code == "311" || paytype_to_db.Code == "312" || paytype_to_db.Code == "315" ||
+                        paytype_to_db.Code == "316" || paytype_to_db.Code == "322" || paytype_to_db.Code == "324" ||
+                        paytype_to_db.Code == "328" || paytype_to_db.Code == "331" || paytype_to_db.Code == "341" ||
+                        paytype_to_db.Code == "380" || paytype_to_db.Code == "381" || paytype_to_db.Code == "382" ||
+                        paytype_to_db.Code == "401" || paytype_to_db.Code == "404" || paytype_to_db.Code == "405") {
+                        paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE;
+                    }
+                    else { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.BASE_CODE; }
                     paytype_to_db.Name = current_paytype.Name;
                     paytypes_in_db.Add(paytype_to_db.Code, paytype_to_db);
                 }
