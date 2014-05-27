@@ -34,11 +34,27 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void AcceptCompareKB_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            TaskKompareWorkTime task = e.CurrentObject as TaskKompareWorkTime;
+            task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
 
+            task.Complete();
+
+            ObjectSpace.CommitChanges();
+
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
 
         private void AcceptCompareOZM_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            TaskKompareWorkTime task = e.CurrentObject as TaskKompareWorkTime;
+            task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
 
+            task.Complete();
+
+            ObjectSpace.CommitChanges();
+
+            Window win = Frame as Window;
+            if (win != null) win.Close();
         }
     }
 }

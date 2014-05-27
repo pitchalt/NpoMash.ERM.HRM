@@ -206,11 +206,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED) {
                 TaskKompareWorkTime task = object_space.CreateObject<TaskKompareWorkTime>();
+
                 current_period.PeriodTasks.Add(task);
                 TaskKompareWorkTimeLogic.CompareKBMatrix(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                object_space.Committed += new EventHandler(refresher);
+                 object_space.Committed += new EventHandler(refresher);
             }
 
 
@@ -277,18 +278,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-    /*    private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            IObjectSpace object_space = Application.CreateObjectSpace();
-            HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-            if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED && current_period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
-                HrmSalaryTaskImportAccountOperation task = object_space.CreateObject<HrmSalaryTaskImportAccountOperation>();
-                current_period.PeriodTasks.Add(task);
-                HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperationTestData(object_space, task);
-                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
-                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                object_space.Committed += new EventHandler(refresher);
-            }
-        }*/
 
         private void AccountOperationImport_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
@@ -325,8 +314,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskProvisionMatrixReduction card = null;
                 if (period.CurrentProvisionMatrix == null) {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                   // card.AllocResultKB = HrmSalaryTaskProvisionMatrixReductionLogic.createtest(os, card.AllocResultKB);
-                   // card.AllocResultOZM = HrmSalaryTaskProvisionMatrixReductionLogic.createtest(os, card.AllocResultOZM);
+
                     card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
 
 
@@ -336,12 +324,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     ProvBringLogic.BringDifficultDeps(mat);
                     ProvBringLogic.LoadProvBringResultInTask(mat);
 
-                    //card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
-                    //card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
-                    //card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-                    //card.AllocResultKBOZM = HrmSalaryTaskProvisionMatrixReductionLogic.mergeAllocResults(os, card);
-                    //card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
-                    //card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
+               
 
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
@@ -371,5 +354,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
 
         }
+
+
     }
 }

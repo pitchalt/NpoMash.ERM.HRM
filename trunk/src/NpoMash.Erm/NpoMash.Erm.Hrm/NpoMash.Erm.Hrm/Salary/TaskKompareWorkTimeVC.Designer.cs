@@ -58,6 +58,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.AcceptCompareOZM.ToolTip = null;
             this.AcceptCompareOZM.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
             this.AcceptCompareOZM.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.AcceptCompareOZM_Execute);
+            // 
+            // TaskKompareWorkTimeVC
+            // 
+            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.TaskKompareWorkTime);
+            this.TypeOfView = typeof(DevExpress.ExpressApp.View);
 
         }
 
