@@ -51,6 +51,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { 
                 SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
                 if (!IsLoading) {
+                    _TimeSheetPeriodObject.Period = value;
                    // PeriodBase = value;
                 }
             }
@@ -82,7 +83,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             SetStatus(HrmTimeSheetStatus.DOWNLOADED);
         }
 
-        HrmSalaryPeriodObjectStatus IPeriodObject.PeriodObjectStatus {
+        public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
             get { return _TimeSheetPeriodObject.Status; }
         }
 

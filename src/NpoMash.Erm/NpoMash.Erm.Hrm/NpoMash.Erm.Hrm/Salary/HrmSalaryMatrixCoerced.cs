@@ -17,10 +17,10 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmSalaryCoercedMatrix : HrmMatrix { 
+    public class HrmSalaryMatrixCoerced : HrmMatrix { 
 
 
-        public HrmSalaryCoercedMatrix(Session session) : base(session) { }
+        public HrmSalaryMatrixCoerced(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Persistent("Matrix")]
         private HrmMatrix _Matrix;
 
-        public override Type ObjectType {
+        public override Type PeriodObjectType {
             get { return _Matrix.GetType(); }
         }
 

@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Editors;
 
 
 namespace NpoMash.Erm.Hrm.Salary {
+
     [Persistent("HrmSalaryTaskImportSourceData")]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]

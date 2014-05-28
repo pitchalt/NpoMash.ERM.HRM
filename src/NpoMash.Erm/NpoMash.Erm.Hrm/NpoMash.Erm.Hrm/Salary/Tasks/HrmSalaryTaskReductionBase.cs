@@ -18,7 +18,7 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmSalaryBaseReductionElements")]
+    [MapInheritance(MapInheritanceType.ParentTable)]
     public class HrmSalaryBaseReductionElements : HrmSalaryTask {
 
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
