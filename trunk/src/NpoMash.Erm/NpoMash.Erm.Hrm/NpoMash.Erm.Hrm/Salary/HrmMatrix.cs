@@ -53,12 +53,14 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Status")]
-    public class HrmMatrix : BaseObject { //, IMatrix {
+    public class HrmMatrix : BaseObject, IMatrix {
 
-        //—сылка на HrmPeriodMatrixBaseObject
-        //[Aggregated]
-        //[Persistent]
-        //private HrmMatrixPeriodObject _MatrixPeriodObject;
+        /// <summary>
+        /// —сылка на HrmPeriodMatrixBaseObject
+        /// </summary>
+        [Aggregated]
+        [Persistent]
+        private HrmMatrixPeriodObject _MatrixPeriodObject;
         //public HrmMatrixPeriodObject _PeriodObject {
         //    get { return _MatrixPeriodObject; }
         //    set { SetPropertyValue<HrmMatrixPeriodObject>("MatrixPeriodObject", ref _MatrixPeriodObject, value); }
@@ -132,6 +134,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { 
                 SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
                 if (!IsLoading) {
+                    _MatrixPeriodObject.Period = value;
                     //PeriodBase = value;
                 }
             }
@@ -143,16 +146,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
-//            _MatrixPeriodObject = new HrmMatrixPeriodObject(this);
+            _MatrixPeriodObject = new HrmMatrixPeriodObject(this);
         }
 
 
-        //HrmSalaryPeriodObjectStatus IPeriodObject.PeriodObjectStatus {
-        //    get {
-        //        //return _MatrixPeriodObject.Status;
-        //        return HrmSalaryPeriodObjectStatus.TEST;
-        //    }
-        //}
+        public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
+            get {
+                return _MatrixPeriodObject.Status;
+            }
+        }
 
         public Type PeriodObjectType {
             get { 

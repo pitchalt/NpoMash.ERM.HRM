@@ -172,6 +172,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Salary\HrmMatrixLogic.cs" />
+    <Compile Include="Salary\HrmMatrixPeriodObject.cs" />
     <Compile Include="Salary\HrmMatrixRow.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -208,10 +209,10 @@
     <Compile Include="Salary\ITimeSheet.cs" />
     <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrix.cs" />
-    <Compile Include="Salary\HrmSalaryCoercedMatrix.cs" />
-    <Compile Include="Salary\HrmSalaryFirstAccount.cs" />
-    <Compile Include="Salary\HrmSalaryLastAccount.cs" />
-    <Compile Include="Salary\HrmSalaryProvisionMatrix.cs" />
+    <Compile Include="Salary\HrmSalaryMatrixCoerced.cs" />
+    <Compile Include="Salary\HrmSalaryMatrixFirstAccount.cs" />
+    <Compile Include="Salary\HrmSalaryMatrixLastAccount.cs" />
+    <Compile Include="Salary\HrmSalaryMatrixProvision.cs" />
     <Compile Include="Salary\HrmSalaryRowSlice.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTask.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummary.cs" />

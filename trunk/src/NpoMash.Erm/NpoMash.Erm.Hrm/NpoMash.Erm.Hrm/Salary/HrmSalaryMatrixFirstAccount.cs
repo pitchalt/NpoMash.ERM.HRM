@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 //
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
@@ -17,9 +17,9 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmSalaryLastAccount : HrmMatrix {
+    public class HrmSalaryMatrixFirstAccount : HrmMatrix { 
 
-        public HrmSalaryLastAccount(Session session)  : base(session) { }
-        public override void AfterConstruction() {  base.AfterConstruction(); }
+        public HrmSalaryMatrixFirstAccount(Session session) : base(session) { }
+        public override void AfterConstruction() { base.AfterConstruction();   }
     }
 }
