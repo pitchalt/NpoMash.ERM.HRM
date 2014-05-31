@@ -19,7 +19,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmSalaryTaskReductionBase : HrmSalaryTask {
+    public abstract class HrmSalaryTaskReductionBase : HrmSalaryTask {
 
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         [VisibleInDetailView(false)]
@@ -77,6 +77,34 @@ namespace NpoMash.Erm.Hrm.Salary {
             public IList<DepartmentItem> DepartmentItems = new List<DepartmentItem>();
             public OrderItem(Session session) : base(session) { }
         }
+
+        private IList<DepartmentItem> _Department;
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public IList<DepartmentItem> Department {
+            get {
+                if (_Department == null) {
+                    _Department = new List<DepartmentItem>();
+                    departmentCreate();
+                }
+                return _Department;
+            }
+        }
+
+        private IList<OrderItem> _Order;
+        [NonPersistent]
+        public IList<OrderItem> Order {
+            get {
+                if (_Order == null) {
+                    _Order = new List<OrderItem>();
+                    orderCreate();
+                }
+                return _Order;
+            }
+        }
+
+        protected abstract void orderCreate();
+        protected abstract void departmentCreate();
 
 
 

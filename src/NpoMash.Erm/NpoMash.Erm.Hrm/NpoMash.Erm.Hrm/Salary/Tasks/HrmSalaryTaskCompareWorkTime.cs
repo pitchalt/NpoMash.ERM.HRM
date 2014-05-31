@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _AllocResultOZM; }
             set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
         }
-
+        /*
         private IList<DepartmentItem> _Department;
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -70,22 +70,22 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 return _Order;
             }
-        }
+        }*/
 
 
    
-        protected void orderCreate() {
+        protected override void orderCreate() {
            
                 LoadMatrixOrder(MatrixPlan, null, Order);
         }
 
-        protected void departmentCreate() {
+        protected override void departmentCreate() {
 
             LoadMatrixDepartment(MatrixPlan, null, Department);
         }
 
-        protected void CleanMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
-        }
+        //protected void CleanMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
+        //}
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
