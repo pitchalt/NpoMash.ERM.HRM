@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
 
-    public class TaskKompareWorkTime : HrmSalaryBaseReductionElements {
+    public class TaskKompareWorkTime : HrmSalaryTaskReductionBase {
 
 
 

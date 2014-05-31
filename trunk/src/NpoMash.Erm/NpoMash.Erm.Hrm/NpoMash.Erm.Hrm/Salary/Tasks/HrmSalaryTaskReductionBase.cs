@@ -19,7 +19,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmSalaryBaseReductionElements : HrmSalaryTask {
+    public class HrmSalaryTaskReductionBase : HrmSalaryTask {
 
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         [VisibleInDetailView(false)]
@@ -83,7 +83,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public HrmSalaryBaseReductionElements(Session session)
+        public HrmSalaryTaskReductionBase(Session session)
             : base(session) {
         }
         public override void AfterConstruction() {

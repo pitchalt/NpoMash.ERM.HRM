@@ -26,7 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
-    public class HrmSalaryTaskMatrixReduction : HrmSalaryBaseReductionElements {
+    public class HrmSalaryTaskMatrixReduction : HrmSalaryTaskReductionBase {
 
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
