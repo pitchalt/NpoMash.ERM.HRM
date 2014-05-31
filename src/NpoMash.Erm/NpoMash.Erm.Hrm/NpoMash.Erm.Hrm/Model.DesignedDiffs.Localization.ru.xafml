@@ -516,14 +516,10 @@
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" />
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="@960703e2-eb27-454b-9235-8d060683c839" Caption="@960703e2-eb27-454b-9235-8d060683c839">
+            <LayoutGroup Id="ProvisionParameters" Caption="@960703e2-eb27-454b-9235-8d060683c839">
               <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task">
                 <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
                 <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
-              </LayoutGroup>
-              <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Caption="Hrm Salary Task Provision Matrix Reduction">
-                <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col1" Caption="HrmSalaryTaskProvisionMatrixReduction_col1" />
-                <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col2" Caption="HrmSalaryTaskProvisionMatrixReduction_col2" />
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="AllocParameters" Caption="AllocParameters">
