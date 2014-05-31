@@ -44,5 +44,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         private bool isSourceDataImported {
             get { return State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED; }
         }
+
+        protected override void InObjectsLoad() {
+
+        }
+
     }
 }

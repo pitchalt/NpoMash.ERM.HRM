@@ -156,5 +156,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public TaskKompareWorkTime(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        protected override void InObjectsLoad() {
+
+        }
+
     }
 }

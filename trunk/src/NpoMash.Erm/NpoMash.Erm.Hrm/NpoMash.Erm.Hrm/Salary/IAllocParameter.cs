@@ -8,7 +8,8 @@ using DevExpress.ExpressApp.DC;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [DomainComponent]
-    interface IPeriodAllocParameter: IPeriodObject {
+    interface IAllocParameter: IPeriodObject, ITaskObject {
+        String Name { get; }
     }
 
 }

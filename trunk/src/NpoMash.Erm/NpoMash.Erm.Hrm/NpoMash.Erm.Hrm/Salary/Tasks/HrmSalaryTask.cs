@@ -45,7 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTask")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public abstract class HrmSalaryTask : BaseObject, ILogSupport { 
+    public abstract class HrmSalaryTask : BaseObject, ITask { 
         private HrmPeriod _Period; 
         /// <summary>
         /// Период к которому относиться задача
@@ -152,5 +152,16 @@ namespace NpoMash.Erm.Hrm.Salary {
             record.Init(type, text, this.Period, this, department, order);
         }
 
+        protected IList<ITaskObject> _InObjects;
+        public IList<ITaskObject> InObjects {
+            get {
+                if (_InObjects == null) {
+                    _InObjects = new List<ITaskObject>();
+                    InObjectsLoad();
+                }
+                return _InObjects;
+            }
+        }
+        protected abstract void InObjectsLoad();
     }
 }

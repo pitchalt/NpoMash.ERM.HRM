@@ -200,12 +200,13 @@
     </Compile>
     <Compile Include="Salary\HrmPeriodOrderControl.cs" />
     <Compile Include="Salary\HrmPeriodPayType.cs" />
+    <Compile Include="Salary\ITask.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTaskReductionBase.cs" />
     <Compile Include="Salary\HrmTimeSheetPeriodObject.cs" />
     <Compile Include="Salary\ILog.cs" />
     <Compile Include="Salary\IMatrix.cs" />
     <Compile Include="Salary\IPeriod.cs" />
-    <Compile Include="Salary\IPeriodAllocParameter.cs" />
+    <Compile Include="Salary\IAllocParameter.cs" />
     <Compile Include="Salary\ITimeSheet.cs" />
     <Compile Include="Salary\Log.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrix.cs" />
