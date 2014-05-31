@@ -498,24 +498,20 @@
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
       <Layout>
         <LayoutGroup Id="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Caption="Main">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="0" ImageName="" Direction="Horizontal" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="SimpleEditors">
-            <LayoutGroup Id="HrmSalaryTask" Removed="True" />
-            <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Removed="True" />
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="99" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <TabbedGroup Id="Tabs" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0">
             <LayoutGroup Id="ProvisionParameters" Index="0" ShowCaption="True" Direction="Vertical" RelativeSize="100" Caption="ProvisionParameters" IsNewNode="True">
-              <LayoutGroup Id="HrmSalaryTask" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="8" Caption="HrmSalaryTask" IsNewNode="True">
-                <LayoutGroup Id="HrmSalaryTask_col1" ShowCaption="False" Index="0" RelativeSize="40" Caption="HrmSalaryTask_col1" IsNewNode="True">
+              <LayoutGroup Id="HrmSalaryTask" ShowCaption="True" Direction="Horizontal" Index="0" RelativeSize="17" Caption="HrmSalaryTask" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col1" ShowCaption="False" Index="0" RelativeSize="38" Caption="HrmSalaryTask_col1" IsNewNode="True">
                   <LayoutItem Id="TaskType" ViewItem="TaskType" SizeConstraintsType="Default" Index="0" RelativeSize="36" IsNewNode="True" />
                   <LayoutItem Id="State" ViewItem="State" SizeConstraintsType="Default" Index="1" RelativeSize="27" IsNewNode="True" />
                   <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="36" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="HrmSalaryTask_col2" ShowCaption="False" Index="1" RelativeSize="56" Caption="HrmSalaryTask_col2" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col2" ShowCaption="False" Index="1" RelativeSize="58" Caption="HrmSalaryTask_col2" IsNewNode="True">
                   <LayoutItem Id="CreateTime" ViewItem="CreateTime" SizeConstraintsType="Default" Index="0" RelativeSize="36" IsNewNode="True" />
                   <LayoutItem Id="FinishTime" ViewItem="FinishTime" SizeConstraintsType="Default" Index="1" RelativeSize="63" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="Alloc" ShowCaption="False" Index="2" RelativeSize="10" IsNewNode="True">
+              <LayoutGroup Id="Alloc" ShowCaption="False" Index="1" RelativeSize="21" IsNewNode="True">
                 <LayoutGroup Id="@45942053-6efb-4eac-a342-62aee46f5832" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
                   <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="Alloc" IsNewNode="True">
                     <LayoutItem Id="AllocParameters.NormNoControlKB" ViewItem="AllocParameters.NormNoControlKB" SizeConstraintsType="Default" Index="0" RelativeSize="21" IsNewNode="True" />
@@ -525,7 +521,7 @@
                   </LayoutGroup>
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="Base" ShowCaption="False" Index="3" RelativeSize="9" IsNewNode="True">
+              <LayoutGroup Id="Base" ShowCaption="False" Index="2" RelativeSize="17" IsNewNode="True">
                 <LayoutGroup Id="@afe55e9b-8238-489b-9267-6b4883d3c637" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
                   <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="Base" IsNewNode="True">
                     <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" SizeConstraintsType="Default" Index="0" RelativeSize="25" IsNewNode="True" />
@@ -534,7 +530,7 @@
                   </LayoutGroup>
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="AllocResult" ShowCaption="False" Index="4" RelativeSize="10" IsNewNode="True">
+              <LayoutGroup Id="AllocResult" ShowCaption="False" Index="3" RelativeSize="21" IsNewNode="True">
                 <LayoutGroup Id="@1e13f2d1-99d9-477a-8d57-538c21043f62" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
                   <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="AllocResult" IsNewNode="True">
                     <LayoutItem Id="AllocResultKB.GroupDep" ViewItem="AllocResultKB.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="21" IsNewNode="True" />
@@ -544,13 +540,13 @@
                   </LayoutGroup>
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="AllocMatrix" ShowCaption="False" Index="5" RelativeSize="10" IsNewNode="True">
+              <LayoutGroup Id="AllocMatrix" ShowCaption="False" Index="4" RelativeSize="22" IsNewNode="True">
                 <LayoutGroup Id="@bbebb694-7a30-481b-b480-04e3f53d410a" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
                   <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="AllocMatrix" IsNewNode="True">
-                    <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="21" IsNewNode="True" />
+                    <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="20" IsNewNode="True" />
                     <LayoutItem Id="MatrixAllocOZM.Status" ViewItem="MatrixAllocOZM.Status" SizeConstraintsType="Default" Index="1" RelativeSize="15" IsNewNode="True" />
                     <LayoutItem Id="MatrixAllocKB.GroupDep" ViewItem="MatrixAllocKB.GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="15" IsNewNode="True" />
-                    <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" SizeConstraintsType="Default" Index="3" RelativeSize="21" IsNewNode="True" />
+                    <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" SizeConstraintsType="Default" Index="3" RelativeSize="24" IsNewNode="True" />
                   </LayoutGroup>
                 </LayoutGroup>
               </LayoutGroup>
@@ -577,34 +573,16 @@
             <LayoutGroup Id="AllocResultKB.Rows" Index="2" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Rows" Removed="True">
               <LayoutItem Id="AllocResultKB.Rows" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Index="2" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Log Records">
+              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
             <LayoutGroup Id="AllocParameters.PeriodPayTypes" Index="3" RelativeSize="100" ImageName="BO_List" Removed="True">
               <LayoutItem Id="AllocParameters.PeriodPayTypes" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
             </LayoutGroup>
             <LayoutGroup Id="AllocResultKB.Columns" Index="3" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Columns" Removed="True">
               <LayoutItem Id="AllocResultKB.Columns" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="AllocResultOZM.Rows" Index="4" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Rows" Removed="True">
-              <LayoutItem Id="AllocResultOZM.Rows" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixPlanKB.Rows" Index="4" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixPlanKB.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="AllocResultOZM.Columns" Index="5" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Columns" Removed="True">
-              <LayoutItem Id="AllocResultOZM.Columns" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixPlanKB.Columns" Index="5" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixPlanKB.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="LogRecords" Index="6" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Log Records">
-              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixPlanOZM.Rows" Index="6" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixPlanOZM.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="MatrixPlanOZM.Columns" Index="7" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixPlanOZM.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="ProvisionMatrix" ShowCaption="True" Index="7" RelativeSize="100" Caption="ProvisionMatrix" IsNewNode="True">
+            <LayoutGroup Id="ProvisionMatrix" ShowCaption="True" Index="3" RelativeSize="100" Caption="ProvisionMatrix" IsNewNode="True">
               <TabbedGroup Id="@4fb00ec6-429e-432d-bffa-d84c9b82719c" Index="0" RelativeSize="100" IsNewNode="True">
                 <LayoutGroup Id="Deps" ShowCaption="True" Index="0" RelativeSize="100" Caption="Department" IsNewNode="True">
                   <LayoutItem Id="Department" ViewItem="Department" ShowCaption="False" RelativeSize="100" SizeConstraintsType="Default" Index="0" IsNewNode="True" />
@@ -614,10 +592,13 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
-            <LayoutGroup Id="MatrixAllocKB.Rows" Index="8" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixAllocKB.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            <LayoutGroup Id="AllocResultOZM.Rows" Index="4" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Rows" Removed="True">
+              <LayoutItem Id="AllocResultOZM.Rows" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="ReductionMatrix" ShowCaption="True" Index="8" RelativeSize="100" Caption="ReductionMatrix" IsNewNode="True">
+            <LayoutGroup Id="MatrixPlanKB.Rows" Index="4" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixPlanKB.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ReductionMatrix" ShowCaption="True" Index="4" RelativeSize="100" Caption="ReductionMatrix" IsNewNode="True">
               <TabbedGroup Id="@ccbeff59-6f86-4627-b6ea-98969bc67b56" Index="0" RelativeSize="100" IsNewNode="True">
                 <LayoutGroup Id="KB" ShowCaption="True" Index="0" RelativeSize="100" Caption="KB" IsNewNode="True">
                   <TabbedGroup Id="@2a52b47c-a53e-450e-bb1a-42afb3716f6f" Index="0" RelativeSize="100" IsNewNode="True">
@@ -641,10 +622,13 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
-            <LayoutGroup Id="MatrixAllocKB.Columns" Index="9" RelativeSize="100" ImageName="" Removed="True">
-              <LayoutItem Id="MatrixAllocKB.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            <LayoutGroup Id="AllocResultOZM.Columns" Index="5" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Columns" Removed="True">
+              <LayoutItem Id="AllocResultOZM.Columns" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="SourceData" ShowCaption="True" Index="9" RelativeSize="100" Caption="SourceData" IsNewNode="True">
+            <LayoutGroup Id="MatrixPlanKB.Columns" Index="5" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixPlanKB.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="SourceData" ShowCaption="True" Index="5" RelativeSize="100" Caption="SourceData" IsNewNode="True">
               <TabbedGroup Id="@18828c99-3e92-4094-98b2-901e9f0a9fac" Index="0" RelativeSize="100" IsNewNode="True">
                 <LayoutGroup Id="PlanMatrix" Index="0" ShowCaption="True" RelativeSize="100" Caption="PlanMatrix" IsNewNode="True">
                   <TabbedGroup Id="Plan" Index="0" RelativeSize="100" IsNewNode="True">
@@ -682,6 +666,18 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
+            <LayoutGroup Id="MatrixPlanOZM.Rows" Index="6" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixPlanOZM.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlanOZM.Columns" Index="7" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixPlanOZM.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAllocKB.Rows" Index="8" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixAllocKB.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixAllocKB.Columns" Index="9" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixAllocKB.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
             <LayoutGroup Id="MatrixAllocOZM.Rows" Index="10" RelativeSize="100" ImageName="" Removed="True">
               <LayoutItem Id="MatrixAllocOZM.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
             </LayoutGroup>
@@ -701,6 +697,10 @@
               <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
             </LayoutGroup>
           </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="0" ImageName="" Direction="Horizontal" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="SimpleEditors" Removed="True">
+            <LayoutGroup Id="HrmSalaryTask" Removed="True" />
+            <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Removed="True" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
