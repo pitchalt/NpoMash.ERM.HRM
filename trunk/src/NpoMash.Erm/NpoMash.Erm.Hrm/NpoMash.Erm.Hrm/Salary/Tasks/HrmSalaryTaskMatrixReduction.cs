@@ -66,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
-
+        /*
         private IList<DepartmentItem> _Department;
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -90,7 +90,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 return _Order;
             }
-        }
+        }*/
 
     
         public void Refresh(HrmMatrixVariant variant) {
@@ -116,7 +116,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected void orderCreate() {
+        protected override void orderCreate() {
             if (MatrixPlan != null)
                 LoadMatrixOrder(MatrixPlan, null, Order);
             if (MinimizeNumberOfDeviationsMatrix != null)
@@ -127,7 +127,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixOrder(ProportionsMethodMatrix, null, Order);
         }
 
-        protected void departmentCreate() {
+        protected override void departmentCreate() {
             if (MatrixPlan != null)
                 LoadMatrixDepartment(MatrixPlan, null, Department);
             if (MinimizeNumberOfDeviationsMatrix != null)
@@ -138,8 +138,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixDepartment(ProportionsMethodMatrix, null, Department);
         }
 
-        protected void CleanMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
-        }
+        //protected void CleanMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
+        //}
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
