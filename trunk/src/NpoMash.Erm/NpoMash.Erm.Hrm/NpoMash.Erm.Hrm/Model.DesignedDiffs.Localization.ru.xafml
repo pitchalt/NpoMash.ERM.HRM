@@ -514,7 +514,6 @@
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
-          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" />
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="ProvisionParameters" Caption="@960703e2-eb27-454b-9235-8d060683c839">
               <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task">
@@ -532,22 +531,17 @@
             <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
             <LayoutGroup Id="AllocParameters.DepartmentControl" Caption="Подразделения" />
             <LayoutGroup Id="AllocResultKB.Rows" Caption="Заказы" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
             <LayoutGroup Id="AllocParameters.PeriodPayTypes" Caption="Код оплаты" />
             <LayoutGroup Id="AllocResultKB.Columns" Caption="Подразделения" />
-            <LayoutGroup Id="AllocResultOZM.Rows" Caption="Заказы" />
-            <LayoutGroup Id="MatrixPlanKB.Rows" Caption="Заказы" />
-            <LayoutGroup Id="AllocResultOZM.Columns" Caption="Подразделения" />
-            <LayoutGroup Id="MatrixPlanKB.Columns" Caption="Подразделения" />
-            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
-            <LayoutGroup Id="MatrixPlanOZM.Rows" Caption="Заказы" />
-            <LayoutGroup Id="MatrixPlanOZM.Columns" Caption="Подразделения" />
             <LayoutGroup Id="ProvisionMatrix" Caption="ProvisionMatrix">
               <TabbedGroup Id="@4fb00ec6-429e-432d-bffa-d84c9b82719c">
                 <LayoutGroup Id="Deps" Caption="Department" />
                 <LayoutGroup Id="Orders" Caption="Order" />
               </TabbedGroup>
             </LayoutGroup>
-            <LayoutGroup Id="MatrixAllocKB.Rows" Caption="Заказы" />
+            <LayoutGroup Id="AllocResultOZM.Rows" Caption="Заказы" />
+            <LayoutGroup Id="MatrixPlanKB.Rows" Caption="Заказы" />
             <LayoutGroup Id="ReductionMatrix" Caption="ReductionMatrix">
               <TabbedGroup Id="@ccbeff59-6f86-4627-b6ea-98969bc67b56">
                 <LayoutGroup Id="KB" Caption="KB">
@@ -564,7 +558,8 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
-            <LayoutGroup Id="MatrixAllocKB.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="AllocResultOZM.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="MatrixPlanKB.Columns" Caption="Подразделения" />
             <LayoutGroup Id="SourceData" Caption="SourceData">
               <TabbedGroup Id="@18828c99-3e92-4094-98b2-901e9f0a9fac">
                 <LayoutGroup Id="PlanMatrix" Caption="PlanMatrix">
@@ -591,6 +586,10 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
+            <LayoutGroup Id="MatrixPlanOZM.Rows" Caption="Заказы" />
+            <LayoutGroup Id="MatrixPlanOZM.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="MatrixAllocKB.Rows" Caption="Заказы" />
+            <LayoutGroup Id="MatrixAllocKB.Columns" Caption="Подразделения" />
             <LayoutGroup Id="MatrixAllocOZM.Rows" Caption="Заказы" />
             <LayoutGroup Id="MatrixAllocOZM.Columns" Caption="Подразделения" />
             <LayoutGroup Id="CurrentTimeSheetKB.TimeSheetDeps" Caption="Табель" />
@@ -598,6 +597,7 @@
             <LayoutGroup Id="Order" Caption="Order" />
             <LayoutGroup Id="Department" Caption="Department" />
           </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" />
         </LayoutGroup>
       </Layout>
     </DetailView>
