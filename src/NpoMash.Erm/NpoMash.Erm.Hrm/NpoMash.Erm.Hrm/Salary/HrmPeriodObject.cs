@@ -24,11 +24,13 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmPeriodObject")]
     abstract public class HrmPeriodObject : BaseObject,  IPersistentInterfaceData<IPeriodObject> { //, ITreeNode  {
        
-        private HrmSalaryPeriodObjectStatus _Status;
-        public HrmSalaryPeriodObjectStatus Status {
-            get { return _Status; }
-            set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
-        }
+        //private HrmSalaryPeriodObjectStatus _Status;
+        //public HrmSalaryPeriodObjectStatus Status {
+        //    get { return _Status; }
+        //    set { SetPropertyValue<HrmSalaryPeriodObjectStatus>("Status", ref _Status, value); }
+        //}
+
+        public String PeriodObjectStatus = "";
 
         public abstract Type PeriodObjectType { get; }
 

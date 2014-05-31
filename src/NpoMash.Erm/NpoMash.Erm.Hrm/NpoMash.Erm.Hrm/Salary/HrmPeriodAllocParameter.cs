@@ -13,6 +13,8 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Layout;
 //
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
@@ -34,9 +36,9 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled = false)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListFirst", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='ALLOC_PARAMETERS_ACCEPTED' or Status='LIST_OF_ORDER_ACCEPTED'")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListLast", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status='ALLOC_PARAMETERS_ACCEPTED'")]
-    [DefaultProperty("Status")]
+    [DefaultProperty("Name")]
 
-    public class HrmPeriodAllocParameter : BaseObject, IPeriodAllocParameter {
+    public class HrmPeriodAllocParameter : BaseObject, IAllocParameter {
 
         //—сылка на HrmPeriodAllocParametrsBaseObject
         [Aggregated]
@@ -151,8 +153,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             SetPropertyValue<HrmPeriodAllocParameterStatus>("Status", ref _Status, status);
         }
 
-        public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
-            get { return _AllocParameterPeriodObject.Status; }
+        //public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
+        //    get { return _AllocParameterPeriodObject.Status; }
+        //}
+        public String PeriodObjectStatus {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+                return ed.GetCaption(Status);
+            }
         }
 
         public Type PeriodObjectType {
@@ -161,6 +169,21 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public IntecoAG.ERM.HRM.Organization.DepartmentGroupDep GroupDep {
             get { return IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM; }
+        }
+
+        public String Name {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+                return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+            }
+        }
+
+        public Type TaskObjectType {
+            get { return PeriodObjectType; }
+        }
+
+        public String TaskObjectName {
+            get { return Name; }
         }
     }
 }

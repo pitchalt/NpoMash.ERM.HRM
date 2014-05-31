@@ -10,6 +10,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -52,7 +53,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Status")]
+    [DefaultProperty("Name")]
     public class HrmMatrix : BaseObject, IMatrix {
 
         /// <summary>
@@ -150,15 +151,36 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
+        //public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
+        //    get {
+        //        return _MatrixPeriodObject.Status;
+        //    }
+        //}
+        public String PeriodObjectStatus {
             get {
-                return _MatrixPeriodObject.Status;
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmMatrixStatus));
+                return ed.GetCaption(Status);
             }
         }
 
         public Type PeriodObjectType {
             get { 
                 return this.GetType(); 
+            }
+        }
+
+        public Type TaskObjectType {
+            get { return PeriodObjectType; }
+        }
+
+        public String TaskObjectName {
+            get { return Name; }
+        }
+
+        public String Name {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmMatrixStatus));
+                return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
             }
         }
     }

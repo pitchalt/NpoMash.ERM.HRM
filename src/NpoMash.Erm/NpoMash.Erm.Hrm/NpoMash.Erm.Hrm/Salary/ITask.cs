@@ -9,21 +9,16 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-
     [DomainComponent]
-    public interface IPeriod : ILogSupport {
-        IList<IPeriodObject> PeriodObjects { get; }
+    public interface ITask: ILogSupport {
+        IList<ITaskObject> InObjects { get; }
     }
 
-    //public enum HrmSalaryPeriodObjectStatus {
-    //    TEST    = 0
-    //}
-
     [DomainComponent]
-    public interface IPeriodObject {
-        String PeriodObjectStatus { get; }
-        Type PeriodObjectType { get; }
+    public interface ITaskObject {
+        Type TaskObjectType { get; }
         DepartmentGroupDep GroupDep { get; }
+        String TaskObjectName { get; }
     }
 
 }

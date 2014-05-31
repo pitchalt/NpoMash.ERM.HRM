@@ -33,5 +33,10 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Browsable(false)]
         private bool isMatrixExported { get { return State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED; } }
+
+        protected override void InObjectsLoad() {
+
+        }
+
     }
 }

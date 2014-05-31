@@ -260,5 +260,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Period.Status != HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS);
             }
         }
+
+        protected override void InObjectsLoad() {
+            if (AllocParameters != null)
+                InObjects.Add(AllocParameters);
+            if (TimeSheet != null)
+                InObjects.Add(TimeSheet);
+            if (MatrixPlan != null)
+                InObjects.Add(MatrixPlan);
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 //
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
@@ -27,7 +28,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmTimeSheet")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    [DefaultProperty("Status")]
+    [DefaultProperty("Name")]
     public class HrmTimeSheet : BaseObject, ITimeSheet {
 
         // Cсылка на HrmPeriodTimeSheetBaseObject
@@ -83,12 +84,33 @@ namespace NpoMash.Erm.Hrm.Salary {
             SetStatus(HrmTimeSheetStatus.DOWNLOADED);
         }
 
-        public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
-            get { return _TimeSheetPeriodObject.Status; }
+        //public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
+        //    get { return _TimeSheetPeriodObject.Status; }
+        //}
+        public String PeriodObjectStatus {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmTimeSheetStatus));
+                return ed.GetCaption(Status);
+            }
         }
 
         public Type PeriodObjectType {
             get { return typeof(HrmTimeSheet); }
+        }
+
+        public Type TaskObjectType {
+            get { return PeriodObjectType; }
+        }
+
+        public String TaskObjectName {
+            get { return Name; }
+        }
+
+        public String Name {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmTimeSheetStatus));
+                return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
+            }
         }
     }
 }

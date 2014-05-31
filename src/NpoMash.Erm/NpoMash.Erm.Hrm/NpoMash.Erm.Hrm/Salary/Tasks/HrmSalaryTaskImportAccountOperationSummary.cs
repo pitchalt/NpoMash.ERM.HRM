@@ -28,5 +28,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _MatrixAllocResultSummary; }
             set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResultSummary", ref _MatrixAllocResultSummary, value); }
         }
+
+        protected override void InObjectsLoad() {
+
+        }
+
     }
 }

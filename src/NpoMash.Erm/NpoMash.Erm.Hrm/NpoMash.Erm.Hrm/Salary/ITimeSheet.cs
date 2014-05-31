@@ -8,7 +8,8 @@ using DevExpress.ExpressApp.DC;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [DomainComponent]
-    public interface ITimeSheet : IPeriodObject {
+    public interface ITimeSheet : IPeriodObject, ITaskObject {
+        String Name { get; }
     }
 
 }

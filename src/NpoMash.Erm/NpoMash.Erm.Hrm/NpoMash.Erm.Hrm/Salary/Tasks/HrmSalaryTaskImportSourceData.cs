@@ -59,5 +59,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+
+        protected override void InObjectsLoad() {
+
+        }
     }
 }
