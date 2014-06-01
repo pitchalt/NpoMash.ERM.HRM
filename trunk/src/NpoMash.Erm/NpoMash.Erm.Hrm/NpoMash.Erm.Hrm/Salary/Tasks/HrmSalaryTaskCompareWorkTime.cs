@@ -34,9 +34,16 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Decimal DepartmentPlan;
             public Decimal DepartmentTravelPlan;
             public Decimal ConstantDepTime;
+            private Decimal fact_Constant;
+            public Decimal Fact_Constant {
+                get { return fact_Constant = DepartmentFact - ConstantDepTime; }
+            }
             public Decimal DepartmentFact;
-            public Decimal DepartmentTravelFact;
-            public Decimal Plan_Fact;
+            public Decimal TravelFact;
+            private Decimal plan_Fact;
+            public Decimal Plan_Fact {
+                get { return plan_Fact=DepartmentPlan - DepartmentFact; }
+            }
             public Decimal CoercedValue;
         }
 
@@ -46,11 +53,18 @@ namespace NpoMash.Erm.Hrm.Salary {
             public OrderItem2() { }
             //Поля для контроля трудоемкости
             public Decimal OrderPlan;
+            public Decimal OrderFact;
             public Decimal TravelPlan;
             public Decimal ConstantOrderTime;
-            public Decimal OrderFact_ConstantOrderTime;
+            private Decimal orderFact_ConstantOrderTime;
+            public Decimal OrderFact_ConstantOrderTime {
+                get { return orderFact_ConstantOrderTime = OrderFact - ConstantOrderTime; }
+            }
             public Decimal TravelFact;
-            public Decimal Plan_Fact;
+            private Decimal plan_Fact;
+            public Decimal Plan_Fact {
+                get { return plan_Fact = OrderPlan - OrderFact; }
+            }
             public Decimal CoercedValue;
         }
 
@@ -87,11 +101,25 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void orderCreate() {
-            LoadMatrixOrder(MatrixPlan, null, Order);
+            if (MatrixPlan != null)
+                LoadMatrixOrder(MatrixPlan, null, Order);
+            if (MinimizeNumberOfDeviationsMatrix != null)
+                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, Order);
+            if (GroupDep == DepartmentGroupDep.DEPARTMENT_KB && AllocResultKB != null)
+                LoadMatrixOrder(AllocResultKB, null, Order);
+            if (GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && AllocResultOZM != null)
+                LoadMatrixOrder(AllocResultOZM, null, Order);
         }
 
         protected override void departmentCreate() {
-            LoadMatrixDepartment(MatrixPlan, null, Department);
+            if (MatrixPlan != null)
+                LoadMatrixDepartment(MatrixPlan, null, Department);
+            if (MinimizeNumberOfDeviationsMatrix != null)
+                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, Department);
+            if (GroupDep == DepartmentGroupDep.DEPARTMENT_KB && AllocResultKB != null)
+                LoadMatrixDepartment(AllocResultKB, null, Department);
+            if (GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && AllocResultOZM != null)
+                LoadMatrixDepartment(AllocResultOZM, null, Department);
         }
 
 
@@ -109,13 +137,18 @@ namespace NpoMash.Erm.Hrm.Salary {
                         break;
                     case HrmMatrixTypeMatrix.MATRIX_COERCED:
                         switch (matrix.Variant) {
-                            case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                            case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
                                 item.CoercedValue += cell.Time;
                                 break;
                         }
                         break;
+                       
                     default:
                         break;
+                }
+                if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
+                    item.OrderFact = cell.Time;
+                    item.TravelFact = cell.TravelTime;
                 }
             }
         }
@@ -128,9 +161,22 @@ namespace NpoMash.Erm.Hrm.Salary {
                 switch (matrix.TypeMatrix) {
                     case HrmMatrixTypeMatrix.MATRIX_PLANNED:
                         item.DepartmentPlan += cell.Time;
+                        item.DepartmentTravelPlan += cell.TravelTime;
+                        item.ConstantDepTime += cell.ConstOrderTime;
+                        break;
+                    case HrmMatrixTypeMatrix.MATRIX_COERCED:
+                        switch (matrix.Variant) {
+                            case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
+                                item.CoercedValue += cell.Time;
+                                break;
+                        }
                         break;
                     default:
                         break;
+                }
+                if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
+                    item.DepartmentFact = cell.Time;
+                    item.TravelFact = cell.TravelTime;
                 }
             }
         }

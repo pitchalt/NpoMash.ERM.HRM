@@ -412,6 +412,30 @@
     </Items>
   </NavigationItems>
   <Views>
+    <DetailView Id="DepartmentItem2_DetailView">
+      <Items>
+        <PropertyEditor Id="CoercedValue" Caption="Матр.учета" />
+        <PropertyEditor Id="ConstantDepTime" Caption="Пост.раб.время" />
+        <PropertyEditor Id="DepartmentFact" Caption="Факт" />
+        <PropertyEditor Id="DepartmentPlan" Caption="План" />
+        <PropertyEditor Id="DepartmentTravelPlan" Caption="План командир." />
+        <PropertyEditor Id="Fact_Constant" Caption="Факт- Пост.раб.время" />
+        <PropertyEditor Id="Plan_Fact" Caption="План-Факт" />
+        <PropertyEditor Id="TravelFact" Caption="Факт командир." />
+      </Items>
+    </DetailView>
+    <ListView Id="DepartmentItem2_ListView">
+      <Columns>
+        <ColumnInfo Id="Fact_Constant" Caption="Факт- Пост.раб.время" />
+        <ColumnInfo Id="Plan_Fact" Caption="План-Факт" />
+        <ColumnInfo Id="DepartmentPlan" Caption="План" />
+        <ColumnInfo Id="DepartmentTravelPlan" Caption="План командир." />
+        <ColumnInfo Id="ConstantDepTime" Caption="Пост.раб.время" />
+        <ColumnInfo Id="DepartmentFact" Caption="Факт" />
+        <ColumnInfo Id="TravelFact" Caption="Факт командир." />
+        <ColumnInfo Id="CoercedValue" Caption="Матр.учета" />
+      </Columns>
+    </ListView>
     <DetailView Id="HrmMatrix_DetailView">
       <Items>
         <PropertyEditor Id="PeriodObjectType" Caption="Тип объекта" />
@@ -838,5 +862,10 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="OrderItem2_ListView">
+      <Columns>
+        <ColumnInfo Id="Plan_Fact" Caption="План-факт" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

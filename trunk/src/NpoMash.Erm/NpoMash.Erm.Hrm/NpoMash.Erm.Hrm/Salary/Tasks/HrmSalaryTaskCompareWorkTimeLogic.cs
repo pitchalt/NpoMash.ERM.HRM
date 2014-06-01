@@ -39,6 +39,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
+            foreach (HrmMatrix matrix in task.Period.Matrixs) {
+                if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_MATIX &&
+                    matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED) {
+                    task.MinimizeNumberOfDeviationsMatrix = matrix;
+                }
+            }
+
             task.AllocResultKB.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             task.AllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
             task.AllocResultKB.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
@@ -55,10 +62,17 @@ namespace NpoMash.Erm.Hrm.Salary {
                     task.MatrixPlan = matrix;
                 }
             }
+
+            foreach (HrmMatrix matrix in task.Period.Matrixs) {
+                if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_MATIX &&
+                    matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED) {
+                    task.MinimizeNumberOfDeviationsMatrix = matrix;
+                }
+            }
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
-            task.AllocResultKB.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
-            task.AllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-            task.AllocResultKB.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
+            task.AllocResultOZM.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
+            task.AllocResultOZM.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            task.AllocResultOZM.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
         }
 
