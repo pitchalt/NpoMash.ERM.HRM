@@ -339,7 +339,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
                 foreach (var data in const_order_list) {
-                    if (data.Year != current_year || data.Month != current_month) {
+                    if (data.Year != current_year) {
                         task.Abort();
                         task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Const_OrderTime.ncd' не соответствует дате текущего периода");
                         matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
