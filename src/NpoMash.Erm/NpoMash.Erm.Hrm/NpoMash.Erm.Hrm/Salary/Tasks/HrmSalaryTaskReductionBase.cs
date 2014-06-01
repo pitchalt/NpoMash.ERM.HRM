@@ -18,29 +18,28 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [NonPersistent]
-    public class DepartmentItem<ORD> : XPCustomObject {
-        public Department Department;
-        public DepartmentGroupDep Group;
-        public IList<ORD> OrderItems = new List<ORD>();
-        public DepartmentItem() { }
-        public DepartmentItem(Session session) : base(session) { }
-    }
-
-    [NonPersistent]
-    public class OrderItem<DEP> : XPCustomObject {
-        public fmCOrder Order;
-        public FmCOrderTypeControl TypeControl;
-        public IList<DEP> DepartmentItems = new List<DEP>();
-        public OrderItem() { }
-        public OrderItem(Session session) : base(session) { }
-    }
-
     [MapInheritance(MapInheritanceType.ParentTable)]
     public abstract class HrmSalaryTaskReductionBase<DEP, ORD> : HrmSalaryTask
-    where DEP:DepartmentItem<ORD>, new()
-    where ORD:OrderItem<DEP>, new() {
+    where DEP:HrmSalaryTaskReductionBase<DEP, ORD>.DepartmentItem
+    where ORD:HrmSalaryTaskReductionBase<DEP, ORD>.OrderItem {
 
+        [NonPersistent]
+        public class DepartmentItem : XPCustomObject {
+            public Department Department;
+            public DepartmentGroupDep Group;
+            public IList<ORD> OrderItems = new List<ORD>();
+            public DepartmentItem() { }
+            public DepartmentItem(Session session) : base(session) { }
+        }
+
+        [NonPersistent]
+        public class OrderItem : XPCustomObject {
+            public fmCOrder Order;
+            public FmCOrderTypeControl TypeControl;
+            public IList<DEP> DepartmentItems = new List<DEP>();
+            public OrderItem() { }
+            public OrderItem(Session session) : base(session) { }
+        }
 
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         [VisibleInDetailView(false)]

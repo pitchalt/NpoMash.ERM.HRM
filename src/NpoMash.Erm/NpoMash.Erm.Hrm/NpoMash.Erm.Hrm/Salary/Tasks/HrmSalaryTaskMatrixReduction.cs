@@ -20,27 +20,6 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [NonPersistent]
-    public class DepartmentItemReduction : DepartmentItem<OrderItemReduction> {
-        public DepartmentItemReduction(Session session) : base(session) { }
-        public DepartmentItemReduction() { }
-        public Decimal MinimizeNumberOfDeviationsAlloc;
-        public Decimal MinimizeMaximumDeviationsAlloc;
-        public Decimal ProportionsMethodAlloc;
-        public Decimal DepartmentPlan;
-
-    }
-
-    [NonPersistent]
-    public class OrderItemReduction : OrderItem<DepartmentItemReduction> {
-        public OrderItemReduction(Session session) : base(session) { }
-        public OrderItemReduction() { }
-        public Decimal MinimizeNumberOfDeviationsAlloc;
-        public Decimal MinimizeMaximumDeviationsAlloc;
-        public Decimal ProportionsMethodAlloc;
-        public Decimal OrderPlan;
-
-    }
 
 
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -50,10 +29,31 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskMatrixReduction :
-        HrmSalaryTaskReductionBase<DepartmentItemReduction, OrderItemReduction> {
+        HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem> {
 
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
+        [NonPersistent]
+        public new class DepartmentItem : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem>.DepartmentItem {
+            public DepartmentItem(Session session) : base(session) { }
+            public DepartmentItem() { }
+            public Decimal MinimizeNumberOfDeviationsAlloc;
+            public Decimal MinimizeMaximumDeviationsAlloc;
+            public Decimal ProportionsMethodAlloc;
+            public Decimal DepartmentPlan;
+
+        }
+
+        [NonPersistent]
+        public new class OrderItem : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem>.OrderItem {
+            public OrderItem(Session session) : base(session) { }
+            public OrderItem() { }
+            public Decimal MinimizeNumberOfDeviationsAlloc;
+            public Decimal MinimizeMaximumDeviationsAlloc;
+            public Decimal ProportionsMethodAlloc;
+            public Decimal OrderPlan;
+
+        }
 
         
 
@@ -175,7 +175,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }*/
 
-        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemReduction item) {
+        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem item) {
             foreach (HrmMatrixCell cell in col.Cells) {
                 if (row != null && cell.Row != row)
                     continue;
@@ -202,7 +202,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItemReduction item) {
+        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem item) {
             foreach (HrmMatrixCell cell in row.Cells) {
                 if (col != null && cell.Column != col)
                     continue;
@@ -231,12 +231,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        protected override DepartmentItemReduction DepartmentItemCreate() {
-            return new DepartmentItemReduction(this.Session);
+        protected override DepartmentItem DepartmentItemCreate() {
+            return new DepartmentItem(this.Session);
         }
 
-        protected override OrderItemReduction OrderItemCreate() {
-            return new OrderItemReduction(this.Session);
+        protected override OrderItem OrderItemCreate() {
+            return new OrderItem(this.Session);
         }
 
         public override void AfterConstruction() {
