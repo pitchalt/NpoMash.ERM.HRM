@@ -34,7 +34,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
         [NonPersistent]
-        public new class DepartmentItem1 : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1>.DepartmentItem {
+        public class DepartmentItem1 : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1>.DepartmentItem {
             public DepartmentItem1(Session session) : base(session) { }
             public DepartmentItem1() { }
             public Decimal MinimizeNumberOfDeviationsAlloc;
@@ -45,7 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [NonPersistent]
-        public new class OrderItem1 : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1>.OrderItem {
+        public class OrderItem1 : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1>.OrderItem {
             public OrderItem1(Session session) : base(session) { }
             public OrderItem1() { }
             public Decimal MinimizeNumberOfDeviationsAlloc;

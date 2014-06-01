@@ -95,11 +95,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     continue;
                 ORD item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
-                    item = OrderItemCreate(); //{// не передаем сюда сессию, а это норм??
+                    item = OrderItemCreate();
                     item.Order = row.Order;
                     item.DepartmentItems = new List<DEP>();
                     item.TypeControl = row.Order.TypeControl;
-                    //};
                     items.Add(item);
                 }
                 // здесь вызов какой-то логики
@@ -117,11 +116,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                     continue;
                 DEP item = items.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
-                    item = DepartmentItemCreate();// {// не передаем сюда сессию, а это норм??
+                    item = DepartmentItemCreate();
                     item.Department = col.Department; // ѕодразделение
                     item.OrderItems = new List<ORD>();
                     item.Group = col.Department.GroupDep;
-                    //};
                     items.Add(item);
                 }
                 // здесь вызов какой-то логики
