@@ -64,7 +64,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _AllocResultOZM; }
             set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
         }
-   
+
         protected override void orderCreate() {
             LoadMatrixOrder(MatrixPlan, null, Order);
         }
@@ -119,12 +119,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (col != null && cell.Column != col)
                     continue;
                 switch (matrix.TypeMatrix) {
-                case HrmMatrixTypeMatrix.MATRIX_PLANNED:
-                    item.OrderPlan += cell.Time;
-                    break;
+                    case HrmMatrixTypeMatrix.MATRIX_PLANNED:
+                        item.OrderPlan += cell.Time;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
                 }
             }
         }
@@ -135,11 +135,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (row != null && cell.Row != row)
                     continue;
                 switch (matrix.TypeMatrix) {
-                case HrmMatrixTypeMatrix.MATRIX_PLANNED:
-                    item.DepartmentPlan += cell.Time;
-                    break;
-                default:
-                    break;
+                    case HrmMatrixTypeMatrix.MATRIX_PLANNED:
+                        item.DepartmentPlan += cell.Time;
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             return new OrderItem2(this.Session);
         }
 
-        public HrmSalaryTaskCompareWorkTime(Session session): base(session) { }
+        public HrmSalaryTaskCompareWorkTime(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
         protected override void InObjectsLoad() {

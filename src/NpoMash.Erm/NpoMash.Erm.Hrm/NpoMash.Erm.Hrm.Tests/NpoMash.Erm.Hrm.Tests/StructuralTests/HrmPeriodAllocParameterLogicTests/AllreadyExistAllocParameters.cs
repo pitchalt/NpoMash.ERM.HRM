@@ -29,10 +29,10 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
                 Assert.AreEqual(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED, alloc_parameter.Status);
                 Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_KB, alloc_parameter.NormNoControlKB);
                 Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_OZM, alloc_parameter.NormNoControlOZM);
-              //  foreach (var salary_pay_type in alloc_parameter.SimpleWorkButNotLegal) {
-               //     Assert.IsNotNullOrEmpty(salary_pay_type.Name);
-                  //  Assert.Greater(Convert.ToInt32(salary_pay_type.Code), 0);
-               // }
+                //  foreach (var salary_pay_type in alloc_parameter.SimpleWorkButNotLegal) {
+                //     Assert.IsNotNullOrEmpty(salary_pay_type.Name);
+                //  Assert.Greater(Convert.ToInt32(salary_pay_type.Code), 0);
+                // }
                 foreach (var order in alloc_parameter.OrderControls) {
                     Assert.IsNotNull(order.AllocParameter);
                     Assert.GreaterOrEqual(order.NormKB, 0);
@@ -41,8 +41,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
                     Assert.AreEqual(order.TypeControl, order.Order.TypeControl);
                     Assert.AreNotEqual(FmCOrderTypeControl.NO_ORDERED, order.TypeControl);
                 }
-                ValidateAllocParameterWithOrders(test_object_space,alloc_parameter);
+                ValidateAllocParameterWithOrders(test_object_space, alloc_parameter);
             }
         }
-    } 
+    }
 }

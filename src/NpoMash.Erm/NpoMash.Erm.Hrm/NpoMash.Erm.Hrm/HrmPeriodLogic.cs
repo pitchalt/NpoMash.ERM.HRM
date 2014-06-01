@@ -15,22 +15,20 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM.Organization;
 using NpoMash.Erm.Hrm.Salary;
 
-namespace NpoMash.Erm.Hrm
-{
-    public class OpenPeriodExistsException : Exception
-    {
+namespace NpoMash.Erm.Hrm {
+    public class OpenPeriodExistsException : Exception {
         public OpenPeriodExistsException() : base() { }
-        public OpenPeriodExistsException(string message):base(message){}
+        public OpenPeriodExistsException(string message) : base(message) { }
     }
 
 
     public static class HrmPeriodLogic {
 
-      public const Int16 INIT_YEAR = 2014;
-      public const Int16 INIT_MONTH = 01;
+        public const Int16 INIT_YEAR = 2014;
+        public const Int16 INIT_MONTH = 01;
 
         public static HrmPeriod findLastPeriod(IObjectSpace os) {
-            var period_list = os.GetObjects<HrmPeriod>(null,true);
+            var period_list = os.GetObjects<HrmPeriod>(null, true);
             HrmPeriod last_period=null;
             if (period_list.Count() != 0) {
                 var maxYear = period_list.Max(Period => Period.Year);
@@ -62,13 +60,13 @@ namespace NpoMash.Erm.Hrm
 
         public static HrmPeriod createPeriod(IObjectSpace os) {
             HrmPeriod last_period = findLastPeriod(os);
-            if (last_period != null && last_period.Status != HrmPeriodStatus.CLOSED){
+            if (last_period != null && last_period.Status != HrmPeriodStatus.CLOSED) {
                 throw new OpenPeriodExistsException("Есть незакрытый период");
             }
             HrmPeriod new_period = os.CreateObject<HrmPeriod>();
             if (last_period == null) {
                 new_period.PeriodPrevious = new_period;
-                new_period.Init(INIT_YEAR,INIT_MONTH);
+                new_period.Init(INIT_YEAR, INIT_MONTH);
             }
             else {
                 addMonth(new_period, last_period.Year, last_period.Month);
@@ -78,7 +76,7 @@ namespace NpoMash.Erm.Hrm
             return new_period;
         }
 
-        public static HrmPeriodStatus SetReadyToCalculateCoercedMatrixesStatus(HrmPeriod period){
+        public static HrmPeriodStatus SetReadyToCalculateCoercedMatrixesStatus(HrmPeriod period) {
             bool ok = false;
             HrmPeriodStatus stat = HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS;
             if ((period.CurrentAllocParameter.Status == Salary.HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED ||
@@ -95,27 +93,23 @@ namespace NpoMash.Erm.Hrm
             bool kb_time_sheet_imported = false;
             bool ozm_time_sheet_imported = false;
             foreach (HrmMatrix mat in period.Matrixs) {
-                if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
-                    mat.Status != HrmMatrixStatus.MATRIX_ARCHIVE)
+                if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED && mat.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
+                    mat.Status != HrmMatrixStatus.MATRIX_ARCHIVE && mat.Status != HrmMatrixStatus.NOTDOWNLOADED)
                     kb_plan_mat_imported = true;
-                if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
-                    mat.Status != HrmMatrixStatus.MATRIX_ARCHIVE)
+                if (mat.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED && mat.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
+                    mat.Status != HrmMatrixStatus.MATRIX_ARCHIVE && mat.Status != HrmMatrixStatus.NOTDOWNLOADED)
                     ozm_plan_mat_imported = true;
             }
             foreach (HrmTimeSheet ts in period.TimeSheets) {
-                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB &&
-                    ts.Status != HrmTimeSheetStatus.ARCHIVE)
+                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && ts.Status != HrmTimeSheetStatus.ARCHIVE && ts.Status != HrmTimeSheetStatus.NOTDOWNLOADED)
                     kb_time_sheet_imported = true;
-                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM &&
-                    ts.Status != HrmTimeSheetStatus.ARCHIVE)
+                if (ts.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && ts.Status != HrmTimeSheetStatus.ARCHIVE && ts.Status != HrmTimeSheetStatus.NOTDOWNLOADED)
                     ozm_time_sheet_imported = true;
             }
             return kb_plan_mat_imported && ozm_plan_mat_imported && kb_time_sheet_imported && ozm_time_sheet_imported;
         }
 
-        public static bool SourceDataIsAccepted(HrmPeriod period){
+        public static bool SourceDataIsAccepted(HrmPeriod period) {
             bool kb_plan_mat_accepted = false;
             bool ozm_plan_mat_accepted = false;
             bool kb_time_sheet_accepted = false;
@@ -194,7 +188,7 @@ namespace NpoMash.Erm.Hrm
 
             return ozm_alloc_result_accepted;
         }
-       
+
 
 
     }

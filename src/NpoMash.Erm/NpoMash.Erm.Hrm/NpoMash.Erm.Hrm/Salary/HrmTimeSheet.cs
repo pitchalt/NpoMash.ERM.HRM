@@ -22,7 +22,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     public enum HrmTimeSheetStatus {
         DOWNLOADED = 1,
         ACCEPTED = 2,
-        ARCHIVE = 3
+        ARCHIVE = 3,
+        NOTDOWNLOADED = 4 
     }
 
     [Persistent("HrmTimeSheet")]

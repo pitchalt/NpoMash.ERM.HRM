@@ -33,9 +33,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.TimeSheetOZM.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             task.Period.TimeSheets.Add(task.TimeSheetOZM);
             task.Period.CurrentTimeSheetOZM = task.TimeSheetOZM;
-        }   
-     
-        public static void loadTimeSheetIntoPeriod(IObjectSpace os,  HrmSalaryTaskImportSourceData task) {
+        }
+
+        public static void loadTimeSheetIntoPeriod(IObjectSpace os, HrmSalaryTaskImportSourceData task) {
             Random rand = new Random();
             //
             TaskSheetInit(os, task);

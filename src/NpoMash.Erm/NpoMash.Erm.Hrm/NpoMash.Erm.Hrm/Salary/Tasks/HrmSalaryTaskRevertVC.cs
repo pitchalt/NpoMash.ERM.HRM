@@ -31,7 +31,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 task.AllocParameter.StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
                 //task.Period.CurrentAllocParameter = null;
                 //task.Period.CurrentAllocParameter = HrmPeriodAllocParameterLogic.createParameters(local_object_space);
-                
+
             }
             if (task.TimeSheetKB != null) {
                 task.TimeSheetKB.SetStatus(HrmTimeSheetStatus.ARCHIVE);

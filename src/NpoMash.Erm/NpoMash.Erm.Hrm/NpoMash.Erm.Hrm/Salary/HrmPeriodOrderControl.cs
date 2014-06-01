@@ -22,7 +22,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("Enable", TargetItems = "TypeControl", Criteria = "AllocParameter.Status=='ListOfOrderAccepted'", Context = "Any", Enabled = false)] //5
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Order, AllocParameter")]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Criteria = "AllocParameter.Status == 'ListOfOrderAccepted' and TypeControl == 'TrudEmk_FOT'", Visibility = ViewItemVisibility.Hide)]
-    [RuleCriteria("", DefaultContexts.Save, "NormKB>= 0 and NormOZM>= 0",CustomMessageTemplate="Значения НормаКБ или НормаОЗМ не должны быть меньше нуля.")]
+    [RuleCriteria("", DefaultContexts.Save, "NormKB>= 0 and NormOZM>= 0", CustomMessageTemplate="Значения НормаКБ или НормаОЗМ не должны быть меньше нуля.")]
     public class HrmPeriodOrderControl : BaseObject {
 
 
@@ -46,18 +46,18 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private Decimal _NormOZM;
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0, TargetCriteria = "TypeControl != 'No_Ordered'")]
-       // [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
+        // [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThan, 0)]
         [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal NormOZM {
             get { return _NormOZM; }
             set { SetPropertyValue<Decimal>("NormOZM", ref _NormOZM, value); }
         }
 
-     
-        
+
+
         [Browsable(false)]
         public bool RuleMethod {
-            get { 
+            get {
                 return AllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED && TypeControl == FmCOrderTypeControl.TRUDEMK_FOT && Session.IsNewObject(this);
             }
         }
@@ -84,8 +84,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmPeriodAllocParameter AllocParameter {
             get { return _AllocParameter; }
             set {
-                    SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); 
-            
+                SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value);
+
             }
         }
 

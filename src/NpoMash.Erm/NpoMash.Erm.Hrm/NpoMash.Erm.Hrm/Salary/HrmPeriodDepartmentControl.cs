@@ -43,7 +43,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Association("AllocParameter-DepartmentControl")]// סגÿחü ס HrmPeriodAllocParameter
         public HrmPeriodAllocParameter AllocParameter {
             get { return _AllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); } }
+            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); }
+        }
 
         public HrmPeriodDepartmentControl(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }

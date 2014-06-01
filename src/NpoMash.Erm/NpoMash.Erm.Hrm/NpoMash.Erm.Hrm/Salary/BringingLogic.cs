@@ -29,17 +29,17 @@ namespace NpoMash.Erm.Hrm.Salary {
                 else order_controls.Add(oc.Order.Code, false);
 
             IDictionary<String, HrmTimeSheetDep> time_sheet_dictionary = reduc.TimeSheet.TimeSheetDeps
-                .Where<HrmTimeSheetDep>( x => x.BaseWorkTime > 0)
+                .Where<HrmTimeSheetDep>(x => x.BaseWorkTime > 0)
                 .ToDictionary<HrmTimeSheetDep, String>(x => x.Department.BuhCode);
             int errors_in_ts = 0;
             BringingStructure.Matrix mat = new BringingStructure.Matrix();
             foreach (HrmMatrixColumn department_plan in mat_plan.Columns) {
-                
-                    //continue;
-                
+
+                //continue;
+
                 Dep department = new Dep();
                 if (time_sheet_dictionary.ContainsKey(department_plan.Department.BuhCode)) {
-                    
+
                     department.fact += time_sheet_dictionary[department_plan.Department.BuhCode].BaseWorkTime;
                 }
                 else {
@@ -118,7 +118,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 .OrderBy<Dep, Int64>(x => x.nonZeroControlled);
             foreach (Dep dep in micro_departments) {
                 bool is_not_stuck = true;
-                while (dep.freeSpace > 0 && is_not_stuck){
+                while (dep.freeSpace > 0 && is_not_stuck) {
                     Cell best_cell_to_take = null;
                     Decimal best_size = 0;
                     Cell cell_in_this_dep_to_put = null;
@@ -152,7 +152,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void BringBigDepartments(BringingStructure.Matrix mat) {
             IEnumerable<Dep> big_deps = mat.deps.Values.Where<Dep>(x => x.freeSpace < 0)
                 .OrderBy<Dep, Decimal>(x => x.freeSpace);
-            
+
             foreach (Dep dep in big_deps) {
                 bool is_not_stucked = true;
                 while (dep.freeSpace < 0 && is_not_stucked) {

@@ -19,8 +19,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare", Criteria = "isCompareAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public class HrmSalaryTaskCompareAccountOperationSummary : HrmSalaryTask { 
-       
+    public class HrmSalaryTaskCompareAccountOperationSummary : HrmSalaryTask {
+
         public HrmSalaryTaskCompareAccountOperationSummary(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 

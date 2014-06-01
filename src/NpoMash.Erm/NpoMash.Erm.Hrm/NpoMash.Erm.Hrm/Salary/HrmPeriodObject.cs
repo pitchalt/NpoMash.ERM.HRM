@@ -20,10 +20,10 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    
+
     [Persistent("HrmPeriodObject")]
-    abstract public class HrmPeriodObject : BaseObject,  IPersistentInterfaceData<IPeriodObject> { //, ITreeNode  {
-       
+    abstract public class HrmPeriodObject : BaseObject, IPersistentInterfaceData<IPeriodObject> { //, ITreeNode  {
+
         //private HrmSalaryPeriodObjectStatus _Status;
         //public HrmSalaryPeriodObjectStatus Status {
         //    get { return _Status; }
@@ -53,19 +53,19 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmPeriodObject(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-/*
-        public virtual IBindingList Children {
-            get { return new BindingList<HrmSalaryPeriodObject>(); }
-        }
+        /*
+                public virtual IBindingList Children {
+                    get { return new BindingList<HrmSalaryPeriodObject>(); }
+                }
 
-        public virtual string Name {
-            get { return PeriodObjectType.FullName; }
-        }
+                public virtual string Name {
+                    get { return PeriodObjectType.FullName; }
+                }
 
-        public virtual ITreeNode Parent {
-            get { return null; }
-        }
-*/
+                public virtual ITreeNode Parent {
+                    get { return null; }
+                }
+        */
 
 
         public abstract IPeriodObject Instance { get; }
@@ -118,7 +118,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     //    public HrmSalaryPeriodObjectBase ObjectBase {
     //        get { return _ObjectBase; }
     //        set { SetPropertyValue<HrmSalaryPeriodObjectBase>("ObjectBase", ref _ObjectBase, value); }
-        
+
     //    }
 
 

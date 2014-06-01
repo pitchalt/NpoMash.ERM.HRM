@@ -19,8 +19,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
     public class HrmMatrixAllocPlan : HrmMatrix {
-       
+
         public HrmMatrixAllocPlan(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction();  }
+        public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

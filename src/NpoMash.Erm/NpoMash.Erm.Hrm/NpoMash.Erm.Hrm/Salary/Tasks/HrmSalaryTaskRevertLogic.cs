@@ -16,7 +16,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 
 
 namespace NpoMash.Erm.Hrm.Salary {
- 
+
 
     public static class HrmSalaryTaskRevertLogic {
 
@@ -134,5 +134,5 @@ namespace NpoMash.Erm.Hrm.Salary {
                     break;
             }
         }
-    } 
+    }
 }

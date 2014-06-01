@@ -17,9 +17,9 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
         public List<Decimal>[] itog_columns_info;
         public List<Decimal>[] itog_rows_info;
         private int _NumberOfRows;
-        public int NumberOfRows{get{return _NumberOfRows;}}
+        public int NumberOfRows { get { return _NumberOfRows; } }
         private int _NumberOfColumns;
-        public int NumberOfColumns { get { return _NumberOfColumns; } }        
+        public int NumberOfColumns { get { return _NumberOfColumns; } }
 
         public MatrixFromExcel(int rows_number, int columns_number) {
             _NumberOfColumns = columns_number;

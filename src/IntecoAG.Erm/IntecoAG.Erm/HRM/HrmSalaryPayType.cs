@@ -24,17 +24,18 @@ namespace IntecoAG.ERM.HRM {
     [Persistent("HrmSalaryPayType")]
     [DefaultProperty("Code")]
     [NavigationItem("ERM")]
-    public class HrmSalaryPayType : BaseObject
-    {      
+    public class HrmSalaryPayType : BaseObject {
         private String _Code;
         public String Code {
-               get { return _Code; }
-               set { SetPropertyValue<String>("Code", ref _Code, value); } }
+            get { return _Code; }
+            set { SetPropertyValue<String>("Code", ref _Code, value); }
+        }
 
         private String _Name;
         public String Name {
-               get { return _Name; }
-               set { SetPropertyValue<String>("Name", ref _Name, value); } }
+            get { return _Name; }
+            set { SetPropertyValue<String>("Name", ref _Name, value); }
+        }
 
         private HrmPayTypes _Type;
         public HrmPayTypes Type {

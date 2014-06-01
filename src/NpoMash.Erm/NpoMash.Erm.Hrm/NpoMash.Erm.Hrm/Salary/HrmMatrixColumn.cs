@@ -21,7 +21,7 @@ using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixColumn")]    
+    [Persistent("HrmMatrixColumn")]
     public class HrmMatrixColumn : BaseObject {
 
         //private Decimal _Sum;
@@ -39,13 +39,13 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Department _Department; //Ссылка на Department 
-        [Index(0), VisibleInListView(true), VisibleInDetailView(true)] 
+        [Index(0), VisibleInListView(true), VisibleInDetailView(true)]
         public Department Department {
             get { return _Department; }
             set { SetPropertyValue<Department>("Department", ref _Department, value); }
         }
 
-        [Association("Column-Cells"),Aggregated] //Коллекция HrmMatrixCell
+        [Association("Column-Cells"), Aggregated] //Коллекция HrmMatrixCell
         public XPCollection<HrmMatrixCell> Cells {
             get { return GetCollection<HrmMatrixCell>("Cells"); }
         }
@@ -57,7 +57,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("TYPE_MATIX", ref _Matrix, value); }
         }
 
-//
+        //
         //private HrmSalaryPeriodObjectBase _SalaryObject; // Ссылка на HrmSalaryObject
         //[Association("SalaryObject-Column")]
         //public HrmSalaryPeriodObjectBase SalaryObject {
@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         //    set { SetPropertyValue<HrmSalaryPeriodObjectBase>("SalaryObject", ref _SalaryObject, value); }
         //}
 
-        public HrmMatrixColumn(Session session): base(session) { }
+        public HrmMatrixColumn(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
     }

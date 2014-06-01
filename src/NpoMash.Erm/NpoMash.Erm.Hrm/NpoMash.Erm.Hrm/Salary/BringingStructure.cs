@@ -17,8 +17,8 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     public class Matrix {
-        public Dictionary<String,Ord> orders;
-        public Dictionary<String,Dep> deps;
+        public Dictionary<String, Ord> orders;
+        public Dictionary<String, Dep> deps;
         public Dictionary<Tuple<Dep, Ord>, Cell> cellsInDictionary;
         private Journal _journal;
         public Journal journal { get { return _journal; } set { _journal = value; } }
@@ -41,7 +41,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public bool isControlled { get { return _isControlled; } set { _isControlled = value; } }
         private fmCOrder _realOrder;
         public fmCOrder realOrder { get { return _realOrder; } set { _realOrder = value; } }
-        
+
         public Ord() {
             cells = new List<Cell>();
             isControlled = false;
@@ -57,9 +57,11 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         private Matrix _matrix;
         public Matrix matrix { get { return _matrix; } set { _matrix = value; } }
         private Decimal _fact;
-        public Decimal fact { get { return _fact; } set {
-            freeSpace += value - fact;
-            _fact = value;
+        public Decimal fact {
+            get { return _fact; }
+            set {
+                freeSpace += value - fact;
+                _fact = value;
             }
         }
         private Decimal _plan;
@@ -88,7 +90,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         }
     }
 
-    public class Cell{
+    public class Cell {
         private Ord _order;
         public Ord order { get { return _order; } set { _order = value; } }
         private Dep _dep;
@@ -101,21 +103,22 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         public Decimal startTime {
             get { return _startTime; }
             set {
-            _startTime = value;
-            if (value > 0) {
-                if (dep.fact > 0) {
-                    dep.fact -= 1;
-                    value -= 1;
-                    _isNeedsToRestore = true;
+                _startTime = value;
+                if (value > 0) {
+                    if (dep.fact > 0) {
+                        dep.fact -= 1;
+                        value -= 1;
+                        _isNeedsToRestore = true;
+                    }
+                    _isNotZero = true;
+                    if (order.isControlled)
+                        dep.nonZeroControlled += 1;
+                    else dep.nonZeroUncontrolled += 1;
                 }
-                _isNotZero = true;
-                if (order.isControlled)
-                    dep.nonZeroControlled += 1;
-                else dep.nonZeroUncontrolled += 1;
-            }
-            time = value;
+                time = value;
 
-        } }
+            }
+        }
         private Decimal _time;
         public Decimal time {
             get { return _time; }
@@ -128,8 +131,9 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
                         dep.freeSpace -= x;
                     }
                 }
-                _time = value; 
-            } }
+                _time = value;
+            }
+        }
 
         public List<Operation> minusOperations;
         public List<Operation> plusOperations;
@@ -252,7 +256,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
                 putInto = put_into;
                 put_into.plusOperations.Add(this);
                 put_into.time += sum;
-            
+
             }
         }
 
@@ -295,7 +299,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
     }
 
     public class Journal {
-        public Dictionary<Int32,OperationNode> operationsTree;
+        public Dictionary<Int32, OperationNode> operationsTree;
         private Int32 _stepNumber;
         public Int32 stepNumber { get { return _stepNumber; } set { _stepNumber = value; } }
         public Journal() {
@@ -318,7 +322,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
 
         public void RevertToStep(Int32 n) {
             if (n < 0 || n > stepNumber) throw new InvalidOperationException("There is now such step!");
-            for (Int32 i =stepNumber; i > n; i-- ) {
+            for (Int32 i =stepNumber ; i > n ; i--) {
                 operationsTree[i].AbortOperation();
                 operationsTree.Remove(i);
                 stepNumber--;
@@ -327,7 +331,7 @@ namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
         }
 
         public void PrintLog() {
-            for (Int32 i = 1; i <= stepNumber; i++)
+            for (Int32 i = 1 ; i <= stepNumber ; i++)
                 operationsTree[i].currentOperation.print();
         }
     }

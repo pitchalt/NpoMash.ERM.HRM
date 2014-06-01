@@ -17,22 +17,18 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 //using System.Windows.Forms;
 using IntecoAG.XafExt.UI;
 
-namespace NpoMash.Erm.Hrm.Salary
-{
+namespace NpoMash.Erm.Hrm.Salary {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
-    public partial class HrmPeriodAllocParameterVC : ViewController
-    {
+    public partial class HrmPeriodAllocParameterVC : ViewController {
         private const String MESSAGE_BOX_TEXT_PATH = @"Messages\HrmPariodAllocParameterVC";
 
-        public HrmPeriodAllocParameterVC()
-        {
+        public HrmPeriodAllocParameterVC() {
             InitializeComponent();
             RegisterActions(components);
             // Target required Views (via the TargetXXX properties) and create their Actions.
         }
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             // Perform various tasks depending on the target View.
             NewObjectViewController new_controller = Frame.GetController<NewObjectViewController>();
@@ -64,29 +60,26 @@ namespace NpoMash.Erm.Hrm.Salary
                 Application.ShowViewStrategy.ShowView(view_params, new ShowViewSource(Frame, null));
             }
         }
-        protected override void OnViewControlsCreated()
-        {
+        protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             // Access and customize the target View control.
         }
-        protected override void OnDeactivated()
-        {
+        protected override void OnDeactivated() {
             NewObjectViewController new_controller = Frame.GetController<NewObjectViewController>();
             new_controller.ObjectCreating -= new EventHandler<ObjectCreatingEventArgs>(new_controller_ObjectCreating);
             // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
 
-        private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e)
-        {
+        private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace root_object_space = Application.CreateObjectSpace();
             try {
                 HrmPeriodAllocParameter created_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(root_object_space);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, created_alloc_parameters);
             }
             catch (OpenPeriodExistsException) {
-                var dialog_controller = MessageBox.InitMessageBox(Application, e.ShowViewParameters, 
-                    CaptionHelper.GetLocalizedText(MESSAGE_BOX_TEXT_PATH, "MessageBoxCaption"), 
+                var dialog_controller = MessageBox.InitMessageBox(Application, e.ShowViewParameters,
+                    CaptionHelper.GetLocalizedText(MESSAGE_BOX_TEXT_PATH, "MessageBoxCaption"),
                     CaptionHelper.GetLocalizedText(MESSAGE_BOX_TEXT_PATH, "MessageBoxText"));
                 dialog_controller.Accepting += new EventHandler<DialogControllerAcceptingEventArgs>(dialog_controller_Accepting);
                 dialog_controller.Cancelling += new EventHandler(dialog_controller_Cancelling);

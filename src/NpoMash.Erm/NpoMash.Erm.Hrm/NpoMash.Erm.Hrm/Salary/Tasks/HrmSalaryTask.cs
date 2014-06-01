@@ -123,11 +123,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() {
             base.AfterConstruction();
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_CREATED);
+            _CreateTime = DateTime.Now;
         }
 
         public virtual void Activate() {
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_ACTIVED);
-            _CreateTime = DateTime.Now;
         }
 
         public virtual void Complete() { 
@@ -151,7 +151,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmSalaryLogRecord record = new HrmSalaryLogRecord(this.Session);
             record.Init(type, text, this.Period, this, department, order);
         }
-
         protected IList<ITaskObject> _InObjects;
         public IList<ITaskObject> InObjects {
             get {

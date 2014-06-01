@@ -17,9 +17,9 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmSalaryMatrixFirstAccount : HrmMatrix { 
+    public class HrmSalaryMatrixFirstAccount : HrmMatrix {
 
         public HrmSalaryMatrixFirstAccount(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction();   }
+        public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

@@ -24,7 +24,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [DefaultProperty("Order")]
     public class HrmMatrixRow : BaseObject {
 
-         [ModelDefault("DisplayFormat", "{0:N}")]
+        [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
         [NonPersistent()]
         public Decimal Sum {
@@ -36,14 +36,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
             //set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
         }
-        
+
         [Association("Row-Cells"), Aggregated]  //Коллекция HrmMatrixCell
         public XPCollection<HrmMatrixCell> Cells {
             get { return GetCollection<HrmMatrixCell>("Cells"); }
         }
 
         private fmCOrder _Order; //Ссылка на fmCOrder
-        [Index(0), VisibleInListView(true), VisibleInDetailView(true)] 
+        [Index(0), VisibleInListView(true), VisibleInDetailView(true)]
         public fmCOrder Order {
             get { return _Order; }
             set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); }
@@ -65,7 +65,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public HrmMatrixRow(Session session): base(session) {}
+        public HrmMatrixRow(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
         }

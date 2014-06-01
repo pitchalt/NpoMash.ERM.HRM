@@ -55,10 +55,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public void UpdateActionsItemsState() {
-            HrmSalaryTaskMatrixReduction task = (HrmSalaryTaskMatrixReduction) View.CurrentObject as HrmSalaryTaskMatrixReduction;
+            HrmSalaryTaskMatrixReduction task = (HrmSalaryTaskMatrixReduction)View.CurrentObject as HrmSalaryTaskMatrixReduction;
             if (task == null)
                 return;
-            foreach (ChoiceActionItem  choice_item in BringingMatrixInReducAction.Items) {
+            foreach (ChoiceActionItem choice_item in BringingMatrixInReducAction.Items) {
                 SetItemState(choice_item, task, false);
             }
             foreach (ChoiceActionItem choice_item in AcceptCoercedMatrixAction.Items) {

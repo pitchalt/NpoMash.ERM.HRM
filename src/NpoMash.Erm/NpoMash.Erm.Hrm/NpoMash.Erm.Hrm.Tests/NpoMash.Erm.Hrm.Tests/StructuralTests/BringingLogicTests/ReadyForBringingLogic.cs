@@ -25,14 +25,14 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             var reduction = PrepareTestData(test_object_space, 4, 10, 2, 1, 5, 100);
             Assert.IsNotNull(reduction.MatrixPlan);
         }
-        
+
         [Test]
         public void Ready_CheckAllocParametersRef_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var reduction = PrepareTestData(test_object_space, 2, 10, 1, 5, 6, 100);
             Assert.IsNotNull(reduction.AllocParameters);
         }
-        
+
         [Test]
         public void Ready_CheckCreateTime_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();

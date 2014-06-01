@@ -23,10 +23,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         [DevExpress.Xpo.Aggregated]
         [Persistent("AllocParameter")]
         private HrmPeriodAllocParameter _AllocParameter;
-//        public HrmPeriodAllocParameter AllocParameters {
-//            get { return _AllocParameters; }
-//            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
-//        }
+        //        public HrmPeriodAllocParameter AllocParameters {
+        //            get { return _AllocParameters; }
+        //            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
+        //        }
 
         public override IPeriodObject Instance {
             get {
@@ -44,7 +44,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmPeriodAllocParameterPeriodObject(HrmPeriodAllocParameter instance)
             : base(instance.Session) {
-                _AllocParameter = instance;
+            _AllocParameter = instance;
         }
 
         public override void AfterConstruction() {

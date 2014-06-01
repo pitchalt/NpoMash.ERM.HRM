@@ -21,7 +21,7 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmAccountOperation")]
-    [DefaultProperty("Department")] 
+    [DefaultProperty("Department")]
     public class HrmAccountOperation : XPObject {
 
         private String _Sign;
@@ -87,7 +87,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public HrmAccountOperation(Session session): base(session) { }
+        public HrmAccountOperation(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

@@ -47,7 +47,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void UpdateDepartments(IObjectSpace local_object_space) {
             FileHelperEngine<ImportDepartments> ref_dep_data = new FixedFileEngine<ImportDepartments>();
             ImportDepartments[] departments_imported = ref_dep_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/ulddp.ncd");
-            IDictionary<String, Department> departments_in_db = new Dictionary<String, Department>();
+            IDictionary<String, Department> departments_in_db = local_object_space.GetObjects<Department>()
+                .ToDictionary<Department, String>(x => x.BuhCode);
             foreach (var current_department in departments_imported) {
                 if (!departments_in_db.ContainsKey(current_department.BuhCode)) {
                     Department department_to_db = local_object_space.CreateObject<Department>();
@@ -75,15 +76,15 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                     oc.NormOZM = order.NormOZM / 100;
                     order_to_db.NormKB = oc.NormKB;
                     order_to_db.NormOZM = oc.NormOZM;
-                    if (order.TypeControl == "Ф") { 
+                    if (order.TypeControl == "Ф") {
                         oc.TypeControl = FmCOrderTypeControl.FOT;
                         order_to_db.TypeControl = FmCOrderTypeControl.FOT;
                     }
-                    else { 
+                    else {
                         oc.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
                         order_to_db.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
                     }
-                    order_in_db.Add(order.Code, order_to_db); 
+                    order_in_db.Add(order.Code, order_to_db);
                     par.OrderControls.Add(oc);
                 }
                 else {
@@ -103,7 +104,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             IDictionary<String, Decimal> kb_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, Decimal> ozm_norms_of_orders = new Dictionary<String, Decimal>();
             IDictionary<String, FmCOrderTypeControl> full_orders_package = new Dictionary<String, FmCOrderTypeControl>();
-            IDictionary<String, fmCOrder> orders_in_db = new Dictionary<String, fmCOrder>();
+            IDictionary<String, fmCOrder> orders_in_db = local_object_space.GetObjects<fmCOrder>()
+                .ToDictionary<fmCOrder, String>(x => x.Code);
             foreach (var current_order in orders_imported) {
                 if (!full_orders_package.ContainsKey(current_order.Order_Code)) {
                     if (current_order.TypeControl == "Ф") {
@@ -139,13 +141,17 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void UpdatePayTypes(IObjectSpace local_object_space) {
             FileHelperEngine<ImportPayTypes> paytypes_data = new FixedFileEngine<ImportPayTypes>();
             ImportPayTypes[] paytypes_imported = paytypes_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/PAY_TYPE.NCD");
-            IDictionary<String, HrmSalaryPayType> paytypes_in_db = new Dictionary<String, HrmSalaryPayType>();
+            IDictionary<String, HrmSalaryPayType> paytypes_in_db = local_object_space.GetObjects<HrmSalaryPayType>()
+                .ToDictionary<HrmSalaryPayType, String>(x => x.Code);
             foreach (var current_paytype in paytypes_imported) {
                 if (!paytypes_in_db.ContainsKey(current_paytype.Code)) {
                     HrmSalaryPayType paytype_to_db = local_object_space.CreateObject<HrmSalaryPayType>();
                     paytype_to_db.Code = current_paytype.Code;
-                    if (paytype_to_db.Code == "104" || paytype_to_db.Code == "147") { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE; }
-                    if (paytype_to_db.Code == "220" || paytype_to_db.Code == "300" || paytype_to_db.Code == "301" ||
+                    if (paytype_to_db.Code == "104" || paytype_to_db.Code == "147") {
+                        paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE;
+                    }
+                    else {
+                        if (paytype_to_db.Code == "220" || paytype_to_db.Code == "300" || paytype_to_db.Code == "301" ||
                         paytype_to_db.Code == "302" || paytype_to_db.Code == "303" || paytype_to_db.Code == "304" ||
                         paytype_to_db.Code == "305" || paytype_to_db.Code == "306" || paytype_to_db.Code == "307" ||
                         paytype_to_db.Code == "308" || paytype_to_db.Code == "406" || paytype_to_db.Code == "310" ||
@@ -154,9 +160,12 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                         paytype_to_db.Code == "328" || paytype_to_db.Code == "331" || paytype_to_db.Code == "341" ||
                         paytype_to_db.Code == "380" || paytype_to_db.Code == "381" || paytype_to_db.Code == "382" ||
                         paytype_to_db.Code == "401" || paytype_to_db.Code == "404" || paytype_to_db.Code == "405") {
-                        paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE;
+                            paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE;
+                        }
+                        else {
+                            paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.BASE_CODE;
+                        }
                     }
-                    else { paytype_to_db.Type = IntecoAG.ERM.HRM.HrmPayTypes.BASE_CODE; }
                     paytype_to_db.Name = current_paytype.Name;
                     paytypes_in_db.Add(paytype_to_db.Code, paytype_to_db);
                 }
@@ -166,8 +175,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
         public static void SalaryPayTypeGenerate(IObjectSpace local_object_space) {
             var random = new Random();
             IList<String> list_paytype_code = new List<String>();
-            list_paytype_code.Add("101");    
-            for (int i = 0 ; i < _Salarypaytype_Count; i++) {
+            list_paytype_code.Add("101");
+            for (int i = 0 ; i < _Salarypaytype_Count ; i++) {
                 String paytype_code = Convert.ToString(random.Next(102, 1000));
                 if (!list_paytype_code.Contains(paytype_code)) {
                     list_paytype_code.Add(paytype_code);
@@ -201,7 +210,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             var random = new Random();
             IList<String> list_department_code = new List<String>();
             for (int i = 0 ; i < _Department_Count ; i++) {
-                String department_code = Convert.ToString(random.Next(1,100000));
+                String department_code = Convert.ToString(random.Next(1, 100000));
                 if (!list_department_code.Contains(department_code)) { list_department_code.Add(department_code); }
                 else { DepartmentCount++; }
             }
@@ -236,8 +245,8 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
                     order_to_db.NormKB = random.Next(0, 500);
                     order_to_db.NormOZM = random.Next(0, 500);
                 }
-                else { 
-                    order_to_db.NormKB = 0; 
+                else {
+                    order_to_db.NormKB = 0;
                     order_to_db.NormOZM = 0;
                 }
 

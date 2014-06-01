@@ -40,13 +40,13 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             int data_angle_col = 0;
             int end_row = 0;
             int end_col = 0;
-            while (ws.Cells[data_angle_row,0].Value.IsEmpty && data_angle_row <20)
+            while (ws.Cells[data_angle_row, 0].Value.IsEmpty && data_angle_row <20)
                 data_angle_row++;
             while (ws.Cells[0, data_angle_col].Value.IsEmpty && data_angle_col < 20)
                 data_angle_col++;
-            while (ws.Cells[0,end_col].Value != end_string && end_col<1000)
+            while (ws.Cells[0, end_col].Value != end_string && end_col<1000)
                 end_col++;
-            while (ws.Cells[end_row,0].Value != end_string && end_row<1000)
+            while (ws.Cells[end_row, 0].Value != end_string && end_row<1000)
                 end_row++;
             if (data_angle_row == 20 || data_angle_col == 20 ||
                 end_col == 1000 || end_row == 1000)
@@ -66,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             while (ws.Cells[current_row, 0].Value != end_string) {
                 int row_merge_size = 2; // ws.Cells[current_row, 0].BottomRowIndex - ws.Cells[current_row, 0].TopRowIndex + 1;//.GetMergedRanges().Count();
                 //if(row_merge_size != 1)
-                    //throw new Exception("Row_merge_size = " + row_merge_size.ToString());
+                //throw new Exception("Row_merge_size = " + row_merge_size.ToString());
                 int index_col = 0;
                 current_col = data_angle_col;
                 while (ws.Cells[0, current_col].Value != end_string) {
@@ -92,7 +92,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                     }
                     if (!all_cells_are_empty) {
                         //try {
-                            
+
                         /*}
                         catch (Exception) {
                             throw new Exception(result.NumberOfColumns.ToString() +
@@ -107,16 +107,16 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                                 );
                         }*/
 
-                        
+
                         result.mat[index_row, index_col] = cell_info;
                     }
 
                     if (result.columns_info[index_col] == null) {
                         List<String> col_info = new List<String>();
-                        for (int i = 0; i < data_angle_row; i++)
+                        for (int i = 0 ; i < data_angle_row ; i++)
                             col_info.Add(ws.Cells[i, current_col].Value.TextValue);
                         List<Decimal> itog_col_info = new List<Decimal>();
-                        for (int i = 0; i < itogs_in_col; i++)
+                        for (int i = 0 ; i < itogs_in_col ; i++)
                             itog_col_info.Add((Decimal)ws.Cells[end_row + i, current_col].Value.NumericValue);
                         result.columns_info[index_col] = col_info;
                         result.itog_columns_info[index_col] = itog_col_info;
@@ -127,11 +127,11 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
                 if (result.rows_info[index_row] == null) {
                     List<String> row_info = new List<String>();
-                    for (int i = 0; i < data_angle_col; i++)
+                    for (int i = 0 ; i < data_angle_col ; i++)
                         row_info.Add(ws.Cells[current_row, i].Value.TextValue);
 
                     List<Decimal> itog_row_info = new List<Decimal>();
-                    for (int i = 0; i < itogs_in_row; i++)
+                    for (int i = 0 ; i < itogs_in_row ; i++)
                         itog_row_info.Add((Decimal)ws.Cells[current_row, end_col + i].Value.NumericValue);
                     result.rows_info[index_row] = row_info;
                     result.itog_rows_info[index_row] = itog_row_info;
@@ -158,17 +158,17 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                     dep.BuhCode = str;
                     str = str_info[1];
                     switch (str) {
-                    case "КБ": {
-                            dep.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
-                            break;
-                        }
-                    case "ОЗМ": {
-                            dep.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
-                            break;
-                        }
-                    default: {
-                            throw new Exception("Invalid group_dep from excel");
-                        }
+                        case "КБ": {
+                                dep.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
+                                break;
+                            }
+                        case "ОЗМ": {
+                                dep.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
+                                break;
+                            }
+                        default: {
+                                throw new Exception("Invalid group_dep from excel");
+                            }
                     }
                 }
                 catch (NullReferenceException) {
@@ -180,40 +180,40 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
         public static void CreateOrdersFromExcelTab(IObjectSpace os, MatrixFromExcel mat) {
             String ex_str = "";
-                int iter = 0;
-                try {
-            foreach (List<String> str_info in mat.rows_info) {
-                
+            int iter = 0;
+            try {
+                foreach (List<String> str_info in mat.rows_info) {
+
                     String str = str_info[0];
                     ex_str += "<" + str + ">";
                     fmCOrder order = os.CreateObject<fmCOrder>();
                     order.Code = str;
                     str = str_info[1];
                     switch (str) {
-                    case "ТФ": {
-                            order.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
-                            break;
-                        }
-                    case "Ф": {
-                            order.TypeControl = FmCOrderTypeControl.FOT;
-                            break;
-                        }
-                    case "Н": {
-                            order.TypeControl = FmCOrderTypeControl.NO_ORDERED;
-                            break;
-                        }
-                    default: {
-                            throw new Exception("Invalid type control in excel file!");
-                        }
+                        case "ТФ": {
+                                order.TypeControl = FmCOrderTypeControl.TRUDEMK_FOT;
+                                break;
+                            }
+                        case "Ф": {
+                                order.TypeControl = FmCOrderTypeControl.FOT;
+                                break;
+                            }
+                        case "Н": {
+                                order.TypeControl = FmCOrderTypeControl.NO_ORDERED;
+                                break;
+                            }
+                        default: {
+                                throw new Exception("Invalid type control in excel file!");
+                            }
                     }
                     iter++;
                 }
-                
+
             }
-                catch (NullReferenceException) {
-                    throw new Exception("Read orders:" + ex_str
+            catch (NullReferenceException) {
+                throw new Exception("Read orders:" + ex_str
                         + " number or iter = " + iter.ToString());
-                }
+            }
         }
 
         public static HrmPeriodAllocParameter CreateAllocParametersFromExcelTab(IObjectSpace os) {
@@ -221,7 +221,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ap.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
             ap.NormNoControlKB = 100;
             ap.NormNoControlOZM = 200;
-            foreach(fmCOrder ord in os.GetObjects<fmCOrder>(null,true)){
+            foreach (fmCOrder ord in os.GetObjects<fmCOrder>(null, true)) {
                 HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
                 oc.Order = ord;
                 oc.NormKB = 100;
@@ -238,10 +238,10 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             result.Status = HrmMatrixStatus.MATRIX_SAVED;
             result.Type = HrmMatrixType.TYPE_MATIX;
             result.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
-            Dictionary<String, HrmMatrixColumn> created_columns = new Dictionary<string,HrmMatrixColumn>();
+            Dictionary<String, HrmMatrixColumn> created_columns = new Dictionary<string, HrmMatrixColumn>();
             Dictionary<String, fmCOrder> orders_in_database = os.GetObjects<fmCOrder>(null, true).ToDictionary(x => x.Code);
             Dictionary<String, Department> departments_in_database = os.GetObjects<Department>(null, true).ToDictionary(x => x.BuhCode);
-            for (int i = 0; i < mat.NumberOfRows; i++) {
+            for (int i = 0 ; i < mat.NumberOfRows ; i++) {
                 String row_code = mat.rows_info[i][0];
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();
                 current_row.Matrix = result;
@@ -249,17 +249,17 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
                 try {
                     current_row.Order = orders_in_database[row_code];
                 }
-                catch (KeyNotFoundException){
+                catch (KeyNotFoundException) {
                     throw new Exception("The key which wasn't found: " + row_code);
                 }
-                for (int j = 0; j < mat.NumberOfColumns; j++) {
+                for (int j = 0 ; j < mat.NumberOfColumns ; j++) {
                     if (mat.mat[i, j] != null) {
                         String col_code = mat.columns_info[j][0];
                         HrmMatrixColumn current_column = null;
-                        if (created_columns.ContainsKey(col_code)){
+                        if (created_columns.ContainsKey(col_code)) {
                             current_column = created_columns[col_code];
                         }
-                        else{
+                        else {
                             current_column = os.CreateObject<HrmMatrixColumn>();
                             current_column.Department = departments_in_database[col_code];
                             current_column.Matrix = result;
@@ -293,7 +293,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             return result;
         }
 
-        
+
 
     }
 }

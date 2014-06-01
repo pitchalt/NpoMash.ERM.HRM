@@ -79,6 +79,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Decimal>("AdditionWorkTime", ref _AdditionWorkTime, value); }
         }
         public HrmTimeSheetDep(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction();}
+        public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }
