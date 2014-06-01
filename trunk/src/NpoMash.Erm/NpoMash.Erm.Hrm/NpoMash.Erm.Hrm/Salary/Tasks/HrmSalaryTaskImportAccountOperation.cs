@@ -42,7 +42,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Browsable(false)]
         private bool isSourceDataImported {
-            get { return !(State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED); }
+            get { return !(State == HrmSalaryTaskState.HRM_SALARY_TASK_CREATED); }
         }
 
         protected override void InObjectsLoad() {
