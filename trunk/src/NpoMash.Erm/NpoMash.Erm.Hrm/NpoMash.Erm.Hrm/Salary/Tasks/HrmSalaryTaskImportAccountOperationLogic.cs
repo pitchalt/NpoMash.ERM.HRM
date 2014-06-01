@@ -207,7 +207,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
             ExchangeAccountOperation[] account_list = null;
             try {
-                account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) + "/AccountOperation_First.ncd");
+                account_list = account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) + "/AccountOperation_First.ncd");
             }
             catch (FileNotFoundException) {
                 local_task.Abort();
