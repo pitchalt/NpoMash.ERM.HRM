@@ -1,5 +1,5 @@
 namespace NpoMash.Erm.Hrm.Salary {
-    partial class TaskKompareWorkTimeVC {
+    partial class HrmSalaryTaskCompareWorkTimeVC {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.AcceptCompareKB.Shortcut = null;
             this.AcceptCompareKB.Tag = null;
             this.AcceptCompareKB.TargetObjectsCriteria = null;
-            this.AcceptCompareKB.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.TaskKompareWorkTime);
+            this.AcceptCompareKB.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime);
             this.AcceptCompareKB.TargetViewId = null;
             this.AcceptCompareKB.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptCompareKB.ToolTip = null;
@@ -52,7 +52,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.AcceptCompareOZM.Shortcut = null;
             this.AcceptCompareOZM.Tag = null;
             this.AcceptCompareOZM.TargetObjectsCriteria = null;
-            this.AcceptCompareOZM.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.TaskKompareWorkTime);
+            this.AcceptCompareOZM.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime);
             this.AcceptCompareOZM.TargetViewId = null;
             this.AcceptCompareOZM.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptCompareOZM.ToolTip = null;
@@ -61,7 +61,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             // 
             // TaskKompareWorkTimeVC
             // 
-            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.TaskKompareWorkTime);
+            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime);
             this.TypeOfView = typeof(DevExpress.ExpressApp.View);
 
         }

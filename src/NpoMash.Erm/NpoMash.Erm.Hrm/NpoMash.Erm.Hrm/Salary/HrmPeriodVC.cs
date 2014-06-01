@@ -205,10 +205,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED) {
-                TaskKompareWorkTime task = object_space.CreateObject<TaskKompareWorkTime>();
+                HrmSalaryTaskCompareWorkTime task = object_space.CreateObject<HrmSalaryTaskCompareWorkTime>();
 
                 current_period.PeriodTasks.Add(task);
-                TaskKompareWorkTimeLogic.CompareKBMatrix(object_space, task);
+                HrmSalaryTaskCompareWorkTimeLogic.CompareKBMatrix(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                  object_space.Committed += new EventHandler(refresher);
@@ -221,9 +221,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             IObjectSpace object_space = Application.CreateObjectSpace();
             HrmPeriod current_period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED) {
-                TaskKompareWorkTime task = object_space.CreateObject<TaskKompareWorkTime>();
+                HrmSalaryTaskCompareWorkTime task = object_space.CreateObject<HrmSalaryTaskCompareWorkTime>();
                 current_period.PeriodTasks.Add(task);
-                TaskKompareWorkTimeLogic.CompareOZMMatrix(object_space, task);
+                HrmSalaryTaskCompareWorkTimeLogic.CompareOZMMatrix(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 object_space.Committed += new EventHandler(refresher);
