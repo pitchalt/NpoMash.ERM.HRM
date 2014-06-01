@@ -42,6 +42,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     where DEP:DepartmentItem<ORD>, new()
     where ORD:OrderItem<DEP>, new() {
 
+
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -87,7 +88,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected abstract void departmentCreate();
         protected abstract void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DEP item);
         protected abstract void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, ORD item);
-
+        protected abstract DEP DepartmentItemCreate();
+        protected abstract ORD OrderItemCreate();
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<ORD> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
@@ -95,11 +97,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     continue;
                 ORD item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
-                    item = new ORD() {// не передаем сюда сессию, а это норм??
-                        Order = row.Order,
-                        DepartmentItems = new List<DEP>(),
-                        TypeControl = row.Order.TypeControl
-                    };
+                    item = OrderItemCreate(); //{// не передаем сюда сессию, а это норм??
+                    item.Order = row.Order;
+                    item.DepartmentItems = new List<DEP>();
+                    item.TypeControl = row.Order.TypeControl;
+                    //};
                     items.Add(item);
                 }
                 // здесь вызов какой-то логики
@@ -117,11 +119,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     continue;
                 DEP item = items.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
-                    item = new DEP() {// не передаем сюда сессию, а это норм??
-                        Department = col.Department, // Подразделение
-                        OrderItems = new List<ORD>(),
-                        Group = col.Department.GroupDep
-                    };
+                    item = DepartmentItemCreate();// {// не передаем сюда сессию, а это норм??
+                    item.Department = col.Department; // Подразделение
+                    item.OrderItems = new List<ORD>();
+                    item.Group = col.Department.GroupDep;
+                    //};
                     items.Add(item);
                 }
                 // здесь вызов какой-то логики
