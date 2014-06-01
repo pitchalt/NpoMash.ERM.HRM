@@ -16,26 +16,25 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
-[NonPersistent]
-public class DepartmentItem<ORD> : XPCustomObject{
-    public Department Department;
-    public DepartmentGroupDep Group;
-    public IList<ORD> OrderItems = new List<ORD>();
-    public DepartmentItem() { }
-    public DepartmentItem(Session session) : base(session) { }
-}
-
-[NonPersistent]
-public class OrderItem<DEP> : XPCustomObject
-{
-    public fmCOrder Order;
-    public FmCOrderTypeControl TypeControl;
-    public IList<DEP> DepartmentItems = new List<DEP>();
-    public OrderItem() { }
-    public OrderItem(Session session) : base(session) { }
-}
-
 namespace NpoMash.Erm.Hrm.Salary {
+
+    [NonPersistent]
+    public class DepartmentItem<ORD> : XPCustomObject {
+        public Department Department;
+        public DepartmentGroupDep Group;
+        public IList<ORD> OrderItems = new List<ORD>();
+        public DepartmentItem() { }
+        public DepartmentItem(Session session) : base(session) { }
+    }
+
+    [NonPersistent]
+    public class OrderItem<DEP> : XPCustomObject {
+        public fmCOrder Order;
+        public FmCOrderTypeControl TypeControl;
+        public IList<DEP> DepartmentItems = new List<DEP>();
+        public OrderItem() { }
+        public OrderItem(Session session) : base(session) { }
+    }
 
     [MapInheritance(MapInheritanceType.ParentTable)]
     public abstract class HrmSalaryTaskReductionBase<DEP, ORD> : HrmSalaryTask
