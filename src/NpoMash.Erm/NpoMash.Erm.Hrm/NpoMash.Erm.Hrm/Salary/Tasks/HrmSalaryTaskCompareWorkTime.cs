@@ -24,11 +24,11 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultKB.Status,AllocResultKB.TypeMatrix,AllocResultKB.Type,AllocResultKB.GroupDep", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class HrmSalaryTaskCompareWorkTime : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem> {
+    public class HrmSalaryTaskCompareWorkTime : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2> {
         [NonPersistent]
-        public new class DepartmentItem : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.DepartmentItem {
-            public DepartmentItem(Session session) : base(session) { }
-            public DepartmentItem() { }
+        public new class DepartmentItem2 : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2>.DepartmentItem {
+            public DepartmentItem2(Session session) : base(session) { }
+            public DepartmentItem2() { }
             //Поля для контроля трудоемкости
             public Decimal DepartmentPlan;
             public Decimal DepartmentTravelPlan;
@@ -39,9 +39,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [NonPersistent]
-        public new class OrderItem : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.OrderItem {
-            public OrderItem(Session session) : base(session) { }
-            public OrderItem() { }
+        public new class OrderItem2 : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2>.OrderItem {
+            public OrderItem2(Session session) : base(session) { }
+            public OrderItem2() { }
             //Поля для контроля трудоемкости
             public Decimal OrderPlan;
             public Decimal TravelPlan;
@@ -114,7 +114,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }*/
 
-        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem item) {
+        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem2 item) {
             foreach (HrmMatrixCell cell in row.Cells) {
                 if (col != null && cell.Column != col)
                     continue;
@@ -130,7 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem item) {
+        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem2 item) {
             foreach (HrmMatrixCell cell in col.Cells) {
                 if (row != null && cell.Row != row)
                     continue;
@@ -144,12 +144,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected override DepartmentItem DepartmentItemCreate() {
-            return new DepartmentItem(this.Session);
+        protected override DepartmentItem2 DepartmentItemCreate() {
+            return new DepartmentItem2(this.Session);
         }
 
-        protected override OrderItem OrderItemCreate() {
-            return new OrderItem(this.Session);
+        protected override OrderItem2 OrderItemCreate() {
+            return new OrderItem2(this.Session);
         }
 
         public HrmSalaryTaskCompareWorkTime(Session session): base(session) { }
