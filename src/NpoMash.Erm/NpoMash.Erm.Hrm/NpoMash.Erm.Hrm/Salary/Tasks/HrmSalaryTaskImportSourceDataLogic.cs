@@ -332,6 +332,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                                 HrmMatrixCell cell = cells_in_matrix[cell_key];
                                 cell.Time += each.Time;
                             }
+                            task.MatrixPlanKB = kb_plan_matrix;
+                            task.MatrixPlanOZM = ozm_plan_matrix;
                         }
                         else {
                             task.LogRecord(LogRecordType.WARNING, current_column.Department, current_row.Order, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа");
