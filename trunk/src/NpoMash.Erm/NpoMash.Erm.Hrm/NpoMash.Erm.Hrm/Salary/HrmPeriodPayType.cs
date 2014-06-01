@@ -14,7 +14,7 @@ using DevExpress.Persistent.Validation;
 //
 using IntecoAG.ERM.HRM;
 namespace NpoMash.Erm.Hrm.Salary {
-    
+
     public enum HrmPayTypes {
         PROVISION_CODE = 0,
         TRAVEL_CODE = 1,

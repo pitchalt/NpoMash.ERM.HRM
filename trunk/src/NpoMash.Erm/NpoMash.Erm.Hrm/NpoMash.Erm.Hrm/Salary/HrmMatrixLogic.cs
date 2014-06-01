@@ -25,7 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     public static class HrmMatrixLogic {
 
-        
+
         static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DepartmentGroupDep group) {
             Random random = new Random();
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
@@ -96,22 +96,22 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
 
             switch (bringing_method) {
-            case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
-                    break;
-                }
-            case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
-                AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
-                BringingStructure.Matrix mat = BringingLogic.PrepareBringingStructure(AllocMatrix);
-                BringingLogic.BringMicroDepartments(mat);
-                BringingLogic.BringBigDepartments(mat);
-                BringingLogic.BringUncontrolledOrders(mat);
-                BringingLogic.PutDataInRealMatrix(result_matrix, mat);
-                result_matrix.GroupDep = group_dep;
-                break;
-                }
-            case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT: {
-                    break;
-                }
+                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT: {
+                        break;
+                    }
+                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT: {
+                        AllocMatrix.MinimizeNumberOfDeviationsMatrix = result_matrix;
+                        BringingStructure.Matrix mat = BringingLogic.PrepareBringingStructure(AllocMatrix);
+                        BringingLogic.BringMicroDepartments(mat);
+                        BringingLogic.BringBigDepartments(mat);
+                        BringingLogic.BringUncontrolledOrders(mat);
+                        BringingLogic.PutDataInRealMatrix(result_matrix, mat);
+                        result_matrix.GroupDep = group_dep;
+                        break;
+                    }
+                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT: {
+                        break;
+                    }
             }
             result_matrix.Type = HrmMatrixType.TYPE_MATIX;
             result_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_COERCED;

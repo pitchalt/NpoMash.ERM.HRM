@@ -26,7 +26,7 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskMatrixReductionLogic {
 
-        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(IObjectSpace os, HrmPeriod period, 
+        public static HrmSalaryTaskMatrixReduction initTaskMatrixReduction(IObjectSpace os, HrmPeriod period,
             DepartmentGroupDep group_dep, HrmMatrixVariant bringing_method) {
             HrmSalaryTaskMatrixReduction task_matrix_reduction = os.CreateObject<HrmSalaryTaskMatrixReduction>();
             task_matrix_reduction.GroupDep = group_dep;
@@ -40,12 +40,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
             else if (group_dep == DepartmentGroupDep.DEPARTMENT_OZM) {
                 task_matrix_reduction.TimeSheet = period.CurrentTimeSheetOZM;
-                period.CurrentOZMmatrixReduction = task_matrix_reduction; 
+                period.CurrentOZMmatrixReduction = task_matrix_reduction;
             }
 
             foreach (HrmMatrix matrix in period.Matrixs) {
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.GroupDep == group_dep){
+                    matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.GroupDep == group_dep) {
                     //&& matrix.GroupDep == group_dep) {
                     task_matrix_reduction.MatrixPlan = matrix;
                 }
@@ -54,22 +54,22 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void CreateMatrixInReduc(HrmSalaryTaskMatrixReduction reduc, IObjectSpace os, DepartmentGroupDep group_dep,
-            HrmMatrixVariant bringing_method, HrmPeriod period){
-                if (reduc.MinimizeMaximumDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT) {
-                    HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
-                    reduc.Refresh(bringing_method);
-                }
-                if (reduc.MinimizeNumberOfDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT) {
-                   /// ///////////////////////////////////////////////////
-                    var matrix = HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
-                    matrix.GroupDep = reduc.GroupDep;
-                    period.Matrixs.Add(matrix);
-                    reduc.Refresh(bringing_method);
-                }
-                if (reduc.ProportionsMethodMatrix == null && bringing_method == HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT) {
-                    HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
-                    reduc.Refresh(bringing_method);
-                }
+            HrmMatrixVariant bringing_method, HrmPeriod period) {
+            if (reduc.MinimizeMaximumDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT) {
+                HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                reduc.Refresh(bringing_method);
+            }
+            if (reduc.MinimizeNumberOfDeviationsMatrix == null && bringing_method == HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT) {
+                /// ///////////////////////////////////////////////////
+                var matrix = HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                matrix.GroupDep = reduc.GroupDep;
+                period.Matrixs.Add(matrix);
+                reduc.Refresh(bringing_method);
+            }
+            if (reduc.ProportionsMethodMatrix == null && bringing_method == HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT) {
+                HrmMatrixLogic.makeAllocMatrix(reduc, os, group_dep, bringing_method, period);
+                reduc.Refresh(bringing_method);
+            }
         }
 
         public static HrmMatrixVariant DetermineSelectedBringingMethod(SingleChoiceActionExecuteEventArgs e) {
@@ -95,7 +95,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             return matrix_to_accept;
         }
 
-        public static void ExportMatrixes(HrmPeriod current_period){
+        public static void ExportMatrixes(HrmPeriod current_period) {
             foreach (HrmMatrix m in current_period.Matrixs)
                 if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
                     m.Status = HrmMatrixStatus.MATRIX_EXPORTED;

@@ -13,7 +13,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
     [TestFixture]
     public class SmallDepartmentsBringingLogic : OptionsBringingLogic {
 
-//контролируемые, неконтролируемые, микро, малые, большие, степень неразреженности
+        //контролируемые, неконтролируемые, микро, малые, большие, степень неразреженности
         [Test]
         public void BringUncontrolledOrders_1SmallDepClassic_PlanFactEqualExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();

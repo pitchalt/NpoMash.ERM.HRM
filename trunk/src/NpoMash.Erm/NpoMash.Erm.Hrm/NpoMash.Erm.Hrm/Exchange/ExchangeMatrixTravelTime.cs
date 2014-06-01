@@ -4,7 +4,7 @@ using System.Globalization;
 using FileHelpers;
 
 namespace NpoMash.Erm.Hrm.Exchange {
- 
+
 
     [FixedLengthRecord()]
     public class ExchangeMatrixTravelTime {
@@ -52,5 +52,5 @@ namespace NpoMash.Erm.Hrm.Exchange {
                 return Convert.ToDecimal(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);
             }
         }
-    } 
+    }
 }

@@ -17,7 +17,8 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 namespace NpoMash.Erm.Hrm.Salary {
 
     public partial class HrmSalaryTaskExportProvisionMatrixVC : ViewController {
-        public HrmSalaryTaskExportProvisionMatrixVC() {InitializeComponent(); 
+        public HrmSalaryTaskExportProvisionMatrixVC() {
+            InitializeComponent();
             RegisterActions(components);
         }
         protected override void OnActivated() { base.OnActivated(); }

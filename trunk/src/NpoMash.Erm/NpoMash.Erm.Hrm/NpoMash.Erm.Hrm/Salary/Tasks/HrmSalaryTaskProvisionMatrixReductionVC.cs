@@ -42,17 +42,17 @@ namespace NpoMash.Erm.Hrm.Salary {
                 DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
                 HrmSalaryTaskProvisionMatrixReduction card = null;
                 if (period.CurrentProvisionMatrix == null) {
-                   card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                   //card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
-                  // card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
-                   //card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-                  // card.AllocResultKBOZM = HrmSalaryTaskProvisionMatrixReductionLogic.mergeAllocResults(os, card);
-                  // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
-                  // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
+                    card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                    //card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
+                    // card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
+                    //card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                    // card.AllocResultKBOZM = HrmSalaryTaskProvisionMatrixReductionLogic.mergeAllocResults(os, card);
+                    // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
+                    // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
 
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
-               
+
                 os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
@@ -62,49 +62,49 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void AcceptProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             HrmSalaryTaskProvisionMatrixReduction task = (HrmSalaryTaskProvisionMatrixReduction)e.CurrentObject;
-             
+
             using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-                 task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
-                 if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
+                task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
+                if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
 
-                     task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
-                     foreach (var m in task.AllocParameters.Period.Matrixs) {
-                         if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
-                             m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                             task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status=HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                         }
-                     
-                     }
-                     task.Complete();
-                     os.CommitChanges();
-                 }
-                 if (e.SelectedChoiceActionItem.Id == "Simplex") {
+                    task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+                    foreach (var m in task.AllocParameters.Period.Matrixs) {
+                        if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
+                            m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                            task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status=HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                        }
 
-                     task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
-                     foreach (var m in task.AllocParameters.Period.Matrixs) {
-                         if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
-                             m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                             task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                         }
+                    }
+                    task.Complete();
+                    os.CommitChanges();
+                }
+                if (e.SelectedChoiceActionItem.Id == "Simplex") {
 
-                     }
-                     task.Complete();
-                     os.CommitChanges();
-                 }
+                    task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+                    foreach (var m in task.AllocParameters.Period.Matrixs) {
+                        if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
+                            m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                            task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+                        }
 
-                 
-             }
-             ObjectSpace.CommitChanges();
+                    }
+                    task.Complete();
+                    os.CommitChanges();
+                }
 
-             Window win = Frame as Window;
-             if (win != null) win.Close();
 
             }
+            ObjectSpace.CommitChanges();
+
+            Window win = Frame as Window;
+            if (win != null) win.Close();
+
+        }
 
         private void refresher(Object sender, EventArgs e) {
             Frame.GetController<RefreshController>().RefreshAction.DoExecute();
         }
 
 
-        }
     }
+}

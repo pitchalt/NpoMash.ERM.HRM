@@ -18,7 +18,7 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-//    [NavigationItem("A1 Integration")]
+    //    [NavigationItem("A1 Integration")]
     //[Persistent]
     //public class Log : BaseObject {
     //    [Association("Log-Records")]
@@ -38,23 +38,23 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent]
     public class HrmSalaryLogRecord : XPObject, ILogRecord {
         private LogRecordType _RecordType;
-        public LogRecordType RecordType { 
-            get { return _RecordType; } 
-            set { SetPropertyValue<LogRecordType>("RecordType", ref _RecordType, value); } 
+        public LogRecordType RecordType {
+            get { return _RecordType; }
+            set { SetPropertyValue<LogRecordType>("RecordType", ref _RecordType, value); }
         }
         [Persistent("TimeOfCreation")]
         private DateTime _TimeOfCreation;
         [PersistentAlias("_TimeOfCreation")]
-        public DateTime TimeOfCreation { 
-            get { return _TimeOfCreation; } 
-//            set { SetPropertyValue<DateTime>("TimeOfCreation", ref _TimeOfCreation, value); } 
+        public DateTime TimeOfCreation {
+            get { return _TimeOfCreation; }
+            //            set { SetPropertyValue<DateTime>("TimeOfCreation", ref _TimeOfCreation, value); } 
         }
         [Persistent("RecordText")]
         private String _RecordText;
         [PersistentAlias("_RecordText")]
-        public String RecordText { 
-            get { return _RecordText; } 
-//            set { SetPropertyValue<String>("RecordText", ref _RecordText, value); } 
+        public String RecordText {
+            get { return _RecordText; }
+            //            set { SetPropertyValue<String>("RecordText", ref _RecordText, value); } 
         }
         [Persistent("Period")]
         [Association("HrmPeriod-HrmSalaryLogRecord")]
@@ -75,16 +75,16 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Persistent("Order")]
         private fmCOrder _Order;
         [PersistentAlias("_Order")]
-        public fmCOrder Order { 
-            get { return _Order; } 
-//            set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); } 
+        public fmCOrder Order {
+            get { return _Order; }
+            //            set { SetPropertyValue<fmCOrder>("Order", ref _Order, value); } 
         }
         [Persistent("Department")]
         private Department _Department;
         [PersistentAlias("_Department")]
-        public Department Department { 
-            get { return _Department; } 
-//            set { SetPropertyValue<Department>("Department", ref _Department, value); } 
+        public Department Department {
+            get { return _Department; }
+            //            set { SetPropertyValue<Department>("Department", ref _Department, value); } 
         }
 
         public HrmSalaryLogRecord(Session session)

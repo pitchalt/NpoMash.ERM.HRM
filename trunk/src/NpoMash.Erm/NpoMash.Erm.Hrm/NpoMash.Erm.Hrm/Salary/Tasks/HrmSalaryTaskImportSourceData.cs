@@ -24,24 +24,28 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmSalaryTaskImportSourceData : HrmSalaryTask { 
 
         private HrmTimeSheet _TimeSheetKB;
+        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet TimeSheetKB {
             get { return _TimeSheetKB; }
             set { SetPropertyValue<HrmTimeSheet>("TimeSheetKB", ref _TimeSheetKB, value); }
         }
 
         private HrmTimeSheet _TimeSheetOZM;
+        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmTimeSheet TimeSheetOZM {
             get { return _TimeSheetOZM; }
             set { SetPropertyValue<HrmTimeSheet>("TimeSheetOZM", ref _TimeSheetOZM, value); }
         }
 
         private HrmMatrixAllocPlan _MatrixPlanKB;
+        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrixAllocPlan MatrixPlanKB {
             get { return _MatrixPlanKB; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanKB", ref _MatrixPlanKB, value); }
         }
 
         private HrmMatrixAllocPlan _MatrixPlanOZM;
+        //[ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrixAllocPlan MatrixPlanOZM {
             get { return _MatrixPlanOZM; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanOZM", ref _MatrixPlanOZM, value); }
@@ -49,7 +53,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Browsable(false)]
         public bool isSourceDataImported {
-            get { return State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED; }
+            get { return !(State == HrmSalaryTaskState.HRM_SALARY_TASK_CREATED); } 
         }
 
         public HrmSalaryTaskImportSourceData(Session session)

@@ -17,7 +17,7 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmAccount")]
-    [DefaultProperty("Code")] 
+    [DefaultProperty("Code")]
     public class HrmAccount : BaseObject {
 
         private String _Code;
@@ -25,7 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _Code; }
             set { SetPropertyValue<String>("Code", ref _Code, value); }
         }
-        
+
         public HrmAccount(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }

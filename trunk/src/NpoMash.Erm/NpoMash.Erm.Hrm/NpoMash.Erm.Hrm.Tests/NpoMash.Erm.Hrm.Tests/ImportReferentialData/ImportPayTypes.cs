@@ -2,11 +2,11 @@
 using FileHelpers;
 
 namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
-    
-    
+
+
     [FixedLengthRecord()]
     public class ImportPayTypes {
- 
+
         [FieldFixedLength(3)]
         [FieldConverter(typeof(PayTypeConverter))]
         public String Code;

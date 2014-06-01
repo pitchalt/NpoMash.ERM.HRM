@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix", Criteria = "isMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public class HrmSalaryTaskExportProvisionMatrix : HrmSalaryTask { 
+    public class HrmSalaryTaskExportProvisionMatrix : HrmSalaryTask {
         public HrmSalaryTaskExportProvisionMatrix(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 

@@ -22,17 +22,17 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
     public partial class TestWC : WindowController {
         public TestWC() {
             InitializeComponent();
-            RegisterActions( components );
+            RegisterActions(components);
         }
         protected override void OnActivated() { base.OnActivated(); }
         protected override void OnDeactivated() { base.OnDeactivated(); }
 
-        private void PopulateDB_Execute( object sender, SimpleActionExecuteEventArgs e ) {
+        private void PopulateDB_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace object_space = Application.CreateObjectSpace();
             TestWCLogic.SalaryPayTypeGenerate(object_space);
             TestWCLogic.DepartmentsGenerate(object_space);
             TestWCLogic.OrdersGenerate(object_space);
-            TestWCLogic.addTestData( object_space );
+            TestWCLogic.addTestData(object_space);
             object_space.CommitChanges();
         }
 

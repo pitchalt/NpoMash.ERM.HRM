@@ -58,7 +58,7 @@ namespace IntecoAG.ERM.CS {
             else
                 base.OnDeleting();
         }
-         
+
         [Browsable(false)]
         [Indexed]
         public virtual Guid CID {
@@ -111,8 +111,8 @@ namespace IntecoAG.ERM.CS {
         [Browsable(false)]
         [PersistentAlias("_ReadOnly")]
         public Boolean ReadOnly {
-            get { 
-                return _ReadOnly; 
+            get {
+                return _ReadOnly;
             }
         }
     }

@@ -61,7 +61,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _MatrixPlanMoney; }
             set { SetPropertyValue<HrmMatrix>("MatrixPlanMoney", ref _MatrixPlanMoney, value); }
         }
-        
+
         private HrmMatrix _ProvisionMatrix;  //Матрица резерва
         [Browsable(false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
@@ -92,19 +92,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetOZM", ref _CurrentTimeSheetOZM, value); }
         }
 
-         private HrmMatrix _AllocResultKB; //Первичная проводка КБ
-         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-         public HrmMatrix AllocResultKB {
-             get { return _AllocResultKB; }
-             set { SetPropertyValue<HrmMatrix>("AllocResultKB", ref _AllocResultKB, value); }
-         }
+        private HrmMatrix _AllocResultKB; //Первичная проводка КБ
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix AllocResultKB {
+            get { return _AllocResultKB; }
+            set { SetPropertyValue<HrmMatrix>("AllocResultKB", ref _AllocResultKB, value); }
+        }
 
-         private HrmMatrix _AllocResultOZM; //Первичная проводка ОЗМ
-         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-         public HrmMatrix AllocResultOZM {
-             get { return _AllocResultOZM; }
-             set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
-         }
+        private HrmMatrix _AllocResultOZM; //Первичная проводка ОЗМ
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix AllocResultOZM {
+            get { return _AllocResultOZM; }
+            set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
+        }
 
 
 
@@ -181,7 +181,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected void orderCreate() { LoadMatrixOrder(ProvisionMatrix, null, Order); }
         protected void departmentCreate() { LoadMatrixDepartment(ProvisionMatrix, null, Department); }
 
-        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderSet> items  ) {
+        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderSet> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
                 if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
                     continue;
@@ -195,36 +195,38 @@ namespace NpoMash.Erm.Hrm.Salary {
                 item.TypeControl = row.Order.TypeControl;
 
 
-                  foreach (var c in row.Cells) {
+                foreach (var c in row.Cells) {
                     item.OrderPlan += Convert.ToInt64(c.PlanMoney);
                     item.Base += Convert.ToInt64(c.MoneyNoReserve);
                     item.NewProvision += Convert.ToInt64(c.NewProvision);
                     item.SourceProvision += Convert.ToInt64(c.SourceProvision);
                     item.PlannedTravels += Convert.ToInt64(c.TravelMoney);
-                    if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { item.PlanKB += Convert.ToInt64(c.PlanMoney);
+                    if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                        item.PlanKB += Convert.ToInt64(c.PlanMoney);
                     }
                     else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
                 }
-                  item.DeltaProvision = (item.NewProvision - item.SourceProvision);
-                  item.PrefatoryOrderFact = item.NewProvision + item.Base;
+                item.DeltaProvision = (item.NewProvision - item.SourceProvision);
+                item.PrefatoryOrderFact = item.NewProvision + item.Base;
 
-                  foreach (var c in row.Cells) {
-                      if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
-                          item.PrefatoryFactKB += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
-                      } else {
-                          item.PrefatoryFactOZM += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
-                      }                  
-                  }
+                foreach (var c in row.Cells) {
+                    if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                        item.PrefatoryFactKB += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
+                    }
+                    else {
+                        item.PrefatoryFactOZM += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
+                    }
+                }
 
 
 
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
-           
+
             }
-        
-        
+
+
         }
         protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentSet> items) {
             foreach (HrmMatrixColumn col in matrix.Columns) {
@@ -253,7 +255,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        
+
         public HrmSalaryTaskProvisionMatrixReduction(Session session)
             : base(session) {
         }

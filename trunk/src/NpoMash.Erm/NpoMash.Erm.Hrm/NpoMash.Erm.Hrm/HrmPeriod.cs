@@ -55,7 +55,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_CREATE'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportReserveMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_UPLOAD'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "!isReadyToImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "isReadyToImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "!isKBCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "!isOZMCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
@@ -146,7 +146,7 @@ namespace NpoMash.Erm.Hrm {
         [PersistentAlias("_Status")]
         public HrmPeriodStatus Status {
             get { return _Status; }
-                       // set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
+            // set { SetPropertyValue<HrmPeriodStatus>("Status", ref _Status, value); }
         }
 
         [Association("HrmPeriod-HrmSalaryTask"), Aggregated]
@@ -207,7 +207,7 @@ namespace NpoMash.Erm.Hrm {
             get { return _CurrentMatrixAllocResultOZM; }
             set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultOZM", ref _CurrentMatrixAllocResultOZM, value); }
         }
-        
+
         private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
@@ -271,7 +271,7 @@ namespace NpoMash.Erm.Hrm {
             base.AfterConstruction();
             setStatus(HrmPeriodStatus.OPENED);
 
-            
+
         }
 
         [Aggregated]
@@ -298,7 +298,7 @@ namespace NpoMash.Erm.Hrm {
         public IList<IPeriodObject> PeriodObjects {
             get {
                 if (this._PeriodObjects == null)
-                    this._PeriodObjects = new PersistentInterfaceMorpher<IPeriodObject>(new ListConverter<IPersistentInterfaceData<IPeriodObject>,HrmPeriodObject>(this.PeriodObjectCol));
+                    this._PeriodObjects = new PersistentInterfaceMorpher<IPeriodObject>(new ListConverter<IPersistentInterfaceData<IPeriodObject>, HrmPeriodObject>(this.PeriodObjectCol));
                 return (IList<IPeriodObject>)this._PeriodObjects;
             }
         }
@@ -312,19 +312,22 @@ namespace NpoMash.Erm.Hrm {
         }
 
         [Browsable(false)]
-        private bool isReadyToCreateReserveMatrix { get { 
-            return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && 
+        private bool isReadyToCreateReserveMatrix {
+            get {
+                return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED && 
                 (
-                //(CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
-                (CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                //||(CurrentKBmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                ) && 
+                    //(CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                    (CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    //||(CurrentKBmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    ) && 
                 (
-                //(CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
-                (CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                //|| (CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
-                ) && 
-                CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED); } }
+                    //(CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)||
+                    (CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    //|| (CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    ) && 
+                CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED);
+            }
+        }
 
         [Browsable(false)]
         private bool isReadyToRevertChanges { get { return (Status == HrmPeriodStatus.OPENED); } }
@@ -342,7 +345,7 @@ namespace NpoMash.Erm.Hrm {
         private bool isReadyToCreateFirstAccountReports { get { return !(Status == HrmPeriodStatus.ACCOUNT_OPERATION_FIRST_IMPORTED); } }
 
         [Browsable(false)]
-        private bool isReadyToImportAccountOperation { get { return (Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED); } }
+        private bool isReadyToImportAccountOperation { get { return !(Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED); } }
 
         [Browsable(false)]
         private bool isReadyToExportMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS); } }
@@ -355,7 +358,8 @@ namespace NpoMash.Erm.Hrm {
         //private bool isSourceDataImported { get { return !(HrmPeriodLogic.SourceDataIsLoaded(this) && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED); } }
 
         [Browsable(false)]
-        private bool isAccountOperationCompared{ get { return HrmPeriodLogic.AccountOperationCompared(this) && CurrentAllocParameter.Status==HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED; }
+        private bool isAccountOperationCompared {
+            get { return HrmPeriodLogic.AccountOperationCompared(this) && CurrentAllocParameter.Status==HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED; }
         }
 
         [Browsable(false)]

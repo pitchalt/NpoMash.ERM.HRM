@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
         public HrmMatrixPeriodObject(HrmMatrix instance)
             : base(instance.Session) {
-                _Matrix = instance;
+            _Matrix = instance;
         }
         public override void AfterConstruction() {
             base.AfterConstruction();

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Configuration;
@@ -178,7 +179,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             CreateAllocResultFromPlan(local_object_space, matrix_alloc_result_kb, matrix_alloc_result_ozm, local_task);
         }
 
-        public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {        
+        public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
             //local_object_space = local_object_space.CreateNestedObjectSpace();
             //local_task = local_object_space.GetObject<HrmSalaryTaskImportAccountOperation>(local_task);
             Session session = ((XPObjectSpace)local_object_space).Session;
@@ -204,7 +205,31 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
             FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
-            ExchangeAccountOperation[] account_list = account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) + "/AccountOperation_First.ncd");
+            ExchangeAccountOperation[] account_list = null;
+            try {
+                account_operation_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) + "/AccountOperation_First.ncd");
+            }
+            catch (FileNotFoundException) {
+                local_task.Abort();
+                local_task.LogRecord(LogRecordType.ERROR, null, null, "Не найден файл 'AccountOperation_First.ncd'");
+                matrix_alloc_result_kb.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                matrix_alloc_result_ozm.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                return;
+            }
+            catch (BadUsageException) {
+                local_task.Abort();
+                local_task.LogRecord(LogRecordType.ERROR, null, null, "Файл 'AccountOperation_First.ncd' имеет неправильную размерность");
+                matrix_alloc_result_kb.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                matrix_alloc_result_ozm.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                return;
+            }
+            if (account_list == null) {
+                local_task.Abort();
+                local_task.LogRecord(LogRecordType.ERROR, null, null, "Нельзя импортировать пустой файл 'AccountOperation_First.ncd'");
+                matrix_alloc_result_kb.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                matrix_alloc_result_ozm.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                return;
+            }
             IDictionary<HrmSalaryPayType, HrmPeriodPayType> paytypes_in_alloc_parameter = local_task.Period.CurrentAllocParameter.PeriodPayTypes
                     .ToDictionary<HrmPeriodPayType, HrmSalaryPayType>(x => x.PayType);
             IDictionary<String, HrmSalaryPayType> paytypes_in_database = local_object_space.GetObjects<HrmSalaryPayType>()
@@ -225,42 +250,44 @@ namespace NpoMash.Erm.Hrm.Salary {
                 count++;
                 HrmMatrix alloc_result_matrix = null;
                 String file_order_code = account_operation.OrderCode;
+                if (String.IsNullOrEmpty(file_order_code)) {
+                    local_task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код заказа в файле");
+                }
                 String file_department_code = account_operation.DepartmentCode;
+                if (String.IsNullOrEmpty(file_department_code)) {
+                    local_task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
+                }
+                String file_payType = account_operation.PayTypeCode;
+                if (String.IsNullOrEmpty(file_payType)) {
+                    local_task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код оплаты в файле");
+                }
                 //HrmAccountOperation account_to_db = local_object_space.CreateObject<HrmAccountOperation>();
-                HrmAccountOperation account_to_db = new HrmAccountOperation(session);
-                account_to_db.Sign = account_operation.Sign;
-                account_to_db.Debit = account_operation.Debit;
-                account_to_db.Money = account_operation.Money;
-                account_to_db.Credit = account_operation.Credit;
-                account_to_db.Order = orders_in_database[account_operation.OrderCode];
-                account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
-                account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
+                HrmMatrixColumn current_column = null;
                 if (departments_in_database.ContainsKey(file_department_code)) {
                     if (departments_in_database[file_department_code].GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         alloc_result_matrix = matrix_alloc_result_kb;
                         alloc_result_columns = kb_columns;
                         alloc_result_rows = kb_rows;
-                        account_to_db.AllocResult = matrix_alloc_result_kb;
                     }
                     else {
                         alloc_result_matrix = matrix_alloc_result_ozm;
                         alloc_result_columns = ozm_columns;
                         alloc_result_rows = ozm_rows;
-                        account_to_db.AllocResult = matrix_alloc_result_ozm;
+                    }
+                    if (alloc_result_columns.ContainsKey(file_department_code)) { current_column = alloc_result_columns[file_department_code]; }
+                    else {
+                        current_column = local_object_space.CreateObject<HrmMatrixColumn>();
+                        current_column.Matrix = alloc_result_matrix;
+                        alloc_result_matrix.Columns.Add(current_column);
+                        current_column.Department = departments_in_database[file_department_code];
+                        alloc_result_columns.Add(file_department_code, current_column);
                     }
                 }
-                else throw new Exception("There is no department in database with code " + account_operation.DepartmentCode);
-                HrmMatrixColumn current_column = null;
-                if (alloc_result_columns.ContainsKey(file_department_code)) { current_column = alloc_result_columns[file_department_code]; }
                 else {
-                    current_column = local_object_space.CreateObject<HrmMatrixColumn>();
-                    current_column.Matrix = alloc_result_matrix;
-                    alloc_result_matrix.Columns.Add(current_column);
-                    current_column.Department = departments_in_database[file_department_code];
-                    alloc_result_columns.Add(file_department_code, current_column);
+                    local_task.LogRecord(LogRecordType.ERROR, null, null, "В справочниках не найдено подразделения с кодом " + account_operation.DepartmentCode);
                 }
                 HrmMatrixRow current_row = null;
-                if (alloc_result_rows.ContainsKey(file_order_code)) {current_row = alloc_result_rows[file_order_code]; }
+                if (alloc_result_rows.ContainsKey(file_order_code)) { current_row = alloc_result_rows[file_order_code]; }
                 else {
                     current_row = local_object_space.CreateObject<HrmMatrixRow>();
                     current_row.Matrix = alloc_result_matrix;
@@ -269,26 +296,38 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (orders_in_database.ContainsKey(file_order_code)) {
                         current_row.Order = orders_in_database[file_order_code];
                     }
-                    else throw new Exception("There is no order with code " + file_order_code);
+                    else {
+                        local_task.LogRecord(LogRecordType.ERROR, null, null, "В справочниках не найдено заказа с кодом " + account_operation.DepartmentCode);
+                    }
                 }
                 HrmMatrixCell current_cell = null;
-                String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
-                if (!cells_in_matrix.ContainsKey(cell_key)) {
-                    HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
-                    cells_in_matrix.Add(cell_key, cell);
-                    cell.AccountOperations.Add(account_to_db);
-                    cell.Column = current_column;
-                    current_column.Cells.Add(cell);
-                    cell.Row = current_row;
-                    current_row.Cells.Add(cell);
-                    current_cell = cell;
-                }
-                else { 
-                    HrmMatrixCell cell = cells_in_matrix[cell_key];
-                    cell.AccountOperations.Add(account_to_db);
-                    current_cell = cell;
-                }
-                if (paytypes_in_alloc_parameter[account_to_db.PayType] != null) {
+                if (current_row != null && current_column != null && !String.IsNullOrEmpty(file_payType)) {
+                    HrmAccountOperation account_to_db = new HrmAccountOperation(session);
+                    account_to_db.Sign = account_operation.Sign;
+                    account_to_db.Debit = account_operation.Debit;
+                    account_to_db.Money = account_operation.Money;
+                    account_to_db.Credit = account_operation.Credit;
+                    account_to_db.Order = orders_in_database[account_operation.OrderCode];
+                    account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
+                    account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
+                    if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { account_to_db.AllocResult = matrix_alloc_result_kb; }
+                    else { account_to_db.AllocResult = matrix_alloc_result_ozm; }
+                    String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
+                    if (!cells_in_matrix.ContainsKey(cell_key)) {
+                        HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
+                        cells_in_matrix.Add(cell_key, cell);
+                        cell.AccountOperations.Add(account_to_db);
+                        cell.Column = current_column;
+                        current_column.Cells.Add(cell);
+                        cell.Row = current_row;
+                        current_row.Cells.Add(cell);
+                        current_cell = cell;
+                    }
+                    else {
+                        HrmMatrixCell cell = cells_in_matrix[cell_key];
+                        cell.AccountOperations.Add(account_to_db);
+                        current_cell = cell;
+                    }
                     if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.PROVISION_CODE) {
                         current_cell.SourceProvision += account_operation.Money;
                         current_cell.Time += account_operation.Time;
@@ -303,9 +342,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
                 else {
-                    current_cell.MoneyNoReserve += account_operation.Money;
-                    current_cell.Time += account_operation.Time;
-                }                
+                    local_task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа и/или кода оплаты");
+                }
             }
             //local_object_space.CommitChanges();
         }

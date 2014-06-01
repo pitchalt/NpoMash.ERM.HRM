@@ -28,7 +28,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         MATRIX_EXPORTED=3,
         MATRIX_PRIMARY_ACCEPTED=4,
         MATRIX_ARCHIVE=5,
-        MATRIX_DOWNLOADED =6
+        MATRIX_DOWNLOADED =6,
+        NOTDOWNLOADED = 7
     }
 
     public enum HrmMatrixType {
@@ -42,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         MATRIX_RESERVE = 2
     }
 
-    public enum HrmMatrixVariant { 
+    public enum HrmMatrixVariant {
         MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT=0,
         MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT=1,
         PROPORTIONS_METHOD_VARIANT=2,
@@ -68,29 +69,29 @@ namespace NpoMash.Erm.Hrm.Salary {
         //}
         //
         private HrmMatrixType _Type;
-        [Appearance("",Enabled=false)]
+        [Appearance("", Enabled=false)]
         public HrmMatrixType Type {
             get { return _Type; }
             set { SetPropertyValue<HrmMatrixType>("Type", ref _Type, value); }
         }
 
         private HrmMatrixTypeMatrix _TypeMatrix;
-        [Appearance("",Enabled=false)]
+        [Appearance("", Enabled=false)]
         public HrmMatrixTypeMatrix TypeMatrix {
             get { return _TypeMatrix; }
             set { SetPropertyValue<HrmMatrixTypeMatrix>("TypeMatrix", ref _TypeMatrix, value); }
         }
 
         private DepartmentGroupDep _GroupDep;
-        [Appearance("",Enabled=false)]
+        [Appearance("", Enabled=false)]
         public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }
             set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
         }
 
         private HrmMatrixStatus _Status;
-       // [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
-        [Appearance("",Enabled=false)]
+        // [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
+        [Appearance("", Enabled=false)]
         public HrmMatrixStatus Status {
             get { return _Status; }
             set { SetPropertyValue<HrmMatrixStatus>("Status", ref _Status, value); }
@@ -98,7 +99,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private HrmMatrixVariant _Variant;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
-        [Appearance("",Enabled=false)]
+        [Appearance("", Enabled=false)]
         public HrmMatrixVariant Variant {
             get { return _Variant; }
             set { SetPropertyValue<HrmMatrixVariant>("Variant", ref _Variant, value); }
@@ -106,7 +107,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private Int16 _IterationNumber;
         [Appearance("", Criteria = "isPlanned", Context = "DetailView,ListView", Visibility = ViewItemVisibility.Hide)]
-        [Appearance("",Enabled=false)]
+        [Appearance("", Enabled=false)]
         public Int16 IterationNumber {
             get { return _IterationNumber; }
             set { SetPropertyValue<Int16>("IterationNumber", ref _IterationNumber, value); }
@@ -128,11 +129,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         //}
 
         private HrmPeriod _Period; // —сылка на HrmPeriod
-        [Appearance("",Enabled=false)]
+        [Appearance("", Enabled=false)]
         [Association("Period-Matrixs")]
         public HrmPeriod Period {
             get { return _Period; }
-            set { 
+            set {
                 SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
                 if (!IsLoading) {
                     _MatrixPeriodObject.Period = value;
@@ -164,8 +165,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public Type PeriodObjectType {
-            get { 
-                return this.GetType(); 
+            get {
+                return this.GetType();
             }
         }
 

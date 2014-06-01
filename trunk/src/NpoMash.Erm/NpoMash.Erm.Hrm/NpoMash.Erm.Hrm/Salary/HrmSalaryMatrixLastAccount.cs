@@ -19,7 +19,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [MapInheritance(MapInheritanceType.ParentTable)]
     public class HrmSalaryMatrixLastAccount : HrmMatrix {
 
-        public HrmSalaryMatrixLastAccount(Session session)  : base(session) { }
-        public override void AfterConstruction() {  base.AfterConstruction(); }
+        public HrmSalaryMatrixLastAccount(Session session) : base(session) { }
+        public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

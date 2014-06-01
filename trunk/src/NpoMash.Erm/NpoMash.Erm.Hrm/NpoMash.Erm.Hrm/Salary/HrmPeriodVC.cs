@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
@@ -108,8 +109,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 }
                 if (e.SelectedChoiceActionItem.Id == "StructuredFile") {
-                    HrmSalaryTaskImportSourceDataLogic.ImportPlanMatrixes(os, task); 
                     HrmSalaryTaskImportSourceDataLogic.ImportTimeSheet(os, task);
+                    HrmSalaryTaskImportSourceDataLogic.ImportPlanMatrixes(os, task);
                     e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, task);
                     e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                     os.Committed += new EventHandler(refresher);
@@ -131,7 +132,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                         group_dep, bringing_method);
                 else reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentKBmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
-               
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);
@@ -150,7 +150,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         group_dep, bringing_method);
                 else reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentOZMmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
-               
+
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);
@@ -162,6 +162,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmPeriod period = object_space.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             if (period.Status == HrmPeriodStatus.READY_TO_EXPORT_CORCED_MATRIXS) {
                 HrmSalaryTaskExportCoercedMatrix task = object_space.CreateObject<HrmSalaryTaskExportCoercedMatrix>();
+                task.Activate();
                 task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
                 period.PeriodTasks.Add(task);
                 HrmSalaryTaskExportCoercedMatrixLogic.InitObjects(task);
@@ -211,7 +212,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskCompareWorkTimeLogic.CompareKBMatrix(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                 object_space.Committed += new EventHandler(refresher);
+                object_space.Committed += new EventHandler(refresher);
             }
 
 
@@ -286,22 +287,22 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             if (e.SelectedChoiceActionItem.Id == "GenerateTestData") {
                 //if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
-                       
-                        current_period.PeriodTasks.Add(task);
-                        HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperationTestData(object_space, task);
-                        e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
-                        e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                        object_space.Committed += new EventHandler(refresher);
+
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperationTestData(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
                 //}
             }
             else if (e.SelectedChoiceActionItem.Id == "FromFile") {
-               // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
+                // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
 
-                    current_period.PeriodTasks.Add(task);
-                    HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperation(object_space, task);
-                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
-                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                    object_space.Committed += new EventHandler(refresher);
+                current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperation(object_space, task);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                object_space.Committed += new EventHandler(refresher);
                 //}
             }
         }
@@ -324,7 +325,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     ProvBringLogic.BringDifficultDeps(mat);
                     ProvBringLogic.LoadProvBringResultInTask(mat);
 
-               
+
 
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);

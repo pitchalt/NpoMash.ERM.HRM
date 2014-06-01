@@ -4,7 +4,7 @@ using System.Globalization;
 using FileHelpers;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData { 
+namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
 
 
     [FixedLengthRecord()]
@@ -51,5 +51,5 @@ namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
                 return Convert.ToDecimal(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);
             }
         }
-    } 
+    }
 }

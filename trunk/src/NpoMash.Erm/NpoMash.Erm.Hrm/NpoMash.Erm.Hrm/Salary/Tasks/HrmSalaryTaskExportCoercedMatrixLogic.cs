@@ -37,7 +37,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
             IList<ExchangeMatrixPlan> records = new List<ExchangeMatrixPlan>();
             foreach (var column in local_task.KBCoercedMatrix.Columns) {
-                foreach (var cell in column.Cells){
+                foreach (var cell in column.Cells) {
                     var record = new ExchangeMatrixPlan() {
                         Year = local_task.Period.Year,
                         Month = local_task.Period.Month,

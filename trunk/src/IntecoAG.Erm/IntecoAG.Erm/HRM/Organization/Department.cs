@@ -13,10 +13,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 
-namespace IntecoAG.ERM.HRM.Organization
-{
-    public enum DepartmentGroupDep { 
-        DEPARTMENT_KB = 1, 
+namespace IntecoAG.ERM.HRM.Organization {
+    public enum DepartmentGroupDep {
+        DEPARTMENT_KB = 1,
         DEPARTMENT_OZM = 2,
         DEPARTMENT_KB_OZM = 0
     }
@@ -24,8 +23,7 @@ namespace IntecoAG.ERM.HRM.Organization
     [Persistent("Department")]
     [NavigationItem("ERM")]
     [DefaultProperty("Code")]
-    public class Department : BaseObject
-    {
+    public class Department : BaseObject {
         private Boolean _IsClosed;
         [VisibleInLookupListView(false)]
         [VisibleInDetailView(false)]
@@ -37,7 +35,7 @@ namespace IntecoAG.ERM.HRM.Organization
         private String _Code;
         public String Code {
             get { return _Code; }
-            set { SetPropertyValue<String>("Code", ref _Code, value); } 
+            set { SetPropertyValue<String>("Code", ref _Code, value); }
         }
 
         private String _BuhCode;
@@ -49,11 +47,10 @@ namespace IntecoAG.ERM.HRM.Organization
         private DepartmentGroupDep _GroupDep;
         public DepartmentGroupDep GroupDep {
             get { return _GroupDep; }
-            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); } 
+            set { SetPropertyValue<DepartmentGroupDep>("GroupDep", ref _GroupDep, value); }
         }
- 
-        public Department(Session session) : base(session){ }
-        public override void AfterConstruction()
-        { base.AfterConstruction(); GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }        
+
+        public Department(Session session) : base(session) { }
+        public override void AfterConstruction() { base.AfterConstruction(); GroupDep = DepartmentGroupDep.DEPARTMENT_KB; }
     }
 }

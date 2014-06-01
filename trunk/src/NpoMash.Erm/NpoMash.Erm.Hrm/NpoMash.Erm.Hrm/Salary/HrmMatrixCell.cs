@@ -17,7 +17,7 @@ using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixCell")]   
+    [Persistent("HrmMatrixCell")]
     public class HrmMatrixCell : BaseObject {
 
         private Decimal _Time;
@@ -83,6 +83,13 @@ namespace NpoMash.Erm.Hrm.Salary {
         public Decimal MoneyAllSumm {
             get { return _MoneyAllSumm; }
             set { SetPropertyValue<Decimal>("MoneyAllSumm", ref _MoneyAllSumm, value); }
+        }
+
+        private Decimal _ConstOrderTime;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        public Decimal ConstOrderTime {
+            get { return _ConstOrderTime; }
+            set { SetPropertyValue<Decimal>("ConstOrderTime", ref _ConstOrderTime, value); }
         }
 
         private HrmMatrixColumn _Column; // —сылка на HrmMatrixColumn

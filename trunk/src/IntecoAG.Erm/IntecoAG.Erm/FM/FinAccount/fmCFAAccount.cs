@@ -63,7 +63,7 @@ namespace IntecoAG.ERM.FM.FinAccount {
         [VisibleInListView(false)]
         public fmCFAAccount TopAccount {
             get { return _TopAccount; }
-            set { 
+            set {
                 SetPropertyValue<fmCFAAccount>("TopAccount", ref _TopAccount, value);
                 if (!IsLoading && value != null) {
                     AccountSystem = value.AccountSystem;

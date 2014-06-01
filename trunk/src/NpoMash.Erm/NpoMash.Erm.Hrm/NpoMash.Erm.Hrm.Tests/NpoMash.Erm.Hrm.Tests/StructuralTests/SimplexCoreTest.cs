@@ -77,7 +77,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             SimplexTab tablica = new SimplexTab(limits, func);
             double[] result = SimplexStructureLogic.Maximize(tablica);
             double[] expected_result = { 0, 8, 20, 0, 0, 96 };
-            for (int i = 0; i < result.Count(); i++)
+            for (int i = 0 ; i < result.Count() ; i++)
                 Assert.AreEqual(expected_result[i], result[i]);
         }
 
@@ -114,8 +114,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
             SimplexTab tablica = new SimplexTab(limits, func);
             double[] result = SimplexStructureLogic.Minimize(tablica);
-            double[] expected_result = { 0, 0,0,360,192,180 };
-            for (int i = 0; i < result.Count(); i++)
+            double[] expected_result = { 0, 0, 0, 360, 192, 180 };
+            for (int i = 0 ; i < result.Count() ; i++)
                 Assert.AreEqual(expected_result[i], result[i]);
         }
 

@@ -788,19 +788,6 @@
                 <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="63" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="HrmSalaryBaseReductionElements" RelativeSize="24" ImageName="" Removed="True">
-              <LayoutGroup Id="HrmSalaryBaseReductionElements_col1" RelativeSize="48" ImageName="">
-                <LayoutItem Id="MatrixPlan.GroupDep" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="24" />
-                <LayoutItem Id="MatrixPlan.Status" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="25" />
-                <LayoutItem Id="MatrixPlan.Type" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="24" />
-                <LayoutItem Id="MatrixPlan.TypeMatrix" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="25" />
-              </LayoutGroup>
-              <LayoutGroup Id="HrmSalaryBaseReductionElements_col2" RelativeSize="48" ImageName="">
-                <LayoutItem Id="MatrixPlan.IterationNumber" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="43" />
-                <LayoutItem Id="MatrixPlan.PeriodObjectType" SizeConstraintsType="Default" RelativeSize="36" />
-                <LayoutItem Id="MatrixPlan.Variant" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="19" />
-              </LayoutGroup>
-            </LayoutGroup>
             <LayoutGroup Id="TaskKompareWorkTime" RelativeSize="54" ImageName="" Removed="True">
               <LayoutGroup Id="TaskKompareWorkTime_col1" RelativeSize="48" ImageName="">
                 <LayoutItem Id="AllocResultKB.IterationNumber" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" RelativeSize="53" Index="4" Removed="True" />

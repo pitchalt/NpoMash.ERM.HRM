@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
         public HrmTimeSheetPeriodObject(HrmTimeSheet instance)
             : base(instance.Session) {
-                _TimeSheet = instance;
+            _TimeSheet = instance;
         }
         public override void AfterConstruction() {
             base.AfterConstruction();

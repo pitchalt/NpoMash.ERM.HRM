@@ -17,7 +17,7 @@ using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public static class HrmSalaryTaskProvisionMatrixReductionLogic{
+    public static class HrmSalaryTaskProvisionMatrixReductionLogic {
 
         public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrix result = os.CreateObject<HrmMatrix>();
@@ -32,8 +32,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             //Dictionary<String, HrmMatrixColumn> cols_in_kb_res = m_res_kb.Columns.ToDictionary(x => x.Department.BuhCode);
             //Dictionary<String, HrmMatrixColumn> cols_in_ozm_res = m_res_ozm.Columns.ToDictionary(x => x.Department.BuhCode);
 
-            Dictionary<String, Dictionary<String,HrmMatrixCell>> res_mat = new Dictionary<string, Dictionary<String,HrmMatrixCell>>();
-            foreach(HrmMatrixColumn col in m_res_kb.Columns.Concat(m_res_ozm.Columns)){
+            Dictionary<String, Dictionary<String, HrmMatrixCell>> res_mat = new Dictionary<string, Dictionary<String, HrmMatrixCell>>();
+            foreach (HrmMatrixColumn col in m_res_kb.Columns.Concat(m_res_ozm.Columns)) {
                 String dep_code = col.Department.BuhCode;
                 Dictionary<String, HrmMatrixCell> dict = col.Cells.ToDictionary(x => x.Row.Order.Code);
                 res_mat.Add(dep_code, dict);
@@ -63,7 +63,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         result_row.Order = current_row.Order;
                         created_rows.Add(ord_code, result_row);
                     }
-                    
+
                     HrmMatrixCell result_cell = os.CreateObject<HrmMatrixCell>();
                     result_cell.Row = result_row;
                     result_row.Cells.Add(result_cell);
@@ -76,8 +76,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         result_cell.MoneyNoReserve = res_mat[dep_code][ord_code].MoneyNoReserve;
                         good_cells++;
                     }
-                    else { 
-                        result_cell.SourceProvision = 0; 
+                    else {
+                        result_cell.SourceProvision = 0;
                         result_cell.MoneyNoReserve = 0;
                         bad_cells++;
                     }
@@ -144,19 +144,19 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
 
-           
+
 
 
             return task_provision_matrix_reduction;
         }
 
 
-        
+
         // Create money matrix
         public static HrmMatrix createMoneyMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
 
             var alloc_parameters = card.AllocParameters;
-            var matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os,card);
+            var matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os, card);
             Decimal norm_kb=0;
             Decimal norm_ozm = 0;
             bool key=false;
@@ -173,7 +173,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 if (key == true) {
                     foreach (var cell in matrix_order.Cells) {
-                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = norm_kb * (cell.Time);  }
+                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = norm_kb * (cell.Time); }
                         else { cell.PlanMoney = norm_ozm * (cell.Time); }
                     }
                 }
@@ -182,7 +182,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = alloc_parameters.NormNoControlKB * (cell.Time); }
                         else { cell.PlanMoney = alloc_parameters.NormNoControlOZM *(cell.Time); }
                     }
-                
+
                 }
 
             }
@@ -190,7 +190,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             return matrix;
         }
 
-       
+
 
 
     }

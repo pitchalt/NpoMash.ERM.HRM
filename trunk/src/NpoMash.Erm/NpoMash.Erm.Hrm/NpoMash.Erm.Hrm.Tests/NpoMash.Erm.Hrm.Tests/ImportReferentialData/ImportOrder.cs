@@ -5,8 +5,8 @@ using FileHelpers;
 using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Tests.ImportReferentialData {
-    
-    
+
+
     [FixedLengthRecord()]
     public class ImportOrder {
 

@@ -227,8 +227,6 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Создание матрицы учета">
       <OwnMembers>
         <Member Name="AllocParameters" Caption="Параметры расчета" />
-        <Member Name="Department" Caption="Подразделение" />
-        <Member Name="Order" Caption="Заказ" />
         <Member Name="TimeSheet" Caption="Табель" />
       </OwnMembers>
     </Class>
@@ -325,6 +323,7 @@
   <Localization>
     <LocalizationGroup Name="Enums">
       <LocalizationGroup Name="IntecoAG.ERM.HRM.HrmPayTypes">
+        <LocalizationItem Name="BASE_CODE" Value="Код базы" />
         <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
         <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
       </LocalizationGroup>
@@ -353,6 +352,7 @@
         <LocalizationItem Name="MATRIX_EXPORTED" Value="Экспортирована" />
         <LocalizationItem Name="MATRIX_PRIMARY_ACCEPTED" Value="Утверждена предварительно" />
         <LocalizationItem Name="MATRIX_SAVED" Value="Сохранена" />
+        <LocalizationItem Name="NOTDOWNLOADED" Value="Не загружена" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixType">
         <LocalizationItem Name="TYPE_ALLOC_RESULT" Value="Результат распределения" />
@@ -379,15 +379,25 @@
         <LocalizationItem Name="LIST_OF_ORDER_ACCEPTED" Value="Утвержден список контролируемых заказов" />
         <LocalizationItem Name="OPEN_TO_EDIT" Value="Открыты для редактирования" />
       </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmSalaryPeriodObjectStatus">
+        <LocalizationItem Name="TEST" Value="ТЕСТ" />
+      </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskState" Value="Состояние задачи">
         <LocalizationItem Name="HRM_SALARY_TASK_ABORTED" Value="Задача отклонена" />
         <LocalizationItem Name="HRM_SALARY_TASK_ACTIVED" Value="Задача активна" />
         <LocalizationItem Name="HRM_SALARY_TASK_COMPLETED" Value="Задача выполнена успешно" />
+        <LocalizationItem Name="HRM_SALARY_TASK_CREATED" Value="Задача создана" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetStatus">
         <LocalizationItem Name="ACCEPTED" Value="Утвержден" />
         <LocalizationItem Name="ARCHIVE" Value="Архив" />
         <LocalizationItem Name="DOWNLOADED" Value="Загружен" />
+        <LocalizationItem Name="NOTDOWNLOADED" Value="Не загружен" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.LogRecordType">
+        <LocalizationItem Name="ERROR" Value="ОШИБКА" />
+        <LocalizationItem Name="INFO" Value="Инфо" />
+        <LocalizationItem Name="WARNING" Value="Предупреждение" />
       </LocalizationGroup>
     </LocalizationGroup>
     <LocalizationGroup Name="Messages">

@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
 
     [TestFixture]
     public class OptionsAllocParameters {
-        
+
         protected TestApplication application;
         protected AppearanceTarget target;
         protected AppearanceController controller;

@@ -17,7 +17,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 guiding_column = tab.ColumnWithMinDelta();
             }
             double[] result = new double[tab.maxIndexOfUnfictiveVar + 1];
-            for (int i = 0; i < tab.numberOfRows; i++)
+            for (int i = 0 ; i < tab.numberOfRows ; i++)
                 result[tab.basis[i]] = tab.bearingPlan[i];
             return result;
         }
@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 guiding_column = tab.ColumnWithMaxDelta();
             }
             double[] result = new double[tab.maxIndexOfUnfictiveVar + 1];
-            for (int i = 0; i < tab.numberOfRows; i++)
+            for (int i = 0 ; i < tab.numberOfRows ; i++)
                 result[tab.basis[i]] = tab.bearingPlan[i];
             return result;
         }
@@ -43,14 +43,14 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 throw new Exception("Lamda must be between 0 and 1, but was " + lambda.ToString());
 
             double[] result = new double[vect1.Count()];
-            for (int i = 0; i < result.Count(); i++)
+            for (int i = 0 ; i < result.Count() ; i++)
                 result[i] = vect1[i] + lambda * (vect2[i] - vect1[i]);
             return result;
         }
 
         // дихотомический поиск лямбды, при которой значение целевой функции минимально лямбда между 0 и 1
         // вернет точку при заданной лямбде
-        public static double[] DichotomicalSearchOfLambda(ReserveSimplexBringingStructure structure,double[] vect1, double[] vect2,double eps){
+        public static double[] DichotomicalSearchOfLambda(ReserveSimplexBringingStructure structure, double[] vect1, double[] vect2, double eps) {
             double left_border = 0;
             double right_border = 1;
             double delta = eps/3;
@@ -64,30 +64,30 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     structure.funcValue(DeterimnePointWithLambda(vect1, vect2, right_x)))
                     // то сдвигаем левый край
                     left_border = left_x;
-                    // иначе правый
+                // иначе правый
                 else right_border = right_x;
             }
             // сразу возвращаем точку при найденной лямбде
             double lambda = (right_border + left_border) / 2;
-            return DeterimnePointWithLambda(vect1,vect2,lambda);
+            return DeterimnePointWithLambda(vect1, vect2, lambda);
         }
 
         public static double Norma(double[] vect1, double[] vect2) {
             double result = 0;
-            for (int i = 0; i < vect1.Count(); i++)
+            for (int i = 0 ; i < vect1.Count() ; i++)
                 result += Math.Pow(vect1[i] - vect2[i], 2);
             return Math.Sqrt(result);
         }
 
         // процедура, которая выполняет округление и распределяет отклонения резерва в подразделениях
         public static double[] RoundResults(ReserveSimplexBringingStructure structure, double[] distribution) {
-            for (int i = 0; i < distribution.Count(); i++)
+            for (int i = 0 ; i < distribution.Count() ; i++)
                 distribution[i] = Math.Round(distribution[i]);
             foreach (SimplexLimitation limit in structure.simpLimits.Values) {
                 double current_value = 0;
                 double[] current_derivates = structure.getArrayOfPartialDerivates(distribution);
                 Dictionary<int, double> current_dervs = new Dictionary<int, double>();
-                foreach (int key in limit.coefficients.Keys){
+                foreach (int key in limit.coefficients.Keys) {
                     current_value += distribution[key];
                     current_dervs.Add(key, current_derivates[key]);
                 }
@@ -124,7 +124,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 structure.realControlledCells[key].NewProvision = (decimal)distribution[key];
             }
             // те заказы что не содержатся в этом словаре - неконтролируемые
-            Dictionary<String,HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
+            Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
                 .ToDictionary(x => x.Order.Code);
             // распределяем резев между неконтролируемыми заказами в пределах подразделения
@@ -143,7 +143,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         // главная процедура, которая выполнит все приведение с заданной точностью
-        public static void MainAlgorithm(HrmSalaryTaskProvisionMatrixReduction card, int cell_c, int ord_c, double lambda_eps,double main_eps){
+        public static void MainAlgorithm(HrmSalaryTaskProvisionMatrixReduction card, int cell_c, int ord_c, double lambda_eps, double main_eps) {
             ReserveSimplexBringingStructure structure = new ReserveSimplexBringingStructure(card, cell_c, ord_c);
             // осуществляем многократный расчет симплекс-методом,
             // по сути, метод Франка-Вульфа
@@ -151,7 +151,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             double target_function_value = structure.funcValue(previous_distribution);
             double previous_function_value = target_function_value;
             double[] current_bearing_plan = Minimize(structure.table);
-            double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, 10/Norma(previous_distribution,current_bearing_plan));
+            double[] current_distribution = DichotomicalSearchOfLambda(structure, previous_distribution, current_bearing_plan, 10/Norma(previous_distribution, current_bearing_plan));
             // до тех пор, пока разница между предыдущим и новым вектором не станет меньше заданной погрешности
             double result_norm = 0;
             double difference = 0;
@@ -168,10 +168,10 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     throw new Exception("Error in minimization algorithm! New value was greater than previous");
             } while (result_norm > main_eps && difference > 100);
             // приводим полученные результаты к целым
-            current_distribution = RoundResults(structure,current_distribution);
+            current_distribution = RoundResults(structure, current_distribution);
             target_function_value = structure.funcValue(current_distribution);
             // грузим их в матрицу резерва
-            ReturnResultsInRealMatrix(card,structure,current_distribution);
+            ReturnResultsInRealMatrix(card, structure, current_distribution);
             return;
         }
 

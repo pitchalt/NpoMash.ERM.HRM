@@ -28,12 +28,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public static void CompareKBMatrix (IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
+        public static void CompareKBMatrix(IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
             task.AllocResultKB = task.Period.CurrentMatrixAllocResultKB;
             foreach (HrmMatrix matrix in task.Period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_MATIX &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED) {
-                   task.MatrixPlan = matrix;
+                    task.MatrixPlan = matrix;
                 }
             }
             task.AllocResultKB.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
@@ -41,7 +41,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.AllocResultKB.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             task.AllocResultKB.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
-          }
+        }
 
         public static void CompareOZMMatrix(IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
             task.AllocResultOZM = task.Period.CurrentMatrixAllocResultOZM;

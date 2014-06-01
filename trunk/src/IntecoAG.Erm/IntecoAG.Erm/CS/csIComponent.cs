@@ -11,11 +11,11 @@ namespace IntecoAG.ERM.CS {
         /// 
         /// </summary>
         [Browsable(false)]
-        Guid   CID { get; }
+        Guid CID { get; }
         /// <summary>
         /// 
         /// </summary>
-        Type   ComponentType { get;  }
+        Type ComponentType { get; }
         /// <summary>
         /// 
         /// </summary>
@@ -24,7 +24,7 @@ namespace IntecoAG.ERM.CS {
         /// <summary>
         /// 
         /// </summary>
-        Boolean ReadOnly { get;  }
+        Boolean ReadOnly { get; }
         /// <summary>
         /// 
         /// </summary>
