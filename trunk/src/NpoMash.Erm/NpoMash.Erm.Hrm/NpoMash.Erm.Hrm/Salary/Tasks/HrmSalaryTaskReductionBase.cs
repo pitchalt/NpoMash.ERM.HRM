@@ -16,10 +16,31 @@ using DevExpress.Persistent.Validation;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
+[NonPersistent]
+public class DepartmentItem<ORD> : XPCustomObject{
+    public Department Department;
+    public DepartmentGroupDep Group;
+    public IList<ORD> OrderItems = new List<ORD>();
+    public DepartmentItem() { }
+    public DepartmentItem(Session session) : base(session) { }
+}
+
+[NonPersistent]
+public class OrderItem<DEP> : XPCustomObject
+{
+    public fmCOrder Order;
+    public FmCOrderTypeControl TypeControl;
+    public IList<DEP> DepartmentItems = new List<DEP>();
+    public OrderItem() { }
+    public OrderItem(Session session) : base(session) { }
+}
+
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public abstract class HrmSalaryTaskReductionBase : HrmSalaryTask {
+    public abstract class HrmSalaryTaskReductionBase<DEP, ORD> : HrmSalaryTask
+    where DEP:DepartmentItem<ORD>, new()
+    where ORD:OrderItem<DEP>, new() {
 
         private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
         [VisibleInDetailView(false)]
@@ -38,65 +59,24 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-
-
+        private IList<DEP> _Department;
         [NonPersistent]
-        public class DepartmentItem : XPCustomObject {
-            public Department Department;
-            public DepartmentGroupDep Group;
-            public Decimal DepartmentPlan;
-            public Decimal MinimizeNumberOfDeviationsAlloc;
-            public Decimal MinimizeMaximumDeviationsAlloc;
-            public Decimal ProportionsMethodAlloc;
-            //Поля для контроля трудоемкости
-            public Decimal DepartmentTravelPlan;
-            public Decimal ConstantOrderType;
-            public Decimal DepartmentFact;
-            public Decimal DepartmentTravelFact;
-            public Decimal Plan_Fact;
-            //
-            public IList<OrderItem> OrderItems = new List<OrderItem>();
-            public DepartmentItem(Session session) : base(session) { }
-        }
-
-        [NonPersistent]
-        public class OrderItem : XPCustomObject {
-            public fmCOrder Order;
-            public FmCOrderTypeControl TypeControl;
-            public Decimal OrderPlan;
-            public Decimal MinimizeNumberOfDeviationsAlloc;
-            public Decimal MinimizeMaximumDeviationsAlloc;
-            public Decimal ProportionsMethodAlloc;
-            //Поля для контроля трудоемкости
-            public Decimal TravelPlan;
-            public Decimal ConstantOrderType;
-            public Decimal OrderFact_ConstantOrderType;
-            public Decimal TravelFact;
-            public Decimal Plan_Fact;
-            //
-            public IList<DepartmentItem> DepartmentItems = new List<DepartmentItem>();
-            public OrderItem(Session session) : base(session) { }
-        }
-
-        private IList<DepartmentItem> _Department;
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public IList<DepartmentItem> Department {
+        public IList<DEP> Department {
             get {
                 if (_Department == null) {
-                    _Department = new List<DepartmentItem>();
+                    _Department = new List<DEP>();
                     departmentCreate();
                 }
                 return _Department;
             }
         }
 
-        private IList<OrderItem> _Order;
+        private IList<ORD> _Order;
         [NonPersistent]
-        public IList<OrderItem> Order {
+        public IList<ORD> Order {
             get {
                 if (_Order == null) {
-                    _Order = new List<OrderItem>();
+                    _Order = new List<ORD>();
                     orderCreate();
                 }
                 return _Order;
@@ -105,11 +85,52 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         protected abstract void orderCreate();
         protected abstract void departmentCreate();
+        protected abstract void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DEP item);
+        protected abstract void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, ORD item);
 
 
+        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<ORD> items) {
+            foreach (HrmMatrixRow row in matrix.Rows) {
+                if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
+                    continue;
+                ORD item = items.FirstOrDefault(x => x.Order == row.Order);
+                if (item == null) {
+                    item = new ORD() {// не передаем сюда сессию, а это норм??
+                        Order = row.Order,
+                        DepartmentItems = new List<DEP>(),
+                        TypeControl = row.Order.TypeControl
+                    };
+                    items.Add(item);
+                }
+                // здесь вызов какой-то логики
+                LoadMatrixOrderLogic(matrix,col,row, item);
 
+                if (col == null)
+                    LoadMatrixDepartment(matrix, row, item.DepartmentItems);
+            }
 
+        }
 
+        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DEP> items) {
+            foreach (HrmMatrixColumn col in matrix.Columns) {
+                if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)
+                    continue;
+                DEP item = items.FirstOrDefault(x => x.Department == col.Department);
+                if (item == null) {
+                    item = new DEP() {// не передаем сюда сессию, а это норм??
+                        Department = col.Department, // Подразделение
+                        OrderItems = new List<ORD>(),
+                        Group = col.Department.GroupDep
+                    };
+                    items.Add(item);
+                }
+                // здесь вызов какой-то логики
+                LoadMatrixDepartmentLogic(matrix,col,row, item);
+
+                if (row == null)
+                    LoadMatrixOrder(matrix, col, item.OrderItems);
+            }
+        }
 
         public HrmSalaryTaskReductionBase(Session session)
             : base(session) {

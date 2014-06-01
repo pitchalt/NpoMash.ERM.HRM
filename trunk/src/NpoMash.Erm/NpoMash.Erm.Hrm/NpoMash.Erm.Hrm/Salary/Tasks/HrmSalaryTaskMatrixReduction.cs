@@ -17,7 +17,31 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
 
+
 namespace NpoMash.Erm.Hrm.Salary {
+
+    [NonPersistent]
+    public class DepartmentItemReduction : DepartmentItem<OrderItemReduction> {
+        public DepartmentItemReduction(Session session) : base(session) { }
+        public DepartmentItemReduction() { }
+        public Decimal MinimizeNumberOfDeviationsAlloc;
+        public Decimal MinimizeMaximumDeviationsAlloc;
+        public Decimal ProportionsMethodAlloc;
+        public Decimal DepartmentPlan;
+
+    }
+
+    [NonPersistent]
+    public class OrderItemReduction : OrderItem<DepartmentItemReduction> {
+        public OrderItemReduction(Session session) : base(session) { }
+        public OrderItemReduction() { }
+        public Decimal MinimizeNumberOfDeviationsAlloc;
+        public Decimal MinimizeMaximumDeviationsAlloc;
+        public Decimal ProportionsMethodAlloc;
+        public Decimal OrderPlan;
+
+    }
+
 
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [MapInheritance(MapInheritanceType.OwnTable)]
@@ -25,12 +49,13 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-
-    public class HrmSalaryTaskMatrixReduction : HrmSalaryTaskReductionBase {
+    public class HrmSalaryTaskMatrixReduction :
+        HrmSalaryTaskReductionBase<DepartmentItemReduction, OrderItemReduction> {
 
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
 
+        
 
         private HrmMatrix _MinimizeMaximumDeviationsMatrix;
         [VisibleInDetailView(false)]
@@ -66,33 +91,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
-        /*
-        private IList<DepartmentItem> _Department;
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public IList<DepartmentItem> Department {
-            get {
-                if (_Department == null) {
-                    _Department = new List<DepartmentItem>();
-                    departmentCreate();
-                }
-                return _Department;
-            }
-        }
-
-        private IList<OrderItem> _Order;
-        [NonPersistent]
-        public IList<OrderItem> Order {
-            get {
-                if (_Order == null) {
-                    _Order = new List<OrderItem>();
-                    orderCreate();
-                }
-                return _Order;
-            }
-        }*/
-
-    
         public void Refresh(HrmMatrixVariant variant) {
             switch (variant) {
                 case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
@@ -137,47 +135,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (ProportionsMethodMatrix != null)
                 LoadMatrixDepartment(ProportionsMethodMatrix, null, Department);
         }
-
-        //protected void CleanMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
-        //}
-
-        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItem> items) {
+        /*
+        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItemReduction> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
                 if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
                     continue;
-                OrderItem item = items.FirstOrDefault(x => x.Order == row.Order);
+                OrderItemReduction item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
-                    item = new OrderItem(this.Session) {
+                    item = new OrderItemReduction(this.Session) {
                         Order = row.Order,
-                        DepartmentItems = new List<DepartmentItem>(),
+                        DepartmentItems = new List<DepartmentItemReduction>(),
                         TypeControl = row.Order.TypeControl
                     };
                     items.Add(item);
-                }
-
-                foreach (HrmMatrixCell cell in row.Cells) {
-                    if (col != null && cell.Column != col)
-                        continue;
-                    switch (matrix.TypeMatrix) {
-                        case HrmMatrixTypeMatrix.MATRIX_PLANNED:
-                            item.OrderPlan += cell.Time;
-                            break;
-                        case HrmMatrixTypeMatrix.MATRIX_COERCED:
-                            switch (matrix.Variant) {
-                                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
-                                    item.ProportionsMethodAlloc += cell.Time;
-                                    break;
-                                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
-                                    item.MinimizeMaximumDeviationsAlloc += cell.Time;
-                                    break;
-                                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
-                                    item.MinimizeNumberOfDeviationsAlloc += cell.Time;
-                                    break;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
                 }
 
                 if (col == null)
@@ -186,49 +156,79 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItem> items) {
+        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItemReduction> items) {
             foreach (HrmMatrixColumn col in matrix.Columns) {
                 if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)
                     continue;
-                DepartmentItem item = items.FirstOrDefault(x => x.Department == col.Department);
+                DepartmentItemReduction item = items.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
-                    item = new DepartmentItem(this.Session) {
+                    item = new DepartmentItemReduction(this.Session) {
                         Department = col.Department, // Подразделение
-                        OrderItems = new List<OrderItem>(),
+                        OrderItems = new List<OrderItemReduction>(),
                         Group = col.Department.GroupDep
                     };
                     items.Add(item);
                 }
 
-
-                foreach (HrmMatrixCell cell in col.Cells) {
-                    if (row != null && cell.Row != row)
-                        continue;
-                    switch (matrix.TypeMatrix) {
-                        case HrmMatrixTypeMatrix.MATRIX_PLANNED:
-                            item.DepartmentPlan += cell.Time;
-                            break;
-                        case HrmMatrixTypeMatrix.MATRIX_COERCED:
-                            switch (matrix.Variant) {
-                                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
-                                    item.ProportionsMethodAlloc += cell.Time;
-                                    break;
-                                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
-                                    item.MinimizeMaximumDeviationsAlloc += cell.Time;
-                                    break;
-                                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
-                                    item.MinimizeNumberOfDeviationsAlloc += cell.Time;
-                                    break;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
                 if (row == null)
                     LoadMatrixOrder(matrix, col, item.OrderItems);
             }
+        }*/
+
+        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemReduction item) {
+            foreach (HrmMatrixCell cell in col.Cells) {
+                if (row != null && cell.Row != row)
+                    continue;
+                switch (matrix.TypeMatrix) {
+                case HrmMatrixTypeMatrix.MATRIX_PLANNED:
+                    item.DepartmentPlan += cell.Time;
+                    break;
+                case HrmMatrixTypeMatrix.MATRIX_COERCED:
+                    switch (matrix.Variant) {
+                    case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                        item.ProportionsMethodAlloc += cell.Time;
+                        break;
+                    case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
+                        item.MinimizeMaximumDeviationsAlloc += cell.Time;
+                        break;
+                    case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
+                        item.MinimizeNumberOfDeviationsAlloc += cell.Time;
+                        break;
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItemReduction item) {
+            foreach (HrmMatrixCell cell in row.Cells) {
+                if (col != null && cell.Column != col)
+                    continue;
+                switch (matrix.TypeMatrix) {
+                case HrmMatrixTypeMatrix.MATRIX_PLANNED:
+                    item.OrderPlan += cell.Time;
+                    break;
+                case HrmMatrixTypeMatrix.MATRIX_COERCED:
+                    switch (matrix.Variant) {
+                    case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                        item.ProportionsMethodAlloc += cell.Time;
+                        break;
+                    case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
+                        item.MinimizeMaximumDeviationsAlloc += cell.Time;
+                        break;
+                    case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
+                        item.MinimizeNumberOfDeviationsAlloc += cell.Time;
+                        break;
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
+
+
         }
 
         public override void AfterConstruction() {
