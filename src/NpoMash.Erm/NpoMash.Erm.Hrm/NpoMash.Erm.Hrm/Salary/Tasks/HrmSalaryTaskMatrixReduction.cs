@@ -231,6 +231,14 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
+        protected override DepartmentItemReduction DepartmentItemCreate() {
+            return new DepartmentItemReduction(this.Session);
+        }
+
+        protected override OrderItemReduction OrderItemCreate() {
+            return new OrderItemReduction(this.Session);
+        }
+
         public override void AfterConstruction() {
             base.AfterConstruction();
         }

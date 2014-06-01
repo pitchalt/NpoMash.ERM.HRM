@@ -146,6 +146,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+        protected override DepartmentItemComp DepartmentItemCreate() {
+            return new DepartmentItemComp(this.Session);
+        }
+
+        protected override OrderItemComp OrderItemCreate() {
+            return new OrderItemComp(this.Session);
+        }
+
         public TaskKompareWorkTime(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
