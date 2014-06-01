@@ -25,6 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskCompareWorkTime : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2> {
+        
         [NonPersistent]
         public class DepartmentItem2 : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2>.DepartmentItem {
             public DepartmentItem2(Session session) : base(session) { }
@@ -32,10 +33,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             //Поля для контроля трудоемкости
             public Decimal DepartmentPlan;
             public Decimal DepartmentTravelPlan;
-            public Decimal ConstantOrderType;
+            public Decimal ConstantDepTime;
             public Decimal DepartmentFact;
             public Decimal DepartmentTravelFact;
             public Decimal Plan_Fact;
+            public Decimal CoercedValue;
         }
 
         [NonPersistent]
@@ -45,10 +47,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             //Поля для контроля трудоемкости
             public Decimal OrderPlan;
             public Decimal TravelPlan;
-            public Decimal ConstantOrderType;
-            public Decimal OrderFact_ConstantOrderType;
+            public Decimal ConstantOrderTime;
+            public Decimal OrderFact_ConstantOrderTime;
             public Decimal TravelFact;
             public Decimal Plan_Fact;
+            public Decimal CoercedValue;
         }
 
         private HrmMatrix _AllocResultKB; //Первичная проводка КБ
@@ -63,6 +66,24 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmMatrix AllocResultOZM {
             get { return _AllocResultOZM; }
             set { SetPropertyValue<HrmMatrix>("AllocResultOZM", ref _AllocResultOZM, value); }
+        }
+
+        private HrmTimeSheet _CurrentTimeSheetKB; // Ссылка на HrmTimeSheet
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public HrmTimeSheet CurrentTimeSheetKB {
+            get { return _CurrentTimeSheetKB; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetKB", ref _CurrentTimeSheetKB, value); }
+        }
+
+        private HrmTimeSheet _CurrentTimeSheetOZM; // Ссылка на HrmTimeSheet
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public HrmTimeSheet CurrentTimeSheetOZM {
+            get { return _CurrentTimeSheetOZM; }
+            set { SetPropertyValue<HrmTimeSheet>("CurrentTimeSheetOZM", ref _CurrentTimeSheetOZM, value); }
         }
 
         protected override void orderCreate() {
@@ -83,8 +104,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                 switch (matrix.TypeMatrix) {
                     case HrmMatrixTypeMatrix.MATRIX_PLANNED:
                         item.OrderPlan += cell.Time;
+                        item.TravelPlan += cell.TravelTime;
+                        item.ConstantOrderTime += cell.ConstOrderTime;
                         break;
-
+                    case HrmMatrixTypeMatrix.MATRIX_COERCED:
+                        switch (matrix.Variant) {
+                            case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                                item.CoercedValue += cell.Time;
+                                break;
+                        }
+                        break;
                     default:
                         break;
                 }

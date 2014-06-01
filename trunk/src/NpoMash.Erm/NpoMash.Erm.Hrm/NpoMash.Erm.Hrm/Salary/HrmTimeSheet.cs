@@ -110,7 +110,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public String Name {
             get {
                 EnumDescriptor ed = new EnumDescriptor(typeof(HrmTimeSheetStatus));
-                return ed.GetCaption(Status); //+ " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
+                return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
             }
         }
     }
