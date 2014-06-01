@@ -159,6 +159,8 @@ namespace NpoMash.Erm.Hrm {
                     mat.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
                     kb_alloc_result_accepted = true;
             }
+
+            if (kb_coerced_matrix_accepted && ozm_coerced_matrix_accepted && kb_alloc_result_accepted && ozm_alloc_result_accepted) { period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE); }
             return kb_coerced_matrix_accepted && ozm_coerced_matrix_accepted && kb_alloc_result_accepted && ozm_alloc_result_accepted;
         }
 
