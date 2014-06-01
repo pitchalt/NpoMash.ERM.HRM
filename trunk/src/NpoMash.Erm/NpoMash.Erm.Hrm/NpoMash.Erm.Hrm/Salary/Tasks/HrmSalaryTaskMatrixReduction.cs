@@ -29,14 +29,14 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskMatrixReduction :
-        HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem> {
+        HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1> {
 
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
         [NonPersistent]
-        public new class DepartmentItem : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem>.DepartmentItem {
-            public DepartmentItem(Session session) : base(session) { }
-            public DepartmentItem() { }
+        public new class DepartmentItem1 : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1>.DepartmentItem {
+            public DepartmentItem1(Session session) : base(session) { }
+            public DepartmentItem1() { }
             public Decimal MinimizeNumberOfDeviationsAlloc;
             public Decimal MinimizeMaximumDeviationsAlloc;
             public Decimal ProportionsMethodAlloc;
@@ -45,9 +45,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [NonPersistent]
-        public new class OrderItem : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem>.OrderItem {
-            public OrderItem(Session session) : base(session) { }
-            public OrderItem() { }
+        public new class OrderItem1 : HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem1, HrmSalaryTaskMatrixReduction.OrderItem1>.OrderItem {
+            public OrderItem1(Session session) : base(session) { }
+            public OrderItem1() { }
             public Decimal MinimizeNumberOfDeviationsAlloc;
             public Decimal MinimizeMaximumDeviationsAlloc;
             public Decimal ProportionsMethodAlloc;
@@ -175,7 +175,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }*/
 
-        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem item) {
+        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem1 item) {
             foreach (HrmMatrixCell cell in col.Cells) {
                 if (row != null && cell.Row != row)
                     continue;
@@ -202,7 +202,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem item) {
+        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem1 item) {
             foreach (HrmMatrixCell cell in row.Cells) {
                 if (col != null && cell.Column != col)
                     continue;
@@ -231,12 +231,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-        protected override DepartmentItem DepartmentItemCreate() {
-            return new DepartmentItem(this.Session);
+        protected override DepartmentItem1 DepartmentItemCreate() {
+            return new DepartmentItem1(this.Session);
         }
 
-        protected override OrderItem OrderItemCreate() {
-            return new OrderItem(this.Session);
+        protected override OrderItem1 OrderItemCreate() {
+            return new OrderItem1(this.Session);
         }
 
         public override void AfterConstruction() {
