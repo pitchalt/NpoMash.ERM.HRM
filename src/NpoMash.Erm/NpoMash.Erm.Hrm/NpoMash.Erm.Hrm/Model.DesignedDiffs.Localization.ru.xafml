@@ -121,6 +121,7 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" Caption="ЯчейкаМатрицы">
       <OwnMembers>
         <Member Name="Column" Caption="Подразделение" />
+        <Member Name="ConstOrderTime" Caption="Постоянная трудоемоксть по заказам" />
         <Member Name="Row" Caption="Заказ" />
         <Member Name="Time" Caption="Трудочасы" />
       </OwnMembers>

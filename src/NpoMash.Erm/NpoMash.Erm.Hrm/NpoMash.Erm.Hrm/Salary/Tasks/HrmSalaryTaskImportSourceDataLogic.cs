@@ -79,14 +79,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                 foreach (var each in timesheet_list) {
                     if (each.Year != task.Period.Year || each.Month != task.Period.Month) {
                         task.Abort();
-                        task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле не соответствует дате текущего периода");
+                        task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Matrix_TimeSheet.ncd' не соответствует дате текущего периода");
                         task.TimeSheetKB.SetStatus(HrmTimeSheetStatus.NOTDOWNLOADED);
                         task.TimeSheetOZM.SetStatus(HrmTimeSheetStatus.NOTDOWNLOADED);
                         return;
                     }
                     else {
                         String code = each.Department_Code;
-                        if (String.IsNullOrEmpty(each.Department_Code)) {
+                        if (String.IsNullOrEmpty(each.Department_Code) && each.Department_Code != "") {
                             task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
                         }
                         else {
@@ -149,8 +149,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Int16 current_month = task.Period.Month;
                 FixedFileEngine<ExchangeMatrixPlan> plan_data = new FixedFileEngine<ExchangeMatrixPlan>();
                 FixedFileEngine<ExchangeMatrixTravelTime> travel_data = new FixedFileEngine<ExchangeMatrixTravelTime>();
+                FixedFileEngine<ExchangeConstOrderTime> const_order_data = new FixedFileEngine<ExchangeConstOrderTime>();
                 ExchangeMatrixPlan[] plan_list = null;
                 ExchangeMatrixTravelTime[] travel_list = null;
+                ExchangeConstOrderTime[] const_order_list = null;
                 try {
                     plan_list = plan_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(task.Period.CurrentAllocParameter.Year * 100 + task.Period.CurrentAllocParameter.Month) + "/Matrix_Plan.ncd");
                 }
@@ -189,6 +191,25 @@ namespace NpoMash.Erm.Hrm.Salary {
                     ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                     return;
                 }
+                try {
+                    const_order_list = const_order_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(task.Period.CurrentAllocParameter.Year * 100 + task.Period.CurrentAllocParameter.Month) + "/Const_OrderTime.ncd");
+                }
+                catch (FileNotFoundException) {
+                    task.Abort();
+                    task.LogRecord(LogRecordType.ERROR, null, null, "Не найден файл 'Const_OrderTime.ncd'");
+                    matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    return;
+                }
+                catch (BadUsageException) {
+                    task.Abort();
+                    task.LogRecord(LogRecordType.ERROR, null, null, "Файл 'Const_OrderTime.ncd' имеет неправильную размерность");
+                    matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    return;
+                }
                 if (plan_list == null) {
                     task.Abort();
                     task.LogRecord(LogRecordType.ERROR, null, null, "Нельзя импортировать пустой файл 'Matrix_Plan.ncd'");
@@ -200,6 +221,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (travel_list == null) {
                     task.Abort();
                     task.LogRecord(LogRecordType.ERROR, null, null, "Нельзя импортировать пустой файл 'Matrix_TravelTimePlan.ncd'");
+                    matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                    return;
+                }
+                if (const_order_list == null) {
+                    task.Abort();
+                    task.LogRecord(LogRecordType.ERROR, null, null, "Нельзя импортировать пустой файл 'Const_OrderTime.ncd'");
                     matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
                     kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                     ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
@@ -222,7 +251,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //если запись относится к нашему периоду то начинаем обработку
                     if (each.Year != current_year || each.Month != current_month) {
                         task.Abort();
-                        task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле не соответствует дате текущего периода");
+                        task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Matrix_Plan.ncd' не соответствует дате текущего периода");
                         matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
@@ -231,12 +260,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                     else {
                         HrmMatrix plan_matrix = null;
                         String file_ord_code = each.OrderCode;
-                        if (String.IsNullOrEmpty(file_ord_code)) {
+                        if (String.IsNullOrEmpty(file_ord_code) && file_ord_code != "") {
                             task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код заказа в файле");
                         }
                         //if (file_ord_code.Length == 8) continue; //это пока в базе нет заказов с восьмизначным кодом!
                         String file_dep_code = each.DepartmentCode;
-                        if (String.IsNullOrEmpty(file_dep_code)) {
+                        if (String.IsNullOrEmpty(file_dep_code) && file_dep_code != "") {
                             task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
                         }
                         /*
@@ -309,13 +338,70 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     }
                 }
-                foreach (var cell in object_space.GetObjects<HrmMatrixCell>(null, true)) {
-                    foreach (var travel in travel_list) {
-                        if ((cell.Column.Department.BuhCode == travel.DepartmentCode)&&(cell.Row.Order.Code == travel.OrderCode)) { cell.TravelTime += travel.TravelTime; }
+                foreach (var data in const_order_list) {
+                    if (data.Year != current_year || data.Month != current_month) {
+                        task.Abort();
+                        task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Const_OrderTime.ncd' не соответствует дате текущего периода");
+                        matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        return;
+                    }
+                    else {
+                        String file_order_code = data.OrderCode;
+                        String file_dep_code = data.DepartmentCode;
+                        if (String.IsNullOrEmpty(file_order_code)) {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код заказа в файле");
+                        }
+                        if (String.IsNullOrEmpty(file_dep_code)) {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
+                        }
+                        if (!String.IsNullOrEmpty(file_dep_code) && !String.IsNullOrEmpty(file_order_code)) {
+                            String cell_key = file_dep_code + "|" + file_order_code;
+                            try {
+                                cells_in_matrix[cell_key].ConstOrderTime += data.Time;
+                            }
+                            catch (KeyNotFoundException) {
+                                task.LogRecord(LogRecordType.ERROR, null, null, "В матрице нет такой ячейки и/или код подразделения и/или заказа в файле пустые");
+                            }
+                        }
+                        else {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось заполнить поле 'Постоянное время заказа'");
+                        }
                     }
                 }
-                task.MatrixPlanKB = kb_plan_matrix;
-                task.MatrixPlanOZM = ozm_plan_matrix;
+                foreach (var travel in travel_list) {
+                    if (travel.Year != current_year || travel.Month != current_month) {
+                        task.Abort();
+                        task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Matrix_TravelTimePlan.ncd' не соответствует дате текущего периода");
+                        matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        return;
+                    }
+                    else {
+                        String file_order_code = travel.OrderCode;
+                        String file_dep_code = travel.DepartmentCode;
+                        if (String.IsNullOrEmpty(file_order_code)) {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код заказа в файле");
+                        }
+                        if (String.IsNullOrEmpty(file_dep_code)) {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
+                        }
+                        if (!String.IsNullOrEmpty(file_dep_code) && !String.IsNullOrEmpty(file_order_code)) {
+                            String cell_key = file_dep_code + "|" + file_order_code;
+                            try {
+                                cells_in_matrix[cell_key].TravelTime += travel.TravelTime;
+                            }
+                            catch (KeyNotFoundException) {
+                                task.LogRecord(LogRecordType.WARNING, departments_in_database[file_dep_code], orders_in_database[file_order_code], "В матрице нет такой ячейки и/или код подразделения и/или заказа в файле пустые");
+                            }
+                        }
+                        else {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось заполнить поле 'Постоянное время заказа'");
+                        }
+                    }
+                }
             }
             else {
                 HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
