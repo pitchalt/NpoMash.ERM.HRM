@@ -19,39 +19,37 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [NonPersistent]
-    public class DepartmentItemComp : DepartmentItem<OrderItemComp> {
-        public DepartmentItemComp(Session session) : base(session) { }
-        public DepartmentItemComp() { }
-        //Поля для контроля трудоемкости
-        public Decimal DepartmentPlan;
-        public Decimal DepartmentTravelPlan;
-        public Decimal ConstantOrderType;
-        public Decimal DepartmentFact;
-        public Decimal DepartmentTravelFact;
-        public Decimal Plan_Fact;
-    }
-
-    [NonPersistent]
-    public class OrderItemComp : OrderItem<DepartmentItemComp> {
-        public OrderItemComp(Session session) : base(session) { }
-        public OrderItemComp() { }
-        //Поля для контроля трудоемкости
-        public Decimal OrderPlan;
-        public Decimal TravelPlan;
-        public Decimal ConstantOrderType;
-        public Decimal OrderFact_ConstantOrderType;
-        public Decimal TravelFact;
-        public Decimal Plan_Fact;
-    }
-
-
     [Persistent("TaskKompareWorkTime")]
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultOZM.Status,AllocResultOZM.TypeMatrix,AllocResultOZM.Type,AllocResultOZM.GroupDep", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultKB.Status,AllocResultKB.TypeMatrix,AllocResultKB.Type,AllocResultKB.GroupDep", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class TaskKompareWorkTime : HrmSalaryTaskReductionBase<DepartmentItemComp, OrderItemComp> {
+    public class TaskKompareWorkTime : HrmSalaryTaskReductionBase<TaskKompareWorkTime.DepartmentItem, TaskKompareWorkTime.OrderItem> {
+        [NonPersistent]
+        public new class DepartmentItem : HrmSalaryTaskReductionBase<TaskKompareWorkTime.DepartmentItem, TaskKompareWorkTime.OrderItem>.DepartmentItem {
+            public DepartmentItem(Session session) : base(session) { }
+            public DepartmentItem() { }
+            //Поля для контроля трудоемкости
+            public Decimal DepartmentPlan;
+            public Decimal DepartmentTravelPlan;
+            public Decimal ConstantOrderType;
+            public Decimal DepartmentFact;
+            public Decimal DepartmentTravelFact;
+            public Decimal Plan_Fact;
+        }
+
+        [NonPersistent]
+        public new class OrderItem : HrmSalaryTaskReductionBase<TaskKompareWorkTime.DepartmentItem, TaskKompareWorkTime.OrderItem>.OrderItem {
+            public OrderItem(Session session) : base(session) { }
+            public OrderItem() { }
+            //Поля для контроля трудоемкости
+            public Decimal OrderPlan;
+            public Decimal TravelPlan;
+            public Decimal ConstantOrderType;
+            public Decimal OrderFact_ConstantOrderType;
+            public Decimal TravelFact;
+            public Decimal Plan_Fact;
+        }
 
         private HrmMatrix _AllocResultKB; //Первичная проводка КБ
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
@@ -116,7 +114,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }*/
 
-        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItemComp item) {
+        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem item) {
             foreach (HrmMatrixCell cell in row.Cells) {
                 if (col != null && cell.Column != col)
                     continue;
@@ -132,7 +130,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemComp item) {
+        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem item) {
             foreach (HrmMatrixCell cell in col.Cells) {
                 if (row != null && cell.Row != row)
                     continue;
@@ -146,12 +144,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        protected override DepartmentItemComp DepartmentItemCreate() {
-            return new DepartmentItemComp(this.Session);
+        protected override DepartmentItem DepartmentItemCreate() {
+            return new DepartmentItem(this.Session);
         }
 
-        protected override OrderItemComp OrderItemCreate() {
-            return new OrderItemComp(this.Session);
+        protected override OrderItem OrderItemCreate() {
+            return new OrderItem(this.Session);
         }
 
         public TaskKompareWorkTime(Session session): base(session) { }
