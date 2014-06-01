@@ -250,15 +250,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                 count++;
                 HrmMatrix alloc_result_matrix = null;
                 String file_order_code = account_operation.OrderCode;
-                if (String.IsNullOrEmpty(file_order_code)) {
+                if (String.IsNullOrEmpty(file_order_code) && file_order_code != "") {
                     local_task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код заказа в файле");
                 }
                 String file_department_code = account_operation.DepartmentCode;
-                if (String.IsNullOrEmpty(file_department_code)) {
+                if (String.IsNullOrEmpty(file_department_code) && file_department_code != "") {
                     local_task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
                 }
                 String file_payType = account_operation.PayTypeCode;
-                if (String.IsNullOrEmpty(file_payType)) {
+                if (String.IsNullOrEmpty(file_payType) && file_payType != "") {
                     local_task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код оплаты в файле");
                 }
                 //HrmAccountOperation account_to_db = local_object_space.CreateObject<HrmAccountOperation>();
@@ -307,9 +307,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                     account_to_db.Debit = account_operation.Debit;
                     account_to_db.Money = account_operation.Money;
                     account_to_db.Credit = account_operation.Credit;
-                    account_to_db.Order = orders_in_database[account_operation.OrderCode];
-                    account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
-                    account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
+                    try {
+                        account_to_db.Order = orders_in_database[account_operation.OrderCode];
+                        account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
+                        account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
+                    }
+                    catch(KeyNotFoundException) {
+                        local_task.LogRecord(LogRecordType.ERROR, null, null, "Не удалось связать проводку с заказом и/или кодом оплаты и/или подразделением");
+                    }
                     if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { account_to_db.AllocResult = matrix_alloc_result_kb; }
                     else { account_to_db.AllocResult = matrix_alloc_result_ozm; }
                     String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
