@@ -418,30 +418,30 @@
     </ListView>
     <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView">
       <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="24" ImageName="">
-            <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" RelativeSize="34" ImageName="">
-              <LayoutItem Id="MatrixAllocPlanSummary" SizeConstraintsType="Default" RelativeSize="51" />
-              <LayoutItem Id="MatrixAllocResultSummary" SizeConstraintsType="Default" RelativeSize="48" />
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" RelativeSize="24" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="MatrixAllocResultSummary" SizeConstraintsType="Default" RelativeSize="100" Index="0" />
+              <LayoutItem Id="MatrixAllocPlanSummary" SizeConstraintsType="Default" RelativeSize="51" Removed="True" />
             </LayoutGroup>
-            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="65" ImageName="">
-              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
-                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="36" />
-                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="27" />
-                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" />
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="75" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="46" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="36" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="27" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
               </LayoutGroup>
-              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
-                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="36" />
-                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="63" />
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="50" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="36" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="63" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="75">
-            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="">
-              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" />
+          <TabbedGroup Id="Tabs" RelativeSize="79" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="InObjects" RelativeSize="100" ImageName="">
-              <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" />
+            <LayoutGroup Id="InObjects" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>

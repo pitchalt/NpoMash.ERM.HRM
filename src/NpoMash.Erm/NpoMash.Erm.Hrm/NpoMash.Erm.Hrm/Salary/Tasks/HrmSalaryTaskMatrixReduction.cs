@@ -135,45 +135,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (ProportionsMethodMatrix != null)
                 LoadMatrixDepartment(ProportionsMethodMatrix, null, Department);
         }
-        /*
-        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItemReduction> items) {
-            foreach (HrmMatrixRow row in matrix.Rows) {
-                if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
-                    continue;
-                OrderItemReduction item = items.FirstOrDefault(x => x.Order == row.Order);
-                if (item == null) {
-                    item = new OrderItemReduction(this.Session) {
-                        Order = row.Order,
-                        DepartmentItems = new List<DepartmentItemReduction>(),
-                        TypeControl = row.Order.TypeControl
-                    };
-                    items.Add(item);
-                }
-
-                if (col == null)
-                    LoadMatrixDepartment(matrix, row, item.DepartmentItems);
-            }
-
-        }
-
-        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItemReduction> items) {
-            foreach (HrmMatrixColumn col in matrix.Columns) {
-                if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)
-                    continue;
-                DepartmentItemReduction item = items.FirstOrDefault(x => x.Department == col.Department);
-                if (item == null) {
-                    item = new DepartmentItemReduction(this.Session) {
-                        Department = col.Department, // Подразделение
-                        OrderItems = new List<OrderItemReduction>(),
-                        Group = col.Department.GroupDep
-                    };
-                    items.Add(item);
-                }
-
-                if (row == null)
-                    LoadMatrixOrder(matrix, col, item.OrderItems);
-            }
-        }*/
+       
 
         protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem1 item) {
             foreach (HrmMatrixCell cell in col.Cells) {
