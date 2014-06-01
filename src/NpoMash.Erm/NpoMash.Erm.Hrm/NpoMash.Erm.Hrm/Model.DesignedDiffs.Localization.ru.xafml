@@ -379,9 +379,6 @@
         <LocalizationItem Name="LIST_OF_ORDER_ACCEPTED" Value="Утвержден список контролируемых заказов" />
         <LocalizationItem Name="OPEN_TO_EDIT" Value="Открыты для редактирования" />
       </LocalizationGroup>
-      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmSalaryPeriodObjectStatus">
-        <LocalizationItem Name="TEST" Value="ТЕСТ" />
-      </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskState" Value="Состояние задачи">
         <LocalizationItem Name="HRM_SALARY_TASK_ABORTED" Value="Задача отклонена" />
         <LocalizationItem Name="HRM_SALARY_TASK_ACTIVED" Value="Задача активна" />
@@ -413,6 +410,22 @@
     </Items>
   </NavigationItems>
   <Views>
+    <DetailView Id="HrmMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Rows" Caption="Заказы" />
+            <LayoutGroup Id="Columns" Caption="Подразделения" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmPeriod_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -428,6 +441,36 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Items>
+        <PropertyEditor Id="TaskObjectType" Caption="Тип" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmPeriodAllocParameter" Caption="Основные">
+              <LayoutGroup Id="Auto50037cba-3fba-4154-80d0-02227f79bb85" Caption="">
+                <LayoutGroup Id="HrmPeriodAllocParameter_col1" Caption="HrmPeriodAllocParameter_col1" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriodAllocParameter_col2" Caption="HrmPeriodAllocParameter_col2" />
+              <LayoutGroup Id="HrmPeriodAllocParameter_col1" Caption="HrmPeriodAllocParameter_col1" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="OrderControls" Caption="Контроль заказа" />
+            <LayoutGroup Id="DepartmentControl" Caption="Подразделения" />
+            <LayoutGroup Id="PeriodPayTypes" Caption="Код оплаты" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTask_InObjects_ListView">
+      <Columns>
+        <ColumnInfo Id="TaskObjectType" Caption="Тип" />
+        <ColumnInfo Id="TaskObjectName" Caption="Статус" />
+        <ColumnInfo Id="GroupDep" Caption="Группа" />
+      </Columns>
+    </ListView>
     <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -440,7 +483,10 @@
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="LogRecords_Group" Caption="Журнал событий" />
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -456,11 +502,17 @@
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="LogRecords_Group" Caption="Журнал событий" />
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
     <DetailView Id="HrmSalaryTaskImportSourceData_DetailView">
+      <Items>
+        <PropertyEditor Id="LogRecords" Caption="Журнал событий" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
@@ -476,7 +528,9 @@
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="LogRecords_Group" Caption="Журнал событий" />
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -484,37 +538,53 @@
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
-            <LayoutGroup Id="Item1" Caption="Item1">
-              <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task">
+            <LayoutGroup Id="Parameters" Caption="Свойства">
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
                 <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
                 <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
               </LayoutGroup>
-              <LayoutGroup Id="HrmSalaryBaseReductionElements" Caption="Hrm Salary Base Reduction Elements">
-                <LayoutGroup Id="HrmSalaryBaseReductionElements_col1" Caption="HrmSalaryBaseReductionElements_col1" />
-                <LayoutGroup Id="HrmSalaryBaseReductionElements_col2" Caption="HrmSalaryBaseReductionElements_col2" />
+              <LayoutGroup Id="AllocParameters" Caption="Параметры расчета">
+                <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" />
               </LayoutGroup>
-              <LayoutGroup Id="HrmSalaryTaskMatrixReduction" Caption="Hrm Salary Task Matrix Reduction">
-                <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col1" Caption="HrmSalaryTaskMatrixReduction_col1" />
-                <LayoutGroup Id="HrmSalaryTaskMatrixReduction_col2" Caption="HrmSalaryTaskMatrixReduction_col2" />
+              <LayoutGroup Id="TimeSheet" Caption="Табель">
+                <LayoutGroup Id="TimeSheet" Caption="Табель" />
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" />
+            <LayoutGroup Id="MatrixReduce" Caption="Матрица учета">
+              <TabbedGroup Id="@45ddc783-7e97-4e26-9b0e-59aed10f0f12">
+                <LayoutGroup Id="Deps" Caption="Department" />
+                <LayoutGroup Id="Orders" Caption="Order" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета">
+              <TabbedGroup Id="@c2a60ec2-e920-4bb1-9e6d-1e090cf09f97">
+                <LayoutGroup Id="@5579f3e3-a27a-48e2-8b13-b321d15b42e2" Caption="Подразделения" />
+                <LayoutGroup Id="@d9b384ef-4042-4a28-a0e9-ad33684f46eb" Caption="Контроль заказа" />
+                <LayoutGroup Id="@dfcb46cf-2331-4f2d-b7f8-c92e7ebc0195" Caption="Код оплаты" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="SourceData" Caption="Исходные данные">
+              <LayoutGroup Id="@f68f37d6-fcd2-401f-a7ac-8a6602bcd5d2" Caption="@f68f37d6-fcd2-401f-a7ac-8a6602bcd5d2">
+                <TabbedGroup Id="@ee978765-bbf3-42c4-ab60-58fbc7bd9ec8">
+                  <LayoutGroup Id="MatrixPlan" Caption="Плановая матрица">
+                    <TabbedGroup Id="@d68a9e8e-6931-4fa2-a243-8c42fb4c016d">
+                      <LayoutGroup Id="Deps" Caption="Подразделения" />
+                      <LayoutGroup Id="Orders" Caption="Заказы" />
+                    </TabbedGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="TimeSheet" Caption="Табель" />
+                </TabbedGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
             <LayoutGroup Id="AllocParameters.DepartmentControl" Caption="Подразделения" />
             <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
             <LayoutGroup Id="AllocParameters.PeriodPayTypes" Caption="Код оплаты" />
             <LayoutGroup Id="Department" Caption="Подразделение" />
             <LayoutGroup Id="MatrixPlan.Columns" Caption="Подразделения" />
             <LayoutGroup Id="MatrixPlan.Rows" Caption="Заказы" />
-            <LayoutGroup Id="MatrixReduce" Caption="Матрица учета" />
             <LayoutGroup Id="Order" Caption="Заказ" />
-            <LayoutGroup Id="SourceData" Caption="Исходные данные">
-              <LayoutGroup Id="@f68f37d6-fcd2-401f-a7ac-8a6602bcd5d2">
-                <TabbedGroup Id="@ee978765-bbf3-42c4-ab60-58fbc7bd9ec8">
-                  <LayoutGroup Id="MatrixPlan" Caption="Плановая матрица" />
-                </TabbedGroup>
-              </LayoutGroup>
-            </LayoutGroup>
             <LayoutGroup Id="TimeSheet.TimeSheetDeps" Caption="Табель" />
           </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" />
@@ -608,6 +678,15 @@
             <LayoutGroup Id="Department" Caption="Department" />
           </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="IPeriodObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="IPeriodObject" Caption="Объекты периода" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
