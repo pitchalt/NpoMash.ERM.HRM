@@ -20,8 +20,8 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("TaskKompareWorkTime")]
-    [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultOZM.Status,AllocResultOZM.TypeMatrix,AllocResultOZM.Type,AllocResultOZM.GroupDep", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultKB.Status,AllocResultKB.TypeMatrix,AllocResultKB.Type,AllocResultKB.GroupDep", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultOZM.Status,AllocResultOZM.TypeMatrix,AllocResultOZM.Type,AllocResultOZM.GroupDep,AllocResultOZM.Columns,AllocResultOZM.Rows", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultKB.Status,AllocResultKB.TypeMatrix,AllocResultKB.Type,AllocResultKB.GroupDep,AllocResultKB.Columns,AllocResultKB.Rows", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskCompareWorkTime : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2> {
@@ -74,45 +74,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        /*protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItemComp> items) {
-            foreach (HrmMatrixRow row in matrix.Rows) {
-                if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
-                    continue;
-                OrderItemComp item = items.FirstOrDefault(x => x.Order == row.Order);
-                if (item == null) {
-                    item = new OrderItemComp(this.Session) {
-                        Order = row.Order,
-                        DepartmentItems = new List<DepartmentItemComp>(),
-                        TypeControl = row.Order.TypeControl
-                    };
-                    items.Add(item);
-                }
-
-                
-
-                if (col == null)
-                    LoadMatrixDepartment(matrix, row, item.DepartmentItems);
-            }
-
-        }
-
-        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItemComp> items) {
-            foreach (HrmMatrixColumn col in matrix.Columns) {
-                if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)
-                    continue;
-                DepartmentItemComp item = items.FirstOrDefault(x => x.Department == col.Department);
-                if (item == null) {
-                    item = new DepartmentItemComp(this.Session) {
-                        Department = col.Department, // Подразделение
-                        OrderItems = new List<OrderItemComp>(),
-                        Group = col.Department.GroupDep
-                    };
-                    items.Add(item);
-                }
-                if (row == null)
-                    LoadMatrixOrder(matrix, col, item.OrderItems);
-            }
-        }*/
+        
 
         protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem2 item) {
             foreach (HrmMatrixCell cell in row.Cells) {
