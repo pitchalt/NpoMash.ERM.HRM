@@ -24,9 +24,9 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultKB.Status,AllocResultKB.TypeMatrix,AllocResultKB.Type,AllocResultKB.GroupDep", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class TaskKompareWorkTime : HrmSalaryTaskReductionBase<TaskKompareWorkTime.DepartmentItem, TaskKompareWorkTime.OrderItem> {
+    public class HrmSalaryTaskCompareWorkTime : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem> {
         [NonPersistent]
-        public new class DepartmentItem : HrmSalaryTaskReductionBase<TaskKompareWorkTime.DepartmentItem, TaskKompareWorkTime.OrderItem>.DepartmentItem {
+        public new class DepartmentItem : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.DepartmentItem {
             public DepartmentItem(Session session) : base(session) { }
             public DepartmentItem() { }
             //Поля для контроля трудоемкости
@@ -39,7 +39,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [NonPersistent]
-        public new class OrderItem : HrmSalaryTaskReductionBase<TaskKompareWorkTime.DepartmentItem, TaskKompareWorkTime.OrderItem>.OrderItem {
+        public new class OrderItem : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.OrderItem {
             public OrderItem(Session session) : base(session) { }
             public OrderItem() { }
             //Поля для контроля трудоемкости
@@ -152,7 +152,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             return new OrderItem(this.Session);
         }
 
-        public TaskKompareWorkTime(Session session): base(session) { }
+        public HrmSalaryTaskCompareWorkTime(Session session): base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
         protected override void InObjectsLoad() {

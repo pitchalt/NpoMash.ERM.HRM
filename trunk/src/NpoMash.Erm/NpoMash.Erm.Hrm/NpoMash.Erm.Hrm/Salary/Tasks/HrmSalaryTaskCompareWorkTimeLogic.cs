@@ -19,16 +19,16 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     [Persistent("TaskKompareWorkTimeLogic")]
-    public class TaskKompareWorkTimeLogic : BaseObject {
+    public class HrmSalaryTaskCompareWorkTimeLogic : BaseObject {
 
-        public static void InitObjects(IObjectSpace object_space, TaskKompareWorkTime task) {
+        public static void InitObjects(IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
 
 
         }
 
 
 
-        public static void CompareKBMatrix (IObjectSpace object_space, TaskKompareWorkTime task) {
+        public static void CompareKBMatrix (IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
             task.AllocResultKB = task.Period.CurrentMatrixAllocResultKB;
             foreach (HrmMatrix matrix in task.Period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_MATIX &&
@@ -43,7 +43,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
           }
 
-        public static void CompareOZMMatrix(IObjectSpace object_space, TaskKompareWorkTime task) {
+        public static void CompareOZMMatrix(IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
             task.AllocResultOZM = task.Period.CurrentMatrixAllocResultOZM;
             foreach (HrmMatrix matrix in task.Period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_MATIX &&
@@ -58,7 +58,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public TaskKompareWorkTimeLogic(Session session) : base(session) { }
+        public HrmSalaryTaskCompareWorkTimeLogic(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

@@ -17,9 +17,9 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public partial class TaskKompareWorkTimeVC : ViewController {
+    public partial class HrmSalaryTaskCompareWorkTimeVC : ViewController {
 
-        public TaskKompareWorkTimeVC() {
+        public HrmSalaryTaskCompareWorkTimeVC() {
             InitializeComponent();
             RegisterActions(components);
         }
@@ -34,7 +34,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void AcceptCompareKB_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            TaskKompareWorkTime task = e.CurrentObject as TaskKompareWorkTime;
+            HrmSalaryTaskCompareWorkTime task = e.CurrentObject as HrmSalaryTaskCompareWorkTime;
             task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
 
             task.Complete();
@@ -46,7 +46,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void AcceptCompareOZM_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            TaskKompareWorkTime task = e.CurrentObject as TaskKompareWorkTime;
+            HrmSalaryTaskCompareWorkTime task = e.CurrentObject as HrmSalaryTaskCompareWorkTime;
             task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
 
             task.Complete();

@@ -325,11 +325,11 @@
     </Compile>
     <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTime.cs" />
     <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeLogic.cs" />
-    <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.cs">
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.Designer.cs">
-      <DependentUpon>HrmSalaryTaskTaskCompareWorkTimeVC.cs</DependentUpon>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskCompareWorkTimeVC.cs</DependentUpon>
     </Compile>
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
@@ -374,8 +374,8 @@
     <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskRevertVC.resx">
       <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskTaskCompareWorkTimeVC.resx">
-      <DependentUpon>HrmSalaryTaskTaskCompareWorkTimeVC.cs</DependentUpon>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.resx">
+      <DependentUpon>HrmSalaryTaskCompareWorkTimeVC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
