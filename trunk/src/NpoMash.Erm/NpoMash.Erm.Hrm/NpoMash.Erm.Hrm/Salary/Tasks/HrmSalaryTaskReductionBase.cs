@@ -19,85 +19,75 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public abstract class HrmSalaryTaskReductionBase<DEP, ORD> : HrmSalaryTask
-    where DEP:HrmSalaryTaskReductionBase<DEP, ORD>.DepartmentItem
-    where ORD:HrmSalaryTaskReductionBase<DEP, ORD>.OrderItem {
+    public abstract class HrmSalaryTaskReductionBase : HrmSalaryTask {
+    //where DEP:HrmSalaryTaskReductionBase<DEP, ORD>.DepartmentItemBase
+    //where ORD:HrmSalaryTaskReductionBase<DEP, ORD>.OrderItemBase {
 
         [NonPersistent]
-        public class DepartmentItem : XPCustomObject {
+        public abstract class DepartmentItemBase : XPCustomObject {
             public Department Department;
             public DepartmentGroupDep Group;
-            public IList<ORD> OrderItems = new List<ORD>();
-            public DepartmentItem() { }
-            public DepartmentItem(Session session) : base(session) { }
+//            protected IList<OrderItemBase> _OrderItems; // = new List<ORD>();
+            public abstract IList<OrderItemBase> OrderItemBases { get; }
+
+            public DepartmentItemBase() { }
+            public DepartmentItemBase(Session session) : base(session) { }
         }
 
         [NonPersistent]
-        public class OrderItem : XPCustomObject {
+        public abstract class OrderItemBase : XPCustomObject {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
-            public IList<DEP> DepartmentItems = new List<DEP>();
-            public OrderItem() { }
-            public OrderItem(Session session) : base(session) { }
+//            public IList<DepartmentItemBase> _DepartmentItems; // = new List<DEP>();
+//            [Browsable(false)]
+            public abstract IList<DepartmentItemBase> DepartmentItemBases { get; }
+ 
+            public OrderItemBase() { }
+            public OrderItemBase(Session session) : base(session) { }
         }
 
-        private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
-        [VisibleInDetailView(false)]
-        [VisibleInListView(false)]
-        [VisibleInLookupListView(false)]
-        public HrmMatrix MinimizeNumberOfDeviationsMatrix {
-            get { return _MinimizeNumberOfDeviationsMatrix; }
-            set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
-        }
+//        protected IList<DepartmentItemBase> _DepartmentItems;
+//        [NonPersistent]
+        [Browsable(false)]
+        public abstract IList<DepartmentItemBase> DepartmentItemBases { get; }
+//            get {
+////                if (_Department == null) {
+////                    _Department = new List<DEP>();
+////                    departmentCreate();
+////                }
+//                return _DepartmentItems;
+//            }
+//        }
 
-        private HrmMatrix _MatrixPlan;
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix MatrixPlan {
-            get { return _MatrixPlan; }
-            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
-
-        }
-
-        private IList<DEP> _Department;
-        [NonPersistent]
-        public IList<DEP> Department {
-            get {
-                if (_Department == null) {
-                    _Department = new List<DEP>();
-                    departmentCreate();
-                }
-                return _Department;
-            }
-        }
-
-        private IList<ORD> _Order;
-        [NonPersistent]
-        public IList<ORD> Order {
-            get {
-                if (_Order == null) {
-                    _Order = new List<ORD>();
-                    orderCreate();
-                }
-                return _Order;
-            }
-        }
+//        private IList<OrderItemBase> _OrderItems;
+//        [NonPersistent]
+        [Browsable(false)]
+        public abstract IList<OrderItemBase> OrderItemBases { get; }
+        //    get {
+        //        //if (_Order == null) {
+        //        //    _Order = new List<ORD>();
+        //        //    orderCreate();
+        //        //}
+        //        return _OrderItems;
+        //    }
+        //}
 
         protected abstract void orderCreate();
         protected abstract void departmentCreate();
-        protected abstract void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DEP item);
-        protected abstract void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, ORD item);
-        protected abstract DEP DepartmentItemCreate();
-        protected abstract ORD OrderItemCreate();
+        protected abstract void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemBase item);
+        protected abstract void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItemBase item);
+        protected abstract DepartmentItemBase DepartmentItemCreate();
+        protected abstract OrderItemBase OrderItemCreate();
 
-        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<ORD> items) {
+        protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItemBase> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
                 if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)
                     continue;
-                ORD item = items.FirstOrDefault(x => x.Order == row.Order);
+                OrderItemBase item = items.FirstOrDefault(x => x.Order == row.Order);
                 if (item == null) {
                     item = OrderItemCreate();
                     item.Order = row.Order;
-                    item.DepartmentItems = new List<DEP>();
+//                    item.DepartmentItems = new List<DEP>();
                     item.TypeControl = row.Order.TypeControl;
                     items.Add(item);
                 }
@@ -105,20 +95,20 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixOrderLogic(matrix,col,row, item);
 
                 if (col == null)
-                    LoadMatrixDepartment(matrix, row, item.DepartmentItems);
+                    LoadMatrixDepartment(matrix, row, item.DepartmentItemBases);
             }
 
         }
 
-        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DEP> items) {
+        protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentItemBase> items) {
             foreach (HrmMatrixColumn col in matrix.Columns) {
                 if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)
                     continue;
-                DEP item = items.FirstOrDefault(x => x.Department == col.Department);
+                DepartmentItemBase item = items.FirstOrDefault(x => x.Department == col.Department);
                 if (item == null) {
                     item = DepartmentItemCreate();
                     item.Department = col.Department; // Подразделение
-                    item.OrderItems = new List<ORD>();
+//                    item.OrderItems = new List<ORD>();
                     item.Group = col.Department.GroupDep;
                     items.Add(item);
                 }
@@ -126,7 +116,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixDepartmentLogic(matrix,col,row, item);
 
                 if (row == null)
-                    LoadMatrixOrder(matrix, col, item.OrderItems);
+                    LoadMatrixOrder(matrix, col, item.OrderItemBases);
             }
         }
 
