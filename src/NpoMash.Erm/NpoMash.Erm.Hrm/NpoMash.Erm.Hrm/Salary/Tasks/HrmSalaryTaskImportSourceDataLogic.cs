@@ -299,7 +299,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             }
                         }
                         else {
-                            task.LogRecord(LogRecordType.ERROR, departments_in_database[file_dep_code], orders_in_database[file_ord_code], "В справочниках не найдено подразделения с кодом " + each.DepartmentCode.Trim());
+                            task.LogRecord(LogRecordType.ERROR, null, orders_in_database[file_ord_code], "В справочниках не найдено подразделения с кодом " + each.DepartmentCode.Trim());
                         }
                         //теперь разбираемся со строчкой
                         HrmMatrixRow current_row = null;
@@ -313,10 +313,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                             if (orders_in_database.ContainsKey(file_ord_code))
                                 current_row.Order = orders_in_database[file_ord_code];
                             else {
-                                task.LogRecord(LogRecordType.ERROR, departments_in_database[file_dep_code], orders_in_database[file_ord_code], "В справочниках не найдено заказа с кодом " + file_ord_code);
+                                task.LogRecord(LogRecordType.ERROR, departments_in_database[file_dep_code], null, "В справочниках не найдено заказа с кодом " + file_ord_code);
                             }
                         }
-                        if (current_row != null && current_column != null) {
+                        if (current_row != null && current_column != null && current_row.Order != null && current_column.Department != null) {
                             String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
                             if (!cells_in_matrix.ContainsKey(cell_key)) {
                                 HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
@@ -336,7 +336,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                             task.MatrixPlanOZM = ozm_plan_matrix;
                         }
                         else {
-                            task.LogRecord(LogRecordType.WARNING, current_column.Department, current_row.Order, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа");
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа");
                         }
                     }
                 }
@@ -396,7 +396,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                                 cells_in_matrix[cell_key].TravelTime += travel.TravelTime;
                             }
                             catch (KeyNotFoundException) {
-                                task.LogRecord(LogRecordType.WARNING, departments_in_database[file_dep_code], orders_in_database[file_order_code], "В матрице нет такой ячейки и/или код подразделения и/или заказа в файле пустые");
+                                task.LogRecord(LogRecordType.WARNING, null, null, "В матрице нет такой ячейки и/или код подразделения " + file_dep_code + " и/или заказа " + file_order_code + " в файле пустые");
                             }
                         }
                         else {

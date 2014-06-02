@@ -301,7 +301,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
                 HrmMatrixCell current_cell = null;
-                if (current_row != null && current_column != null && !String.IsNullOrEmpty(file_payType)) {
+                if (current_row != null && current_column != null && !String.IsNullOrEmpty(file_payType) && current_row.Order != null && current_column.Department != null) {
                     HrmAccountOperation account_to_db = new HrmAccountOperation(session);
                     account_to_db.Sign = account_operation.Sign;
                     account_to_db.Debit = account_operation.Debit;
