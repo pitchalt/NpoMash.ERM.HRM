@@ -35,15 +35,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryTaskMatrixReduction(Session session) : base(session) { }
 
         [NonPersistent]
-        public class DepartmentItem : DepartmentItemBase {
-            public DepartmentItem(Session session) : base(session) { }
-            public DepartmentItem() { }
+        public class DepartmentItem1 : DepartmentItemBase {
+            public DepartmentItem1(Session session) : base(session) { }
+            public DepartmentItem1() { }
             [Browsable(false)]
             public override IList<OrderItemBase> OrderItemBases {
-                get { return new ListConverter<OrderItemBase, OrderItem>(OrderItems); }
+                get { return new ListConverter<OrderItemBase, OrderItem1>(OrderItems); }
             }
-            protected IList<OrderItem> _OrderItems = new List<OrderItem>();
-            public IList<OrderItem> OrderItems {
+            protected IList<OrderItem1> _OrderItems = new List<OrderItem1>();
+            public IList<OrderItem1> OrderItems {
                 get {
                     return _OrderItems;
                 }
@@ -56,15 +56,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [NonPersistent]
-        public class OrderItem : OrderItemBase {
-            public OrderItem(Session session) : base(session) { }
-            public OrderItem() { }
+        public class OrderItem1 : OrderItemBase {
+            public OrderItem1(Session session) : base(session) { }
+            public OrderItem1() { }
             [Browsable(false)]
             public override IList<DepartmentItemBase> DepartmentItemBases {
-                get { return new ListConverter<DepartmentItemBase, DepartmentItem>(DepartmentItems); }
+                get { return new ListConverter<DepartmentItemBase, DepartmentItem1>(DepartmentItems); }
             }
-            public IList<DepartmentItem> _DepartmentItems = new List<DepartmentItem>();
-            public IList<DepartmentItem> DepartmentItems {
+            public IList<DepartmentItem1> _DepartmentItems = new List<DepartmentItem1>();
+            public IList<DepartmentItem1> DepartmentItems {
                 get { return _DepartmentItems; }
             }
             public Decimal MinimizeNumberOfDeviationsAlloc;
@@ -72,12 +72,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             public Decimal ProportionsMethodAlloc;
             public Decimal OrderPlan;
         }
-        protected IList<DepartmentItem> _DepartmentItems;
+        protected IList<DepartmentItem1> _DepartmentItems;
         [NonPersistent]
-        public IList<DepartmentItem> DepartmentItems {
+        public IList<DepartmentItem1> DepartmentItems {
             get {
                 if (_DepartmentItems == null) {
-                    _DepartmentItems = new List<DepartmentItem>();
+                    _DepartmentItems = new List<DepartmentItem1>();
                     departmentCreate();
                 }
                 return _DepartmentItems;
@@ -86,16 +86,16 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Browsable(false)]
         public override IList<DepartmentItemBase> DepartmentItemBases {
             get {
-                return new ListConverter<DepartmentItemBase, DepartmentItem>(DepartmentItems);
+                return new ListConverter<DepartmentItemBase, DepartmentItem1>(DepartmentItems);
             }
         }
 
-        protected IList<OrderItem> _OrderItems;
+        protected IList<OrderItem1> _OrderItems;
         [NonPersistent]
-        public IList<OrderItem> OrderItems {
+        public IList<OrderItem1> OrderItems {
             get {
                 if (_OrderItems == null) {
-                    _OrderItems = new List<OrderItem>();
+                    _OrderItems = new List<OrderItem1>();
                     orderCreate();
                 }
                 return _OrderItems;
@@ -104,7 +104,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         [Browsable(false)]
         public  override IList<OrderItemBase> OrderItemBases {
             get {
-                return new ListConverter<OrderItemBase, OrderItem>(OrderItems);
+                return new ListConverter<OrderItemBase, OrderItem1>(OrderItems);
             }
         }
 
@@ -206,7 +206,7 @@ namespace NpoMash.Erm.Hrm.Salary {
        
 
         protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemBase item2) {
-            DepartmentItem item = (DepartmentItem)item2;
+            DepartmentItem1 item = (DepartmentItem1)item2;
             foreach (HrmMatrixCell cell in col.Cells) {
                 if (row != null && cell.Row != row)
                     continue;
@@ -234,7 +234,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItemBase item2) {
-            OrderItem item = (OrderItem)item2;
+            OrderItem1 item = (OrderItem1)item2;
             foreach (HrmMatrixCell cell in row.Cells) {
                 if (col != null && cell.Column != col)
                     continue;
@@ -264,11 +264,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override DepartmentItemBase DepartmentItemCreate() {
-            return new DepartmentItem(this.Session);
+            return new DepartmentItem1(this.Session);
         }
 
         protected override OrderItemBase OrderItemCreate() {
-            return new OrderItem(this.Session);
+            return new OrderItem1(this.Session);
         }
 
         public override void AfterConstruction() {
