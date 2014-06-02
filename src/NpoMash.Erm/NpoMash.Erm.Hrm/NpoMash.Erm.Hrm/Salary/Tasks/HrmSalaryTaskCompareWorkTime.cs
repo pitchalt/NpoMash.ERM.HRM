@@ -24,12 +24,26 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "AllocResultKB.Status,AllocResultKB.TypeMatrix,AllocResultKB.Type,AllocResultKB.GroupDep,AllocResultKB.Columns,AllocResultKB.Rows", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class HrmSalaryTaskCompareWorkTime : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2> {
+    public class HrmSalaryTaskCompareWorkTime : 
+//        HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem> {
+        HrmSalaryTaskReductionBase {
         
         [NonPersistent]
-        public class DepartmentItem2 : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2>.DepartmentItem {
-            public DepartmentItem2(Session session) : base(session) { }
-            public DepartmentItem2() { }
+        public class DepartmentItem : 
+//            HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.DepartmentItemBase {
+            DepartmentItemBase {
+            public DepartmentItem(Session session) : base(session) { }
+            public DepartmentItem() { }
+            [Browsable(false)]
+            public override IList<OrderItemBase> OrderItemBases {
+                get { return new ListConverter<OrderItemBase, OrderItem>(OrderItems); }
+            }
+            protected IList<OrderItem> _OrderItems = new List<OrderItem>();
+            public IList<OrderItem> OrderItems {
+                get {
+                    return _OrderItems;
+                }
+            }
             //Поля для контроля трудоемкости
             public Decimal DepartmentPlan;
             public Decimal DepartmentTravelPlan;
@@ -43,14 +57,24 @@ namespace NpoMash.Erm.Hrm.Salary {
             private Decimal plan_Fact;
             public Decimal Plan_Fact {
                 get { return plan_Fact=DepartmentPlan - DepartmentFact; }
-            }
+        }
             public Decimal CoercedValue;
         }
 
         [NonPersistent]
-        public class OrderItem2 : HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem2, HrmSalaryTaskCompareWorkTime.OrderItem2>.OrderItem {
-            public OrderItem2(Session session) : base(session) { }
-            public OrderItem2() { }
+        public class OrderItem : 
+//            HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.OrderItemBase {
+            OrderItemBase {
+            public OrderItem(Session session) : base(session) { }
+            public OrderItem() { }
+            [Browsable(false)]
+            public override IList<DepartmentItemBase> DepartmentItemBases {
+                get { return new ListConverter<DepartmentItemBase, DepartmentItem>(DepartmentItems); }
+            }
+            public IList<DepartmentItem> _DepartmentItems = new List<DepartmentItem>();
+            public IList<DepartmentItem> DepartmentItems {
+                get { return _DepartmentItems; }
+            }
             //Поля для контроля трудоемкости
             public Decimal OrderPlan;
             public Decimal OrderFact;
@@ -64,9 +88,63 @@ namespace NpoMash.Erm.Hrm.Salary {
             private Decimal plan_Fact;
             public Decimal Plan_Fact {
                 get { return plan_Fact = OrderPlan - OrderFact; }
-            }
+        }
             public Decimal CoercedValue;
         }
+        protected IList<DepartmentItem> _DepartmentItems;
+        [NonPersistent]
+        public IList<DepartmentItem> DepartmentItems {
+            get {
+                if (_DepartmentItems == null) {
+                    _DepartmentItems = new List<DepartmentItem>();
+                    departmentCreate();
+                }
+                return _DepartmentItems;
+            }
+        }
+        [Browsable(false)]
+        public  override IList<DepartmentItemBase> DepartmentItemBases {
+            get {
+                return new ListConverter<DepartmentItemBase, DepartmentItem>(DepartmentItems);
+            }
+        }
+
+        protected IList<OrderItem> _OrderItems;
+        [NonPersistent]
+        public IList<OrderItem> OrderItems {
+            get {
+                if (_OrderItems == null) {
+                    _OrderItems = new List<OrderItem>();
+                    orderCreate();
+                }
+                return _OrderItems;
+            }
+        }
+        [Browsable(false)]
+        public override IList<OrderItemBase> OrderItemBases {
+            get {
+                return new ListConverter<OrderItemBase, OrderItem>(OrderItems);
+            }
+        }
+
+
+        private HrmMatrix _MinimizeNumberOfDeviationsMatrix;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public HrmMatrix MinimizeNumberOfDeviationsMatrix {
+            get { return _MinimizeNumberOfDeviationsMatrix; }
+            set { SetPropertyValue<HrmMatrix>("MinimizeNumberOfDeviationsMatrix", ref _MinimizeNumberOfDeviationsMatrix, value); }
+        }
+
+        private HrmMatrix _MatrixPlan;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix MatrixPlan {
+            get { return _MatrixPlan; }
+            set { SetPropertyValue<HrmMatrix>("MatrixPlan", ref _MatrixPlan, value); }
+
+        }
+
 
         private HrmMatrix _AllocResultKB; //Первичная проводка КБ
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
@@ -125,7 +203,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         
 
-        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItem2 item) {
+        protected override void LoadMatrixOrderLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, OrderItemBase item2) {
+            OrderItem item = (OrderItem)item2;
             foreach (HrmMatrixCell cell in row.Cells) {
                 if (col != null && cell.Column != col)
                     continue;
@@ -149,12 +228,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     item.OrderFact = cell.Time;
                     item.TravelFact = cell.TravelTime;
-                }
             }
+        }
         }
 
 
-        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItem2 item) {
+        protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemBase item2) {
+            DepartmentItem item = (DepartmentItem)item2;
             foreach (HrmMatrixCell cell in col.Cells) {
                 if (row != null && cell.Row != row)
                     continue;
@@ -177,16 +257,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     item.DepartmentFact = cell.Time;
                     item.TravelFact = cell.TravelTime;
-                }
             }
         }
-
-        protected override DepartmentItem2 DepartmentItemCreate() {
-            return new DepartmentItem2(this.Session);
         }
 
-        protected override OrderItem2 OrderItemCreate() {
-            return new OrderItem2(this.Session);
+        protected override DepartmentItemBase DepartmentItemCreate() {
+            return new DepartmentItem(this.Session);
+        }
+
+        protected override OrderItemBase OrderItemCreate() {
+            return new OrderItem(this.Session);
         }
 
         public HrmSalaryTaskCompareWorkTime(Session session) : base(session) { }

@@ -44,7 +44,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
         public void Ready_CheckDepartmentRef_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var reduction = PrepareTestData(test_object_space, 2, 10, 1, 5, 6, 100);
-            Assert.IsNotNull(reduction.Department);
+            Assert.IsNotNull(reduction.DepartmentItemBases);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
         public void Ready_CheckOrderRef_NotNullExpect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
             var reduction = PrepareTestData(test_object_space, 2, 10, 1, 5, 6, 100);
-            Assert.IsNotNull(reduction.Order);
+            Assert.IsNotNull(reduction.OrderItemBases);
         }
 
         [Test]

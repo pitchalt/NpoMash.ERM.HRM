@@ -17,9 +17,7 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-
-    [Persistent("TaskKompareWorkTimeLogic")]
-    public class HrmSalaryTaskCompareWorkTimeLogic : BaseObject {
+    public static class HrmSalaryTaskCompareWorkTimeLogic  {
 
         public static void InitObjects(IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
 
@@ -76,10 +74,5 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
         }
 
-
-
-
-        public HrmSalaryTaskCompareWorkTimeLogic(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }
