@@ -180,24 +180,24 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         protected override void orderCreate() {
             if (MatrixPlan != null)
-                LoadMatrixOrder(MatrixPlan, null, Order);
+                LoadMatrixOrder(MatrixPlan, null, OrderItemBases);
             if (MinimizeNumberOfDeviationsMatrix != null)
-                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, Order);
+                LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, OrderItemBases);
             if (GroupDep == DepartmentGroupDep.DEPARTMENT_KB && AllocResultKB != null)
-                LoadMatrixOrder(AllocResultKB, null, Order);
+                LoadMatrixOrder(AllocResultKB, null, OrderItemBases);
             if (GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && AllocResultOZM != null)
-                LoadMatrixOrder(AllocResultOZM, null, Order);
+                LoadMatrixOrder(AllocResultOZM, null, OrderItemBases);
         }
 
         protected override void departmentCreate() {
             if (MatrixPlan != null)
-                LoadMatrixDepartment(MatrixPlan, null, Department);
+                LoadMatrixDepartment(MatrixPlan, null, DepartmentItemBases);
             if (MinimizeNumberOfDeviationsMatrix != null)
-                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, Department);
+                LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, DepartmentItemBases);
             if (GroupDep == DepartmentGroupDep.DEPARTMENT_KB && AllocResultKB != null)
-                LoadMatrixDepartment(AllocResultKB, null, Department);
+                LoadMatrixDepartment(AllocResultKB, null, DepartmentItemBases);
             if (GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && AllocResultOZM != null)
-                LoadMatrixDepartment(AllocResultOZM, null, Department);
+                LoadMatrixDepartment(AllocResultOZM, null, DepartmentItemBases);
         }
 
 
