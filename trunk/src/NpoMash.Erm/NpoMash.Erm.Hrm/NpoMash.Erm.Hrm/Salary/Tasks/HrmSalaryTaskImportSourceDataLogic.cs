@@ -117,6 +117,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public static void ImportPlanMatrixes(IObjectSpace object_space, HrmSalaryTaskImportSourceData task) {
             if (task.State != HrmSalaryTaskState.HRM_SALARY_TASK_ABORTED) {
+                bool broken = false;
                 //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
                 //Общая плановая матрица
                 HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
@@ -252,6 +253,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (each.Year != current_year || each.Month != current_month) {
                         task.Abort();
                         task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Matrix_Plan.ncd' не соответствует дате текущего периода");
+                        broken = true;
                         matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
@@ -300,6 +302,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                         else {
                             task.LogRecord(LogRecordType.ERROR, null, orders_in_database[file_ord_code], "В справочниках не найдено подразделения с кодом " + each.DepartmentCode.Trim());
+                            broken = true;
+                            matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         }
                         //теперь разбираемся со строчкой
                         HrmMatrixRow current_row = null;
@@ -314,6 +320,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                                 current_row.Order = orders_in_database[file_ord_code];
                             else {
                                 task.LogRecord(LogRecordType.ERROR, departments_in_database[file_dep_code], null, "В справочниках не найдено заказа с кодом " + file_ord_code);
+                                broken = true;
+                                matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                                kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                                ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                             }
                         }
                         if (current_row != null && current_column != null && current_row.Order != null && current_column.Department != null) {
@@ -344,6 +354,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (data.Year != current_year) {
                         task.Abort();
                         task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Const_OrderTime.ncd' не соответствует дате текущего периода");
+                        broken = true;
                         matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                         ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
@@ -365,6 +376,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                             }
                             catch (KeyNotFoundException) {
                                 task.LogRecord(LogRecordType.ERROR, null, null, "В матрице нет такой ячейки и/или код подразделения и/или заказа в файле пустые");
+                                broken = true;
+                                matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                                kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                                ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                             }
                         }
                         else {
@@ -404,6 +419,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         }
                     }
                 }
+                if (broken) { task.Abort(); }
             }
             else {
                 HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
