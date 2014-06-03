@@ -26,6 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() { base.AfterConstruction(); }
 
         private HrmMatrix _ProvisionMatrix;
+      [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix ProvisionMatrix {
             get { return _ProvisionMatrix; }
             set { SetPropertyValue<HrmMatrix>("ProvisionMatrix", ref _ProvisionMatrix, value); }

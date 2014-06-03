@@ -106,8 +106,8 @@
     </Items>
   </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.5.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <ListView Id="HrmMatrix_Columns_MasterDetail_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" MasterDetailMode="ListViewAndDetailView" IsNewNode="True">
@@ -157,6 +157,131 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Removed="True" />
+            <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="@31a3561f-04c7-4251-ae5a-d3396fd9a848" IsNewNode="True">
+              <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Index="0" Direction="Horizontal" ShowCaption="True" Caption="Hrm Salary Task Provision Matrix Reduction" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" ShowCaption="" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" ShowCaption="" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" ShowCaption="" Index="2" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.NormNoControlKB" ViewItem="AllocParameters.NormNoControlKB" ShowCaption="" Index="3" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.NormNoControlOZM" ViewItem="AllocParameters.NormNoControlOZM" ShowCaption="" Index="4" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.IterationNumber" ViewItem="AllocParameters.IterationNumber" ShowCaption="" Index="5" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.PeriodObjectStatus" ViewItem="AllocParameters.PeriodObjectStatus" ShowCaption="" Index="6" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.PeriodObjectType" ViewItem="AllocParameters.PeriodObjectType" ShowCaption="" Index="7" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.GroupDep" ViewItem="AllocParameters.GroupDep" ShowCaption="" Index="8" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Name" ViewItem="AllocParameters.Name" ShowCaption="" Index="9" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.TaskObjectType" ViewItem="AllocParameters.TaskObjectType" ShowCaption="" Index="10" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.TaskObjectName" ViewItem="AllocParameters.TaskObjectName" ShowCaption="" Index="11" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Type" ViewItem="MatrixPlanKB.Type" ShowCaption="" Index="12" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.TypeMatrix" ViewItem="MatrixPlanKB.TypeMatrix" ShowCaption="" Index="13" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.GroupDep" ViewItem="MatrixPlanKB.GroupDep" ShowCaption="" Index="14" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Status" ViewItem="MatrixPlanKB.Status" ShowCaption="" Index="15" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Variant" ViewItem="MatrixPlanKB.Variant" ShowCaption="" Index="16" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.IterationNumber" ViewItem="MatrixPlanKB.IterationNumber" ShowCaption="" Index="17" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.PeriodObjectStatus" ViewItem="MatrixPlanKB.PeriodObjectStatus" ShowCaption="" Index="18" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.PeriodObjectType" ViewItem="MatrixPlanKB.PeriodObjectType" ShowCaption="" Index="19" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.TaskObjectType" ViewItem="MatrixPlanKB.TaskObjectType" ShowCaption="" Index="20" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.TaskObjectName" ViewItem="MatrixPlanKB.TaskObjectName" ShowCaption="" Index="21" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Name" ViewItem="MatrixPlanKB.Name" ShowCaption="" Index="22" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Type" ViewItem="MatrixPlanOZM.Type" ShowCaption="" Index="23" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.TypeMatrix" ViewItem="MatrixPlanOZM.TypeMatrix" ShowCaption="" Index="24" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.GroupDep" ViewItem="MatrixPlanOZM.GroupDep" ShowCaption="" Index="25" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Status" ViewItem="MatrixPlanOZM.Status" ShowCaption="" Index="26" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Variant" ViewItem="MatrixPlanOZM.Variant" ShowCaption="" Index="27" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.IterationNumber" ViewItem="MatrixPlanOZM.IterationNumber" ShowCaption="" Index="28" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.PeriodObjectStatus" ViewItem="MatrixPlanOZM.PeriodObjectStatus" ShowCaption="" Index="29" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.PeriodObjectType" ViewItem="MatrixPlanOZM.PeriodObjectType" ShowCaption="" Index="30" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.TaskObjectType" ViewItem="MatrixPlanOZM.TaskObjectType" ShowCaption="" Index="31" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.TaskObjectName" ViewItem="MatrixPlanOZM.TaskObjectName" ShowCaption="" Index="32" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Name" ViewItem="MatrixPlanOZM.Name" ShowCaption="" Index="33" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Type" ViewItem="MatrixAllocKB.Type" ShowCaption="" Index="34" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.TypeMatrix" ViewItem="MatrixAllocKB.TypeMatrix" ShowCaption="" Index="35" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.GroupDep" ViewItem="MatrixAllocKB.GroupDep" ShowCaption="" Index="36" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" ShowCaption="" Index="37" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Variant" ViewItem="MatrixAllocKB.Variant" ShowCaption="" Index="38" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.IterationNumber" ViewItem="MatrixAllocKB.IterationNumber" ShowCaption="" Index="39" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.PeriodObjectStatus" ViewItem="MatrixAllocKB.PeriodObjectStatus" ShowCaption="" Index="40" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.PeriodObjectType" ViewItem="MatrixAllocKB.PeriodObjectType" ShowCaption="" Index="41" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.TaskObjectType" ViewItem="MatrixAllocKB.TaskObjectType" ShowCaption="" Index="42" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.TaskObjectName" ViewItem="MatrixAllocKB.TaskObjectName" ShowCaption="" Index="43" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Name" ViewItem="MatrixAllocKB.Name" ShowCaption="" Index="44" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Type" ViewItem="MatrixAllocOZM.Type" ShowCaption="" Index="45" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.TypeMatrix" ViewItem="MatrixAllocOZM.TypeMatrix" ShowCaption="" Index="46" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                  <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" ShowCaption="" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Status" ViewItem="MatrixAllocOZM.Status" ShowCaption="" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Variant" ViewItem="MatrixAllocOZM.Variant" ShowCaption="" Index="2" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.IterationNumber" ViewItem="MatrixAllocOZM.IterationNumber" ShowCaption="" Index="3" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.PeriodObjectStatus" ViewItem="MatrixAllocOZM.PeriodObjectStatus" ShowCaption="" Index="4" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.PeriodObjectType" ViewItem="MatrixAllocOZM.PeriodObjectType" ShowCaption="" Index="5" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.TaskObjectType" ViewItem="MatrixAllocOZM.TaskObjectType" ShowCaption="" Index="6" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.TaskObjectName" ViewItem="MatrixAllocOZM.TaskObjectName" ShowCaption="" Index="7" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Name" ViewItem="MatrixAllocOZM.Name" ShowCaption="" Index="8" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.Period" ViewItem="CurrentTimeSheetKB.Period" ShowCaption="" Index="9" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.GroupDep" ViewItem="CurrentTimeSheetKB.GroupDep" ShowCaption="" Index="10" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.Status" ViewItem="CurrentTimeSheetKB.Status" ShowCaption="" Index="11" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.PeriodObjectStatus" ViewItem="CurrentTimeSheetKB.PeriodObjectStatus" ShowCaption="" Index="12" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.PeriodObjectType" ViewItem="CurrentTimeSheetKB.PeriodObjectType" ShowCaption="" Index="13" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.TaskObjectType" ViewItem="CurrentTimeSheetKB.TaskObjectType" ShowCaption="" Index="14" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.TaskObjectName" ViewItem="CurrentTimeSheetKB.TaskObjectName" ShowCaption="" Index="15" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.Name" ViewItem="CurrentTimeSheetKB.Name" ShowCaption="" Index="16" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.Period" ViewItem="CurrentTimeSheetOZM.Period" ShowCaption="" Index="17" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.GroupDep" ViewItem="CurrentTimeSheetOZM.GroupDep" ShowCaption="" Index="18" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.Status" ViewItem="CurrentTimeSheetOZM.Status" ShowCaption="" Index="19" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.PeriodObjectStatus" ViewItem="CurrentTimeSheetOZM.PeriodObjectStatus" ShowCaption="" Index="20" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.PeriodObjectType" ViewItem="CurrentTimeSheetOZM.PeriodObjectType" ShowCaption="" Index="21" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.TaskObjectType" ViewItem="CurrentTimeSheetOZM.TaskObjectType" ShowCaption="" Index="22" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.TaskObjectName" ViewItem="CurrentTimeSheetOZM.TaskObjectName" ShowCaption="" Index="23" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.Name" ViewItem="CurrentTimeSheetOZM.Name" ShowCaption="" Index="24" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Type" ViewItem="AllocResultKB.Type" ShowCaption="" Index="25" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.TypeMatrix" ViewItem="AllocResultKB.TypeMatrix" ShowCaption="" Index="26" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.GroupDep" ViewItem="AllocResultKB.GroupDep" ShowCaption="" Index="27" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Status" ViewItem="AllocResultKB.Status" ShowCaption="" Index="28" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Variant" ViewItem="AllocResultKB.Variant" ShowCaption="" Index="29" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.IterationNumber" ViewItem="AllocResultKB.IterationNumber" ShowCaption="" Index="30" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.PeriodObjectStatus" ViewItem="AllocResultKB.PeriodObjectStatus" ShowCaption="" Index="31" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.PeriodObjectType" ViewItem="AllocResultKB.PeriodObjectType" ShowCaption="" Index="32" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.TaskObjectType" ViewItem="AllocResultKB.TaskObjectType" ShowCaption="" Index="33" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.TaskObjectName" ViewItem="AllocResultKB.TaskObjectName" ShowCaption="" Index="34" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Name" ViewItem="AllocResultKB.Name" ShowCaption="" Index="35" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Type" ViewItem="AllocResultOZM.Type" ShowCaption="" Index="36" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.TypeMatrix" ViewItem="AllocResultOZM.TypeMatrix" ShowCaption="" Index="37" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.GroupDep" ViewItem="AllocResultOZM.GroupDep" ShowCaption="" Index="38" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Status" ViewItem="AllocResultOZM.Status" ShowCaption="" Index="39" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Variant" ViewItem="AllocResultOZM.Variant" ShowCaption="" Index="40" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.IterationNumber" ViewItem="AllocResultOZM.IterationNumber" ShowCaption="" Index="41" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.PeriodObjectStatus" ViewItem="AllocResultOZM.PeriodObjectStatus" ShowCaption="" Index="42" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.PeriodObjectType" ViewItem="AllocResultOZM.PeriodObjectType" ShowCaption="" Index="43" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.TaskObjectType" ViewItem="AllocResultOZM.TaskObjectType" ShowCaption="" Index="44" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.TaskObjectName" ViewItem="AllocResultOZM.TaskObjectName" ShowCaption="" Index="45" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Name" ViewItem="AllocResultOZM.Name" ShowCaption="" Index="46" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Hrm Salary Task" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" IsNewNode="True">
+                  <LayoutItem Id="TaskType" ViewItem="TaskType" ShowCaption="" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="State" ViewItem="State" ShowCaption="" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="GroupDep" ViewItem="GroupDep" ShowCaption="" Index="2" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" IsNewNode="True">
+                  <LayoutItem Id="CreateTime" ViewItem="CreateTime" ShowCaption="" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="FinishTime" ViewItem="FinishTime" ShowCaption="" Index="1" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
       </Layout>
     </DetailView>
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_Order_DetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet" IsNewNode="True">
