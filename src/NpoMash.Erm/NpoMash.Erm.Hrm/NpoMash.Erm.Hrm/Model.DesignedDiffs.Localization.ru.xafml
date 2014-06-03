@@ -413,6 +413,11 @@
     </Items>
   </NavigationItems>
   <Views>
+    <ListView Id="HrmMatrixColumn_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelTime" Caption="Командировки" />
+      </Columns>
+    </ListView>
     <DetailView Id="HrmMatrix_DetailView">
       <Items>
         <PropertyEditor Id="Name" Caption="Статус" />
@@ -438,6 +443,16 @@
       <Columns>
         <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
         <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixCell_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelTime" Caption="Командировки" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixRow_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelTime" Caption="Командировки" />
       </Columns>
     </ListView>
     <ListView Id="HrmPeriod_AllocParameters_ListView">
