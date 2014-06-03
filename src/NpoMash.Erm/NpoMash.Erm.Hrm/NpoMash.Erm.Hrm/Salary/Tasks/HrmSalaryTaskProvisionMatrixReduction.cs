@@ -150,6 +150,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
+
+
+
+
         private IList<OrderSet> _Order;
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]

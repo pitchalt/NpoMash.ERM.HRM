@@ -19,6 +19,36 @@ using IntecoAG.ERM.FM.Order;
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskProvisionMatrixReductionLogic {
 
+        public static void ExportMatrixes(HrmPeriod current_period) {
+            foreach (HrmMatrix m in current_period.Matrixs)
+                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE && m.Status == HrmMatrixStatus.MATRIX_ACCEPTED)
+                    m.Status = HrmMatrixStatus.MATRIX_EXPORTED;
+        }
+
+        public static void AcceptSelectedMatrix(HrmSalaryTaskProvisionMatrixReduction card, HrmMatrix matrix_to_accept) {
+            if (card.ProvisionMatrix != null)
+                card.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+           
+            matrix_to_accept.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+        }
+
+        public static bool MatrixAccepted(HrmMatrix matrix_to_accept, HrmPeriod current_period) {
+            bool provision_accepted = false;
+
+            if (matrix_to_accept.GroupDep == DepartmentGroupDep.DEPARTMENT_KB_OZM)
+                provision_accepted = true;
+            else provision_accepted = false;
+            foreach (HrmMatrix m in current_period.Matrixs) {
+                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
+                    if (m.GroupDep == DepartmentGroupDep.DEPARTMENT_KB_OZM)
+                        provision_accepted = true;
+                    else provision_accepted = false;
+            }
+            if (provision_accepted)
+                return true;
+            else return false;
+        }
+
         public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrix result = os.CreateObject<HrmMatrix>();
             HrmMatrix m_plan_kb = card.MatrixPlanKB;

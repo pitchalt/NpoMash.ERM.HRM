@@ -354,7 +354,7 @@ namespace NpoMash.Erm.Hrm {
         private bool isReadyToBringMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS); } }
 
         [Browsable(false)]
-        private bool isReadyToBringProvision { get { return HrmPeriodLogic.AccountOperationCompared(this); } }
+        private bool isReadyToBringProvision { get { return Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE; } } //HrmPeriodLogic.AccountOperationCompared(this) && Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE; } }
 
         [Browsable(false)]
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }

@@ -160,7 +160,7 @@ namespace NpoMash.Erm.Hrm {
                     kb_alloc_result_accepted = true;
             }
 
-            if (kb_coerced_matrix_accepted && ozm_coerced_matrix_accepted && kb_alloc_result_accepted && ozm_alloc_result_accepted) { period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE); }
+            if (kb_coerced_matrix_accepted && ozm_coerced_matrix_accepted && kb_alloc_result_accepted && ozm_alloc_result_accepted && period.CurrentAllocParameter.Status==HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) { period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE); }
             return kb_coerced_matrix_accepted && ozm_coerced_matrix_accepted && kb_alloc_result_accepted && ozm_alloc_result_accepted;
         }
 

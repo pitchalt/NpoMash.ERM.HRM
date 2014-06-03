@@ -71,25 +71,29 @@ namespace NpoMash.Erm.Hrm.Salary {
                     foreach (var m in task.AllocParameters.Period.Matrixs) {
                         if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
                             m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                            task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status=HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                        }
-
-                    }
-                    task.Complete();
-                    os.CommitChanges();
-                }
-                if (e.SelectedChoiceActionItem.Id == "Simplex") {
-
-                    task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
-                    foreach (var m in task.AllocParameters.Period.Matrixs) {
-                        if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
-                            m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
                             task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
                         }
 
                     }
                     task.Complete();
                     os.CommitChanges();
+                }
+                if (e.SelectedChoiceActionItem.Id == "SimplexMethod") {
+                    task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
+                    //task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+                    HrmMatrix matrix_to_accept = null;
+                    matrix_to_accept = task.ProvisionMatrix;
+
+                    if (matrix_to_accept != null && matrix_to_accept.Status == HrmMatrixStatus.MATRIX_SAVED) {
+                        HrmSalaryTaskProvisionMatrixReductionLogic.AcceptSelectedMatrix(task, matrix_to_accept);
+                        if (HrmSalaryTaskProvisionMatrixReductionLogic.MatrixAccepted(matrix_to_accept, task.Period))
+                            task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+
+                        task.Complete();
+                        os.CommitChanges();
+                    }
+
+
                 }
 
 
@@ -98,7 +102,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             Window win = Frame as Window;
             if (win != null) win.Close();
-
         }
 
         private void refresher(Object sender, EventArgs e) {
