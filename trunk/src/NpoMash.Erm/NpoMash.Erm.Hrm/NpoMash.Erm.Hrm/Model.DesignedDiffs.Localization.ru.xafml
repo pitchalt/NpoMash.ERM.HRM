@@ -584,24 +584,16 @@
       </Layout>
     </DetailView>
     <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView">
-      <Items>
-        <PropertyEditor Id="ProvisionMatrix.Name" Caption="Статус" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
-            <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix" Caption="Свойства">
-              <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix_col1" Caption="HrmSalaryTaskExportProvisionMatrix_col1" />
-              <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix_col2" Caption="HrmSalaryTaskExportProvisionMatrix_col2" />
-            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix" Caption="Свойства" />
             <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
               <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="ProvisionMatrix.Rows" Caption="Заказы" />
-            <LayoutGroup Id="ProvisionMatrix.Columns" Caption="Подразделения" />
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
             <LayoutGroup Id="InObjects" Caption="Объекты периода" />
           </TabbedGroup>
