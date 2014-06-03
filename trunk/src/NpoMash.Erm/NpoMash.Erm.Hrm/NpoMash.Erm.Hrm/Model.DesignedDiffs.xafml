@@ -117,6 +117,59 @@
         <ColumnInfo Id="Sum" PropertyName="Sum" Width="50" Index="1" IsNewNode="True" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmMatrix_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13" ImageName="">
+            <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="PeriodObjectType" ViewItem="PeriodObjectType" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" Index="2" Removed="True" />
+                <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="36" Index="2" Removed="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="17" Index="2" Removed="True" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="21" Index="2" Removed="True" />
+                <LayoutItem Id="Variant" SizeConstraintsType="Default" RelativeSize="21" Index="2" Removed="True" />
+                <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" RelativeSize="15" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Autoa55577b2-110b-444c-8797-5971d9a51683" ShowCaption="False" Index="1" RelativeSize="48" IsNewNode="True">
+                <LayoutItem Id="Type" ViewItem="Type" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmMatrix_col2" RelativeSize="48" ImageName="" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Name" Removed="True" />
+                <LayoutItem Id="PeriodObjectStatus" Removed="True" />
+                <LayoutItem Id="PeriodObjectType" Removed="True" />
+                <LayoutItem Id="TaskObjectName" Removed="True" />
+                <LayoutItem Id="TaskObjectType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="86">
+            <LayoutGroup Id="Rows" RelativeSize="100" ImageName="">
+              <LayoutItem Id="Rows" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Columns" RelativeSize="100" ImageName="">
+              <LayoutItem Id="Columns" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrix_ListView">
+      <Columns>
+        <ColumnInfo Id="Period" Index="-1" />
+        <ColumnInfo Id="PeriodObjectType" Index="0" />
+        <ColumnInfo Id="Name" Index="2" />
+        <ColumnInfo Id="IterationNumber" Removed="True" />
+        <ColumnInfo Id="PeriodObjectStatus" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+        <ColumnInfo Id="TaskObjectName" Removed="True" />
+        <ColumnInfo Id="TaskObjectType" Removed="True" />
+        <ColumnInfo Id="TypeMatrix" Removed="True" />
+        <ColumnInfo Id="Variant" Removed="True" />
+      </Columns>
+    </ListView>
     <ListView Id="HrmMatrix_Rows_MasterDetail_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" MasterDetailMode="ListViewAndDetailView" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="Matrix" PropertyName="Matrix" Width="70" Index="-1" IsNewNode="True" />
@@ -146,6 +199,310 @@
         <ColumnInfo Id="MoneyAllSumm" PropertyName="MoneyAllSumm" Width="50" Index="6" IsNewNode="True" />
       </Columns>
     </ListView>
+    <ListView Id="HrmPeriod_AllocParameters_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="Year" Index="2" />
+        <ColumnInfo Id="Month" Index="3" />
+        <ColumnInfo Id="GroupDep" Index="4" />
+        <ColumnInfo Id="IterationNumber" Removed="True" />
+        <ColumnInfo Id="NormNoControlKB" Removed="True" />
+        <ColumnInfo Id="NormNoControlOZM" Removed="True" />
+        <ColumnInfo Id="Period" Removed="True" />
+        <ColumnInfo Id="PeriodObjectStatus" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+        <ColumnInfo Id="TaskObjectName" Removed="True" />
+        <ColumnInfo Id="TaskObjectType" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriod_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="HrmPeriod" Caption="Hrm Period" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="HrmPeriod_col1" RelativeSize="46" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="Year" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="Month" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="36" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto45315992-bf00-471a-9c39-f10be943ea3d" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutGroup Id="HrmPeriod_col2" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriod_col2" RelativeSize="48" ImageName="" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Instance" Removed="True" />
+                <LayoutItem Id="PersistentInterfaceData" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="86" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Matrixs" RelativeSize="100" ImageName="ModelEditor_Action_Modules" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="Matrixs" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="TimeSheets" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="TimeSheets" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="PeriodTasks" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="PeriodTasks" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters" RelativeSize="100" ImageName="Action_Inline_Edit" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="AllocParameters" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="PeriodObjects" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="PeriodObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriod_ListView">
+      <Columns>
+        <ColumnInfo Id="Instance" Removed="True" />
+        <ColumnInfo Id="PersistentInterfaceData" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_LogRecords_ListView" Removed="True" />
+    <ListView Id="HrmPeriod_Matrixs_ListView" Removed="True">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Index="0" />
+        <ColumnInfo Id="Name" Index="2" />
+        <ColumnInfo Id="IterationNumber" Removed="True" />
+        <ColumnInfo Id="Period" Removed="True" />
+        <ColumnInfo Id="PeriodObjectStatus" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+        <ColumnInfo Id="TaskObjectName" Removed="True" />
+        <ColumnInfo Id="TaskObjectType" Removed="True" />
+        <ColumnInfo Id="TypeMatrix" Removed="True" />
+        <ColumnInfo Id="Variant" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_TimeSheets_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="GroupDep" Index="2" />
+        <ColumnInfo Id="Period" Removed="True" />
+        <ColumnInfo Id="PeriodObjectStatus" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+        <ColumnInfo Id="TaskObjectName" Removed="True" />
+        <ColumnInfo Id="TaskObjectType" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22" ImageName="">
+            <LayoutGroup Id="HrmPeriodAllocParameter" Caption="Hrm Period Alloc Parameter" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmPeriodAllocParameter_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="PeriodObjectType" ViewItem="PeriodObjectType" SizeConstraintsType="Default" Index="0" RelativeSize="28" IsNewNode="True" />
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="1" RelativeSize="21" IsNewNode="True" />
+                <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="Month" SizeConstraintsType="Default" RelativeSize="15" Index="3" Removed="True" />
+                <LayoutItem Id="NormNoControlKB" SizeConstraintsType="Default" Index="3" RelativeSize="17" Removed="True" />
+                <LayoutItem Id="NormNoControlOZM" SizeConstraintsType="Default" Index="3" RelativeSize="28" Removed="True" />
+                <LayoutItem Id="Year" SizeConstraintsType="Default" RelativeSize="13" Index="3" Removed="True" />
+                <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" Index="4" RelativeSize="35" Removed="True" />
+                <LayoutItem Id="Status" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto1c565285-53df-4c14-93b4-6f6f205a28fb" ShowCaption="False" Index="1" RelativeSize="48" IsNewNode="True">
+                <LayoutItem Id="Year" ViewItem="Year" SizeConstraintsType="Default" Index="0" RelativeSize="28" IsNewNode="True" />
+                <LayoutItem Id="Month" ViewItem="Month" SizeConstraintsType="Default" Index="1" RelativeSize="21" IsNewNode="True" />
+                <LayoutItem Id="NormNoControlKB" ViewItem="NormNoControlKB" SizeConstraintsType="Default" Index="2" RelativeSize="21" IsNewNode="True" />
+                <LayoutItem Id="NormNoControlOZM" ViewItem="NormNoControlOZM" SizeConstraintsType="Default" Index="3" RelativeSize="28" IsNewNode="True" />
+                <LayoutGroup Id="HrmPeriodAllocParameter_col2" ShowCaption="False" Direction="Horizontal" Index="4" RelativeSize="0" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriodAllocParameter_col2" RelativeSize="48" ImageName="" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="GroupDep" Removed="True" />
+                <LayoutItem Id="Name" Removed="True" />
+                <LayoutItem Id="PeriodObjectStatus" Removed="True" />
+                <LayoutItem Id="PeriodObjectType" Removed="True" />
+                <LayoutItem Id="TaskObjectName" Removed="True" />
+                <LayoutItem Id="TaskObjectType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="77">
+            <LayoutGroup Id="OrderControls" RelativeSize="100" ImageName="">
+              <LayoutItem Id="OrderControls" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentControl" RelativeSize="100" ImageName="">
+              <LayoutItem Id="DepartmentControl" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="PeriodPayTypes" RelativeSize="100" ImageName="BO_List">
+              <LayoutItem Id="PeriodPayTypes" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriodAllocParameter_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="Year" Index="2" />
+        <ColumnInfo Id="Month" Index="3" />
+        <ColumnInfo Id="GroupDep" Index="4" />
+        <ColumnInfo Id="IterationNumber" Removed="True" />
+        <ColumnInfo Id="PeriodObjectStatus" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+        <ColumnInfo Id="TaskObjectName" Removed="True" />
+        <ColumnInfo Id="TaskObjectType" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTask_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="FinishTime" SizeConstraintsType="Default" RelativeSize="63" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83">
+            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="">
+              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" RelativeSize="100" ImageName="">
+              <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
+          <TabbedGroup Id="Tabs" Index="0" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Parameters" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="18" IsNewNode="True">
+                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" SizeConstraintsType="Default" Index="0" RelativeSize="25" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" SizeConstraintsType="Default" Index="1" RelativeSize="18" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" SizeConstraintsType="Default" Index="2" RelativeSize="25" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Hrm Salary Task" RelativeSize="16" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" RelativeSize="40" IsNewNode="True">
+                  <LayoutItem Id="TaskType" ViewItem="TaskType" ShowCaption="" Index="0" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
+                  <LayoutItem Id="State" ViewItem="State" ShowCaption="" Index="1" SizeConstraintsType="Default" RelativeSize="27" IsNewNode="True" />
+                  <LayoutItem Id="GroupDep" ViewItem="GroupDep" ShowCaption="" Index="2" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" RelativeSize="56" IsNewNode="True">
+                  <LayoutItem Id="CreateTime" ViewItem="CreateTime" ShowCaption="" Index="0" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
+                  <LayoutItem Id="FinishTime" ViewItem="FinishTime" ShowCaption="" Index="1" SizeConstraintsType="Default" RelativeSize="63" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="AllocParameters" ShowCaption="False" Index="2" RelativeSize="20" IsNewNode="True">
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.NormNoControlKB" ViewItem="AllocParameters.NormNoControlKB" SizeConstraintsType="Default" Index="0" RelativeSize="21" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.NormNoControlOZM" ViewItem="AllocParameters.NormNoControlOZM" SizeConstraintsType="Default" Index="1" RelativeSize="16" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.PeriodObjectStatus" ViewItem="AllocParameters.PeriodObjectStatus" SizeConstraintsType="Default" Index="2" RelativeSize="16" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.GroupDep" ViewItem="AllocParameters.GroupDep" SizeConstraintsType="Default" Index="3" RelativeSize="21" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="PlanMatrix" ShowCaption="False" Index="3" RelativeSize="13" IsNewNode="True">
+                <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="MatrixPlan.GroupDep" ViewItem="MatrixPlan.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="33" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlan.PeriodObjectStatus" ViewItem="MatrixPlan.PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="33" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="TimeSheet" ShowCaption="False" Index="4" RelativeSize="31" IsNewNode="True">
+                <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="TimeSheet.GroupDep" ViewItem="TimeSheet.GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="14" IsNewNode="True" />
+                  <LayoutItem Id="TimeSheet.PeriodObjectStatus" ViewItem="TimeSheet.PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="69" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="null" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ReductionMatrix" Index="1" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <TabbedGroup Id="ReductionMatrix" Caption="ReductionMatrix" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="Deps" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" Index="0" SizeConstraintsType="Default" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Orders" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="OrderItems" Index="0" ViewItem="OrderItems" SizeConstraintsType="Default" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters" Index="2" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <TabbedGroup Id="AllocParameters" Caption="AllocParameters" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="DepartmentControl" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.DepartmentControl" ViewItem="AllocParameters.DepartmentControl" Index="0" SizeConstraintsType="Default" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="OrderControls" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.OrderControls" Index="0" ViewItem="AllocParameters.OrderControls" SizeConstraintsType="Default" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="PeriodPayTypes" ShowCaption="True" Index="2" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="AllocParameters.PeriodPayTypes" ViewItem="AllocParameters.PeriodPayTypes" Index="0" SizeConstraintsType="Default" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="SourceData" Index="3" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <TabbedGroup Id="SourceData" Caption="SourceData" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="PlanMatrix" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                  <TabbedGroup Id="PlanMatrix" Caption="PlanMatrix" Index="0" RelativeSize="100" IsNewNode="True">
+                    <LayoutGroup Id="Deps" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                      <LayoutItem Id="MatrixPlan.Columns" ViewItem="MatrixPlan.Columns" ShowCaption="False" RelativeSize="100" SizeConstraintsType="Default" Index="0" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Orders" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                      <LayoutItem Id="MatrixPlan.Rows" ViewItem="MatrixPlan.Rows" ShowCaption="False" RelativeSize="100" SizeConstraintsType="Default" Index="0" IsNewNode="True" />
+                    </LayoutGroup>
+                  </TabbedGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="TimeSheet" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="TimeSheet.TimeSheetDeps" ViewItem="TimeSheet.TimeSheetDeps" ShowCaption="False" RelativeSize="100" SizeConstraintsType="Default" Index="0" IsNewNode="True" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" RelativeSize="100" ImageName="" Index="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="" Index="5" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters.DepartmentControl" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="AllocParameters.DepartmentControl" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters.OrderControls" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="AllocParameters.OrderControls" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters.PeriodPayTypes" RelativeSize="100" ImageName="BO_List" Removed="True">
+              <LayoutItem Id="AllocParameters.PeriodPayTypes" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentItems" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="DepartmentItems" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlan.Columns" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixPlan.Columns" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="MatrixPlan.Rows" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="MatrixPlan.Rows" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="OrderItems" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="OrderItems" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="TimeSheet.TimeSheetDeps" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="TimeSheet.TimeSheetDeps" SizeConstraintsType="Default" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" Removed="True">
+            <LayoutGroup Id="HrmSalaryTask" Removed="True" />
+            <LayoutGroup Id="HrmSalaryTaskMatrixReduction" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_Department_DetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
@@ -170,113 +527,113 @@
             <LayoutGroup Id="@31a3561f-04c7-4251-ae5a-d3396fd9a848" IsNewNode="True">
               <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction" Index="0" Direction="Horizontal" ShowCaption="True" Caption="Hrm Salary Task Provision Matrix Reduction" IsNewNode="True">
                 <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col1" Index="0" ShowCaption="False" IsNewNode="True">
-                  <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" ShowCaption="" Index="0" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" ShowCaption="" Index="1" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" ShowCaption="" Index="2" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.NormNoControlKB" ViewItem="AllocParameters.NormNoControlKB" ShowCaption="" Index="3" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.NormNoControlOZM" ViewItem="AllocParameters.NormNoControlOZM" ShowCaption="" Index="4" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.IterationNumber" ViewItem="AllocParameters.IterationNumber" ShowCaption="" Index="5" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.PeriodObjectStatus" ViewItem="AllocParameters.PeriodObjectStatus" ShowCaption="" Index="6" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.PeriodObjectType" ViewItem="AllocParameters.PeriodObjectType" ShowCaption="" Index="7" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.GroupDep" ViewItem="AllocParameters.GroupDep" ShowCaption="" Index="8" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.Name" ViewItem="AllocParameters.Name" ShowCaption="" Index="9" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.TaskObjectType" ViewItem="AllocParameters.TaskObjectType" ShowCaption="" Index="10" IsNewNode="True" />
-                  <LayoutItem Id="AllocParameters.TaskObjectName" ViewItem="AllocParameters.TaskObjectName" ShowCaption="" Index="11" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.Type" ViewItem="MatrixPlanKB.Type" ShowCaption="" Index="12" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.TypeMatrix" ViewItem="MatrixPlanKB.TypeMatrix" ShowCaption="" Index="13" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.GroupDep" ViewItem="MatrixPlanKB.GroupDep" ShowCaption="" Index="14" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.Status" ViewItem="MatrixPlanKB.Status" ShowCaption="" Index="15" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.Variant" ViewItem="MatrixPlanKB.Variant" ShowCaption="" Index="16" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.IterationNumber" ViewItem="MatrixPlanKB.IterationNumber" ShowCaption="" Index="17" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.PeriodObjectStatus" ViewItem="MatrixPlanKB.PeriodObjectStatus" ShowCaption="" Index="18" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.PeriodObjectType" ViewItem="MatrixPlanKB.PeriodObjectType" ShowCaption="" Index="19" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.TaskObjectType" ViewItem="MatrixPlanKB.TaskObjectType" ShowCaption="" Index="20" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.TaskObjectName" ViewItem="MatrixPlanKB.TaskObjectName" ShowCaption="" Index="21" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanKB.Name" ViewItem="MatrixPlanKB.Name" ShowCaption="" Index="22" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.Type" ViewItem="MatrixPlanOZM.Type" ShowCaption="" Index="23" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.TypeMatrix" ViewItem="MatrixPlanOZM.TypeMatrix" ShowCaption="" Index="24" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.GroupDep" ViewItem="MatrixPlanOZM.GroupDep" ShowCaption="" Index="25" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.Status" ViewItem="MatrixPlanOZM.Status" ShowCaption="" Index="26" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.Variant" ViewItem="MatrixPlanOZM.Variant" ShowCaption="" Index="27" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.IterationNumber" ViewItem="MatrixPlanOZM.IterationNumber" ShowCaption="" Index="28" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.PeriodObjectStatus" ViewItem="MatrixPlanOZM.PeriodObjectStatus" ShowCaption="" Index="29" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.PeriodObjectType" ViewItem="MatrixPlanOZM.PeriodObjectType" ShowCaption="" Index="30" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.TaskObjectType" ViewItem="MatrixPlanOZM.TaskObjectType" ShowCaption="" Index="31" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.TaskObjectName" ViewItem="MatrixPlanOZM.TaskObjectName" ShowCaption="" Index="32" IsNewNode="True" />
-                  <LayoutItem Id="MatrixPlanOZM.Name" ViewItem="MatrixPlanOZM.Name" ShowCaption="" Index="33" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.Type" ViewItem="MatrixAllocKB.Type" ShowCaption="" Index="34" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.TypeMatrix" ViewItem="MatrixAllocKB.TypeMatrix" ShowCaption="" Index="35" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.GroupDep" ViewItem="MatrixAllocKB.GroupDep" ShowCaption="" Index="36" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" ShowCaption="" Index="37" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.Variant" ViewItem="MatrixAllocKB.Variant" ShowCaption="" Index="38" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.IterationNumber" ViewItem="MatrixAllocKB.IterationNumber" ShowCaption="" Index="39" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.PeriodObjectStatus" ViewItem="MatrixAllocKB.PeriodObjectStatus" ShowCaption="" Index="40" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.PeriodObjectType" ViewItem="MatrixAllocKB.PeriodObjectType" ShowCaption="" Index="41" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.TaskObjectType" ViewItem="MatrixAllocKB.TaskObjectType" ShowCaption="" Index="42" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.TaskObjectName" ViewItem="MatrixAllocKB.TaskObjectName" ShowCaption="" Index="43" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocKB.Name" ViewItem="MatrixAllocKB.Name" ShowCaption="" Index="44" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.Type" ViewItem="MatrixAllocOZM.Type" ShowCaption="" Index="45" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.TypeMatrix" ViewItem="MatrixAllocOZM.TypeMatrix" ShowCaption="" Index="46" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Month" ViewItem="AllocParameters.Month" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Status" ViewItem="AllocParameters.Status" Index="2" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.NormNoControlKB" ViewItem="AllocParameters.NormNoControlKB" Index="3" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.NormNoControlOZM" ViewItem="AllocParameters.NormNoControlOZM" Index="4" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.IterationNumber" ViewItem="AllocParameters.IterationNumber" Index="5" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.PeriodObjectStatus" ViewItem="AllocParameters.PeriodObjectStatus" Index="6" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.PeriodObjectType" ViewItem="AllocParameters.PeriodObjectType" Index="7" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.GroupDep" ViewItem="AllocParameters.GroupDep" Index="8" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.Name" ViewItem="AllocParameters.Name" Index="9" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.TaskObjectType" ViewItem="AllocParameters.TaskObjectType" Index="10" IsNewNode="True" />
+                  <LayoutItem Id="AllocParameters.TaskObjectName" ViewItem="AllocParameters.TaskObjectName" Index="11" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Type" ViewItem="MatrixPlanKB.Type" Index="12" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.TypeMatrix" ViewItem="MatrixPlanKB.TypeMatrix" Index="13" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.GroupDep" ViewItem="MatrixPlanKB.GroupDep" Index="14" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Status" ViewItem="MatrixPlanKB.Status" Index="15" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Variant" ViewItem="MatrixPlanKB.Variant" Index="16" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.IterationNumber" ViewItem="MatrixPlanKB.IterationNumber" Index="17" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.PeriodObjectStatus" ViewItem="MatrixPlanKB.PeriodObjectStatus" Index="18" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.PeriodObjectType" ViewItem="MatrixPlanKB.PeriodObjectType" Index="19" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.TaskObjectType" ViewItem="MatrixPlanKB.TaskObjectType" Index="20" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.TaskObjectName" ViewItem="MatrixPlanKB.TaskObjectName" Index="21" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanKB.Name" ViewItem="MatrixPlanKB.Name" Index="22" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Type" ViewItem="MatrixPlanOZM.Type" Index="23" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.TypeMatrix" ViewItem="MatrixPlanOZM.TypeMatrix" Index="24" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.GroupDep" ViewItem="MatrixPlanOZM.GroupDep" Index="25" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Status" ViewItem="MatrixPlanOZM.Status" Index="26" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Variant" ViewItem="MatrixPlanOZM.Variant" Index="27" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.IterationNumber" ViewItem="MatrixPlanOZM.IterationNumber" Index="28" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.PeriodObjectStatus" ViewItem="MatrixPlanOZM.PeriodObjectStatus" Index="29" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.PeriodObjectType" ViewItem="MatrixPlanOZM.PeriodObjectType" Index="30" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.TaskObjectType" ViewItem="MatrixPlanOZM.TaskObjectType" Index="31" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.TaskObjectName" ViewItem="MatrixPlanOZM.TaskObjectName" Index="32" IsNewNode="True" />
+                  <LayoutItem Id="MatrixPlanOZM.Name" ViewItem="MatrixPlanOZM.Name" Index="33" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Type" ViewItem="MatrixAllocKB.Type" Index="34" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.TypeMatrix" ViewItem="MatrixAllocKB.TypeMatrix" Index="35" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.GroupDep" ViewItem="MatrixAllocKB.GroupDep" Index="36" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Status" ViewItem="MatrixAllocKB.Status" Index="37" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Variant" ViewItem="MatrixAllocKB.Variant" Index="38" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.IterationNumber" ViewItem="MatrixAllocKB.IterationNumber" Index="39" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.PeriodObjectStatus" ViewItem="MatrixAllocKB.PeriodObjectStatus" Index="40" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.PeriodObjectType" ViewItem="MatrixAllocKB.PeriodObjectType" Index="41" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.TaskObjectType" ViewItem="MatrixAllocKB.TaskObjectType" Index="42" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.TaskObjectName" ViewItem="MatrixAllocKB.TaskObjectName" Index="43" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocKB.Name" ViewItem="MatrixAllocKB.Name" Index="44" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Type" ViewItem="MatrixAllocOZM.Type" Index="45" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.TypeMatrix" ViewItem="MatrixAllocOZM.TypeMatrix" Index="46" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutGroup Id="HrmSalaryTaskProvisionMatrixReduction_col2" Index="1" ShowCaption="False" IsNewNode="True">
-                  <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" ShowCaption="" Index="0" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.Status" ViewItem="MatrixAllocOZM.Status" ShowCaption="" Index="1" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.Variant" ViewItem="MatrixAllocOZM.Variant" ShowCaption="" Index="2" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.IterationNumber" ViewItem="MatrixAllocOZM.IterationNumber" ShowCaption="" Index="3" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.PeriodObjectStatus" ViewItem="MatrixAllocOZM.PeriodObjectStatus" ShowCaption="" Index="4" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.PeriodObjectType" ViewItem="MatrixAllocOZM.PeriodObjectType" ShowCaption="" Index="5" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.TaskObjectType" ViewItem="MatrixAllocOZM.TaskObjectType" ShowCaption="" Index="6" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.TaskObjectName" ViewItem="MatrixAllocOZM.TaskObjectName" ShowCaption="" Index="7" IsNewNode="True" />
-                  <LayoutItem Id="MatrixAllocOZM.Name" ViewItem="MatrixAllocOZM.Name" ShowCaption="" Index="8" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.Period" ViewItem="CurrentTimeSheetKB.Period" ShowCaption="" Index="9" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.GroupDep" ViewItem="CurrentTimeSheetKB.GroupDep" ShowCaption="" Index="10" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.Status" ViewItem="CurrentTimeSheetKB.Status" ShowCaption="" Index="11" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.PeriodObjectStatus" ViewItem="CurrentTimeSheetKB.PeriodObjectStatus" ShowCaption="" Index="12" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.PeriodObjectType" ViewItem="CurrentTimeSheetKB.PeriodObjectType" ShowCaption="" Index="13" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.TaskObjectType" ViewItem="CurrentTimeSheetKB.TaskObjectType" ShowCaption="" Index="14" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.TaskObjectName" ViewItem="CurrentTimeSheetKB.TaskObjectName" ShowCaption="" Index="15" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetKB.Name" ViewItem="CurrentTimeSheetKB.Name" ShowCaption="" Index="16" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.Period" ViewItem="CurrentTimeSheetOZM.Period" ShowCaption="" Index="17" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.GroupDep" ViewItem="CurrentTimeSheetOZM.GroupDep" ShowCaption="" Index="18" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.Status" ViewItem="CurrentTimeSheetOZM.Status" ShowCaption="" Index="19" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.PeriodObjectStatus" ViewItem="CurrentTimeSheetOZM.PeriodObjectStatus" ShowCaption="" Index="20" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.PeriodObjectType" ViewItem="CurrentTimeSheetOZM.PeriodObjectType" ShowCaption="" Index="21" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.TaskObjectType" ViewItem="CurrentTimeSheetOZM.TaskObjectType" ShowCaption="" Index="22" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.TaskObjectName" ViewItem="CurrentTimeSheetOZM.TaskObjectName" ShowCaption="" Index="23" IsNewNode="True" />
-                  <LayoutItem Id="CurrentTimeSheetOZM.Name" ViewItem="CurrentTimeSheetOZM.Name" ShowCaption="" Index="24" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.Type" ViewItem="AllocResultKB.Type" ShowCaption="" Index="25" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.TypeMatrix" ViewItem="AllocResultKB.TypeMatrix" ShowCaption="" Index="26" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.GroupDep" ViewItem="AllocResultKB.GroupDep" ShowCaption="" Index="27" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.Status" ViewItem="AllocResultKB.Status" ShowCaption="" Index="28" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.Variant" ViewItem="AllocResultKB.Variant" ShowCaption="" Index="29" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.IterationNumber" ViewItem="AllocResultKB.IterationNumber" ShowCaption="" Index="30" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.PeriodObjectStatus" ViewItem="AllocResultKB.PeriodObjectStatus" ShowCaption="" Index="31" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.PeriodObjectType" ViewItem="AllocResultKB.PeriodObjectType" ShowCaption="" Index="32" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.TaskObjectType" ViewItem="AllocResultKB.TaskObjectType" ShowCaption="" Index="33" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.TaskObjectName" ViewItem="AllocResultKB.TaskObjectName" ShowCaption="" Index="34" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultKB.Name" ViewItem="AllocResultKB.Name" ShowCaption="" Index="35" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.Type" ViewItem="AllocResultOZM.Type" ShowCaption="" Index="36" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.TypeMatrix" ViewItem="AllocResultOZM.TypeMatrix" ShowCaption="" Index="37" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.GroupDep" ViewItem="AllocResultOZM.GroupDep" ShowCaption="" Index="38" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.Status" ViewItem="AllocResultOZM.Status" ShowCaption="" Index="39" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.Variant" ViewItem="AllocResultOZM.Variant" ShowCaption="" Index="40" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.IterationNumber" ViewItem="AllocResultOZM.IterationNumber" ShowCaption="" Index="41" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.PeriodObjectStatus" ViewItem="AllocResultOZM.PeriodObjectStatus" ShowCaption="" Index="42" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.PeriodObjectType" ViewItem="AllocResultOZM.PeriodObjectType" ShowCaption="" Index="43" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.TaskObjectType" ViewItem="AllocResultOZM.TaskObjectType" ShowCaption="" Index="44" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.TaskObjectName" ViewItem="AllocResultOZM.TaskObjectName" ShowCaption="" Index="45" IsNewNode="True" />
-                  <LayoutItem Id="AllocResultOZM.Name" ViewItem="AllocResultOZM.Name" ShowCaption="" Index="46" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.GroupDep" ViewItem="MatrixAllocOZM.GroupDep" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Status" ViewItem="MatrixAllocOZM.Status" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Variant" ViewItem="MatrixAllocOZM.Variant" Index="2" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.IterationNumber" ViewItem="MatrixAllocOZM.IterationNumber" Index="3" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.PeriodObjectStatus" ViewItem="MatrixAllocOZM.PeriodObjectStatus" Index="4" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.PeriodObjectType" ViewItem="MatrixAllocOZM.PeriodObjectType" Index="5" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.TaskObjectType" ViewItem="MatrixAllocOZM.TaskObjectType" Index="6" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.TaskObjectName" ViewItem="MatrixAllocOZM.TaskObjectName" Index="7" IsNewNode="True" />
+                  <LayoutItem Id="MatrixAllocOZM.Name" ViewItem="MatrixAllocOZM.Name" Index="8" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.Period" ViewItem="CurrentTimeSheetKB.Period" Index="9" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.GroupDep" ViewItem="CurrentTimeSheetKB.GroupDep" Index="10" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.Status" ViewItem="CurrentTimeSheetKB.Status" Index="11" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.PeriodObjectStatus" ViewItem="CurrentTimeSheetKB.PeriodObjectStatus" Index="12" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.PeriodObjectType" ViewItem="CurrentTimeSheetKB.PeriodObjectType" Index="13" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.TaskObjectType" ViewItem="CurrentTimeSheetKB.TaskObjectType" Index="14" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.TaskObjectName" ViewItem="CurrentTimeSheetKB.TaskObjectName" Index="15" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetKB.Name" ViewItem="CurrentTimeSheetKB.Name" Index="16" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.Period" ViewItem="CurrentTimeSheetOZM.Period" Index="17" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.GroupDep" ViewItem="CurrentTimeSheetOZM.GroupDep" Index="18" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.Status" ViewItem="CurrentTimeSheetOZM.Status" Index="19" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.PeriodObjectStatus" ViewItem="CurrentTimeSheetOZM.PeriodObjectStatus" Index="20" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.PeriodObjectType" ViewItem="CurrentTimeSheetOZM.PeriodObjectType" Index="21" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.TaskObjectType" ViewItem="CurrentTimeSheetOZM.TaskObjectType" Index="22" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.TaskObjectName" ViewItem="CurrentTimeSheetOZM.TaskObjectName" Index="23" IsNewNode="True" />
+                  <LayoutItem Id="CurrentTimeSheetOZM.Name" ViewItem="CurrentTimeSheetOZM.Name" Index="24" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Type" ViewItem="AllocResultKB.Type" Index="25" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.TypeMatrix" ViewItem="AllocResultKB.TypeMatrix" Index="26" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.GroupDep" ViewItem="AllocResultKB.GroupDep" Index="27" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Status" ViewItem="AllocResultKB.Status" Index="28" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Variant" ViewItem="AllocResultKB.Variant" Index="29" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.IterationNumber" ViewItem="AllocResultKB.IterationNumber" Index="30" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.PeriodObjectStatus" ViewItem="AllocResultKB.PeriodObjectStatus" Index="31" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.PeriodObjectType" ViewItem="AllocResultKB.PeriodObjectType" Index="32" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.TaskObjectType" ViewItem="AllocResultKB.TaskObjectType" Index="33" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.TaskObjectName" ViewItem="AllocResultKB.TaskObjectName" Index="34" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultKB.Name" ViewItem="AllocResultKB.Name" Index="35" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Type" ViewItem="AllocResultOZM.Type" Index="36" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.TypeMatrix" ViewItem="AllocResultOZM.TypeMatrix" Index="37" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.GroupDep" ViewItem="AllocResultOZM.GroupDep" Index="38" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Status" ViewItem="AllocResultOZM.Status" Index="39" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Variant" ViewItem="AllocResultOZM.Variant" Index="40" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.IterationNumber" ViewItem="AllocResultOZM.IterationNumber" Index="41" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.PeriodObjectStatus" ViewItem="AllocResultOZM.PeriodObjectStatus" Index="42" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.PeriodObjectType" ViewItem="AllocResultOZM.PeriodObjectType" Index="43" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.TaskObjectType" ViewItem="AllocResultOZM.TaskObjectType" Index="44" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.TaskObjectName" ViewItem="AllocResultOZM.TaskObjectName" Index="45" IsNewNode="True" />
+                  <LayoutItem Id="AllocResultOZM.Name" ViewItem="AllocResultOZM.Name" Index="46" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="HrmSalaryTask" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Hrm Salary Task" IsNewNode="True">
                 <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" IsNewNode="True">
-                  <LayoutItem Id="TaskType" ViewItem="TaskType" ShowCaption="" Index="0" IsNewNode="True" />
-                  <LayoutItem Id="State" ViewItem="State" ShowCaption="" Index="1" IsNewNode="True" />
-                  <LayoutItem Id="GroupDep" ViewItem="GroupDep" ShowCaption="" Index="2" IsNewNode="True" />
+                  <LayoutItem Id="TaskType" ViewItem="TaskType" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="State" ViewItem="State" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="GroupDep" ViewItem="GroupDep" Index="2" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" IsNewNode="True">
-                  <LayoutItem Id="CreateTime" ViewItem="CreateTime" ShowCaption="" Index="0" IsNewNode="True" />
-                  <LayoutItem Id="FinishTime" ViewItem="FinishTime" ShowCaption="" Index="1" IsNewNode="True" />
+                  <LayoutItem Id="CreateTime" ViewItem="CreateTime" Index="0" IsNewNode="True" />
+                  <LayoutItem Id="FinishTime" ViewItem="FinishTime" Index="1" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
@@ -305,5 +662,48 @@
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True" />
       </Layout>
     </DetailView>
+    <DetailView Id="HrmTimeSheet_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13" ImageName="">
+            <LayoutGroup Id="HrmTimeSheet" Caption="Hrm Time Sheet" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="HrmTimeSheet_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="PeriodObjectType" ViewItem="PeriodObjectType" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36" Index="2" Removed="True" />
+                <LayoutItem Id="Period" SizeConstraintsType="Default" RelativeSize="21" Index="2" Removed="True" />
+                <LayoutItem Id="PeriodObjectStatus" SizeConstraintsType="Default" RelativeSize="50" Index="2" Removed="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="21" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto50893f7d-a869-4f39-87e7-adc36680e003" ShowCaption="False" Index="1" RelativeSize="48" IsNewNode="True">
+                <LayoutItem Id="Period" ViewItem="Period" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="1" RelativeSize="37" IsNewNode="True" />
+                <LayoutGroup Id="HrmTimeSheet_col2" ShowCaption="False" Direction="Horizontal" Index="2" RelativeSize="12" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmTimeSheet_col2" RelativeSize="48" ImageName="" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Name" Removed="True" />
+                <LayoutItem Id="PeriodObjectType" Removed="True" />
+                <LayoutItem Id="TaskObjectName" Removed="True" />
+                <LayoutItem Id="TaskObjectType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="TimeSheetDeps_Group" Direction="Vertical" RelativeSize="86" ImageName="">
+            <LayoutItem Id="TimeSheetDeps" SizeConstraintsType="Default" RelativeSize="94" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmTimeSheet_ListView">
+      <Columns>
+        <ColumnInfo Id="Period" Index="-1" />
+        <ColumnInfo Id="PeriodObjectType" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="PeriodObjectStatus" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+        <ColumnInfo Id="TaskObjectName" Removed="True" />
+        <ColumnInfo Id="TaskObjectType" Removed="True" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

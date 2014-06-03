@@ -411,4 +411,216 @@
       <Item Id="A1 Integration" Caption="Интеграция с А1" />
     </Items>
   </NavigationItems>
+  <Views>
+    <DetailView Id="HrmMatrix_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="Autoa55577b2-110b-444c-8797-5971d9a51683" Caption="" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Rows" Caption="Заказы" />
+            <LayoutGroup Id="Columns" Caption="Подразделения" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrix_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_AllocParameters_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriod_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmPeriod" Caption="Период">
+              <LayoutGroup Id="HrmPeriod_col1" Caption="HrmPeriod_col1" />
+              <LayoutGroup Id="Auto45315992-bf00-471a-9c39-f10be943ea3d" Caption="Auto45315992-bf00-471a-9c39-f10be943ea3d(7)">
+                <LayoutGroup Id="HrmPeriod_col2" Caption="HrmPeriod_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriod_col2" Caption="HrmPeriod_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Matrixs" Caption="Матрицы" />
+            <LayoutGroup Id="TimeSheets" Caption="Табель" />
+            <LayoutGroup Id="PeriodTasks" Caption="Задачи" />
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="PeriodObjects" Caption="Объекты периода" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriod_Matrixs_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_TimeSheets_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriodAllocParameter_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmPeriodAllocParameter" Caption="Свойства">
+              <LayoutGroup Id="HrmPeriodAllocParameter_col1" Caption="HrmPeriodAllocParameter_col1" />
+              <LayoutGroup Id="Auto1c565285-53df-4c14-93b4-6f6f205a28fb" Caption="">
+                <LayoutGroup Id="HrmPeriodAllocParameter_col2" Caption="HrmPeriodAllocParameter_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriodAllocParameter_col2" Caption="HrmPeriodAllocParameter_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="OrderControls" Caption="Контроль заказа" />
+            <LayoutGroup Id="DepartmentControl" Caption="Подразделения" />
+            <LayoutGroup Id="PeriodPayTypes" Caption="Код оплаты" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriodAllocParameter_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTask_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTask_InObjects_ListView">
+      <Columns>
+        <ColumnInfo Id="TaskObjectName" Caption="Статус" />
+        <ColumnInfo Id="TaskObjectType" Caption="Объект" />
+        <ColumnInfo Id="GroupDep" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView">
+      <Items>
+        <PropertyEditor Id="MatrixPlan.PeriodObjectStatus" Caption="Статус" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Parameters" Caption="Свойства">
+              <LayoutGroup Id="Main" Caption="Main">
+                <LayoutGroup Id="Item2" Caption="Период" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="AllocParameters" Caption="AllocParameters">
+                <LayoutGroup Id="Item1" Caption="Параметры расчета" />
+              </LayoutGroup>
+              <LayoutGroup Id="PlanMatrix" Caption="PlanMatrix">
+                <LayoutGroup Id="Item3" Caption="Плановая матрица" />
+              </LayoutGroup>
+              <LayoutGroup Id="TimeSheet" Caption="TimeSheet">
+                <LayoutGroup Id="Item4" Caption="Табель" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ReductionMatrix" Caption="Матрица учета">
+              <TabbedGroup Id="ReductionMatrix">
+                <LayoutGroup Id="Deps" Caption="Подразделения" />
+                <LayoutGroup Id="Orders" Caption="Заказы" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета">
+              <TabbedGroup Id="AllocParameters">
+                <LayoutGroup Id="DepartmentControl" Caption="Подразделения" />
+                <LayoutGroup Id="OrderControls" Caption="Контроль заказа" />
+                <LayoutGroup Id="PeriodPayTypes" Caption="Код оплаты" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="SourceData" Caption="Исходные данные">
+              <TabbedGroup Id="SourceData">
+                <LayoutGroup Id="PlanMatrix" Caption="Плановая матрица">
+                  <TabbedGroup Id="PlanMatrix" Caption="Плановая матрица">
+                    <LayoutGroup Id="Deps" Caption="Подразделения" />
+                    <LayoutGroup Id="Orders" Caption="Заказы" />
+                  </TabbedGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="TimeSheet" Caption="Табель" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AllocParameters.DepartmentControl" Caption="Подразделения" />
+            <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
+            <LayoutGroup Id="AllocParameters.PeriodPayTypes" Caption="Код оплаты" />
+            <LayoutGroup Id="DepartmentItems" Caption="Department Items" />
+            <LayoutGroup Id="MatrixPlan.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="MatrixPlan.Rows" Caption="Заказы" />
+            <LayoutGroup Id="OrderItems" Caption="Order Items" />
+            <LayoutGroup Id="TimeSheet.TimeSheetDeps" Caption="Табель" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmTimeSheet_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmTimeSheet" Caption="Свойста">
+              <LayoutGroup Id="HrmTimeSheet_col1" Caption="HrmTimeSheet_col1" />
+              <LayoutGroup Id="Auto50893f7d-a869-4f39-87e7-adc36680e003" Caption="">
+                <LayoutGroup Id="HrmTimeSheet_col2" Caption="HrmTimeSheet_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmTimeSheet_col2" Caption="HrmTimeSheet_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="TimeSheetDeps_Group" Caption="Табель" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmTimeSheet_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>
