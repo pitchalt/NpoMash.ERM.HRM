@@ -110,6 +110,28 @@
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="HrmMatrixColumn_Cells_ListView" Index="-1">
+      <Columns>
+        <ColumnInfo Id="MoneyAllSumm" Index="-1" />
+        <ColumnInfo Id="MoneyNoReserve" Index="-1" />
+        <ColumnInfo Id="NewProvision" Index="-1" />
+        <ColumnInfo Id="PlanMoney" Index="-1" />
+        <ColumnInfo Id="ProvisionDelta" Index="-1" />
+        <ColumnInfo Id="SourceProvision" Index="-1" />
+        <ColumnInfo Id="TravelMoney" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixRow_OrderCells_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" Index="-1" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Column" PropertyName="Column" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="MoneyNoReserve" PropertyName="MoneyNoReserve" Width="50" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="PlanMoney" PropertyName="PlanMoney" Width="50" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Row" PropertyName="Row" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Department" PropertyName="Column.Department" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Time" PropertyName="Time" Width="70" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="MoneyAllSumm" PropertyName="MoneyAllSumm" Width="50" Index="6" IsNewNode="True" />
+      </Columns>
+    </ListView>
     <ListView Id="HrmMatrix_Columns_MasterDetail_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" MasterDetailMode="ListViewAndDetailView" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="Matrix" PropertyName="Matrix" Width="70" Index="-1" IsNewNode="True" />
@@ -177,6 +199,38 @@
         <ColumnInfo Id="Sum" PropertyName="Sum" Width="50" Index="1" IsNewNode="True" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmMatrixCell_DetailView">
+      <Items>
+        <PropertyEditor Id="MoneyAllSumm" Index="-1" />
+        <PropertyEditor Id="MoneyNoReserve" Index="-1" />
+        <PropertyEditor Id="NewProvision" Index="-1" />
+        <PropertyEditor Id="PlanMoney" Index="-1" />
+        <PropertyEditor Id="ProvisionDelta" Index="-1" />
+        <PropertyEditor Id="SourceProvision" Index="-1" />
+        <PropertyEditor Id="TravelMoney" Index="-1" />
+      </Items>
+    </DetailView>
+    <DetailView Id="HrmMatrixColumn_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="Cells" ViewItem="Cells" ShowCaption="" Index="1" IsNewNode="True" />
+          <LayoutGroup Id="Cells_Group" Removed="True">
+            <LayoutItem Id="Cells" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrixRow_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="MoneyAllSumm" Index="-1" />
+        <ColumnInfo Id="MoneyNoReserve" Index="-1" />
+        <ColumnInfo Id="NewProvision" Index="-1" />
+        <ColumnInfo Id="PlanMoney" Index="-1" />
+        <ColumnInfo Id="ProvisionDelta" Index="-1" />
+        <ColumnInfo Id="SourceProvision" Index="-1" />
+        <ColumnInfo Id="TravelMoney" Index="-1" />
+      </Columns>
+    </ListView>
     <ListView Id="HrmMatrixRow_DepartmentCells_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" IsNewNode="True">
       <Columns IsNewNode="True">
         <ColumnInfo Id="Column" PropertyName="Column" Width="70" Index="-1" IsNewNode="True" />
@@ -188,17 +242,16 @@
         <ColumnInfo Id="MoneyAllSumm" PropertyName="MoneyAllSumm" Width="50" Index="7" IsNewNode="True" />
       </Columns>
     </ListView>
-    <ListView Id="HrmMatrixRow_OrderCells_ListView" ClassName="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" IsNewNode="True">
-      <Columns IsNewNode="True">
-        <ColumnInfo Id="Column" PropertyName="Column" Width="70" Index="-1" IsNewNode="True" />
-        <ColumnInfo Id="Row" PropertyName="Row" Width="70" Index="-1" IsNewNode="True" />
-        <ColumnInfo Id="Department" PropertyName="Column.Department" Index="0" IsNewNode="True" />
-        <ColumnInfo Id="Time" PropertyName="Time" Width="70" Index="1" IsNewNode="True" />
-        <ColumnInfo Id="PlanMoney" PropertyName="PlanMoney" Width="50" Index="2" IsNewNode="True" />
-        <ColumnInfo Id="MoneyNoReserve" PropertyName="MoneyNoReserve" Width="50" Index="4" IsNewNode="True" />
-        <ColumnInfo Id="MoneyAllSumm" PropertyName="MoneyAllSumm" Width="50" Index="6" IsNewNode="True" />
-      </Columns>
-    </ListView>
+    <DetailView Id="HrmMatrixRow_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="Cells" ViewItem="Cells" ShowCaption="" Index="1" IsNewNode="True" />
+          <LayoutGroup Id="Cells_Group" Removed="True">
+            <LayoutItem Id="Cells" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="HrmPeriod_AllocParameters_ListView">
       <Columns>
         <ColumnInfo Id="PeriodObjectType" Index="0" />
@@ -1080,5 +1133,36 @@
         <ColumnInfo Id="TaskObjectType" Removed="True" />
       </Columns>
     </ListView>
+    <DetailView Id="HrmTimeSheetDep_DetailView">
+      <Items>
+        <PropertyEditor Id="BaseWorkTime" Caption="Основное рабочее время" />
+        <PropertyEditor Id="ConstantWorkTime" Caption="Постоянное рабочее время" />
+        <PropertyEditor Id="TravelWorkTime" Caption="Командировки" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" ImageName="" RelativeSize="100" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="HrmTimeSheetDep_col1" Index="0" ShowCaption="False" RelativeSize="12" Direction="Horizontal" IsNewNode="True">
+            <LayoutGroup Id="Autoe144241e-aafb-4d1b-876f-cc0bb8b7040e" ShowCaption="False" Caption="" Index="0" RelativeSize="53" IsNewNode="True">
+              <LayoutItem Id="BuhCode" ViewItem="BuhCode" SizeConstraintsType="Default" Index="0" RelativeSize="37" IsNewNode="True" />
+              <LayoutItem Id="Department" ViewItem="Department" SizeConstraintsType="Default" Index="1" RelativeSize="27" IsNewNode="True" />
+              <LayoutItem Id="MatrixWorkTime" ViewItem="MatrixWorkTime" SizeConstraintsType="Default" Index="2" RelativeSize="34" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto5ad08680-2d26-4e77-aaa9-daf805f9f884" ShowCaption="False" Caption="" Index="1" RelativeSize="46" IsNewNode="True">
+              <LayoutItem Id="TravelWorkTime" ViewItem="TravelWorkTime" SizeConstraintsType="Default" Index="0" RelativeSize="37" IsNewNode="True" />
+              <LayoutItem Id="ConstantWorkTime" ViewItem="ConstantWorkTime" SizeConstraintsType="Default" Index="1" RelativeSize="27" IsNewNode="True" />
+              <LayoutItem Id="BaseWorkTime" ViewItem="BaseWorkTime" SizeConstraintsType="Default" Index="2" RelativeSize="34" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="HrmTimeSheetDep_col2" Index="1" ShowCaption="False" RelativeSize="3" Direction="Horizontal" IsNewNode="True" />
+          <LayoutGroup Id="null" ShowCaption="False" Direction="Horizontal" Index="2" RelativeSize="83" IsNewNode="True" />
+          <LayoutGroup Id="SimpleEditors" Removed="True">
+            <LayoutGroup Id="HrmTimeSheetDep">
+              <LayoutGroup Id="HrmTimeSheetDep_col1" Removed="True" />
+              <LayoutGroup Id="HrmTimeSheetDep_col2" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>
