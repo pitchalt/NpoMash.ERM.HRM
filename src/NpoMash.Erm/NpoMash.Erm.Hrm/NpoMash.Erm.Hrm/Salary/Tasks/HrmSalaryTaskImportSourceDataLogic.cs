@@ -237,10 +237,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 //создаем необходимые словари, чтобы не наматывать круги в форычах при поиске
                 IDictionary<String, HrmMatrixCell> cells_in_matrix = new Dictionary<String, HrmMatrixCell>();
-                IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<string, HrmMatrixColumn>();
-                IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<string, HrmMatrixRow>();
-                IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<string, HrmMatrixColumn>();
-                IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<string, HrmMatrixRow>();
+                IDictionary<String, HrmMatrixColumn> ozm_columns = new Dictionary<String, HrmMatrixColumn>();
+                IDictionary<String, HrmMatrixRow> ozm_rows = new Dictionary<String, HrmMatrixRow>();
+                IDictionary<String, HrmMatrixColumn> kb_columns = new Dictionary<String, HrmMatrixColumn>();
+                IDictionary<String, HrmMatrixRow> kb_rows = new Dictionary<String, HrmMatrixRow>();
                 IDictionary<String, HrmMatrixColumn> plan_matrix_columns = null;
                 IDictionary<String, HrmMatrixRow> plan_matrix_rows = null;
                 IDictionary<String, Department> departments_in_database = object_space.GetObjects<Department>()
@@ -248,6 +248,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 IDictionary<String, fmCOrder> orders_in_database = object_space.GetObjects<fmCOrder>()
                     .ToDictionary<fmCOrder, String>(x => x.Code);
                 //начинаем перебирать строки в файле
+                HrmMatrix plan_matrix = null;
                 foreach (var each in plan_list) {
                     //если запись относится к нашему периоду то начинаем обработку
                     if (each.Year != current_year || each.Month != current_month) {
@@ -260,7 +261,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                         return;
                     }
                     else {
-                        HrmMatrix plan_matrix = null;
                         String file_ord_code = each.OrderCode;
                         if (String.IsNullOrEmpty(file_ord_code) && file_ord_code != "") {
                             task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код заказа в файле");
@@ -351,7 +351,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
                 foreach (var data in const_order_list) {
-                    if (data.Year != current_year) {
+                    if (data.Year != current_year || data.Month != current_month) {
                         task.Abort();
                         task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Const_OrderTime.ncd' не соответствует дате текущего периода");
                         broken = true;
@@ -369,21 +369,76 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (String.IsNullOrEmpty(file_dep_code)) {
                             task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
                         }
-                        if (!String.IsNullOrEmpty(file_dep_code) && !String.IsNullOrEmpty(file_order_code)) {
-                            String cell_key = file_dep_code + "|" + file_order_code;
-                            try {
-                                cells_in_matrix[cell_key].ConstOrderTime += data.Time;
+                        HrmMatrixColumn current_column = null;
+                        if (departments_in_database.ContainsKey(file_dep_code)) {
+                            if (departments_in_database[file_dep_code].GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                                plan_matrix = kb_plan_matrix;
+                                plan_matrix_columns = kb_columns;
+                                plan_matrix_rows = kb_rows;
                             }
-                            catch (KeyNotFoundException) {
-                                task.LogRecord(LogRecordType.ERROR, null, null, "В матрице нет такой ячейки и/или код подразделения и/или заказа в файле пустые");
+                            else {
+                                plan_matrix = ozm_plan_matrix;
+                                plan_matrix_columns = ozm_columns;
+                                plan_matrix_rows = ozm_rows;
+                            }
+                            if (plan_matrix_columns.ContainsKey(file_dep_code))
+                                current_column = plan_matrix_columns[file_dep_code];
+                            //если колонки еще не было - то создаем и инициализируем новую
+                            else {
+                                current_column = object_space.CreateObject<HrmMatrixColumn>();
+                                current_column.Matrix = plan_matrix;
+                                plan_matrix.Columns.Add(current_column);
+                                current_column.Department = departments_in_database[file_dep_code];
+                                plan_matrix_columns.Add(file_dep_code, current_column);
+                            }
+                        }
+                        else {
+                            task.LogRecord(LogRecordType.ERROR, null, orders_in_database[file_order_code], "В справочниках не найдено подразделения с кодом " + data.DepartmentCode.Trim());
+                            broken = true;
+                            matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        }
+                        HrmMatrixRow current_row = null;
+                        if (plan_matrix_rows.ContainsKey(file_order_code))
+                            current_row = plan_matrix_rows[file_order_code];
+                        else {
+                            current_row = object_space.CreateObject<HrmMatrixRow>();
+                            current_row.Matrix = plan_matrix;
+                            plan_matrix.Rows.Add(current_row);
+                            plan_matrix_rows.Add(file_order_code, current_row);
+                            if (orders_in_database.ContainsKey(file_order_code))
+                                current_row.Order = orders_in_database[file_order_code];
+                            else {
+                                task.LogRecord(LogRecordType.ERROR, departments_in_database[file_dep_code], null, "В справочниках не найдено заказа с кодом " + file_order_code);
                                 broken = true;
                                 matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
                                 kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                                 ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
                             }
+                        }                        
+                        if (!String.IsNullOrEmpty(file_dep_code) && !String.IsNullOrEmpty(file_order_code)) {
+                            String cell_key = file_dep_code + "|" + file_order_code;
+                            if (!cells_in_matrix.ContainsKey(cell_key)) {
+                                HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
+                                cell.Time = 0;
+                                cell.MoneyAllSumm = 0;
+                                cell.ConstOrderTime += data.Time;
+                                cell.Row = current_row;
+                                cell.Column = current_column;
+                                current_row.Cells.Add(cell);
+                                current_column.Cells.Add(cell);
+                                cells_in_matrix.Add(cell_key, cell);
+                            }
+                            else {
+                                HrmMatrixCell cell = cells_in_matrix[cell_key];
+                                cell.ConstOrderTime += data.Time;
+                            }
+                            task.MatrixPlanKB = kb_plan_matrix;
+                            task.MatrixPlanOZM = ozm_plan_matrix;
                         }
                         else {
-                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось заполнить поле 'Постоянное время заказа'");
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа");
                         }
                     }
                 }
@@ -405,17 +460,77 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (String.IsNullOrEmpty(file_dep_code)) {
                             task.LogRecord(LogRecordType.WARNING, null, null, "Пустой код подразделения в файле");
                         }
-                        if (!String.IsNullOrEmpty(file_dep_code) && !String.IsNullOrEmpty(file_order_code)) {
-                            String cell_key = file_dep_code + "|" + file_order_code;
-                            try {
-                                cells_in_matrix[cell_key].TravelTime += travel.TravelTime;
+                        HrmMatrixColumn current_column = null;
+                        if (departments_in_database.ContainsKey(file_dep_code)) {
+                            if (departments_in_database[file_dep_code].GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                                plan_matrix = kb_plan_matrix;
+                                plan_matrix_columns = kb_columns;
+                                plan_matrix_rows = kb_rows;
                             }
-                            catch (KeyNotFoundException) {
-                                task.LogRecord(LogRecordType.WARNING, null, null, "В матрице нет такой ячейки и/или код подразделения " + file_dep_code + " и/или заказа " + file_order_code + " в файле пустые");
+                            else {
+                                plan_matrix = ozm_plan_matrix;
+                                plan_matrix_columns = ozm_columns;
+                                plan_matrix_rows = ozm_rows;
+                            }
+                            if (plan_matrix_columns.ContainsKey(file_dep_code))
+                                current_column = plan_matrix_columns[file_dep_code];
+                            //если колонки еще не было - то создаем и инициализируем новую
+                            else {
+                                current_column = object_space.CreateObject<HrmMatrixColumn>();
+                                current_column.Matrix = plan_matrix;
+                                plan_matrix.Columns.Add(current_column);
+                                current_column.Department = departments_in_database[file_dep_code];
+                                plan_matrix_columns.Add(file_dep_code, current_column);
                             }
                         }
                         else {
-                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось заполнить поле 'Постоянное время заказа'");
+                            task.LogRecord(LogRecordType.ERROR, null, orders_in_database[file_order_code], "В справочниках не найдено подразделения с кодом " + travel.DepartmentCode.Trim());
+                            broken = true;
+                            matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                        }
+                        HrmMatrixRow current_row = null;
+                        if (plan_matrix_rows.ContainsKey(file_order_code))
+                            current_row = plan_matrix_rows[file_order_code];
+                        else {
+                            current_row = object_space.CreateObject<HrmMatrixRow>();
+                            current_row.Matrix = plan_matrix;
+                            plan_matrix.Rows.Add(current_row);
+                            plan_matrix_rows.Add(file_order_code, current_row);
+                            if (orders_in_database.ContainsKey(file_order_code))
+                                current_row.Order = orders_in_database[file_order_code];
+                            else {
+                                task.LogRecord(LogRecordType.ERROR, departments_in_database[file_dep_code], null, "В справочниках не найдено заказа с кодом " + file_order_code);
+                                broken = true;
+                                matrix_alloc_plan_summary.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                                kb_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                                ozm_plan_matrix.Status = HrmMatrixStatus.NOTDOWNLOADED;
+                            }
+                        }
+                        if (!String.IsNullOrEmpty(file_dep_code) && !String.IsNullOrEmpty(file_order_code)) {
+                            String cell_key = file_dep_code + "|" + file_order_code;
+                            if (!cells_in_matrix.ContainsKey(cell_key)) {
+                                HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
+                                cell.Time = 0;
+                                cell.MoneyAllSumm = 0;
+                                cell.ConstOrderTime = 0;
+                                cell.TravelTime += travel.TravelTime;
+                                cell.Row = current_row;
+                                cell.Column = current_column;
+                                current_row.Cells.Add(cell);
+                                current_column.Cells.Add(cell);
+                                cells_in_matrix.Add(cell_key, cell);
+                            }
+                            else {
+                                HrmMatrixCell cell = cells_in_matrix[cell_key];
+                                cell.TravelTime += travel.TravelTime;
+                            }
+                            task.MatrixPlanKB = kb_plan_matrix;
+                            task.MatrixPlanOZM = ozm_plan_matrix;
+                        }
+                        else {
+                            task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа");
                         }
                     }
                 }
