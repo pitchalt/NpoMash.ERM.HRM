@@ -267,8 +267,34 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.AfterConstruction();
         }
 
-        protected override void InObjectsLoad() {
+       /* protected override void InObjectsLoad() {
 
-        }
+            if (AllocParameters != null)
+                InObjects.Add(AllocParameters);
+
+            if (AllocResultKB != null)
+                InObjects.Add(AllocResultKB);
+            if (AllocResultOZM != null)
+                InObjects.Add(AllocResultOZM);
+
+            if (MatrixPlanKB != null)
+                InObjects.Add(MatrixPlanKB);
+            if (MatrixPlanOZM != null)
+                InObjects.Add(MatrixPlanOZM);
+
+            if (ProvisionMatrix != null)
+                InObjects.Add(ProvisionMatrix);
+
+            if (CurrentTimeSheetKB != null)
+                InObjects.Add(CurrentTimeSheetKB);
+            if (CurrentTimeSheetOZM != null)
+                InObjects.Add(CurrentTimeSheetOZM);
+
+            if (MatrixAllocKB != null)
+                InObjects.Add(MatrixAllocKB);
+            if (MatrixAllocOZM != null)
+                InObjects.Add(MatrixAllocOZM);
+        }*/
+        
     }
 }

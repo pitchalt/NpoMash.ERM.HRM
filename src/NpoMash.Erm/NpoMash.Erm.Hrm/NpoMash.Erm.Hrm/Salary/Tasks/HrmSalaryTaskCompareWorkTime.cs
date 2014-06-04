@@ -269,12 +269,25 @@ namespace NpoMash.Erm.Hrm.Salary {
             return new OrderItem2(this.Session);
         }
 
+             protected override void InObjectsLoad() {
+                 if (MinimizeNumberOfDeviationsMatrix != null)
+                     InObjects.Add(MinimizeNumberOfDeviationsMatrix);
+                 if (AllocResultKB != null)
+                     InObjects.Add(AllocResultKB);
+                 if (AllocResultOZM != null)
+                     InObjects.Add(AllocResultOZM);
+                 if (CurrentTimeSheetKB != null)
+                     InObjects.Add(CurrentTimeSheetKB);
+                 if (CurrentTimeSheetOZM != null)
+                     InObjects.Add(CurrentTimeSheetOZM);
+            if (MatrixPlan != null)
+                InObjects.Add(MatrixPlan);
+        }
+
         public HrmSalaryTaskCompareWorkTime(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        protected override void InObjectsLoad() {
 
-        }
 
     }
 }

@@ -406,6 +406,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <None Include="UnusableNodes3.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes2.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="Images\clock.png" />
   </ItemGroup>
   <ItemGroup>
