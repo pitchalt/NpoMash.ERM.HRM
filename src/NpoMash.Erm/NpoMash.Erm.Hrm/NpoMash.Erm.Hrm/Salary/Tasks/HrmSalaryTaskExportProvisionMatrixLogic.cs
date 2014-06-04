@@ -33,12 +33,15 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ExportProvisonMatrix(HrmSalaryTaskExportProvisionMatrix local_task) {
             local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ProvisionMatrix;
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
+            String current_month = null;
+            if (local_task.Period.Month < 10) { current_month = "0" + Convert.ToString(local_task.Period.Month); }
+            else { current_month = Convert.ToString(local_task.Period.Month); }
             IList<ExchangeMatrixPlan> records = new List<ExchangeMatrixPlan>();
             foreach (var column in local_task.ProvisionMatrix.Columns) {
                 foreach (var cell in column.Cells) {
                     var record = new ExchangeMatrixPlan() {
                         Year = local_task.Period.Year,
-                        Month = local_task.Period.Month,
+                        Month = current_month,
                         DepartmentCode = cell.Column.Department.BuhCode,
                         OrderCode = cell.Row.Order.Code,
                         Time = Convert.ToInt64(cell.SourceProvision)

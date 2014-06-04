@@ -267,8 +267,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             base.AfterConstruction();
         }
 
-       /* protected override void InObjectsLoad() {
-
+        protected override void InObjectsLoad() {
+            /*
             if (AllocParameters != null)
                 InObjects.Add(AllocParameters);
 
@@ -294,7 +294,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 InObjects.Add(MatrixAllocKB);
             if (MatrixAllocOZM != null)
                 InObjects.Add(MatrixAllocOZM);
-        }*/
+        */
+        }
         
     }
 }

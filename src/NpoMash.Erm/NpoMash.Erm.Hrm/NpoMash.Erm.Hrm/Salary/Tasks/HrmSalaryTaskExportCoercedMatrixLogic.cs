@@ -30,20 +30,24 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void ExportCoercedMatrix(HrmSalaryTaskExportCoercedMatrix local_task) {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
             local_task.KBCoercedMatrix.Status = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status;
             local_task.OZMCoercedMatrix.Status = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status;
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
             IList<ExchangeMatrixPlan> records = new List<ExchangeMatrixPlan>();
+            String current_month = null;
+            if (local_task.Period.Month < 10) { current_month = "0" + Convert.ToString(local_task.Period.Month); }
+            else { current_month = Convert.ToString(local_task.Period.Month); }
             foreach (var column in local_task.KBCoercedMatrix.Columns) {
                 foreach (var cell in column.Cells) {
                     var record = new ExchangeMatrixPlan() {
                         Year = local_task.Period.Year,
-                        Month = local_task.Period.Month,
+                        Month = current_month,
                         DepartmentCode = cell.Column.Department.BuhCode,
                         OrderCode = cell.Row.Order.Code,
-                        Time = cell.Time
+                        Time = Math.Round(cell.Time, 2)
                     };
                     records.Add(record);
                 }
@@ -52,10 +56,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 foreach (var cell in column.Cells) {
                     var record = new ExchangeMatrixPlan() {
                         Year = local_task.Period.Year,
-                        Month = local_task.Period.Month,
+                        Month = current_month,
                         DepartmentCode = cell.Column.Department.BuhCode,
                         OrderCode = cell.Row.Order.Code,
-                        Time = cell.Time
+                        Time = Math.Round(cell.Time, 2)
                     };
                     records.Add(record);
                 }

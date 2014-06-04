@@ -44,12 +44,6 @@ namespace NpoMash.Erm.Hrm.Exchange {
             }
         }
 
-        internal class TrimConverter : ConverterBase {
-            public override object StringToField(string from) {
-                return from.Trim();
-            }
-        }
-
         internal class TimeConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToDecimal(from.Trim(), CultureInfo.InvariantCulture.NumberFormat);

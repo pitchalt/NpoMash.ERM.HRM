@@ -251,7 +251,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmMatrix plan_matrix = null;
                 foreach (var each in plan_list) {
                     //если запись относится к нашему периоду то начинаем обработку
-                    if (each.Year != current_year || each.Month != current_month) {
+                    if (each.Year != current_year || Convert.ToInt16(each.Month) != current_month) {
                         task.Abort();
                         task.LogRecord(LogRecordType.ERROR, null, null, "Дата в файле 'Matrix_Plan.ncd' не соответствует дате текущего периода");
                         broken = true;
