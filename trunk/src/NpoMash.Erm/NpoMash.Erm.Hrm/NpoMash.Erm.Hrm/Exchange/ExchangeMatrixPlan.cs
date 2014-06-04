@@ -11,22 +11,27 @@ namespace NpoMash.Erm.Hrm.Exchange {
 
         [FieldFixedLength(5)]
         [FieldConverter(typeof(NewDateConverter))]
+        [FieldAlign(AlignMode.Right)]
         public Int16 Year;
 
         [FieldFixedLength(2)]
-        [FieldConverter(typeof(NewDateConverter))]
-        public Int16 Month;
+        [FieldTrim(TrimMode.Both)]
+        [FieldAlign(AlignMode.Right)]
+        public String Month;
 
         [FieldFixedLength(6)]
         [FieldConverter(typeof(DepConverter))]
+        [FieldAlign(AlignMode.Right)]
         public String DepartmentCode;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(TrimConverter))]
+        [FieldTrim(TrimMode.Both)]
+        [FieldAlign(AlignMode.Left)]
         public String OrderCode;
 
         [FieldFixedLength(13)]
         [FieldConverter(typeof(TimeConverter))]
+        [FieldAlign(AlignMode.Right)]
         public Decimal Time;
 
         internal class NewDateConverter : ConverterBase {
@@ -38,12 +43,6 @@ namespace NpoMash.Erm.Hrm.Exchange {
         internal class DepConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToString(Convert.ToInt32(from.Trim()));
-            }
-        }
-
-        internal class TrimConverter : ConverterBase {
-            public override object StringToField(string from) {
-                return from.Trim();
             }
         }
 

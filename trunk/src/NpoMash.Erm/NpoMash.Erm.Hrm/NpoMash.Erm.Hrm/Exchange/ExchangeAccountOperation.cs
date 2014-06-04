@@ -10,19 +10,19 @@ namespace NpoMash.Erm.Hrm.Exchange {
     public class ExchangeAccountOperation {
 
         [FieldFixedLength(2)]
-        [FieldConverter(typeof(SignConverter))]
+        [FieldTrim(TrimMode.Both)]
         public String Sign;
 
         [FieldFixedLength(5)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldTrim(TrimMode.Both)]
         public String Credit;
 
         [FieldFixedLength(5)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldTrim(TrimMode.Both)]
         public String Debit;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldTrim(TrimMode.Both)]
         public String OrderCode;
 
         [FieldFixedLength(6)]
@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
         public String DepartmentCode;
 
         [FieldFixedLength(4)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldTrim(TrimMode.Both)]
         public String PayTypeCode;
 
         [FieldFixedLength(14)]
@@ -41,21 +41,9 @@ namespace NpoMash.Erm.Hrm.Exchange {
         [FieldConverter(typeof(MoneyConverter))]
         public Decimal Money;
 
-        internal class SignConverter : ConverterBase {
-            public override object StringToField(string from) {
-                return from.Trim();
-            }
-        }
-
         internal class DepConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToString(Convert.ToInt32(from.Trim()));
-            }
-        }
-
-        internal class CodeConverter : ConverterBase {
-            public override object StringToField(string from) {
-                return from.Trim();
             }
         }
 

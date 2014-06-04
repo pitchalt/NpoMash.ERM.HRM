@@ -22,7 +22,7 @@ namespace NpoMash.Erm.Hrm.Exchange {
         public String DepartmentCode;
 
         [FieldFixedLength(9)]
-        [FieldConverter(typeof(CodeConverter))]
+        [FieldTrim(TrimMode.Both)]
         public String OrderCode;
 
         [FieldFixedLength(13)]
@@ -38,12 +38,6 @@ namespace NpoMash.Erm.Hrm.Exchange {
         internal class DepConverter : ConverterBase {
             public override object StringToField(string from) {
                 return Convert.ToString(Convert.ToInt64(from.Trim()));
-            }
-        }
-
-        internal class CodeConverter : ConverterBase {
-            public override object StringToField(string from) {
-                return from.Trim();
             }
         }
 
