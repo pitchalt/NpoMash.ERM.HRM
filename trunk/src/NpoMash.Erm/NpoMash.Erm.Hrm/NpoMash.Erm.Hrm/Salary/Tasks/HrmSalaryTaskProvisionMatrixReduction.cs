@@ -238,6 +238,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item.SourceProvision += Convert.ToInt64(c.SourceProvision);
                     item.NewProvision += Convert.ToInt64(c.NewProvision);
                     item.Base += Convert.ToInt64(c.MoneyNoReserve);
+
                 }
                 item.DeltaProvision=(item.NewProvision-item.SourceProvision);
                 item.PrefactoryDepartmentFact = item.NewProvision + item.Base;
@@ -256,10 +257,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void InObjectsLoad() {
-            /*
+            
             if (AllocParameters != null)
                 InObjects.Add(AllocParameters);
-
+            
             if (AllocResultKB != null)
                 InObjects.Add(AllocResultKB);
             if (AllocResultOZM != null)
@@ -269,10 +270,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 InObjects.Add(MatrixPlanKB);
             if (MatrixPlanOZM != null)
                 InObjects.Add(MatrixPlanOZM);
-
+            /*
             if (ProvisionMatrix != null)
                 InObjects.Add(ProvisionMatrix);
-
+           */
             if (CurrentTimeSheetKB != null)
                 InObjects.Add(CurrentTimeSheetKB);
             if (CurrentTimeSheetOZM != null)
@@ -282,7 +283,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 InObjects.Add(MatrixAllocKB);
             if (MatrixAllocOZM != null)
                 InObjects.Add(MatrixAllocOZM);
-        */
+        
         }
         
     }

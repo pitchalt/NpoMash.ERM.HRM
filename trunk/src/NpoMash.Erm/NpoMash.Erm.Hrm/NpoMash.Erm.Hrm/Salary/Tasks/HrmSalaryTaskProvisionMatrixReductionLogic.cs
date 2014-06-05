@@ -204,7 +204,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 if (key == true) {
                     foreach (var cell in matrix_order.Cells) {
-                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = norm_kb * (cell.Time); }
+                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = norm_kb * (cell.Time);  }
                         else { cell.PlanMoney = norm_ozm * (cell.Time); }
                     }
                 }
