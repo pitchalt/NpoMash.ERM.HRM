@@ -423,7 +423,6 @@
         <LocalizationItem Name="PROPORTIONS_METHOD_VARIANT" Value="Метод пропорции" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPayTypes">
-        <LocalizationItem Name="BASE_CODE" Value="Код базы" />
         <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
         <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
       </LocalizationGroup>
@@ -515,12 +514,17 @@
             <LayoutGroup Id="DepartmentItemBase" Caption="DepartmentItemBase" />
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="OrderItems" Caption="Order Items" />
-            <LayoutGroup Id="OrderItemBases" Caption="Order Item Bases" />
+            <LayoutGroup Id="OrderItems" Caption="Заказы" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="DepartmentItem2_OrderItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+      </Columns>
+    </ListView>
     <DetailView Id="DepartmentSet_MasterDetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -1132,6 +1136,12 @@
         <PropertyEditor Id="TypeControl" Caption="Тип контроля" />
       </Items>
     </DetailView>
+    <ListView Id="OrderItem2_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+      </Columns>
+    </ListView>
     <DetailView Id="OrderItem2_MasterDetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
@@ -1139,8 +1149,7 @@
             <LayoutGroup Id="OrderItemBase" Caption="OrderItemBase" />
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="DepartmentItems" Caption="Department Items" />
-            <LayoutGroup Id="DepartmentItemBases" Caption="Department Item Bases" />
+            <LayoutGroup Id="DepartmentItems" Caption="Подразделения" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
