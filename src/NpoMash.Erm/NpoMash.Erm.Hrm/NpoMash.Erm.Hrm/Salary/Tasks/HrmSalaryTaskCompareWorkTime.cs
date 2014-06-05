@@ -71,7 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [NonPersistent]
         public class OrderItem2 : 
-//            HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.OrderItemBase {
+
             OrderItemBase {
             public OrderItem2(Session session) : base(session) { }
             public OrderItem2() { }
@@ -84,7 +84,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 get { return _DepartmentItems; }
             }
             //Поля для контроля трудоемкости
-              [ModelDefault("DisplayFormat", "{0:N}")]
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderFact;
@@ -239,7 +239,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                                 break;
                         }
                         break;
-                       
                     default:
                         break;
                 }

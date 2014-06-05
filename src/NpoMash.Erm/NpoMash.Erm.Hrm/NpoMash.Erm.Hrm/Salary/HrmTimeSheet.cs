@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmTimeSheet")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    [DefaultProperty("Name")]
+    [DefaultProperty("Name1")]
     public class HrmTimeSheet : BaseObject, ITimeSheet {
 
         // Cсылка на HrmPeriodTimeSheetBaseObject
@@ -54,7 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 SetPropertyValue<HrmPeriod>("Period", ref _Period, value);
                 if (!IsLoading) {
                     _TimeSheetPeriodObject.Period = value;
-                   // PeriodBase = value;
+
                 }
             }
         }
@@ -85,9 +85,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             SetStatus(HrmTimeSheetStatus.DOWNLOADED);
         }
 
-        //public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
-        //    get { return _TimeSheetPeriodObject.Status; }
-        //}
+
         public String PeriodObjectStatus {
             get {
                 EnumDescriptor ed = new EnumDescriptor(typeof(HrmTimeSheetStatus));
@@ -114,6 +112,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
+        public String Name1 {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return (Period.Year * 100 + Period.Month).ToString();
+            }
+        }
 
         public string TaskObjectStatus {
             get { return PeriodObjectStatus; }

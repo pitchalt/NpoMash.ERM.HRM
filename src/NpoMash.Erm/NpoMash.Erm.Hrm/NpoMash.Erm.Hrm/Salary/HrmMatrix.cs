@@ -54,7 +54,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Name")]
+    [DefaultProperty("Name1")]
     public class HrmMatrix : BaseObject, IMatrix {
 
         /// <summary>
@@ -183,6 +183,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                 return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
             }
         }
+
+        public String Name1 {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return (Period.Year * 100 + Period.Month).ToString();
+             
+            }
+        }
+
 
         public string TaskObjectStatus {
             get { return PeriodObjectStatus; }
