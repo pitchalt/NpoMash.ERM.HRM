@@ -801,13 +801,13 @@
             <LayoutGroup Id="Parameters" ShowCaption="True" Index="2" RelativeSize="100" IsNewNode="True">
               <LayoutGroup Id="HrmSalaryTask" Index="0" Caption="Hrm Salary Task" Direction="Horizontal" RelativeSize="17" ShowCaption="True" IsNewNode="True">
                 <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" Caption="HrmSalaryTask_col1" RelativeSize="44" IsNewNode="True">
-                  <LayoutItem Id="TaskType" ViewItem="TaskType" ShowCaption="" Index="0" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
-                  <LayoutItem Id="State" ViewItem="State" ShowCaption="" Index="1" SizeConstraintsType="Default" RelativeSize="27" IsNewNode="True" />
-                  <LayoutItem Id="GroupDep" ViewItem="GroupDep" ShowCaption="" Index="2" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
+                  <LayoutItem Id="TaskType" ViewItem="TaskType" Index="0" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
+                  <LayoutItem Id="State" ViewItem="State" Index="1" SizeConstraintsType="Default" RelativeSize="27" IsNewNode="True" />
+                  <LayoutItem Id="GroupDep" ViewItem="GroupDep" Index="2" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" Caption="HrmSalaryTask_col2" RelativeSize="52" IsNewNode="True">
-                  <LayoutItem Id="CreateTime" ViewItem="CreateTime" ShowCaption="" Index="0" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
-                  <LayoutItem Id="FinishTime" ViewItem="FinishTime" ShowCaption="" Index="1" SizeConstraintsType="Default" RelativeSize="63" IsNewNode="True" />
+                  <LayoutItem Id="CreateTime" ViewItem="CreateTime" Index="0" SizeConstraintsType="Default" RelativeSize="36" IsNewNode="True" />
+                  <LayoutItem Id="FinishTime" ViewItem="FinishTime" Index="1" SizeConstraintsType="Default" RelativeSize="63" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="KB" ShowCaption="False" Caption="KB" Index="1" RelativeSize="82" Direction="Horizontal" IsNewNode="True">
