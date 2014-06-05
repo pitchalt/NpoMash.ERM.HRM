@@ -29,12 +29,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private HrmMatrixAllocResult _MatrixAllocResultKB;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrixAllocResult MatrixAllocResultKB {
             get { return _MatrixAllocResultKB; }
             set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResultKB", ref _MatrixAllocResultKB, value); }
         }
 
         private HrmMatrixAllocResult _MatrixAllocResultOZM;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrixAllocResult MatrixAllocResultOZM {
             get { return _MatrixAllocResultOZM; }
             set { SetPropertyValue<HrmMatrixAllocResult>("MatrixAllocResult", ref _MatrixAllocResultOZM, value); }
