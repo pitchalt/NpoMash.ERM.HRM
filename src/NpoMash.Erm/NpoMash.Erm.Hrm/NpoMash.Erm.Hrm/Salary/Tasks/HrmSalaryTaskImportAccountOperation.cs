@@ -48,7 +48,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void InObjectsLoad() {
-
+            if (MatrixAllocResultKB != null)
+                InObjects.Add(MatrixAllocResultKB);
+            if (MatrixAllocResultOZM != null)
+                InObjects.Add(MatrixAllocResultOZM);
         }
 
     }
