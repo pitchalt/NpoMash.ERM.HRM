@@ -89,6 +89,10 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                     Decimal diff = Math.Round(dep.undistributedReserve / uncontrolled,2);
                     cell.reserve += diff;
                     dep.undistributedReserve -= diff;
+                    if (uncontrolled == 1) {
+                        cell.reserve += dep.undistributedReserve;
+                        dep.undistributedReserve = 0;
+                    }
                     uncontrolled--;
                 }
         }
@@ -198,6 +202,27 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             }
         }
 
+        // а эта процедура по-простому убирает оставшиеся глупые дельты по +-10 единиц
+        // (которых и не должно быть, но они не пойми откуда берутся)
+        public static void DestroyTheDeltas(ProvMat mat) {
+            foreach (ProvCell cell in mat.cells)
+                cell.reserve = Math.Round(cell.reserve, 2);
+            foreach (ProvDep dep in mat.deps.Values) {
+                Decimal delta = dep.reserveOfDep - dep.cells.Sum(x => x.reserve);
+                if (delta > 0)
+                    dep.cells.First().reserve += delta;
+                else if (delta < 0) {
+                    foreach (ProvCell cell in dep.cells.OrderByDescending(x => x.reserve)) {
+                        Decimal size = Math.Min(Math.Abs(delta), cell.reserve);
+                        cell.reserve -= size;
+                        delta += size;
+                        if (delta == 0)
+                            break;
+                    }
+                }
+            }
+        }
+
         // это базовый алгоритм, чтобы не вызывать по одной эти три процедуры
         public static void baseAlgorithm(ProvMat mat){
             BringVeryEasyDeps(mat);
@@ -265,6 +290,8 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                 // ищем следующий наиболее отклоняющийся заказ
                 work_order = theMostDeviatedOrd(mat);
             }
+            // очищаем дельты
+            DestroyTheDeltas(mat);
         }
 
         // проверка, является ли данный заказ полностью контролируемым
