@@ -44,19 +44,28 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
             //Поля для контроля трудоемкости
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DepartmentPlan;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DepartmentTravelPlan;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal ConstantDepTime;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             private Decimal fact_Constant;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Fact_Constant {
                 get { return fact_Constant = DepartmentFact - ConstantDepTime; }
             }
             public Decimal DepartmentFact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelFact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             private Decimal plan_Fact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Plan_Fact {
                 get { return plan_Fact=DepartmentPlan - DepartmentFact; }
         }
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal CoercedValue;
         }
 
@@ -75,19 +84,29 @@ namespace NpoMash.Erm.Hrm.Salary {
                 get { return _DepartmentItems; }
             }
             //Поля для контроля трудоемкости
+              [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderPlan;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderFact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelPlan;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal ConstantOrderTime;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             private Decimal orderFact_ConstantOrderTime;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderFact_ConstantOrderTime {
                 get { return orderFact_ConstantOrderTime = OrderFact - ConstantOrderTime; }
             }
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelFact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             private Decimal plan_Fact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Plan_Fact {
                 get { return plan_Fact = OrderPlan - OrderFact; }
         }
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal CoercedValue;
         }
         protected IList<DepartmentItem2> _DepartmentItems;

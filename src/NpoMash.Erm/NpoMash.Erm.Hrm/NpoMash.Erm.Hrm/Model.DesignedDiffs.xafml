@@ -248,9 +248,6 @@
             <LayoutGroup Id="OrderItems" Index="0" ShowCaption="True" RelativeSize="100" IsNewNode="True">
               <LayoutItem Id="OrderItems" ViewItem="OrderItems" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="OrderItemBases" Index="1" ShowCaption="True" RelativeSize="100" IsNewNode="True">
-              <LayoutItem Id="OrderItemBases" ViewItem="OrderItemBases" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
@@ -259,7 +256,12 @@
       <Columns>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
-        <ColumnInfo Id="TravelPlan" Index="3" />
+        <ColumnInfo Id="TravelPlan" Index="4" />
+        <ColumnInfo Id="CoercedValue" Index="6" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="7" />
+        <ColumnInfo Id="ConstantOrderTime" Index="8" />
+        <ColumnInfo Id="TravelFact" Index="9" />
+        <ColumnInfo Id="Plan_Fact" Index="10" />
       </Columns>
     </ListView>
     <DetailView Id="DepartmentSet_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet" IsNewNode="True">
@@ -1711,6 +1713,20 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="OrderItem2_ListView">
+      <Columns>
+        <ColumnInfo Id="OrderFact" Index="-1" />
+        <ColumnInfo Id="Order" Index="0" />
+        <ColumnInfo Id="TypeControl" Index="1" />
+        <ColumnInfo Id="OrderPlan" Index="2" />
+        <ColumnInfo Id="TravelPlan" Index="3" />
+        <ColumnInfo Id="ConstantOrderTime" Index="4" />
+        <ColumnInfo Id="CoercedValue" Index="5" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="6" />
+        <ColumnInfo Id="TravelFact" Index="7" />
+        <ColumnInfo Id="Plan_Fact" Index="8" />
+      </Columns>
+    </ListView>
     <DetailView Id="OrderItem2_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime+OrderItem2" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="_DepartmentItems" PropertyName="_DepartmentItems" View="OrderItem2__DepartmentItems_ListView" IsNewNode="True" />
@@ -1738,9 +1754,6 @@
           <TabbedGroup Id="Tabs" Index="1" RelativeSize="91" IsNewNode="True">
             <LayoutGroup Id="DepartmentItems" Index="0" ShowCaption="True" RelativeSize="100" IsNewNode="True">
               <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="DepartmentItemBases" Index="1" ShowCaption="True" RelativeSize="100" IsNewNode="True">
-              <LayoutItem Id="DepartmentItemBases" ViewItem="DepartmentItemBases" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>
