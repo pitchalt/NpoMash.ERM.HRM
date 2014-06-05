@@ -422,6 +422,7 @@
         <LocalizationItem Name="PROPORTIONS_METHOD_VARIANT" Value="Метод пропорции" />
       </LocalizationGroup>
       <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPayTypes">
+        <LocalizationItem Name="BASE_CODE" Value="Код базы" />
         <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
         <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
       </LocalizationGroup>
