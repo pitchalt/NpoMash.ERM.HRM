@@ -25,8 +25,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskExportCoercedMatrixLogic {
 
         public static void InitObjects(HrmSalaryTaskExportCoercedMatrix local_task) {
-            local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix;
-            local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
+            if (local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix != null) { local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix; }
+            if (local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix != null) { local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix; }
+            if (local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix; }
+            if (local_task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix != null) { local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix; }
+            if (local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) { local_task.KBCoercedMatrix = local_task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix; }
+            if (local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix != null) { local_task.OZMCoercedMatrix = local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix; }
         }
 
         public static void ExportCoercedMatrix(HrmSalaryTaskExportCoercedMatrix local_task) {

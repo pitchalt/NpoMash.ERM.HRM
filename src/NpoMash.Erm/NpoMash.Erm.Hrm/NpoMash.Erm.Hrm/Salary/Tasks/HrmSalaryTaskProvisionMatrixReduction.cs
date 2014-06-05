@@ -149,11 +149,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             public DepartmentSet(Session session) : base(session) { }
         }
 
-
-
-
-
-
         private IList<OrderSet> _Order;
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
@@ -166,8 +161,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                 return _Order;
             }
         }
-
-
 
         private IList<DepartmentSet> _Department;
         [VisibleInListView(false)]
@@ -221,17 +214,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                         item.PrefatoryFactOZM += Convert.ToInt64(c.MoneyNoReserve + c.NewProvision);
                     }
                 }
-
-
-
                 item.DepartmentItems = new List<DepartmentSet>();
                 if (col == null)
                     LoadMatrixDepartment(matrix, row, item.DepartmentItems);
-
             }
-
-
         }
+
         protected void LoadMatrixDepartment(HrmMatrix matrix, HrmMatrixRow row, IList<DepartmentSet> items) {
             foreach (HrmMatrixColumn col in matrix.Columns) {
                 if (row != null && col.Cells.FirstOrDefault(x => x.Row == row) == null)

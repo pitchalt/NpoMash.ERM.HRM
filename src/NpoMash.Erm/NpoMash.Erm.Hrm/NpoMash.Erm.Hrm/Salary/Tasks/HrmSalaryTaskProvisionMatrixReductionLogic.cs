@@ -187,6 +187,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
             var alloc_parameters = card.AllocParameters;
             var matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os, card);
+            matrix.Period = card.Period;
             Decimal norm_kb=0;
             Decimal norm_ozm = 0;
             bool key=false;
@@ -212,16 +213,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = alloc_parameters.NormNoControlKB * (cell.Time); }
                         else { cell.PlanMoney = alloc_parameters.NormNoControlOZM *(cell.Time); }
                     }
-
                 }
-
             }
-
             return matrix;
         }
-
-
-
-
     }
 }

@@ -326,8 +326,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
                         if (!cells_in_matrix.ContainsKey(cell_key)) {
                             HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
-                            cell.Time = each.Time;
-                            cell.MoneyAllSumm = 0;
+                            cell.Time += each.Time;
+                            cell.MoneyAllSumm += 0;
                             cell.Row = current_row;
                             cell.Column = current_column;
                             current_row.Cells.Add(cell);
@@ -417,14 +417,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                         String cell_key = file_dep_code + "|" + file_order_code;
                         if (!cells_in_matrix.ContainsKey(cell_key)) {
                             HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
-                            cell.Time = 0;
-                            cell.MoneyAllSumm = 0;
+                            cell.Time += 0;
+                            cell.MoneyAllSumm += 0;
                             cell.ConstOrderTime += data.Time;
                             cell.Row = current_row;
                             cell.Column = current_column;
                             current_row.Cells.Add(cell);
                             current_column.Cells.Add(cell);
                             cells_in_matrix.Add(cell_key, cell);
+                            task.LogRecord(LogRecordType.INFO, current_column.Department, current_row.Order, "В матрицу была догружена ячейка из файла 'Const_OrderTime.ncd'");
                         }
                         else {
                             HrmMatrixCell cell = cells_in_matrix[cell_key];
@@ -508,15 +509,16 @@ namespace NpoMash.Erm.Hrm.Salary {
                         String cell_key = file_dep_code + "|" + file_order_code;
                         if (!cells_in_matrix.ContainsKey(cell_key)) {
                             HrmMatrixCell cell = object_space.CreateObject<HrmMatrixCell>();
-                            cell.Time = 0;
-                            cell.MoneyAllSumm = 0;
-                            cell.ConstOrderTime = 0;
+                            cell.Time += 0;
+                            cell.MoneyAllSumm += 0;
+                            cell.ConstOrderTime += 0;
                             cell.TravelTime += travel.TravelTime;
                             cell.Row = current_row;
                             cell.Column = current_column;
                             current_row.Cells.Add(cell);
                             current_column.Cells.Add(cell);
                             cells_in_matrix.Add(cell_key, cell);
+                            task.LogRecord(LogRecordType.INFO, current_column.Department, current_row.Order, "В матрицу была догружена ячейка из файла 'Matrix_TravelTimePlan.ncd'");
                         }
                         else {
                             HrmMatrixCell cell = cells_in_matrix[cell_key];
