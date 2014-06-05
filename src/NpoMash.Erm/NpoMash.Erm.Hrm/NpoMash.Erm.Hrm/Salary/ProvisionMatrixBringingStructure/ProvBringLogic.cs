@@ -174,9 +174,14 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                         // то распихиваем остаток резерва поровну
                         foreach (ProvCell working_cell in work_cells) {
                             Decimal diff = dep.undistributedReserve / number_of_workcells;
-                            Math.Truncate(diff);
+                            diff = Math.Round(diff,2);
                             working_cell.reserve += diff;
                             dep.undistributedReserve -= diff;
+                            // в последнюю ячейку вываливаем все что осталось чтобы гарантированно выбраться из цикла
+                            if (number_of_workcells == 1) {
+                                working_cell.reserve += dep.undistributedReserve;
+                                dep.undistributedReserve = 0;
+                            }
                             number_of_workcells--;
                         }
                     }
@@ -209,8 +214,11 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             ProvOrd work_order = theMostDeviatedOrd(mat);
             ProvOrd check_point_order = null;
             bool check_point_is_made = false;
+            int iter_number = 0;
             decimal d = 0;
             while (work_order != null) {
+                Decimal function_value_to_debug = mat.CountTargetFunctionValue();
+                iter_number++;
                 // проверяем, является ли он полностью контролируемым, если да то...
                 if (isFullyControlled(work_order)) {
                     // если была сделана контрольная точка и значение целевой функции ухудшилось...
@@ -264,13 +272,13 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             bool result = false;
             // факт превышает план, следует смотреть можно ли что-то выпихнуть в неконтролируемые заказы
             if (ord.ordDeviation > 0) {
-                result = ord.cells.Where(x => x.dep.numberOfUncontrolledOrders > 0 && x.reserve > 0).Count() > 0;
+                result = ord.cells.Where(x => x.dep.numberOfUncontrolledOrders > 0 && x.reserve > 0).Count() == 0;
             }
             // факт меньше плана, смотрим можно ли что-то добавить из неконтролируемых заказов
             if (ord.ordDeviation < 0) {
                 result = ord.cells.Where(x => x.dep.numberOfUncontrolledOrders > 0
                     && Math.Min(x.constFact, x.dep.cells.Where(y => !y.ord.isControlled).Sum(y => y.reserve)) > 0)
-                    .Count() > 0;
+                    .Count() == 0;
             }
             return result;
         }
@@ -280,8 +288,8 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             ProvOrd result = null;
             try {
                 // ищем среди контролируемых заказов, не отмеченных как приведенные, заказ с наибольшим по модулю отклонением
-                Decimal deviation = mat.ords.Values.Where(x => !x.isFinallyBringed && x.isControlled).Max(x => Math.Abs(x.ordDeviation));
-                result = mat.ords.Values.FirstOrDefault(x => x.ordDeviation == deviation);
+                Decimal deviation = mat.ords.Values.Where(x => !x.isFinallyBringed && x.isControlled && x.ordDeviation != 0).Max(x => Math.Abs(x.ordDeviation));
+                result = mat.ords.Values.FirstOrDefault(x => Math.Abs(x.ordDeviation) == deviation);
             }
                 // если вдруг при операции максимума список был пуст то поймали исключение и вернем ничто
             catch (InvalidOperationException) { }
@@ -362,9 +370,16 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             else {
                 Decimal rest_to_distribute = to_distribute;
                 Decimal rest_space = available_space.Values.Sum();
-                foreach (ProvCell cell in available_space.Keys) {
+                foreach (ProvCell cell in available_space.Keys.OrderByDescending(x => available_space[x])) {
                     // ищем, сколько надо добавить в ячейку (или убавить) ВБ
-                    Decimal size = Math.Round((rest_to_distribute / rest_space) * available_space[cell],2);
+                    Decimal size = (rest_to_distribute / rest_space) * available_space[cell];
+                    // если при пропорциях получаем уже слишком маленькие числа и можно весь остаток свалить в текущую ячейку
+                    if (Math.Abs(size) > 0 && Math.Abs(size) < (Decimal)0.01 && Math.Abs(rest_to_distribute) < available_space[cell]){
+                        // то забиваем на пропорции и прочие страдания
+                        cell.virtualBase += rest_to_distribute;
+                        break;
+                    }
+                    size = Math.Round(size, 2);
                     // это надо уменьшать независимо от знака
                     rest_to_distribute -= Math.Abs(size);
                     rest_space -= Math.Abs(size);
