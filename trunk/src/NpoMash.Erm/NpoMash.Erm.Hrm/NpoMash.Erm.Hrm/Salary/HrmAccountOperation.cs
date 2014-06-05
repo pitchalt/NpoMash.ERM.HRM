@@ -25,18 +25,21 @@ namespace NpoMash.Erm.Hrm.Salary {
     public class HrmAccountOperation : XPObject {
 
         private String _Sign;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public String Sign {
             get { return _Sign; }
             set { SetPropertyValue<String>("Sign", ref _Sign, value); }
         }
 
         private String _Credit;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public String Credit {
             get { return _Credit; }
             set { SetPropertyValue<String>("Credit", ref _Credit, value); }
         }
 
         private String _Debit;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public String Debit {
             get { return _Debit; }
             set { SetPropertyValue<String>("Debit", ref _Debit, value); }
@@ -68,6 +71,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private Decimal _Money;
+        [ModelDefault("DisplayFormat", "{0:N}")]
         public Decimal Money {
             get { return _Money; }
             set { SetPropertyValue<Decimal>("Money", ref _Money, value); }
