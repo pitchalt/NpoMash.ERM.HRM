@@ -307,6 +307,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     account_to_db.Debit = account_operation.Debit;
                     account_to_db.Money = account_operation.Money;
                     account_to_db.Credit = account_operation.Credit;
+                    account_to_db.Time = account_operation.Time;
                     try {
                         account_to_db.Order = orders_in_database[account_operation.OrderCode];
                         account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
@@ -333,17 +334,15 @@ namespace NpoMash.Erm.Hrm.Salary {
                         cell.AccountOperations.Add(account_to_db);
                         current_cell = cell;
                     }
+                    current_cell.Time += account_operation.Time;
                     if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.PROVISION_CODE) {
                         current_cell.SourceProvision += account_operation.Money;
-                        current_cell.Time += account_operation.Time;
                     }
                     if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.TRAVEL_CODE) {
                         current_cell.TravelMoney += account_operation.Money;
-                        current_cell.Time += account_operation.Time;
                     }
                     if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.BASE_CODE) {
                         current_cell.MoneyNoReserve += account_operation.Money;
-                        current_cell.Time += account_operation.Time;
                     }
                 }
                 else {
