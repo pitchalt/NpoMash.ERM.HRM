@@ -21,7 +21,7 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [Persistent("HrmAccountOperation")]
-    [DefaultProperty("Department")]
+  //  [DefaultProperty("Department.GroupDep")]
     public class HrmAccountOperation : XPObject {
 
         private String _Sign;

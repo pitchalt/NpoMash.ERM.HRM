@@ -225,8 +225,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         break;
                 }
                 if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
-                    item.OrderFact = cell.Time;
-                    item.TravelFact = cell.TravelTime;
+                    item.OrderFact += cell.Time;
+                    item.TravelFact += cell.TravelTime;
             }
         }
         }
@@ -254,8 +254,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                         break;
                 }
                 if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
-                    item.DepartmentFact = cell.Time;
-                    item.TravelFact = cell.TravelTime;
+                    item.DepartmentFact += cell.Time;
+                    item.TravelFact += cell.TravelTime;
             }
         }
         }
