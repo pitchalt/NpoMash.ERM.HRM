@@ -6,11 +6,11 @@ using System.Configuration;
 using System.ComponentModel;
 using System.Collections.Generic;
 //
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 //
 using DevExpress.ExpressApp;
+using DevExpress.XtraEditors;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
@@ -298,8 +299,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 //}
             }
             else if (e.SelectedChoiceActionItem.Id == "FromFile") {
-                // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
-
+                // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) 
                 current_period.PeriodTasks.Add(task);
                 HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperation(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);

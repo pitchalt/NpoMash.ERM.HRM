@@ -54,7 +54,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "!isReadyToBringProvision", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "isReadyToBringProvision", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportReserveMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_UPLOAD'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AccountOperationImport", Criteria = "isReadyToImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -385,7 +385,7 @@ namespace NpoMash.Erm.Hrm {
         private bool isReadyToBringMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS); } }
 
         [Browsable(false)]
-        private bool isReadyToBringProvision { get { return Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE; } } //HrmPeriodLogic.AccountOperationCompared(this) && Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE; } }
+        private bool isReadyToBringProvision { get { return !(Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } } //HrmPeriodLogic.AccountOperationCompared(this) && Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE; } }
 
         [Browsable(false)]
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
