@@ -323,7 +323,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                         ProvBringLogic.mainAlgorithm(mat);
                         ProvBringLogic.LoadProvBringResultInTask(mat);
                     }
-                    else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+                    else {
+                        // если уже есть матрица резерва, а сюда попали - пересчитываем поверх
+                        card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+                        ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
+                        ProvBringLogic.mainAlgorithm(mat);
+                        ProvBringLogic.LoadProvBringResultInTask(mat);
+                    }
                     e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                     e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                     os.Committed += new EventHandler(refresher);
