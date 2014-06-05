@@ -86,8 +86,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             // делим остаток резерва тупо поровну между неконтролируемыми заказами в подразделении
             int uncontrolled = dep.numberOfUncontrolledOrders;
                 foreach (ProvCell cell in dep.cells.Where(x => !x.ord.isControlled)) {
-                    Decimal diff = dep.undistributedReserve / uncontrolled;
-                    Math.Truncate(diff);
+                    Decimal diff = Math.Round(dep.undistributedReserve / uncontrolled,2);
                     cell.reserve += diff;
                     dep.undistributedReserve -= diff;
                     uncontrolled--;
@@ -251,6 +250,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                 // если же заказ полностью контролируемым не является, то...
                 else {
                     // выполняем процедуру распределения виртуальной базы в неполностью контролируемом заказе
+                    distributeVBInNotFullyControlledOrder(work_order);
                 }
                 // выплняем базовый алгоритм
                 baseAlgorithm(mat);
@@ -280,10 +280,10 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             ProvOrd result = null;
             try {
                 // ищем среди контролируемых заказов, не отмеченных как приведенные, заказ с наибольшим по модулю отклонением
-                Decimal deviation = mat.ords.Values.Where(x => !x.isFinallyBringed && !x.isControlled).Max(x => Math.Abs(x.ordDeviation));
+                Decimal deviation = mat.ords.Values.Where(x => !x.isFinallyBringed && x.isControlled).Max(x => Math.Abs(x.ordDeviation));
                 result = mat.ords.Values.FirstOrDefault(x => x.ordDeviation == deviation);
             }
-                // если вдруг при операции максимума список был пуст то поймали исключениел и вернем ничто
+                // если вдруг при операции максимума список был пуст то поймали исключение и вернем ничто
             catch (InvalidOperationException) { }
             return result;
         }
@@ -291,15 +291,95 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         // распределение виртуальной базы для полностью контролируемого заказа
         public static void distributeVBInFullyControlledOrder(ProvOrd order, Decimal d) {
             if (d > 100 || d < 0) throw new InvalidOperationException("D must be between 0 and 100, but was " + d.ToString());
+            // смотрим сколько ВБ нам хочется внести в заказ\вынести из заказа в соответсвии с заданным допуском отклонения (в % от текущего отклонения)
+            Decimal to_distribute = Math.Round(order.ordDeviation * (1 - d / 100), 2);
+            Dictionary<ProvCell, Decimal> distribution_dictionary = new Dictionary<ProvCell, decimal>();
+            // заказ перегружен, надо вносить ВБ
+            if (to_distribute > 0) {
+                // перебираем ячейки заказа, в подразделениях которых есть ячейки кроме этой
+                foreach (ProvCell cell in order.cells.Where(x=> x.dep.cells.Count()>1)) {
+                    Decimal size = cell.reserve;
+                    if(size > 0)
+                        distribution_dictionary.Add(cell, size);
+                }
+            }
+            // заказ недогружен - надо вынести ВБ
+            else {
+                foreach (ProvCell cell in order.cells.Where(x => x.dep.cells.Count > 1)) {
+                    Decimal size = Math.Min(cell.constFact,cell.dep.cells.Where(x => x != cell).Sum(x => x.reserve));
+                    if (size > 0)
+                        distribution_dictionary.Add(cell,size);
+                }
 
-
+            }
+            // теперь выполняем распределение ВБ пропорционально полученным числам
+            VBDistributor(to_distribute, distribution_dictionary);
         }
 
         // распределение виртуальной базы для неполностью контролируемого заказа
         public static void distributeVBInNotFullyControlledOrder(ProvOrd order) {
-
-
+            Decimal order_deviation = order.ordDeviation;
+            // сюда запишем пропорционально каким числам будем менять ВБ
+            Dictionary<ProvCell, Decimal> distribution_dictionary = new Dictionary<ProvCell, decimal>();
+            // если заказ перегружен (факт превышает план) то надо увеличить виртуальную базу
+            if (order_deviation > 0) {
+                // ищем ячейки в заказе из которых можно вынести часть резерва в неконтролируемые заказы
+                foreach (ProvCell cell in order.cells.Where(x => x.dep.numberOfUncontrolledOrders > 0)) {
+                    Decimal size = cell.reserve;
+                    // и резерв в этой ячейке ненулевой
+                    if (size > 0)
+                        distribution_dictionary.Add(cell, cell.reserve);
+                }
+            }
+            // если заказ недогружен (факт меньше плана) то надо уменьшить виртуальную базу
+            else {
+                // ищем ячейки в заказе в которые можно внести резерв из неконтролируемых заказов и возможно уменьшение базы
+                foreach (ProvCell cell in order.cells.Where(x => x.constFact > 0 && x.dep.numberOfUncontrolledOrders > 0)) {
+                    Decimal size = Math.Min(cell.dep.cells.Where(y => !y.ord.isControlled).Sum(y => y.reserve), cell.constFact);
+                    if (size > 0)
+                        distribution_dictionary.Add(cell, size);
+                }
+            }
+            // теперь выполняем распределение ВБ пропорционально полученным числам
+            VBDistributor(order.ordDeviation, distribution_dictionary);
         }
+
+
+        // процедура-распределитель виртуальной базы
+        public static void VBDistributor(Decimal to_distribute, Dictionary<ProvCell, Decimal> available_space) {
+            // если надо распределить больше чем имеем места - все просто, распихиваем базу по максимуму
+            if (available_space.Values.Sum() < Math.Abs(to_distribute)) {
+                // если перегруз - увеличиваем виртуальную базу
+                if (to_distribute > 0)
+                    foreach (ProvCell cell in available_space.Keys)
+                        cell.virtualBase += available_space[cell];
+                // если недогруз - уменьшаем
+                else
+                    foreach (ProvCell cell in available_space.Keys)
+                        cell.virtualBase -= available_space[cell];
+            }
+            // ну а если места больше чем хотим распределить - придется заморочиться и распределить пропорционально
+            else {
+                Decimal rest_to_distribute = to_distribute;
+                Decimal rest_space = available_space.Values.Sum();
+                foreach (ProvCell cell in available_space.Keys) {
+                    // ищем, сколько надо добавить в ячейку (или убавить) ВБ
+                    Decimal size = Math.Round((rest_to_distribute / rest_space) * available_space[cell],2);
+                    // это надо уменьшать независимо от знака
+                    rest_to_distribute -= Math.Abs(size);
+                    rest_space -= Math.Abs(size);
+                    // а эта штука либо положительная, либо отрицательная, так что тут все норм
+                    cell.virtualBase += size;
+                }
+            }
+            // ну и заодно раз этот дистрибутор в конечном счете всегда вызывается при работе с ВБ,
+            // то расприводим подразделения для успехов в дальнейшем колдовстве ;) и возможности перераспределения
+            // если этот коментарий кого-то будет волновать - обусловлено особенностями работы базового алгоритма
+            foreach (ProvCell cell in available_space.Keys)
+                cell.dep.unbring();
+        }
+
+
 
     }
 
