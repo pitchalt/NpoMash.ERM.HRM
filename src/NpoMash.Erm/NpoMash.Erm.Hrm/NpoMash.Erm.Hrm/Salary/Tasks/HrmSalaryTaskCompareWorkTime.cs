@@ -25,12 +25,11 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "GroupDep=='DEPARTMENT_OZM'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     public class HrmSalaryTaskCompareWorkTime : 
-//        HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem> {
+
         HrmSalaryTaskReductionBase {
         
         [NonPersistent]
         public class DepartmentItem2 : 
-//            HrmSalaryTaskReductionBase<HrmSalaryTaskCompareWorkTime.DepartmentItem, HrmSalaryTaskCompareWorkTime.OrderItem>.DepartmentItemBase {
             DepartmentItemBase {
             public DepartmentItem2(Session session) : base(session) { }
             public DepartmentItem2() { }

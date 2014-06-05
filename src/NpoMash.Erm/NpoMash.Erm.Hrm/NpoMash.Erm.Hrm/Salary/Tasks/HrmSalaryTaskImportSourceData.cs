@@ -13,7 +13,9 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
-
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Layout;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
@@ -21,6 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskImportSourceData : HrmSalaryTask { 
 
         private HrmTimeSheet _TimeSheetKB;
@@ -51,6 +54,42 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanOZM", ref _MatrixPlanOZM, value); }
         }
 
+        public Type PeriodObjectType {
+            get { return typeof(HrmSalaryTaskImportSourceData); }
+        }
+
+        public String Name {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return PeriodObjectType.Name + " " + (Period.Year * 100 + Period.Month).ToString();
+                //(Year * 100 + Month).ToString();
+                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+            }
+        }
+
+        public String Name1 {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return (Period.Year * 100 + Period.Month).ToString();
+                //(Year * 100 + Month).ToString();
+                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+            }
+        }
+
+        public Type TaskObjectType {
+            get { return PeriodObjectType; }
+        }
+
+        public String TaskObjectName {
+            get { return Name; }
+        }
+
+        public String TaskObjectStatus {
+            get { return Period.CurrentAllocParameter.Status.ToString(); }
+        }
+
         [Browsable(false)]
         public bool isSourceDataImported {
             get { return !(State == HrmSalaryTaskState.HRM_SALARY_TASK_CREATED); } 
@@ -65,7 +104,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void InObjectsLoad() {
-
+            if (Period.AllocParameters != null)
+                InObjects.Add(Period.CurrentAllocParameter);
         }
     }
 }

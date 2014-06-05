@@ -27,11 +27,27 @@ namespace IntecoAG.ERM.FM.Order {
         CONST_ORDER_TYPE = 1
     }
 
+    public enum FmCOrderAllowToTurf { }
+    public enum FmCOrderStatus { }
+
     [Persistent("fmCOrder")]
     [DefaultProperty("Code")]
     [NavigationItem("ERM")]
     [RuleCriteria("", DefaultContexts.Save, "NormKB>= 0 and NormOZM>= 0", CustomMessageTemplate = "Значения НормаКБ или НормаОЗМ не должны быть меньше нуля.")]
     public class fmCOrder : BaseObject {
+
+        private FmCOrderStatus _Status;
+        public FmCOrderStatus Status {
+            get { return _Status; }
+            set { SetPropertyValue<FmCOrderStatus>("Status", ref _Status, value); }
+        }
+
+        private FmCOrderAllowToTurf _AllowTo;
+        public FmCOrderAllowToTurf AllowTo {
+            get { return _AllowTo; }
+            set { SetPropertyValue<FmCOrderAllowToTurf>("AllowTo", ref _AllowTo, value); }
+        }
+
 
         private String _Code;
         public String Code {

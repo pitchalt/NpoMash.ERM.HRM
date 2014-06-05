@@ -24,7 +24,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmMatrixColumn")]
     public class HrmMatrixColumn : BaseObject {
 
-        //private Decimal _Sum;
+
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
         [NonPersistent()]
@@ -33,9 +33,29 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Decimal result = 0;
                 foreach (HrmMatrixCell current_cell in Cells) result += current_cell.Time;
                 return result;
-                //return _Sum; 
             }
-            //set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
+        }
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
+        [NonPersistent()]
+        public Decimal TravelSum {
+            get {
+                Decimal result = 0;
+                foreach (HrmMatrixCell current_cell in Cells) result += current_cell.TravelTime;
+                return result;
+
+            }
+        }
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
+        [NonPersistent()]
+        public Decimal ConstantTime {
+            get {
+                Decimal result = 0;
+                foreach (HrmMatrixCell current_cell in Cells) result += current_cell.ConstOrderTime;
+                return result;
+
+            }
         }
 
         private Department _Department; //—сылка на Department 
