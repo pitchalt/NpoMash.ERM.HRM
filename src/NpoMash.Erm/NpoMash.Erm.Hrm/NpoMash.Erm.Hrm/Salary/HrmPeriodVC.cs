@@ -123,6 +123,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB;
+            
             if (period.Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS) {
 
                 HrmMatrixVariant bringing_method = HrmSalaryTaskMatrixReductionLogic.DetermineSelectedBringingMethod(e);
@@ -150,7 +151,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                         group_dep, bringing_method);
                 else reduc = os.GetObject<HrmSalaryTaskMatrixReduction>(period.CurrentOZMmatrixReduction);
                 HrmSalaryTaskMatrixReductionLogic.CreateMatrixInReduc(reduc, os, group_dep, bringing_method, period);
-
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, reduc);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);

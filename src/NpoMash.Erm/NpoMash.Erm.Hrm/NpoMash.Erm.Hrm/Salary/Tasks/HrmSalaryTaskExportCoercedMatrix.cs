@@ -26,12 +26,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() { base.AfterConstruction(); }
 
         private HrmMatrix _KBCoercedMatrix;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix KBCoercedMatrix {
             get { return _KBCoercedMatrix; }
             set { SetPropertyValue<HrmMatrix>("KBCoercedMatrix", ref _KBCoercedMatrix, value); }
         }
 
         private HrmMatrix _OZMCoercedMatrix;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrix OZMCoercedMatrix {
             get { return _OZMCoercedMatrix; }
             set { SetPropertyValue<HrmMatrix>("OZMCoercedMatrix", ref _OZMCoercedMatrix, value); }

@@ -13,7 +13,6 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Layout;
 
@@ -60,7 +59,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public String Name {
             get {
-                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+                //EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
 
                 return PeriodObjectType.Name + " " + (Period.Year * 100 + Period.Month).ToString();
                 //(Year * 100 + Month).ToString();
@@ -70,7 +69,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public String Name1 {
             get {
-                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+                //EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
 
                 return (Period.Year * 100 + Period.Month).ToString();
                 //(Year * 100 + Month).ToString();

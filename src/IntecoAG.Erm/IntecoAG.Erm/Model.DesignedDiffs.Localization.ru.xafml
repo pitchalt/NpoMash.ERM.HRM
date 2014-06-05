@@ -22,6 +22,7 @@
       </LocalizationGroup>
       <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep" Value="Группа">
         <LocalizationItem Name="DEPARTMENT_KB" Value="КБ" />
+        <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="КБ/ОЗМ" />
         <LocalizationItem Name="DEPARTMENT_OZM" Value="ОЗМ" />
       </LocalizationGroup>
       <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentStatus" Value="Status" />

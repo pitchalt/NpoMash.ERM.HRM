@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "OrderItem1.ProportionsMethodAlloc", Visibility = ViewItemVisibility.Hide)]
-   
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskMatrixReduction :
         //        HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem> {
         HrmSalaryTaskReductionBase {
@@ -311,5 +311,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (MatrixPlan != null)
                 InObjects.Add(MatrixPlan);
         }
+
+        public String Name1 {
+            get {
+                return (GroupDep).ToString();
+            }
+        }
+
+
     }
 }

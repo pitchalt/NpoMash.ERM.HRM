@@ -706,17 +706,36 @@
     <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="CoercedMatrix" Caption="Матрица учета">
+              <TabbedGroup Id="@72444e27-40b6-490c-a1c7-c2fd490d72dd">
+                <LayoutGroup Id="KB" Caption="КБ" />
+                <LayoutGroup Id="OZM" Caption="ОЗМ" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="KB" Caption="KB">
+                <LayoutGroup Id="KB" Caption="Матрица учета КБ" />
+                <LayoutGroup Id="OZM" Caption="Матрица учета ОЗМ" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="KBCoercedMatrix.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="KBCoercedMatrix.Rows" Caption="Заказы" />
+            <LayoutGroup Id="OZMCoercedMatrix.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="OZMCoercedMatrix.Rows" Caption="Заказы" />
+          </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
-            <LayoutGroup Id="HrmSalaryTaskExportCoercedMatrix" Caption="HrmSalaryTaskExportCoercedMatrix" />
             <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
               <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
               <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="LogRecords" Caption="Журнал событий " />
-            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
-          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
