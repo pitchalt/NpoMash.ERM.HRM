@@ -532,8 +532,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
             }
-            if (broken) { task.Abort(); 
-            } 
+            if (broken) { task.Abort(); } 
         } 
     }
 }

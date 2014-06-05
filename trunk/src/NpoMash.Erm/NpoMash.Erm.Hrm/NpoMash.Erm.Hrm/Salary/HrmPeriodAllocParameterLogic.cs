@@ -51,7 +51,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmPeriodPayType period_paytype = local_object_space.CreateObject<HrmPeriodPayType>();
                 period_paytype.PayType = paytype;
                 if (paytype.Type == IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE) { period_paytype.Type = HrmPayTypes.PROVISION_CODE; }
-                else { period_paytype.Type = HrmPayTypes.TRAVEL_CODE; }
+                if (paytype.Type == IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE) { period_paytype.Type = HrmPayTypes.TRAVEL_CODE; }
+                if (paytype.Type == IntecoAG.ERM.HRM.HrmPayTypes.BASE_CODE) { period_paytype.Type = HrmPayTypes.BASE_CODE; }
                 period_paytype.AllocParameter = alloc_parameter;
                 alloc_parameter.PeriodPayTypes.Add(period_paytype);
             }

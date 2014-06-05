@@ -60,10 +60,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmSalaryPayType>("PayType", ref _PayType, value); }
         }
 
-        private Int64 _Time;
-        public Int64 Time {
+        private Decimal _Time;
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        public Decimal Time {
             get { return _Time; }
-            set { SetPropertyValue<Int64>("Time", ref _Time, value); }
+            set { SetPropertyValue<Decimal>("Time", ref _Time, value); }
         }
 
         private Decimal _Money;
