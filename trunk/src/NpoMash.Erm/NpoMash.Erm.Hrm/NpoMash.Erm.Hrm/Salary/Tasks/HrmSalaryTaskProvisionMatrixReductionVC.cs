@@ -52,7 +52,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
-
+                card.Period = period;
                 os.CommitChanges();
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;

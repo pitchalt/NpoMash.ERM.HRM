@@ -151,7 +151,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             _MatrixPeriodObject = new HrmMatrixPeriodObject(this);
         }
 
-
         //public HrmSalaryPeriodObjectStatus PeriodObjectStatus {
         //    get {
         //        return _MatrixPeriodObject.Status;
@@ -185,11 +184,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-
         public string TaskObjectStatus {
             get { return PeriodObjectStatus; }
         }
     }
-
-
 }

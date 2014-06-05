@@ -122,8 +122,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_CREATED);
             _CreateTime = DateTime.Now;
+            StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_CREATED);
+            LogRecord(LogRecordType.INFO, null, null, "Задача создана");
         }
 
         public virtual void Activate() {
@@ -133,18 +134,18 @@ namespace NpoMash.Erm.Hrm.Salary {
         public virtual void Complete() { 
             SetPropertyValue<DateTime>("FinishTime", ref _FinishTime, DateTime.Now);
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED);
+            LogRecord(LogRecordType.INFO, null, null, "Задача выполнена успешно");
         }
 
         public virtual void Abort() {
             SetPropertyValue<DateTime>("FinishTime", ref _FinishTime, DateTime.Now);
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_ABORTED);
+            LogRecord(LogRecordType.INFO, null, null, "Задача отклонена");
         }
 
         [Aggregated]
         public IList<ILogRecord> LogRecords {
-            get {
-                return new ListConverter<ILogRecord, HrmSalaryLogRecord>(LogRecordCol);
-            }
+            get { return new ListConverter<ILogRecord, HrmSalaryLogRecord>(LogRecordCol); }
         }
 
         public void LogRecord(LogRecordType type, Department department, fmCOrder order, String text) {

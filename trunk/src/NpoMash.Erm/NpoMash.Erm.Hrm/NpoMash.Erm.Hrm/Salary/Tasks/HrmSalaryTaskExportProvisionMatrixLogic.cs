@@ -31,6 +31,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static void ExportProvisonMatrix(HrmSalaryTaskExportProvisionMatrix local_task) {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ProvisionMatrix;
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
             String current_month = null;
@@ -44,7 +45,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         Month = current_month,
                         DepartmentCode = cell.Column.Department.BuhCode,
                         OrderCode = cell.Row.Order.Code,
-                        Time = Convert.ToInt64(cell.SourceProvision)
+                        Time = Math.Round(cell.NewProvision, 2)
                     };
                     records.Add(record);
                 }

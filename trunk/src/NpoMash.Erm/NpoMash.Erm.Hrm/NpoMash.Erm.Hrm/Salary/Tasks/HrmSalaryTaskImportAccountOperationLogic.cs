@@ -182,6 +182,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public static void ImportAccountOperation(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperation local_task) {
             //local_object_space = local_object_space.CreateNestedObjectSpace();
             //local_task = local_object_space.GetObject<HrmSalaryTaskImportAccountOperation>(local_task);
+            bool broken = false;
             Session session = ((XPObjectSpace)local_object_space).Session;
             HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
             HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
@@ -200,8 +201,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
             local_task.MatrixAllocResultKB.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB;
             local_task.MatrixAllocResultOZM.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_OZM;
-            local_task.Period.CurrentMatrixAllocResultKB = matrix_alloc_result_kb;
-            local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
             local_task.Period.Matrixs.Add(matrix_alloc_result_kb);
             local_task.Period.Matrixs.Add(matrix_alloc_result_ozm);
             FileHelperEngine<ExchangeAccountOperation> account_operation_data = new FileHelperEngine<ExchangeAccountOperation>();
@@ -285,6 +284,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 else {
                     local_task.LogRecord(LogRecordType.ERROR, null, null, "¬ справочниках не найдено подразделени€ с кодом " + account_operation.DepartmentCode);
+                    broken = true;
                 }
                 HrmMatrixRow current_row = null;
                 if (alloc_result_rows.ContainsKey(file_order_code)) { current_row = alloc_result_rows[file_order_code]; }
@@ -298,6 +298,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                     else {
                         local_task.LogRecord(LogRecordType.ERROR, null, null, "¬ справочниках не найдено заказа с кодом " + account_operation.DepartmentCode);
+                        broken = true;
                     }
                 }
                 HrmMatrixCell current_cell = null;
@@ -313,8 +314,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                         account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
                         account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
                     }
-                    catch(KeyNotFoundException) {
+                    catch (KeyNotFoundException) {
                         local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось св€зать проводку с заказом и/или кодом оплаты и/или подразделением");
+                        broken = true;
                     }
                     if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { account_to_db.AllocResult = matrix_alloc_result_kb; }
                     else { account_to_db.AllocResult = matrix_alloc_result_ozm; }
@@ -346,8 +348,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                     }
                 }
                 else {
-                    local_task.LogRecord(LogRecordType.WARNING, null, null, "Ќе удалось создать €чейку матрицы из-за отсутстви€ подразделени€ и/или заказа и/или кода оплаты");
+                    local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось создать €чейку матрицы из-за отсутстви€ подразделени€ и/или заказа и/или кода оплаты");
+                    broken = true;
                 }
+            }
+            if (broken) { local_task.Abort(); }
+            else {
+                local_task.Period.CurrentMatrixAllocResultKB = matrix_alloc_result_kb;
+                local_task.Period.CurrentMatrixAllocResultOZM = matrix_alloc_result_ozm;
             }
             //local_object_space.CommitChanges();
         }
