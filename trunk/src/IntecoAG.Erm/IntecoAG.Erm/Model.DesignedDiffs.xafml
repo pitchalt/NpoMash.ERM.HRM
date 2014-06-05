@@ -26,4 +26,26 @@
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="Department_DetailView">
+      <Items>
+        <PropertyEditor Id="Code" Index="0" />
+        <PropertyEditor Id="BuhCode" Index="1" />
+        <PropertyEditor Id="GroupDep" Index="2" />
+      </Items>
+    </DetailView>
+    <ListView Id="Department_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" SortOrder="None" />
+        <ColumnInfo Id="BuhCode" Index="1" SortOrder="Ascending" />
+        <ColumnInfo Id="GroupDep" Index="2" />
+        <ColumnInfo Id="Status" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="fmCOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="TypeConstancy" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>

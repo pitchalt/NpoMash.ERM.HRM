@@ -184,10 +184,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
             }
         }
+
+
+        public string TaskObjectStatus {
+            get { return PeriodObjectStatus; }
+        }
     }
 
-    //public class HrmSalaryMatrixSliceCollection : XPCollection<HrmSalaryMatrixSlice> {
-    //    public HrmSalaryMatrixSliceCollection(Session session, HrmMatrix matrix, XPMemberInfo property) : base(session, matrix, property) { }
-    //}
 
 }

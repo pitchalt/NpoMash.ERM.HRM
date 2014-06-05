@@ -36,7 +36,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled = false)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListFirst", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='ALLOC_PARAMETERS_ACCEPTED' or Status='LIST_OF_ORDER_ACCEPTED'")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListLast", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status='ALLOC_PARAMETERS_ACCEPTED'")]
-    [DefaultProperty("Name")]
+    [DefaultProperty("Name1")]
 
     public class HrmPeriodAllocParameter : BaseObject, IAllocParameter {
 
@@ -174,7 +174,21 @@ namespace NpoMash.Erm.Hrm.Salary {
         public String Name {
             get {
                 EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
                 return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+                    //(Period.Year * 100 + Period.Month).ToString();
+                    //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+            }
+        }
+
+        public String Name1 {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return (Period.Year * 100 + Period.Month).ToString();
+                    //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
+                //(Period.Year * 100 + Period.Month).ToString();
+                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
             }
         }
 
@@ -184,6 +198,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public String TaskObjectName {
             get { return Name; }
+        }
+
+
+        public string TaskObjectStatus {
+            get { return PeriodObjectStatus; }
         }
     }
 }

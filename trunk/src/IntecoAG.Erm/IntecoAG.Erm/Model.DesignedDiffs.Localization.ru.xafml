@@ -9,6 +9,8 @@
   </BOModel>
   <Localization>
     <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="IntecoAG.ERM.FM.Order.FmCOrderAllowToTurf" Value="Допустимость списания" />
+      <LocalizationGroup Name="IntecoAG.ERM.FM.Order.FmCOrderStatus" Value="Статус" />
       <LocalizationGroup Name="IntecoAG.ERM.FM.Order.FmCOrderTypeConstancy" Value="Признак заказа">
         <LocalizationItem Name="CONST_ORDER_TYPE" Value="Постоянный шифр заказа" />
         <LocalizationItem Name="UN_CONST_ORDER_TYPE" Value="Непостоянный шифр заказа" />
@@ -22,6 +24,26 @@
         <LocalizationItem Name="DEPARTMENT_KB" Value="КБ" />
         <LocalizationItem Name="DEPARTMENT_OZM" Value="ОЗМ" />
       </LocalizationGroup>
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentStatus" Value="Status" />
     </LocalizationGroup>
   </Localization>
+  <Views>
+    <DetailView Id="Department_DetailView">
+      <Items>
+        <PropertyEditor Id="BuhCode" Caption="БухКод" />
+      </Items>
+    </DetailView>
+    <ListView Id="Department_ListView">
+      <Columns>
+        <ColumnInfo Id="BuhCode" Caption="БухКод" />
+        <ColumnInfo Id="Status" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="fmCOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="Status" Caption="Статус" />
+        <ColumnInfo Id="AllowTo" Caption="Допустимость списания" />
+      </Columns>
+    </ListView>
+  </Views>
 </Application>

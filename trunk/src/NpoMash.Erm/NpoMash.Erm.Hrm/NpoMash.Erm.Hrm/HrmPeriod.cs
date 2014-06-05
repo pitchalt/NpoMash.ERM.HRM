@@ -14,6 +14,8 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Layout;
 //
 using NpoMash.Erm.Hrm.Salary;
 using IntecoAG.ERM.FM.Order;
@@ -59,7 +61,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "!isKBCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "!isOZMCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
-    [DefaultProperty("Status")]
+    [DefaultProperty("Name1")]
     public class HrmPeriod : BaseObject, IPeriod, IPersistentInterface<IPeriod>, IPersistentInterfaceData<IPeriod> {
 
         [Persistent("Year")]
@@ -328,6 +330,35 @@ namespace NpoMash.Erm.Hrm {
                 CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED);
             }
         }
+
+        public Type PeriodObjectType {
+            get { return typeof(HrmPeriod); }
+        }
+
+        public String Name {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return PeriodObjectType.Name + " " + (Year * 100 + Month).ToString();
+                    //(Year * 100 + Month).ToString();
+                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+            }
+        }
+
+        public String Name1 {
+            get {
+                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+
+                return (Year * 100 + Month).ToString();
+                //(Year * 100 + Month).ToString();
+                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+            }
+        }
+
+
+
+
+
 
         [Browsable(false)]
         private bool isReadyToRevertChanges { get { return (Status == HrmPeriodStatus.OPENED); } }

@@ -19,6 +19,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         Type TaskObjectType { get; }
         DepartmentGroupDep GroupDep { get; }
         String TaskObjectName { get; }
+        String TaskObjectStatus { get; }
     }
 
 }

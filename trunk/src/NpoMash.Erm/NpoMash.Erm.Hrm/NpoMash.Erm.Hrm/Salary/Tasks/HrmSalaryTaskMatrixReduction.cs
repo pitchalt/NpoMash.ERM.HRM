@@ -28,6 +28,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "OrderItem1.ProportionsMethodAlloc", Visibility = ViewItemVisibility.Hide)]
+   
     public class HrmSalaryTaskMatrixReduction :
         //        HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem> {
         HrmSalaryTaskReductionBase {

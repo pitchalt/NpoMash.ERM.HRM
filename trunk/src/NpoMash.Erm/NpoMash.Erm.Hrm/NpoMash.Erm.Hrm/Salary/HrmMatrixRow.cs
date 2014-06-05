@@ -32,10 +32,32 @@ namespace NpoMash.Erm.Hrm.Salary {
                 Decimal result = 0;
                 foreach (HrmMatrixCell current_cell in Cells) result += current_cell.Time;
                 return result;
-                //return _Sum; 
             }
-            //set { SetPropertyValue<Decimal>("Sum", ref _Sum, value); }
         }
+
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
+        [NonPersistent()]
+        public Decimal TravelSum {
+            get {
+                Decimal result = 0;
+                foreach (HrmMatrixCell current_cell in Cells) result += current_cell.TravelTime;
+                return result;
+
+            }
+        }
+        [ModelDefault("DisplayFormat", "{0:N}")]
+        [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]
+        [NonPersistent()]
+        public Decimal ConstantTime {
+            get {
+                Decimal result = 0;
+                foreach (HrmMatrixCell current_cell in Cells) result += current_cell.ConstOrderTime;
+                return result;
+
+            }
+        }
+
 
         [Association("Row-Cells"), Aggregated]  //Коллекция HrmMatrixCell
         public XPCollection<HrmMatrixCell> Cells {
