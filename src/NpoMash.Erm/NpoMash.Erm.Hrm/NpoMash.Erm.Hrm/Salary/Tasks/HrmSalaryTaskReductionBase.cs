@@ -20,14 +20,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
     public abstract class HrmSalaryTaskReductionBase : HrmSalaryTask {
-    //where DEP:HrmSalaryTaskReductionBase<DEP, ORD>.DepartmentItemBase
-    //where ORD:HrmSalaryTaskReductionBase<DEP, ORD>.OrderItemBase {
 
         [NonPersistent]
         public abstract class DepartmentItemBase : XPCustomObject {
             public Department Department;
             public DepartmentGroupDep Group;
-//            protected IList<OrderItemBase> _OrderItems; // = new List<ORD>();
             public abstract IList<OrderItemBase> OrderItemBases { get; }
 
             public DepartmentItemBase() { }
@@ -38,39 +35,19 @@ namespace NpoMash.Erm.Hrm.Salary {
         public abstract class OrderItemBase : XPCustomObject {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
-//            public IList<DepartmentItemBase> _DepartmentItems; // = new List<DEP>();
-//            [Browsable(false)]
             public abstract IList<DepartmentItemBase> DepartmentItemBases { get; }
  
             public OrderItemBase() { }
             public OrderItemBase(Session session) : base(session) { }
         }
 
-//        protected IList<DepartmentItemBase> _DepartmentItems;
-//        [NonPersistent]
+
         [Browsable(false)]
         public abstract IList<DepartmentItemBase> DepartmentItemBases { get; }
-//            get {
-////                if (_Department == null) {
-////                    _Department = new List<DEP>();
-////                    departmentCreate();
-////                }
-//                return _DepartmentItems;
-//            }
-//        }
 
-//        private IList<OrderItemBase> _OrderItems;
-//        [NonPersistent]
         [Browsable(false)]
         public abstract IList<OrderItemBase> OrderItemBases { get; }
-        //    get {
-        //        //if (_Order == null) {
-        //        //    _Order = new List<ORD>();
-        //        //    orderCreate();
-        //        //}
-        //        return _OrderItems;
-        //    }
-        //}
+
 
         protected abstract void orderCreate();
         protected abstract void departmentCreate();
@@ -87,7 +64,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (item == null) {
                     item = OrderItemCreate();
                     item.Order = row.Order;
-//                    item.DepartmentItems = new List<DEP>();
                     item.TypeControl = row.Order.TypeControl;
                     items.Add(item);
                 }
@@ -108,7 +84,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (item == null) {
                     item = DepartmentItemCreate();
                     item.Department = col.Department; // Подразделение
-//                    item.OrderItems = new List<ORD>();
                     item.Group = col.Department.GroupDep;
                     items.Add(item);
                 }
