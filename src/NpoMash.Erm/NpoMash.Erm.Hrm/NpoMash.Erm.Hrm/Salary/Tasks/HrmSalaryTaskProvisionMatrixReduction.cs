@@ -17,6 +17,8 @@ using IntecoAG.ERM.FM.Order;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
+
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskProvisionMatrixReduction : HrmSalaryTask {
 
 
@@ -284,6 +286,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (MatrixAllocOZM != null)
                 InObjects.Add(MatrixAllocOZM);
         
+        }
+
+        public String Name1 {
+            get {
+                return (Period.Year * 100 + Period.Month).ToString();
+            }
         }
         
     }

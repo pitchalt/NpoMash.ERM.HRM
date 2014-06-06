@@ -324,7 +324,7 @@
             <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical">
               <LayoutGroup Id="HrmMatrix_col1" RelativeSize="62" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
                 <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" Removed="True" />
-                <LayoutItem Id="PeriodObjectStatus" ViewItem="PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="50" ViewItem="PeriodObjectStatus" IsNewNode="True" />
                 <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="36" Index="2" Removed="True" />
                 <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="17" Index="2" Removed="True" />
                 <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="21" Index="2" Removed="True" />
@@ -388,7 +388,7 @@
                 <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" Index="0" RelativeSize="23" Removed="True" />
                 <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" Index="1" RelativeSize="76" Removed="True" />
-                <LayoutItem Id="PeriodObjectStatus" ViewItem="PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="50" ViewItem="PeriodObjectStatus" IsNewNode="True" />
                 <LayoutItem Id="Status" SizeConstraintsType="Default" Index="1" RelativeSize="17" Removed="True" />
                 <LayoutItem Id="Variant" SizeConstraintsType="Default" Index="1" RelativeSize="17" Removed="True" />
                 <LayoutItem Id="Type" Removed="True" />
@@ -891,7 +891,7 @@
         <ColumnInfo Id="TaskObjectStatus" Index="1" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView">
+    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView" ImageName="Action_Grant_Set">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
           <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
@@ -933,7 +933,7 @@
         <ColumnInfo Id="TravelFact" Index="9" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView">
+    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView" ImageName="Action_Grant_Set">
       <Items>
         <PropertyEditor Id="AllocResultKB.Name" Caption="Статус" />
         <PropertyEditor Id="AllocResultOZM.Name" Caption="Статус" />
@@ -1123,7 +1123,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView">
+    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView" ImageName="BO_Folder">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
           <LayoutGroup Id="SimpleEditors" RelativeSize="32" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
@@ -1174,7 +1174,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView">
+    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView" ImageName="Action_PivotChart_Data_Bind">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
           <TabbedGroup Id="Tabs" RelativeSize="100" Index="0" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
@@ -1278,7 +1278,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskImportAccountOperationSummary_DetailView">
+    <DetailView Id="HrmSalaryTaskImportAccountOperationSummary_DetailView" ImageName="Action_PivotChart_Data_Bind">
       <Layout>
         <LayoutGroup Id="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="16">
@@ -1306,7 +1306,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView">
+    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView" ImageName="Action_PivotChart_Data_Bind">
       <Layout>
         <LayoutGroup Id="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
           <TabbedGroup Id="Tabs" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0" RelativeSize="100">
@@ -1544,7 +1544,7 @@
       </Layout>
     </DetailView>
     <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentSet_MasterDetailView" />
-    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView" ImageName="BO_Appearance">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
           <TabbedGroup Id="Tabs" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Index="0">
