@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application Title="ErmSplit">
   <ActionDesign>
     <Actions>
       <Action Id="AcceptCoercedMatrixAction" Caption="Утвердить" />
@@ -853,7 +853,7 @@
         <ColumnInfo Id="Group" Caption="Группа" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView">
+    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView" ObjectCaptionFormat="{0:Name1}">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <TabbedGroup Id="Tabs">

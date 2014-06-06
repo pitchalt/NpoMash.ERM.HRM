@@ -19,7 +19,10 @@ namespace NpoMash.Erm.Hrm.Salary {
     // [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskImportAccountOperationSummary : HrmSalaryTask {
+
         public HrmSalaryTaskImportAccountOperationSummary(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
@@ -30,8 +33,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void InObjectsLoad() {
-
+            if (MatrixAllocResultSummary != null)
+                InObjects.Add(MatrixAllocResultSummary);
         }
 
+        public String Name1 {
+            get {
+                return (Period.Year * 100 + Period.Month).ToString();
+            }
+        }
     }
 }

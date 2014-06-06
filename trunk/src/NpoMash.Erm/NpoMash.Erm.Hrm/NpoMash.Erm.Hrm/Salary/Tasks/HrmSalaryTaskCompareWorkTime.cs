@@ -26,6 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "State=='HRM_SALARY_TASK_COMPLETED'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "State=='HRM_SALARY_TASK_COMPLETED'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskCompareWorkTime : 
 
         HrmSalaryTaskReductionBase {
@@ -302,6 +303,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (MatrixPlan != null)
                 InObjects.Add(MatrixPlan);
         }
+
+
+             public String Name1 {
+                 get {
+                     return (Period.Year * 100 + Period.Month).ToString();
+                 }
+             }
 
         public HrmSalaryTaskCompareWorkTime(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }

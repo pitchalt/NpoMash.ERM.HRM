@@ -19,6 +19,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare", Criteria = "isCompareAccepted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskCompareAccountOperationSummary : HrmSalaryTask {
 
         public HrmSalaryTaskCompareAccountOperationSummary(Session session) : base(session) { }
@@ -40,7 +42,12 @@ namespace NpoMash.Erm.Hrm.Salary {
         private bool isCompareAccepted { get { return !(MatrixAllocResultSummary.Status == HrmMatrixStatus.MATRIX_DOWNLOADED); } }
     
         protected override void InObjectsLoad() {
+        }
 
+        public String Name1 {
+            get {
+                return (Period.Year * 100 + Period.Month).ToString();
+            }
         }
     }
 }

@@ -21,6 +21,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix", Criteria = "isMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+
+    [DefaultProperty("Name1")]
     public class HrmSalaryTaskExportCoercedMatrix : HrmSalaryTask {
         public HrmSalaryTaskExportCoercedMatrix(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
@@ -48,5 +50,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (OZMCoercedMatrix != null)
                 InObjects.Add(OZMCoercedMatrix);
         }
+
+        public String Name1 {
+            get {
+                return (Period.Year * 100 + Period.Month).ToString();
+            }
+        }
+
+
     }
 }
