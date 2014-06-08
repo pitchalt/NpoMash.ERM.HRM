@@ -26,11 +26,11 @@ namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmMatrixLogic {
 
 
-        static public HrmMatrixAllocPlan setTestData(IObjectSpace os, HrmPeriod current_period, DepartmentGroupDep group) {
+        static public HrmMatrixPlan setTestData(IObjectSpace os, HrmPeriod current_period, DepartmentGroupDep group) {
             Random random = new Random();
             List<HrmMatrixColumn> columns = new List<HrmMatrixColumn>();
             List<HrmMatrixRow> rows = new List<HrmMatrixRow>();
-            HrmMatrixAllocPlan plan_matrix = os.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixPlan plan_matrix = os.CreateObject<HrmMatrixPlan>();
 
             foreach (fmCOrder current_order in os.GetObjects<fmCOrder>()) {
                 HrmMatrixRow current_row = os.CreateObject<HrmMatrixRow>();

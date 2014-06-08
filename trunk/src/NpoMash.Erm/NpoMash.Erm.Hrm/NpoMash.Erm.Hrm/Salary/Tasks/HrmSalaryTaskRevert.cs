@@ -34,14 +34,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmTimeSheet>("TimeSheetOZM", ref _TimeSheetOZM, value); }
         }
 
-        private HrmMatrixAllocPlan _MatrixPlanKB;
-        public HrmMatrixAllocPlan MatrixPlanKB {
+        private HrmMatrixPlan _MatrixPlanKB;
+        public HrmMatrixPlan MatrixPlanKB {
             get { return _MatrixPlanKB; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanKB", ref _MatrixPlanKB, value); }
         }
 
-        private HrmMatrixAllocPlan _MatrixPlanOZM;
-        public HrmMatrixAllocPlan MatrixPlanOZM {
+        private HrmMatrixPlan _MatrixPlanOZM;
+        public HrmMatrixPlan MatrixPlanOZM {
             get { return _MatrixPlanOZM; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("HrmMatrixAllocPlan", ref _MatrixPlanOZM, value); }
         }

@@ -26,8 +26,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryTaskCompareAccountOperationSummary(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        private HrmMatrixAllocPlan _MatrixAllocPlanSummary;
-        public HrmMatrixAllocPlan MatrixAllocPlanSummary {
+        private HrmMatrixPlan _MatrixAllocPlanSummary;
+        public HrmMatrixPlan MatrixAllocPlanSummary {
             get { return _MatrixAllocPlanSummary; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixAllocPlanSummary", ref _MatrixAllocPlanSummary, value); }
         }

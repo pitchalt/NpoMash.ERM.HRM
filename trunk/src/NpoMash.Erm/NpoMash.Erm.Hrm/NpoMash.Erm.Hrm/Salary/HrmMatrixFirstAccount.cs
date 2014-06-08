@@ -15,9 +15,11 @@ using DevExpress.Persistent.Validation;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-
+    /// <summary>
+    /// Матрица первичной проводки
+    /// </summary>
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmMatrixFirstAccount : HrmMatrix {
+    public class HrmMatrixFirstAccount : HrmMatrixAllocResult {
 
         public HrmMatrixFirstAccount(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
