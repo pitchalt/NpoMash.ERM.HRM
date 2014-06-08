@@ -184,8 +184,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             //local_task = local_object_space.GetObject<HrmSalaryTaskImportAccountOperation>(local_task);
             bool broken = false;
             Session session = ((XPObjectSpace)local_object_space).Session;
-            HrmMatrixAllocResult matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixAllocResult>();
-            HrmMatrixAllocResult matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixAllocResult>();
+            HrmMatrixFirstAccount matrix_alloc_result_kb = local_object_space.CreateObject<HrmMatrixFirstAccount>();
+            HrmMatrixFirstAccount matrix_alloc_result_ozm = local_object_space.CreateObject<HrmMatrixFirstAccount>();
             matrix_alloc_result_kb.IterationNumber = 1;
             matrix_alloc_result_ozm.IterationNumber = 1;
             matrix_alloc_result_kb.Period = local_task.Period;
