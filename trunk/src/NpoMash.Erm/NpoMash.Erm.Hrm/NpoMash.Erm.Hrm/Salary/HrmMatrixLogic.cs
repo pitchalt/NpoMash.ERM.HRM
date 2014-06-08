@@ -72,10 +72,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             return plan_matrix;
         }
 
-        static public HrmMatrix makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os,
+        static public HrmMatrixCoerced makeAllocMatrix(HrmSalaryTaskMatrixReduction AllocMatrix, IObjectSpace os,
             DepartmentGroupDep group_dep, HrmMatrixVariant bringing_method, HrmPeriod period) {
 
-            var result_matrix = os.CreateObject<HrmMatrix>();
+                var result_matrix = os.CreateObject<HrmMatrixCoerced>();
             foreach (HrmMatrixColumn col in AllocMatrix.MatrixPlan.Columns) {
                 HrmMatrixColumn new_col = os.CreateObject<HrmMatrixColumn>();
                 new_col.Department = col.Department;

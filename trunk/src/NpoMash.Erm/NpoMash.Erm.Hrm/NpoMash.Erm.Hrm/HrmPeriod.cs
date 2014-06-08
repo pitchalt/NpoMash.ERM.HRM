@@ -165,13 +165,13 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmMatrixPlan>("CurrentMatrixAllocPlanSummary", ref _CurrentMatrixAllocPlanSummary, value); }
         }
 
-        private HrmMatrixAllocResult _CurrentMatrixAllocResultSummary;
+        private HrmMatrixProvision _CurrentMatrixAllocResultSummary;
         [VisibleInLookupListView(false)]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
-        public HrmMatrixAllocResult CurrentMatrixAllocResultSummary {
+        public HrmMatrixProvision CurrentMatrixAllocResultSummary {
             get { return _CurrentMatrixAllocResultSummary; }
-            set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultSummary", ref _CurrentMatrixAllocResultSummary, value); }
+            set { SetPropertyValue<HrmMatrixProvision>("CurrentMatrixAllocResultSummary", ref _CurrentMatrixAllocResultSummary, value); }
         }
 
         private HrmMatrixPlan _CurrentMatrixAllocPlanKB;

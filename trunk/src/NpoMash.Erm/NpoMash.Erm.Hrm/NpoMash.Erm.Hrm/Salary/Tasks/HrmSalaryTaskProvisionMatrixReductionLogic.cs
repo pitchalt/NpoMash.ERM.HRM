@@ -50,7 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
-            HrmMatrix result = os.CreateObject<HrmMatrix>();
+            HrmMatrixProvision result = os.CreateObject<HrmMatrixProvision>();
             HrmMatrix m_plan_kb = card.MatrixPlanKB;
             HrmMatrix m_plan_ozm = card.MatrixPlanOZM;
             HrmMatrix m_res_kb = card.AllocResultKB;
@@ -124,7 +124,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             period.PeriodTasks.Add(task_provision_matrix_reduction);
 
             //Initiate provision matrix task
-            HrmMatrix provision_matrix = os.CreateObject<HrmMatrix>();
+            HrmMatrixProvision provision_matrix = os.CreateObject<HrmMatrixProvision>();
             task_provision_matrix_reduction.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
             task_provision_matrix_reduction.ProvisionMatrix = provision_matrix;
