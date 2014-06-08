@@ -35,24 +35,70 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         private void AcceptCompareKB_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskCompareWorkTime task = e.CurrentObject as HrmSalaryTaskCompareWorkTime;
-            task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-
+            if (task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix != null) {
+                if (task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                    task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+                else {
+                    task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                }
+            }
+            if (task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix != null) {
+                if (task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                    task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+                else {
+                    task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                }
+            }
+            if (task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix != null) {
+                if (task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                    task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+                else {
+                    task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                }
+            }
             task.Complete();
-
             ObjectSpace.CommitChanges();
-
             Window win = Frame as Window;
             if (win != null) win.Close();
         }
 
         private void AcceptCompareOZM_Execute(object sender, SimpleActionExecuteEventArgs e) {
             HrmSalaryTaskCompareWorkTime task = e.CurrentObject as HrmSalaryTaskCompareWorkTime;
-            task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-
+            if (task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix != null) {
+                if (task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                    task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+                else {
+                    task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                }
+            }
+            if (task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix != null) {
+                if (task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                    task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+                else {
+                    task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                }
+            }
+            if (task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix != null) {
+                if (task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && task.Period.CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
+                    task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                    task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE);
+                }
+                else {
+                    task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+                }
+            }
             task.Complete();
-
             ObjectSpace.CommitChanges();
-
             Window win = Frame as Window;
             if (win != null) win.Close();
         }

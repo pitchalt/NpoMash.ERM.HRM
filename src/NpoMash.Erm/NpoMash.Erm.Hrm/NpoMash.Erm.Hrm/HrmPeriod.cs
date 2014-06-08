@@ -162,7 +162,7 @@ namespace NpoMash.Erm.Hrm {
         [VisibleInListView(false)]
         public HrmMatrixPlan CurrentMatrixAllocPlanSummary {
             get { return _CurrentMatrixAllocPlanSummary; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanSummary", ref _CurrentMatrixAllocPlanSummary, value); }
+            set { SetPropertyValue<HrmMatrixPlan>("CurrentMatrixAllocPlanSummary", ref _CurrentMatrixAllocPlanSummary, value); }
         }
 
         private HrmMatrixAllocResult _CurrentMatrixAllocResultSummary;
@@ -180,7 +180,7 @@ namespace NpoMash.Erm.Hrm {
         [VisibleInListView(false)]
         public HrmMatrixPlan CurrentMatrixAllocPlanKB {
             get { return _CurrentMatrixAllocPlanKB; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanKB", ref _CurrentMatrixAllocPlanKB, value); }
+            set { SetPropertyValue<HrmMatrixPlan>("CurrentMatrixAllocPlanKB", ref _CurrentMatrixAllocPlanKB, value); }
         }
 
         private HrmMatrixPlan _CurrentMatrixAllocPlanOZM;
@@ -189,7 +189,7 @@ namespace NpoMash.Erm.Hrm {
         [VisibleInListView(false)]
         public HrmMatrixPlan CurrentMatrixAllocPlanOZM {
             get { return _CurrentMatrixAllocPlanOZM; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanOZM", ref _CurrentMatrixAllocPlanOZM, value); }
+            set { SetPropertyValue<HrmMatrixPlan>("CurrentMatrixAllocPlanOZM", ref _CurrentMatrixAllocPlanOZM, value); }
         }
 
         private HrmMatrixAllocResult _CurrentMatrixAllocResultKB;
