@@ -130,9 +130,9 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.BringingLogicTests {
             }
         }
 
-        private HrmMatrixAllocPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group, Int32 probability) {
+        private HrmMatrixPlan CreateMatrixAllocPlan(IObjectSpace object_space, HrmPeriod current_period, DepartmentGroupDep group, Int32 probability) {
             var random = new Random();
-            HrmMatrixAllocPlan plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixPlan plan_matrix = object_space.CreateObject<HrmMatrixPlan>();
             IList<Department> departments_in_object_space = object_space.GetObjects<Department>()
                 .Where<Department>(x => x.GroupDep == group)
                 .ToList<Department>();

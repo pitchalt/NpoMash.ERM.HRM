@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         private HrmMatrixPlan _MatrixAllocPlanSummary;
         public HrmMatrixPlan MatrixAllocPlanSummary {
             get { return _MatrixAllocPlanSummary; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixAllocPlanSummary", ref _MatrixAllocPlanSummary, value); }
+            set { SetPropertyValue<HrmMatrixPlan>("MatrixAllocPlanSummary", ref _MatrixAllocPlanSummary, value); }
         }
 
         private HrmMatrixAllocResult _MatrixAllocResultSummary;

@@ -37,13 +37,13 @@ namespace NpoMash.Erm.Hrm.Salary {
         private HrmMatrixPlan _MatrixPlanKB;
         public HrmMatrixPlan MatrixPlanKB {
             get { return _MatrixPlanKB; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("MatrixPlanKB", ref _MatrixPlanKB, value); }
+            set { SetPropertyValue<HrmMatrixPlan>("MatrixPlanKB", ref _MatrixPlanKB, value); }
         }
 
         private HrmMatrixPlan _MatrixPlanOZM;
         public HrmMatrixPlan MatrixPlanOZM {
             get { return _MatrixPlanOZM; }
-            set { SetPropertyValue<HrmMatrixAllocPlan>("HrmMatrixAllocPlan", ref _MatrixPlanOZM, value); }
+            set { SetPropertyValue<HrmMatrixPlan>("HrmMatrixAllocPlan", ref _MatrixPlanOZM, value); }
         }
 
         private HrmAllocParameter _AllocParameter;
