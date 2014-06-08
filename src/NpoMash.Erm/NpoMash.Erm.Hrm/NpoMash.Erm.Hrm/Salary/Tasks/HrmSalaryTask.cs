@@ -145,9 +145,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Aggregated]
         public IList<ILogRecord> LogRecords {
-            get {
-                return new ListConverter<ILogRecord, HrmLogRecord>(LogRecordCol);
-            }
+            get { return new ListConverter<ILogRecord, HrmLogRecord>(LogRecordCol); }
+        }
 
         private XPCollection<AuditDataItemPersistent> _AuditTrail;
         public XPCollection<AuditDataItemPersistent> AuditTrail {
