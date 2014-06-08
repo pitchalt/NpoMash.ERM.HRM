@@ -190,7 +190,7 @@
     <Compile Include="Salary\HrmAllocParameterLogic.cs" />
     <Compile Include="Salary\HrmAccountOperation.cs" />
     <Compile Include="Salary\HrmMatrix.cs" />
-    <Compile Include="Salary\HrmMatrixAllocPlan.cs" />
+    <Compile Include="Salary\HrmMatrixPlan.cs" />
     <Compile Include="Salary\HrmMatrixAllocResult.cs" />
     <Compile Include="Salary\HrmAllocParameter.cs" />
     <Compile Include="Salary\HrmAllocParameterVC.cs">

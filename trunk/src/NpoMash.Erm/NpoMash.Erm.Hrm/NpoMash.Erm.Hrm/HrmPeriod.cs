@@ -156,11 +156,11 @@ namespace NpoMash.Erm.Hrm {
             get { return GetCollection<HrmSalaryTask>("PeriodTasks"); }
         }
 
-        private HrmMatrixAllocPlan _CurrentMatrixAllocPlanSummary;
+        private HrmMatrixPlan _CurrentMatrixAllocPlanSummary;
         [VisibleInLookupListView(false)]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
-        public HrmMatrixAllocPlan CurrentMatrixAllocPlanSummary {
+        public HrmMatrixPlan CurrentMatrixAllocPlanSummary {
             get { return _CurrentMatrixAllocPlanSummary; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanSummary", ref _CurrentMatrixAllocPlanSummary, value); }
         }
@@ -174,20 +174,20 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultSummary", ref _CurrentMatrixAllocResultSummary, value); }
         }
 
-        private HrmMatrixAllocPlan _CurrentMatrixAllocPlanKB;
+        private HrmMatrixPlan _CurrentMatrixAllocPlanKB;
         [VisibleInLookupListView(false)]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
-        public HrmMatrixAllocPlan CurrentMatrixAllocPlanKB {
+        public HrmMatrixPlan CurrentMatrixAllocPlanKB {
             get { return _CurrentMatrixAllocPlanKB; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanKB", ref _CurrentMatrixAllocPlanKB, value); }
         }
 
-        private HrmMatrixAllocPlan _CurrentMatrixAllocPlanOZM;
+        private HrmMatrixPlan _CurrentMatrixAllocPlanOZM;
         [VisibleInLookupListView(false)]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
-        public HrmMatrixAllocPlan CurrentMatrixAllocPlanOZM {
+        public HrmMatrixPlan CurrentMatrixAllocPlanOZM {
             get { return _CurrentMatrixAllocPlanOZM; }
             set { SetPropertyValue<HrmMatrixAllocPlan>("CurrentMatrixAllocPlanOZM", ref _CurrentMatrixAllocPlanOZM, value); }
         }
