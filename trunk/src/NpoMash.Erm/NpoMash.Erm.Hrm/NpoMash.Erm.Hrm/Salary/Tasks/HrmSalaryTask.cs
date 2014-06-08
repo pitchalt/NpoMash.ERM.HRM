@@ -45,8 +45,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTask")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    public abstract class HrmSalaryTask : BaseObject, ITask { 
-        private HrmPeriod _Period; 
+    public abstract class HrmSalaryTask : BaseObject, ITask {
+        private HrmPeriod _Period;
         /// <summary>
         /// Период к которому относиться задача
         /// </summary>
@@ -108,9 +108,9 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Association("HrmSalaryTask-HrmSalaryLogRecord")]
         [Browsable(false)]
-        public XPCollection<HrmSalaryLogRecord> LogRecordCol {
+        public XPCollection<HrmLogRecord> LogRecordCol {
             get {
-                return GetCollection<HrmSalaryLogRecord>("LogRecordCol");
+                return GetCollection<HrmLogRecord>("LogRecordCol");
             }
         }
 
@@ -131,7 +131,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_ACTIVED);
         }
 
-        public virtual void Complete() { 
+        public virtual void Complete() {
             SetPropertyValue<DateTime>("FinishTime", ref _FinishTime, DateTime.Now);
             StateSet(HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED);
             LogRecord(LogRecordType.INFO, null, null, "Задача выполнена успешно");
@@ -145,11 +145,22 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Aggregated]
         public IList<ILogRecord> LogRecords {
-            get { return new ListConverter<ILogRecord, HrmSalaryLogRecord>(LogRecordCol); }
+            get {
+                return new ListConverter<ILogRecord, HrmLogRecord>(LogRecordCol);
+            }
+
+        private XPCollection<AuditDataItemPersistent> _AuditTrail;
+        public XPCollection<AuditDataItemPersistent> AuditTrail {
+            get {
+                if (_AuditTrail == null) {
+                    _AuditTrail = AuditedObjectWeakReference.GetAuditTrail(Session, this);
+                }
+                return _AuditTrail;
+            }
         }
 
         public void LogRecord(LogRecordType type, Department department, fmCOrder order, String text) {
-            HrmSalaryLogRecord record = new HrmSalaryLogRecord(this.Session);
+            HrmLogRecord record = new HrmLogRecord(this.Session);
             record.Init(type, text, this.Period, this, department, order);
         }
         protected IList<ITaskObject> _InObjects;

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections;
 //
 using DevExpress.ExpressApp;
-using DevExpress.XtraEditors;
 using DevExpress.Data.Filtering;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Utils;
@@ -299,7 +298,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 //}
             }
             else if (e.SelectedChoiceActionItem.Id == "FromFile") {
-                // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) 
+                // if (current_period.Status == HrmPeriodStatus.COERCED_MATRIXES_EXPORTED) {
+
                 current_period.PeriodTasks.Add(task);
                 HrmSalaryTaskImportAccountOperationLogic.ImportAccountOperation(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
@@ -313,49 +313,49 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (e.SelectedChoiceActionItem.Id == "Evristik") {
                 IObjectSpace os = Application.CreateObjectSpace();
                 HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
-                if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE) {
-                    DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
-                    HrmSalaryTaskProvisionMatrixReduction card = null;
-                    if (period.CurrentProvisionMatrix == null) {
-                        card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                        card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-                        ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
-                        ProvBringLogic.mainAlgorithm(mat);
-                        ProvBringLogic.LoadProvBringResultInTask(mat);
-                    }
-                    else {
-                        // если уже есть матрица резерва, а сюда попали - пересчитываем поверх
-                        card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
-                        ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
-                        ProvBringLogic.mainAlgorithm(mat);
-                        ProvBringLogic.LoadProvBringResultInTask(mat);
-                    }
-                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
-                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                    os.Committed += new EventHandler(refresher);
+                DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
+                HrmSalaryTaskProvisionMatrixReduction card = null;
+                if (period.CurrentProvisionMatrix == null) {
+                    card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+
+                    card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+
+
+                    ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
+                    ProvBringLogic.BringVeryEasyDeps(mat);
+                    ProvBringLogic.BringEasyDeps(mat);
+                    ProvBringLogic.BringDifficultDeps(mat);
+                    ProvBringLogic.LoadProvBringResultInTask(mat);
                 }
+                else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+
+                os.CommitChanges();
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
             }
 
             if (e.SelectedChoiceActionItem.Id == "Simplex") {
                 IObjectSpace os = Application.CreateObjectSpace();
                 HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
                 DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
-                if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE) {
-                    HrmSalaryTaskProvisionMatrixReduction card = null;
-                    if (period.CurrentProvisionMatrix == null) {
-                        card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                    }
-                    else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
-                    card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-                    SimplexStructureLogic.MainAlgorithm(card, 1, 10, 0.0001, 2000);
-                    e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
-                    e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                    os.Committed += new EventHandler(refresher);
-                }
-            }
+                 if (period.Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE) {
+                HrmSalaryTaskProvisionMatrixReduction card = null;
+                if (period.CurrentProvisionMatrix == null) {
+                    card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
+                }else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
+                card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                SimplexStructureLogic.MainAlgorithm(card, 1, 10, 0.0001, 2000);
+                e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
+                e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                os.Committed += new EventHandler(refresher);
+
+                 }
+
         }
 
 
+    }
 
     }
 }

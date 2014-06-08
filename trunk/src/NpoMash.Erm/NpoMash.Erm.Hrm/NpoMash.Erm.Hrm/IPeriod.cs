@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+//
 using DevExpress.ExpressApp.DC;
-
+//
 using IntecoAG.ERM.HRM.Organization;
-
-namespace NpoMash.Erm.Hrm.Salary {
+//
+namespace NpoMash.Erm.Hrm {
 
 
     [DomainComponent]

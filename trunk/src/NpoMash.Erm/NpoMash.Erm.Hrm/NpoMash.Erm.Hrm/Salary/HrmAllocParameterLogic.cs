@@ -21,18 +21,18 @@ using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public static class HrmPeriodAllocParameterLogic {
+    public static class HrmAllocParameterLogic {
         public const Int16 INIT_NORM_NO_CONTROL_KB = 1000;
         public const Int16 INIT_NORM_NO_CONTROL_OZM = 2000;
 
-        public static HrmPeriodAllocParameter createParameters(IObjectSpace os) {
+        public static HrmAllocParameter createParameters(IObjectSpace os) {
             HrmPeriod new_period = HrmPeriodLogic.createPeriod(os); // здесь если уже есть открытый период сгенерируется исключение
-            HrmPeriodAllocParameter alloc_parameter = initParameters(os, new_period);
+            HrmAllocParameter alloc_parameter = initParameters(os, new_period);
             return alloc_parameter;
         }
 
-        public static HrmPeriodAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
-            HrmPeriodAllocParameter par = os.CreateObject<HrmPeriodAllocParameter>();
+        public static HrmAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
+            HrmAllocParameter par = os.CreateObject<HrmAllocParameter>();
             par.Period = current_period;
             current_period.CurrentAllocParameter = par;
             current_period.AllocParameters.Add(par);
@@ -46,9 +46,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             return par;
         }
 
-        public static void InitPeriodPaytypes(IObjectSpace local_object_space, HrmPeriodAllocParameter alloc_parameter) {
+        public static void InitPeriodPaytypes(IObjectSpace local_object_space, HrmAllocParameter alloc_parameter) {
             foreach (HrmSalaryPayType paytype in local_object_space.GetObjects<HrmSalaryPayType>()) {
-                HrmPeriodPayType period_paytype = local_object_space.CreateObject<HrmPeriodPayType>();
+                HrmAllocParameterPayType period_paytype = local_object_space.CreateObject<HrmAllocParameterPayType>();
                 period_paytype.PayType = paytype;
                 if (paytype.Type == IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE) { period_paytype.Type = HrmPayTypes.PROVISION_CODE; }
                 if (paytype.Type == IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE) { period_paytype.Type = HrmPayTypes.TRAVEL_CODE; }
@@ -93,9 +93,9 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 */
-        public static void initDepartmentControlls(IObjectSpace local_object_space, HrmPeriodAllocParameter alloc_parameter) {
+        public static void initDepartmentControlls(IObjectSpace local_object_space, HrmAllocParameter alloc_parameter) {
             foreach (Department dep in local_object_space.GetObjects<Department>()) {
-                HrmPeriodDepartmentControl dep_control = local_object_space.CreateObject<HrmPeriodDepartmentControl>();
+                HrmAllocParameterDepartmentControl dep_control = local_object_space.CreateObject<HrmAllocParameterDepartmentControl>();
                 dep_control.AllocParameter = alloc_parameter;
                 dep_control.Department = dep;
                 dep_control.BuhCode = dep.BuhCode;
@@ -104,7 +104,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void initOrderControls(IObjectSpace os, HrmAllocParameter par) {
             //теперь создаем HrmPeriodOrderControl-ы, для этого перебираем все fmCOrder
             foreach (fmCOrder order in os.GetObjects<fmCOrder>(null, true)) {
                 if (order.TypeControl != FmCOrderTypeControl.NO_ORDERED)//если контролируемый
@@ -114,7 +114,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         if (existingControl.Order == order) alreadyThere = true;
                     if (!alreadyThere)//если такого еще не было
                     {//то создаем новый HrmPeriodOrderControl и копируем в него параметры из fmCOrder-а */
-                    HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
+                    HrmAllocParameterOrderControl oc = os.CreateObject<HrmAllocParameterOrderControl>();
                     oc.Order = order;
                     oc.NormKB = order.NormKB;
                     oc.NormOZM = order.NormOZM;
@@ -128,7 +128,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-        public static void acceptParameters(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
+        public static void acceptParameters(IObjectSpace os, HrmAllocParameter alloc_parameter) {
             if (alloc_parameter.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 if (alloc_parameter.Status == HrmPeriodAllocParameterStatus.OPEN_TO_EDIT) {
                     alloc_parameter.StatusSet(HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED);
@@ -150,15 +150,15 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        public static void UpdatePayTypes(IObjectSpace local_object_space, HrmPeriodAllocParameter alloc_parameter) {
+        public static void UpdatePayTypes(IObjectSpace local_object_space, HrmAllocParameter alloc_parameter) {
             foreach (var period_paytype in alloc_parameter.PeriodPayTypes) {
                 if (period_paytype.Type == HrmPayTypes.PROVISION_CODE) { period_paytype.PayType.Type = IntecoAG.ERM.HRM.HrmPayTypes.PROVISION_CODE; }
                 else { period_paytype.PayType.Type = IntecoAG.ERM.HRM.HrmPayTypes.TRAVEL_CODE; }
             }
         }
 
-        public static void updateFmCOrders(IObjectSpace os, HrmPeriodAllocParameter alloc_parameter) {
-            List<HrmPeriodOrderControl> order_controls_to_delete = new List<HrmPeriodOrderControl>();
+        public static void updateFmCOrders(IObjectSpace os, HrmAllocParameter alloc_parameter) {
+            List<HrmAllocParameterOrderControl> order_controls_to_delete = new List<HrmAllocParameterOrderControl>();
             foreach (var order in os.GetObjects<fmCOrder>()) {
                 bool in_order_controls = false;
 
@@ -180,7 +180,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 if (!in_order_controls) order.TypeControl = FmCOrderTypeControl.NO_ORDERED;
             }
             alloc_parameter.OrderControls.DeleteObjectOnRemove = true;
-            foreach (HrmPeriodOrderControl order_control in order_controls_to_delete)
+            foreach (HrmAllocParameterOrderControl order_control in order_controls_to_delete)
                 alloc_parameter.OrderControls.Remove(order_control);
         }
 

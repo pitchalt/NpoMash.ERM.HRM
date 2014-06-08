@@ -23,14 +23,14 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "AllocParameter, PayType")]
 
-    [Persistent("HrmPeriodPayType")]
-    public class HrmPeriodPayType : BaseObject {
+    [Persistent("HrmSalaryAllocParameterPayType")]
+    public class HrmAllocParameterPayType : XPObject {
 
-        private HrmPeriodAllocParameter _AllocParameter;
+        private HrmAllocParameter _AllocParameter;
         [Association("HrmPeriodAllocParameter-HrmPeriodPayType")]// связь с HrmPeriodAllocParameter
-        public HrmPeriodAllocParameter AllocParameter {
+        public HrmAllocParameter AllocParameter {
             get { return _AllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); }
+            set { SetPropertyValue<HrmAllocParameter>("AllocParameter", ref _AllocParameter, value); }
         }
 
         private HrmSalaryPayType _PayType;  //Связь с HrmSalaryPayType
@@ -47,7 +47,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmPayTypes>("Type", ref _Type, value); }
         }
 
-        public HrmPeriodPayType(Session session) : base(session) { }
+        public HrmAllocParameterPayType(Session session) : base(session) { }
         public override void AfterConstruction() {
             base.AfterConstruction();
             SetPropertyValue<HrmPayTypes>("Type", ref _Type, HrmPayTypes.PROVISION_CODE);

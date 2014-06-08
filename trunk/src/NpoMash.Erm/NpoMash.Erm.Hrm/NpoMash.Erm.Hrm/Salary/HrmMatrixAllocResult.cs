@@ -17,7 +17,7 @@ using DevExpress.ExpressApp.Editors;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmMatrixAllocResult : HrmMatrix {
+    public abstract class HrmMatrixAllocResult : HrmMatrix {
 
         [Association("AccountOperations-TYPE_ALLOC_RESULT"), Aggregated]
         public XPCollection<HrmAccountOperation> AccountOperations {

@@ -15,11 +15,10 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
-
 //
 using IntecoAG.ERM.HRM.Organization;
 
-namespace NpoMash.Erm.Hrm.Salary {
+namespace NpoMash.Erm.Hrm {
 
     [Persistent("HrmPeriodObject")]
     abstract public class HrmPeriodObject : BaseObject, IPersistentInterfaceData<IPeriodObject> { //, ITreeNode  {

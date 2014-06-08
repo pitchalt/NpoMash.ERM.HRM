@@ -26,7 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         NOTDOWNLOADED = 4 
     }
 
-    [Persistent("HrmTimeSheet")]
+    [Persistent("HrmSalaryTimeSheet")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     [DefaultProperty("Name1")]
@@ -77,6 +77,15 @@ namespace NpoMash.Erm.Hrm.Salary {
             SetPropertyValue<HrmTimeSheetStatus>("Status", ref _Status, stat);
         }
 
+        private XPCollection<AuditDataItemPersistent> _AuditTrail;
+        public XPCollection<AuditDataItemPersistent> AuditTrail {
+            get {
+                if (_AuditTrail == null) {
+                    _AuditTrail = AuditedObjectWeakReference.GetAuditTrail(Session, this);
+                }
+                return _AuditTrail;
+            }
+        }
 
         public HrmTimeSheet(Session session): base(session) { }
         public override void AfterConstruction() { 

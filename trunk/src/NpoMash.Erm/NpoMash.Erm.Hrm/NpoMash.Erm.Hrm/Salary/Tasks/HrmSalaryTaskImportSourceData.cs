@@ -18,7 +18,7 @@ using DevExpress.ExpressApp.Layout;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmSalaryTaskImportSourceData")]
+    [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]

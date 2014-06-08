@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     }
 
 
-    [Persistent("HrmPeriodAllocParameter")]
+    [Persistent("HrmSalaryAllocParameter")]
     [NavigationItem("A1 Integration")]
     [Appearance(null, TargetItems = "*", Criteria = "Status = 'ALLOC_PARAMETERS_ACCEPTED'", Context = "Any", Enabled = false)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "Delete", Context = "Any", Visibility = ViewItemVisibility.Hide, Enabled = false)]
@@ -38,12 +38,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "AcceptOrderListLast", Context = "Any", Visibility = ViewItemVisibility.Hide, Criteria = "Status=='OPEN_TO_EDIT' or Status='ALLOC_PARAMETERS_ACCEPTED'")]
     [DefaultProperty("Name1")]
 
-    public class HrmPeriodAllocParameter : BaseObject, IAllocParameter {
+    public class HrmAllocParameter : BaseObject, IAllocParameter {
 
         //Ссылка на HrmPeriodAllocParametrsBaseObject
         [Aggregated]
         [Persistent]
-        private HrmPeriodAllocParameterPeriodObject _AllocParameterPeriodObject;
+        private HrmAllocParameterPeriodObject _AllocParameterPeriodObject;
         //public HrmPeriodAllocParameterPeriodObject AllocParameterPeriodObject {
         //    get { return _AllocParameterPeriodObject; }
         //    set { SetPropertyValue<HrmPeriodAllocParameterPeriodObject>("AllocParameterPeriodObject", ref _AllocParameterPeriodObject, value); }
@@ -116,21 +116,21 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         [Association("AllocParameter-OrderControls"), Aggregated]  // связь с HrmPeriodOrderControl
-        public XPCollection<HrmPeriodOrderControl> OrderControls {
-            get { return GetCollection<HrmPeriodOrderControl>("OrderControls"); }
+        public XPCollection<HrmAllocParameterOrderControl> OrderControls {
+            get { return GetCollection<HrmAllocParameterOrderControl>("OrderControls"); }
         }
 
         [Association("AllocParameter-DepartmentControl"), Aggregated]
-        public XPCollection<HrmPeriodDepartmentControl> DepartmentControl {
-            get { return GetCollection<HrmPeriodDepartmentControl>("DepartmentControl"); }
+        public XPCollection<HrmAllocParameterDepartmentControl> DepartmentControl {
+            get { return GetCollection<HrmAllocParameterDepartmentControl>("DepartmentControl"); }
         }
 
 
 
 
         [Association("HrmPeriodAllocParameter-HrmPeriodPayType"), Aggregated]  // связь с HrmPeriodPayTypes
-        public XPCollection<HrmPeriodPayType> PeriodPayTypes {
-            get { return GetCollection<HrmPeriodPayType>("PeriodPayTypes"); }
+        public XPCollection<HrmAllocParameterPayType> PeriodPayTypes {
+            get { return GetCollection<HrmAllocParameterPayType>("PeriodPayTypes"); }
         }
 
         /*     [ManyToManyAlias("PeriodPayTypes", "PayType")]
@@ -138,13 +138,22 @@ namespace NpoMash.Erm.Hrm.Salary {
                  get { return GetList<HrmSalaryPayType>("SimpleWorkButNotLegal"); }
              }*/
 
+        private XPCollection<AuditDataItemPersistent> _AuditTrail;
+        public XPCollection<AuditDataItemPersistent> AuditTrail {
+            get {
+                if (_AuditTrail == null) {
+                    _AuditTrail = AuditedObjectWeakReference.GetAuditTrail(Session, this);
+                }
+                return _AuditTrail;
+            }
+        }
 
 
-        public HrmPeriodAllocParameter(Session session) : base(session) { }
+        public HrmAllocParameter(Session session) : base(session) { }
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            _AllocParameterPeriodObject = new HrmPeriodAllocParameterPeriodObject(this);
+            _AllocParameterPeriodObject = new HrmAllocParameterPeriodObject(this);
             StatusSet(HrmPeriodAllocParameterStatus.OPEN_TO_EDIT);
         }
 
@@ -164,7 +173,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public Type PeriodObjectType {
-            get { return typeof(HrmPeriodAllocParameter); }
+            get { return typeof(HrmAllocParameter); }
         }
 
         public IntecoAG.ERM.HRM.Organization.DepartmentGroupDep GroupDep {

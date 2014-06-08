@@ -17,7 +17,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 //
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmSalaryTaskExportProvisionMatrix")]
+    [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix", Criteria = "isMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]

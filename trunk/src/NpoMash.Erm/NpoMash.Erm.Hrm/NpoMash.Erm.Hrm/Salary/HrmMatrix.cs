@@ -50,12 +50,12 @@ namespace NpoMash.Erm.Hrm.Salary {
     }
 
 
-    [Persistent("HrmMatrix")]
+    [Persistent("HrmSalaryMatrix")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Criteria = "isPlanned", Context = "Any", Enabled = false)]
 
     [DefaultProperty("Name1")]
-    public class HrmMatrix : BaseObject, IMatrix {
+    public abstract class HrmMatrix : BaseObject, IMatrix {
 
         /// <summary>
         /// —сылка на HrmPeriodMatrixBaseObject
@@ -144,6 +144,16 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         [Browsable(false)]
         public bool isPlanned { get { return TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED; } }
+
+        private XPCollection<AuditDataItemPersistent> _AuditTrail;
+        public XPCollection<AuditDataItemPersistent> AuditTrail {
+            get {
+                if (_AuditTrail == null) {
+                    _AuditTrail = AuditedObjectWeakReference.GetAuditTrail(Session, this);
+                }
+                return _AuditTrail;
+            }
+        }
 
         public HrmMatrix(Session session) : base(session) { }
         public override void AfterConstruction() {

@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [MapInheritance(MapInheritanceType.OwnTable)]
+    [MapInheritance(MapInheritanceType.ParentTable)]
     [Persistent("HrmSalaryTaskMatrixReduction")]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction", Criteria = "isNotReadyToBring", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -154,11 +154,11 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmTimeSheet>("TimeSheet", ref _TimeSheet, value); }
         }
 
-        private HrmPeriodAllocParameter _AllocParameters;
+        private HrmAllocParameter _AllocParameters;
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmPeriodAllocParameter AllocParameters {
+        public HrmAllocParameter AllocParameters {
             get { return _AllocParameters; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
+            set { SetPropertyValue<HrmAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
         public void Refresh(HrmMatrixVariant variant) {

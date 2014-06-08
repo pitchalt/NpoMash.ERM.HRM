@@ -17,7 +17,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmSalaryTaskRevert")]
+    [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmSalaryTaskRevert : HrmSalaryTask {
@@ -46,10 +46,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixAllocPlan>("HrmMatrixAllocPlan", ref _MatrixPlanOZM, value); }
         }
 
-        private HrmPeriodAllocParameter _AllocParameter;
-        public HrmPeriodAllocParameter AllocParameter {
+        private HrmAllocParameter _AllocParameter;
+        public HrmAllocParameter AllocParameter {
             get { return _AllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("HrmPeriodAllocParameter", ref _AllocParameter, value); }
+            set { SetPropertyValue<HrmAllocParameter>("HrmPeriodAllocParameter", ref _AllocParameter, value); }
         }
 
         private HrmMatrix _MatrixAllocResultKB;

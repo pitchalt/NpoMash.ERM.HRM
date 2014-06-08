@@ -62,12 +62,12 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static void initOrderControls(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void initOrderControls(IObjectSpace os, HrmAllocParameter par) {
             FixedFileEngine<ImportControlledOrder> order_data = new FixedFileEngine<ImportControlledOrder>();
             ImportControlledOrder[] orders_imported = order_data.ReadFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + "referential/ControlledOrders.ncd");
             IDictionary<String, fmCOrder> order_in_db = os.GetObjects<fmCOrder>(null, true).ToDictionary<fmCOrder, String>(x => x.Code);
             foreach (var order in orders_imported) {
-                HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
+                HrmAllocParameterOrderControl oc = os.CreateObject<HrmAllocParameterOrderControl>();
                 if (!order_in_db.ContainsKey(order.Code)) {
                     fmCOrder order_to_db = os.CreateObject<fmCOrder>();
                     oc.Order = order_to_db;
@@ -253,14 +253,14 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static HrmPeriodAllocParameter createParameters(IObjectSpace os) {
+        public static HrmAllocParameter createParameters(IObjectSpace os) {
             HrmPeriod new_period = HrmPeriodLogic.createPeriod(os);
-            HrmPeriodAllocParameter alloc_parameter = initParameters(os, new_period);
+            HrmAllocParameter alloc_parameter = initParameters(os, new_period);
             return alloc_parameter;
         }
 
-        public static HrmPeriodAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
-            HrmPeriodAllocParameter par = os.CreateObject<HrmPeriodAllocParameter>();
+        public static HrmAllocParameter initParameters(IObjectSpace os, HrmPeriod current_period) {
+            HrmAllocParameter par = os.CreateObject<HrmAllocParameter>();
             par.Period = current_period;
             current_period.CurrentAllocParameter = par;
             current_period.AllocParameters.Add(par);
@@ -271,7 +271,7 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             return par;
         }
 
-        public static void initParametersFromPreviousPeriod(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void initParametersFromPreviousPeriod(IObjectSpace os, HrmAllocParameter par) {
             if (par.Period.PeriodPrevious == par.Period) {
                 par.NormNoControlKB = INIT_NORM_NO_CONTROL_KB;
                 par.NormNoControlOZM = INIT_NORM_NO_CONTROL_OZM;
@@ -280,14 +280,14 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             else {
                 par.NormNoControlKB = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlKB;
                 par.NormNoControlOZM = par.Period.PeriodPrevious.CurrentAllocParameter.NormNoControlOZM;
-                foreach (HrmPeriodPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
+                foreach (HrmAllocParameterPayType pay in par.Period.PeriodPrevious.CurrentAllocParameter.PeriodPayTypes) {
                     /*bool alreadyThere = false;
                     foreach (HrmPeriodPayType existingPay in par.PeriodPayTypes)// перебираем уже назначенные
                         //проверяя, нет ли в параметрах периода PayTypes-ов со ссылкой туда же
                         if (pay.PayType == existingPay.PayType) alreadyThere = true;
                     if (!alreadyThere)//если такой еще не добавляли...
                     {*/
-                    HrmPeriodPayType pt = os.CreateObject<HrmPeriodPayType>();//то создаем
+                    HrmAllocParameterPayType pt = os.CreateObject<HrmAllocParameterPayType>();//то создаем
                     pt.PayType = pay.PayType;//задаем ссылку на нужный PayType
                     pt.AllocParameter = par;
                     par.PeriodPayTypes.Add(pt);//и добавляем в параметры периода
@@ -296,9 +296,9 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static void initDepartmentControlls(IObjectSpace local_object_space, HrmPeriodAllocParameter alloc_parameter) {
+        public static void initDepartmentControlls(IObjectSpace local_object_space, HrmAllocParameter alloc_parameter) {
             foreach (Department dep in local_object_space.GetObjects<Department>(null, true)) {
-                HrmPeriodDepartmentControl dep_control = local_object_space.CreateObject<HrmPeriodDepartmentControl>();
+                HrmAllocParameterDepartmentControl dep_control = local_object_space.CreateObject<HrmAllocParameterDepartmentControl>();
                 dep_control.AllocParameter = alloc_parameter;
                 dep_control.Department = dep;
                 dep_control.BuhCode = dep.BuhCode;
@@ -307,9 +307,9 @@ namespace NpoMash.Erm.Hrm.Tests.Controllers {
             }
         }
 
-        public static void addAllPayTypes(IObjectSpace os, HrmPeriodAllocParameter par) {
+        public static void addAllPayTypes(IObjectSpace os, HrmAllocParameter par) {
             foreach (HrmSalaryPayType salary in os.GetObjects<HrmSalaryPayType>(null, true)) {
-                HrmPeriodPayType pay_type = os.CreateObject<HrmPeriodPayType>();
+                HrmAllocParameterPayType pay_type = os.CreateObject<HrmAllocParameterPayType>();
                 pay_type.PayType = salary;
                 pay_type.AllocParameter = par;
                 par.PeriodPayTypes.Add(pay_type);

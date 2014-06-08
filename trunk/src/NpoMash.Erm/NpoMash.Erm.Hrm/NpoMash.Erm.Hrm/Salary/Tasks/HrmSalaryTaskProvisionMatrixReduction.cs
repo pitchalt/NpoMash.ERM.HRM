@@ -18,15 +18,16 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
+    [MapInheritance(MapInheritanceType.ParentTable)]
     [DefaultProperty("Name1")]
     public class HrmSalaryTaskProvisionMatrixReduction : HrmSalaryTask {
 
 
-        private HrmPeriodAllocParameter _AllocParameters;  //Параметры расчета
+        private HrmAllocParameter _AllocParameters;  //Параметры расчета
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmPeriodAllocParameter AllocParameters {
+        public HrmAllocParameter AllocParameters {
             get { return _AllocParameters; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
+            set { SetPropertyValue<HrmAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
         private HrmMatrix _MatrixPlanKB; //Плановая КБ

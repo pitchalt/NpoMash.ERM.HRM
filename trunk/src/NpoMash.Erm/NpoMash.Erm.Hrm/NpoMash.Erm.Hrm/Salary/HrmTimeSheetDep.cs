@@ -18,9 +18,9 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmTimeSheetDep")]
+    [Persistent("HrmSalaryTimeSheetDep")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    public class HrmTimeSheetDep : BaseObject {
+    public class HrmTimeSheetDep : XPObject {
 
         private String _BuhCode;
         public String BuhCode {

@@ -18,7 +18,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmMatrixAllocPlan : HrmMatrix {
+    public abstract class HrmMatrixAllocPlan : HrmMatrix {
 
         public HrmMatrixAllocPlan(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }

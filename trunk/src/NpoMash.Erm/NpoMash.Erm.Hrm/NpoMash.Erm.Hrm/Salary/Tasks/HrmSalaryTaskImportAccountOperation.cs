@@ -17,7 +17,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-    [Persistent("HrmSalaryTaskImportAccountOperation")]
+    [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskImportSourceDataVC_AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]

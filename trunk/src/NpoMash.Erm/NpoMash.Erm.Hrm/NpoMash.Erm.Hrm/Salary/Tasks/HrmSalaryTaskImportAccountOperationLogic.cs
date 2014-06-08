@@ -229,8 +229,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 matrix_alloc_result_ozm.Status = HrmMatrixStatus.NOTDOWNLOADED;
                 return;
             }
-            IDictionary<HrmSalaryPayType, HrmPeriodPayType> paytypes_in_alloc_parameter = local_task.Period.CurrentAllocParameter.PeriodPayTypes
-                    .ToDictionary<HrmPeriodPayType, HrmSalaryPayType>(x => x.PayType);
+            IDictionary<HrmSalaryPayType, HrmAllocParameterPayType> paytypes_in_alloc_parameter = local_task.Period.CurrentAllocParameter.PeriodPayTypes
+                    .ToDictionary<HrmAllocParameterPayType, HrmSalaryPayType>(x => x.PayType);
             IDictionary<String, HrmSalaryPayType> paytypes_in_database = local_object_space.GetObjects<HrmSalaryPayType>()
                     .ToDictionary<HrmSalaryPayType, String>(x => x.Code);
             IDictionary<String, Department> departments_in_database = local_object_space.GetObjects<Department>()

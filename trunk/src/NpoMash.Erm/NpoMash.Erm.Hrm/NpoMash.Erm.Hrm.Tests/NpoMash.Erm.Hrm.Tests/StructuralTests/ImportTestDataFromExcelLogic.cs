@@ -216,13 +216,13 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             }
         }
 
-        public static HrmPeriodAllocParameter CreateAllocParametersFromExcelTab(IObjectSpace os) {
-            HrmPeriodAllocParameter ap = os.CreateObject<HrmPeriodAllocParameter>();
+        public static HrmAllocParameter CreateAllocParametersFromExcelTab(IObjectSpace os) {
+            HrmAllocParameter ap = os.CreateObject<HrmAllocParameter>();
             ap.StatusSet(HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED);
             ap.NormNoControlKB = 100;
             ap.NormNoControlOZM = 200;
             foreach (fmCOrder ord in os.GetObjects<fmCOrder>(null, true)) {
-                HrmPeriodOrderControl oc = os.CreateObject<HrmPeriodOrderControl>();
+                HrmAllocParameterOrderControl oc = os.CreateObject<HrmAllocParameterOrderControl>();
                 oc.Order = ord;
                 oc.NormKB = 100;
                 oc.NormOZM = 200;
