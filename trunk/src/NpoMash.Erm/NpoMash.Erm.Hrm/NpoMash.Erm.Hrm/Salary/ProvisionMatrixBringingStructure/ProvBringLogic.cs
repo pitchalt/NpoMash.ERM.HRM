@@ -24,7 +24,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public static ProvMat CreateProvBringStructure(HrmSalaryTaskProvisionMatrixReduction card){
             ProvMat result = new ProvMat();
             HrmMatrix source_mat = card.ProvisionMatrix;
-            // словарь контролируемых зказов
+            // словарь контролируемых заказов
             Dictionary<String, HrmAllocParameterOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl == FmCOrderTypeControl.FOT || x.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT).
                 ToDictionary(x => x.Order.Code);
@@ -33,6 +33,8 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                 ProvDep current_dep = new ProvDep();
                 result.deps.Add(dep_code, current_dep);
                 current_dep.code = dep_code;
+                current_dep.nonBuhDep = source_column.Department.Code;
+
                 foreach (HrmMatrixCell source_cell in source_column.Cells) {
                     ProvOrd current_ord = null;
                     String ord_code = source_cell.Row.Order.Code;
@@ -71,6 +73,9 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
                     current_cell.refToRealCell = source_cell;
                     result.cells.Add(current_cell);
                 }
+                Decimal real_res_sum = source_column.Cells.Sum(x=>x.SourceProvision);
+                Decimal difference = real_res_sum - current_dep.reserveOfDep;
+                
             }
             return result;
         }
