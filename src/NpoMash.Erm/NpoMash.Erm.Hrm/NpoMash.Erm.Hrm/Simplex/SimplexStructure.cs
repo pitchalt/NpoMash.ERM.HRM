@@ -10,20 +10,20 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
     public struct SimplexLimitation {
         // свободный член (чему равно уравнение)
-        public double freeMember;
+        public Decimal freeMember;
         // коэффициенты уравнения, ключ - индекс переменной (минимально возможный - 0)
-        public Dictionary<int, double> coefficients;
+        public Dictionary<int, Decimal> coefficients;
     }
 
     public class SimplexTab {
         // список коэффициентов целевой функции
-        public double[] target;
+        public Decimal[] target;
         // сама таблица
-        public double[,] tab;
+        public Decimal[,] tab;
         // опорный план
-        public double[] bearingPlan;
+        public Decimal[] bearingPlan;
         // номера базисных векторов
-        public double[] delta;
+        public Decimal[] delta;
         public int[] basis;
         public int numberOfColumns;
         public int numberOfRows;
@@ -31,7 +31,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
 
 
-        public SimplexTab(List<SimplexLimitation> list_of_limitations, Dictionary<int, double> target_coefficients) {
+        public SimplexTab(List<SimplexLimitation> list_of_limitations, Dictionary<int, Decimal> target_coefficients) {
             // максимальный индекс переменной, имеющейся в системе ограничений
             int max_variable_number = list_of_limitations.Max(x => x.coefficients.Keys.Max());
             // фиктивных переменных пока нет
@@ -40,7 +40,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             // определяем, сколько имеется ограничений
             int number_of_limitations = list_of_limitations.Count;
             numberOfRows = number_of_limitations;
-            bearingPlan = new double[number_of_limitations];
+            bearingPlan = new Decimal[number_of_limitations];
             basis = new int[number_of_limitations];
             int current_limitation_index = 0;
             foreach (SimplexLimitation sl in list_of_limitations) {
@@ -62,11 +62,11 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 current_limitation_index++;
             }
             numberOfColumns = max_variable_number_with_fictive + 1;
-            target = new double[numberOfColumns];
-            delta = new double[numberOfColumns];
+            target = new Decimal[numberOfColumns];
+            delta = new Decimal[numberOfColumns];
 
             // создаем и заполняем саму таблицу
-            tab = new double[number_of_limitations, numberOfColumns];
+            tab = new Decimal[number_of_limitations, numberOfColumns];
             SimplexLimitation[] limitations_array = list_of_limitations.ToArray();
             for (int j = 0 ; j < numberOfColumns ; j++) {
                 if (target_coefficients.ContainsKey(j))
@@ -86,7 +86,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         // перемножая соответсвующие вектора
         public void CountDelta() {
             for (int j = 0 ; j < numberOfColumns ; j++) {
-                double sum = 0;
+                Decimal sum = 0;
                 for (int i = 0 ; i < numberOfRows ; i++) {
                     sum += tab[i, j] * target[basis[i]];
                 }
@@ -97,7 +97,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         // используется как опорный столбец при максимизации
         public int ColumnWithMinDelta() {
             int index = numberOfColumns - 1;
-            double min_delt = delta[index];
+            Decimal min_delt = delta[index];
             for (int i = 0 ; i < numberOfColumns - 1 ; i++) {
                 if (delta[i] < min_delt) {
                     min_delt = delta[i];
@@ -109,7 +109,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         // используется как опорный столбец при минимизации
         public int ColumnWithMaxDelta() {
             int index = numberOfColumns - 1;
-            double max_delt = delta[index];
+            Decimal max_delt = delta[index];
             for (int i = 0 ; i < numberOfColumns - 1 ; i++) {
                 if (delta[i] > max_delt) {
                     max_delt = delta[i];
@@ -121,11 +121,11 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
         public int FindGuidingRow(int guiding_column) {
             bool founded = false;
-            double min = 0;
+            Decimal min = 0;
             int guiding_row = 0;
             for (int i = 0 ; i < numberOfRows ; i++) {
                 if (tab[i, guiding_column] <= 0) continue;
-                double x = bearingPlan[i] / tab[i, guiding_column];
+                Decimal x = bearingPlan[i] / tab[i, guiding_column];
                 if (x < min || !founded) {
                     founded = true;
                     guiding_row = i;
@@ -137,7 +137,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         public void ConvertToNextTab(int guiding_row, int guiding_column) {
-            double guiding_elem = tab[guiding_row, guiding_column];
+            Decimal guiding_elem = tab[guiding_row, guiding_column];
             // делим опорную строку на разрешающий элемент
             for (int i = 0 ; i < numberOfColumns ; i++)
                 tab[guiding_row, i] /= guiding_elem;
@@ -150,7 +150,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             for (int i = 0 ; i < numberOfRows ; i++) {
                 // опорную строку уже преобразовывали, поэтму пропускаем
                 if (i == guiding_row) continue;
-                double row_multiplier = tab[i, guiding_column];
+                Decimal row_multiplier = tab[i, guiding_column];
                 // если множитель этой строки нулевой, то не будем толочь воду в ступе и сэкономим время
                 if (row_multiplier == 0) continue;
                 for (int j = 0 ; j < numberOfColumns ; j++) {
@@ -162,7 +162,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             }
             // обновляем последнюю строку симплекс-таблицы по этой же формуле 
             // треугольника, так как это быстрее чем перемножать вектора
-            double row_mul = delta[guiding_column];
+            Decimal row_mul = delta[guiding_column];
             for (int i = 0 ; i < numberOfColumns ; i++) {
                 if (i == guiding_column) delta[i] = 0;
                 else delta[i] -= tab[guiding_row, i] * row_mul;
@@ -172,7 +172,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         // замена коэффициентов целевой функции на коэффициенты из массива и пересчет дельт
-        public void ReplaceTargetFuction(double[] coefficents) {
+        public void ReplaceTargetFuction(Decimal[] coefficents) {
             // заменяем коэффициенты при целевой функции
             for (int i = 0 ; i < coefficents.Count() ; i++) {
                 target[i] = coefficents[i];
@@ -198,32 +198,32 @@ namespace NpoMash.Erm.Hrm.Simplex {
         // связь переменных, содержащих резерв неконтролируемых заказов соответствующего подразделения
         public Dictionary<int, HrmMatrixColumn> realDepsWithUncontrolledOrders;
         // плановое значение распределения минус постоянная часть в ячейке
-        public Dictionary<int, double> cellsPlans;
+        public Dictionary<int, Decimal> cellsPlans;
         // текущая точка
-        public Dictionary<int, double> current_values;
+        public Dictionary<int, Decimal> current_values;
         // список переменных в заказе, доступ по коду
-        public Dictionary<String, Dictionary<int, double>> variablesInOrder;
+        public Dictionary<String, Dictionary<int, Decimal>> variablesInOrder;
         // план по заказу минус постоянная часть в ячейках по заказу
-        public Dictionary<String, double> ordersPlan;
+        public Dictionary<String, Decimal> ordersPlan;
         // весь резерв по подразделению (величина, которая не должна измениться)
-        public Dictionary<String, double> departmentReserve;
+        public Dictionary<String, Decimal> departmentReserve;
         // ограничения для таблицы, будут удобны и потом
         public Dictionary<String, SimplexLimitation> simpLimits;
         // относительный коэффициент плана заказа
-        public Dictionary<String, double> orderPlanCoef;
+        public Dictionary<String, Decimal> orderPlanCoef;
 
         public ReserveSimplexBringingStructure(HrmSalaryTaskProvisionMatrixReduction card, int cell_coef, int order_coef) {
             cellsCoefficient = cell_coef;
             ordersCoefficient = order_coef;
             realControlledCells = new Dictionary<int, HrmMatrixCell>();
             realDepsWithUncontrolledOrders = new Dictionary<int, HrmMatrixColumn>();
-            cellsPlans = new Dictionary<int, double>();
-            variablesInOrder = new Dictionary<string, Dictionary<int, double>>();
-            departmentReserve = new Dictionary<string, double>();
-            ordersPlan = new Dictionary<string, double>();
-            current_values = new Dictionary<int, double>();
+            cellsPlans = new Dictionary<int, Decimal>();
+            variablesInOrder = new Dictionary<string, Dictionary<int, Decimal>>();
+            departmentReserve = new Dictionary<string, Decimal>();
+            ordersPlan = new Dictionary<string, Decimal>();
+            current_values = new Dictionary<int, Decimal>();
             simpLimits = new Dictionary<string, SimplexLimitation>();
-            orderPlanCoef = new Dictionary<string, double>();
+            orderPlanCoef = new Dictionary<string, Decimal>();
             // теперь знаем, какие заказы контролируемые
             Dictionary<String, HrmAllocParameterOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
@@ -234,15 +234,15 @@ namespace NpoMash.Erm.Hrm.Simplex {
             foreach (HrmMatrixColumn col in card.ProvisionMatrix.Columns) {
                 String dep_code = col.Department.BuhCode;
                 SimplexLimitation limit = new SimplexLimitation();
-                limit.coefficients = new Dictionary<int, double>();
+                limit.coefficients = new Dictionary<int, Decimal>();
                 // в этом подразделении перебираем все контролируемые ячейки
                 foreach (HrmMatrixCell cell in col.Cells
                     .Where(x => controlled_orders.ContainsKey(x.Row.Order.Code))) {
                     String ord_code = cell.Row.Order.Code;
                     // вытаскиваем значения из ячейки, чтобы не морочиться потом с приведением типов
-                    double cell_plan = (double)cell.PlanMoney;
-                    double cell_const = (double)cell.MoneyNoReserve;
-                    double cell_reserve = (double)cell.SourceProvision;
+                    Decimal cell_plan = cell.PlanMoney;
+                    Decimal cell_const = cell.MoneyNoReserve;
+                    Decimal cell_reserve = cell.SourceProvision;
                     // добавляем значение в словарь планов по заказу
                     if (!ordersPlan.ContainsKey(ord_code)) {
                         ordersPlan.Add(ord_code, 0);
@@ -260,19 +260,19 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     limit.coefficients.Add(numberOfVariables, 1);
                     // добавляем переменную в список переменных в конкретном заказе
                     if (!variablesInOrder.ContainsKey(ord_code))
-                        variablesInOrder.Add(ord_code, new Dictionary<int, double>());
+                        variablesInOrder.Add(ord_code, new Dictionary<int, Decimal>());
                     variablesInOrder[ord_code].Add(numberOfVariables, 0);
                     numberOfVariables++;
                 }
                 // сумма резерва в подразделении должна остаться неизменной
-                limit.freeMember = (double)col.Cells.Sum(x => x.SourceProvision);
+                limit.freeMember = col.Cells.Sum(x => x.SourceProvision);
                 // проверяем, есть ли неконтролируемые заказы в подразделении, строим список неконтролируемых ячеек
                 //try {
-                double reserve = 0;
+                Decimal reserve = 0;
                 bool contains_uncontrolled_cells = false;
                 foreach (HrmMatrixCell cell in col.Cells)
                     if (!controlled_orders.ContainsKey(cell.Row.Order.Code)) {
-                        reserve += (double)cell.SourceProvision;
+                        reserve += cell.SourceProvision;
                         contains_uncontrolled_cells = true;
                     }
                 if (contains_uncontrolled_cells) {
@@ -286,7 +286,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                     numberOfVariables++;
                 }
 
-                double source_reserve_in_dep = (double)col.Cells.Sum(x => x.SourceProvision);
+                Decimal source_reserve_in_dep = col.Cells.Sum(x => x.SourceProvision);
                 if (limit.freeMember != source_reserve_in_dep)
                     throw new Exception("The reserve in dep " + col.Department.BuhCode +
                             " is " + source_reserve_in_dep + " but in limit was " + limit.freeMember);
@@ -295,34 +295,34 @@ namespace NpoMash.Erm.Hrm.Simplex {
             }
 
             // находим частные производные от текущего значения распределения и создаем симплекс-таблицу
-            double[] current_values_array = new double[numberOfVariables];
+            Decimal[] current_values_array = new Decimal[numberOfVariables];
             for (int i = 0 ; i<numberOfVariables ; i++)
                 if (current_values.ContainsKey(i))
                     current_values_array[i]=current_values[i];
-            double[] array_of_derivates = getArrayOfPartialDerivates(current_values_array);
-            Dictionary<int, double> current_coefficietns = new Dictionary<int, double>();
+            Decimal[] array_of_derivates = getArrayOfPartialDerivates(current_values_array);
+            Dictionary<int, Decimal> current_coefficietns = new Dictionary<int, Decimal>();
             for (int i = 0 ; i<numberOfVariables ; i++)
                 current_coefficietns.Add(i, array_of_derivates[i]);
             table = new SimplexTab(limits, current_coefficietns);
         }
 
         // возвращает значение целевой функции при заданном векторе переменных
-        public double funcValue(double[] vars) {
-            double result = 0;
-            double cells_result = 0;
-            double orders_result = 0;
+        public Decimal funcValue(Decimal[] vars) {
+            Decimal result = 0;
+            Decimal cells_result = 0;
+            Decimal orders_result = 0;
             foreach (int index in cellsPlans.Keys) {
-                double x = vars[index] - cellsPlans[index];
+                Decimal x = vars[index] - cellsPlans[index];
                 x *= x;
                 cells_result+=x;
             }
             foreach (String code in variablesInOrder.Keys) {
-                double x = 0;
+                Decimal x = 0;
                 foreach (int index in variablesInOrder[code].Keys)
                     x += vars[index];
                 x -= ordersPlan[code];
                 x *= x;
-                x /= orderPlanCoef[code];
+                x /= (orderPlanCoef[code] == 0 ? 1 : orderPlanCoef[code]);
                 orders_result += x;
             }
             result = cells_result * 2 * cellsCoefficient + orders_result * 2 * ordersCoefficient;
@@ -330,12 +330,12 @@ namespace NpoMash.Erm.Hrm.Simplex {
         }
 
         // считает частную производную от целевой функции по заданной переменной
-        public double PartialDerivate(int index, double[] variables) {
-            double result = 0;
+        public Decimal PartialDerivate(int index, Decimal[] variables) {
+            Decimal result = 0;
             // если это не неконтролируемая ячейка
             if (realControlledCells.ContainsKey(index)) {
                 result += cellsCoefficient * 2 * (variables[index] - cellsPlans[index]);
-                double x = 0;
+                Decimal x = 0;
                 string code = realControlledCells[index].Row.Order.Code;
                 foreach (int key in variablesInOrder[code].Keys)
                     x += variables[key];
@@ -347,27 +347,27 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
         // подсчет всех частных производных по целевой функции, работает быстрее так как учитывает специфику
         // данной функции
-        public double[] getArrayOfPartialDerivates(double[] variables) {
-            double[] result = new double[variables.Count()];
+        public Decimal[] getArrayOfPartialDerivates(Decimal[] variables) {
+            Decimal[] result = new Decimal[variables.Count()];
             // это поячеечная составляющая
             for (int i = 0 ; i < variables.Count() ; i++)
                 if (realControlledCells.ContainsKey(i))
                     result[i] += (variables[i] - cellsPlans[i]) * 2 * cellsCoefficient;
             // а это составляющая по заказу
             foreach (string code in variablesInOrder.Keys) {
-                double x = 0;
+                Decimal x = 0;
                 foreach (int key in variablesInOrder[code].Keys)
                     x += variables[key];
                 x -= ordersPlan[code];
-                x *= 2 * ordersCoefficient / orderPlanCoef[code];
+                x *= 2 * (ordersCoefficient / (orderPlanCoef[code] == 0 ? 1 : orderPlanCoef[code]));
                 foreach (int key in variablesInOrder[code].Keys)
                     result[key] += x;
             }
             return result;
         }
 
-        public double[] GetArrayOfCurrentValues() {
-            double[] result = new double[numberOfVariables];
+        public Decimal[] GetArrayOfCurrentValues() {
+            Decimal[] result = new Decimal[numberOfVariables];
             for (int i = 0 ; i < numberOfVariables ; i++)
                 if (current_values.ContainsKey(i))
                     result[i] = current_values[i];

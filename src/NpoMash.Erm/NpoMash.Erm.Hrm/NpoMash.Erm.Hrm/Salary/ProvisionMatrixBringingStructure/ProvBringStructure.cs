@@ -85,6 +85,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         public Decimal checkPointVirtualBase { get { return _checkPointVirtualBase; } }
         private Decimal _checkPointReserve;
         public Decimal checkPointReserve { get { return _checkPointReserve; } }
+
         public ProvCell() {
             dep = null;
             ord = null;
@@ -132,6 +133,10 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
         // сколько всего резерва в подразделении, пригодится для ускорения работы и контроля что ничего не потеряно
         private decimal _reserveOfDep;
         public decimal reserveOfDep { get { return _reserveOfDep; } set { _reserveOfDep = value; } }
+
+        // для отладки
+        private String _nonBuhDep;
+        public String nonBuhDep { get { return _nonBuhDep; } set { _nonBuhDep = value; } }
 
         public ProvDep() {
             cells = new List<ProvCell>();

@@ -45,26 +45,26 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
 
         [Test]
         public void MaximizationTest() {
-            Dictionary<int, double> func = new Dictionary<int, double>();
+            Dictionary<int, Decimal> func = new Dictionary<int, Decimal>();
             func.Add(0, 9); func.Add(1, 10); func.Add(2, 16);
 
             List<SimplexLimitation> limits = new List<SimplexLimitation>();
             SimplexLimitation lim1 = new SimplexLimitation();
-            lim1.coefficients = new Dictionary<int, double>();
+            lim1.coefficients = new Dictionary<int, Decimal>();
             lim1.freeMember = 360;
             lim1.coefficients.Add(0, 18);
             lim1.coefficients.Add(1, 15);
             lim1.coefficients.Add(2, 12);
             lim1.coefficients.Add(3, 1);
             SimplexLimitation lim2 = new SimplexLimitation();
-            lim2.coefficients = new Dictionary<int, double>();
+            lim2.coefficients = new Dictionary<int, Decimal>();
             lim2.freeMember = 192;
             lim2.coefficients.Add(0, 6);
             lim2.coefficients.Add(1, 4);
             lim2.coefficients.Add(2, 8);
             lim2.coefficients.Add(4, 1);
             SimplexLimitation lim3 = new SimplexLimitation();
-            lim3.coefficients = new Dictionary<int, double>();
+            lim3.coefficients = new Dictionary<int, Decimal>();
             lim3.freeMember = 180;
             lim3.coefficients.Add(0, 5);
             lim3.coefficients.Add(1, 3);
@@ -75,34 +75,34 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             limits.Add(lim3);
 
             SimplexTab tablica = new SimplexTab(limits, func);
-            double[] result = SimplexStructureLogic.Maximize(tablica);
-            double[] expected_result = { 0, 8, 20, 0, 0, 96 };
+            Decimal[] result = SimplexStructureLogic.Maximize(tablica);
+            Decimal[] expected_result = { 0, 8, 20, 0, 0, 96 };
             for (int i = 0 ; i < result.Count() ; i++)
                 Assert.AreEqual(expected_result[i], result[i]);
         }
 
         [Test]
         public void MinimizationTest() {
-            Dictionary<int, double> func = new Dictionary<int, double>();
+            Dictionary<int, Decimal> func = new Dictionary<int, Decimal>();
             func.Add(0, 9); func.Add(1, 10); func.Add(2, 16);
 
             List<SimplexLimitation> limits = new List<SimplexLimitation>();
             SimplexLimitation lim1 = new SimplexLimitation();
-            lim1.coefficients = new Dictionary<int, double>();
+            lim1.coefficients = new Dictionary<int, Decimal>();
             lim1.freeMember = 360;
             lim1.coefficients.Add(0, 18);
             lim1.coefficients.Add(1, 15);
             lim1.coefficients.Add(2, 12);
             lim1.coefficients.Add(3, 1);
             SimplexLimitation lim2 = new SimplexLimitation();
-            lim2.coefficients = new Dictionary<int, double>();
+            lim2.coefficients = new Dictionary<int, Decimal>();
             lim2.freeMember = 192;
             lim2.coefficients.Add(0, 6);
             lim2.coefficients.Add(1, 4);
             lim2.coefficients.Add(2, 8);
             lim2.coefficients.Add(4, 1);
             SimplexLimitation lim3 = new SimplexLimitation();
-            lim3.coefficients = new Dictionary<int, double>();
+            lim3.coefficients = new Dictionary<int, Decimal>();
             lim3.freeMember = 180;
             lim3.coefficients.Add(0, 5);
             lim3.coefficients.Add(1, 3);
@@ -113,8 +113,8 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             limits.Add(lim3);
 
             SimplexTab tablica = new SimplexTab(limits, func);
-            double[] result = SimplexStructureLogic.Minimize(tablica);
-            double[] expected_result = { 0, 0, 0, 360, 192, 180 };
+            Decimal[] result = SimplexStructureLogic.Minimize(tablica);
+            Decimal[] expected_result = { 0, 0, 0, 360, 192, 180 };
             for (int i = 0 ; i < result.Count() ; i++)
                 Assert.AreEqual(expected_result[i], result[i]);
         }
