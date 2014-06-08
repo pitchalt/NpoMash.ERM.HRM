@@ -16,6 +16,9 @@ using DevExpress.Persistent.Validation;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
+    /// <summary>
+    /// Матрица резерва
+    /// </summary>
     [MapInheritance(MapInheritanceType.ParentTable)]
     public class HrmMatrixProvision : HrmMatrix {
 

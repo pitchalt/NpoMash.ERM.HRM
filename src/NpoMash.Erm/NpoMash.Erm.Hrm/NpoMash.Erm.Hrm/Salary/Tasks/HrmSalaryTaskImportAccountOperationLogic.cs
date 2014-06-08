@@ -27,8 +27,8 @@ namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskImportAccountOperationLogic {
 
         public static void CreateAllocResultFromPlan(IObjectSpace local_object_space, HrmMatrixAllocResult kb_result, HrmMatrixAllocResult ozm_result, HrmSalaryTaskImportAccountOperation local_task) {
-            IDictionary<DepartmentGroupDep, HrmMatrixAllocPlan> plan_matrixes = local_object_space.GetObjects<HrmMatrixAllocPlan>()
-                .ToDictionary<HrmMatrixAllocPlan, DepartmentGroupDep>(x => x.GroupDep);
+            IDictionary<DepartmentGroupDep, HrmMatrixPlan> plan_matrixes = local_object_space.GetObjects<HrmMatrixPlan>()
+                .ToDictionary<HrmMatrixPlan, DepartmentGroupDep>(x => x.GroupDep);
             foreach (var department_group in plan_matrixes.Keys) {
                 if (department_group == DepartmentGroupDep.DEPARTMENT_KB) {
                     foreach (var column in plan_matrixes[department_group].Columns) {

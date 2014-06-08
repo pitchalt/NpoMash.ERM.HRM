@@ -16,11 +16,13 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-
+    /// <summary>
+    /// Плановая матрица
+    /// </summary>
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public abstract class HrmMatrixAllocPlan : HrmMatrix {
+    public class HrmMatrixPlan : HrmMatrix {
 
-        public HrmMatrixAllocPlan(Session session) : base(session) { }
+        public HrmMatrixPlan(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

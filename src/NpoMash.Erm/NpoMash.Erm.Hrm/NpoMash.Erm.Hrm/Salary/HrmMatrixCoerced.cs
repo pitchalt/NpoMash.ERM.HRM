@@ -15,7 +15,9 @@ using DevExpress.Persistent.Validation;
 //
 
 namespace NpoMash.Erm.Hrm.Salary {
-
+    /// <summary>
+    /// Матрица учета
+    /// </summary>
     [MapInheritance(MapInheritanceType.ParentTable)]
     public class HrmMatrixCoerced : HrmMatrix {
 

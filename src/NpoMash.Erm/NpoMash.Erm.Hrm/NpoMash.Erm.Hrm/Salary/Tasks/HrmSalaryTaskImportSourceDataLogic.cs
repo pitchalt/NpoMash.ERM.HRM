@@ -119,14 +119,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             bool broken = false;
             //            HrmPeriod period, out HrmMatrixAllocPlan KBMatrix, out HrmMatrixAllocPlan OZMMatrix) {
             //Общая плановая матрица
-            HrmMatrixAllocPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixPlan matrix_alloc_plan_summary = object_space.CreateObject<HrmMatrixPlan>();
             matrix_alloc_plan_summary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             matrix_alloc_plan_summary.Type = HrmMatrixType.TYPE_MATIX;
             matrix_alloc_plan_summary.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
             matrix_alloc_plan_summary.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             matrix_alloc_plan_summary.IterationNumber = 1;
             //Инициализируем плановые матрицы кб и озм
-            HrmMatrixAllocPlan kb_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixPlan kb_plan_matrix = object_space.CreateObject<HrmMatrixPlan>();
             kb_plan_matrix.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             //            kb_plan_matrix.Period = period;
             kb_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
@@ -134,7 +134,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             kb_plan_matrix.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             kb_plan_matrix.IterationNumber = 1;
             task.Period.Matrixs.Add(kb_plan_matrix);
-            HrmMatrixAllocPlan ozm_plan_matrix = object_space.CreateObject<HrmMatrixAllocPlan>();
+            HrmMatrixPlan ozm_plan_matrix = object_space.CreateObject<HrmMatrixPlan>();
             ozm_plan_matrix.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;
             //            ozm_plan_matrix.Period = period;
             ozm_plan_matrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_PLANNED;
