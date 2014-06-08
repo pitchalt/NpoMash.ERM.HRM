@@ -18,25 +18,8 @@ using IntecoAG.ERM.FM.Order;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    //    [NavigationItem("A1 Integration")]
-    //[Persistent]
-    //public class Log : BaseObject {
-    //    [Association("Log-Records")]
-    //    public XPCollection<LogRecord> Records {
-    //        get { return GetCollection<LogRecord>("Records"); }
-    //    }
-    //    public Log(Session session)
-    //        : base(session) {
-    //    }
-    //    public override void AfterConstruction() {
-    //        base.AfterConstruction();
-    //    }
-
-
-    //}
-
-    [Persistent]
-    public class HrmSalaryLogRecord : XPObject, ILogRecord {
+    [Persistent("HrmSalaryLogRecord")]
+    public class HrmLogRecord : XPObject, ILogRecord {
         private LogRecordType _RecordType;
         public LogRecordType RecordType {
             get { return _RecordType; }
@@ -87,7 +70,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             //            set { SetPropertyValue<Department>("Department", ref _Department, value); } 
         }
 
-        public HrmSalaryLogRecord(Session session)
+        public HrmLogRecord(Session session)
             : base(session) {
         }
         public override void AfterConstruction() {

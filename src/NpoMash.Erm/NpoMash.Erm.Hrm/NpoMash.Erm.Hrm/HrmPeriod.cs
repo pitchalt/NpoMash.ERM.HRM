@@ -210,18 +210,18 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmMatrixAllocResult>("CurrentMatrixAllocResultOZM", ref _CurrentMatrixAllocResultOZM, value); }
         }
 
-        private HrmPeriodAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
+        private HrmAllocParameter _CurrentAllocParameter; // —сылка на HrmPeriodAllocParameter
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
-        public HrmPeriodAllocParameter CurrentAllocParameter {
+        public HrmAllocParameter CurrentAllocParameter {
             get { return _CurrentAllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("CurrentAllocParameter", ref _CurrentAllocParameter, value); }
+            set { SetPropertyValue<HrmAllocParameter>("CurrentAllocParameter", ref _CurrentAllocParameter, value); }
         }
 
         [Association("Period-AllocParameters")]   // коллекци€ HrmPeriodAllocParameter
-        public XPCollection<HrmPeriodAllocParameter> AllocParameters {
-            get { return GetCollection<HrmPeriodAllocParameter>("AllocParameters"); }
+        public XPCollection<HrmAllocParameter> AllocParameters {
+            get { return GetCollection<HrmAllocParameter>("AllocParameters"); }
         }
 
         private HrmPeriod _PeriodPrevious; // —слыка на самого себ€
@@ -255,9 +255,9 @@ namespace NpoMash.Erm.Hrm {
 
         [Association("HrmPeriod-HrmSalaryLogRecord")]
         [Browsable(false)]
-        public XPCollection<HrmSalaryLogRecord> LogRecordCol {
+        public XPCollection<HrmLogRecord> LogRecordCol {
             get {
-                return GetCollection<HrmSalaryLogRecord>("LogRecordCol");
+                return GetCollection<HrmLogRecord>("LogRecordCol");
             }
         }
 
@@ -279,12 +279,12 @@ namespace NpoMash.Erm.Hrm {
         [Aggregated]
         public IList<ILogRecord> LogRecords {
             get {
-                return new ListConverter<ILogRecord, HrmSalaryLogRecord>(LogRecordCol);
+                return new ListConverter<ILogRecord, HrmLogRecord>(LogRecordCol);
             }
         }
 
         public void LogRecord(LogRecordType type, Department department, fmCOrder order, String text) {
-            HrmSalaryLogRecord record = new HrmSalaryLogRecord(this.Session);
+            HrmLogRecord record = new HrmLogRecord(this.Session);
             record.Init(type, text, this, null, department, order);
         }
 

@@ -17,7 +17,9 @@ using DevExpress.ExpressApp.Editors;
 using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
-    public class HrmPeriodDepartmentControl : BaseObject {
+
+    [Persistent("HrmSalaryAllocParameterDepartmentControl")]
+    public class HrmAllocParameterDepartmentControl : XPObject {
 
 
         private String _BuhCode;
@@ -39,14 +41,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<Department>("Department", ref _Department, value); }
         }
 
-        private HrmPeriodAllocParameter _AllocParameter;
+        private HrmAllocParameter _AllocParameter;
         [Association("AllocParameter-DepartmentControl")]// סגÿחü ס HrmPeriodAllocParameter
-        public HrmPeriodAllocParameter AllocParameter {
+        public HrmAllocParameter AllocParameter {
             get { return _AllocParameter; }
-            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameter", ref _AllocParameter, value); }
+            set { SetPropertyValue<HrmAllocParameter>("AllocParameter", ref _AllocParameter, value); }
         }
 
-        public HrmPeriodDepartmentControl(Session session) : base(session) { }
+        public HrmAllocParameterDepartmentControl(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 }

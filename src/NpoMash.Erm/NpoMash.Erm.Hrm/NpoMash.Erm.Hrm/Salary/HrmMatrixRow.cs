@@ -20,9 +20,9 @@ using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixRow")]
+    [Persistent("HrmSalaryMatrixRow")]
     [DefaultProperty("Order")]
-    public class HrmMatrixRow : BaseObject {
+    public class HrmMatrixRow : XPObject {
 
         [ModelDefault("DisplayFormat", "{0:N}")]
         [RuleValueComparison(null, DefaultContexts.Save, ValueComparisonType.GreaterThanOrEqual, 0)]

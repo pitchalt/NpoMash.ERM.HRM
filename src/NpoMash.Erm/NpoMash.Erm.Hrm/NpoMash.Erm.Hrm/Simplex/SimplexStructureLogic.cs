@@ -124,7 +124,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
                 structure.realControlledCells[key].NewProvision = (decimal)distribution[key];
             }
             // те заказы что не содержатся в этом словаре - неконтролируемые
-            Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
+            Dictionary<String, HrmAllocParameterOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
                 .ToDictionary(x => x.Order.Code);
             // распределяем резев между неконтролируемыми заказами в пределах подразделения

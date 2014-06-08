@@ -19,10 +19,10 @@ using IntecoAG.XafExt.UI;
 
 namespace NpoMash.Erm.Hrm.Salary {
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
-    public partial class HrmPeriodAllocParameterVC : ViewController {
+    public partial class HrmAllocParameterVC : ViewController {
         private const String MESSAGE_BOX_TEXT_PATH = @"Messages\HrmPariodAllocParameterVC";
 
-        public HrmPeriodAllocParameterVC() {
+        public HrmAllocParameterVC() {
             InitializeComponent();
             RegisterActions(components);
             // Target required Views (via the TargetXXX properties) and create their Actions.
@@ -33,21 +33,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             // Perform various tasks depending on the target View.
             NewObjectViewController new_controller = Frame.GetController<NewObjectViewController>();
             new_controller.ObjectCreating += new EventHandler<ObjectCreatingEventArgs>(new_controller_ObjectCreating);
-            HrmPeriodAllocParameter param = View.CurrentObject as HrmPeriodAllocParameter;
+            HrmAllocParameter param = View.CurrentObject as HrmAllocParameter;
             if (param != null)
                 UpdateActionState(param);
         }
 
-        protected void UpdateActionState(HrmPeriodAllocParameter param) {
+        protected void UpdateActionState(HrmAllocParameter param) {
             if (param.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED)
-                AcceptOrderListFirst.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, false);
+                AcceptOrderListFirst.Active.SetItemValue(typeof(HrmAllocParameterVC).FullName, false);
             else
-                AcceptOrderListFirst.Active.SetItemValue(typeof(HrmPeriodAllocParameterVC).FullName, true);
+                AcceptOrderListFirst.Active.SetItemValue(typeof(HrmAllocParameterVC).FullName, true);
         }
 
         void new_controller_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
             try {
-                e.NewObject = HrmPeriodAllocParameterLogic.createParameters(e.ObjectSpace);
+                e.NewObject = HrmAllocParameterLogic.createParameters(e.ObjectSpace);
             }
             catch (OpenPeriodExistsException) {
                 e.Cancel = true;
@@ -74,7 +74,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void CreateAllocParameters_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace root_object_space = Application.CreateObjectSpace();
             try {
-                HrmPeriodAllocParameter created_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(root_object_space);
+                HrmAllocParameter created_alloc_parameters = HrmAllocParameterLogic.createParameters(root_object_space);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, created_alloc_parameters);
             }
             catch (OpenPeriodExistsException) {
@@ -91,7 +91,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         void dialog_controller_Accepting(object sender, DialogControllerAcceptingEventArgs e) {
             IObjectSpace root_object_space = Application.CreateObjectSpace();
-            HrmPeriodAllocParameter existing_alloc_parameters =
+            HrmAllocParameter existing_alloc_parameters =
                 HrmPeriodLogic.findLastPeriod(root_object_space).CurrentAllocParameter;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(root_object_space, existing_alloc_parameters);
         }
@@ -99,11 +99,11 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
         private void AcceptOrderList_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
+            HrmAllocParameter alloc_parameters = e.CurrentObject as HrmAllocParameter;
             if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 ObjectSpace.CommitChanges();
                 using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-                    HrmPeriodAllocParameterLogic.acceptParameters(os, os.GetObject<HrmPeriodAllocParameter>(alloc_parameters));
+                    HrmAllocParameterLogic.acceptParameters(os, os.GetObject<HrmAllocParameter>(alloc_parameters));
                     os.CommitChanges();
                 }
                 ObjectSpace.CommitChanges();
@@ -114,11 +114,11 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         private void AcceptOrderListLast_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            HrmPeriodAllocParameter alloc_parameters = e.CurrentObject as HrmPeriodAllocParameter;
+            HrmAllocParameter alloc_parameters = e.CurrentObject as HrmAllocParameter;
             if (alloc_parameters != null && alloc_parameters.Status != HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED) {
                 ObjectSpace.CommitChanges();
                 using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-                    HrmPeriodAllocParameterLogic.acceptParameters(os, os.GetObject<HrmPeriodAllocParameter>(alloc_parameters));
+                    HrmAllocParameterLogic.acceptParameters(os, os.GetObject<HrmAllocParameter>(alloc_parameters));
                     os.CommitChanges();
                 }
                 ObjectSpace.CommitChanges();

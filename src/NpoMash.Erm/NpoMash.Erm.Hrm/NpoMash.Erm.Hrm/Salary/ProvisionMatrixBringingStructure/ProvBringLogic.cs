@@ -25,7 +25,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
             ProvMat result = new ProvMat();
             HrmMatrix source_mat = card.ProvisionMatrix;
             // словарь контролируемых зказов
-            Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
+            Dictionary<String, HrmAllocParameterOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl == FmCOrderTypeControl.FOT || x.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT).
                 ToDictionary(x => x.Order.Code);
             foreach (HrmMatrixColumn source_column in source_mat.Columns) {

@@ -7,8 +7,9 @@ using DevExpress.ExpressApp.DC;
 //
 using IntecoAG.ERM.HRM.Organization;
 using IntecoAG.ERM.FM.Order;
+using NpoMash.Erm.Hrm.Salary;
 //
-namespace NpoMash.Erm.Hrm.Salary {
+namespace NpoMash.Erm.Hrm {
 
     public enum LogRecordType {
         /// <summary>

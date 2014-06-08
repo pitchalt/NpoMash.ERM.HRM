@@ -225,7 +225,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
             simpLimits = new Dictionary<string, SimplexLimitation>();
             orderPlanCoef = new Dictionary<string, double>();
             // теперь знаем, какие заказы контролируемые
-            Dictionary<String, HrmPeriodOrderControl> controlled_orders = card.AllocParameters.OrderControls
+            Dictionary<String, HrmAllocParameterOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl != IntecoAG.ERM.FM.Order.FmCOrderTypeControl.NO_ORDERED)
                 .ToDictionary(x => x.Order.Code);
 

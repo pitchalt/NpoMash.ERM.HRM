@@ -43,12 +43,12 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
             object_space.CommitChanges();
         }
 
-        protected void ValidateAllocParameterWithOrders(IObjectSpace os, HrmPeriodAllocParameter param) {
+        protected void ValidateAllocParameterWithOrders(IObjectSpace os, HrmAllocParameter param) {
             IList<fmCOrder> orders = os.GetObjects<fmCOrder>();
             Int32 order_count = 0;
             Int32 order_control_count = param.OrderControls.Count;
             foreach (fmCOrder order in orders) {
-                HrmPeriodOrderControl order_control = param.OrderControls.FirstOrDefault(x => x.Order == order);
+                HrmAllocParameterOrderControl order_control = param.OrderControls.FirstOrDefault(x => x.Order == order);
                 if (order.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT ||
                     order.TypeControl == FmCOrderTypeControl.FOT) {
                     order_count++;

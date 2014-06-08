@@ -11,19 +11,19 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
-using NpoMash.Erm.Hrm.Salary.BringingStructure;
 using IntecoAG.ERM.HRM;
 using IntecoAG.ERM.FM.Order;
 
-namespace NpoMash.Erm.Hrm.Salary {
+namespace NpoMash.Erm.Hrm.Salary.BringingStructure {
+
     public static class BringingLogic {
 
         public static BringingStructure.Matrix PrepareBringingStructure(HrmSalaryTaskMatrixReduction reduc) {
             HrmMatrix mat_plan = reduc.MatrixPlan;
             HrmTimeSheet time_sheet = reduc.TimeSheet;
-            HrmPeriodAllocParameter alloc_parameters = reduc.AllocParameters;
+            HrmAllocParameter alloc_parameters = reduc.AllocParameters;
             IDictionary<String, bool> order_controls = new Dictionary<String, bool>();
-            foreach (HrmPeriodOrderControl oc in alloc_parameters.OrderControls)
+            foreach (HrmAllocParameterOrderControl oc in alloc_parameters.OrderControls)
                 if (oc.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT)
                     order_controls.Add(oc.Order.Code, true);
                 else order_controls.Add(oc.Order.Code, false);

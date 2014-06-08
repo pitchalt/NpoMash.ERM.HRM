@@ -20,7 +20,7 @@ using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmAccountOperation")]
+    [Persistent("HrmSalaryAccountOperation")]
   //  [DefaultProperty("Department.GroupDep")]
     public class HrmAccountOperation : XPObject {
 

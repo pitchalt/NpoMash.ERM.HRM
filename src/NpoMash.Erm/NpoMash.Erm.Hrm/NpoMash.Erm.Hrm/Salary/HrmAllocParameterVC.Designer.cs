@@ -1,6 +1,6 @@
 namespace NpoMash.Erm.Hrm.Salary
 {
-    partial class HrmPeriodAllocParameterVC
+    partial class HrmAllocParameterVC
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@ namespace NpoMash.Erm.Hrm.Salary
             this.AcceptOrderListFirst.Shortcut = null;
             this.AcceptOrderListFirst.Tag = null;
             this.AcceptOrderListFirst.TargetObjectsCriteria = null;
-            this.AcceptOrderListFirst.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
+            this.AcceptOrderListFirst.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmAllocParameter);
             this.AcceptOrderListFirst.TargetViewId = null;
             this.AcceptOrderListFirst.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptOrderListFirst.ToolTip = null;
@@ -57,7 +57,7 @@ namespace NpoMash.Erm.Hrm.Salary
             this.AcceptOrderListLast.Shortcut = null;
             this.AcceptOrderListLast.Tag = null;
             this.AcceptOrderListLast.TargetObjectsCriteria = null;
-            this.AcceptOrderListLast.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
+            this.AcceptOrderListLast.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmAllocParameter);
             this.AcceptOrderListLast.TargetViewId = null;
             this.AcceptOrderListLast.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.AcceptOrderListLast.ToolTip = null;
@@ -66,7 +66,7 @@ namespace NpoMash.Erm.Hrm.Salary
             // 
             // HrmPeriodAllocParameterVC
             // 
-            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameter);
+            this.TargetObjectType = typeof(NpoMash.Erm.Hrm.Salary.HrmAllocParameter);
             this.TypeOfView = typeof(DevExpress.ExpressApp.View);
 
         }

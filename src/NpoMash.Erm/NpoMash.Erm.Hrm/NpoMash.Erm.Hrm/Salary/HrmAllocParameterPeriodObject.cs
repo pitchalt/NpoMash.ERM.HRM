@@ -17,12 +17,12 @@ using DevExpress.Persistent.Validation;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class HrmPeriodAllocParameterPeriodObject : HrmPeriodObject {
+    public class HrmAllocParameterPeriodObject : HrmPeriodObject {
 
         [ExplicitLoading(0)]
         [DevExpress.Xpo.Aggregated]
         [Persistent("AllocParameter")]
-        private HrmPeriodAllocParameter _AllocParameter;
+        private HrmAllocParameter _AllocParameter;
         //        public HrmPeriodAllocParameter AllocParameters {
         //            get { return _AllocParameters; }
         //            set { SetPropertyValue<HrmPeriodAllocParameter>("AllocParameters", ref _AllocParameters, value); }
@@ -35,14 +35,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         public override Type PeriodObjectType {
-            get { return typeof(HrmPeriodAllocParameter); }
+            get { return typeof(HrmAllocParameter); }
         }
 
-        public HrmPeriodAllocParameterPeriodObject(Session session)
+        public HrmAllocParameterPeriodObject(Session session)
             : base(session) {
         }
 
-        public HrmPeriodAllocParameterPeriodObject(HrmPeriodAllocParameter instance)
+        public HrmAllocParameterPeriodObject(HrmAllocParameter instance)
             : base(instance.Session) {
             _AllocParameter = instance;
         }

@@ -17,8 +17,8 @@ using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixCell")]
-    public class HrmMatrixCell : BaseObject {
+    [Persistent("HrmSalaryMatrixCell")]
+    public class HrmMatrixCell : XPObject {
 
         private Decimal _Time;
         [ModelDefault("DisplayFormat", "{0:N}")]

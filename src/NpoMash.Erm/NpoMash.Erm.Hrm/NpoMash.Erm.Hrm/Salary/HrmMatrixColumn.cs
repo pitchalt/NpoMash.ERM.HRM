@@ -21,8 +21,8 @@ using NpoMash.Erm.Hrm.Salary.Matrix;
 
 namespace NpoMash.Erm.Hrm.Salary {
 
-    [Persistent("HrmMatrixColumn")]
-    public class HrmMatrixColumn : BaseObject {
+    [Persistent("HrmSalaryMatrixColumn")]
+    public class HrmMatrixColumn : XPObject {
 
 
         [ModelDefault("DisplayFormat", "{0:N}")]

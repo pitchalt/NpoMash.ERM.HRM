@@ -34,56 +34,56 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         [Test]
         public void CheckNewAllocParametersStatus() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(HrmPeriodAllocParameterStatus.CREATED, new_alloc_parameters.Status);
         }
 
         [Test]
         public void PeriodLinkIsNotNull() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.Period);
         }
 
         [Test]
         public void OrderControllCollectionIsExist() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.OrderControls);
         }
 
         [Test]
         public void OrderControllCollectionIsNotEmty() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotEmpty(new_alloc_parameters.OrderControls);
         }
 
         [Test]
         public void PeriodPayTypeCOllectionIsExist() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotNull(new_alloc_parameters.PeriodPayTypes);
         }
 
         [Test]
         public void PeriodPayTypeCOllectionIsNotEmpty() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.IsNotEmpty(new_alloc_parameters.PeriodPayTypes);
         }
 
         [Test]
         public void IterationNumberIsCorrect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(1, new_alloc_parameters.IterationNumber);
         }
 
         [Test]
         public void YearMonthValueIsCorrect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
             Assert.AreEqual(HrmPeriodLogic.INIT_YEAR, new_alloc_parameters.Year);
             Assert.AreEqual(HrmPeriodLogic.INIT_MONTH, new_alloc_parameters.Month);
         }
@@ -91,15 +91,15 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests.HrmPeriodAllocParameterLogicTest
         [Test]
         public void NormNoContolKbValueIsCorrect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
-            Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_KB, new_alloc_parameters.NormNoControlKB);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
+            Assert.AreEqual(HrmAllocParameterLogic.INIT_NORM_NO_CONTROL_KB, new_alloc_parameters.NormNoControlKB);
         }
 
         [Test]
         public void NormNoControlOZMValueIsCorrect() {
             IObjectSpace test_object_space = application.CreateObjectSpace();
-            var new_alloc_parameters = HrmPeriodAllocParameterLogic.createParameters(test_object_space);
-            Assert.AreEqual(HrmPeriodAllocParameterLogic.INIT_NORM_NO_CONTROL_OZM, new_alloc_parameters.NormNoControlOZM);
+            var new_alloc_parameters = HrmAllocParameterLogic.createParameters(test_object_space);
+            Assert.AreEqual(HrmAllocParameterLogic.INIT_NORM_NO_CONTROL_OZM, new_alloc_parameters.NormNoControlOZM);
         }
     }
 }
