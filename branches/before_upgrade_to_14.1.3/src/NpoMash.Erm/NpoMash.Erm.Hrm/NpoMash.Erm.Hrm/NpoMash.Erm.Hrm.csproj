@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NpoMash.Erm.Hrm</RootNamespace>
+    <AssemblyName>NpoMash.Erm.Hrm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\..\bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Prod|AnyCPU'">
+    <OutputPath>bin\Prod\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Chart.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v13.1.Core, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1.Extensions, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="FileHelpers">
+      <HintPath>..\..\..\..\lib\FileHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers.ExcelNPOIStorage">
+      <HintPath>..\..\..\..\lib\FileHelpers.ExcelNPOIStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="FileHelpers.ExcelStorage">
+      <HintPath>..\..\..\..\lib\FileHelpers.ExcelStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfoVersion.cs" />
+    <Compile Include="Exchange\ExchangeConstOrderTime.cs" />
+    <Compile Include="Exchange\ExchangeMatrixTravelTime.cs" />
+    <Compile Include="HrmPeriod.cs" />
+    <Compile Include="HrmPeriodLogic.cs" />
+    <Compile Include="Exchange\ExchangeAccountOperation.cs" />
+    <Compile Include="Exchange\ExchangeMatrixPlan.cs" />
+    <Compile Include="Exchange\ExchangeMatrixTimeSheet.cs" />
+    <Compile Include="ILog.cs" />
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="Salary\BringingStructure\BringingLogic.cs" />
+    <Compile Include="Salary\BringingStructure\BringingStructure.cs" />
+    <Compile Include="Salary\HrmMatrixCell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmMatrixColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmMatrixLogic.cs" />
+    <Compile Include="Salary\HrmMatrixPeriodObject.cs" />
+    <Compile Include="Salary\HrmMatrixRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmAllocParameterPeriodObject.cs" />
+    <Compile Include="Salary\HrmAllocParameterDepartmentControl.cs" />
+    <Compile Include="HrmPeriodObject.cs" />
+    <Compile Include="Salary\HrmPeriodVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmPeriodVC.Designer.cs">
+      <DependentUpon>HrmPeriodVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\HrmAllocParameterLogic.cs" />
+    <Compile Include="Salary\HrmAccountOperation.cs" />
+    <Compile Include="Salary\HrmMatrix.cs" />
+    <Compile Include="Salary\HrmMatrixPlan.cs" />
+    <Compile Include="Salary\HrmMatrixAllocResult.cs" />
+    <Compile Include="Salary\HrmAllocParameter.cs" />
+    <Compile Include="Salary\HrmAllocParameterVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\HrmAllocParameterVC.Designer.cs">
+      <DependentUpon>HrmAllocParameterVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\HrmAllocParameterOrderControl.cs" />
+    <Compile Include="Salary\HrmAllocParameterPayType.cs" />
+    <Compile Include="Salary\ITask.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskReductionBase.cs" />
+    <Compile Include="Salary\HrmTimeSheetPeriodObject.cs" />
+    <Compile Include="Salary\IMatrix.cs" />
+    <Compile Include="IPeriod.cs" />
+    <Compile Include="Salary\IAllocParameter.cs" />
+    <Compile Include="Salary\ITimeSheet.cs" />
+    <Compile Include="Salary\HrmLogRecord.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrix.cs" />
+    <Compile Include="Salary\HrmMatrixCoerced.cs" />
+    <Compile Include="Salary\HrmMatrixFirstAccount.cs" />
+    <Compile Include="Salary\HrmMatrixLastAccount.cs" />
+    <Compile Include="Salary\HrmMatrixProvision.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTask.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummary.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrix.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskExportProvisionMatrixVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperation.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummary.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceData.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceDataLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceDataVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskImportSourceDataVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReduction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReductionLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReductionVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskMatrixReductionVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReduction.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevert.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevertLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevertVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskRevertVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Salary\HrmTimeSheet.cs" />
+    <Compile Include="Salary\HrmTimeSheetDep.cs" />
+    <Compile Include="Salary\HrmTimeSheetLogic.cs" />
+    <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringLogic.cs" />
+    <Compile Include="Salary\ProvisionMatrixBringingStructure\ProvBringStructure.cs" />
+    <Compile Include="Salary\Matrix\ICell.cs" />
+    <Compile Include="Salary\Matrix\IColumn.cs" />
+    <Compile Include="Salary\Matrix\IMatrix.cs" />
+    <Compile Include="Salary\Matrix\ISlice.cs" />
+    <Compile Include="Salary\Matrix\ISliced.cs" />
+    <Compile Include="Salary\Matrix\IRow.cs" />
+    <Compile Include="Salary\Matrix\IValue.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ISliced.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ISlice.cs" />
+    <Compile Include="Salary\Matrix\MatrixPlan\ICell.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IMatrix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Matrix\MatrixPlan\IValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTime.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeLogic.cs" />
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.Designer.cs">
+      <DependentUpon>HrmSalaryTaskCompareWorkTimeVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Simplex\SimplexStructure.cs" />
+    <Compile Include="Simplex\SimplexStructureLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Module.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Module.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Salary\HrmPeriodVC.resx">
+      <DependentUpon>HrmPeriodVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\HrmAllocParameterVC.resx">
+      <DependentUpon>HrmAllocParameterVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskCompareAccountOperationSummaryVC.resx">
+      <DependentUpon>HrmSalaryTaskCompareAccountOperationSummaryVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskExportCoercedMatrixVC.resx">
+      <DependentUpon>HrmSalaryTaskExportCoercedMatrixVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskExportProvisionMatrixVC.resx">
+      <DependentUpon>HrmSalaryTaskExportProvisionMatrixVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationSummaryVC.resx">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationSummaryVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskImportAccountOperationVC.resx">
+      <DependentUpon>HrmSalaryTaskImportAccountOperationVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskImportSourceDataVC.resx">
+      <DependentUpon>HrmSalaryTaskImportSourceDataVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskMatrixReductionVC.resx">
+      <DependentUpon>HrmSalaryTaskMatrixReductionVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskProvisionMatrixReductionVC.resx">
+      <DependentUpon>HrmSalaryTaskProvisionMatrixReductionVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskRevertVC.resx">
+      <DependentUpon>HrmSalaryTaskRevertVC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.resx">
+      <DependentUpon>HrmSalaryTaskCompareWorkTimeVC.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DatabaseUpdate\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BusinessObjects\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\Sample.ets" />
+    <None Include="Images\ReadMe.txt" />
+    <EmbeddedResource Include="Model.DesignedDiffs.Localization.en.xafml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model.DesignedDiffs.Localization.ru.xafml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Config.xml" />
+    <EmbeddedResource Include="Images\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\IntecoAG.Erm\IntecoAG.Erm\IntecoAG.Erm.csproj">
+      <Project>{71dc7a2b-825e-401c-bb71-2ebe5c3ddce0}</Project>
+      <Name>IntecoAG.Erm</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\IntecoAG.XafExt\IntecoAG.XafExt\IntecoAG.XafExt.csproj">
+      <Project>{62ea4432-7bd3-4a77-8478-ca2e358d0f3b}</Project>
+      <Name>IntecoAG.XafExt</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Salary\Matrix\MatrixFirstAlloc\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
