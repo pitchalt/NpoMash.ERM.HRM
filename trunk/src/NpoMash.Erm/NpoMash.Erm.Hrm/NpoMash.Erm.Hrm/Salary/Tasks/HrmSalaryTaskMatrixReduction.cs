@@ -164,19 +164,19 @@ namespace NpoMash.Erm.Hrm.Salary {
         public void Refresh(HrmMatrixVariant variant) {
             switch (variant) {
                 case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
-                    if (MinimizeMaximumDeviationsMatrix != null) {
+                    if (MinimizeMaximumDeviationsMatrix == null) {
                         LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, DepartmentItemBases);
                     }
                     break;
                 case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
-                    if (MinimizeNumberOfDeviationsMatrix != null) {
+                    if (MinimizeNumberOfDeviationsMatrix == null) {
                         LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, DepartmentItemBases);
                     }
                     break;
                 case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
-                    if (ProportionsMethodMatrix != null) {
+                    if (ProportionsMethodMatrix == null) {
                         LoadMatrixOrder(ProportionsMethodMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(ProportionsMethodMatrix, null, DepartmentItemBases);
                     }

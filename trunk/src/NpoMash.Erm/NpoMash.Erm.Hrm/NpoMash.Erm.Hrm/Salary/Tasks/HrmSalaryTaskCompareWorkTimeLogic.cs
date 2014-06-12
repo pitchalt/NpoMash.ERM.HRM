@@ -46,35 +46,20 @@ namespace NpoMash.Erm.Hrm.Salary {
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             }
 
-          /*  foreach (HrmMatrix matrix in task.Period.Matrixs) {
-                if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_KB && matrix.Type == HrmMatrixType.TYPE_MATIX &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED) {
-                    task.MinimizeNumberOfDeviationsMatrix = matrix;
-                }
-            }*/
-
-
-        
 
         public static void CompareOZMMatrix(IObjectSpace object_space, HrmSalaryTaskCompareWorkTime task) {
             task.AllocResultOZM = task.Period.CurrentMatrixAllocResultOZM;
             task.CurrentTimeSheetOZM = task.Period.CurrentTimeSheetOZM;
             task.MinimizeNumberOfDeviationsMatrix = task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix;
+
             //Вытаскиваем плановую матрицу
-         /*   foreach (HrmMatrix matrix in task.Period.Matrixs) {
+            foreach (HrmMatrix matrix in task.Period.Matrixs) {
                 if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_MATIX &&
                     matrix.Status == HrmMatrixStatus.MATRIX_ACCEPTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED) {
                     task.MatrixPlan = matrix;
                 }
             }
-            */
-          /*  foreach (HrmMatrix matrix in task.Period.Matrixs) {
-                if (matrix.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM && matrix.Type == HrmMatrixType.TYPE_MATIX &&
-                    matrix.Status == HrmMatrixStatus.MATRIX_EXPORTED && matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED) {
-                    task.MinimizeNumberOfDeviationsMatrix = matrix;
-                }
-            }*/
-
+            
 
             task.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
             task.AllocResultOZM.GroupDep = DepartmentGroupDep.DEPARTMENT_OZM;
