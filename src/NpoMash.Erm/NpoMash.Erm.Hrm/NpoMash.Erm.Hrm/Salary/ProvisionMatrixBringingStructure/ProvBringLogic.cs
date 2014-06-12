@@ -21,7 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
     public static class ProvBringLogic {
 
-        public static ProvMat CreateProvBringStructure(HrmSalaryTaskProvisionMatrixReduction card){
+        public static ProvMat CreateProvBringStructure(HrmSalaryTaskProvisionMatrixReduction card) {
             ProvMat result = new ProvMat();
             HrmMatrix source_mat = card.ProvisionMatrix;
             // словарь контролируемых заказов

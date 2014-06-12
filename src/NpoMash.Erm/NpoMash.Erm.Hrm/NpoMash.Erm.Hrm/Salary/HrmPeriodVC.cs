@@ -319,8 +319,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
 
                     card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-
-
                     ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
                     ProvBringLogic.BringVeryEasyDeps(mat);
                     ProvBringLogic.BringEasyDeps(mat);
@@ -346,6 +344,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
                 card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
                 SimplexStructureLogic.MainAlgorithm(card, 1, 10, (Decimal)0.0001, 2000);
+
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 os.Committed += new EventHandler(refresher);
@@ -356,6 +355,8 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
     }
+
+
 
     }
 }

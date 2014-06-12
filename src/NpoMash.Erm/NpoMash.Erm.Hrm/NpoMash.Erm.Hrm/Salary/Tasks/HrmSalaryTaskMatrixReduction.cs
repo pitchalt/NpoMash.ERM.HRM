@@ -312,9 +312,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                 InObjects.Add(MatrixPlan);
         }
 
-        public String Name1 {
+        public String Name {
             get {
-                return (GroupDep).ToString();
+                return "Создание матрицы учета" + "";
             }
         }
 

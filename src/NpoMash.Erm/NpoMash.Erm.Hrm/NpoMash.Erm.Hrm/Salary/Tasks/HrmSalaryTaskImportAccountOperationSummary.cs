@@ -20,7 +20,6 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Name1")]
     public class HrmSalaryTaskImportAccountOperationSummary : HrmSalaryTask {
 
         public HrmSalaryTaskImportAccountOperationSummary(Session session) : base(session) { }
@@ -37,10 +36,12 @@ namespace NpoMash.Erm.Hrm.Salary {
                 InObjects.Add(MatrixAllocResultSummary);
         }
 
-        public String Name1 {
+        public String Name {
             get {
-                return (Period.Year * 100 + Period.Month).ToString();
+
+                return "Импорт проводки" + " " + (Period.Month + "-" + Period.Year).ToString();
             }
         }
+
     }
 }

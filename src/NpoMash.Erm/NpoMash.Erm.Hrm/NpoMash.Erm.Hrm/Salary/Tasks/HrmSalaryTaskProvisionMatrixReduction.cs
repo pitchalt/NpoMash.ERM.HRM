@@ -19,7 +19,7 @@ using IntecoAG.ERM.HRM.Organization;
 namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
-    [DefaultProperty("Name1")]
+
     public class HrmSalaryTaskProvisionMatrixReduction : HrmSalaryTask {
 
 
@@ -72,6 +72,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return _ProvisionMatrix; }
             set { SetPropertyValue<HrmMatrix>("ProvisionMatrix", ref _ProvisionMatrix, value); }
         }
+
 
         private HrmTimeSheet _TimeSheet; //Табель
         [Browsable(false)]
@@ -290,9 +291,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         
         }
 
-        public String Name1 {
+        public String Name {
             get {
-                return (Period.Year * 100 + Period.Month).ToString();
+                return "Создание матрицы резерва" + " " + (Period.Month + "-" + Period.Year).ToString();
             }
         }
         

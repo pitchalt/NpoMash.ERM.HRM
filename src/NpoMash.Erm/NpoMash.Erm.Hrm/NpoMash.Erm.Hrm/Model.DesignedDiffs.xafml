@@ -19,7 +19,7 @@
     </Actions>
   </ActionDesign>
   <BOModel>
-    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" />
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" DefaultLookupEditorMode="Search" />
     <Class Name="NpoMash.Erm.Hrm.ILogRecord">
       <OwnMembers>
         <Member Name="RecordText" Index="0" />
@@ -140,7 +140,11 @@
   </Localization>
   <NavigationItems>
     <Items>
-      <Item Id="A1 Integration" ChildItemsDisplayStyle="List" />
+      <Item Id="A1 Integration" ChildItemsDisplayStyle="List">
+        <Items>
+          <Item Id="HrmAllocParameter_ListView" ImageName="Action_Edit" />
+        </Items>
+      </Item>
       <Item Id="State Machine" Removed="True" />
     </Items>
   </NavigationItems>
@@ -269,11 +273,7 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
-          <TabbedGroup Id="Tabs" Index="0" RelativeSize="100" IsNewNode="True">
-            <LayoutGroup Id="OrderItems" Index="0" ShowCaption="True" RelativeSize="100" IsNewNode="True">
-              <LayoutItem Id="OrderItems" ViewItem="OrderItems" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-          </TabbedGroup>
+          <LayoutItem Id="OrderItems" ViewItem="OrderItems" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -602,7 +602,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="HrmAccountOperation_ListView" IsFooterVisible="True">
+    <ListView Id="HrmAccountOperation_ListView" IsFooterVisible="True" TopReturnedObjects="100000">
       <Columns>
         <ColumnInfo Id="Time">
           <Summary>
@@ -713,7 +713,6 @@
       <Columns>
         <ColumnInfo Id="IterationNumber" Index="-1" />
         <ColumnInfo Id="Name" Index="-1" />
-        <ColumnInfo Id="Name1" Index="-1" />
         <ColumnInfo Id="Status" Index="-1" />
         <ColumnInfo Id="TaskObjectName" Index="-1" />
         <ColumnInfo Id="TaskObjectStatus" Index="-1" />
@@ -1201,6 +1200,9 @@
       </Columns>
     </ListView>
     <DetailView Id="HrmPeriod_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" EditMaskType="Simple" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
           <LayoutGroup Id="SimpleEditors" RelativeSize="13" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
@@ -1247,7 +1249,6 @@
       <Columns>
         <ColumnInfo Id="Instance" Index="-1" />
         <ColumnInfo Id="Name" Index="-1" />
-        <ColumnInfo Id="Name1" Index="-1" />
         <ColumnInfo Id="PersistentInterfaceData" Index="-1" />
         <ColumnInfo Id="PeriodObjectType" Index="0" />
         <ColumnInfo Id="Status" SortOrder="None" Index="1" />
@@ -1353,7 +1354,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="HrmSalaryTaskCompareWorkTime_DepartmentItems_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentItem2_MasterDetailView" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskCompareWorkTime_DepartmentItems_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="DepartmentItem2_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
@@ -1487,7 +1488,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="HrmSalaryTaskCompareWorkTime_OrderItems_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="OrderItem2_MasterDetailView" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskCompareWorkTime_OrderItems_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="OrderItem2_MasterDetailView">
       <Columns>
         <ColumnInfo Id="OrderFact" Index="-1">
           <Summary>
@@ -1936,7 +1937,6 @@
     </DetailView>
     <ListView Id="HrmSalaryTaskImportSourceData_ListView" IsFooterVisible="True">
       <Columns>
-        <ColumnInfo Id="Name1" Index="-1" />
         <ColumnInfo Id="TimeSheetKB">
           <Summary>
             <ColumnSummaryItem Id="@38dc783f-4489-4f21-b1a9-8b65a6134b0d" SummaryType="Sum" IsNewNode="True" />
@@ -1977,6 +1977,7 @@
           </Summary>
         </ColumnInfo>
       </Columns>
+      <SplitLayout Direction="Vertical" />
     </ListView>
     <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView" ImageName="BO_Appearance">
       <Layout>
@@ -2091,6 +2092,7 @@
           </Summary>
         </ColumnInfo>
       </Columns>
+      <SplitLayout Direction="Vertical" />
     </ListView>
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_Department_DetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet" IsNewNode="True">
       <Items IsNewNode="True">
@@ -2105,7 +2107,7 @@
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True" />
       </Layout>
     </DetailView>
-    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentSet_MasterDetailView" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Department_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="DepartmentSet_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Base">
           <Summary>
@@ -2317,7 +2319,7 @@
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True" />
       </Layout>
     </DetailView>
-    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="OrderSet_MasterDetailView" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_Order_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="OrderSet_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Base">
           <Summary>
@@ -2653,9 +2655,7 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
-          <LayoutGroup Id="DepartmentItems" Index="0" ShowCaption="True" IsNewNode="True">
-            <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" ShowCaption="False" Index="0" IsNewNode="True" />
-          </LayoutGroup>
+          <LayoutItem Id="DepartmentItems_Copy" ViewItem="DepartmentItems" ShowCaption="False" Index="0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>

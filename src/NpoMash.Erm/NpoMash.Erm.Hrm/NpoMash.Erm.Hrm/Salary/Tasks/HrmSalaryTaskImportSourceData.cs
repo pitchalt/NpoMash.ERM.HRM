@@ -22,7 +22,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    [DefaultProperty("Name1")]
+
     public class HrmSalaryTaskImportSourceData : HrmSalaryTask { 
 
         private HrmTimeSheet _TimeSheetKB;
@@ -59,23 +59,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public String Name {
             get {
-                //EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
+                return "Импорт исходных данных" + " " + (Period.Month + "-" + Period.Year).ToString();
 
-                return PeriodObjectType.Name + " " + (Period.Year * 100 + Period.Month).ToString();
-                //(Year * 100 + Month).ToString();
-                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
             }
         }
 
-        public String Name1 {
-            get {
-                //EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
 
-                return (Period.Year * 100 + Period.Month).ToString();
-                //(Year * 100 + Month).ToString();
-                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
-            }
-        }
 
         public Type TaskObjectType {
             get { return PeriodObjectType; }
