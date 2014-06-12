@@ -93,8 +93,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderFact;
             [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal OrderFact1;
-            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal ConstantOrderTime;
@@ -110,7 +108,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             private Decimal plan_Fact;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Plan_Fact {
-                get { return plan_Fact = OrderPlan - OrderFact1; }
+                get { return plan_Fact = OrderPlan - OrderFact; }
         }
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal CoercedValue;
@@ -244,7 +242,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item.CoercedValue += cell.Time;
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
-                    item.OrderFact1 +=cell.Time;
+                    item.OrderFact +=cell.Time;
                     item.OrderTravelFact += cell.TravelTime;
                     
                 }
