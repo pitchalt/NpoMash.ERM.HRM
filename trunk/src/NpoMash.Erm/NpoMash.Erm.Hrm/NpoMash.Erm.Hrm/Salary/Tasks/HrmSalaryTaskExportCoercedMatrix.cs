@@ -22,7 +22,6 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Name1")]
     public class HrmSalaryTaskExportCoercedMatrix : HrmSalaryTask {
         public HrmSalaryTaskExportCoercedMatrix(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
@@ -51,9 +50,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                 InObjects.Add(OZMCoercedMatrix);
         }
 
-        public String Name1 {
+        public String Name {
             get {
-                return (Period.Year * 100 + Period.Month).ToString();
+                return "Ёкспорт матриц учета" + " " + (Period.Month + "-" + Period.Year).ToString();
             }
         }
 

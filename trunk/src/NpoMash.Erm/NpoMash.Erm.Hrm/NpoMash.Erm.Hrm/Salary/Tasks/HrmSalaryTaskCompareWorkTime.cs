@@ -26,7 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "GroupDep=='DEPARTMENT_KB'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareKB", Criteria = "State=='HRM_SALARY_TASK_COMPLETED'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCompareOZM", Criteria = "State=='HRM_SALARY_TASK_COMPLETED'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [DefaultProperty("Name1")]
+
     public class HrmSalaryTaskCompareWorkTime : 
 
         HrmSalaryTaskReductionBase {
@@ -93,6 +93,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderFact;
             [ModelDefault("DisplayFormat", "{0:N}")]
+            public Decimal OrderFact1;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal ConstantOrderTime;
@@ -108,7 +110,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             private Decimal plan_Fact;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Plan_Fact {
-                get { return plan_Fact = OrderPlan - OrderFact; }
+                get { return plan_Fact = OrderPlan - OrderFact1; }
         }
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal CoercedValue;
@@ -242,7 +244,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item.CoercedValue += cell.Time;
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
-                    item.OrderFact +=cell.Time;
+                    item.OrderFact1 +=cell.Time;
                     item.OrderTravelFact += cell.TravelTime;
                     
                 }
@@ -296,9 +298,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
 
-             public String Name1 {
+             public String Name {
                  get {
-                     return (Period.Year * 100 + Period.Month).ToString();
+                     return "Контроль трудоемкости";
                  }
              }
 

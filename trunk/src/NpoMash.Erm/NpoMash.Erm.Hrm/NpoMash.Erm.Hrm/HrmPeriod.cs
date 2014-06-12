@@ -61,7 +61,8 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "!isKBCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "!isOZMCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
-    [DefaultProperty("Name1")]
+
+
     public class HrmPeriod : BaseObject, IPeriod, IPersistentInterface<IPeriod>, IPersistentInterfaceData<IPeriod> {
 
         [Persistent("Year")]
@@ -339,21 +340,10 @@ namespace NpoMash.Erm.Hrm {
             get {
                 EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
 
-                return PeriodObjectType.Name + " " + (Year * 100 + Month).ToString();
-                    //(Year * 100 + Month).ToString();
-                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
+                return "Период" + " " + (Month + "-" + Year).ToString();
             }
         }
 
-        public String Name1 {
-            get {
-                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
-
-                return (Year * 100 + Month).ToString();
-                //(Year * 100 + Month).ToString();
-                //ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name; 
-            }
-        }
 
 
 

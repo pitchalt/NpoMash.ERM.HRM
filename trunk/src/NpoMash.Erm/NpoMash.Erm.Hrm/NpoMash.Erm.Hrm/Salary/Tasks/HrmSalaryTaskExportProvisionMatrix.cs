@@ -21,6 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix", Criteria = "isMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+
     public class HrmSalaryTaskExportProvisionMatrix : HrmSalaryTask {
         public HrmSalaryTaskExportProvisionMatrix(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
@@ -38,6 +39,13 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected override void InObjectsLoad() {
             if(ProvisionMatrix!=null)
               InObjects.Add(ProvisionMatrix);
+        }
+
+        public String Name {
+            get {
+
+                return "Ёкспорт матрицы учета" + " " + (Period.Month + "-" + Period.Year).ToString();
+            }
         }
 
 

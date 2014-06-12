@@ -113,7 +113,7 @@
         <Member Name="PayType" Caption="Код оплаты" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAllocParameter" Caption="Параметры расчета">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAllocParameter" Caption="Параметры расчета" ObjectCaptionFormat="{0:Name}">
       <OwnMembers>
         <Member Name="DepartmentControl" Caption="Контроль подразделений" />
         <Member Name="GroupDep" Caption="Группа :" />
@@ -210,8 +210,8 @@
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTask" Caption="Задача">
       <OwnMembers>
-        <Member Name="CreateTime" Caption="Время создания" />
-        <Member Name="FinishTime" Caption="Время завершения" />
+        <Member Name="CreateTime" Caption="Время создания" EditMask="" />
+        <Member Name="FinishTime" Caption="Время завершения" EditMask="" />
         <Member Name="GroupDep" Caption="Группа" />
         <Member Name="InObjects" Caption="Объекты" />
         <Member Name="LogRecords" Caption="Журнал событий" />
@@ -260,13 +260,13 @@
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskExportProvisionMatrix" Caption="Экспорт матрицы резерва" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки" ObjectCaptionFormat="{0:Name}">
       <OwnMembers>
         <Member Name="MatrixAllocResultKB" Caption="Проводка(КБ)" />
         <Member Name="MatrixAllocResultOZM" Caption="Проводка(ОЗМ)" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperationSummary" Caption="Импорт проводки">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperationSummary" Caption="Импорт проводки" ObjectCaptionFormat="{0:Name}">
       <OwnMembers>
         <Member Name="MatrixAllocResultSummary" Caption="Общая проводка" />
       </OwnMembers>
@@ -492,11 +492,7 @@
     </ListView>
     <DetailView Id="DepartmentItem1_MasterDetailView">
       <Layout>
-        <LayoutGroup Id="Main" Caption="Main">
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="OrderItems" Caption="Заказы" />
-          </TabbedGroup>
-        </LayoutGroup>
+        <LayoutGroup Id="Main" Caption="Main" />
       </Layout>
     </DetailView>
     <ListView Id="DepartmentItem1_OrderItems_ListView">
@@ -551,7 +547,7 @@
         <ColumnInfo Id="Money" Caption="Деньги" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmAllocParameter_DetailView">
+    <DetailView Id="HrmAllocParameter_DetailView" Caption="">
       <Items>
         <PropertyEditor Id="GroupDep" Caption="Группа " />
         <PropertyEditor Id="NormNoControlKB" Caption="Норма неконтр. заказов КБ " />
@@ -576,7 +572,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="HrmAllocParameter_ListView">
+    <ListView Id="HrmAllocParameter_ListView" Caption="Параметры расчета">
       <Columns>
         <ColumnInfo Id="PeriodObjectType" Caption="Наименование" />
         <ColumnInfo Id="PeriodObjectStatus" Caption="Статус" />
@@ -727,7 +723,7 @@
         <ColumnInfo Id="TravelTime" Caption="Командировки" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmPeriod_DetailView">
+    <DetailView Id="HrmPeriod_DetailView" Caption="">
       <Items>
         <PropertyEditor Id="LogRecords" Caption="Журнал событий" />
       </Items>
@@ -805,7 +801,7 @@
         <ColumnInfo Id="GroupDep" Caption="Группа" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView">
+    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
@@ -817,6 +813,7 @@
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
             <LayoutGroup Id="InObjects" Caption="Объекты периода" />
           </TabbedGroup>
         </LayoutGroup>
@@ -828,7 +825,7 @@
         <ColumnInfo Id="Group" Caption="Группа" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView" ObjectCaptionFormat="{0:Name1}">
+    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView" ObjectCaptionFormat="{0:Name}  {0:GroupDep}" Caption="">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <TabbedGroup Id="Tabs">
@@ -852,6 +849,7 @@
               <LayoutGroup Id="null" Caption="null" />
             </LayoutGroup>
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
@@ -862,7 +860,7 @@
         <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView">
+    <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView" Caption="">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <TabbedGroup Id="Tabs">
@@ -884,6 +882,7 @@
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
             <LayoutGroup Id="KBCoercedMatrix.Columns" Caption="Подразделения" />
             <LayoutGroup Id="KBCoercedMatrix.Rows" Caption="Заказы" />
             <LayoutGroup Id="OZMCoercedMatrix.Columns" Caption="Подразделения" />
@@ -898,7 +897,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView">
+    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
@@ -921,7 +920,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView">
+    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <TabbedGroup Id="Tabs">
@@ -957,6 +956,7 @@
               <LayoutGroup Id="null" Caption="null" />
             </LayoutGroup>
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
           </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
             <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
@@ -968,7 +968,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskImportAccountOperationSummary_DetailView">
+    <DetailView Id="HrmSalaryTaskImportAccountOperationSummary_DetailView" Caption="">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
@@ -984,7 +984,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView">
+    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
       <Items>
         <PropertyEditor Id="MatrixPlanKB.Name" Caption="Статус" />
         <PropertyEditor Id="MatrixPlanOZM.Name" Caption="Статус" />
@@ -1035,6 +1035,7 @@
               <LayoutGroup Id="Null" Caption="Null" />
             </LayoutGroup>
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
@@ -1045,7 +1046,7 @@
         <ColumnInfo Id="Group" Caption="Группа" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView">
+    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
       <Items>
         <PropertyEditor Id="MatrixPlan.PeriodObjectStatus" Caption="Статус" />
       </Items>
@@ -1078,6 +1079,7 @@
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
             <LayoutGroup Id="AllocParameters.DepartmentControl" Caption="Подразделения" />
             <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
             <LayoutGroup Id="AllocParameters.PeriodPayTypes" Caption="Код оплаты" />
@@ -1096,7 +1098,7 @@
         <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView">
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
       <Items>
         <PropertyEditor Id="AllocParameters.Name" Caption="Статус" />
         <PropertyEditor Id="AllocResultKB.Name" Caption="Статус" />

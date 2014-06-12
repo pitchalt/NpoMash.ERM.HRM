@@ -20,7 +20,6 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
 
-    [DefaultProperty("Name1")]
     public class HrmSalaryTaskCompareAccountOperationSummary : HrmSalaryTask {
 
         public HrmSalaryTaskCompareAccountOperationSummary(Session session) : base(session) { }
@@ -44,9 +43,9 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected override void InObjectsLoad() {
         }
 
-        public String Name1 {
+        public String Name {
             get {
-                return (Period.Year * 100 + Period.Month).ToString();
+                return "Сравнение проводки";
             }
         }
     }
