@@ -117,21 +117,37 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class OrderSet : XPCustomObject {
             public fmCOrder Order;
             public FmCOrderTypeControl TypeControl;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Base;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal SourceProvision;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal NewProvision;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DeltaProvision;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderPlan;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PlannedTravels;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PrefatoryOrderFact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal FactTravels;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PlanKB;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PlannedTrvaelsKB;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PrefatoryFactKB;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal FactTravelsKB;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PlanOZM;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PlannedTravelsOZM;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PrefatoryFactOZM;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal FactTravelsOZM;
             public IList<DepartmentSet> DepartmentItems = new List<DepartmentSet>();
             public OrderSet(Session session) : base(session) { }
@@ -141,13 +157,21 @@ namespace NpoMash.Erm.Hrm.Salary {
         public class DepartmentSet : XPCustomObject {
             public Department Department;
             public DepartmentGroupDep Group;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Base;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal SourceProvision;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal NewProvision;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DeltaProvision;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DepartmentPlan;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PlannedTravels;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal PrefactoryDepartmentFact;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal FactTravels;
             public IList<OrderSet> OrderItems = new List<OrderSet>();
             public DepartmentSet(Session session) : base(session) { }
