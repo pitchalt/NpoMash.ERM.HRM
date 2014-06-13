@@ -259,6 +259,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     continue;
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED && matrix.Type==HrmMatrixType.TYPE_MATIX) {
                     item.DepartmentPlan += cell.Time;
+                    item.ConstantDepTime += cell.ConstOrderTime;
                     item.DepartmentTravelPlan += cell.TravelTime;
                 }
                 else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && matrix.Type == HrmMatrixType.TYPE_MATIX) {

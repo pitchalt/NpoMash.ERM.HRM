@@ -30,7 +30,7 @@ namespace NpoMash.Erm.Hrm.Salary.Win {
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(NpoMash.Erm.Hrm.Win.NpoErmHrmWinModule));
             this.RequiredModuleTypes.Add(typeof(NpoMash.Erm.Hrm.NpoErmHrmModule));
-            this.RequiredModuleTypes.Add(typeof(IntecoAG.XafExt.Win.IagXafExtWinModule));
+           // this.RequiredModuleTypes.Add(typeof(IntecoAG.XafExt.Win.IagXafExtWinModule));
 
         }
 

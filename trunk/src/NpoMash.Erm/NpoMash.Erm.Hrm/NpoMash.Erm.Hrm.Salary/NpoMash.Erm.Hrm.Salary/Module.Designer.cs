@@ -28,7 +28,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(NpoMash.Erm.Hrm.NpoErmHrmModule));
-            this.RequiredModuleTypes.Add(typeof(NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule));
+           // this.RequiredModuleTypes.Add(typeof(NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule));
 
         }
 

@@ -812,9 +812,9 @@
             <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" Caption="HrmSalaryTaskCompareAccountOperationSummary" />
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="InObjects" Caption="Объекты " />
             <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
             <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
-            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
@@ -978,8 +978,9 @@
             </LayoutGroup>
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
             <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
@@ -1100,7 +1101,12 @@
     </ListView>
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
       <Items>
+        <PropertyEditor Id="AllocParameters.GroupDep" Caption="Группа " />
         <PropertyEditor Id="AllocParameters.Name" Caption="Статус" />
+        <PropertyEditor Id="AllocParameters.NormNoControlKB" Caption="Норма неконтр. заказов КБ " />
+        <PropertyEditor Id="AllocParameters.NormNoControlOZM" Caption="Норма неконтр. заказов ОЗМ " />
+        <PropertyEditor Id="AllocParameters.PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="AllocParameters.Status" Caption="Статус" />
         <PropertyEditor Id="AllocResultKB.Name" Caption="Статус" />
         <PropertyEditor Id="AllocResultOZM.Name" Caption="Статус" />
         <PropertyEditor Id="CurrentTimeSheetKB.Name" Caption="Статус" />
