@@ -1,3 +1,7 @@
-﻿<?xml version="1.0" ?>
-<Application Title="NpoMash.Erm.Hrm.Salary" Logo="ExpressAppLogo" />
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="NpoMash.Erm.Hrm.Salary" Logo="Action_FileAttachment_Attach">
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="14.1.3.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="14.1.3.0" IsNewNode="True" />
+  </SchemaModules>
+</Application>

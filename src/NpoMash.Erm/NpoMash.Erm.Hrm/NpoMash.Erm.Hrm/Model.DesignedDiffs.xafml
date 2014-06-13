@@ -856,7 +856,7 @@
         <ColumnInfo Id="Sum" PropertyName="Sum" Width="50" Index="1" IsNewNode="True" />
       </Columns>
     </ListView>
-    <ListView Id="HrmMatrixAllocResult_AccountOperations_ListView">
+    <ListView Id="HrmMatrixAllocResult_AccountOperations_ListView" IsFooterVisible="True">
       <Columns>
         <ColumnInfo Id="Cell" Index="-1" />
         <ColumnInfo Id="BuhCode" PropertyName="Department.BuhCode" Index="1" IsNewNode="True" />
@@ -866,8 +866,16 @@
         <ColumnInfo Id="Department" PropertyName="Department.Code" />
         <ColumnInfo Id="Order" Index="5" />
         <ColumnInfo Id="PayType" Index="6" />
-        <ColumnInfo Id="Time" Index="7" />
-        <ColumnInfo Id="Money" Index="8" />
+        <ColumnInfo Id="Time" Index="7">
+          <Summary>
+            <ColumnSummaryItem Id="@20642cc0-13b2-4ed2-bc29-b3a7ed99f2fd" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Money" Index="8">
+          <Summary>
+            <ColumnSummaryItem Id="@bdf6a7d1-5649-4019-9cb2-79cef5671ac0" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
       </Columns>
     </ListView>
     <DetailView Id="HrmMatrixAllocResult_DetailView">
