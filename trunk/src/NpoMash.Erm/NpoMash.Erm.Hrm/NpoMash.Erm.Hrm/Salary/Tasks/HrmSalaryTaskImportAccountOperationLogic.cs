@@ -318,8 +318,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                         local_task.LogRecord(LogRecordType.ERROR, null, null, "Не удалось связать проводку с заказом и/или кодом оплаты и/или подразделением");
                         broken = true;
                     }
-                    if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { account_to_db.AllocResult = matrix_alloc_result_kb; }
-                    else { account_to_db.AllocResult = matrix_alloc_result_ozm; }
+                    if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { 
+                        account_to_db.AllocResult = matrix_alloc_result_kb;
+                        matrix_alloc_result_kb.AccountOperations.Add(account_to_db);
+                    }
+                    else { 
+                        account_to_db.AllocResult = matrix_alloc_result_ozm;
+                        matrix_alloc_result_ozm.AccountOperations.Add(account_to_db);
+                    }
                     String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
                     if (!cells_in_matrix.ContainsKey(cell_key)) {
                         HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
