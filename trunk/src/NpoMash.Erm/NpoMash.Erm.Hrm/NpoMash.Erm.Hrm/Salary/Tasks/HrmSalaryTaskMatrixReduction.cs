@@ -232,9 +232,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                     break;
                 case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
                     if (MinimizeNumberOfDeviationsMatrix == null) {
-                        orderCleaning(MinimizeNumberOfDeviationsMatrix,OrderItems);
+                        orderCleaning(HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT, OrderItems);
                         LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, OrderItemBases);
-                        departmentCleaning(MinimizeNumberOfDeviationsMatrix, DepartmentItems);
+                        departmentCleaning(HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT, DepartmentItems);
                         LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, DepartmentItemBases);
                     }
                     break;
