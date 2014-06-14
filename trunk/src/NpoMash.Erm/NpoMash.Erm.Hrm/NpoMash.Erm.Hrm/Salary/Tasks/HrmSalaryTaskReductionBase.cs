@@ -56,6 +56,8 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected abstract DepartmentItemBase DepartmentItemCreate();
         protected abstract OrderItemBase OrderItemCreate();
 
+
+
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderItemBase> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
                 if (col != null && row.Cells.FirstOrDefault(x => x.Column == col) == null)

@@ -161,10 +161,22 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmAllocParameter>("AllocParameters", ref _AllocParameters, value); }
         }
 
+
+        public void orderCleaning(HrmMatrixVariant variant, IList<OrderItem1> OrderItems) {
+            switch (variant) {
+                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
+                    foreach (var v in OrderItems) {
+                        v.MinimizeNumberOfDeviationsAlloc = 0;
+                    }
+                    break;
+            }
+        }
+
+
         public void Refresh(HrmMatrixVariant variant) {
             switch (variant) {
                 case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
-                    if (MinimizeMaximumDeviationsMatrix == null) {
+                    if (MinimizeMaximumDeviationsMatrix != null) {
                         LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, DepartmentItemBases);
                     }
