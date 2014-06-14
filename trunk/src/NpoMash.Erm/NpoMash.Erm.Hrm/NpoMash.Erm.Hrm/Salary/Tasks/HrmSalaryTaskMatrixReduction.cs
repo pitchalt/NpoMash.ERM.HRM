@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "AcceptCoercedMatrixAction", Criteria = "isNotReadyToAccept", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportCoercedMatrix", Criteria = "isNotReadyToExport", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "OrderItem1.ProportionsMethodAlloc", Visibility = ViewItemVisibility.Hide)]
-    [DefaultProperty("Name1")]
+
     public class HrmSalaryTaskMatrixReduction :
         //        HrmSalaryTaskReductionBase<HrmSalaryTaskMatrixReduction.DepartmentItem, HrmSalaryTaskMatrixReduction.OrderItem> {
         HrmSalaryTaskReductionBase {
@@ -164,9 +164,58 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public void orderCleaning(HrmMatrixVariant variant, IList<OrderItem1> OrderItems) {
             switch (variant) {
+                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
+                    foreach (var v in OrderItems) {
+                        v.MinimizeNumberOfDeviationsAlloc = 0;
+                        foreach (var k in v.DepartmentItems) {
+                            k.MinimizeNumberOfDeviationsAlloc = 0;
+                        }
+                    }
+                    break;
                 case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
                     foreach (var v in OrderItems) {
                         v.MinimizeNumberOfDeviationsAlloc = 0;
+                        foreach (var k in v.DepartmentItems) {
+                            k.MinimizeNumberOfDeviationsAlloc = 0;
+                        }
+                    }
+                    break;
+                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                    foreach (var v in OrderItems) {
+                        v.MinimizeNumberOfDeviationsAlloc = 0;
+                        foreach (var k in v.DepartmentItems) {
+                            k.MinimizeNumberOfDeviationsAlloc = 0;
+                        }
+                    }
+                    break;
+            }
+        }
+
+
+        public void departmentCleaning(HrmMatrixVariant variant, IList<DepartmentItem1> DepartmentItems) {
+            switch (variant) {
+                case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
+                    foreach (var v in DepartmentItems) {
+                        v.MinimizeNumberOfDeviationsAlloc = 0;
+                        foreach (var k in v.OrderItems) {
+                            k.MinimizeNumberOfDeviationsAlloc = 0;
+                        }
+                    }
+                    break;
+                case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
+                    foreach (var v in DepartmentItems) {
+                        v.MinimizeNumberOfDeviationsAlloc = 0;
+                        foreach (var k in v.OrderItems) {
+                            k.MinimizeNumberOfDeviationsAlloc = 0;
+                        }
+                    }
+                    break;
+                case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
+                    foreach (var v in DepartmentItems) {
+                        v.MinimizeNumberOfDeviationsAlloc = 0;
+                        foreach (var k in v.OrderItems) {
+                            k.MinimizeNumberOfDeviationsAlloc = 0;
+                        }
                     }
                     break;
             }
@@ -183,7 +232,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                     break;
                 case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
                     if (MinimizeNumberOfDeviationsMatrix == null) {
+                        orderCleaning(MinimizeNumberOfDeviationsMatrix,OrderItems);
                         LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, OrderItemBases);
+                        departmentCleaning(MinimizeNumberOfDeviationsMatrix, DepartmentItems);
                         LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, DepartmentItemBases);
                     }
                     break;
