@@ -25,28 +25,26 @@ namespace NpoMash.Erm.Hrm.Salary {
                     m.Status = HrmMatrixStatus.MATRIX_EXPORTED;
         }
 
-        public static void AcceptSelectedMatrix(HrmSalaryTaskProvisionMatrixReduction card, HrmMatrix matrix_to_accept) {
-            if (card.ProvisionMatrix != null)
-                card.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-           
-            matrix_to_accept.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+        public static void PrimaryAcceptSelectedMatrix(HrmSalaryTaskProvisionMatrixReduction card, HrmMatrix matrix_to_accept) {
+            HrmMatrix matrix_to_reject = null;
+            if (card.ReserveMatrixSimplex == matrix_to_accept)
+                matrix_to_reject = card.ReserveMatrixEvristic;
+            else matrix_to_reject = card.ReserveMatrixSimplex;
+            matrix_to_accept.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
+            matrix_to_reject.Status = HrmMatrixStatus.MATRIX_CLOSED;
         }
 
-        public static bool MatrixAccepted(HrmMatrix matrix_to_accept, HrmPeriod current_period) {
-            bool provision_accepted = false;
-
-            if (matrix_to_accept.GroupDep == DepartmentGroupDep.DEPARTMENT_KB_OZM)
-                provision_accepted = true;
-            else provision_accepted = false;
-            foreach (HrmMatrix m in current_period.Matrixs) {
-                if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && m.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED)
-                    if (m.GroupDep == DepartmentGroupDep.DEPARTMENT_KB_OZM)
-                        provision_accepted = true;
-                    else provision_accepted = false;
-            }
-            if (provision_accepted)
-                return true;
-            else return false;
+        public static bool MatrixIsPrimaryAccepted(/*HrmMatrix matrix_to_accept,*/ HrmPeriod current_period) {
+            // bool provision_accepted = false;
+            // а это на кой черт надо - проверять статус матрицы по ее группе подразделений????
+            //if (matrix_to_accept.GroupDep == DepartmentGroupDep.DEPARTMENT_KB_OZM)
+            //    provision_accepted = true;
+            //else provision_accepted = false;
+            return current_period.Matrixs.Where(x => 
+                x.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED &&
+                x.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED &&
+                x.GroupDep == DepartmentGroupDep.DEPARTMENT_KB_OZM)
+                .FirstOrDefault() != null;
         }
 
 
@@ -126,19 +124,32 @@ namespace NpoMash.Erm.Hrm.Salary {
             period.PeriodTasks.Add(task_provision_matrix_reduction);
 
             //Initiate provision matrix task
-            HrmMatrixProvision provision_matrix = os.CreateObject<HrmMatrixProvision>();
+            HrmMatrixProvision provision_matrix_simp = os.CreateObject<HrmMatrixProvision>();
+            HrmMatrixProvision provision_matrix_evr = os.CreateObject<HrmMatrixProvision>();
 
             task_provision_matrix_reduction.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
             task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
-            task_provision_matrix_reduction.ProvisionMatrix = provision_matrix;
-            task_provision_matrix_reduction.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_SAVED;
-            task_provision_matrix_reduction.ProvisionMatrix.Type = HrmMatrixType.TYPE_MATIX;
-            task_provision_matrix_reduction.ProvisionMatrix.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
-            task_provision_matrix_reduction.ProvisionMatrix.GroupDep = group_dep;
+
+            task_provision_matrix_reduction.ReserveMatrixSimplex = provision_matrix_simp;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.Status = HrmMatrixStatus.MATRIX_SAVED;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.Type = HrmMatrixType.TYPE_MATIX;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.GroupDep = group_dep;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.Period = period;
+
+            task_provision_matrix_reduction.ReserveMatrixEvristic = provision_matrix_evr;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.Status = HrmMatrixStatus.MATRIX_SAVED;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.Type = HrmMatrixType.TYPE_MATIX;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.GroupDep = group_dep;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.Period = period;
+
             task_provision_matrix_reduction.CurrentTimeSheetKB = period.CurrentTimeSheetKB;
             task_provision_matrix_reduction.CurrentTimeSheetOZM = period.CurrentTimeSheetOZM;
+            period.Matrixs.Add(task_provision_matrix_reduction.ReserveMatrixSimplex);
+            period.Matrixs.Add(task_provision_matrix_reduction.ReserveMatrixEvristic);
             period.CurrentProvisionMatrix = task_provision_matrix_reduction;
-            period.Matrixs.Add(task_provision_matrix_reduction.ProvisionMatrix);
+            
 
             // Get coerced matrix from period
             foreach (HrmMatrix matrix in period.Matrixs) {
@@ -176,10 +187,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                     task_provision_matrix_reduction.MatrixPlanOZM = matrix;
                 }
             }
-
-
-
-
             return task_provision_matrix_reduction;
         }
 
@@ -188,37 +195,31 @@ namespace NpoMash.Erm.Hrm.Salary {
         // Create money matrix
         public static HrmMatrix createMoneyMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
 
-            var alloc_parameters = card.AllocParameters;
-            var matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os, card);
+            HrmAllocParameter alloc_parameters = card.AllocParameters;
+            HrmMatrix matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os, card);
             matrix.Period = card.Period;
-            Decimal norm_kb=0;
-            Decimal norm_ozm = 0;
-            bool key=false;
-
-            foreach (var matrix_order in matrix.Rows) {
-                key = false;
-                foreach (var control_order in alloc_parameters.OrderControls) {
-                    if (matrix_order.Order.Code == control_order.Order.Code) {
-                        key = true;
-                        norm_kb = control_order.Order.NormKB;
-                        norm_ozm = control_order.Order.NormOZM;
-                    }
+            Dictionary<String, HrmAllocParameterOrderControl> order_controls =
+                alloc_parameters.OrderControls.ToDictionary(x => x.Order.Code);
+            foreach (HrmMatrixRow matrix_order in matrix.Rows) {
+                String current_order_code = matrix_order.Order.Code;
+                Decimal norm_kb = alloc_parameters.NormNoControlKB;
+                Decimal norm_ozm = alloc_parameters.NormNoControlOZM;
+                if (order_controls.ContainsKey(current_order_code)) {
+                    norm_kb = order_controls[current_order_code].NormKB;
+                    norm_ozm = order_controls[current_order_code].NormOZM;
                 }
-
-                if (key == true) {
-                    foreach (var cell in matrix_order.Cells) {
-                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = norm_kb * (cell.Time);  }
-                        else { cell.PlanMoney = norm_ozm * (cell.Time); }
+                foreach (var cell in matrix_order.Cells) {
+                    if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                        cell.PlanMoney = norm_kb * cell.Time;
                     }
-                }
-                else if (key == false) {
-                    foreach (var cell in matrix_order.Cells) {
-                        if (cell.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { cell.PlanMoney = alloc_parameters.NormNoControlKB * (cell.Time); }
-                        else { cell.PlanMoney = alloc_parameters.NormNoControlOZM *(cell.Time); }
+                    else {
+                        cell.PlanMoney = norm_ozm * cell.Time;
                     }
                 }
             }
             return matrix;
         }
+
+
     }
 }

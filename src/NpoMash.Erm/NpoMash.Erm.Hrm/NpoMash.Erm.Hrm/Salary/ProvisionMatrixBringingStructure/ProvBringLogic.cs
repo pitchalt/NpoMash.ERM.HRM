@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Salary.ProvisionMatrixBringingStructure {
 
         public static ProvMat CreateProvBringStructure(HrmSalaryTaskProvisionMatrixReduction card) {
             ProvMat result = new ProvMat();
-            HrmMatrix source_mat = card.ProvisionMatrix;
+            HrmMatrix source_mat = card.ReserveMatrixEvristic;
             // словарь контролируемых заказов
             Dictionary<String, HrmAllocParameterOrderControl> controlled_orders = card.AllocParameters.OrderControls
                 .Where(x => x.TypeControl == FmCOrderTypeControl.FOT || x.TypeControl == FmCOrderTypeControl.TRUDEMK_FOT).
