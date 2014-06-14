@@ -226,20 +226,24 @@ namespace NpoMash.Erm.Hrm.Salary {
             switch (variant) {
                 case HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT:
                     if (MinimizeMaximumDeviationsMatrix != null) {
+                        orderCleaning(HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT, OrderItems);
+                        departmentCleaning(HrmMatrixVariant.MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT, DepartmentItems);
                         LoadMatrixOrder(MinimizeMaximumDeviationsMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(MinimizeMaximumDeviationsMatrix, null, DepartmentItemBases);
                     }
                     break;
                 case HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT:
-                    if (MinimizeNumberOfDeviationsMatrix == null) {
+                    if (MinimizeNumberOfDeviationsMatrix != null) {
                         orderCleaning(HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT, OrderItems);
-                        LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, OrderItemBases);
                         departmentCleaning(HrmMatrixVariant.MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT, DepartmentItems);
+                        LoadMatrixOrder(MinimizeNumberOfDeviationsMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(MinimizeNumberOfDeviationsMatrix, null, DepartmentItemBases);
                     }
                     break;
                 case HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT:
-                    if (ProportionsMethodMatrix == null) {
+                    if (ProportionsMethodMatrix != null) {
+                        orderCleaning(HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT, OrderItems);
+                        departmentCleaning(HrmMatrixVariant.PROPORTIONS_METHOD_VARIANT, DepartmentItems);
                         LoadMatrixOrder(ProportionsMethodMatrix, null, OrderItemBases);
                         LoadMatrixDepartment(ProportionsMethodMatrix, null, DepartmentItemBases);
                     }
