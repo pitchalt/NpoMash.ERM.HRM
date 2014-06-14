@@ -231,7 +231,7 @@ namespace NpoMash.Erm.Hrm.Simplex {
 
             List<SimplexLimitation> limits = new List<SimplexLimitation>();
             // начинаем идти по подразделениям чтобы сразу формировать ограничения
-            foreach (HrmMatrixColumn col in card.ProvisionMatrix.Columns) {
+            foreach (HrmMatrixColumn col in card.ReserveMatrixSimplex.Columns) {
                 String dep_code = col.Department.BuhCode;
                 SimplexLimitation limit = new SimplexLimitation();
                 limit.coefficients = new Dictionary<int, Decimal>();

@@ -43,13 +43,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                 HrmSalaryTaskProvisionMatrixReduction card = null;
                 if (period.CurrentProvisionMatrix == null) {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
-                    //card.MatrixPlan = HrmSalaryTaskProvisionMatrixReductionLogic.mergePlanMatrixes(os, card);
-                    // card.MatrixAlloc = HrmSalaryTaskProvisionMatrixReductionLogic.mergeCorcedMatrixs(os, card);
-                    //card.MatrixPlanMoney = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
-                    // card.AllocResultKBOZM = HrmSalaryTaskProvisionMatrixReductionLogic.mergeAllocResults(os, card);
-                    // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.combineMatrixes(os, card);
-                    // card.ProvisionMatrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, card);
-
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
                 card.Period = period;
@@ -63,46 +56,26 @@ namespace NpoMash.Erm.Hrm.Salary {
         private void AcceptProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
             HrmSalaryTaskProvisionMatrixReduction task = (HrmSalaryTaskProvisionMatrixReduction)e.CurrentObject;
 
-            using (IObjectSpace os = ObjectSpace.CreateNestedObjectSpace()) {
-                task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
-                if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod") {
+            IObjectSpace os = ObjectSpace.CreateNestedObjectSpace();
+            task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
+            HrmMatrix matrix_to_accept = null;
+            if (e.SelectedChoiceActionItem.Id == "EkvilibristicMethod")
+                matrix_to_accept = task.ReserveMatrixEvristic;
+            if (e.SelectedChoiceActionItem.Id == "SimplexMethod")
+                matrix_to_accept = task.ReserveMatrixSimplex;
 
-                    task.AllocParameters.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
-                    foreach (var m in task.AllocParameters.Period.Matrixs) {
-                        if (m.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE) {
-                            m.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                            task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
-                        }
-
-                    }
-                    task.Complete();
-                    os.CommitChanges();
-                }
-                if (e.SelectedChoiceActionItem.Id == "SimplexMethod") {
-                    task = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(task);
-                    //task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
-                    HrmMatrix matrix_to_accept = null;
-                    matrix_to_accept = task.ProvisionMatrix;
-
-                    if (matrix_to_accept != null && matrix_to_accept.Status == HrmMatrixStatus.MATRIX_SAVED) {
-                        HrmSalaryTaskProvisionMatrixReductionLogic.AcceptSelectedMatrix(task, matrix_to_accept);
-                        if (HrmSalaryTaskProvisionMatrixReductionLogic.MatrixAccepted(matrix_to_accept, task.Period))
-                            task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
-
-                        task.Complete();
-                        os.CommitChanges();
-                    }
-
-
-                }
-
-
+            if (matrix_to_accept != null && matrix_to_accept.Status == HrmMatrixStatus.MATRIX_SAVED) {
+                HrmSalaryTaskProvisionMatrixReductionLogic.PrimaryAcceptSelectedMatrix(task, matrix_to_accept);
+                task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
             }
+            task.Complete();
+            os.CommitChanges();
             ObjectSpace.CommitChanges();
-
             Window win = Frame as Window;
             if (win != null) win.Close();
         }
+
+
 
         private void refresher(Object sender, EventArgs e) {
             Frame.GetController<RefreshController>().RefreshAction.DoExecute();

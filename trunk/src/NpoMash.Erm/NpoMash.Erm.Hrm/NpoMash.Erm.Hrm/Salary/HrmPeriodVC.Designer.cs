@@ -38,7 +38,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem12 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem13 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem14 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
-            DevExpress.ExpressApp.Actions.ChoiceActionItem choiceActionItem15 = new DevExpress.ExpressApp.Actions.ChoiceActionItem();
             this.GetSourceDataAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingKBMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
             this.BringingOZMMatrixAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
@@ -272,18 +271,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.BringProvisionMatrix.Caption = "BringProvisionMatrix";
             this.BringProvisionMatrix.ConfirmationMessage = null;
             this.BringProvisionMatrix.Id = "BringProvisionMatrix";
-            choiceActionItem14.Caption = "Evristik";
+            choiceActionItem14.Caption = "Simplex";
             choiceActionItem14.ImageName = null;
             choiceActionItem14.Shortcut = null;
             choiceActionItem14.ToolTip = null;
-            choiceActionItem15.Caption = "Simplex";
-            choiceActionItem15.ImageName = null;
-            choiceActionItem15.Shortcut = null;
-            choiceActionItem15.ToolTip = null;
             this.BringProvisionMatrix.Items.Add(choiceActionItem14);
-            this.BringProvisionMatrix.Items.Add(choiceActionItem15);
             this.BringProvisionMatrix.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
-            this.BringProvisionMatrix.ShowItemsOnClick = true;
             this.BringProvisionMatrix.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
             this.BringProvisionMatrix.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.BringProvisionMatrix.ToolTip = null;

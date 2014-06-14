@@ -65,13 +65,23 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MatrixPlanMoney", ref _MatrixPlanMoney, value); }
         }
 
-        private HrmMatrix _ProvisionMatrix;  //Матрица резерва
+        private HrmMatrix _ReserveMatrixSimplex;  //Матрица резерва симплексная
         [Browsable(false)]
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        public HrmMatrix ProvisionMatrix {
-            get { return _ProvisionMatrix; }
-            set { SetPropertyValue<HrmMatrix>("ProvisionMatrix", ref _ProvisionMatrix, value); }
+        public HrmMatrix ReserveMatrixSimplex {
+            get { return _ReserveMatrixSimplex; }
+            set { SetPropertyValue<HrmMatrix>("ReserveMatrixSimplex", ref _ReserveMatrixSimplex, value); }
         }
+
+        private HrmMatrix _ReserveMatrixEvristic;  //Матрица резерва эвристическая
+        [Browsable(false)]
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
+        public HrmMatrix ReserveMatrixEvristic {
+            get { return _ReserveMatrixEvristic; }
+            set { SetPropertyValue<HrmMatrix>("ReserveMatrixEvristic", ref _ReserveMatrixEvristic, value); }
+        }
+
+
 
 
         private HrmTimeSheet _TimeSheet; //Табель
@@ -184,7 +194,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             get {
                 if (_Order == null) {
                     _Order = new List<OrderSet>();
-                    orderCreate();
+                    orderCreateSimplex();
                 }
                 return _Order;
             }
@@ -197,14 +207,55 @@ namespace NpoMash.Erm.Hrm.Salary {
             get {
                 if (_Department == null) {
                     _Department = new List<DepartmentSet>();
-                    departmentCreate();
+                    departmentCreateSimplex();
                 }
                 return _Department;
             }
         }
 
-        protected void orderCreate() { LoadMatrixOrder(ProvisionMatrix, null, Order); }
-        protected void departmentCreate() { LoadMatrixDepartment(ProvisionMatrix, null, Department); }
+        protected void orderCreateSimplex() {
+            LoadMatrixOrder(ReserveMatrixSimplex, null, Order); 
+        }
+
+        protected void departmentCreateSimplex() {
+            LoadMatrixDepartment(ReserveMatrixSimplex, null, Department); 
+        }
+
+        private IList<OrderSet> _OrderEvristic;
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public IList<OrderSet> OrderEvristic {
+            get {
+                if (_OrderEvristic == null) {
+                    _OrderEvristic = new List<OrderSet>();
+                    orderCreateEvristic();
+                }
+                return _OrderEvristic;
+            }
+        }
+
+        private IList<DepartmentSet> _DepartmentEvristic;
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public IList<DepartmentSet> DepartmentEvristic {
+            get {
+                if (_DepartmentEvristic == null) {
+                    _DepartmentEvristic = new List<DepartmentSet>();
+                    departmentCreateEvristic();
+                }
+                return _DepartmentEvristic;
+            }
+        }
+
+        protected void orderCreateEvristic() {
+            LoadMatrixOrder(ReserveMatrixEvristic, null, OrderEvristic);
+        }
+
+        protected void departmentCreateEvristic() {
+            LoadMatrixDepartment(ReserveMatrixEvristic, null, DepartmentEvristic);
+        }
+
+
 
         protected void LoadMatrixOrder(HrmMatrix matrix, HrmMatrixColumn col, IList<OrderSet> items) {
             foreach (HrmMatrixRow row in matrix.Rows) {
@@ -221,7 +272,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
                 foreach (var c in row.Cells) {
-                    Convert.ToInt64(2);
                     item.OrderPlan += c.PlanMoney;
                     item.Base += c.MoneyNoReserve;
                     item.NewProvision += c.NewProvision;
@@ -230,7 +280,9 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
                         item.PlanKB += c.PlanMoney;
                     }
-                    else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) { item.PlanOZM += Convert.ToInt64(c.PlanMoney); }
+                    else if (c.Column.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_OZM) {
+                        item.PlanOZM += c.PlanMoney; 
+                    }
                 }
                 item.DeltaProvision = (item.NewProvision - item.SourceProvision);
                 item.PrefatoryOrderFact = item.NewProvision + item.Base;
@@ -286,33 +338,24 @@ namespace NpoMash.Erm.Hrm.Salary {
         }
 
         protected override void InObjectsLoad() {
-            
             if (AllocParameters != null)
                 InObjects.Add(AllocParameters);
-            
             if (AllocResultKB != null)
                 InObjects.Add(AllocResultKB);
             if (AllocResultOZM != null)
                 InObjects.Add(AllocResultOZM);
-
             if (MatrixPlanKB != null)
                 InObjects.Add(MatrixPlanKB);
             if (MatrixPlanOZM != null)
                 InObjects.Add(MatrixPlanOZM);
-            /*
-            if (ProvisionMatrix != null)
-                InObjects.Add(ProvisionMatrix);
-           */
             if (CurrentTimeSheetKB != null)
                 InObjects.Add(CurrentTimeSheetKB);
             if (CurrentTimeSheetOZM != null)
                 InObjects.Add(CurrentTimeSheetOZM);
-
             if (MatrixAllocKB != null)
                 InObjects.Add(MatrixAllocKB);
             if (MatrixAllocOZM != null)
                 InObjects.Add(MatrixAllocOZM);
-        
         }
 
         public String Name {

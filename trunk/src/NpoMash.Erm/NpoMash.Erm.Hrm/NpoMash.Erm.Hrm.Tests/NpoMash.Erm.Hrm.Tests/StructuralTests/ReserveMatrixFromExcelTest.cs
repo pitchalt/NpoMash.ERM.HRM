@@ -51,7 +51,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ImportTestDataFromExcelLogic.CreateDepartmentsFromExcelTab(os, mat);
             ImportTestDataFromExcelLogic.CreateOrdersFromExcelTab(os, mat);
             task.AllocParameters = ImportTestDataFromExcelLogic.CreateAllocParametersFromExcelTab(os);
-            task.ProvisionMatrix = ImportTestDataFromExcelLogic.CreateMatrixFromExcel(os, mat);
+            task.ReserveMatrixSimplex = ImportTestDataFromExcelLogic.CreateMatrixFromExcel(os, mat);
             /*String test_str = "";
             foreach (HrmMatrixColumn col in task.ProvisionMatrix.Columns) {
                 test_str +="<" +col.Department.BuhCode + ">" +"NumberOfCells: " + col.Cells.Count.ToString() + ";";
@@ -63,7 +63,7 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ProvBringLogic.BringDifficultDeps(m);
             ProvBringLogic.LoadProvBringResultInTask(m);
             //HrmMatrix result_matrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, task);
-            HrmMatrix result_matrix = task.ProvisionMatrix;
+            HrmMatrix result_matrix = task.ReserveMatrixSimplex;
             Dictionary<String, HrmMatrixColumn> dictionary_of_columns = result_matrix.Columns.ToDictionary(x => x.Department.BuhCode);
             for (int i = 0 ; i < mat.NumberOfColumns ; i++) {
                 Decimal expected_value = mat.itog_columns_info[i][0];
@@ -82,14 +82,14 @@ namespace NpoMash.Erm.Hrm.Tests.StructuralTests {
             ImportTestDataFromExcelLogic.CreateDepartmentsFromExcelTab(os, mat);
             ImportTestDataFromExcelLogic.CreateOrdersFromExcelTab(os, mat);
             task.AllocParameters = ImportTestDataFromExcelLogic.CreateAllocParametersFromExcelTab(os);
-            task.ProvisionMatrix = ImportTestDataFromExcelLogic.CreateMatrixFromExcel(os, mat);
+            task.ReserveMatrixSimplex = ImportTestDataFromExcelLogic.CreateMatrixFromExcel(os, mat);
             ProvMat m = ProvBringLogic.CreateProvBringStructure(task);
             ProvBringLogic.BringVeryEasyDeps(m);
             ProvBringLogic.BringEasyDeps(m);
             ProvBringLogic.BringDifficultDeps(m);
             ProvBringLogic.LoadProvBringResultInTask(m);
             //HrmMatrix result_matrix = HrmSalaryTaskProvisionMatrixReductionLogic.calculateProvisionMatrix(os, task);
-            HrmMatrix result_matrix = task.ProvisionMatrix;
+            HrmMatrix result_matrix = task.ReserveMatrixSimplex;
             Dictionary<String, HrmMatrixColumn> dictionary_of_columns = result_matrix.Columns.ToDictionary(x => x.Department.BuhCode);
             for (int i = 0 ; i < mat.NumberOfColumns ; i++) {
                 Decimal expected_value = mat.itog_columns_info[i][0];
