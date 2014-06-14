@@ -151,7 +151,6 @@
     <Reference Include="IntecoAG.XafExt">
       <HintPath>..\..\..\..\..\bin\Debug\IntecoAG.XafExt.dll</HintPath>
     </Reference>
-    <Reference Include="NpoMash.Erm.Hrm.Tests, Version=1.0.4.10, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -206,9 +205,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config.sample" />
-    <None Include="App.Debug.config" />
+    <None Include="App.Debug.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.EasyTest.config" />
-    <None Include="App.Prod.config" />
+    <None Include="App.Prod.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.Release.config" />
     <None Include="App.Test.config" />
     <Content Include="Model_en.xafml">

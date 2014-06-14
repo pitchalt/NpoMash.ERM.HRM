@@ -50,7 +50,6 @@ namespace NpoMash.Erm.Hrm.Salary.Win {
             this.treeListEditorsWindowsFormsModule1 = new DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule();
             this.validationWindowsFormsModule1 = new DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule();
             this.npoErmHrmWinModule1 = new NpoMash.Erm.Hrm.Win.NpoErmHrmWinModule();
-            this.npoErmHrmTestsModule1 = new NpoMash.Erm.Hrm.Tests.NpoErmHrmTestsModule();
             this.iagXafExtWinModule1 = new IntecoAG.XafExt.Win.IagXafExtWinModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -88,7 +87,6 @@ namespace NpoMash.Erm.Hrm.Salary.Win {
             this.Modules.Add(this.chartModule1);
             this.Modules.Add(this.stateMachineModule1);
             this.Modules.Add(this.npoErmHrmModule1);
-            this.Modules.Add(this.npoErmHrmTestsModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.chartWindowsFormsModule1);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
@@ -139,7 +137,6 @@ namespace NpoMash.Erm.Hrm.Salary.Win {
         private DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule treeListEditorsWindowsFormsModule1;
         private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule validationWindowsFormsModule1;
         private Hrm.Win.NpoErmHrmWinModule npoErmHrmWinModule1;
-        private Tests.NpoErmHrmTestsModule npoErmHrmTestsModule1;
         private IntecoAG.XafExt.Win.IagXafExtWinModule iagXafExtWinModule1;
     }
 }

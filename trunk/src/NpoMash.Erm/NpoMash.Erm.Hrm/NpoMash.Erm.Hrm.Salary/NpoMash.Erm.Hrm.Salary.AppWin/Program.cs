@@ -33,7 +33,9 @@ namespace NpoMash.Erm.Hrm.Salary.Win {
             }
 #endif
             try {
-                winApplication.Setup();
+
+                winApplication.Setup(winApplication.ApplicationName, winApplication.ConnectionString,
+                    ConfigurationManager.AppSettings["Modules"].Split(';'));
                 winApplication.Start();
             } catch (Exception e) {
                 winApplication.HandleException(e);
