@@ -119,10 +119,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Tests\NpoMash.Erm.Hrm.Tests.Web\NpoMash.Erm.Hrm.Tests.Web.csproj">
-      <Project>{016F46CD-DFBB-4442-8D51-ED543819495A}</Project>
-      <Name>NpoMash.Erm.Hrm.Tests.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Web\NpoMash.Erm.Hrm.Web.csproj">
       <Project>{0C729AAD-7626-4668-A7F1-35F7D240489D}</Project>
       <Name>NpoMash.Erm.Hrm.Web</Name>

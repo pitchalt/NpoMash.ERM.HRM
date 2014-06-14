@@ -145,10 +145,6 @@
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Tests\NpoMash.Erm.Hrm.Tests\NpoMash.Erm.Hrm.Tests.csproj">
-      <Project>{8d891f88-4b60-483f-b307-7696c3a96979}</Project>
-      <Name>NpoMash.Erm.Hrm.Tests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.csproj">
       <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
       <Name>NpoMash.Erm.Hrm</Name>

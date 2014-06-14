@@ -141,10 +141,6 @@
       <Project>{0FF9C51D-1B93-4361-9BE0-D43F240CC83A}</Project>
       <Name>IntecoAG.XafExt.Win</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Tests\NpoMash.Erm.Hrm.Tests.Win\NpoMash.Erm.Hrm.Tests.Win.csproj">
-      <Project>{96936CB1-8AC7-4A73-9644-B2E23F57D8EF}</Project>
-      <Name>NpoMash.Erm.Hrm.Tests.Win</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm.Win\NpoMash.Erm.Hrm.Win.csproj">
       <Project>{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}</Project>
       <Name>NpoMash.Erm.Hrm.Win</Name>
