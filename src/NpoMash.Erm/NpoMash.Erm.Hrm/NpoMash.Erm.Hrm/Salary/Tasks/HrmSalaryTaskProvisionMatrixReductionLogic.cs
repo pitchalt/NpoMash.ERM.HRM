@@ -49,6 +49,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             else return false;
         }
 
+
+
         public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrixProvision result = os.CreateObject<HrmMatrixProvision>();
             HrmMatrix m_plan_kb = card.MatrixPlanKB;
