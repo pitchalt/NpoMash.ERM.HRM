@@ -25,10 +25,10 @@ namespace NpoMash.Erm.Hrm.Salary {
         public HrmSalaryTaskImportAccountOperationSummary(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
 
-        private HrmMatrixProvision _MatrixAllocResultSummary;
-        public HrmMatrixProvision MatrixAllocResultSummary {
+        private HrmMatrixLastAccount _MatrixAllocResultSummary;
+        public HrmMatrixLastAccount MatrixAllocResultSummary {
             get { return _MatrixAllocResultSummary; }
-            set { SetPropertyValue<HrmMatrixProvision>("MatrixAllocResultSummary", ref _MatrixAllocResultSummary, value); }
+            set { SetPropertyValue<HrmMatrixLastAccount>("MatrixAllocResultSummary", ref _MatrixAllocResultSummary, value); }
         }
 
         protected override void InObjectsLoad() {
