@@ -22,6 +22,12 @@ namespace NpoMash.Erm.Hrm.Salary {
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM;
             local_task.MatrixAllocPlanSummary = local_task.Period.CurrentMatrixAllocPlanSummary;
             local_task.MatrixAllocResultSummary = local_task.Period.CurrentMatrixAllocResultSummary;
+            if (local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic.Status == HrmMatrixStatus.MATRIX_EXPORTED) {
+                local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            }
+            else {
+                local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+            }
         }
     }
 }

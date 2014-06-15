@@ -20,14 +20,14 @@
           <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
         </ChoiceActionItems>
       </Action>
-      <Action Id="BringingMatrixAction" Caption="Создать матрицу учета(КБ)">
+      <Action Id="BringingKBMatrixAction" Caption="Создать матрицу учета (КБ)">
         <ChoiceActionItems>
-          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Метод минимизации числа отклонений" />
-          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Метод минимизации максимальных отклонений" />
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
           <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
-      <Action Id="BringingOZMMatrixAction" Caption="Создать матрицу учета(ОЗМ)">
+      <Action Id="BringingOZMMatrixAction" Caption="Создать матрицу учета (ОЗМ)">
         <ChoiceActionItems>
           <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
           <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />

@@ -26,13 +26,17 @@ namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskExportProvisionMatrixLogic {
 
         public static void InitObjects(HrmSalaryTaskExportProvisionMatrix local_task) {
-            local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
-           // local_task.ProvisionMatrix.Status=local_task.Period.CurrentProvisionMatrix.ProvisionMatrix.Status;
+            //local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
+            if (local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic.Status == HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED) {
+                local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic;
+            }
+            else {
+                local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
+            }
         }
 
         public static void ExportProvisonMatrix(HrmSalaryTaskExportProvisionMatrix local_task) {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-            local_task.ProvisionMatrix = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
             var engine = new FileHelperEngine<ExchangeMatrixPlan>();
             String current_month = null;
             if (local_task.Period.Month < 10) { current_month = "0" + Convert.ToString(local_task.Period.Month); }
@@ -51,6 +55,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
             }
             engine.WriteFile(ConfigurationManager.AppSettings["FileExchangePath.ROOT"] + Convert.ToString(local_task.Period.CurrentAllocParameter.Year * 100 + local_task.Period.CurrentAllocParameter.Month) +"/Matrix_Reserve.ncd", records);
+            local_task.ProvisionMatrix.Status = HrmMatrixStatus.MATRIX_EXPORTED;
         }
     }
 }

@@ -99,7 +99,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionOZM = local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix; }
                     local_task.MatrixAllocResultKB = local_task.Period.CurrentMatrixAllocResultKB;
                     local_task.MatrixAllocResultOZM = local_task.Period.CurrentMatrixAllocResultOZM;
-                    local_task.MatrixProvision = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
+                    local_task.MatrixProvisionEvristic = local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic;
+                    local_task.MatrixProvisionSymplex = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
                     break;
                 case HrmPeriodStatus.RESERVE_MATRIX_UPLOADED:
                     local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
@@ -115,9 +116,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionOZM = local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix; }
                     local_task.MatrixAllocResultKB = local_task.Period.CurrentMatrixAllocResultKB;
                     local_task.MatrixAllocResultOZM = local_task.Period.CurrentMatrixAllocResultOZM;
-                    local_task.MatrixProvision = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
+                    local_task.MatrixProvisionEvristic = local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic;
+                    local_task.MatrixProvisionSymplex = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
                     break;
-                case HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED: local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
+                case HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED: 
+                    local_task.AllocParameter = local_task.Period.CurrentAllocParameter;
                     local_task.TimeSheetKB = local_task.Period.CurrentTimeSheetKB;
                     local_task.TimeSheetOZM = local_task.Period.CurrentTimeSheetOZM;
                     local_task.MatrixPlanKB = local_task.Period.CurrentMatrixAllocPlanKB;
@@ -130,7 +133,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                     if (local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix != null) { local_task.MatrixReductionOZM = local_task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix; }
                     local_task.MatrixAllocResultKB = local_task.Period.CurrentMatrixAllocResultKB;
                     local_task.MatrixAllocResultOZM = local_task.Period.CurrentMatrixAllocResultOZM;
-                    local_task.MatrixProvision = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
+                    local_task.MatrixProvisionEvristic = local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic;
+                    local_task.MatrixProvisionSymplex = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
                     break;
             }
         }

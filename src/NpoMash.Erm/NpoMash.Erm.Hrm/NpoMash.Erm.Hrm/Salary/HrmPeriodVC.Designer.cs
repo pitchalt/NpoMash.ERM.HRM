@@ -94,10 +94,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             // 
             // BringingKBMatrixAction
             // 
-            this.BringingKBMatrixAction.Caption = "BringingMatrixAction";
+            this.BringingKBMatrixAction.Caption = "BringingKBMatrixAction";
             this.BringingKBMatrixAction.Category = "Edit";
             this.BringingKBMatrixAction.ConfirmationMessage = null;
-            this.BringingKBMatrixAction.Id = "BringingMatrixAction";
+            this.BringingKBMatrixAction.Id = "BringingKBMatrixAction";
             choiceActionItem6.Caption = "MinimizeDifferenceNumber";
             choiceActionItem6.ImageName = null;
             choiceActionItem6.Shortcut = null;
