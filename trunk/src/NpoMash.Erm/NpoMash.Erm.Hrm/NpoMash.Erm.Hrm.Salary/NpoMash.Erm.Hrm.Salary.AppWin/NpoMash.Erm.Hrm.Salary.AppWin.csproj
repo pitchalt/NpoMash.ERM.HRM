@@ -201,6 +201,7 @@
       <DependentUpon>WinApplication.cs</DependentUpon>
     </Compile>
     <None Include="App.config" />
+    <EmbeddedResource Include="Images\AppLogo.png" />
     <Content Include="Model.xafml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

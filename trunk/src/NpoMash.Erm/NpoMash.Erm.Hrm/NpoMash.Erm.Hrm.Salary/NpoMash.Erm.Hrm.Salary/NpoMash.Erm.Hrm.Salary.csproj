@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <EmbeddedResource Include="Images\MyAppLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.csproj">
