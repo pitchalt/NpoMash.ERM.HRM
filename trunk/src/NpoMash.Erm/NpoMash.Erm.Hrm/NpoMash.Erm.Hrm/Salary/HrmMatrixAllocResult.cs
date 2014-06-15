@@ -26,5 +26,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixAllocResult(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        public String Name1 {
+            get {
+
+                return "Результат распределения";// +" " + (Period.Month + "-" + Period.Year).ToString();
+            }
+        }
     }
 }

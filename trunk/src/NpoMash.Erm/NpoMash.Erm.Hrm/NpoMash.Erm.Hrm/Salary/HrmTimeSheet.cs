@@ -29,7 +29,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Persistent("HrmSalaryTimeSheet")]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
-    [DefaultProperty("Name1")]
+
     public class HrmTimeSheet : BaseObject, ITimeSheet {
 
         // Cсылка на HrmPeriodTimeSheetBaseObject
@@ -114,18 +114,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return Name; }
         }
 
-        public String Name {
+     /*   public String Name {
             get {
                 EnumDescriptor ed = new EnumDescriptor(typeof(HrmTimeSheetStatus));
                 return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
             }
-        }
+        }*/
 
-        public String Name1 {
+        public String Name {
             get {
-                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
 
-                return (Period.Year * 100 + Period.Month).ToString();
+                return "Табель" + " " + (Period.Month + "-" + Period.Year).ToString();
             }
         }
 
