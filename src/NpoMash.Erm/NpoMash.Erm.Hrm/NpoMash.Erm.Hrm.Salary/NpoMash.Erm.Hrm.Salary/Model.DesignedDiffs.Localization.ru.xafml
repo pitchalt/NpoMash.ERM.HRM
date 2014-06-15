@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application Title="Ресурс менеджер" Company="ОАО ВПК &quot;НПО машиностроения&quot;" Copyright="Узорин и партнеры. 2013-2014 " Description="Система разрабатывалась с использованием новейшего фреймворка XAF версии 14.1, в совокупности с продвинутой библиотеков XPO.  ">
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
       <OwnMembers>
