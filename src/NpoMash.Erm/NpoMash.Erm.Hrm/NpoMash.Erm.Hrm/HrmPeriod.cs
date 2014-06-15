@@ -376,7 +376,13 @@ namespace NpoMash.Erm.Hrm {
         private bool isReadyToBringMatrixes { get { return !(Status == HrmPeriodStatus.READY_TO_CALCULATE_COERCED_MATRIXS); } }
 
         [Browsable(false)]
-        private bool isReadyToBringProvision { get { return !(Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED); } } //HrmPeriodLogic.AccountOperationCompared(this) && Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE; } }
+        private bool isReadyToBringProvision { get { 
+            return !(Status == HrmPeriodStatus.READY_TO_RESERVE_MATRIX_CREATE 
+                && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.ALLOC_PARAMETERS_ACCEPTED
+                && (this.CurrentProvisionMatrix == null || 
+                this.CurrentProvisionMatrix.ReserveMatrixEvristic == null
+                || this.CurrentProvisionMatrix.ReserveMatrixSimplex == null) );
+        } }
 
         [Browsable(false)]
         private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
