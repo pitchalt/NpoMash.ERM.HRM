@@ -23,5 +23,12 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixFirstAccount(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        public String Name1 {
+            get {
+
+                return "Первичная проводка";// +" " + (Period.Month + "-" + Period.Year).ToString();
+            }
+        }
     }
 }

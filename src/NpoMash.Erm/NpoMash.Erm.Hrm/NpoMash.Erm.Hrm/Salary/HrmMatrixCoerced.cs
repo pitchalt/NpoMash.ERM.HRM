@@ -24,5 +24,13 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixCoerced(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        [Browsable(false)]
+        public String Name1 {
+            get {
+
+                return "Матрица учета";// +" " + (Period.Month + "-" + Period.Year).ToString();
+            }
+        }
     }
 }

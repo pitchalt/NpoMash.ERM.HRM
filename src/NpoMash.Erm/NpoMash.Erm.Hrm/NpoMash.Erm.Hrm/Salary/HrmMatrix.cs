@@ -187,22 +187,14 @@ namespace NpoMash.Erm.Hrm.Salary {
             get { return Name; }
         }
 
-        public String Name {
+       public String Name {
             get {
                 EnumDescriptor ed = new EnumDescriptor(typeof(HrmMatrixStatus));
                 return ed.GetCaption(Status) + " " + (Period.Year * 100 + Period.Month).ToString() + " " + PeriodObjectType.Name;
             }
         }
 
-        public String Name1 {
-            get {
-                EnumDescriptor ed = new EnumDescriptor(typeof(HrmPeriodAllocParameterStatus));
-
-                return (Period.Year * 100 + Period.Month).ToString();
-             
-            }
-        }
-
+        
 
         public string TaskObjectStatus {
             get { return PeriodObjectStatus; }

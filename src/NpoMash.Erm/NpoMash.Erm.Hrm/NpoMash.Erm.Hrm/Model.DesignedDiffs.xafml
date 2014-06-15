@@ -24,7 +24,6 @@
         <Member Name="Code" Index="0" />
         <Member Name="BuhCode" Index="1" />
         <Member Name="GroupDep" Index="2" />
-        <Member Name="Status" Index="3" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" DefaultLookupEditorMode="Search" />
@@ -416,14 +415,14 @@
             <ColumnSummaryItem Id="@962a8609-34a2-4bda-bbca-eee56918fef8" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelFact" Index="9">
-          <Summary>
-            <ColumnSummaryItem Id="@3fd2591c-44ac-489e-9d23-734f2866b072" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="10">
+        <ColumnInfo Id="Plan_Fact" Index="9">
           <Summary>
             <ColumnSummaryItem Id="@d6936d93-7d70-4a4e-ad68-2aaa7023e785" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="TravelFact" Index="10">
+          <Summary>
+            <ColumnSummaryItem Id="@3fd2591c-44ac-489e-9d23-734f2866b072" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -879,13 +878,14 @@
     <DetailView Id="HrmMatrixAllocResult_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="16" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20.133333333333333" ImageName="">
             <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" Index="0" RelativeSize="100" ImageName="" Direction="Vertical">
-              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="69" ImageName="">
-                <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" Index="0" RelativeSize="36" />
-                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" Index="1" RelativeSize="27" />
-                <LayoutItem Id="Status" SizeConstraintsType="Default" Index="2" RelativeSize="36" />
+              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="74.172185430463571" ImageName="">
+                <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" Index="0" RelativeSize="28.571428571428573" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" Index="1" RelativeSize="21.428571428571427" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" Index="2" RelativeSize="21.428571428571427" />
                 <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" Index="3" RelativeSize="50" Removed="True" />
+                <LayoutItem Id="PeriodObjectStatus" SizeConstraintsType="Default" Index="3" RelativeSize="28.571428571428573" />
                 <LayoutItem Id="Variant" SizeConstraintsType="Default" Index="3" RelativeSize="15" Removed="True" />
                 <LayoutItem Id="Type" Removed="True" />
               </LayoutGroup>
@@ -899,7 +899,7 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="83">
+          <TabbedGroup Id="Tabs" RelativeSize="79.86666666666666">
             <LayoutGroup Id="AccountOperations" RelativeSize="100" ImageName="">
               <LayoutItem Id="AccountOperations" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
@@ -908,6 +908,9 @@
             </LayoutGroup>
             <LayoutGroup Id="Columns" RelativeSize="100" ImageName="">
               <LayoutItem Id="Columns" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="AuditTrail" RelativeSize="100">
+              <LayoutItem Id="AuditTrail" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>
@@ -981,9 +984,9 @@
     <DetailView Id="HrmMatrixCoerced_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="13.499344692005243">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13.733333333333333">
             <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" Index="0" RelativeSize="100">
-              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="47.676767676767675">
+              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="48.4">
                 <LayoutItem Id="PeriodObjectType" ViewItem="PeriodObjectType" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
                 <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="27.272727272727273" Index="1" Removed="True" />
@@ -993,12 +996,12 @@
                 <LayoutItem Id="Variant" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="1" Removed="True" />
                 <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="17.391304347826086" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="HrmMatrix_col2" ShowCaption="False" Index="1" RelativeSize="47.878787878787875" IsNewNode="True" Removed="True">
+              <LayoutGroup Id="HrmMatrix_col2" ShowCaption="False" Index="1" RelativeSize="48.666666666666664" IsNewNode="True" Removed="True">
                 <LayoutItem Id="PeriodObjectStatus" ViewItem="PeriodObjectStatus" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="86.500655307994762">
+          <TabbedGroup Id="Tabs" RelativeSize="86.266666666666666">
             <LayoutGroup Id="Rows" RelativeSize="100">
               <LayoutItem Id="Rows" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
@@ -1034,11 +1037,14 @@
       </Columns>
     </ListView>
     <DetailView Id="HrmMatrixFirstAccount_DetailView">
+      <Items>
+        <PropertyEditor Id="Name1" Removed="True" />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="13.499344692005243">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13.733333333333333">
             <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" Index="0" RelativeSize="100">
-              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="48.259493670886073">
+              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="48.533333333333331">
                 <LayoutItem Id="PeriodObjectType" ViewItem="PeriodObjectType" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
                 <LayoutItem Id="Type" ViewItem="Type" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" Index="1" RelativeSize="21.428571428571427" Removed="True" />
@@ -1048,15 +1054,14 @@
                 <LayoutItem Id="Status" SizeConstraintsType="Default" Index="2" RelativeSize="15" Removed="True" />
                 <LayoutItem Id="Variant" SizeConstraintsType="Default" Index="2" RelativeSize="17.647058823529413" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d" ShowCaption="False" Index="1" RelativeSize="48.259493670886073" IsNewNode="True">
+              <LayoutGroup Id="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d" ShowCaption="False" Index="1" RelativeSize="48.533333333333331" IsNewNode="True">
                 <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
                 <LayoutItem Id="PeriodObjectStatus" ViewItem="PeriodObjectStatus" SizeConstraintsType="Default" Index="1" RelativeSize="37.5" IsNewNode="True" />
-                <LayoutGroup Id="HrmMatrix_col2" ShowCaption="False" Direction="Horizontal" Index="2" RelativeSize="12.5" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="HrmMatrix_col2" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="48.259493670886073" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="86.500655307994762">
+          <TabbedGroup Id="Tabs" RelativeSize="86.266666666666666">
             <LayoutGroup Id="AccountOperations" RelativeSize="100">
               <LayoutItem Id="AccountOperations" SizeConstraintsType="Default" RelativeSize="100" />
             </LayoutGroup>
@@ -1118,6 +1123,49 @@
     </DetailView>
     <ListView Id="HrmMatrixPlan_ListView" IsFooterVisible="True" />
     <ListView Id="HrmMatrixPlan_LookupListView" IsFooterVisible="True" />
+    <DetailView Id="HrmMatrixProvision_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="14.820143884892087">
+            <LayoutGroup Id="HrmMatrix" Caption="Hrm Matrix" Index="0" RelativeSize="100">
+              <LayoutGroup Id="HrmMatrix_col1" RelativeSize="48.042704626334519">
+                <LayoutItem Id="PeriodObjectType" ViewItem="PeriodObjectType" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="TypeMatrix" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="0" Removed="True" />
+                <LayoutItem Id="PeriodObjectStatus" SizeConstraintsType="Default" RelativeSize="50" Index="1" />
+                <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="2" Removed="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="36.363636363636367" Index="2" Removed="True" />
+                <LayoutItem Id="IterationNumber" SizeConstraintsType="Default" RelativeSize="15" Index="4" Removed="True" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="23.529411764705884" Removed="True" />
+                <LayoutItem Id="Variant" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto58ad69de-0fc2-41d8-86f5-207162f79c72" ShowCaption="False" Index="1" RelativeSize="48.042704626334519" IsNewNode="True">
+                <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutGroup Id="HrmMatrix_col2" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmMatrix_col2" RelativeSize="48.042704626334519" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Name" Removed="True" />
+                <LayoutItem Id="Name1" Removed="True" />
+                <LayoutItem Id="PeriodObjectType" Removed="True" />
+                <LayoutItem Id="TaskObjectName" Removed="True" />
+                <LayoutItem Id="TaskObjectStatus" Removed="True" />
+                <LayoutItem Id="TaskObjectType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="85.17985611510791">
+            <LayoutGroup Id="Rows" RelativeSize="100">
+              <LayoutItem Id="Rows" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Columns" RelativeSize="100">
+              <LayoutItem Id="Columns" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="AuditTrail" RelativeSize="100">
+              <LayoutItem Id="AuditTrail" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="HrmMatrixProvision_ListView" IsFooterVisible="False" />
     <ListView Id="HrmMatrixRow_Cells_ListView" IsFooterVisible="True">
       <Columns>
@@ -2154,7 +2202,7 @@
       </Columns>
       <SplitLayout Direction="Vertical" />
     </ListView>
-    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_DepartmentEvristic_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentSet_MasterDetailView" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_DepartmentEvristic_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="DepartmentSet_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Base">
           <Summary>
@@ -2470,7 +2518,7 @@
       </Columns>
       <SplitLayout Direction="Vertical" />
     </ListView>
-    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_OrderEvristic_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="OrderSet_MasterDetailView" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_OrderEvristic_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="OrderSet_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Base">
           <Summary>

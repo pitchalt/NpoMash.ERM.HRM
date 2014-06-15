@@ -24,5 +24,14 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         public HrmMatrixProvision(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+        public String Name1 {
+            get {
+
+                return "Матрица резерва";// +" " + (Period.Month + "-" + Period.Year).ToString();
+            }
+        }
+
+    
     }
 }

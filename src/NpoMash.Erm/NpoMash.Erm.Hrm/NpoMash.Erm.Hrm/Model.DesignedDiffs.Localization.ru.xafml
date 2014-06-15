@@ -67,7 +67,6 @@
     <Class Name="IntecoAG.ERM.HRM.Organization.Department">
       <OwnMembers>
         <Member Name="BuhCode" Caption="БухКод" />
-        <Member Name="Status" Caption="Статус" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
@@ -171,7 +170,7 @@
         <Member Name="Variant" Caption="Вариант алгоритма" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocResult" Caption="Результат распределения">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocResult" Caption="Результат распределения" ObjectCaptionFormat="">
       <OwnMembers>
         <Member Name="AccountOperations" Caption="БухПроводки" />
       </OwnMembers>
@@ -184,7 +183,7 @@
         <Member Name="Time" Caption="Трудочасы" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCoerced" Caption="Матрица учета" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCoerced" Caption="Матрица учета" ObjectCaptionFormat="" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" Caption="Подразделения">
       <OwnMembers>
         <Member Name="Department" Caption="Подразделение" />
@@ -195,9 +194,9 @@
         <Member Name="TravelSum" Caption="Командировки" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixFirstAccount" Caption="Первичная проводка" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixPlan" Caption="Базовая матрица" />
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixProvision" Caption="Матрица резерва" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixFirstAccount" Caption="Первичная проводка" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixPlan" Caption="Базовая матрица" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixProvision" Caption="Матрица резерва" ObjectCaptionFormat="" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" Caption="Заказы">
       <OwnMembers>
         <Member Name="Order" Caption="Заказ" />
@@ -354,7 +353,7 @@
         <Member Name="TimeSheetOZM" Caption="Табель(ОЗМ)" />
       </OwnMembers>
     </Class>
-    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель">
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель" ObjectCaptionFormat="">
       <OwnMembers>
         <Member Name="TimeSheetDeps" Caption="Табель" />
         <Member Name="GroupDep" Caption="Группа" />
@@ -505,6 +504,7 @@
       <Columns>
         <ColumnInfo Id="Department" Caption="Подразделение" />
         <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="TravelFact" Caption="Факт командировка" />
       </Columns>
     </ListView>
     <DetailView Id="DepartmentItem2_MasterDetailView">
@@ -516,6 +516,14 @@
       <Columns>
         <ColumnInfo Id="Order" Caption="Заказ" />
         <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+        <ColumnInfo Id="OrderPlan" EditMask="" />
+        <ColumnInfo Id="OrderFact" EditMask="" />
+        <ColumnInfo Id="TravelPlan" EditMask="" />
+        <ColumnInfo Id="CoercedValue" EditMask="" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" EditMask="" />
+        <ColumnInfo Id="ConstantOrderTime" EditMask="" />
+        <ColumnInfo Id="Plan_Fact" EditMask="" />
+        <ColumnInfo Id="TravelFact" Caption="Факт командировка" EditMask="" />
       </Columns>
     </ListView>
     <DetailView Id="DepartmentSet_MasterDetailView">
@@ -615,7 +623,7 @@
         <ColumnInfo Id="Money" Caption="Деньги" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmMatrixAllocResult_DetailView">
+    <DetailView Id="HrmMatrixAllocResult_DetailView" Caption="" ObjectCaptionFormat="{0:Name1} {0:GroupDep}">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
@@ -628,6 +636,7 @@
             <LayoutGroup Id="AccountOperations" Caption="БухПроводки" />
             <LayoutGroup Id="Rows" Caption="Заказы" />
             <LayoutGroup Id="Columns" Caption="Подразделения" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
@@ -659,7 +668,7 @@
         <ColumnInfo Id="TravelTime" Caption="Командировки" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmMatrixCoerced_DetailView">
+    <DetailView Id="HrmMatrixCoerced_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
       <Items>
         <PropertyEditor Id="GroupDep" Caption="Группа " />
         <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
@@ -673,6 +682,9 @@
               <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
@@ -681,7 +693,7 @@
         <ColumnInfo Id="Sum" Caption="Плановое время" />
       </Columns>
     </ListView>
-    <DetailView Id="HrmMatrixFirstAccount_DetailView">
+    <DetailView Id="HrmMatrixFirstAccount_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
       <Items>
         <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
         <PropertyEditor Id="PeriodObjectType" Caption="Объект " />
@@ -691,13 +703,16 @@
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="HrmMatrix" Caption="Свойства">
-              <LayoutGroup Id="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d" Caption="" />
+              <LayoutGroup Id="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d" Caption="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d(7)" />
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmMatrixPlan_DetailView" Caption="Плановая матрица">
+    <DetailView Id="HrmMatrixPlan_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
       <Items>
         <PropertyEditor Id="GroupDep" Caption="Группа " />
         <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
@@ -712,12 +727,33 @@
               <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
     <ListView Id="HrmMatrixPlan_ListView" Caption="Плановая матрица" />
     <ListView Id="HrmMatrixPlan_LookupListView" Caption="Плановая матрица" />
-    <DetailView Id="HrmMatrixProvision_DetailView" Caption="Матрица резерва" />
+    <DetailView Id="HrmMatrixProvision_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
+      <Items>
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект: " />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="Auto58ad69de-0fc2-41d8-86f5-207162f79c72" Caption="" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="HrmMatrixRow_Cells_ListView">
       <Columns>
         <ColumnInfo Id="TravelTime" Caption="Командировки" />
@@ -1157,7 +1193,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="HrmTimeSheet_DetailView">
+    <DetailView Id="HrmTimeSheet_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
       <Items>
         <PropertyEditor Id="Name" Caption="Объект" />
         <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
