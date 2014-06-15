@@ -48,8 +48,6 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
             //Поля для контроля трудоемкости
             [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal DepartmentTravelFact;
-            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DepartmentPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DepartmentTravelPlan;
@@ -87,7 +85,6 @@ namespace NpoMash.Erm.Hrm.Salary {
                 get { return _DepartmentItems; }
             }
             //Поля для контроля трудоемкости
-            public Decimal OrderTravelFact;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
@@ -243,7 +240,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     item.OrderFact +=cell.Time;
-                    item.OrderTravelFact += cell.TravelTime;
+                    item.TravelFact += cell.TravelTime;
                     
                 }
                 
@@ -267,7 +264,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     item.DepartmentFact += cell.Time;
-                    item.DepartmentTravelFact += cell.TravelTime;
+                    item.TravelFact += cell.TravelTime;
                 }
                 
         }

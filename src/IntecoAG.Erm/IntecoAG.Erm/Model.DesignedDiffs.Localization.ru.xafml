@@ -25,7 +25,6 @@
         <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="КБ/ОЗМ" />
         <LocalizationItem Name="DEPARTMENT_OZM" Value="ОЗМ" />
       </LocalizationGroup>
-      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentStatus" Value="Status" />
     </LocalizationGroup>
   </Localization>
   <Views>
@@ -37,7 +36,6 @@
     <ListView Id="Department_ListView">
       <Columns>
         <ColumnInfo Id="BuhCode" Caption="БухКод" />
-        <ColumnInfo Id="Status" Caption="Статус" />
       </Columns>
     </ListView>
     <ListView Id="fmCOrder_ListView">

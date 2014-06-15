@@ -19,6 +19,14 @@
     </Actions>
   </ActionDesign>
   <BOModel>
+    <Class Name="IntecoAG.ERM.HRM.Organization.Department">
+      <OwnMembers>
+        <Member Name="Code" Index="0" />
+        <Member Name="BuhCode" Index="1" />
+        <Member Name="GroupDep" Index="2" />
+        <Member Name="Status" Index="3" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" ImageName="State_Task_InProgress" DefaultLookupEditorMode="Search" />
     <Class Name="NpoMash.Erm.Hrm.ILogRecord">
       <OwnMembers>
@@ -311,11 +319,6 @@
       <Columns>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@12a713ee-53f6-4559-9c23-9745fa23419e" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="DepartmentPlan">
           <Summary>
             <ColumnSummaryItem Id="@c53d166c-a1dd-4ccc-acbb-d6235a97f514" SummaryType="Sum" IsNewNode="True" />
@@ -326,14 +329,14 @@
             <ColumnSummaryItem Id="@be3168d0-3e88-4c77-a74a-6b4d4076f3ac" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="5">
-          <Summary>
-            <ColumnSummaryItem Id="@24195e2c-9a86-45b8-8574-fd7af4722e78" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="ConstantDepTime">
           <Summary>
             <ColumnSummaryItem Id="@4d93c956-245e-4162-8c8a-7ea56b806297" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="CoercedValue" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@24195e2c-9a86-45b8-8574-fd7af4722e78" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="DepartmentFact" Index="6">
@@ -383,11 +386,6 @@
       <Columns>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
-        <ColumnInfo Id="OrderTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@1100c80e-710a-4b89-a0ee-13c0dddfb61d" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="OrderPlan">
           <Summary>
             <ColumnSummaryItem Id="@5bf995fb-e438-400b-84f9-f23c87aeac50" SummaryType="Sum" IsNewNode="True" />
@@ -1369,11 +1367,6 @@
       <Columns>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@3d426393-adff-4880-a4ae-2b982cae4fe2" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="DepartmentPlan">
           <Summary>
             <ColumnSummaryItem Id="@70f95247-608f-4ff2-8e5b-a3ed8d26072e" SummaryType="Sum" IsNewNode="True" />
@@ -1384,14 +1377,14 @@
             <ColumnSummaryItem Id="@e970c2e9-28b2-4ee9-8163-4a6761016f05" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="5">
-          <Summary>
-            <ColumnSummaryItem Id="@dc436bcf-8262-4192-8c71-af1699a31d7c" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="ConstantDepTime">
           <Summary>
             <ColumnSummaryItem Id="@c5cac0cf-9bbb-4059-815e-a5a4ffb08a7d" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="CoercedValue" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@dc436bcf-8262-4192-8c71-af1699a31d7c" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="DepartmentFact" Index="6">
@@ -1511,11 +1504,6 @@
         <ColumnInfo Id="OrderPlan" Index="2">
           <Summary>
             <ColumnSummaryItem Id="@60132aaa-50da-4c69-b9c6-4fb74419cd04" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="OrderTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@25214302-37df-468e-890b-8998f89f7ed4" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="TravelPlan" Index="3">
@@ -2166,6 +2154,51 @@
       </Columns>
       <SplitLayout Direction="Vertical" />
     </ListView>
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_DepartmentEvristic_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentSet_MasterDetailView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Base">
+          <Summary>
+            <ColumnSummaryItem Id="@5265a0b8-0697-4046-8fd1-f4fe1a99c1e6" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="SourceProvision">
+          <Summary>
+            <ColumnSummaryItem Id="@0f5ff619-f22e-4bfc-824a-633b059c8f84" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="NewProvision">
+          <Summary>
+            <ColumnSummaryItem Id="@47a7c145-bda1-472a-b3ba-037cb2a8ae4e" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DeltaProvision">
+          <Summary>
+            <ColumnSummaryItem Id="@e1292625-fba8-4efd-94da-ebe60d8d5e1e" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepartmentPlan">
+          <Summary>
+            <ColumnSummaryItem Id="@98cfb4c7-cc4e-4b0f-817b-fabc3c32981b" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PlannedTravels">
+          <Summary>
+            <ColumnSummaryItem Id="@4ba40bb0-0143-4fb6-9bc1-d478d31d6820" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PrefactoryDepartmentFact">
+          <Summary>
+            <ColumnSummaryItem Id="@d475a8bd-e60d-47ff-8c8c-342d16cf38f7" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="FactTravels">
+          <Summary>
+            <ColumnSummaryItem Id="@579b47d3-9320-4c4f-b38c-0c636fe0f4b2" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+      </Columns>
+      <SplitLayout Direction="Vertical" />
+    </ListView>
     <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView" ImageName="BO_Appearance">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
@@ -2180,10 +2213,20 @@
                 </LayoutGroup>
               </TabbedGroup>
             </LayoutGroup>
-            <LayoutGroup Id="InObjects" Index="1" Caption="In Objects" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
+            <LayoutGroup Id="EvristicMethod" Index="1" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <TabbedGroup Id="@98b32d23-8220-4488-9172-28dc465d3344" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="Deps" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="DepartmentEvristic" ViewItem="DepartmentEvristic" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Orders" ShowCaption="True" Index="1" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="OrderEvristic" ViewItem="OrderEvristic" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Index="2" Caption="In Objects" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
               <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="Parameters" Index="2" ShowCaption="True" RelativeSize="100" Caption="Parameters" IsNewNode="True">
+            <LayoutGroup Id="Parameters" Index="3" ShowCaption="True" RelativeSize="100" Caption="Parameters" IsNewNode="True">
               <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="15.487804878048781" Caption="Main" IsNewNode="True">
                 <LayoutGroup Id="Main" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
                   <LayoutItem Id="AllocParameters.Year" ViewItem="AllocParameters.Year" SizeConstraintsType="Default" Index="0" RelativeSize="25.196850393700789" IsNewNode="True" />
@@ -2192,12 +2235,12 @@
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="HrmSalaryTask" Index="1" Direction="Horizontal" ShowCaption="True" Caption="Hrm Salary Task" RelativeSize="13.78048780487805" IsNewNode="True">
-                <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" RelativeSize="37.154696132596683" Caption="HrmSalaryTask_col1" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" RelativeSize="36.878453038674031" Caption="HrmSalaryTask_col1" IsNewNode="True">
                   <LayoutItem Id="TaskType" ViewItem="TaskType" Index="0" SizeConstraintsType="Default" RelativeSize="36.363636363636367" IsNewNode="True" />
                   <LayoutItem Id="State" ViewItem="State" Index="1" SizeConstraintsType="Default" RelativeSize="27.272727272727273" IsNewNode="True" />
                   <LayoutItem Id="GroupDep" ViewItem="GroupDep" Index="2" SizeConstraintsType="Default" RelativeSize="36.363636363636367" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" RelativeSize="60.497237569060772" Caption="HrmSalaryTask_col2" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" RelativeSize="60.0828729281768" Caption="HrmSalaryTask_col2" IsNewNode="True">
                   <LayoutItem Id="CreateTime" ViewItem="CreateTime" Index="0" SizeConstraintsType="Default" RelativeSize="36.363636363636367" IsNewNode="True" />
                   <LayoutItem Id="FinishTime" ViewItem="FinishTime" Index="1" SizeConstraintsType="Default" RelativeSize="63.636363636363633" IsNewNode="True" />
                 </LayoutGroup>
@@ -2235,11 +2278,17 @@
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="LogRecords" Index="3" Caption="Log Records" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
+            <LayoutGroup Id="LogRecords" Index="4" Caption="Log Records" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
               <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="AuditTrail" Index="4" RelativeSize="100">
+            <LayoutGroup Id="AuditTrail" Index="5" RelativeSize="100">
               <LayoutItem Id="AuditTrail" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="OrderEvristic" Index="6" Removed="True">
+              <LayoutItem Id="OrderEvristic" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentEvristic" Index="7" Removed="True">
+              <LayoutItem Id="DepartmentEvristic" Removed="True" />
             </LayoutGroup>
             <LayoutGroup Id="AllocParameters.AuditTrail" Removed="True" />
             <LayoutGroup Id="AllocParameters.DepartmentControl" Removed="True">
@@ -2416,6 +2465,91 @@
         <ColumnInfo Id="FactTravelsOZM">
           <Summary>
             <ColumnSummaryItem Id="@ee855202-da32-4107-b0d7-a3edf7c01b7c" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+      </Columns>
+      <SplitLayout Direction="Vertical" />
+    </ListView>
+    <ListView Id="HrmSalaryTaskProvisionMatrixReduction_OrderEvristic_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="OrderSet_MasterDetailView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Base">
+          <Summary>
+            <ColumnSummaryItem Id="@2f3a28a0-18d4-43d2-b44d-6d7ad98beeaa" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="SourceProvision">
+          <Summary>
+            <ColumnSummaryItem Id="@46b13523-540d-4f06-a9b7-82f5e6268ec1" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="NewProvision">
+          <Summary>
+            <ColumnSummaryItem Id="@6c20a7a8-5013-4787-b88d-5df44e993c87" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DeltaProvision">
+          <Summary>
+            <ColumnSummaryItem Id="@50f9457e-85be-4c3f-99b5-c1b3eca4d612" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrderPlan">
+          <Summary>
+            <ColumnSummaryItem Id="@a674c5e8-e8e4-4618-82bb-2670e3bf31e7" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PlannedTravels">
+          <Summary>
+            <ColumnSummaryItem Id="@0db5bbc4-fe15-432e-ad6e-b1801fb863a4" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PrefatoryOrderFact">
+          <Summary>
+            <ColumnSummaryItem Id="@fdc9d747-81af-4d95-b8db-99b78e2218e5" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="FactTravels">
+          <Summary>
+            <ColumnSummaryItem Id="@e96a9492-7eb9-4cac-8615-871cfe20f439" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PlanKB">
+          <Summary>
+            <ColumnSummaryItem Id="@30dbc577-ab94-4e9c-b07c-08fabfda014d" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PlannedTrvaelsKB">
+          <Summary>
+            <ColumnSummaryItem Id="@e54bdfa8-6ec8-4beb-a005-cdbdd7a0f2c5" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PrefatoryFactKB">
+          <Summary>
+            <ColumnSummaryItem Id="@06116b6c-b958-4d00-b7da-a4d9fa741613" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="FactTravelsKB">
+          <Summary>
+            <ColumnSummaryItem Id="@15945f2f-31b3-4b72-8299-e9041c0069ee" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PlanOZM">
+          <Summary>
+            <ColumnSummaryItem Id="@481dab6b-dbb4-4e81-a7d4-b56a02b32e86" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PlannedTravelsOZM">
+          <Summary>
+            <ColumnSummaryItem Id="@2360ae59-c43c-4628-989f-2ddd3cb0ca36" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="PrefatoryFactOZM">
+          <Summary>
+            <ColumnSummaryItem Id="@3285e714-7e38-4829-982e-80171555ac47" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="FactTravelsOZM">
+          <Summary>
+            <ColumnSummaryItem Id="@522a9372-1672-416e-bcae-f624232f242f" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -2690,11 +2824,6 @@
             <ColumnSummaryItem Id="@30c5d0f3-1bcb-44ee-950d-0072dcbf2358" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="DepartmentTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@5f895aa8-78bb-4e16-99bd-1e71ea36ab78" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="DepartmentTravelPlan" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@81615541-13fa-49a6-8be0-dd73fa399418" SummaryType="Sum" IsNewNode="True" />
@@ -2741,11 +2870,6 @@
             <ColumnSummaryItem Id="@c10cb0c3-bfb7-4b07-9cfb-ed4c5cb0b08a" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="DepartmentTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@bae11ee1-8bd5-4606-abfe-228c43da367c" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="DepartmentTravelPlan" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@8125ce2f-7ef3-4af9-9775-8c4e4a7043bb" SummaryType="Sum" IsNewNode="True" />
@@ -2790,11 +2914,6 @@
         <ColumnInfo Id="OrderPlan" Index="2">
           <Summary>
             <ColumnSummaryItem Id="@6ff21ddb-e9d6-4588-8f9a-c0d894ae1e38" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="OrderTravelFact">
-          <Summary>
-            <ColumnSummaryItem Id="@73fe7123-b129-4d72-9fe2-0c6fc2810bd6" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="TravelPlan" Index="3">

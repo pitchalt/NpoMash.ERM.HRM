@@ -29,13 +29,13 @@ namespace IntecoAG.ERM.HRM.Organization {
     public class Department : BaseObject {
 
         private DepartmentStatus _Status;
+                [Browsable(false)]
         public DepartmentStatus Status {
             get { return _Status; }
             set { SetPropertyValue<DepartmentStatus>("Status", ref _Status, value); }
         }
 
         private Boolean _IsClosed;
-        [Browsable(false)]
         public Boolean IsClosed {
             get { return _IsClosed; }
             set { SetPropertyValue<Boolean>("IsClosed", ref _IsClosed, value); }
