@@ -1055,7 +1055,7 @@
             </LayoutGroup>
             <LayoutGroup Id="InObjects" Caption="Объекты" />
             <LayoutGroup Id="Parameters" Caption="Свойства задачи">
-              <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task">
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
                 <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
                 <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
               </LayoutGroup>
@@ -1085,6 +1085,11 @@
     </ListView>
     <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
       <Items>
+        <PropertyEditor Id="AllocParameters.GroupDep" Caption="Группа " />
+        <PropertyEditor Id="AllocParameters.NormNoControlKB" Caption="Норма неконтр. заказов КБ " />
+        <PropertyEditor Id="AllocParameters.NormNoControlOZM" Caption="Норма неконтр. заказов ОЗМ " />
+        <PropertyEditor Id="AllocParameters.PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="AllocParameters.Status" Caption="Статус" />
         <PropertyEditor Id="MatrixPlan.PeriodObjectStatus" Caption="Статус" />
       </Items>
       <Layout>

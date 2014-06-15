@@ -94,6 +94,14 @@ namespace NpoMash.Erm.Hrm.Salary {
         protected override void InObjectsLoad() {
             if (Period.AllocParameters != null)
                 InObjects.Add(Period.CurrentAllocParameter);
+            if (TimeSheetKB != null)
+                InObjects.Add(TimeSheetKB);
+            if (TimeSheetOZM != null)
+                InObjects.Add(TimeSheetOZM);
+            if (MatrixPlanKB != null)
+                InObjects.Add(MatrixPlanKB);
+            if (MatrixPlanOZM != null)
+                InObjects.Add(MatrixPlanOZM);
         }
     }
 }
