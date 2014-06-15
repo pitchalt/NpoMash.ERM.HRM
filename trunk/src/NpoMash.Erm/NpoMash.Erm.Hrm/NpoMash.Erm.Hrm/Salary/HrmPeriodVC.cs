@@ -320,15 +320,11 @@ namespace NpoMash.Erm.Hrm.Salary {
                     card = HrmSalaryTaskProvisionMatrixReductionLogic.initProvisonMatrixTask(os, period, group_dep);
                 }
                 else card = os.GetObject<HrmSalaryTaskProvisionMatrixReduction>(period.CurrentProvisionMatrix);
-                // создаем и приводим матрицу резерва методом эвристики
-                card.ReserveMatrixEvristic = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                // приводим матрицу резерва методом эвристики
                 ProvMat mat = ProvBringLogic.CreateProvBringStructure(card);
-                ProvBringLogic.BringVeryEasyDeps(mat);
-                ProvBringLogic.BringEasyDeps(mat);
-                ProvBringLogic.BringDifficultDeps(mat);
+                ProvBringLogic.mainAlgorithm(mat);
                 ProvBringLogic.LoadProvBringResultInTask(mat);
-                // создаем и приводим матрицу резерва методом симплекса
-                card.ReserveMatrixSimplex = HrmSalaryTaskProvisionMatrixReductionLogic.createMoneyMatrix(os, card);
+                // приводим матрицу резерва методом симплекса
                 SimplexStructureLogic.MainAlgorithm(card, 1, 10, (Decimal)0.0001, 2000);
 
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, card);
