@@ -50,7 +50,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             this.CreateReportSummary = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.ClosePeriod = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.AccountOperationImport = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
-            this.BringProvisionMatrix = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
+            this.BringProvisionMatrix = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             this.RevertState = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // GetSourceDataAction
@@ -275,13 +275,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             choiceActionItem14.ImageName = null;
             choiceActionItem14.Shortcut = null;
             choiceActionItem14.ToolTip = null;
-            this.BringProvisionMatrix.Items.Add(choiceActionItem14);
-            this.BringProvisionMatrix.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
+            //this.BringProvisionMatrix.Items.Add(choiceActionItem14);
+            //this.BringProvisionMatrix.ItemType = DevExpress.ExpressApp.Actions.SingleChoiceActionItemType.ItemIsOperation;
             this.BringProvisionMatrix.TargetObjectType = typeof(NpoMash.Erm.Hrm.HrmPeriod);
             this.BringProvisionMatrix.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.BringProvisionMatrix.ToolTip = null;
             this.BringProvisionMatrix.TypeOfView = typeof(DevExpress.ExpressApp.DetailView);
-            this.BringProvisionMatrix.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(this.BringProvisionMatrix_Execute);
+            this.BringProvisionMatrix.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.BringProvisionMatrix_Execute);
             // 
             // RevertState
             // 
@@ -316,7 +316,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         private DevExpress.ExpressApp.Actions.SimpleAction CreateReportSummary;
         private DevExpress.ExpressApp.Actions.SimpleAction ClosePeriod;
         private DevExpress.ExpressApp.Actions.SingleChoiceAction AccountOperationImport;
-        private DevExpress.ExpressApp.Actions.SingleChoiceAction BringProvisionMatrix;
+        private DevExpress.ExpressApp.Actions.SimpleAction BringProvisionMatrix;
         private DevExpress.ExpressApp.Actions.SimpleAction RevertState;
     }
 }
