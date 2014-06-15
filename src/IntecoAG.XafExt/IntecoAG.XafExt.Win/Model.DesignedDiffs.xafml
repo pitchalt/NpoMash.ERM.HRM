@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Logo="Action_EditModel">
+<Application>
   <ActionDesign>
     <Actions>
       <Action Id="ChooseLanguage" Caption="ChooseLanguage" />
