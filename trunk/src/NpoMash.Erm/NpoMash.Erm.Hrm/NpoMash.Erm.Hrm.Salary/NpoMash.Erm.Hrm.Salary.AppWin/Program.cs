@@ -1,7 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-
+using DevExpress.ExpressApp.Win.Utils;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
@@ -24,6 +24,7 @@ namespace NpoMash.Erm.Hrm.Salary.Win {
             NpoErmHrmSalaryWinApplication winApplication = new NpoErmHrmSalaryWinApplication();
             // Refer to the http://documentation.devexpress.com/#Xaf/CustomDocument2680 help article for more details on how to provide a custom splash form.
             //winApplication.SplashScreen = new DevExpress.ExpressApp.Win.Utils.DXSplashScreen("YourSplashImage.png");
+  
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
