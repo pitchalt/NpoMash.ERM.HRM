@@ -78,7 +78,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (task.MatrixProvisionEvristic != null) {
                 task.MatrixProvisionEvristic.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
                 task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic = null;
+            }
+            if (task.Period.CurrentProvisionMatrix != null) {
                 task.Period.CurrentProvisionMatrix = null;
+            }
+            if (task.MatrixLastAccount != null) {
+                task.MatrixLastAccount.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
+                task.Period.CurrentMatrixAllocResultSummary = null;
             }
             if (task.Period != null) { task.Period.setStatus(HrmPeriodStatus.OPENED); }
             task.Complete();

@@ -135,6 +135,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     local_task.MatrixAllocResultOZM = local_task.Period.CurrentMatrixAllocResultOZM;
                     local_task.MatrixProvisionEvristic = local_task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic;
                     local_task.MatrixProvisionSymplex = local_task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex;
+                    local_task.MatrixLastAccount = local_task.Period.CurrentMatrixAllocResultSummary;
                     break;
             }
         }

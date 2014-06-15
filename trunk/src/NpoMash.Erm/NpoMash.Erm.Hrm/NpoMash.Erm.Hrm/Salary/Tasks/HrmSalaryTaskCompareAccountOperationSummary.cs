@@ -31,10 +31,10 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrixPlan>("MatrixAllocPlanSummary", ref _MatrixAllocPlanSummary, value); }
         }
 
-        private HrmMatrixProvision _MatrixAllocResultSummary;
-        public HrmMatrixProvision MatrixAllocResultSummary {
+        private HrmMatrixLastAccount _MatrixAllocResultSummary;
+        public HrmMatrixLastAccount MatrixAllocResultSummary {
             get { return _MatrixAllocResultSummary; }
-            set { SetPropertyValue<HrmMatrixProvision>("MatrixAllocResultSummary", ref _MatrixAllocResultSummary, value); }
+            set { SetPropertyValue<HrmMatrixLastAccount>("MatrixAllocResultSummary", ref _MatrixAllocResultSummary, value); }
         }
 
         [Browsable(false)]

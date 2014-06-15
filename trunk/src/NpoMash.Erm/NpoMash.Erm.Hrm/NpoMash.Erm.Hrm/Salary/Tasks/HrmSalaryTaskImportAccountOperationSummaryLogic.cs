@@ -18,7 +18,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskImportAccountOperationSummaryLogic {
 
         public static void ImportAccountOperationSummary(IObjectSpace local_object_space, HrmSalaryTaskImportAccountOperationSummary local_task) {
-            HrmMatrixProvision matrix_alloc_result_summary = local_object_space.CreateObject<HrmMatrixProvision>();
+            HrmMatrixLastAccount matrix_alloc_result_summary = local_object_space.CreateObject<HrmMatrixLastAccount>();
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM;
             matrix_alloc_result_summary.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
             matrix_alloc_result_summary.Status = HrmMatrixStatus.MATRIX_DOWNLOADED;

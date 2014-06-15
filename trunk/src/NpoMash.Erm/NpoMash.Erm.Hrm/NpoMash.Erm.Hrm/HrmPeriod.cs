@@ -42,6 +42,7 @@ namespace NpoMash.Erm.Hrm {
     [Persistent("HrmPeriod")]
     [RuleCombinationOfPropertiesIsUnique("", DefaultContexts.Save, "Year, Month")]
     [Appearance("Enabled", TargetItems = "*", Criteria = "Status = 'closed'", Context = "Any", Enabled = false)]
+    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ExportBringingMatrix", Criteria = "isReadyToExportMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingKBMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "GetSourceDataAction", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -52,8 +53,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "isReadyToCreateFirstAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "isReadyToCreateFirstAccountReports", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingKBMatrixAction", Criteria = "kbReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-    [Appearance("Visibility", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "ozmReductionExists", Context = "Any", Visibility = ViewItemVisibility.Hide)]   
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringProvisionMatrix", Criteria = "isReadyToBringProvision", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "ExportReserveMatrix", Criteria = "Status!='READY_TO_RESERVE_MATRIX_UPLOAD'", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_ImportAccountOperation", Context = "Any", Visibility = ViewItemVisibility.Hide)]
@@ -61,7 +61,7 @@ namespace NpoMash.Erm.Hrm {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportKB", Criteria = "!isKBCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_CreateReportOZM", Criteria = "!isOZMCoercedMatrixExported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "BringingOZMMatrixAction", Criteria = "isReadyToBringMatrixes", Context = "Any", Visibility = ViewItemVisibility.Hide)]
-
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmPeriodVC_RevertState", Criteria = "isReverted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
 
     public class HrmPeriod : BaseObject, IPeriod, IPersistentInterface<IPeriod>, IPersistentInterfaceData<IPeriod> {
@@ -167,13 +167,13 @@ namespace NpoMash.Erm.Hrm {
             set { SetPropertyValue<HrmMatrixPlan>("CurrentMatrixAllocPlanSummary", ref _CurrentMatrixAllocPlanSummary, value); }
         }
 
-        private HrmMatrixProvision _CurrentMatrixAllocResultSummary;
+        private HrmMatrixLastAccount _CurrentMatrixAllocResultSummary;
         [VisibleInLookupListView(false)]
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
-        public HrmMatrixProvision CurrentMatrixAllocResultSummary {
+        public HrmMatrixLastAccount CurrentMatrixAllocResultSummary {
             get { return _CurrentMatrixAllocResultSummary; }
-            set { SetPropertyValue<HrmMatrixProvision>("CurrentMatrixAllocResultSummary", ref _CurrentMatrixAllocResultSummary, value); }
+            set { SetPropertyValue<HrmMatrixLastAccount>("CurrentMatrixAllocResultSummary", ref _CurrentMatrixAllocResultSummary, value); }
         }
 
         private HrmMatrixPlan _CurrentMatrixAllocPlanKB;
@@ -385,7 +385,7 @@ namespace NpoMash.Erm.Hrm {
         } }
 
         [Browsable(false)]
-        private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this); } }
+        private bool isSourceDataImported { get { return HrmPeriodLogic.SourceDataIsLoaded(this) || (Status == HrmPeriodStatus.CLOSED); } }
         //private bool isSourceDataImported { get { return !(HrmPeriodLogic.SourceDataIsLoaded(this) && CurrentAllocParameter.Status == HrmPeriodAllocParameterStatus.LIST_OF_ORDER_ACCEPTED); } }
 
         [Browsable(false)]
@@ -398,6 +398,9 @@ namespace NpoMash.Erm.Hrm {
 
         [Browsable(false)]
         private bool isOZMCoercedMatrixExported { get { return HrmPeriodLogic.OZMAccountOperationCompared(this); } }
+
+        [Browsable(false)]
+        private bool isReverted { get { return (Status == HrmPeriodStatus.CLOSED); } }
 
         [Browsable(false)]
         private bool kbReductionExists {

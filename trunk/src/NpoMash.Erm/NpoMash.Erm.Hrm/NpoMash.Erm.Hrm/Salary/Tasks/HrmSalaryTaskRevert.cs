@@ -19,6 +19,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
     [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
+    [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskRevertVC_Revert", Criteria = "isReverted", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
     public class HrmSalaryTaskRevert : HrmSalaryTask {
 
@@ -88,12 +89,17 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MatrixProvisionEvristic", ref _MatrixProvisionEvristic, value); }
         }
 
-        public HrmSalaryTaskRevert(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
-
-        protected override void InObjectsLoad() {
-
+        private HrmMatrixLastAccount _MatrixLastAccount;
+        public HrmMatrixLastAccount MatrixLastAccount {
+            get { return _MatrixLastAccount; }
+            set { SetPropertyValue<HrmMatrixLastAccount>("HrmMatrixLastAccount", ref _MatrixLastAccount, value); }
         }
 
+        [Browsable(false)]
+        private bool isReverted { get { return (State == HrmSalaryTaskState.HRM_SALARY_TASK_COMPLETED); } }
+
+        public HrmSalaryTaskRevert(Session session) : base(session) { }
+        public override void AfterConstruction() { base.AfterConstruction(); }
+        protected override void InObjectsLoad() { }
     }
 }

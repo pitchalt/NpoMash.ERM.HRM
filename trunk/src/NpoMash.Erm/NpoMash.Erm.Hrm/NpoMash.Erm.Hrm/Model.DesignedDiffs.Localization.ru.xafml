@@ -34,11 +34,7 @@
           <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
         </ChoiceActionItems>
       </Action>
-      <Action Id="BringProvisionMatrix" Caption="Создание матрицы резерва">
-        <ChoiceActionItems>
-          <ChoiceActionItem Id="Simplex" Caption="Симплекс метод" />
-        </ChoiceActionItems>
-      </Action>
+      <Action Id="BringProvisionMatrix" Caption="Создание матрицы резерва" />
       <Action Id="ExportReserveMatrix" Caption="Экспорт" />
       <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
       <Action Id="HrmPeriodVC_ClosePeriod" Caption="Закрыть период" />
@@ -195,6 +191,7 @@
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixFirstAccount" Caption="Первичная проводка" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixLastAccount" Caption="Проводка" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixPlan" Caption="Базовая матрица" ObjectCaptionFormat="" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixProvision" Caption="Матрица резерва" ObjectCaptionFormat="" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" Caption="Заказы">
@@ -344,9 +341,11 @@
         <Member Name="AllocParameter" Caption="Параметры расчета" />
         <Member Name="MatrixAllocResultKB" Caption="Результат распределения КБ" />
         <Member Name="MatrixAllocResultOZM" Caption="Результат распределения ОЗМ" />
+        <Member Name="MatrixLastAccount" Caption="Проводка" />
         <Member Name="MatrixPlanKB" Caption="Базовая матрица(КБ)" />
         <Member Name="MatrixPlanOZM" Caption="Базовая матрица (ОЗМ)" />
-        <Member Name="MatrixProvision" Caption="Матрица резерва" />
+        <Member Name="MatrixProvisionEvristic" Caption="Эвристическая матрица резерва" />
+        <Member Name="MatrixProvisionSymplex" Caption="Симплексная матрица резерва" />
         <Member Name="MatrixReductionKB" Caption="Матрица учета(КБ)" />
         <Member Name="MatrixReductionOZM" Caption="Матрица учета(ОЗМ)" />
         <Member Name="TimeSheetKB" Caption="Табель(КБ)" />
