@@ -49,7 +49,7 @@ namespace NpoMash.Erm.Hrm.Salary {
 
 
 
-        public static HrmMatrix MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
+        public static HrmMatrixProvision MergeAllMatrixes(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmMatrixProvision result = os.CreateObject<HrmMatrixProvision>();
             HrmMatrix m_plan_kb = card.MatrixPlanKB;
             HrmMatrix m_plan_ozm = card.MatrixPlanOZM;
@@ -123,31 +123,8 @@ namespace NpoMash.Erm.Hrm.Salary {
             HrmSalaryTaskProvisionMatrixReduction task_provision_matrix_reduction = os.CreateObject<HrmSalaryTaskProvisionMatrixReduction>();
             period.PeriodTasks.Add(task_provision_matrix_reduction);
 
-            //Initiate provision matrix task
-            HrmMatrixProvision provision_matrix_simp = os.CreateObject<HrmMatrixProvision>();
-            HrmMatrixProvision provision_matrix_evr = os.CreateObject<HrmMatrixProvision>();
-
-            task_provision_matrix_reduction.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
-            task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
-
-            task_provision_matrix_reduction.ReserveMatrixSimplex = provision_matrix_simp;
-            task_provision_matrix_reduction.ReserveMatrixSimplex.Status = HrmMatrixStatus.MATRIX_SAVED;
-            task_provision_matrix_reduction.ReserveMatrixSimplex.Type = HrmMatrixType.TYPE_MATIX;
-            task_provision_matrix_reduction.ReserveMatrixSimplex.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
-            task_provision_matrix_reduction.ReserveMatrixSimplex.GroupDep = group_dep;
-            task_provision_matrix_reduction.ReserveMatrixSimplex.Period = period;
-
-            task_provision_matrix_reduction.ReserveMatrixEvristic = provision_matrix_evr;
-            task_provision_matrix_reduction.ReserveMatrixEvristic.Status = HrmMatrixStatus.MATRIX_SAVED;
-            task_provision_matrix_reduction.ReserveMatrixEvristic.Type = HrmMatrixType.TYPE_MATIX;
-            task_provision_matrix_reduction.ReserveMatrixEvristic.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
-            task_provision_matrix_reduction.ReserveMatrixEvristic.GroupDep = group_dep;
-            task_provision_matrix_reduction.ReserveMatrixEvristic.Period = period;
-
             task_provision_matrix_reduction.CurrentTimeSheetKB = period.CurrentTimeSheetKB;
             task_provision_matrix_reduction.CurrentTimeSheetOZM = period.CurrentTimeSheetOZM;
-            period.Matrixs.Add(task_provision_matrix_reduction.ReserveMatrixSimplex);
-            period.Matrixs.Add(task_provision_matrix_reduction.ReserveMatrixEvristic);
             period.CurrentProvisionMatrix = task_provision_matrix_reduction;
             
 
@@ -187,16 +164,35 @@ namespace NpoMash.Erm.Hrm.Salary {
                     task_provision_matrix_reduction.MatrixPlanOZM = matrix;
                 }
             }
+
+            task_provision_matrix_reduction.GroupDep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
+            task_provision_matrix_reduction.AllocParameters = period.CurrentAllocParameter;
+
+            task_provision_matrix_reduction.ReserveMatrixSimplex = createMoneyMatrix(os,task_provision_matrix_reduction);
+            task_provision_matrix_reduction.ReserveMatrixSimplex.Status = HrmMatrixStatus.MATRIX_SAVED;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.Type = HrmMatrixType.TYPE_MATIX;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.GroupDep = group_dep;
+            task_provision_matrix_reduction.ReserveMatrixSimplex.Period = period;
+            period.Matrixs.Add(task_provision_matrix_reduction.ReserveMatrixSimplex);
+
+            task_provision_matrix_reduction.ReserveMatrixEvristic = createMoneyMatrix(os,task_provision_matrix_reduction);
+            task_provision_matrix_reduction.ReserveMatrixEvristic.Status = HrmMatrixStatus.MATRIX_SAVED;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.Type = HrmMatrixType.TYPE_MATIX;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.TypeMatrix = HrmMatrixTypeMatrix.MATRIX_RESERVE;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.GroupDep = group_dep;
+            task_provision_matrix_reduction.ReserveMatrixEvristic.Period = period;
+            period.Matrixs.Add(task_provision_matrix_reduction.ReserveMatrixEvristic);
+
             return task_provision_matrix_reduction;
         }
 
 
 
         // Create money matrix
-        public static HrmMatrix createMoneyMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
-
+        public static HrmMatrixProvision createMoneyMatrix(IObjectSpace os, HrmSalaryTaskProvisionMatrixReduction card) {
             HrmAllocParameter alloc_parameters = card.AllocParameters;
-            HrmMatrix matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os, card);
+            HrmMatrixProvision matrix = HrmSalaryTaskProvisionMatrixReductionLogic.MergeAllMatrixes(os, card);
             matrix.Period = card.Period;
             Dictionary<String, HrmAllocParameterOrderControl> order_controls =
                 alloc_parameters.OrderControls.ToDictionary(x => x.Order.Code);
