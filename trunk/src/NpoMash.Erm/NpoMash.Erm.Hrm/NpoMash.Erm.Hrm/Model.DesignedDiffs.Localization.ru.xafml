@@ -36,7 +36,6 @@
       </Action>
       <Action Id="BringProvisionMatrix" Caption="Создание матрицы резерва">
         <ChoiceActionItems>
-          <ChoiceActionItem Id="Evristik" Caption="Эвристический метод" />
           <ChoiceActionItem Id="Simplex" Caption="Симплекс метод" />
         </ChoiceActionItems>
       </Action>
@@ -68,6 +67,7 @@
     <Class Name="IntecoAG.ERM.HRM.Organization.Department">
       <OwnMembers>
         <Member Name="BuhCode" Caption="БухКод" />
+        <Member Name="Status" Caption="Статус" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
@@ -229,16 +229,15 @@
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime" Caption="Контроль трудоемкости" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime+DepartmentItem2">
       <OwnMembers>
-        <Member Name="CoercedValue" Caption="Матрица учета" />
-        <Member Name="ConstantDepTime" Caption="Пост.раб.время" />
-        <Member Name="DepartmentFact" Caption="Факт" />
-        <Member Name="DepartmentPlan" Caption="План" />
-        <Member Name="DepartmentTravelFact" Caption="Факт командир." />
-        <Member Name="DepartmentTravelPlan" Caption="План команд." />
-        <Member Name="Fact_Constant" Caption="Факт-пост.раб время" />
+        <Member Name="CoercedValue" Caption="Матрица учета" EditMask="" />
+        <Member Name="ConstantDepTime" Caption="Пост.раб.время" EditMask="" />
+        <Member Name="DepartmentFact" Caption="Факт" DisplayFormat="{0:N}" EditMask="" />
+        <Member Name="DepartmentPlan" Caption="План" EditMask="" />
+        <Member Name="DepartmentTravelPlan" Caption="План команд." EditMask="" />
+        <Member Name="Fact_Constant" Caption="Факт-пост.раб время" EditMask="" />
         <Member Name="OrderItems" Caption="Заказы" />
-        <Member Name="Plan_Fact" Caption="План-Факт" />
-        <Member Name="TravelFact" Caption="Факт команд." />
+        <Member Name="Plan_Fact" Caption="План-Факт" EditMask="" />
+        <Member Name="TravelFact" Caption="Факт команд." EditMask="" />
       </OwnMembers>
     </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime+OrderItem2">
@@ -249,7 +248,6 @@
         <Member Name="OrderFact" Caption="Факт" />
         <Member Name="OrderFact_ConstantOrderTime" Caption="Факт-Пост.раб.время" />
         <Member Name="OrderPlan" Caption="План" />
-        <Member Name="OrderTravelFact" Caption="Факт командир." />
         <Member Name="Plan_Fact" Caption="План-Факт" />
         <Member Name="TravelFact" Caption="Факт команд." />
         <Member Name="TravelPlan" Caption="План команд." />
@@ -1119,8 +1117,14 @@
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="ProvisionMatrix" Caption="Матрица резерва">
+            <LayoutGroup Id="ProvisionMatrix" Caption="Симплекс метод">
               <TabbedGroup Id="@235bbe7e-8023-4836-8834-083d30021c7e">
+                <LayoutGroup Id="Deps" Caption="Подразделения" />
+                <LayoutGroup Id="Orders" Caption="Заказы" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="EvristicMethod" Caption="Эвристический метод">
+              <TabbedGroup Id="@98b32d23-8220-4488-9172-28dc465d3344">
                 <LayoutGroup Id="Deps" Caption="Подразделения" />
                 <LayoutGroup Id="Orders" Caption="Заказы" />
               </TabbedGroup>
