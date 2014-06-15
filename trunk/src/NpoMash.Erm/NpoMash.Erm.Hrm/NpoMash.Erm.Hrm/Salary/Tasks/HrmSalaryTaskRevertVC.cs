@@ -54,12 +54,14 @@ namespace NpoMash.Erm.Hrm.Salary {
                 task.Period.CurrentKBmatrixReduction.MinimizeMaximumDeviationsMatrix = null;
                 task.Period.CurrentKBmatrixReduction.MinimizeNumberOfDeviationsMatrix = null;
                 task.Period.CurrentKBmatrixReduction.ProportionsMethodMatrix = null;
+                task.Period.CurrentKBmatrixReduction = null;
             }
             if (task.MatrixReductionOZM != null) {
                 task.MatrixReductionOZM.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
                 task.Period.CurrentOZMmatrixReduction.MinimizeMaximumDeviationsMatrix = null;
                 task.Period.CurrentOZMmatrixReduction.MinimizeNumberOfDeviationsMatrix = null;
                 task.Period.CurrentOZMmatrixReduction.ProportionsMethodMatrix = null;
+                task.Period.CurrentOZMmatrixReduction = null;
             }
             if (task.MatrixAllocResultKB != null) {
                 task.MatrixAllocResultKB.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
@@ -69,13 +71,19 @@ namespace NpoMash.Erm.Hrm.Salary {
                 task.MatrixAllocResultOZM.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
                 task.Period.CurrentMatrixAllocResultOZM = null;
             }
-            if (task.MatrixProvision != null) {
-                task.MatrixProvision.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
+            if (task.MatrixProvisionSymplex != null) {
+                task.MatrixProvisionSymplex.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
+                task.Period.CurrentProvisionMatrix.ReserveMatrixSimplex = null;
+            }
+            if (task.MatrixProvisionEvristic != null) {
+                task.MatrixProvisionEvristic.Status = HrmMatrixStatus.MATRIX_ARCHIVE;
+                task.Period.CurrentProvisionMatrix.ReserveMatrixEvristic = null;
                 task.Period.CurrentProvisionMatrix = null;
             }
             if (task.Period != null) { task.Period.setStatus(HrmPeriodStatus.OPENED); }
             task.Complete();
-            ObjectSpace.CommitChanges();
+            //ObjectSpace.CommitChanges();
+            local_object_space.CommitChanges();
             Window win = Frame as Window;
             if (win != null) win.Close();
         }

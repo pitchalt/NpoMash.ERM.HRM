@@ -528,6 +528,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                         task.MatrixPlanOZM = ozm_plan_matrix;
                         task.Period.CurrentMatrixAllocPlanSummary = matrix_alloc_plan_summary;
                         task.Period.CurrentMatrixAllocPlanKB = kb_plan_matrix;
+                        task.Period.CurrentMatrixAllocPlanOZM = ozm_plan_matrix;
                     }
                     else {
                         task.LogRecord(LogRecordType.WARNING, null, null, "Не удалось создать ячейку матрицы из-за отсутствия подразделения и/или заказа");

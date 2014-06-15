@@ -76,10 +76,16 @@ namespace NpoMash.Erm.Hrm.Salary {
             set { SetPropertyValue<HrmMatrix>("MatrixReductionOZM", ref _MatrixReductionOZM, value); }
         }
 
-        private HrmMatrix _MatrixProvision;
-        public HrmMatrix MatrixProvision {
-            get { return _MatrixProvision; }
-            set { SetPropertyValue<HrmMatrix>("MatrixProvision", ref _MatrixProvision, value); }
+        private HrmMatrix _MatrixProvisionSymplex;
+        public HrmMatrix MatrixProvisionSymplex {
+            get { return _MatrixProvisionSymplex; }
+            set { SetPropertyValue<HrmMatrix>("MatrixProvisionSymplex", ref _MatrixProvisionSymplex, value); }
+        }
+
+        private HrmMatrix _MatrixProvisionEvristic;
+        public HrmMatrix MatrixProvisionEvristic {
+            get { return _MatrixProvisionEvristic; }
+            set { SetPropertyValue<HrmMatrix>("MatrixProvisionEvristic", ref _MatrixProvisionEvristic, value); }
         }
 
         public HrmSalaryTaskRevert(Session session) : base(session) { }

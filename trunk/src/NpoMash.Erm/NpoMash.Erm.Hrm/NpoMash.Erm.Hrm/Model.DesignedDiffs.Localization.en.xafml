@@ -2,7 +2,6 @@
 <Application>
   <ActionDesign>
     <Actions>
-      <Action Id="BringingMatrixAction" Caption="BringingMatrixKBAction" />
       <Action Id="Link" ConfirmationMessage="Are you sure you want to accept parameters?" />
     </Actions>
   </ActionDesign>
