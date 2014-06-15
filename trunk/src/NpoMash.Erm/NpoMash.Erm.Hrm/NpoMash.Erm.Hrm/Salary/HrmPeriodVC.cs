@@ -307,7 +307,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             }
         }
 
-        private void BringProvisionMatrix_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+        private void BringProvisionMatrix_Execute(object sender, SimpleActionExecuteEventArgs e) {
             IObjectSpace os = Application.CreateObjectSpace();
             HrmPeriod period = os.GetObject<HrmPeriod>((HrmPeriod)e.CurrentObject);
             DepartmentGroupDep group_dep = DepartmentGroupDep.DEPARTMENT_KB_OZM;
