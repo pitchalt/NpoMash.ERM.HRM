@@ -71,7 +71,7 @@
         <Member Name="AllocParameters" Caption="Параметры расчета" />
         <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
         <Member Name="LogRecords" Caption="Журнал событий" />
-        <Member Name="Month" Caption="Месяц" />
+        <Member Name="Month" Caption="Месяц" DisplayFormat="{0:N0}" EditMask="N0" />
         <Member Name="PeriodPrevious" Caption="Предыдущий период" />
         <Member Name="PeriodTasks" Caption="Задачи" />
         <Member Name="Status" Caption="Статус контроля" />
@@ -743,9 +743,11 @@
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors">
             <LayoutGroup Id="HrmMatrix" Caption="Свойства">
-              <LayoutGroup Id="Auto58ad69de-0fc2-41d8-86f5-207162f79c72" Caption="" />
+              <LayoutGroup Id="HrmMatrix_col1" Caption="Объект: " />
+              <LayoutGroup Id="Auto58ad69de-0fc2-41d8-86f5-207162f79c72" Caption="Auto58ad69de-0fc2-41d8-86f5-207162f79c72(6)" />
               <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
             </LayoutGroup>
+            <LayoutGroup Id="HrmMatrixProvision" Caption="Name 1" />
           </LayoutGroup>
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
@@ -866,7 +868,7 @@
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="DepartmentItems" Caption="Подразделения" />
             <LayoutGroup Id="OrderItems" Caption="Заказы" />
-            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
             <LayoutGroup Id="Parameters" Caption="Свойства задачи">
               <LayoutGroup Id="@4945f177-e4fd-4bf7-9fb7-245432d2f312" Caption="@4945f177-e4fd-4bf7-9fb7-245432d2f312">
                 <LayoutGroup Id="AllocResultKB" Caption="Первичная проводка КБ" />
@@ -1210,6 +1212,9 @@
               <LayoutGroup Id="HrmTimeSheet_col2" Caption="HrmTimeSheet_col2" />
             </LayoutGroup>
           </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>

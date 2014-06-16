@@ -50,9 +50,13 @@ namespace NpoMash.Erm.Hrm.Salary {
                     return _OrderItems;
                 }
             }
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal MinimizeNumberOfDeviationsAlloc;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal MinimizeMaximumDeviationsAlloc;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal ProportionsMethodAlloc;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal DepartmentPlan;
 
         }
@@ -69,9 +73,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             public IList<DepartmentItem1> DepartmentItems {
                 get { return _DepartmentItems; }
             }
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal MinimizeNumberOfDeviationsAlloc;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal MinimizeMaximumDeviationsAlloc;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal ProportionsMethodAlloc;
+            [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderPlan;
         }
         protected IList<DepartmentItem1> _DepartmentItems;
