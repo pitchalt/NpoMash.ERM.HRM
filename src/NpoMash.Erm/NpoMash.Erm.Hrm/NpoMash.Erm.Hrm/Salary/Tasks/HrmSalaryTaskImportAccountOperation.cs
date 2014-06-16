@@ -21,6 +21,7 @@ namespace NpoMash.Erm.Hrm.Salary {
     [Appearance(null, AppearanceItemType = "Action", TargetItems = "HrmSalaryTaskImportSourceDataVC_AcceptImport", Criteria = "isSourceDataImported", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = "Action", TargetItems = "Delete, New", Context = "Any", Visibility = ViewItemVisibility.Hide)]
     [Appearance(null, TargetItems = "*", Context = "Any", Enabled = false)]
+    [Appearance(null, AppearanceItemType = "ViewItem", TargetItems = "MatrixAllocResultKB.ConstantTime", Context = "Any", Visibility = ViewItemVisibility.Hide)]
 
     public class HrmSalaryTaskImportAccountOperation : HrmSalaryTask {
 
