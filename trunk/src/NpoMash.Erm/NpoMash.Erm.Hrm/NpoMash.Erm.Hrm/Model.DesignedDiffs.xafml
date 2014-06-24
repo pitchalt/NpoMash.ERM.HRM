@@ -725,20 +725,12 @@
         <ColumnInfo Id="GroupDep" Index="4" />
       </Columns>
     </ListView>
-    <ListView Id="HrmAllocParameter_OrderControls_ListView" IsFooterVisible="True">
+    <ListView Id="HrmAllocParameter_OrderControls_ListView" IsFooterVisible="False">
       <Columns>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
-        <ColumnInfo Id="NormKB" Index="2">
-          <Summary>
-            <ColumnSummaryItem Id="@c4b0fbb3-b392-464b-a3de-65c06b513958" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="NormOZM" Index="3">
-          <Summary>
-            <ColumnSummaryItem Id="@0025be9d-a1ce-467c-9016-cb4d547e9d1a" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
+        <ColumnInfo Id="NormKB" Index="2" />
+        <ColumnInfo Id="NormOZM" Index="3" />
       </Columns>
     </ListView>
     <ListView Id="HrmAllocParameterDepartmentControl_ListView">
