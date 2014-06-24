@@ -484,7 +484,7 @@
     </DetailView>
     <ListView Id="DepartmentItem1_ListView">
       <Columns>
-        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Department" Caption="Код" />
         <ColumnInfo Id="Group" Caption="Группа" />
       </Columns>
     </ListView>
@@ -1080,8 +1080,12 @@
     </DetailView>
     <ListView Id="HrmSalaryTaskMatrixReduction_DepartmentItems_ListView">
       <Columns>
-        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" EditMask="" />
+        <ColumnInfo Id="ProportionsMethodAlloc" EditMask="" />
+        <ColumnInfo Id="Department" Caption="Код" />
         <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentPlan" EditMask="" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" EditMask="" />
       </Columns>
     </ListView>
     <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
@@ -1243,14 +1247,16 @@
     </ListView>
     <ListView Id="OrderItem1__DepartmentItems_ListView">
       <Columns>
-        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Department" Caption="Код" />
         <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentPlan" EditMask="" />
       </Columns>
     </ListView>
     <ListView Id="OrderItem1_DepartmentItems_ListView">
       <Columns>
-        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Department" Caption="Код" />
         <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentPlan" EditMask="" />
       </Columns>
     </ListView>
     <DetailView Id="OrderItem1_MasterDetailView">

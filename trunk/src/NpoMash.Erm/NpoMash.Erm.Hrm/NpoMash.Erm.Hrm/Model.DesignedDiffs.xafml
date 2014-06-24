@@ -250,14 +250,15 @@
       <Columns>
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="-1" />
         <ColumnInfo Id="ProportionsMethodAlloc" Index="-1" />
-        <ColumnInfo Id="Department" Index="0" />
-        <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentPlan" Index="2">
+        <ColumnInfo Id="Department" Index="0" PropertyName="Department.Code" />
+        <ColumnInfo Id="BuhCode" Index="1" PropertyName="Department.BuhCode" IsNewNode="True" />
+        <ColumnInfo Id="Group" Index="2" />
+        <ColumnInfo Id="DepartmentPlan" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@11bf2cd4-e21a-4582-82e5-a6f42db61898" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="3">
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4">
           <Summary>
             <ColumnSummaryItem Id="@99af1ff6-1eca-446d-b50d-ef73898c9693" SummaryType="Sum" IsNewNode="True" />
           </Summary>
@@ -2014,14 +2015,15 @@
       <Columns>
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="-1" />
         <ColumnInfo Id="ProportionsMethodAlloc" Index="-1" />
-        <ColumnInfo Id="Department" Index="0" />
-        <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentPlan" Index="2">
+        <ColumnInfo Id="Department" Index="0" PropertyName="Department.Code" />
+        <ColumnInfo Id="BuhCode" PropertyName="Department.BuhCode" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="Group" Index="2" />
+        <ColumnInfo Id="DepartmentPlan" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@19217156-0685-4266-9e21-c9a960bd9cf5" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="3">
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4">
           <Summary>
             <ColumnSummaryItem Id="@d1683c10-fa83-417a-9644-794f8e84e6f7" SummaryType="Sum" IsNewNode="True" />
           </Summary>
@@ -2791,14 +2793,15 @@
       <Columns>
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="-1" />
         <ColumnInfo Id="ProportionsMethodAlloc" Index="-1" />
-        <ColumnInfo Id="Department" Index="0" />
-        <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentPlan" Index="2">
+        <ColumnInfo Id="Department" Index="0" PropertyName="Department.Code" />
+        <ColumnInfo Id="BuhCode" PropertyName="Department.BuhCode" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="Group" Index="2" />
+        <ColumnInfo Id="DepartmentPlan" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@a98471f4-79de-4c5c-9def-cda76ed1b092" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="3">
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4">
           <Summary>
             <ColumnSummaryItem Id="@953a50bc-c66a-4c59-9e6a-13d9e7582f72" SummaryType="Sum" IsNewNode="True" />
           </Summary>
@@ -2809,14 +2812,15 @@
       <Columns>
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="-1" />
         <ColumnInfo Id="ProportionsMethodAlloc" Index="-1" />
-        <ColumnInfo Id="Department" Index="0" />
-        <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentPlan" Index="2">
+        <ColumnInfo Id="Department" Index="0" PropertyName="Department.Code" />
+        <ColumnInfo Id="BuhCode" PropertyName="Department.BuhCode" Index="1" IsNewNode="True" />
+        <ColumnInfo Id="Group" Index="2" />
+        <ColumnInfo Id="DepartmentPlan" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@848517d0-6ab1-45ff-9794-768eaf5b4f2c" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="3">
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" Index="4">
           <Summary>
             <ColumnSummaryItem Id="@19224e40-e873-4cb8-9f43-474889814231" SummaryType="Sum" IsNewNode="True" />
           </Summary>
