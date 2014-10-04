@@ -82,7 +82,7 @@
       <HintPath>..\..\..\..\..\lib\FileHelpers.ExcelStorage.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\..\..\..\..\..\Program Files\TestDriven.NET 3\NUnit\2.6\framework\nunit.framework.dll</HintPath>
+      <HintPath>C:\Program Files\TestDriven.NET 3\NUnit\2.6\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
