@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="Link" ConfirmationMessage="Are you sure you want to accept parameters?" />
+    </Actions>
+  </ActionDesign>
+  <Localization>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep">
+        <LocalizationItem Name="DEPARTMENT_KB" Value="KB" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+</Application>

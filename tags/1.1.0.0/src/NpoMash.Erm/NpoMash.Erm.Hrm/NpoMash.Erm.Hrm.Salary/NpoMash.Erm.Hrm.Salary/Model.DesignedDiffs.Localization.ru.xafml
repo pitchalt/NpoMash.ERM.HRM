@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="Распределение заработной платы" Company="ОАО ВПК &quot;НПО машиностроения&quot;" Copyright="© Отдел 28-01 и Партнеры 2013-2014 " Description="Система разрабатывалась с использованием новейшего фреймворка XAF версии 14.1, в совокупности с продвинутой библиотеков XPO.  ">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.AuditDataItemPersistent">
+      <OwnMembers>
+        <Member Name="Description" Caption="Описание" />
+        <Member Name="ModifiedOn" Caption="Дата/время" />
+        <Member Name="NewValue" Caption="Новое значение" />
+        <Member Name="OldValue" Caption="Старое значение" />
+        <Member Name="OperationType" Caption="Тип операции" />
+        <Member Name="PropertyName" Caption="Параметр" />
+        <Member Name="UserName" Caption="Пользователь" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

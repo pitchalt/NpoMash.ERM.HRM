@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="IntecoAG.Erm" Logo="ExpressAppLogo" Company="">
+  <BOModel>
+    <Class Name="IntecoAG.ERM.FM.Order.fmCOrder" Caption="fmCOrder" ImageName="BO_Product">
+      <OwnMembers>
+        <Member Name="Code" Caption="Code" RowCount="1" />
+        <Member Name="NormKB" Caption="Норма КБ" />
+        <Member Name="NormOZM" Caption="Норма ОЗМ" />
+        <Member Name="TypeConstancy" Caption="Признак заказа" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+      </OwnMembers>
+    </Class>
+    <Class Name="IntecoAG.ERM.HRM.HrmSalaryPayType" Caption="Код оплаты" ImageName="BO_List">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" />
+        <Member Name="Name" Caption="Наименование" />
+      </OwnMembers>
+    </Class>
+    <Class Name="IntecoAG.ERM.HRM.Organization.Department" Caption="Подразделение" ImageName="BO_Organization">
+      <OwnMembers>
+        <Member Name="Code" Caption="Код" Index="0" />
+        <Member Name="BuhCode" Index="1" />
+        <Member Name="GroupDep" Caption="Группа" Index="2" />
+        <Member Name="IsClosed" Caption="Статус" Index="3" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="14.1.3.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="Department_DetailView">
+      <Items>
+        <PropertyEditor Id="Code" Index="0" />
+        <PropertyEditor Id="BuhCode" Index="1" />
+        <PropertyEditor Id="GroupDep" Index="2" />
+      </Items>
+    </DetailView>
+    <ListView Id="Department_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" SortOrder="None" />
+        <ColumnInfo Id="BuhCode" Index="1" SortOrder="Ascending" />
+        <ColumnInfo Id="GroupDep" Index="2" />
+        <ColumnInfo Id="IsClosed" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="fmCOrder_ListView">
+      <Columns>
+        <ColumnInfo Id="TypeConstancy" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

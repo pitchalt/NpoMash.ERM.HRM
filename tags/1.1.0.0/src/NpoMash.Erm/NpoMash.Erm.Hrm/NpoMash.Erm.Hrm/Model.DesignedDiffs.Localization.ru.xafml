@@ -1,0 +1,1291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ORM">
+  <ActionDesign>
+    <Actions>
+      <Action Id="AcceptCoercedMatrixAction" Caption="Утвердить" />
+      <Action Id="AcceptCompareKB" Caption="Утвердить" />
+      <Action Id="AcceptCompareOZM" Caption="Утвердить" />
+      <Action Id="AcceptImport" Caption="Утвердить" />
+      <Action Id="AcceptOrderListFirst" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Список контролируемых заказов будет недоступен для корректировки." Caption="Утвердить" />
+      <Action Id="AcceptOrderListLast" Caption="Утвердить" ConfirmationMessage="Вы действительно хотите утвердить параметры расчета? Параметры расчета будут недоступны для корректировки." />
+      <Action Id="AcceptProvisionMatrix" Caption="Утвердить">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="EkvilibristicMethod" Caption="Эквилибристика" />
+          <ChoiceActionItem Id="SimplexMethod" Caption="Симплекс метод" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="AccountOperationImport" Caption="Импорт первичной проводки">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="FromFile" Caption="Реальные данные" />
+          <ChoiceActionItem Id="GenerateTestData" Caption="Генерация тестовых данных" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="BringingKBMatrixAction" Caption="Создать матрицу учета (КБ)">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
+          <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="BringingOZMMatrixAction" Caption="Создать матрицу учета (ОЗМ)">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="MinimizeDifferenceNumber" Caption="Минимизация числа отклонений" />
+          <ChoiceActionItem Id="MinimizeMaxDifference" Caption="Минимизация максимальных отклонений" />
+          <ChoiceActionItem Id="ProportionsMethodVariant" Caption="Метод пропорции" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="BringProvisionMatrix" Caption="Создание матрицы резерва" />
+      <Action Id="ExportReserveMatrix" Caption="Экспорт" />
+      <Action Id="GetSourceDataAction" Caption="Загрузить исходные данные" />
+      <Action Id="HrmPeriodVC_ClosePeriod" Caption="Закрыть период" />
+      <Action Id="HrmPeriodVC_CreateReportKB" Caption="Контроль трудоемкости(КБ)" />
+      <Action Id="HrmPeriodVC_CreateReportOZM" Caption="Контроль трудоемкости(ОЗМ)" />
+      <Action Id="HrmPeriodVC_CreateReportSummary" Caption="Контоль трудоемкости и ФОТ" />
+      <Action Id="HrmPeriodVC_ExportBringingMatrix" Caption="Экспорт" />
+      <Action Id="HrmPeriodVC_ImportAccountOperation" Caption="Загрузить первичную проводку" />
+      <Action Id="HrmPeriodVC_ImportAccountOperationLast" Caption="Загрузить проводку" />
+      <Action Id="HrmPeriodVC_RevertState" Caption="Перерасчет" />
+      <Action Id="HrmSalaryTaskCompareAccountOperationSummaryVC_AcceptCompare" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskExportCoercedMatrixVC_ExportCoercedMatrix" Caption="Экспорт" />
+      <Action Id="HrmSalaryTaskExportProvisionMatrixVC_ExportProvisionMatrix" Caption="Экспорт" />
+      <Action Id="HrmSalaryTaskImportAccountOperationSummaryVC_AcceptImport" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskImportSourceDataVC_AcceptImport" Caption="Утвердить" />
+      <Action Id="HrmSalaryTaskRevertVC_Revert" Caption="Перерасчет" />
+      <Action Id="HrmSalaryTYaskMatrixReductionVC_BringingMatrixInReducAction" Caption="Приведение матрицы" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="IntecoAG.ERM.HRM.HrmSalaryPayType">
+      <OwnMembers>
+        <Member Name="Type" Caption="Тип" />
+      </OwnMembers>
+    </Class>
+    <Class Name="IntecoAG.ERM.HRM.Organization.Department">
+      <OwnMembers>
+        <Member Name="BuhCode" Caption="БухКод" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.HrmPeriod" Caption="Период">
+      <OwnMembers>
+        <Member Name="Matrixs" Caption="Матрицы" />
+        <Member Name="AllocParameters" Caption="Параметры расчета" />
+        <Member Name="CurrentAllocParameter" Caption="Текущие параметры расчета" />
+        <Member Name="LogRecords" Caption="Журнал событий" />
+        <Member Name="Month" Caption="Месяц" DisplayFormat="{0:N0}" EditMask="N0" />
+        <Member Name="PeriodPrevious" Caption="Предыдущий период" />
+        <Member Name="PeriodTasks" Caption="Задачи" />
+        <Member Name="Status" Caption="Статус контроля" />
+        <Member Name="TimeSheets" Caption="Табель" />
+        <Member Name="Year" Caption="Год" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.ILogRecord">
+      <OwnMembers>
+        <Member Name="RecordText" Caption="Заметка" />
+        <Member Name="RecordType" Caption="Тип заметки" />
+        <Member Name="Task" Caption="Задача" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TimeOfCreation" Caption="Время создания" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.IPeriodObject">
+      <OwnMembers>
+        <Member Name="PeriodObjectType" Caption="Наименование" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="PeriodObjectStatus" Caption="Статус" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAccountOperation" Caption="БухПроводка">
+      <OwnMembers>
+        <Member Name="Cell" Caption="Ячейка матрицы" />
+        <Member Name="AllocResult" Caption="Результат Расчета" />
+        <Member Name="Credit" Caption="Кредит" />
+        <Member Name="Debit" Caption="Дебит" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="PayType" Caption="Код оплаты" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAllocParameter" Caption="Параметры расчета" ObjectCaptionFormat="{0:Name}">
+      <OwnMembers>
+        <Member Name="DepartmentControl" Caption="Контроль подразделений" />
+        <Member Name="GroupDep" Caption="Группа :" />
+        <Member Name="Month" Caption="Месяц" />
+        <Member Name="NormNoControlKB" Caption="Норма неконтр. заказов КБ :" />
+        <Member Name="NormNoControlOZM" Caption="Норма неконтр. заказов ОЗМ :" />
+        <Member Name="OrderControls" Caption="Контроль заказов" />
+        <Member Name="PeriodObjectStatus" Caption="Статус :" />
+        <Member Name="PeriodObjectType" Caption="Объект:" />
+        <Member Name="Year" Caption="Год" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAllocParameterDepartmentControl" Caption="Контроль подразделений">
+      <OwnMembers>
+        <Member Name="BuhCode" Caption="БухКод" />
+        <Member Name="Department" Caption="Код" />
+        <Member Name="Group" Caption="Группа" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAllocParameterOrderControl" Caption="Контроль заказов">
+      <OwnMembers>
+        <Member Name="NormKB" Caption="Норма КБ" />
+        <Member Name="NormOZM" Caption="Норма ОЗМ" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmAllocParameterPayType" Caption="Коды оплат">
+      <OwnMembers>
+        <Member Name="PayType" Caption="Код оплаты" />
+        <Member Name="Type" Caption="Тип" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmLogRecord" Caption="Журнал событий">
+      <OwnMembers>
+        <Member Name="RecordText" Caption="Заметка" />
+        <Member Name="RecordType" Caption="Тип" />
+        <Member Name="Task" Caption="Задача" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TimeOfCreation" Caption="Время создания" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrix" Caption="Матрица">
+      <OwnMembers>
+        <Member Name="Columns" Caption="Подразделения" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="IterationNumber" Caption="Номер итерации" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="Rows" Caption="Заказы" />
+        <Member Name="Status" Caption="Статус" />
+        <Member Name="Type" Caption="Тип" />
+        <Member Name="TypeMatrix" Caption="Тип матрицы" />
+        <Member Name="Variant" Caption="Вариант алгоритма" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixAllocResult" Caption="Результат распределения" ObjectCaptionFormat="">
+      <OwnMembers>
+        <Member Name="AccountOperations" Caption="БухПроводки" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCell" Caption="ЯчейкаМатрицы">
+      <OwnMembers>
+        <Member Name="Column" Caption="Подразделение" />
+        <Member Name="ConstOrderTime" Caption="Постоянная трудоемоксть по заказам" />
+        <Member Name="Row" Caption="Заказ" />
+        <Member Name="Time" Caption="Трудочасы" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixCoerced" Caption="Матрица учета" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixColumn" Caption="Подразделения">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Cells" Caption="Ячейки" />
+        <Member Name="ConstantTime" Caption="Постоянное время" />
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Sum" Caption="Плановое время" />
+        <Member Name="TravelSum" Caption="Командировки" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixFirstAccount" Caption="Первичная проводка" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixLastAccount" Caption="Проводка" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixPlan" Caption="Базовая матрица" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixProvision" Caption="Матрица резерва" ObjectCaptionFormat="" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmMatrixRow" Caption="Заказы">
+      <OwnMembers>
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="Cells" Caption="Ячейки" />
+        <Member Name="ConstantTime" Caption="Постоянное время" />
+        <Member Name="Matrix" Caption="Матрица" />
+        <Member Name="Sum" Caption="Плановое время" />
+        <Member Name="TravelSum" Caption="Командировки" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTask" Caption="Задача">
+      <OwnMembers>
+        <Member Name="CreateTime" Caption="Время создания" EditMask="" />
+        <Member Name="FinishTime" Caption="Время завершения" EditMask="" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="InObjects" Caption="Объекты" />
+        <Member Name="LogRecords" Caption="Журнал событий" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="State" Caption="Текущее состояние задачи" />
+        <Member Name="TaskType" Caption="Тип задачи" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary" Caption="Сравнение проводки">
+      <OwnMembers>
+        <Member Name="MatrixAllocPlanSummary" Caption="Общий план" />
+        <Member Name="MatrixAllocResultSummary" Caption="Общая проводка" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime" Caption="Контроль трудоемкости" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime+DepartmentItem2">
+      <OwnMembers>
+        <Member Name="CoercedValue" Caption="Матрица учета" EditMask="" />
+        <Member Name="ConstantDepTime" Caption="Пост.раб.время" EditMask="" />
+        <Member Name="DepartmentFact" Caption="Факт" DisplayFormat="{0:N}" EditMask="" />
+        <Member Name="DepartmentPlan" Caption="План" EditMask="" />
+        <Member Name="DepartmentTravelPlan" Caption="План команд." EditMask="" />
+        <Member Name="Fact_Constant" Caption="Факт-пост.раб время" EditMask="" />
+        <Member Name="OrderItems" Caption="Заказы" />
+        <Member Name="Plan_Fact" Caption="План-Факт" EditMask="" />
+        <Member Name="TravelFact" Caption="Факт команд." EditMask="" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime+OrderItem2">
+      <OwnMembers>
+        <Member Name="CoercedValue" Caption="Матрица учета" />
+        <Member Name="ConstantOrderTime" Caption="Постоянное раб. время" />
+        <Member Name="DepartmentItems" Caption="Подразделения" />
+        <Member Name="OrderFact" Caption="Факт" />
+        <Member Name="OrderFact_ConstantOrderTime" Caption="Факт-Пост.раб.время" />
+        <Member Name="OrderPlan" Caption="План" />
+        <Member Name="Plan_Fact" Caption="План-Факт" />
+        <Member Name="TravelFact" Caption="Факт команд." />
+        <Member Name="TravelPlan" Caption="План команд." />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskExportCoercedMatrix" Caption="Экспорт матриц учета">
+      <OwnMembers>
+        <Member Name="KBCoercedMatrix" Caption="Матрица Учета КБ" />
+        <Member Name="OZMCoercedMatrix" Caption="Матрица Учета ОЗМ" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskExportProvisionMatrix" Caption="Экспорт матрицы резерва" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperation" Caption="Импорт первичной проводки" ObjectCaptionFormat="{0:Name}">
+      <OwnMembers>
+        <Member Name="MatrixAllocResultKB" Caption="Проводка(КБ)" />
+        <Member Name="MatrixAllocResultOZM" Caption="Проводка(ОЗМ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportAccountOperationSummary" Caption="Импорт проводки" ObjectCaptionFormat="{0:Name}">
+      <OwnMembers>
+        <Member Name="MatrixAllocResultSummary" Caption="Общая проводка" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskImportSourceData" Caption="Импорт исходных данных">
+      <OwnMembers>
+        <Member Name="MatrixPlanKB" Caption="Базовая матрица(КБ)" />
+        <Member Name="MatrixPlanOZM" Caption="Базовая матрица(ОЗМ)" />
+        <Member Name="TimeSheetKB" Caption="Табель(КБ)" />
+        <Member Name="TimeSheetOZM" Caption="Табель(ОЗМ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction" Caption="Создание матрицы учета">
+      <OwnMembers>
+        <Member Name="AllocParameters" Caption="Параметры расчета" />
+        <Member Name="TimeSheet" Caption="Табель" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+DepartmentItem1">
+      <OwnMembers>
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Расчет 2" />
+        <Member Name="ProportionsMethodAlloc" Caption="Расчет 3" />
+        <Member Name="DepartmentPlan" Caption="План" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 1" />
+        <Member Name="OrderItems" Caption="Заказы" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskMatrixReduction+OrderItem1">
+      <OwnMembers>
+        <Member Name="MinimizeMaximumDeviationsAlloc" Caption="Расчет 2" />
+        <Member Name="ProportionsMethodAlloc" Caption="Расчет 3" />
+        <Member Name="DepartmentItems" Caption="Подразделения" />
+        <Member Name="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 1" />
+        <Member Name="OrderPlan" Caption="План" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction" Caption="Создание матрицы резерва" />
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+DepartmentSet">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="Group" Caption="Группа" />
+        <Member Name="DepartmentPlan" Caption="План" />
+        <Member Name="PlannedTravels" Caption="т.ч.Ком" />
+        <Member Name="PrefactoryDepartmentFact" Caption="Предварительный факт" />
+        <Member Name="FactTravels" Caption="т.ч.Ком" />
+        <Member Name="Base" Caption="База" />
+        <Member Name="SourceProvision" Caption="Исходный резерв" />
+        <Member Name="NewProvision" Caption="Расчет" />
+        <Member Name="DeltaProvision" Caption="Дельта" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskProvisionMatrixReduction+OrderSet">
+      <OwnMembers>
+        <Member Name="Order" Caption="Заказ" />
+        <Member Name="TypeControl" Caption="Тип контроля" />
+        <Member Name="OrderPlan" Caption="План" />
+        <Member Name="PlannedTravels" Caption="т.ч.Ком" />
+        <Member Name="PrefatoryOrderFact" Caption="Предварительный факт" />
+        <Member Name="FactTravels" Caption="т.ч.Ком" />
+        <Member Name="PlanKB" Caption="План КБ" />
+        <Member Name="PlannedTrvaelsKB" Caption="т.ч.КомКБ" />
+        <Member Name="PrefatoryFactKB" Caption="Предварительный факт КБ" />
+        <Member Name="FactTravelsKB" Caption="т.ч.КомКБ" />
+        <Member Name="PlanOZM" Caption="План ОЗМ" />
+        <Member Name="FactTravelsOZM" Caption="т.ч.КомОЗМ" />
+        <Member Name="PrefatoryFactOZM" Caption="Предварительный факт ОЗМ" />
+        <Member Name="PlannedTravelsOZM" Caption="т.ч.КомОЗМ" />
+        <Member Name="Base" Caption="База" />
+        <Member Name="SourceProvision" Caption="Исходный резерв" />
+        <Member Name="NewProvision" Caption="Расчет" />
+        <Member Name="DeltaProvision" Caption="Дельта" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskRevert" Caption="Перерасчет">
+      <OwnMembers>
+        <Member Name="AllocParameter" Caption="Параметры расчета" />
+        <Member Name="MatrixAllocResultKB" Caption="Результат распределения КБ" />
+        <Member Name="MatrixAllocResultOZM" Caption="Результат распределения ОЗМ" />
+        <Member Name="MatrixLastAccount" Caption="Проводка" />
+        <Member Name="MatrixPlanKB" Caption="Базовая матрица(КБ)" />
+        <Member Name="MatrixPlanOZM" Caption="Базовая матрица (ОЗМ)" />
+        <Member Name="MatrixProvisionEvristic" Caption="Эвристическая матрица резерва" />
+        <Member Name="MatrixProvisionSymplex" Caption="Симплексная матрица резерва" />
+        <Member Name="MatrixReductionKB" Caption="Матрица учета(КБ)" />
+        <Member Name="MatrixReductionOZM" Caption="Матрица учета(ОЗМ)" />
+        <Member Name="TimeSheetKB" Caption="Табель(КБ)" />
+        <Member Name="TimeSheetOZM" Caption="Табель(ОЗМ)" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet" Caption="Табель" ObjectCaptionFormat="">
+      <OwnMembers>
+        <Member Name="TimeSheetDeps" Caption="Табель" />
+        <Member Name="GroupDep" Caption="Группа" />
+        <Member Name="Period" Caption="Период" />
+        <Member Name="PeriodObjectStatus" Caption="Статус" />
+        <Member Name="PeriodObjectType" Caption="Тип" />
+        <Member Name="Status" Caption="Статус" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetDep" Caption="ФактПодр">
+      <OwnMembers>
+        <Member Name="Department" Caption="Подразделение" />
+        <Member Name="BuhCode" Caption="БухКод" />
+        <Member Name="BaseWorkTime" Caption="Рабочее время" />
+        <Member Name="TravelWorkTime" Caption="Командировки" />
+        <Member Name="ConstantWorkTime" Caption="Постоянное время" />
+        <Member Name="MatrixWorkTime" Caption="Полное время " />
+        <Member Name="AdditionWorkTime" Caption="Сверхурочное время" />
+        <Member Name="TimeSheet" Caption="Факт. табель" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="Enums">
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.HrmPayTypes">
+        <LocalizationItem Name="BASE_CODE" Value="Код базы" />
+        <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
+        <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="IntecoAG.ERM.HRM.Organization.DepartmentGroupDep">
+        <LocalizationItem Name="DEPARTMENT_KB_OZM" Value="КБ/ОЗМ" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.HrmPeriodStatus">
+        <LocalizationItem Name="ACCOUNT_OPERATION_FIRST_IMPORTED" Value="Импортирована первичная проводка" />
+        <LocalizationItem Name="ACCOUNT_OPERATION_LAST_IMPORTED" Value="Импортирована проводка" />
+        <LocalizationItem Name="CLOSED" Value="Закрыт" />
+        <LocalizationItem Name="COERCED_MATRIXES_EXPORTED" Value="Матрица учета выгружена" />
+        <LocalizationItem Name="LIST_OF_CONTROLLED_ORDERS_ACCEPTED" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="OPENED" Value="Открыт" />
+        <LocalizationItem Name="READY_TO_CALCULATE_COERCED_MATRIXS" Value="Готов к созданию матриц учета" />
+        <LocalizationItem Name="READY_TO_EXPORT_CORCED_MATRIXS" Value="Готов к выгрузке матриц учета" />
+        <LocalizationItem Name="READY_TO_RESERVE_MATRIX_CREATE" Value="Готов к созданию матрицы резерва" />
+        <LocalizationItem Name="READY_TO_RESERVE_MATRIX_UPLOAD" Value="Готов к выгрузке матрицы резерва" />
+        <LocalizationItem Name="RESERVE_MATRIX_UPLOADED" Value="Матрица резерва выгружена" />
+        <LocalizationItem Name="SOURCE_DATA_LOADED" Value="Исходные данные загружены" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.LogRecordType">
+        <LocalizationItem Name="ERROR" Value="ОШИБКА" />
+        <LocalizationItem Name="INFO" Value="ИНФО" />
+        <LocalizationItem Name="WARNING" Value="ПРЕДУПРЕЖДЕНИЕ" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixStatus">
+        <LocalizationItem Name="MATRIX_ACCEPTED" Value="Утверждена" />
+        <LocalizationItem Name="MATRIX_ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="MATRIX_CLOSED" Value="Закрыта" />
+        <LocalizationItem Name="MATRIX_DOWNLOADED" Value="Загружена" />
+        <LocalizationItem Name="MATRIX_EXPORTED" Value="Экспортирована" />
+        <LocalizationItem Name="MATRIX_PRIMARY_ACCEPTED" Value="Утверждена предварительно" />
+        <LocalizationItem Name="MATRIX_SAVED" Value="Сохранена" />
+        <LocalizationItem Name="NOTDOWNLOADED" Value="Не загружена" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixType">
+        <LocalizationItem Name="TYPE_ALLOC_RESULT" Value="Результат распределения" />
+        <LocalizationItem Name="TYPE_MATIX" Value="Матрица" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixTypeMatrix">
+        <LocalizationItem Name="MATRIX_COERCED" Value="Матрица учета" />
+        <LocalizationItem Name="MATRIX_PLANNED" Value="Базовая матрица" />
+        <LocalizationItem Name="MATRIX_RESERVE" Value="Матрица резерва" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmMatrixVariant">
+        <LocalizationItem Name="MINIMIZE_MAXIMUM_DEVIATIONS_VARIANT" Value="Мин. максимальных отклонений" />
+        <LocalizationItem Name="MINIMIZE_NUMBER_OF_DEVIATIONS_VARIANT" Value="Мин. числа отклонений" />
+        <LocalizationItem Name="PROPORTIONS_METHOD_VARIANT" Value="Метод пропорции" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPayTypes">
+        <LocalizationItem Name="BASE_CODE" Value="Код базы" />
+        <LocalizationItem Name="PROVISION_CODE" Value="Код резерва" />
+        <LocalizationItem Name="TRAVEL_CODE" Value="Код командировки" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmPeriodAllocParameterStatus">
+        <LocalizationItem Name="ALLOC_PARAMETERS_ACCEPTED" Value="Утверждены параметры расчета" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="CREATED" Value="Параметры расчета созданы" />
+        <LocalizationItem Name="LIST_OF_ORDER_ACCEPTED" Value="Утвержден список контролируемых заказов" />
+        <LocalizationItem Name="OPEN_TO_EDIT" Value="Открыты для редактирования" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskState" Value="Состояние задачи">
+        <LocalizationItem Name="HRM_SALARY_TASK_ABORTED" Value="Задача отклонена" />
+        <LocalizationItem Name="HRM_SALARY_TASK_ACTIVED" Value="Задача активна" />
+        <LocalizationItem Name="HRM_SALARY_TASK_COMPLETED" Value="Задача выполнена успешно" />
+        <LocalizationItem Name="HRM_SALARY_TASK_CREATED" Value="Задача создана" />
+      </LocalizationGroup>
+      <LocalizationGroup Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheetStatus">
+        <LocalizationItem Name="ACCEPTED" Value="Утвержден" />
+        <LocalizationItem Name="ARCHIVE" Value="Архив" />
+        <LocalizationItem Name="DOWNLOADED" Value="Загружен" />
+        <LocalizationItem Name="NOTDOWNLOADED" Value="Не загружен" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+    <LocalizationGroup Name="Messages">
+      <LocalizationGroup Name="HrmPariodAllocParameterVC">
+        <LocalizationItem Name="MessageBoxCaption" Value="Параметры расчета для данного периода уже существуют." />
+        <LocalizationItem Name="MessageBoxText" Value="Хотите открыть параметры расчета текущего периода?" />
+      </LocalizationGroup>
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="A1 Integration" Caption="Интеграция с А1" />
+    </Items>
+  </NavigationItems>
+  <Views>
+    <ListView Id="HrmMatrixColumn_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelTime" Caption="Командировки" />
+      </Columns>
+    </ListView>
+    <DetailView Id="DepartmentItem1_DetailView">
+      <Items>
+        <PropertyEditor Id="Department" Caption="Подразделение" />
+        <PropertyEditor Id="DepartmentPlan" Caption="План" />
+        <PropertyEditor Id="Group" Caption="Группа" />
+        <PropertyEditor Id="MinimizeMaximumDeviationsAlloc" Caption="Расчет 2" />
+        <PropertyEditor Id="MinimizeNumberOfDeviationsAlloc" Caption="Расчет 1" />
+        <PropertyEditor Id="OrderItems" Caption="Заказы" />
+        <PropertyEditor Id="ProportionsMethodAlloc" Caption="Расчет 3" />
+      </Items>
+    </DetailView>
+    <ListView Id="DepartmentItem1_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Код" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <DetailView Id="DepartmentItem1_MasterDetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" />
+      </Layout>
+    </DetailView>
+    <ListView Id="DepartmentItem1_OrderItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+      </Columns>
+    </ListView>
+    <ListView Id="DepartmentItem2_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="TravelFact" Caption="Факт командировка" />
+      </Columns>
+    </ListView>
+    <DetailView Id="DepartmentItem2_MasterDetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" />
+      </Layout>
+    </DetailView>
+    <ListView Id="DepartmentItem2_OrderItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+        <ColumnInfo Id="OrderPlan" EditMask="" />
+        <ColumnInfo Id="OrderFact" EditMask="" />
+        <ColumnInfo Id="TravelPlan" EditMask="" />
+        <ColumnInfo Id="CoercedValue" EditMask="" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" EditMask="" />
+        <ColumnInfo Id="ConstantOrderTime" EditMask="" />
+        <ColumnInfo Id="Plan_Fact" EditMask="" />
+        <ColumnInfo Id="TravelFact" Caption="Факт командировка" EditMask="" />
+      </Columns>
+    </ListView>
+    <DetailView Id="DepartmentSet_MasterDetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmAccountOperation_DetailView">
+      <Items>
+        <PropertyEditor Id="Money" Caption="Деньги" />
+        <PropertyEditor Id="Sign" Caption="Код операции" />
+        <PropertyEditor Id="Time" Caption="Трудоемкость" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmAccountOperation" Caption="Проводка">
+              <LayoutGroup Id="HrmAccountOperation_col1" Caption="HrmAccountOperation_col1" />
+              <LayoutGroup Id="HrmAccountOperation_col2" Caption="HrmAccountOperation_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmAccountOperation_ListView">
+      <Columns>
+        <ColumnInfo Id="Sign" Caption="Код операции" />
+        <ColumnInfo Id="Time" Caption="Трудоемкость" />
+        <ColumnInfo Id="Money" Caption="Деньги" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmAllocParameter_DetailView" Caption="">
+      <Items>
+        <PropertyEditor Id="GroupDep" Caption="Группа " />
+        <PropertyEditor Id="NormNoControlKB" Caption="Норма неконтр. заказов КБ " />
+        <PropertyEditor Id="NormNoControlOZM" Caption="Норма неконтр. заказов ОЗМ " />
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmAllocParameter" Caption="Свойства">
+              <LayoutGroup Id="Auto7d846811-4435-4360-968e-4fcde549ac47" Caption="Auto7d846811-4435-4360-968e-4fcde549ac47(8)">
+                <LayoutGroup Id="HrmAllocParameter_col2" Caption="Норма неконтр. заказов ОЗМ :" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmAllocParameter_col2" Caption="HrmAllocParameter_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="PeriodPayTypes" Caption="Коды оплат" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmAllocParameter_ListView" Caption="Параметры расчета">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Наименование" />
+        <ColumnInfo Id="PeriodObjectStatus" Caption="Статус" />
+        <ColumnInfo Id="Year" Caption="Год" />
+        <ColumnInfo Id="Month" Caption="Месяц" />
+        <ColumnInfo Id="GroupDep" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrix_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Rows" Caption="Заказы" />
+            <LayoutGroup Id="Columns" Caption="Подразделения" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrix_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmMatrixAllocResult_AccountOperations_ListView">
+      <Columns>
+        <ColumnInfo Id="Sign" Caption="Код операции" />
+        <ColumnInfo Id="Time" Caption="Трудоемкость" />
+        <ColumnInfo Id="Money" Caption="Деньги" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixAllocResult_DetailView" Caption="" ObjectCaptionFormat="{0:Name1} {0:GroupDep}">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AccountOperations" Caption="БухПроводки" />
+            <LayoutGroup Id="Rows" Caption="Заказы" />
+            <LayoutGroup Id="Columns" Caption="Подразделения" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrixCell_AccountOperations_ListView">
+      <Columns>
+        <ColumnInfo Id="Cell" Caption="БухПроводки" />
+        <ColumnInfo Id="Sign" Caption="Код операции" />
+        <ColumnInfo Id="Time" Caption="Трудоемкость" />
+        <ColumnInfo Id="Money" Caption="Деньги" />
+        <ColumnInfo Id="AllocResult" Caption="Результат расчета" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixCell_DetailView">
+      <Items>
+        <PropertyEditor Id="AccountOperations" Caption="БухПроводки" />
+        <PropertyEditor Id="ConstOrderTime" Caption="Постоян.раб.время" />
+        <PropertyEditor Id="TravelTime" Caption="Командировки" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="AccountOperations_Group" Caption="БухПроводки" />
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrixCell_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelTime" Caption="Командировки" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixCoerced_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
+      <Items>
+        <PropertyEditor Id="GroupDep" Caption="Группа " />
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект " />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrixColumn_ListView">
+      <Columns>
+        <ColumnInfo Id="Sum" Caption="Плановое время" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmMatrixFirstAccount_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
+      <Items>
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект " />
+        <PropertyEditor Id="Type" Caption="Тип " />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d" Caption="Auto06f1e1aa-0c4b-4518-9d13-6444109b912d(7)" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmMatrixPlan_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
+      <Items>
+        <PropertyEditor Id="GroupDep" Caption="Группа " />
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект " />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="HrmMatrix_col1" />
+              <LayoutGroup Id="Autof1ab7ae5-4d29-4f44-820a-03ee04b5cf80" Caption="Autof1ab7ae5-4d29-4f44-820a-03ee04b5cf80(7)" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrixPlan_ListView" Caption="Плановая матрица" />
+    <ListView Id="HrmMatrixPlan_LookupListView" Caption="Плановая матрица" />
+    <DetailView Id="HrmMatrixProvision_DetailView" Caption="" ObjectCaptionFormat="{0:Name1}  {0:GroupDep}">
+      <Items>
+        <PropertyEditor Id="PeriodObjectStatus" Caption="Статус" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект: " />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HrmMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmMatrix_col1" Caption="Объект: " />
+              <LayoutGroup Id="Auto58ad69de-0fc2-41d8-86f5-207162f79c72" Caption="Auto58ad69de-0fc2-41d8-86f5-207162f79c72(6)" />
+              <LayoutGroup Id="HrmMatrix_col2" Caption="HrmMatrix_col2" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmMatrixProvision" Caption="Name 1" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmMatrixRow_Cells_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelTime" Caption="Командировки" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmPeriod_DetailView" Caption="">
+      <Items>
+        <PropertyEditor Id="LogRecords" Caption="Журнал событий" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmPeriod" Caption="Период">
+              <LayoutGroup Id="HrmPeriod_col1" Caption="HrmPeriod_col1" />
+              <LayoutGroup Id="Auto45315992-bf00-471a-9c39-f10be943ea3d" Caption="Auto45315992-bf00-471a-9c39-f10be943ea3d(7)">
+                <LayoutGroup Id="HrmPeriod_col2" Caption="HrmPeriod_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmPeriod_col2" Caption="HrmPeriod_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" />
+            <LayoutGroup Id="Matrixs" Caption="Матрицы" />
+            <LayoutGroup Id="TimeSheets" Caption="Табель" />
+            <LayoutGroup Id="PeriodObjects" Caption="Объекты" />
+            <LayoutGroup Id="PeriodTasks" Caption="Задачи" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmPeriod_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Наименование" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_Matrixs_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_PeriodObjects_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Наименование" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_PeriodTasks_ListView">
+      <Columns>
+        <ColumnInfo Id="TaskType" Caption="Наименование" />
+        <ColumnInfo Id="State" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmPeriod_TimeSheets_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTask_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTask_InObjects_ListView">
+      <Columns>
+        <ColumnInfo Id="TaskObjectName" Caption="Наименование" />
+        <ColumnInfo Id="TaskObjectType" Caption="Наименование" />
+        <ColumnInfo Id="TaskObjectStatus" Caption="Статус" />
+        <ColumnInfo Id="GroupDep" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" Caption="HrmSalaryTaskCompareAccountOperationSummary" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="InObjects" Caption="Объекты " />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskCompareWorkTime_DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView" ObjectCaptionFormat="{0:Name}  {0:GroupDep}" Caption="">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="DepartmentItems" Caption="Подразделения" />
+            <LayoutGroup Id="OrderItems" Caption="Заказы" />
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="@4945f177-e4fd-4bf7-9fb7-245432d2f312" Caption="@4945f177-e4fd-4bf7-9fb7-245432d2f312">
+                <LayoutGroup Id="AllocResultKB" Caption="Первичная проводка КБ" />
+                <LayoutGroup Id="AllocResultOZM" Caption="Первичная проводка ОЗМ" />
+              </LayoutGroup>
+              <LayoutGroup Id="@aae0f875-92ba-45f9-be86-b20b4a780e83" Caption="@aae0f875-92ba-45f9-be86-b20b4a780e83">
+                <LayoutGroup Id="MatrixPlan" Caption="Плановая матрица" />
+              </LayoutGroup>
+              <LayoutGroup Id="@24ce3cde-6aee-40b8-a06f-7359bfe10c2a" Caption="@24ce3cde-6aee-40b8-a06f-7359bfe10c2a">
+                <LayoutGroup Id="Task" Caption="Задача">
+                  <LayoutGroup Id="Auto42d6d431-108c-4ae6-8324-5f9aee615f2c" Caption="Auto42d6d431-108c-4ae6-8324-5f9aee615f2c(30)" />
+                  <LayoutGroup Id="Auto9d92fab5-7793-4b65-b039-4742f38ecdae" Caption="Auto9d92fab5-7793-4b65-b039-4742f38ecdae(33)" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="null" Caption="null" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskCompareWorkTime_OrderItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView" Caption="">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="CoercedMatrix" Caption="Матрица учета">
+              <TabbedGroup Id="@72444e27-40b6-490c-a1c7-c2fd490d72dd">
+                <LayoutGroup Id="KB" Caption="КБ" />
+                <LayoutGroup Id="OZM" Caption="ОЗМ" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="KB" Caption="KB">
+                <LayoutGroup Id="KB" Caption="Матрица учета КБ" />
+                <LayoutGroup Id="OZM" Caption="Матрица учета ОЗМ" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+            <LayoutGroup Id="KBCoercedMatrix.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="KBCoercedMatrix.Rows" Caption="Заказы" />
+            <LayoutGroup Id="OZMCoercedMatrix.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="OZMCoercedMatrix.Rows" Caption="Заказы" />
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskExportProvisionMatrix_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix" Caption="Свойства">
+              <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix_col1" Caption="HrmSalaryTaskExportProvisionMatrix_col1" />
+              <LayoutGroup Id="HrmSalaryTaskExportProvisionMatrix_col2" Caption="HrmSalaryTaskExportProvisionMatrix_col2" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="ProvisionMatrix.Rows" Caption="Заказы" />
+            <LayoutGroup Id="ProvisionMatrix.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+            <LayoutGroup Id="InObjects" Caption="Объекты периода" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportAccountOperation_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AllocResult" Caption="Первичная проводка">
+              <TabbedGroup Id="@4c730e45-b573-4384-9e7d-c93289565cd8">
+                <LayoutGroup Id="KB" Caption="КБ">
+                  <TabbedGroup Id="@2bb92091-145b-4fbc-8c2a-ab28d88ca694">
+                    <LayoutGroup Id="AccountOperations" Caption="БухПроводки" />
+                    <LayoutGroup Id="Deps" Caption="Подразделения" />
+                    <LayoutGroup Id="Orders" Caption="Заказы" />
+                  </TabbedGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="OZM" Caption="ОЗМ">
+                  <TabbedGroup Id="@bdb1b26f-633e-4c01-8c8b-e1482b322683">
+                    <LayoutGroup Id="AccountOperations" Caption="БухПроводки" />
+                    <LayoutGroup Id="Deps" Caption="Подразделения" />
+                    <LayoutGroup Id="Orders" Caption="Заказы" />
+                  </TabbedGroup>
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="KB" Caption="KB">
+                <LayoutGroup Id="KB" Caption="Первичная проводка КБ" />
+                <LayoutGroup Id="OZM" Caption="Первичная проводка ОЗМ" />
+              </LayoutGroup>
+              <LayoutGroup Id="OZM" Caption="@c08a551c-7b70-4abb-9d4a-7bdc958be77e" />
+              <LayoutGroup Id="null" Caption="null" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+            <LayoutGroup Id="HrmSalaryTaskImportAccountOperation" Caption="HrmSalaryTaskImportAccountOperation" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportAccountOperationSummary_DetailView" Caption="">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+              <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+              <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmSalaryTaskImportSourceData_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
+      <Items>
+        <PropertyEditor Id="MatrixPlanKB.Name" Caption="Статус" />
+        <PropertyEditor Id="MatrixPlanOZM.Name" Caption="Статус" />
+        <PropertyEditor Id="TimeSheetKB.Name" Caption="Статус" />
+        <PropertyEditor Id="TimeSheetOZM.Name" Caption="Статус" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="BaseMatrix" Caption="Базовая матрица">
+              <TabbedGroup Id="@be56790d-293f-4529-948f-f5da5e4cb466">
+                <LayoutGroup Id="KB" Caption="КБ">
+                  <TabbedGroup Id="@913c3111-ef8e-40f9-8105-96aa02dc9f5c">
+                    <LayoutGroup Id="Deps" Caption="Подразделения" />
+                    <LayoutGroup Id="Orders" Caption="Заказы" />
+                  </TabbedGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="OZM" Caption="ОЗМ">
+                  <TabbedGroup Id="@ae6ce164-8a59-4249-a4f2-52ef9728f69d">
+                    <LayoutGroup Id="Deps" Caption="Подразделения" />
+                    <LayoutGroup Id="Orders" Caption="Заказы" />
+                  </TabbedGroup>
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="TimeSheet" Caption="Табель">
+              <TabbedGroup Id="@a2d62cd2-2a53-490b-a56f-ab0517459d60">
+                <LayoutGroup Id="KB" Caption="Табель КБ" />
+                <LayoutGroup Id="OZM" Caption="Табель ОЗМ" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="@58a53ebb-1c3d-4395-a500-3edd020c5087" Caption="@58a53ebb-1c3d-4395-a500-3edd020c5087">
+                <LayoutGroup Id="Autoa80d14f0-795b-4132-a9ca-0cd20b4fba2b" Caption="Autoa80d14f0-795b-4132-a9ca-0cd20b4fba2b(35)">
+                  <LayoutGroup Id="PlanKB" Caption="Базовая матрица КБ" />
+                  <LayoutGroup Id="TimeKB" Caption="Табель КБ" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto09f7c710-310f-4e53-a2bb-c1a799f03ae2" Caption="Auto09f7c710-310f-4e53-a2bb-c1a799f03ae2(42)">
+                  <LayoutGroup Id="PlanOZM" Caption="Базовая матрица ОЗМ" />
+                  <LayoutGroup Id="TimeOZM" Caption="Табель ОЗМ" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Null" Caption="Null" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" EditMask="" />
+        <ColumnInfo Id="ProportionsMethodAlloc" EditMask="" />
+        <ColumnInfo Id="Department" Caption="Код" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentPlan" EditMask="" />
+        <ColumnInfo Id="MinimizeNumberOfDeviationsAlloc" EditMask="" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
+      <Items>
+        <PropertyEditor Id="AllocParameters.GroupDep" Caption="Группа " />
+        <PropertyEditor Id="AllocParameters.NormNoControlKB" Caption="Норма неконтр. заказов КБ " />
+        <PropertyEditor Id="AllocParameters.NormNoControlOZM" Caption="Норма неконтр. заказов ОЗМ " />
+        <PropertyEditor Id="AllocParameters.PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="AllocParameters.Status" Caption="Статус" />
+        <PropertyEditor Id="MatrixPlan.PeriodObjectStatus" Caption="Статус" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="ReductionMatrix" Caption="Матрица учета">
+              <TabbedGroup Id="ReductionMatrix">
+                <LayoutGroup Id="Deps" Caption="Подразделения" />
+                <LayoutGroup Id="Orders" Caption="Заказы" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="Main" Caption="Main">
+                <LayoutGroup Id="Item2" Caption="Период" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="AllocParameters" Caption="AllocParameters">
+                <LayoutGroup Id="Item1" Caption="Параметры расчета" />
+              </LayoutGroup>
+              <LayoutGroup Id="PlanMatrix" Caption="PlanMatrix">
+                <LayoutGroup Id="Item3" Caption="Плановая матрица" />
+              </LayoutGroup>
+              <LayoutGroup Id="TimeSheet" Caption="TimeSheet">
+                <LayoutGroup Id="Item4" Caption="Табель" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+            <LayoutGroup Id="AllocParameters.DepartmentControl" Caption="Подразделения" />
+            <LayoutGroup Id="AllocParameters.OrderControls" Caption="Контроль заказа" />
+            <LayoutGroup Id="AllocParameters.PeriodPayTypes" Caption="Код оплаты" />
+            <LayoutGroup Id="DepartmentItems" Caption="Department Items" />
+            <LayoutGroup Id="MatrixPlan.Columns" Caption="Подразделения" />
+            <LayoutGroup Id="MatrixPlan.Rows" Caption="Заказы" />
+            <LayoutGroup Id="OrderItems" Caption="Order Items" />
+            <LayoutGroup Id="TimeSheet.TimeSheetDeps" Caption="Табель" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmSalaryTaskMatrixReduction_OrderItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HrmSalaryTaskProvisionMatrixReduction_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
+      <Items>
+        <PropertyEditor Id="AllocParameters.GroupDep" Caption="Группа " />
+        <PropertyEditor Id="AllocParameters.Name" Caption="Статус" />
+        <PropertyEditor Id="AllocParameters.NormNoControlKB" Caption="Норма неконтр. заказов КБ " />
+        <PropertyEditor Id="AllocParameters.NormNoControlOZM" Caption="Норма неконтр. заказов ОЗМ " />
+        <PropertyEditor Id="AllocParameters.PeriodObjectStatus" Caption="Статус " />
+        <PropertyEditor Id="AllocParameters.Status" Caption="Статус" />
+        <PropertyEditor Id="AllocResultKB.Name" Caption="Статус" />
+        <PropertyEditor Id="AllocResultOZM.Name" Caption="Статус" />
+        <PropertyEditor Id="CurrentTimeSheetKB.Name" Caption="Статус" />
+        <PropertyEditor Id="CurrentTimeSheetOZM.Name" Caption="Статус" />
+        <PropertyEditor Id="MatrixAllocKB.Name" Caption="Статус" />
+        <PropertyEditor Id="MatrixAllocOZM.Name" Caption="Статус" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="ProvisionMatrix" Caption="Симплекс метод">
+              <TabbedGroup Id="@235bbe7e-8023-4836-8834-083d30021c7e">
+                <LayoutGroup Id="Deps" Caption="Подразделения" />
+                <LayoutGroup Id="Orders" Caption="Заказы" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="EvristicMethod" Caption="Эвристический метод">
+              <TabbedGroup Id="@98b32d23-8220-4488-9172-28dc465d3344">
+                <LayoutGroup Id="Deps" Caption="Подразделения" />
+                <LayoutGroup Id="Orders" Caption="Заказы" />
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" Caption="Объекты" />
+            <LayoutGroup Id="Parameters" Caption="Свойства задачи">
+              <LayoutGroup Id="Main" Caption="Main">
+                <LayoutGroup Id="Main" Caption="Период" />
+              </LayoutGroup>
+              <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
+                <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
+                <LayoutGroup Id="HrmSalaryTask_col2" Caption="HrmSalaryTask_col2" />
+              </LayoutGroup>
+              <LayoutGroup Id="AllocParameters" Caption="AllocParameters">
+                <LayoutGroup Id="AllocParameters" Caption="Параметры расчета" />
+              </LayoutGroup>
+              <LayoutGroup Id="AllocResult" Caption="AllocResult">
+                <LayoutGroup Id="AllocResult" Caption="Первичная проводка" />
+              </LayoutGroup>
+              <LayoutGroup Id="ReduceMatrix" Caption="ReduceMatrix">
+                <LayoutGroup Id="ReduceMatrix" Caption="Матрица учета" />
+              </LayoutGroup>
+              <LayoutGroup Id="TimeSheet" Caption="TimeSheet">
+                <LayoutGroup Id="TimeSheet" Caption="Табель" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HrmTimeSheet_DetailView" Caption="" ObjectCaptionFormat="{0:Name}">
+      <Items>
+        <PropertyEditor Id="Name" Caption="Объект" />
+        <PropertyEditor Id="PeriodObjectType" Caption="Объект" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
+            <LayoutGroup Id="HrmTimeSheet" Caption="Свойста">
+              <LayoutGroup Id="HrmTimeSheet_col1" Caption="HrmTimeSheet_col1" />
+              <LayoutGroup Id="HrmTimeSheet_col2" Caption="HrmTimeSheet_col2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HrmTimeSheet_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Объект" />
+        <ColumnInfo Id="Name" Caption="Статус" />
+      </Columns>
+    </ListView>
+    <ListView Id="HrmTimeSheetDep_ListView">
+      <Columns>
+        <ColumnInfo Id="TravelWorkTime" Caption="Командировки" />
+        <ColumnInfo Id="ConstantWorkTime" Caption="Постоянное время" />
+      </Columns>
+    </ListView>
+    <ListView Id="ILogRecord_ListView">
+      <Columns>
+        <ColumnInfo Id="RecordType" Caption="Наименование" />
+        <ColumnInfo Id="RecordText" Caption="Предупреждение" />
+      </Columns>
+    </ListView>
+    <ListView Id="IPeriodObject_ListView">
+      <Columns>
+        <ColumnInfo Id="PeriodObjectType" Caption="Наименование" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderItem1__DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Код" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentPlan" EditMask="" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderItem1_DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Код" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentPlan" EditMask="" />
+      </Columns>
+    </ListView>
+    <DetailView Id="OrderItem1_MasterDetailView">
+      <Items>
+        <PropertyEditor Id="Order" Caption="Заказ" />
+        <PropertyEditor Id="TypeControl" Caption="Тип контроля" />
+      </Items>
+    </DetailView>
+    <ListView Id="OrderItem2_DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderItem2_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+      </Columns>
+    </ListView>
+    <DetailView Id="OrderItem2_MasterDetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="OrderSet_MasterDetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
