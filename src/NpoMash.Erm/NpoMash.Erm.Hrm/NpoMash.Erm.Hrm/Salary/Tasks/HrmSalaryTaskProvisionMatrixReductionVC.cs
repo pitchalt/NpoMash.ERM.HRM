@@ -67,6 +67,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (matrix_to_accept != null && matrix_to_accept.Status == HrmMatrixStatus.MATRIX_SAVED) {
                 HrmSalaryTaskProvisionMatrixReductionLogic.PrimaryAcceptSelectedMatrix(task, matrix_to_accept);
                 task.Period.setStatus(HrmPeriodStatus.READY_TO_RESERVE_MATRIX_UPLOAD);
+                task.Period.CurrentMatrixProvision = matrix_to_accept;
             }
             task.Complete();
             os.CommitChanges();

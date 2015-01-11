@@ -237,7 +237,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (current_period.Status == HrmPeriodStatus.RESERVE_MATRIX_UPLOADED) {
                 HrmSalaryTaskImportAccountOperationSummary task = object_space.CreateObject<HrmSalaryTaskImportAccountOperationSummary>();
                 current_period.PeriodTasks.Add(task);
-                HrmSalaryTaskImportAccountOperationSummaryLogic.ImportAccountOperationSummary(object_space, task);
+                HrmSalaryTaskImportAccountOperationSummaryLogic.CreateTestAccountOperationSummary(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 object_space.Committed += new EventHandler(refresher);
@@ -250,6 +250,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             if (current_period.Status == HrmPeriodStatus.ACCOUNT_OPERATION_LAST_IMPORTED) {
                 HrmSalaryTaskCompareAccountOperationSummary task = object_space.CreateObject<HrmSalaryTaskCompareAccountOperationSummary>();
                 current_period.PeriodTasks.Add(task);
+                HrmSalaryTaskCompareAccountOperationSummaryLogic.InitObjects(object_space, task);
                 HrmSalaryTaskCompareAccountOperationSummaryLogic.CompareSummaryMatrix(object_space, task);
                 e.ShowViewParameters.CreatedView = Application.CreateDetailView(object_space, task);
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;

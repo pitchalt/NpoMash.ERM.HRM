@@ -248,7 +248,6 @@ namespace NpoMash.Erm.Hrm.Salary {
 
         }
 
-
         protected override void LoadMatrixDepartmentLogic(HrmMatrix matrix, HrmMatrixColumn col, HrmMatrixRow row, DepartmentItemBase item2) {
             DepartmentItem2 item = (DepartmentItem2)item2;
             foreach (HrmMatrixCell cell in col.Cells) {
