@@ -13,10 +13,24 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 //
-
+using IntecoAG.ERM.HRM.Organization;
 
 namespace NpoMash.Erm.Hrm.Salary {
     public static class HrmSalaryTaskCompareAccountOperationSummaryLogic {
+
+        public static void InitObjects(IObjectSpace local_object_space, HrmSalaryTaskCompareAccountOperationSummary task)
+        {
+            task.ProvisionMatrix = task.Period.CurrentMatrixProvision;
+            if (task.Period.CurrentMatrixAllocPlanSummary != null) {
+                task.MatrixAllocPlanSummary = task.Period.CurrentMatrixAllocPlanSummary;
+            }
+            if (task.Period.CurrentMatrixAllocResultSummary != null)
+            {
+                task.MatrixAllocResultSummary = task.Period.CurrentMatrixAllocResultSummary;
+            }      
+        
+        }
+
 
         public static void CompareSummaryMatrix(IObjectSpace local_object_space, HrmSalaryTaskCompareAccountOperationSummary local_task) {
             local_task.GroupDep = IntecoAG.ERM.HRM.Organization.DepartmentGroupDep.DEPARTMENT_KB_OZM;

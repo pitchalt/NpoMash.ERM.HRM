@@ -222,6 +222,16 @@
         <Member Name="MatrixAllocResultSummary" Caption="Общая проводка" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary+DepartmentAssemble">
+      <OwnMembers>
+        <Member Name="OrderItems" Caption="Заказы" />
+      </OwnMembers>
+    </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary+OrderAssemble">
+      <OwnMembers>
+        <Member Name="DepartmentItems" Caption="Подразделения" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime" Caption="Контроль трудоемкости" />
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareWorkTime+DepartmentItem2">
       <OwnMembers>
@@ -469,6 +479,25 @@
     <ListView Id="HrmMatrixColumn_Cells_ListView">
       <Columns>
         <ColumnInfo Id="TravelTime" Caption="Командировки" />
+      </Columns>
+    </ListView>
+    <ListView Id="DepartmentAssemble_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+      </Columns>
+    </ListView>
+    <ListView Id="DepartmentAssemble_OrderItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+        <ColumnInfo Id="OrdFotPlanMatrix" Caption="ФОТ план" />
+        <ColumnInfo Id="OrdFotReserveMatrix" Caption="ФОТ резерв" />
+        <ColumnInfo Id="OrdFotAllocResultMatrix" Caption="ФОТ проводка" />
+        <ColumnInfo Id="OrdWorkTimePlanMatrix" Caption="Трудоемкость план" />
+        <ColumnInfo Id="OrdWorkTimeAllocResultMatrix" Caption="Трудоемкость проводка" />
+        <ColumnInfo Id="OrdFotDeviation" Caption="Отклонение ФОТ (%)" />
+        <ColumnInfo Id="OrdWorkTimeDeviation" Caption="Отклонение трудоемкости (%)" />
       </Columns>
     </ListView>
     <DetailView Id="DepartmentItem1_DetailView">
@@ -838,9 +867,30 @@
         <ColumnInfo Id="GroupDep" Caption="Группа" />
       </Columns>
     </ListView>
+    <ListView Id="HrmSalaryTaskCompareAccountOperationSummary_DepartmentCollection_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepFotPlanMatrix" Caption="ФОТ план" />
+        <ColumnInfo Id="DepFotReserveMatrix" Caption="ФОТ резерв" />
+        <ColumnInfo Id="DepFotAllocResultMatrix" Caption="ФОТ проводка" />
+        <ColumnInfo Id="DepWorkTimePlanMatrix" Caption="Трудоемкость план" />
+        <ColumnInfo Id="DepWorkTimeAllocResultMatrix" Caption="Трудоемкость проводка" />
+        <ColumnInfo Id="DepFotDeviation" Caption="Отклонение ФОТ (%)" />
+        <ColumnInfo Id="DepWorkTimeDeviation" Caption="Отклонение трудоемкость (%)" />
+      </Columns>
+    </ListView>
     <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView" Caption="" ObjectCaptionFormat="{0:Name}  {0:GroupDep}">
       <Layout>
         <LayoutGroup Id="Main" Caption="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Задача" />
+            <LayoutGroup Id="DepartmentCollection" Caption="Подразделения" />
+            <LayoutGroup Id="OrderCollection" Caption="Заказы" />
+            <LayoutGroup Id="InObjects" Caption="Объекты " />
+            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
+            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
+          </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors">
             <LayoutGroup Id="HrmSalaryTask" Caption="Задача">
               <LayoutGroup Id="HrmSalaryTask_col1" Caption="HrmSalaryTask_col1" />
@@ -848,14 +898,22 @@
             </LayoutGroup>
             <LayoutGroup Id="HrmSalaryTaskCompareAccountOperationSummary" Caption="HrmSalaryTaskCompareAccountOperationSummary" />
           </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="InObjects" Caption="Объекты " />
-            <LayoutGroup Id="LogRecords" Caption="Журнал событий" />
-            <LayoutGroup Id="AuditTrail" Caption="Журнал безопасности" />
-          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="HrmSalaryTaskCompareAccountOperationSummary_OrderCollection_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Caption="Заказ" />
+        <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+        <ColumnInfo Id="OrdFotPlanMatrix" Caption="ФОТ план" />
+        <ColumnInfo Id="OrdFotReserveMatrix" Caption="ФОТ резерв" />
+        <ColumnInfo Id="OrdFotAllocResultMatrix" Caption="ФОТ проводка" />
+        <ColumnInfo Id="OrdWorkTimePlanMatrix" Caption="Трудоемкость план" />
+        <ColumnInfo Id="OrdWorkTimeAllocResultMatrix" Caption="Трудоемкость проводка" />
+        <ColumnInfo Id="OrdFotDeviation" Caption="Отклонение ФОТ (%)" />
+        <ColumnInfo Id="OrdWorkTimeDeviation" Caption="Отклонение трудоемкость (%)" />
+      </Columns>
+    </ListView>
     <ListView Id="HrmSalaryTaskCompareWorkTime_DepartmentItems_ListView">
       <Columns>
         <ColumnInfo Id="Department" Caption="Подразделение" />
@@ -1243,6 +1301,24 @@
     <ListView Id="IPeriodObject_ListView">
       <Columns>
         <ColumnInfo Id="PeriodObjectType" Caption="Наименование" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderAssemble__DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderAssemble_DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Department" Caption="Подразделение" />
+        <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepFotPlanMatrix" Caption="ФОТ план" />
+        <ColumnInfo Id="DepFotReserveMatrix" Caption="ФОТ резерв" />
+        <ColumnInfo Id="DepFotAllocResultMatrix" Caption="ФОТ проводка" />
+        <ColumnInfo Id="DepWorkTimePlanMatrix" Caption="Трудоемкость план" />
+        <ColumnInfo Id="DepWorkTimeAllocResultMatrix" Caption="Трудоемкость проводка" />
+        <ColumnInfo Id="DepFotDeviation" Caption="Отклонение ФОТ (%)" />
+        <ColumnInfo Id="DepWorkTimeDeviation" Caption="Отклонение трудоемкости (%)" />
       </Columns>
     </ListView>
     <ListView Id="OrderItem1__DepartmentItems_ListView">

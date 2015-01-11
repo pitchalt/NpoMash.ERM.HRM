@@ -26,6 +26,7 @@ namespace NpoMash.Erm.Hrm.Salary {
         public override void AfterConstruction() { base.AfterConstruction(); }
 
         private HrmMatrixLastAccount _MatrixAllocResultSummary;
+        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
         public HrmMatrixLastAccount MatrixAllocResultSummary {
             get { return _MatrixAllocResultSummary; }
             set { SetPropertyValue<HrmMatrixLastAccount>("MatrixAllocResultSummary", ref _MatrixAllocResultSummary, value); }

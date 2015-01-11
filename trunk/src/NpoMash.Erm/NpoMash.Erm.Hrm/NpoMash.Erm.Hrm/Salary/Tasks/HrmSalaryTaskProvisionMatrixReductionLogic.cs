@@ -32,6 +32,7 @@ namespace NpoMash.Erm.Hrm.Salary {
             else matrix_to_reject = card.ReserveMatrixSimplex;
             matrix_to_accept.Status = HrmMatrixStatus.MATRIX_PRIMARY_ACCEPTED;
             matrix_to_reject.Status = HrmMatrixStatus.MATRIX_CLOSED;
+            card.Period.CurrentMatrixProvision = matrix_to_accept;
         }
 
         public static bool MatrixIsPrimaryAccepted(/*HrmMatrix matrix_to_accept,*/ HrmPeriod current_period) {

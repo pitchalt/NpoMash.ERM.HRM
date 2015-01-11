@@ -122,6 +122,12 @@
         <Member Name="DepartmentItems" Index="18" />
       </OwnMembers>
     </Class>
+    <Class Name="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskReductionBase+OrderItemBase">
+      <OwnMembers>
+        <Member Name="Order" Index="0" />
+        <Member Name="TypeControl" Index="1" />
+      </OwnMembers>
+    </Class>
     <Class Name="NpoMash.Erm.Hrm.Salary.HrmTimeSheet">
       <OwnMembers>
         <Member Name="TimeSheetDeps" Index="0" />
@@ -244,6 +250,91 @@
             <ColumnSummaryItem Id="@a7d8496a-c918-47c4-9ee4-f4626163c866" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
+      </Columns>
+    </ListView>
+    <DetailView Id="DepartmentAssemble_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <TabbedGroup Id="Tabs" RelativeSize="100" Index="0">
+            <LayoutGroup Id="OrderItems" RelativeSize="100">
+              <LayoutItem Id="OrderItems" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="OrderItemBases" RelativeSize="100" Removed="True">
+              <LayoutItem Id="OrderItemBases" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="50" Direction="Horizontal" Removed="True">
+            <LayoutGroup Id="DepartmentAssemble" Removed="True" />
+            <LayoutGroup Id="DepartmentItemBase" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DepartmentAssemble_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Department" Index="0" />
+        <ColumnInfo Id="Group" Index="1" />
+        <ColumnInfo Id="DepFotPlanMatrix" Index="2" />
+        <ColumnInfo Id="DepFotReserveMatrix" Index="3" />
+        <ColumnInfo Id="DepFotAllocResultMatrix" Index="4" />
+        <ColumnInfo Id="DepFotDeviation" Index="5" />
+        <ColumnInfo Id="DepWorkTimeDeviation" Index="6" />
+      </Columns>
+    </ListView>
+    <ListView Id="DepartmentAssemble_LookupListView" IsFooterVisible="True" />
+    <DetailView Id="DepartmentAssemble_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary+DepartmentAssemble" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Department" PropertyName="Department" IsNewNode="True" />
+        <PropertyEditor Id="DepFotAllocResultMatrix" PropertyName="DepFotAllocResultMatrix" IsNewNode="True" />
+        <PropertyEditor Id="DepFotDeviation" PropertyName="DepFotDeviation" IsNewNode="True" />
+        <PropertyEditor Id="DepFotPlanMatrix" PropertyName="DepFotPlanMatrix" IsNewNode="True" />
+        <PropertyEditor Id="DepFotReserveMatrix" PropertyName="DepFotReserveMatrix" IsNewNode="True" />
+        <PropertyEditor Id="DepWorkTimeDeviation" PropertyName="DepWorkTimeDeviation" IsNewNode="True" />
+        <PropertyEditor Id="Group" PropertyName="Group" IsNewNode="True" />
+        <PropertyEditor Id="OrderItemBases" PropertyName="OrderItemBases" View="DepartmentItemBase_OrderItemBases_ListView" IsNewNode="True" />
+        <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="DepartmentAssemble_OrderItems_ListView" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+          <TabbedGroup Id="Tabs" Index="0" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="OrderItems" Index="0" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="OrderItems" ViewItem="OrderItems" ShowCaption="False" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DepartmentAssemble_OrderItems_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Order" Index="0" />
+        <ColumnInfo Id="TypeControl" Index="1" />
+        <ColumnInfo Id="OrdFotPlanMatrix" Index="2">
+          <Summary>
+            <ColumnSummaryItem Id="@b95253e2-e90d-4cb8-b9c2-08d40f8f1650" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdFotReserveMatrix" Index="3">
+          <Summary>
+            <ColumnSummaryItem Id="@16acae38-ab5f-4ff4-89d1-1aaf13fbfcc2" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdFotAllocResultMatrix" Index="4">
+          <Summary>
+            <ColumnSummaryItem Id="@d91bff59-3216-432f-9a2b-436576e9d22c" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdWorkTimePlanMatrix" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@ab3c7eef-64be-41d0-8aab-6ca92f6876a2" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdWorkTimeAllocResultMatrix" Index="6">
+          <Summary>
+            <ColumnSummaryItem Id="@6add1b6a-9bd0-4c7b-8c2d-f1b7074cd949" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdFotDeviation" Index="7" />
+        <ColumnInfo Id="OrdWorkTimeDeviation" Index="8" />
       </Columns>
     </ListView>
     <ListView Id="DepartmentItem1_ListView" IsFooterVisible="True">
@@ -1372,15 +1463,82 @@
         <ColumnInfo Id="TaskObjectStatus" Index="1" />
       </Columns>
     </ListView>
+    <ListView Id="HrmSalaryTaskCompareAccountOperationSummary_DepartmentCollection_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentAssemble_MasterDetailView" IsGroupPanelVisible="False" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Department" Index="0" />
+        <ColumnInfo Id="Group" Index="1" />
+        <ColumnInfo Id="DepFotPlanMatrix" Index="2">
+          <Summary>
+            <ColumnSummaryItem Id="@a53b55f6-c73f-4e8e-be07-5e44d33db35b" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepFotReserveMatrix" Index="3">
+          <Summary>
+            <ColumnSummaryItem Id="@a5e686e9-bbea-49ea-9a35-8934ff44cb5e" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepFotAllocResultMatrix" Index="4">
+          <Summary>
+            <ColumnSummaryItem Id="@bac84b9f-1bf0-4564-ae85-0dc34301a587" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepWorkTimePlanMatrix" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@682d074c-0796-4cc5-bf2c-0ce2f65fb197" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepWorkTimeAllocResultMatrix" Index="6">
+          <Summary>
+            <ColumnSummaryItem Id="@c88c6a03-e6e3-4489-9215-b6d0d32a0821" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepFotDeviation" Index="7" />
+        <ColumnInfo Id="DepWorkTimeDeviation" Index="8" />
+      </Columns>
+      <SplitLayout Direction="Horizontal" />
+    </ListView>
     <DetailView Id="HrmSalaryTaskCompareAccountOperationSummary_DetailView" ImageName="Action_Grant_Set">
       <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="16.933333333333334" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0">
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Caption="Main">
+          <TabbedGroup Id="Tabs" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0">
+            <LayoutGroup Id="HrmSalaryTask" Index="0" Direction="Vertical" RelativeSize="100" Caption="Hrm Salary Task" ShowCaption="True" IsNewNode="True">
+              <LayoutGroup Id="@cf5a29e3-7c65-4099-a520-252a04a3a534" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="HrmSalaryTask_col1" Index="0" ShowCaption="False" RelativeSize="13.333333333333334" Direction="Horizontal" IsNewNode="True">
+                  <LayoutGroup Id="Autod6599d67-b5ed-4969-b780-073447f88dea" ShowCaption="False" Caption="" Index="0" RelativeSize="47.195013357079254" IsNewNode="True">
+                    <LayoutItem Id="TaskType" ViewItem="TaskType" SizeConstraintsType="Default" Index="0" RelativeSize="36.53846153846154" IsNewNode="True" />
+                    <LayoutItem Id="State" ViewItem="State" SizeConstraintsType="Default" Index="1" RelativeSize="28.846153846153847" IsNewNode="True" />
+                    <LayoutItem Id="GroupDep" ViewItem="GroupDep" SizeConstraintsType="Default" Index="2" RelativeSize="34.615384615384613" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Auto444a7e85-ce38-42ef-8f99-edfa9eff299f" ShowCaption="False" Caption="" Index="1" RelativeSize="52.804986642920746" IsNewNode="True">
+                    <LayoutItem Id="CreateTime" ViewItem="CreateTime" SizeConstraintsType="Default" Index="0" RelativeSize="36.53846153846154" IsNewNode="True" />
+                    <LayoutItem Id="FinishTime" ViewItem="FinishTime" SizeConstraintsType="Default" Index="1" RelativeSize="63.46153846153846" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="HrmSalaryTask_col2" Index="1" ShowCaption="False" RelativeSize="86.666666666666671" Direction="Horizontal" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentCollection" Index="1" RelativeSize="100">
+              <LayoutItem Id="DepartmentCollection" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="OrderCollection" Index="2" RelativeSize="100">
+              <LayoutItem Id="OrderCollection" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="InObjects" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="3" Caption="In Objects">
+              <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="4" Caption="Log Records">
+              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="AuditTrail" RelativeSize="100" Index="5" Caption="Audit Trail">
+              <LayoutItem Id="AuditTrail" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.933333333333334" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True">
+            <LayoutGroup Id="HrmSalaryTask" Caption="Hrm Salary Task" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0" Removed="True">
               <LayoutGroup Id="HrmSalaryTask_col1" RelativeSize="46.533333333333331" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="36.363636363636367" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
-                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="27.272727272727273" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
                 <LayoutItem Id="GroupDep" SizeConstraintsType="Default" RelativeSize="36.363636363636367" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="27.272727272727273" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="TaskType" SizeConstraintsType="Default" RelativeSize="36.363636363636367" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
               </LayoutGroup>
               <LayoutGroup Id="HrmSalaryTask_col2" RelativeSize="50.533333333333331" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
                 <LayoutItem Id="CreateTime" SizeConstraintsType="Default" RelativeSize="36.363636363636367" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
@@ -1392,20 +1550,43 @@
               <LayoutItem Id="MatrixAllocResultSummary" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="83.066666666666663" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="InObjects" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0">
-              <LayoutItem Id="InObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
-            </LayoutGroup>
-            <LayoutGroup Id="LogRecords" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="1">
-              <LayoutItem Id="LogRecords" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
-            </LayoutGroup>
-            <LayoutGroup Id="AuditTrail" RelativeSize="100" Index="2">
-              <LayoutItem Id="AuditTrail" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
-          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="HrmSalaryTaskCompareAccountOperationSummary_OrderCollection_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="OrderAssemble_MasterDetailView">
+      <Columns>
+        <ColumnInfo Id="Order" Index="0" />
+        <ColumnInfo Id="TypeControl" Index="1" />
+        <ColumnInfo Id="OrdFotPlanMatrix" Index="2">
+          <Summary>
+            <ColumnSummaryItem Id="@301cd45b-1c77-41a6-b9d5-73946a20456f" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdFotReserveMatrix" Index="3">
+          <Summary>
+            <ColumnSummaryItem Id="@625e3bb3-37dd-447d-9869-288eb3903446" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdFotAllocResultMatrix" Index="4">
+          <Summary>
+            <ColumnSummaryItem Id="@e4489a75-2880-4575-9bf2-934f625e87c5" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdWorkTimePlanMatrix" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@752a674f-d817-4895-9441-1ba02705c0c9" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdWorkTimeAllocResultMatrix" Index="6">
+          <Summary>
+            <ColumnSummaryItem Id="@0cc09a9f-a245-4de6-9cae-355c5d720b2e" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrdFotDeviation" Index="7" />
+        <ColumnInfo Id="OrdWorkTimeDeviation" Index="8" />
+      </Columns>
+      <SplitLayout Direction="Horizontal" />
+    </ListView>
     <ListView Id="HrmSalaryTaskCompareWorkTime_DepartmentItems_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="DepartmentItem2_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Department" Index="0" />
@@ -2789,6 +2970,105 @@
         <ColumnInfo Id="PeriodObjectStatus" Index="1" />
       </Columns>
     </ListView>
+    <ListView Id="OrderAssemble__DepartmentItems_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Department" Index="0" />
+        <ColumnInfo Id="Group" Index="1" />
+        <ColumnInfo Id="DepFotPlanMatrix" Index="2" />
+        <ColumnInfo Id="DepFotReserveMatrix" Index="3" />
+        <ColumnInfo Id="DepFotAllocResultMatrix" Index="4" />
+        <ColumnInfo Id="DepFotDeviation" Index="5" />
+        <ColumnInfo Id="DepWorkTimeDeviation" Index="6" />
+      </Columns>
+    </ListView>
+    <ListView Id="OrderAssemble_DepartmentItems_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Department" Index="0" />
+        <ColumnInfo Id="Group" Index="1" />
+        <ColumnInfo Id="DepFotPlanMatrix" Index="2">
+          <Summary>
+            <ColumnSummaryItem Id="@b5e6704b-0356-4b51-817a-18d175e34994" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepFotReserveMatrix" Index="3">
+          <Summary>
+            <ColumnSummaryItem Id="@784c0d16-be52-497d-a87a-937f114e8396" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepFotAllocResultMatrix" Index="4">
+          <Summary>
+            <ColumnSummaryItem Id="@3c9ab9be-6380-4e38-a6e1-a66f43ce06db" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepWorkTimePlanMatrix" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@4ff1f486-1e59-4167-bac6-4a9ba5a00fc4" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepWorkTimeAllocResultMatrix" Index="6">
+          <Summary>
+            <ColumnSummaryItem Id="@c0ea02b2-2104-4d7f-a5a6-15aff53bed5c" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepFotDeviation" Index="7" />
+        <ColumnInfo Id="DepWorkTimeDeviation" Index="8" />
+      </Columns>
+    </ListView>
+    <DetailView Id="OrderAssemble_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <TabbedGroup Id="Tabs" RelativeSize="100" Index="0">
+            <LayoutGroup Id="DepartmentItems" RelativeSize="100">
+              <LayoutItem Id="DepartmentItems" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentItemBases" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="DepartmentItemBases" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="_DepartmentItems" RelativeSize="100" Removed="True">
+              <LayoutItem Id="_DepartmentItems" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="50" Direction="Horizontal" Removed="True">
+            <LayoutGroup Id="OrderAssemble" Removed="True" />
+            <LayoutGroup Id="OrderItemBase" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="OrderAssemble_ListView">
+      <Columns>
+        <ColumnInfo Id="Order" Index="0" />
+        <ColumnInfo Id="TypeControl" Index="1" />
+        <ColumnInfo Id="OrdFotPlanMatrix" Index="2" />
+        <ColumnInfo Id="OrdFotReserveMatrix" Index="3" />
+        <ColumnInfo Id="OrdFotAllocResultMatrix" Index="4" />
+        <ColumnInfo Id="OrdFotDeviation" Index="5" />
+        <ColumnInfo Id="OrdWorkTimeDeviation" Index="6" />
+      </Columns>
+    </ListView>
+    <DetailView Id="OrderAssemble_MasterDetailView" ClassName="NpoMash.Erm.Hrm.Salary.HrmSalaryTaskCompareAccountOperationSummary+OrderAssemble" AllowDelete="False" AllowEdit="False" AllowNew="False" DefaultFocusedItem="DepartmentItems" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="_DepartmentItems" PropertyName="_DepartmentItems" View="OrderAssemble__DepartmentItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentItemBases" PropertyName="DepartmentItemBases" View="OrderItemBase_DepartmentItemBases_ListView" IsNewNode="True" />
+        <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="OrderAssemble_DepartmentItems_ListView" IsNewNode="True" />
+        <PropertyEditor Id="Order" PropertyName="Order" IsNewNode="True" />
+        <PropertyEditor Id="OrdFotAllocResultMatrix" PropertyName="OrdFotAllocResultMatrix" IsNewNode="True" />
+        <PropertyEditor Id="OrdFotDeviation" PropertyName="OrdFotDeviation" IsNewNode="True" />
+        <PropertyEditor Id="OrdFotPlanMatrix" PropertyName="OrdFotPlanMatrix" IsNewNode="True" />
+        <PropertyEditor Id="OrdFotReserveMatrix" PropertyName="OrdFotReserveMatrix" IsNewNode="True" />
+        <PropertyEditor Id="OrdWorkTimeDeviation" PropertyName="OrdWorkTimeDeviation" IsNewNode="True" />
+        <PropertyEditor Id="TypeControl" PropertyName="TypeControl" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" IsNewNode="True">
+          <TabbedGroup Id="Tabs" Index="1" IsNewNode="True">
+            <LayoutGroup Id="DepartmentItems" Index="0" ShowCaption="True" IsNewNode="True">
+              <LayoutItem Id="DepartmentItems" ViewItem="DepartmentItems" ShowCaption="False" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="OrderItem1__DepartmentItems_ListView" IsFooterVisible="True">
       <Columns>
         <ColumnInfo Id="MinimizeMaximumDeviationsAlloc" Index="-1" />
