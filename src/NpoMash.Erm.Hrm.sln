@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NpoMash.Erm.Hrm", "NpoMash.Erm\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.csproj", "{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NpoMash.Erm.Hrm.Web", "NpoMash.Erm\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.Web\NpoMash.Erm.Hrm.Web.csproj", "{0C729AAD-7626-4668-A7F1-35F7D240489D}"
@@ -30,13 +30,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NpoMash.Erm.Hrm.Salary.AppWin", "NpoMash.Erm\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.Salary\NpoMash.Erm.Hrm.Salary.AppWin\NpoMash.Erm.Hrm.Salary.AppWin.csproj", "{47C3B8D5-8E56-4A65-A6BA-5BDA819581CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Salary", "Salary", "{9AE5F3E4-6A79-445C-96AF-2D910C875C4A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4346F59A-5293-470E-93A4-B61E452A0B71}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NpoMash.Erm.Hrm.Salary.AppWeb", "NpoMash.Erm\NpoMash.Erm.Hrm\NpoMash.Erm.Hrm.Salary\NpoMash.Erm.Hrm.Salary.AppWeb\NpoMash.Erm.Hrm.Salary.AppWeb.csproj", "{29B237DB-B88C-48D5-88E7-31FC495D5888}"
 EndProject
