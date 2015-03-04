@@ -310,52 +310,75 @@ namespace NpoMash.Erm.Hrm.Salary {
                     account_to_db.Credit = account_operation.Credit;
                     account_to_db.Time = account_operation.Time;
                     try {
-                        account_to_db.Order = orders_in_database[account_operation.OrderCode];
-                        account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
-                        account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
+                        if (orders_in_database.ContainsKey(file_order_code)) {
+                            account_to_db.Order = orders_in_database[account_operation.OrderCode];
+                        }
+                        else {
+                            local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось подтвердить в базе наличие заказа с кодом: {" + account_operation.OrderCode + "}");
+                            broken = true;
+                        }
+                        if (paytypes_in_database.ContainsKey(file_payType)) {
+                            account_to_db.PayType = paytypes_in_database[account_operation.PayTypeCode];
+                        }
+                        else {
+                            local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось подтвердить в базе наличие вида оплаты с кодом: {" + account_operation.PayTypeCode + "}");
+                            broken = true;
+                        }
+                        if (departments_in_database.ContainsKey(file_department_code)) {
+                            account_to_db.Department = departments_in_database[account_operation.DepartmentCode];
+                        }
+                        else {
+                            local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось подтвердить в базе наличие подразделени€ с бухкодом: {" + account_operation.DepartmentCode + "}");
+                            broken = true;
+                        }
                     }
                     catch (KeyNotFoundException) {
+                        if (account_to_db.Order == null) local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе нашлось заказа с кодом: {" + file_order_code + "}"); 
+                        if (account_to_db.PayType == null) local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе нашлось вида оплаты с кодом: {" + file_payType + "}"); 
+                        if (account_to_db.Department == null) local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе нашлось подразделени€ с кодом: {" + file_department_code + "}"); 
                         local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось св€зать проводку с заказом и/или кодом оплаты и/или подразделением");
                         broken = true;
                     }
-                    if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) { 
-                        account_to_db.AllocResult = matrix_alloc_result_kb;
-                        matrix_alloc_result_kb.AccountOperations.Add(account_to_db);
-                    }
-                    else { 
-                        account_to_db.AllocResult = matrix_alloc_result_ozm;
-                        matrix_alloc_result_ozm.AccountOperations.Add(account_to_db);
-                    }
-                    String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
-                    if (!cells_in_matrix.ContainsKey(cell_key)) {
-                        HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
-                        cells_in_matrix.Add(cell_key, cell);
-                        cell.AccountOperations.Add(account_to_db);
-                        cell.Column = current_column;
-                        current_column.Cells.Add(cell);
-                        cell.Row = current_row;
-                        current_row.Cells.Add(cell);
-                        current_cell = cell;
+                    if (!broken) {
+                        if (account_to_db.Department.GroupDep == DepartmentGroupDep.DEPARTMENT_KB) {
+                            account_to_db.AllocResult = matrix_alloc_result_kb;
+                            matrix_alloc_result_kb.AccountOperations.Add(account_to_db);
+                        }
+                        else {
+                            account_to_db.AllocResult = matrix_alloc_result_ozm;
+                            matrix_alloc_result_ozm.AccountOperations.Add(account_to_db);
+                        }
+                        String cell_key = current_column.Department.BuhCode + "|" + current_row.Order.Code;
+                        if (!cells_in_matrix.ContainsKey(cell_key)) {
+                            HrmMatrixCell cell = local_object_space.CreateObject<HrmMatrixCell>();
+                            cells_in_matrix.Add(cell_key, cell);
+                            cell.AccountOperations.Add(account_to_db);
+                            cell.Column = current_column;
+                            current_column.Cells.Add(cell);
+                            cell.Row = current_row;
+                            current_row.Cells.Add(cell);
+                            current_cell = cell;
+                        }
+                        else {
+                            HrmMatrixCell cell = cells_in_matrix[cell_key];
+                            cell.AccountOperations.Add(account_to_db);
+                            current_cell = cell;
+                        }
+                        current_cell.Time += account_operation.Time;
+                        if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.PROVISION_CODE) {
+                            current_cell.SourceProvision += account_operation.Money;
+                        }
+                        if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.TRAVEL_CODE) {
+                            current_cell.TravelMoney += account_operation.Money;
+                        }
+                        if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.BASE_CODE) {
+                            current_cell.MoneyNoReserve += account_operation.Money;
+                        }
                     }
                     else {
-                        HrmMatrixCell cell = cells_in_matrix[cell_key];
-                        cell.AccountOperations.Add(account_to_db);
-                        current_cell = cell;
+                        local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось создать €чейку матрицы из-за отсутстви€ подразделени€ и/или заказа и/или кода оплаты");
+                        broken = true;
                     }
-                    current_cell.Time += account_operation.Time;
-                    if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.PROVISION_CODE) {
-                        current_cell.SourceProvision += account_operation.Money;
-                    }
-                    if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.TRAVEL_CODE) {
-                        current_cell.TravelMoney += account_operation.Money;
-                    }
-                    if (paytypes_in_alloc_parameter[account_to_db.PayType].Type == HrmPayTypes.BASE_CODE) {
-                        current_cell.MoneyNoReserve += account_operation.Money;
-                    }
-                }
-                else {
-                    local_task.LogRecord(LogRecordType.ERROR, null, null, "Ќе удалось создать €чейку матрицы из-за отсутстви€ подразделени€ и/или заказа и/или кода оплаты");
-                    broken = true;
                 }
             }
             if (broken) { local_task.Abort(); }
