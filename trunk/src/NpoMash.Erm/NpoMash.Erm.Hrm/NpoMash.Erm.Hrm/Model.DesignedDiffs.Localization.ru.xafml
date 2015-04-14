@@ -542,16 +542,16 @@
     </DetailView>
     <ListView Id="DepartmentItem2_OrderItems_ListView">
       <Columns>
+        <ColumnInfo Id="Plan_Fact" EditMask="" />
         <ColumnInfo Id="Order" Caption="Заказ" />
         <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
         <ColumnInfo Id="OrderPlan" EditMask="" />
-        <ColumnInfo Id="OrderFact" EditMask="" />
         <ColumnInfo Id="TravelPlan" EditMask="" />
         <ColumnInfo Id="CoercedValue" EditMask="" />
-        <ColumnInfo Id="OrderFact_ConstantOrderTime" EditMask="" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" EditMask="" Caption="Факт-пост.раб.время-факт команд." />
         <ColumnInfo Id="ConstantOrderTime" EditMask="" />
-        <ColumnInfo Id="Plan_Fact" EditMask="" />
         <ColumnInfo Id="TravelFact" Caption="Факт командировка" EditMask="" />
+        <ColumnInfo Id="OrderFact" EditMask="" />
       </Columns>
     </ListView>
     <DetailView Id="DepartmentSet_MasterDetailView">
@@ -918,6 +918,8 @@
       <Columns>
         <ColumnInfo Id="Department" Caption="Подразделение" />
         <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentFact" Caption="Факт подр. из проводки" />
+        <ColumnInfo Id="Fact_Constant" Caption="Факт подр. - пост раб время - командировки" />
       </Columns>
     </ListView>
     <DetailView Id="HrmSalaryTaskCompareWorkTime_DetailView" ObjectCaptionFormat="{0:Name}  {0:GroupDep}" Caption="">
@@ -953,6 +955,7 @@
       <Columns>
         <ColumnInfo Id="Order" Caption="Заказ" />
         <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" Caption="Факт-пост.раб.время-Факт команд." />
       </Columns>
     </ListView>
     <DetailView Id="HrmSalaryTaskExportCoercedMatrix_DetailView" Caption="">
@@ -1341,19 +1344,31 @@
         <PropertyEditor Id="TypeControl" Caption="Тип контроля" />
       </Items>
     </DetailView>
+    <ListView Id="OrderItem2__DepartmentItems_ListView">
+      <Columns>
+        <ColumnInfo Id="Fact_Constant" Caption="Факт-пост.раб время-факт.команд." />
+        <ColumnInfo Id="DepartmentFact" Caption="Факт подрзд." />
+      </Columns>
+    </ListView>
     <ListView Id="OrderItem2_DepartmentItems_ListView">
       <Columns>
         <ColumnInfo Id="Department" Caption="Подразделение" />
         <ColumnInfo Id="Group" Caption="Группа" />
+        <ColumnInfo Id="DepartmentFact" Caption="Факт подразд." />
+        <ColumnInfo Id="Fact_Constant" Caption="Факт-пост.раб время-план команд." />
       </Columns>
     </ListView>
     <ListView Id="OrderItem2_ListView">
       <Columns>
         <ColumnInfo Id="Order" Caption="Заказ" />
         <ColumnInfo Id="TypeControl" Caption="Тип контроля" />
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" Caption="Факт-пост.раб.время - факт.команд." />
       </Columns>
     </ListView>
     <DetailView Id="OrderItem2_MasterDetailView">
+      <Items>
+        <PropertyEditor Id="OrderFact_ConstantOrderTime" Caption="Факт-пост.раб.время. -факт команд." />
+      </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main" />
       </Layout>
