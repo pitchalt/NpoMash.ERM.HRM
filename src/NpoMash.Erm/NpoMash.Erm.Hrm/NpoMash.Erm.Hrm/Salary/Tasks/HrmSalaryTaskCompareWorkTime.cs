@@ -57,17 +57,13 @@ namespace NpoMash.Erm.Hrm.Salary {
             private Decimal fact_Constant;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal Fact_Constant {
-                get { return fact_Constant = DepartmentFact - ConstantDepTime; }
+                get { return fact_Constant = DepartmentFact - ConstantDepTime-TravelFact; }
             }
             public Decimal DepartmentFact;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelFact;
             [ModelDefault("DisplayFormat", "{0:N}")]
-            private Decimal plan_Fact;
-            [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal Plan_Fact {
-                get { return plan_Fact=DepartmentPlan - DepartmentFact; }
-        }
+           
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal CoercedValue;
         }
@@ -88,25 +84,19 @@ namespace NpoMash.Erm.Hrm.Salary {
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal OrderFact;
+            public Decimal OrderFact; // Берем из проводки
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal TravelPlan;
             [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal ConstantOrderTime;
+            public Decimal ConstantOrderTime; // Берется из проводки
             [ModelDefault("DisplayFormat", "{0:N}")]
             private Decimal orderFact_ConstantOrderTime;
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal OrderFact_ConstantOrderTime {
-                get { return orderFact_ConstantOrderTime = OrderFact - ConstantOrderTime; }
+                get { return orderFact_ConstantOrderTime = OrderFact - ConstantOrderTime-TravelFact; }
             }
             [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal TravelFact;
-            [ModelDefault("DisplayFormat", "{0:N}")]
-            private Decimal plan_Fact;
-            [ModelDefault("DisplayFormat", "{0:N}")]
-            public Decimal Plan_Fact {
-                get { return plan_Fact = OrderPlan - OrderFact; }
-        }
+            public Decimal TravelFact;  // Берется из проводки по 103 и 147 виду оплаты
             [ModelDefault("DisplayFormat", "{0:N}")]
             public Decimal CoercedValue;
         }
@@ -232,16 +222,22 @@ namespace NpoMash.Erm.Hrm.Salary {
 
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED && matrix.Type == HrmMatrixType.TYPE_MATIX) {
                     item.OrderPlan += cell.Time;
-                    item.ConstantOrderTime+=cell.ConstOrderTime;
                     item.TravelPlan += cell.TravelTime;
+                    item.ConstantOrderTime += cell.ConstOrderTime;
                 }
                 else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && matrix.Type == HrmMatrixType.TYPE_MATIX) {
                     item.CoercedValue += cell.Time;
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     item.OrderFact +=cell.Time;
-                    item.TravelFact += cell.TravelTime;
-                    
+                    //item.ConstantOrderTime += cell.Row.ConstantTime;
+                    foreach (var v in cell.AccountOperations)
+                    {
+                        if((v.PayType.Code == "147")||(v.PayType.Code == "103"))
+                        {
+                            item.TravelFact += v.Time;
+                        }
+                    }
                 }
                 
             }
@@ -255,15 +251,21 @@ namespace NpoMash.Erm.Hrm.Salary {
                     continue;
                 if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED && matrix.Type==HrmMatrixType.TYPE_MATIX) {
                     item.DepartmentPlan += cell.Time;
-                    item.ConstantDepTime += cell.ConstOrderTime;
                     item.DepartmentTravelPlan += cell.TravelTime;
+                    item.ConstantDepTime += cell.ConstOrderTime;
                 }
                 else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && matrix.Type == HrmMatrixType.TYPE_MATIX) {
                     item.CoercedValue += cell.Time;
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT) {
                     item.DepartmentFact += cell.Time;
-                    item.TravelFact += cell.TravelTime;
+                    foreach (var v in cell.AccountOperations)
+                    {
+                        if ((v.PayType.Code == "147") || (v.PayType.Code == "103"))
+                        {
+                            item.TravelFact += v.Time;
+                        }
+                    }
                 }
                 
         }

@@ -145,8 +145,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixOrder(ProvisionMatrix, null, OrderItemBases);
             if (MatrixAllocPlanSummary != null)
                 LoadMatrixOrder(MatrixAllocPlanSummary, null, OrderItemBases);
-            if (MatrixAllocResultSummary != null)
-                LoadMatrixOrder(MatrixAllocResultSummary, null, OrderItemBases);
+          //  if (MatrixAllocResultSummary != null)
+            //    LoadMatrixOrder(MatrixAllocResultSummary, null, OrderItemBases);
         }
 
         protected override void departmentCreate()
@@ -155,8 +155,8 @@ namespace NpoMash.Erm.Hrm.Salary {
                 LoadMatrixDepartment(ProvisionMatrix, null, DepartmentItemBases);
             if (MatrixAllocPlanSummary != null)
                 LoadMatrixDepartment(MatrixAllocPlanSummary, null, DepartmentItemBases);
-            if (MatrixAllocResultSummary != null)
-                LoadMatrixDepartment(MatrixAllocResultSummary, null, DepartmentItemBases);
+          //  if (MatrixAllocResultSummary != null)
+              //  LoadMatrixDepartment(MatrixAllocResultSummary, null, DepartmentItemBases);
         }
 
 
@@ -199,21 +199,21 @@ namespace NpoMash.Erm.Hrm.Salary {
             {
                 if (row != null && cell.Row != row)
                     continue;
-                if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED && matrix.Type == HrmMatrixType.TYPE_MATIX)
+                if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_PLANNED )
                 {
-                   
+                    item.DepWorkTimePlanMatrix = cell.Time;
                 }
-                else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_COERCED && matrix.Type == HrmMatrixType.TYPE_MATIX)
+                else if (matrix.TypeMatrix == HrmMatrixTypeMatrix.MATRIX_RESERVE && matrix.Type == HrmMatrixType.TYPE_MATIX)
                 {
-                    
+                    item.DepFotReserveMatrix = cell.PlanMoney;
                 }
                 else if (matrix.Type == HrmMatrixType.TYPE_ALLOC_RESULT)
                 {
-                    item.DepFotAllocResultMatrix = cell.Time;
-                    item.DepFotReserveMatrix = cell.TravelTime;
-                    item.DepWorkTimeAllocResultMatrix = cell.TravelMoney;
-                    item.DepFotPlanMatrix = cell.MoneyNoReserve;
-                    item.DepWorkTimePlanMatrix = cell.ConstOrderTime;
+                    //item.DepFotAllocResultMatrix = cell.Time;
+                    
+                   // item.DepWorkTimeAllocResultMatrix = cell.TravelMoney;
+                   // item.DepFotPlanMatrix = cell.MoneyNoReserve;
+                    //item.DepWorkTimePlanMatrix = cell.ConstOrderTime;
                     
                 }
 

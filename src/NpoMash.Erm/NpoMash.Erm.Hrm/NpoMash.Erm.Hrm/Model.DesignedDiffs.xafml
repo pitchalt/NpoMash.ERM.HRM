@@ -479,16 +479,16 @@
     </DetailView>
     <ListView Id="DepartmentItem2_OrderItems_ListView" IsFooterVisible="True">
       <Columns>
+        <ColumnInfo Id="Plan_Fact" Index="-1">
+          <Summary>
+            <ColumnSummaryItem Id="@d6936d93-7d70-4a4e-ad68-2aaa7023e785" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
         <ColumnInfo Id="OrderPlan">
           <Summary>
             <ColumnSummaryItem Id="@5bf995fb-e438-400b-84f9-f23c87aeac50" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="OrderFact">
-          <Summary>
-            <ColumnSummaryItem Id="@762488c1-11da-4e48-9e50-40f80d47c4e4" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="TravelPlan" Index="4">
@@ -511,14 +511,14 @@
             <ColumnSummaryItem Id="@962a8609-34a2-4bda-bbca-eee56918fef8" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="9">
-          <Summary>
-            <ColumnSummaryItem Id="@d6936d93-7d70-4a4e-ad68-2aaa7023e785" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="TravelFact" Index="10">
           <Summary>
             <ColumnSummaryItem Id="@3fd2591c-44ac-489e-9d23-734f2866b072" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrderFact" Index="11">
+          <Summary>
+            <ColumnSummaryItem Id="@762488c1-11da-4e48-9e50-40f80d47c4e4" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -1463,7 +1463,7 @@
         <ColumnInfo Id="TaskObjectStatus" Index="1" />
       </Columns>
     </ListView>
-    <ListView Id="HrmSalaryTaskCompareAccountOperationSummary_DepartmentCollection_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="DepartmentAssemble_MasterDetailView" IsGroupPanelVisible="False" IsFooterVisible="True">
+    <ListView Id="HrmSalaryTaskCompareAccountOperationSummary_DepartmentCollection_ListView" MasterDetailMode="ListViewAndDetailView" IsGroupPanelVisible="False" IsFooterVisible="True" MasterDetailView="DepartmentAssemble_MasterDetailView">
       <Columns>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
@@ -1721,9 +1721,9 @@
     </DetailView>
     <ListView Id="HrmSalaryTaskCompareWorkTime_OrderItems_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="OrderItem2_MasterDetailView">
       <Columns>
-        <ColumnInfo Id="OrderFact" Index="-1">
+        <ColumnInfo Id="Plan_Fact" Index="-1">
           <Summary>
-            <ColumnSummaryItem Id="@367d2d68-50d1-4ae8-adcc-c90bdcca05c5" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@8db8b871-6122-4876-9050-bbbed96f0333" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="Order" Index="0" />
@@ -1758,9 +1758,9 @@
             <ColumnSummaryItem Id="@58f377f7-77f1-4e51-bcbd-3e9658e9c9e2" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="8">
+        <ColumnInfo Id="OrderFact" Index="12">
           <Summary>
-            <ColumnSummaryItem Id="@8db8b871-6122-4876-9050-bbbed96f0333" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@367d2d68-50d1-4ae8-adcc-c90bdcca05c5" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -3160,6 +3160,11 @@
             <ColumnSummaryItem Id="@fbf53ebb-0aa7-4336-8c70-58e11c5c8eb0" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
+        <ColumnInfo Id="Plan_Fact" Index="-1">
+          <Summary>
+            <ColumnSummaryItem Id="@a02daf83-f68d-44b9-b352-4b21f2c2ed59" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
         <ColumnInfo Id="DepartmentPlan" Index="2">
@@ -3192,18 +3197,13 @@
             <ColumnSummaryItem Id="@da91bb03-a1c9-4b36-b1a8-41746d351ccd" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="9">
-          <Summary>
-            <ColumnSummaryItem Id="@a02daf83-f68d-44b9-b352-4b21f2c2ed59" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
       </Columns>
     </ListView>
     <ListView Id="OrderItem2_DepartmentItems_ListView" IsFooterVisible="True">
       <Columns>
-        <ColumnInfo Id="Fact_Constant" Index="-1">
+        <ColumnInfo Id="Plan_Fact" Index="-1">
           <Summary>
-            <ColumnSummaryItem Id="@4cbddcf9-8ce1-4e0e-bdd2-fcadedd1d471" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@9720c260-6750-4875-a7ae-c1ec3541dfca" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="Department" Index="0" />
@@ -3238,18 +3238,18 @@
             <ColumnSummaryItem Id="@44ab074e-d526-49f6-961a-d5e1675dc454" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="8">
+        <ColumnInfo Id="Fact_Constant" Index="8">
           <Summary>
-            <ColumnSummaryItem Id="@9720c260-6750-4875-a7ae-c1ec3541dfca" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@4cbddcf9-8ce1-4e0e-bdd2-fcadedd1d471" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
     </ListView>
     <ListView Id="OrderItem2_ListView" IsFooterVisible="True" AllowNew="False" AllowDelete="False">
       <Columns>
-        <ColumnInfo Id="OrderFact" Index="-1">
+        <ColumnInfo Id="Plan_Fact" Index="-1">
           <Summary>
-            <ColumnSummaryItem Id="@35af2c1c-afff-4150-abbe-d448e359fe4a" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@c24a1712-b8b9-4525-8b91-9837f05e5ffb" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="Order" Index="0" />
@@ -3284,9 +3284,9 @@
             <ColumnSummaryItem Id="@fc654232-0b4d-44f2-b690-dbce16ff7c50" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="8">
+        <ColumnInfo Id="OrderFact" Index="8">
           <Summary>
-            <ColumnSummaryItem Id="@c24a1712-b8b9-4525-8b91-9837f05e5ffb" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@35af2c1c-afff-4150-abbe-d448e359fe4a" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -3309,7 +3309,6 @@
       <Items IsNewNode="True">
         <PropertyEditor Id="_DepartmentItems" PropertyName="_DepartmentItems" View="OrderItem2__DepartmentItems_ListView" Index="-1" IsNewNode="True" />
         <PropertyEditor Id="DepartmentItemBases" PropertyName="DepartmentItemBases" View="OrderItemBase_DepartmentItemBases_ListView" Index="-1" IsNewNode="True" />
-        <PropertyEditor Id="OrderFact" PropertyName="OrderFact" Index="-1" IsNewNode="True" />
         <PropertyEditor Id="Order" PropertyName="Order" Index="0" IsNewNode="True" />
         <PropertyEditor Id="TypeControl" PropertyName="TypeControl" Index="1" IsNewNode="True" />
         <PropertyEditor Id="OrderPlan" PropertyName="OrderPlan" Index="2" IsNewNode="True" />
@@ -3320,6 +3319,7 @@
         <PropertyEditor Id="TravelFact" PropertyName="TravelFact" Index="7" IsNewNode="True" />
         <PropertyEditor Id="Plan_Fact" PropertyName="Plan_Fact" Index="8" IsNewNode="True" />
         <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="OrderItem2_DepartmentItems_ListView" Index="11" IsNewNode="True" />
+        <PropertyEditor Id="OrderFact" PropertyName="OrderFact" Index="12" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
