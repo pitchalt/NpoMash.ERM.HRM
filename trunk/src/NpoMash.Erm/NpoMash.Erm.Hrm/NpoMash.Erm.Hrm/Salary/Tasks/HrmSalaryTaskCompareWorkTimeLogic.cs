@@ -40,10 +40,10 @@ namespace NpoMash.Erm.Hrm.Salary {
                 }
 
 
-            task.AllocResultKB.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
-            task.AllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
-            task.AllocResultKB.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
-            task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
+           // task.AllocResultKB.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
+          //  task.AllocResultKB.Status = HrmMatrixStatus.MATRIX_ACCEPTED;
+          //  task.AllocResultKB.Type = HrmMatrixType.TYPE_ALLOC_RESULT;
+         //   task.GroupDep = DepartmentGroupDep.DEPARTMENT_KB;
             }
 
 

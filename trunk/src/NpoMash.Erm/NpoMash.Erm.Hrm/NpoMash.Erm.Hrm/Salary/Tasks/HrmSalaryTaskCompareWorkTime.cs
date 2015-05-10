@@ -233,7 +233,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     //item.ConstantOrderTime += cell.Row.ConstantTime;
                     foreach (var v in cell.AccountOperations)
                     {
-                        if((v.PayType.Code == "147")||(v.PayType.Code == "103"))
+                        if((v.PayType.Code == "147")||(v.PayType.Code == "104"))
                         {
                             item.TravelFact += v.Time;
                         }
@@ -261,7 +261,7 @@ namespace NpoMash.Erm.Hrm.Salary {
                     item.DepartmentFact += cell.Time;
                     foreach (var v in cell.AccountOperations)
                     {
-                        if ((v.PayType.Code == "147") || (v.PayType.Code == "103"))
+                        if ((v.PayType.Code == "147") || (v.PayType.Code == "104"))
                         {
                             item.TravelFact += v.Time;
                         }
