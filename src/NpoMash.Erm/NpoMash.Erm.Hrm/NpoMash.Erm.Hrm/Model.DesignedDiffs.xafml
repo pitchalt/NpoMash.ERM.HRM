@@ -414,24 +414,24 @@
       <Columns>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentPlan">
+        <ColumnInfo Id="DepartmentPlan" Index="2">
           <Summary>
             <ColumnSummaryItem Id="@c53d166c-a1dd-4ccc-acbb-d6235a97f514" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="DepartmentTravelPlan">
+        <ColumnInfo Id="Fact_Constant" Index="3">
           <Summary>
-            <ColumnSummaryItem Id="@be3168d0-3e88-4c77-a74a-6b4d4076f3ac" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@a7e9194a-82d9-4907-80d3-91340c1c4211" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="ConstantDepTime">
-          <Summary>
-            <ColumnSummaryItem Id="@4d93c956-245e-4162-8c8a-7ea56b806297" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="5">
+        <ColumnInfo Id="CoercedValue" Index="4">
           <Summary>
             <ColumnSummaryItem Id="@24195e2c-9a86-45b8-8574-fd7af4722e78" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepartmentTravelPlan" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@be3168d0-3e88-4c77-a74a-6b4d4076f3ac" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
         <ColumnInfo Id="DepartmentFact" Index="6">
@@ -439,19 +439,14 @@
             <ColumnSummaryItem Id="@1326d033-ce03-4a92-8a1a-375e1849a556" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Fact_Constant" Index="7">
-          <Summary>
-            <ColumnSummaryItem Id="@a7e9194a-82d9-4907-80d3-91340c1c4211" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="8">
-          <Summary>
-            <ColumnSummaryItem Id="@5c6dd82e-ab9d-43dd-b72e-4d59e3df6e95" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="TravelFact" Index="9">
+        <ColumnInfo Id="TravelFact" Index="6">
           <Summary>
             <ColumnSummaryItem Id="@8a0249e3-c378-49ac-8557-a72489d58dfa" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="ConstantDepTime" Index="7">
+          <Summary>
+            <ColumnSummaryItem Id="@4d93c956-245e-4162-8c8a-7ea56b806297" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -467,7 +462,6 @@
         <PropertyEditor Id="CoercedValue" PropertyName="CoercedValue" Index="5" IsNewNode="True" />
         <PropertyEditor Id="DepartmentFact" PropertyName="DepartmentFact" Index="6" IsNewNode="True" />
         <PropertyEditor Id="Fact_Constant" PropertyName="Fact_Constant" Index="7" IsNewNode="True" />
-        <PropertyEditor Id="Plan_Fact" PropertyName="Plan_Fact" Index="8" IsNewNode="True" />
         <PropertyEditor Id="TravelFact" PropertyName="TravelFact" Index="9" IsNewNode="True" />
         <PropertyEditor Id="OrderItems" PropertyName="OrderItems" View="DepartmentItem2_OrderItems_ListView" IsNewNode="True" />
       </Items>
@@ -479,44 +473,39 @@
     </DetailView>
     <ListView Id="DepartmentItem2_OrderItems_ListView" IsFooterVisible="True">
       <Columns>
-        <ColumnInfo Id="Plan_Fact" Index="-1">
-          <Summary>
-            <ColumnSummaryItem Id="@d6936d93-7d70-4a4e-ad68-2aaa7023e785" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
-        <ColumnInfo Id="OrderPlan">
+        <ColumnInfo Id="OrderPlan" Index="2">
           <Summary>
             <ColumnSummaryItem Id="@5bf995fb-e438-400b-84f9-f23c87aeac50" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelPlan" Index="4">
-          <Summary>
-            <ColumnSummaryItem Id="@3bf55a02-488a-434a-9197-8f75953db38c" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="6">
-          <Summary>
-            <ColumnSummaryItem Id="@9b1ffa3a-dbe0-41e1-8a71-6c54b276fc30" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="7">
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@6db99057-e148-4ec4-b010-11ab928b30a6" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="ConstantOrderTime" Index="8">
+        <ColumnInfo Id="CoercedValue" Index="4">
           <Summary>
-            <ColumnSummaryItem Id="@962a8609-34a2-4bda-bbca-eee56918fef8" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@9b1ffa3a-dbe0-41e1-8a71-6c54b276fc30" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelFact" Index="10">
+        <ColumnInfo Id="TravelPlan" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@3bf55a02-488a-434a-9197-8f75953db38c" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="TravelFact" Index="6">
           <Summary>
             <ColumnSummaryItem Id="@3fd2591c-44ac-489e-9d23-734f2866b072" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="OrderFact" Index="11">
+        <ColumnInfo Id="ConstantOrderTime" Index="7">
+          <Summary>
+            <ColumnSummaryItem Id="@962a8609-34a2-4bda-bbca-eee56918fef8" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrderFact" Index="11" Removed="True">
           <Summary>
             <ColumnSummaryItem Id="@762488c1-11da-4e48-9e50-40f80d47c4e4" SummaryType="Sum" IsNewNode="True" />
           </Summary>
@@ -1589,46 +1578,41 @@
     </ListView>
     <ListView Id="HrmSalaryTaskCompareWorkTime_DepartmentItems_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="DepartmentItem2_MasterDetailView">
       <Columns>
-        <ColumnInfo Id="Department" Index="0" />
-        <ColumnInfo Id="Group" Index="1" />
-        <ColumnInfo Id="DepartmentPlan">
-          <Summary>
-            <ColumnSummaryItem Id="@70f95247-608f-4ff2-8e5b-a3ed8d26072e" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="DepartmentTravelPlan">
-          <Summary>
-            <ColumnSummaryItem Id="@e970c2e9-28b2-4ee9-8163-4a6761016f05" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="ConstantDepTime">
-          <Summary>
-            <ColumnSummaryItem Id="@c5cac0cf-9bbb-4059-815e-a5a4ffb08a7d" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="5">
-          <Summary>
-            <ColumnSummaryItem Id="@dc436bcf-8262-4192-8c71-af1699a31d7c" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="DepartmentFact" Index="6">
+        <ColumnInfo Id="DepartmentFact" Index="-1" Removed="True">
           <Summary>
             <ColumnSummaryItem Id="@6941e5dc-c34b-4649-9a25-780609453aae" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Fact_Constant" Index="7">
+        <ColumnInfo Id="Department" Index="0" />
+        <ColumnInfo Id="Group" Index="1" />
+        <ColumnInfo Id="DepartmentPlan" Index="2">
+          <Summary>
+            <ColumnSummaryItem Id="@70f95247-608f-4ff2-8e5b-a3ed8d26072e" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Fact_Constant" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@642fbe4c-70e9-4734-b056-769107683ed0" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="8">
+        <ColumnInfo Id="CoercedValue" Index="4">
           <Summary>
-            <ColumnSummaryItem Id="@395ae700-48b1-469f-ba24-be63cc0e9389" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@dc436bcf-8262-4192-8c71-af1699a31d7c" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelFact" Index="9">
+        <ColumnInfo Id="DepartmentTravelPlan" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@e970c2e9-28b2-4ee9-8163-4a6761016f05" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="TravelFact" Index="6">
           <Summary>
             <ColumnSummaryItem Id="@02a79afd-65a6-403c-b539-3877e87f4aba" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="ConstantDepTime" Index="7">
+          <Summary>
+            <ColumnSummaryItem Id="@c5cac0cf-9bbb-4059-815e-a5a4ffb08a7d" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
@@ -1721,11 +1705,6 @@
     </DetailView>
     <ListView Id="HrmSalaryTaskCompareWorkTime_OrderItems_ListView" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="True" MasterDetailView="OrderItem2_MasterDetailView">
       <Columns>
-        <ColumnInfo Id="Plan_Fact" Index="-1">
-          <Summary>
-            <ColumnSummaryItem Id="@8db8b871-6122-4876-9050-bbbed96f0333" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
         <ColumnInfo Id="OrderPlan" Index="2">
@@ -1733,32 +1712,32 @@
             <ColumnSummaryItem Id="@60132aaa-50da-4c69-b9c6-4fb74419cd04" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelPlan" Index="3">
-          <Summary>
-            <ColumnSummaryItem Id="@56be0d86-5aae-45a0-b3d1-b65d44840d0d" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="ConstantOrderTime" Index="4">
-          <Summary>
-            <ColumnSummaryItem Id="@064baf99-e950-47d0-b285-ef74c931debf" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="5">
-          <Summary>
-            <ColumnSummaryItem Id="@af81df57-eef8-420b-bd37-277c649982d6" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="6">
+        <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="3">
           <Summary>
             <ColumnSummaryItem Id="@f3f57499-023f-4e8e-8866-d0618c87f408" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelFact" Index="7">
+        <ColumnInfo Id="CoercedValue" Index="4">
+          <Summary>
+            <ColumnSummaryItem Id="@af81df57-eef8-420b-bd37-277c649982d6" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="TravelPlan" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@56be0d86-5aae-45a0-b3d1-b65d44840d0d" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="TravelFact" Index="6">
           <Summary>
             <ColumnSummaryItem Id="@58f377f7-77f1-4e51-bcbd-3e9658e9c9e2" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="OrderFact" Index="12">
+        <ColumnInfo Id="ConstantOrderTime" Index="7">
+          <Summary>
+            <ColumnSummaryItem Id="@064baf99-e950-47d0-b285-ef74c931debf" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="OrderFact" Index="12" Removed="True">
           <Summary>
             <ColumnSummaryItem Id="@367d2d68-50d1-4ae8-adcc-c90bdcca05c5" SummaryType="Sum" IsNewNode="True" />
           </Summary>
@@ -3160,11 +3139,6 @@
             <ColumnSummaryItem Id="@fbf53ebb-0aa7-4336-8c70-58e11c5c8eb0" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Plan_Fact" Index="-1">
-          <Summary>
-            <ColumnSummaryItem Id="@a02daf83-f68d-44b9-b352-4b21f2c2ed59" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
         <ColumnInfo Id="DepartmentPlan" Index="2">
@@ -3201,11 +3175,6 @@
     </ListView>
     <ListView Id="OrderItem2_DepartmentItems_ListView" IsFooterVisible="True">
       <Columns>
-        <ColumnInfo Id="Plan_Fact" Index="-1">
-          <Summary>
-            <ColumnSummaryItem Id="@9720c260-6750-4875-a7ae-c1ec3541dfca" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="Department" Index="0" />
         <ColumnInfo Id="Group" Index="1" />
         <ColumnInfo Id="DepartmentPlan" Index="2">
@@ -3213,45 +3182,40 @@
             <ColumnSummaryItem Id="@c10cb0c3-bfb7-4b07-9cfb-ed4c5cb0b08a" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="DepartmentTravelPlan" Index="3">
+        <ColumnInfo Id="Fact_Constant" Index="3">
           <Summary>
-            <ColumnSummaryItem Id="@8125ce2f-7ef3-4af9-9775-8c4e4a7043bb" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@4cbddcf9-8ce1-4e0e-bdd2-fcadedd1d471" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="ConstantDepTime" Index="4">
-          <Summary>
-            <ColumnSummaryItem Id="@ba59e678-589d-4898-8ca6-818b4291ea9c" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
-        <ColumnInfo Id="CoercedValue" Index="5">
+        <ColumnInfo Id="CoercedValue" Index="4">
           <Summary>
             <ColumnSummaryItem Id="@3b026aba-ab81-492d-9b0d-23d3b939b69a" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="DepartmentFact" Index="6">
+        <ColumnInfo Id="DepartmentTravelPlan" Index="5">
+          <Summary>
+            <ColumnSummaryItem Id="@8125ce2f-7ef3-4af9-9775-8c4e4a7043bb" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="DepartmentFact" Index="6" Removed="True">
           <Summary>
             <ColumnSummaryItem Id="@c9f342a9-6f4f-4e4a-b732-cc4095a3b2d2" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="TravelFact" Index="7">
+        <ColumnInfo Id="TravelFact" Index="6">
           <Summary>
             <ColumnSummaryItem Id="@44ab074e-d526-49f6-961a-d5e1675dc454" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Fact_Constant" Index="8">
+        <ColumnInfo Id="ConstantDepTime" Index="7">
           <Summary>
-            <ColumnSummaryItem Id="@4cbddcf9-8ce1-4e0e-bdd2-fcadedd1d471" SummaryType="Sum" IsNewNode="True" />
+            <ColumnSummaryItem Id="@ba59e678-589d-4898-8ca6-818b4291ea9c" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
       </Columns>
     </ListView>
     <ListView Id="OrderItem2_ListView" IsFooterVisible="True" AllowNew="False" AllowDelete="False">
       <Columns>
-        <ColumnInfo Id="Plan_Fact" Index="-1">
-          <Summary>
-            <ColumnSummaryItem Id="@c24a1712-b8b9-4525-8b91-9837f05e5ffb" SummaryType="Sum" IsNewNode="True" />
-          </Summary>
-        </ColumnInfo>
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
         <ColumnInfo Id="OrderPlan" Index="2">
@@ -3296,7 +3260,6 @@
         <ColumnInfo Id="Order" Index="0" />
         <ColumnInfo Id="TypeControl" Index="1" />
         <ColumnInfo Id="OrderFact_ConstantOrderTime" Index="2" />
-        <ColumnInfo Id="Plan_Fact" Index="3" />
         <ColumnInfo Id="OrderPlan" Index="4" />
         <ColumnInfo Id="OrderFact" Index="5" />
         <ColumnInfo Id="TravelPlan" Index="6" />
@@ -3317,7 +3280,6 @@
         <PropertyEditor Id="CoercedValue" PropertyName="CoercedValue" Index="5" IsNewNode="True" />
         <PropertyEditor Id="OrderFact_ConstantOrderTime" PropertyName="OrderFact_ConstantOrderTime" Index="6" IsNewNode="True" />
         <PropertyEditor Id="TravelFact" PropertyName="TravelFact" Index="7" IsNewNode="True" />
-        <PropertyEditor Id="Plan_Fact" PropertyName="Plan_Fact" Index="8" IsNewNode="True" />
         <PropertyEditor Id="DepartmentItems" PropertyName="DepartmentItems" View="OrderItem2_DepartmentItems_ListView" Index="11" IsNewNode="True" />
         <PropertyEditor Id="OrderFact" PropertyName="OrderFact" Index="12" IsNewNode="True" />
       </Items>
