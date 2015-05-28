@@ -120,6 +120,34 @@
     <Compile Include="Module.Designer.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
+    <Compile Include="Optimization\Algorithm.cs" />
+    <Compile Include="Optimization\Equality.cs" />
+    <Compile Include="Optimization\FrankWulfMethod.cs" />
+    <Compile Include="Optimization\Function.cs" />
+    <Compile Include="Optimization\FunctionElem.cs" />
+    <Compile Include="Optimization\FunctionWithMultiVarElements.cs" />
+    <Compile Include="Optimization\FunctionWithSingleVarElements.cs" />
+    <Compile Include="Optimization\Inequality.cs" />
+    <Compile Include="Optimization\LinearFunction.cs" />
+    <Compile Include="Optimization\LinearRestriction.cs" />
+    <Compile Include="Optimization\MultiDimOptim.cs" />
+    <Compile Include="Optimization\MultiVarFunctionElem.cs" />
+    <Compile Include="Optimization\OptimCriteria.cs" />
+    <Compile Include="Optimization\Optimization.cs" />
+    <Compile Include="Optimization\Program.cs" />
+    <Compile Include="Optimization\ReserveMatrixCriteriaElemCells.cs" />
+    <Compile Include="Optimization\ReserveMatrixCriteriaElemOrds.cs" />
+    <Compile Include="Optimization\SimpleFunctionElem.cs" />
+    <Compile Include="Optimization\SimplexCell.cs" />
+    <Compile Include="Optimization\SimplexColumn.cs" />
+    <Compile Include="Optimization\SimplexMethod.cs" />
+    <Compile Include="Optimization\SimplexRow.cs" />
+    <Compile Include="Optimization\SimplexTable.cs" />
+    <Compile Include="Optimization\SingleDimOptim.cs" />
+    <Compile Include="Optimization\SingleVarFunctionElem.cs" />
+    <Compile Include="Optimization\StopCriteria.cs" />
+    <Compile Include="Optimization\ValuesVector.cs" />
+    <Compile Include="Optimization\Variable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Salary\BringingStructure\BringingLogic.cs" />
