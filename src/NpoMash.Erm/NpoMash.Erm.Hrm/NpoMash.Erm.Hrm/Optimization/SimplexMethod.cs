@@ -9,14 +9,9 @@ namespace NpoMash.Erm.Hrm.Optimization
     public class SimplexMethod: MultiDimOptim
     {
         // создание таблицы
-        public override void nextIteration() {
+        public override void NextIteration()
+        {
             throw new NotImplementedException();
         }
-
-        public override void optimize() {
-            throw new NotImplementedException();
-        }
-
-
     }
 }

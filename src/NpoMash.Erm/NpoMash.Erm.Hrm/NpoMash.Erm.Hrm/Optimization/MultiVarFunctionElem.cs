@@ -17,6 +17,6 @@ namespace NpoMash.Erm.Hrm.Optimization
         public List<Variable> ElemVars;
 
         public abstract float Calculate(ValuesVector values);
-        public abstract float PartialDerivate(Variable variable, ValuesVector values);
+        public abstract float PartialDerivate(ValuesVector values, Variable der_variable);
     }
 }

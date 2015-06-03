@@ -10,14 +10,18 @@ namespace NpoMash.Erm.Hrm.Optimization
     {
         private SingleDimOptim _sngDimOptim;
         public SingleDimOptim sngDimOptim { get { return _sngDimOptim; } set { _sngDimOptim = value; } }
-        public override void optimize()
+
+        public override void NextIteration()
         {
+            //приведение критерия к линейному виду
+
+            // создание симплексной таблицы
+
+            // оптимизация симплексом
+
+            // поиск новой точки оптимума одномерной оптимизацией
+
             throw new NotImplementedException();
         }
-
-        public override void nextIteration() {
-            throw new NotImplementedException();
-        }
-
     }
 }
