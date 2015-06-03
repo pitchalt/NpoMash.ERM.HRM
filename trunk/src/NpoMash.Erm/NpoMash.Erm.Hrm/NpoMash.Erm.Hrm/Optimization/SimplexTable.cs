@@ -14,7 +14,7 @@ namespace NpoMash.Erm.Hrm.Optimization
         public List<SimplexRow> Rows;
         public Dictionary<Variable,SimplexColumn> Columns;
         
-        public SimplexTable(OptimCriteria criteria, List<Equality> restrictions)
+        public SimplexTable(LinearFunction criteria, List<Equality> restrictions)
         {
             Columns = new Dictionary<Variable, SimplexColumn>();
             Rows = new List<SimplexRow>();
@@ -23,7 +23,7 @@ namespace NpoMash.Erm.Hrm.Optimization
             {
                 SimplexRow row = new SimplexRow(eq,this);
                 // для каждой переменной в ограничении
-                foreach (Variable var_col in eq.Variables)
+                foreach (Variable var_col in eq.FunctionVariables)
                 {
                     SimplexColumn col = null;
                     // если столбца с данной переменной еще нет, то он создается

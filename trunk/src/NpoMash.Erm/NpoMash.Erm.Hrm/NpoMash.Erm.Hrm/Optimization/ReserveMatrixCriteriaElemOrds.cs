@@ -26,15 +26,11 @@ namespace NpoMash.Erm.Hrm.Optimization
             return Coefficient * x * x;
         }
 
-        //public override float PartialDerivate(ValuesVector values, Variable der_variable)
-        //{
-        //    float sum = 0;
-        //    foreach (Variable vr in ElemVars) sum += values[vr];
-        //    return 2 * Coefficient * (sum - FreePart);
-        //}
-
-        public override float PartialDerivate(Variable variable, ValuesVector values) {
-            throw new NotImplementedException();
+        public override float PartialDerivate(ValuesVector values, Variable der_variable)
+        {
+            float sum = 0;
+            foreach (Variable vr in ElemVars) sum += values[vr];
+            return 2 * Coefficient * (sum - FreePart);
         }
     }
 }

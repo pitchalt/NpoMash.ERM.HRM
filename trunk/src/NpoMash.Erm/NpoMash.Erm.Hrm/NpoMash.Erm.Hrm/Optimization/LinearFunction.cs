@@ -12,7 +12,7 @@ namespace NpoMash.Erm.Hrm.Optimization
         public override float Calculate(ValuesVector values)
         {
             float result = 0;
-            foreach (Variable vr in Variables) result += SimpleElements[vr].Calculate(values[vr]);
+            foreach (Variable vr in FunctionVariables) result += SimpleElements[vr].Calculate(values[vr]);
             return result;
         }
 
