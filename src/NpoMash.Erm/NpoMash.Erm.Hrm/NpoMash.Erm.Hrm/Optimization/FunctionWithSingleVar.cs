@@ -4,23 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NpoMash.Erm.Hrm.Optimization
-{
-    public class FunctionWithSingleVar: Function
-    {
+namespace NpoMash.Erm.Hrm.Optimization {
+    public class FunctionWithSingleVar : Function<double> {
         private SingleVarFunctionElem _FunctionElem;
-        public SingleVarFunctionElem FunctionElem { get { return _FunctionElem; } set { _FunctionElem = value; } }
+        public SingleVarFunctionElem FunctionElem { get { return _FunctionElem; } }
 
-        public override float Calculate(ValuesVector values)
-        {
-            if (values.ContainsKey(FunctionElem.ElemVar))
-                return Calculate(values[FunctionElem.ElemVar]);
-            else throw new InvalidOperationException("В переданном векторе значений отсутствует искомая переменная");
+        public void SetElement(SingleVarFunctionElem elem) {
+            _FunctionElem = elem;
+            FunctionVariables.Add(elem.ElemVar);
         }
 
-        public float Calculate(float x)
-        {
+        public override double Calculate(double x) {
             return FunctionElem.Calculate(x);
+        }
+
+        public FunctionWithSingleVar(SingleVarFunctionElem elem) {
+            _FunctionElem = elem;
         }
 
     }

@@ -4,23 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NpoMash.Erm.Hrm.Optimization
-{
+namespace NpoMash.Erm.Hrm.Optimization {
     /// <summary>
     /// Элемент функции, содержащий одну переменную
     /// </summary>
-    public abstract class SingleVarFunctionElem
-    {
+    public abstract class SingleVarFunctionElem {
         private Variable _ElemVar;
         /// <summary>
         /// переменная элемента функции
         /// </summary>
-        public Variable ElemVar { get { return _ElemVar; } set { _ElemVar = value; } }
+        public Variable ElemVar { get { return _ElemVar; } }
 
-        private float _Coefficient;
-        public float Coefficient { get { return _Coefficient; } set { _Coefficient = value; } }
+        public abstract double Calculate(double value);
+        public abstract double PartialDerivate(double value);
 
-        public abstract float Calculate(float value);
-        public abstract float PartialDerivate(float value);
+        public SingleVarFunctionElem(Variable vr) {
+            _ElemVar = vr;
+        }
     }
 }
