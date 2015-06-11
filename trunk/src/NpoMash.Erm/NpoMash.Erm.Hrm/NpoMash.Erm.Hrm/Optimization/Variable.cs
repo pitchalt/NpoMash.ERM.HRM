@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NpoMash.Erm.Hrm.Optimization
-{
-    public class Variable
-    {
+namespace NpoMash.Erm.Hrm.Optimization {
+    public class Variable {
         private String _VarName;
         /// <summary>
         /// Название переменной (для удобства)

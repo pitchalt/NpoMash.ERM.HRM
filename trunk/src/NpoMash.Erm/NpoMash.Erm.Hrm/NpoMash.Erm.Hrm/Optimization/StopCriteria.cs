@@ -4,51 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NpoMash.Erm.Hrm.Optimization
-{
+namespace NpoMash.Erm.Hrm.Optimization {
     /// <summary>
     /// Критерий останова алгоритма
     /// </summary>
-    public abstract class StopCriteria
-    {
-        private float _Precision;
+    public abstract class StopCriteria {
+        private double _Precision;
         /// <summary>
         /// Точность
         /// </summary>
-        public float Precision { get { return _Precision; } }
+        public double Precision { get { return _Precision; } }
         private bool _IsFirstIter;
         /// <summary>
         /// Признак того, что проверка осуществляется в первый раз
         /// </summary>
         public bool IsFirstIter { get { return _IsFirstIter; } }
-        /// <summary>
-        /// Предыдущее состояние
-        /// </summary>
-        public ValuesVector PreviousState;
-        /// <summary>
-        /// Проверка выполнения условия останова в текущей точке
-        /// </summary>
-        /// <param name="values">Текущая точка</param>
-        /// <returns></returns>
-        public abstract bool Check(ValuesVector values);
+        public abstract bool Check();
 
-        public bool IsComplete(ValuesVector values)
-        {
+        public bool IsComplete() {
             bool result;
-            if (IsFirstIter)
-            {
+            if (IsFirstIter) {
                 _IsFirstIter = false;
                 result = false;
             }
-            else
-            {
-                result = Check(values);
+            else {
+                result = Check();
             }
-            PreviousState = values;
+            UpdateState();
             return result;
         }
-        public StopCriteria(float prec)
-        {
+
+        public abstract void UpdateState();
+        public StopCriteria(double prec) {
             _Precision = prec;
             _IsFirstIter = true;
         }

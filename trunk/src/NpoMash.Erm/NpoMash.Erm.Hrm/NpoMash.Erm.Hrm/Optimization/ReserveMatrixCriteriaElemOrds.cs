@@ -4,33 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NpoMash.Erm.Hrm.Optimization
-{
+namespace NpoMash.Erm.Hrm.Optimization {
     /// <summary>
     /// Элемент функции критерия матрицы резерва для представления позаказного отклонения
     /// </summary>
-    public class ReserveMatrixCriteriaElemOrds: MultiVarFunctionElem
-    {
+    public class ReserveMatrixCriteriaElemOrds : MultiVarFunctionElem {
 
-        private float _FreePart;
-        public float FreePart { get { return _FreePart; } set { _FreePart = value; } }
+        private double _FreePart;
+        /// <summary>
+        /// Свободный член
+        /// </summary>
+        public double FreePart { get { return _FreePart; } }
 
-        private float _Coefficent;
-        public float Coefficient { get { return _Coefficent; } set { _Coefficent = value; } }
-
-        public override float Calculate(ValuesVector values)
-        {
-            float sum = 0;
+        public override double Calculate(ValuesVector values) {
+            double sum = 0;
             foreach (Variable vr in ElemVars) sum += values[vr];
-            float x = FreePart - sum;
+            double x = FreePart - sum;
             return Coefficient * x * x;
         }
 
-        public override float PartialDerivate(ValuesVector values, Variable der_variable)
-        {
-            float sum = 0;
+        public override double PartialDerivate(ValuesVector values, Variable der_variable) {
+            double sum = 0;
             foreach (Variable vr in ElemVars) sum += values[vr];
             return 2 * Coefficient * (sum - FreePart);
+        }
+
+        public ReserveMatrixCriteriaElemOrds(List<Variable> vars, double coef, double free_prt)
+            : base(vars, coef) {
+            _FreePart = free_prt;
         }
     }
 }

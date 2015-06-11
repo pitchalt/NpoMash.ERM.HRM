@@ -120,12 +120,10 @@
     <Compile Include="Module.Designer.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
-    <Compile Include="Optimization\Algorithm.cs" />
     <Compile Include="Optimization\DichotomousSearch.cs" />
     <Compile Include="Optimization\Equality.cs" />
     <Compile Include="Optimization\FrankWulfMethod.cs" />
     <Compile Include="Optimization\Function.cs" />
-    <Compile Include="Optimization\FunctionElem.cs" />
     <Compile Include="Optimization\FunctionWithMultiVarElements.cs" />
     <Compile Include="Optimization\FunctionWithSingleVar.cs" />
     <Compile Include="Optimization\FunctionWithSingleVarElements.cs" />
@@ -147,9 +145,12 @@
     <Compile Include="Optimization\SingleDimOptim.cs" />
     <Compile Include="Optimization\SingleVarElemDichotomous.cs" />
     <Compile Include="Optimization\SingleVarFunctionElem.cs" />
+    <Compile Include="Optimization\SourceDataAdapter.cs" />
     <Compile Include="Optimization\StopCriteria.cs" />
     <Compile Include="Optimization\StopCriteriaFunctionDelta.cs" />
-    <Compile Include="Optimization\StopCriteriaStepLength.cs" />
+    <Compile Include="Optimization\StopCriteriaMultiStepLength.cs" />
+    <Compile Include="Optimization\StopCriteriaSimplexTable.cs" />
+    <Compile Include="Optimization\StopCriteriaSingleStepLength.cs" />
     <Compile Include="Optimization\ValuesVector.cs" />
     <Compile Include="Optimization\Variable.cs" />
     <Compile Include="Optimization\VectorLogic.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="Salary\Tasks\HrmSalaryTaskCompareWorkTimeVC.Designer.cs">
       <DependentUpon>HrmSalaryTaskCompareWorkTimeVC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Simplex\ReserveMatrixOptimizationAdapter.cs" />
     <Compile Include="Simplex\SimplexStructure.cs" />
     <Compile Include="Simplex\SimplexStructureLogic.cs" />
   </ItemGroup>

@@ -11,16 +11,23 @@ namespace NpoMash.Erm.Hrm.Optimization
     /// </summary>
     public class DichotomousSearch: SingleDimOptim
     {
-        private float _LeftBorder;
-        public float LeftBorder { get { return _LeftBorder; } set { LeftBorder = value; } }
-        private float _RightBorder;
-        public float RightBorder { get { return _RightBorder; } set { _RightBorder = value; } }
+
         public override void NextIteration()
         {
-            Iterations++;
-            float center = (LeftBorder + RightBorder) / 2;
-            float left_point = center - Precision;
-            float right_point = center + Precision;            
+            base.NextIteration();
+            double center = (_LeftBorder + _RightBorder) / 2;
+            double left_point = center - Precision;
+            double right_point = center + Precision;
+            if (OptimCriteria.Calculate(left_point) > OptimCriteria.Calculate(right_point)) {
+                _LeftBorder = left_point;
+                CurrentState = right_point;
+            }
+            else {
+                _RightBorder = right_point;
+                CurrentState = left_point;
+            }
         }
+
+        public DichotomousSearch(double prec, FunctionWithSingleVar opt, double left_border, double right_border) : base(prec, opt, left_border, right_border) { }
     }
 }
