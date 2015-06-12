@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace NpoMash.Erm.Hrm.Optimization {
     public static class VectorLogic {
+        /// <summary>
+        /// Длина отрезка
+        /// </summary>
+        /// <param name="vect1">Точка 1</param>
+        /// <param name="vect2">Точка 2</param>
+        /// <returns>Результат</returns>
         public static double Length(ValuesVector vect1, ValuesVector vect2) {
             double result = 0;
             foreach (Variable var in vect1.Keys) {
