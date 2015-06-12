@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NpoMash.Erm.Hrm.Optimization {
     /// <summary>
-    /// Критерий останова алгоритма
+    /// Критерий останова оптимизации
     /// </summary>
     public abstract class StopCriteria {
         private double _Precision;
@@ -14,16 +14,21 @@ namespace NpoMash.Erm.Hrm.Optimization {
         /// Точность
         /// </summary>
         public double Precision { get { return _Precision; } }
-        private bool _IsFirstIter;
         /// <summary>
         /// Признак того, что проверка осуществляется в первый раз
         /// </summary>
-        public bool IsFirstIter { get { return _IsFirstIter; } }
+        private bool _IsFirstIter;
+        
+        /// <summary>
+        /// Проверка выполнения критерия останова
+        /// </summary>
         public abstract bool Check();
-
+        /// <summary>
+        /// Общий механизм проверки выполнения критерия останова
+        /// </summary>
         public bool IsComplete() {
             bool result;
-            if (IsFirstIter) {
+            if (_IsFirstIter) {
                 _IsFirstIter = false;
                 result = false;
             }
